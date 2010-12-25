@@ -138,7 +138,7 @@ int Party_Reset(struct Party *_this)
   signed int v12; // edi@18
  int i, j;
 
- //memset(&_this->qword_00002C, 0, sizeof(struct Party) - 0x2C);
+ memset(&_this->qword_00002C, 0, sizeof(struct Party)- 0x2C);	    //
 
  
  _this->uEyelevel = 160;

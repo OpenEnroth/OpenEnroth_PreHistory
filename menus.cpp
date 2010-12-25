@@ -24,13 +24,7 @@ int dword_4E94DC[2] = { 60,   0}; // weak
 int dword_4E94E4[2] = {460, 640}; // weak
 int dword_4E94EC[2] = {344, 480}; // weak
 
-struct save_struct01
-	{
-	int data1;
-	char signature[4];
-	int data2;
-	int data3;
-	};
+
 
  int uGUIx_u; // weak	 dword_69CEFC
  int uGUILS_saveU; // weak
@@ -996,7 +990,7 @@ int __fastcall SaveGame(int a1, int a2)
   int v56; // [sp+20Ch] [bp-64h]@2
   int v57; // [sp+210h] [bp-60h]@2
   int v58; // [sp+214h] [bp-5Ch]@2
-  save_struct01 Src; // [sp+218h] [bp-58h]@30
+  ODM_struct Src; // [sp+218h] [bp-58h]@30
  // char v60; // [sp+21Ch] [bp-54h]@30
  // char v61; // [sp+21Dh] [bp-53h]@30
 //  char v62; // [sp+21Eh] [bp-52h]@30
@@ -1180,13 +1174,13 @@ int __fastcall SaveGame(int a1, int a2)
       v11 = (unsigned int)MemAlloc(char, 1000000);
       v76 = v11;
 
-      Src.data1 = 91969;
+      Src.signature1 = 91969;
       Src.signature[0] = 'm';
       Src.signature[1] = 'v';
       Src.signature[2] = 'i';
       Src.signature[3] = 'i';
-      Src.data2 = 0;
-      Src.data3 = 0;
+      Src.packed_size = 0;
+      Src.size_data = 0;
       memcpy((void *)v11, &Src, 16);
       if ( dword_6BE360 == 1 )
       {
@@ -1279,7 +1273,7 @@ int __fastcall SaveGame(int a1, int a2)
             {
              for (v71 = 0;v71 < pClass51_global->pBModels->dword_00004C; v71++)	//count	sub models
               {		
-                memcpy(v23, &pClass51_global->pBModels[v75].ptr_000054[v71].dword_00001C, 4);
+                memcpy(v23, &pClass51_global->pBModels[v75].ptr_000054[v71].byte_00001C, 4);
                 v23 = (char *)v23 + 4;
               }
             }

@@ -3371,7 +3371,7 @@ void __cdecl sub_464479()
   sub_48A336(&class35_obj);
   LODFile_Bitmaps_LOD.sub_46454B();
   LODFile_Sprites_LOD.sub_4645DC();
-  LODFile_Icons_LOD.sub_46454B();
+  //LODFile_Icons_LOD.sub_46454B();	crash
   if ( pD3DRenderer->pRenderD3D3 )
   {
     dword_EF52A0 = 0;

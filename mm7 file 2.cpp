@@ -9218,7 +9218,7 @@ void __cdecl sub_4196A0()
     dword_507CC0 = 0;
     for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( *(_BYTE *)((char *)pControl + 29) & 0x80 )
+      if ( pControl->dword_00001C & 0x8000 )		 //   + 29)
         GUIButton_sub_41D0D8(pControl);
     }
     for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)

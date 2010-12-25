@@ -70,7 +70,12 @@ struct class51_stru2
  int    dword_000008;
  int    dword_00000C;
  char   byte_000010[12]; //if (byte_000010[13] & 0x40) then word_000110 == TextureFrameTable ID  else  plain Texture ID
- int    dword_00001C;
+
+ //int    dword_00001C;
+ char  byte_00001C;
+ char  byte_00001D;
+ char  byte_00001E;
+ char  byte_00001F;	 
  short  array_000020[20];
  short  array_000048[20];
  short  array_000070[20];

@@ -7199,7 +7199,7 @@ LABEL_25:
       v66 = 1;
     v23 = 0;
     while ( 1 )
-    { v24=v23;  //v24=v23 hack
+    { v24=(int)&v23;  //v24=v23 hack
       if ( Player_sub_48D6AA((Player *)v22, v23) )
       {
        v25 = ((Player *)v22)->pInventorySlots[*(_DWORD *)v24].uItemID; 

@@ -196,12 +196,13 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
   char v152; // [sp+B1Ch] [bp-64h]@10
   char Str[32]; // [sp+B20h] [bp-60h]@1
   char *v154; // [sp+B40h] [bp-40h]@50
-  __int64 v155; // [sp+B44h] [bp-3Ch]@55
+  int v155; // [sp+B44h] [bp-3Ch]@55
+  int v156; 
   size_t ElementSize; // [sp+B4Ch] [bp-34h]@56
   int v157; // [sp+B50h] [bp-30h]@61
   cTexture *v158; // [sp+B54h] [bp-2Ch]@68
-
-  struct maybe_odm_header
+  ODM_struct v159;
+  /*struct maybe_odm_header
   {
    int v159; // [sp+B58h] [bp-28h]@50
    char v160; // [sp+B5Ch] [bp-24h]@50
@@ -211,7 +212,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
    unsigned int v164; // [sp+B60h] [bp-20h]@50
    size_t Size; // [sp+B64h] [bp-1Ch]@50
   };
-  struct maybe_odm_header v159;
+  struct maybe_odm_header v159;	*/
 
   unsigned int v166; // [sp+B68h] [bp-18h]@13
   void *v167; // [sp+B6Ch] [bp-14h]@12
@@ -220,6 +221,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
   int v170; // [sp+B78h] [bp-8h]@59
   void *Src; // [sp+B7Ch] [bp-4h]@59
   int wtf;
+   char *temp_buff;
  unsigned char *pTexturesNames;
 
 
@@ -568,32 +570,32 @@ LABEL_33:
   strcpy(Str + v40 - 4, ".odm");
   hODMFile = LODFile_Games_LOD.Find_Container( Str, 1);
 
-  v159.v159 = 91969;
-  v159.v160 = 109;
-  v159.v161 = 118;
-  v159.v162 = 105;
-  v159.v163 = 105;
-  v159.v164 = 0;
-  v159.Size = 0;
+  v159.signature1 = 91969;
+  v159.signature[0] = 'm';
+  v159.signature[1] = 'v';
+  v159.signature[2] = 'i';
+  v159.signature[3] = 'i';
+  v159.packed_size = 0;
+  v159.size_data = 0;
 
-  locked_fread(&v159, 0x10, 1, hODMFile);
-  if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
+  locked_fread(&v159, 16, 1, hODMFile);
+  if ( v159.signature1 != 91969 || v159.signature[0] != 'm' || v159.signature[1] != 'v' || v159.signature[2] != 'i' || v159.signature[3] != 'i' )
   {
     wtf = (int)&v115;
     Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
     sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
-  v44 = v159.v164;
-  ElementSize = v159.Size;
-  v42 = MemAlloc(unsigned char, v159.Size);
+  v44 = v159.packed_size;
+  ElementSize = v159.size_data;
+  v42 = MemAlloc(unsigned char, v159.size_data);
 
-  HIDWORD(v155) = (int)v42;
+  v156 = (int)v42;
   if ( v44 < ElementSize )
   {
-    wtf = (int)MemAlloc(char, v44);
-    locked_fread((unsigned char *)wtf, v44, 1, hODMFile);
-    MemUnzip(v42, &ElementSize, (unsigned char *)wtf, v44);
-   // MemFree((unsigned char *)wtf);	   crash lower	at label 69
+    temp_buff = (char*)MemAlloc(char, v44);
+    locked_fread(temp_buff, v44, 1, hODMFile);
+    MemUnzip(v42, &ElementSize, temp_buff, v44);
+    MemFree(temp_buff);	 
   }
   else
   {
@@ -648,124 +650,142 @@ LABEL_33:
   _this->pBModels = NamedMemAlloc(class51_BModel, v48, "ODM BModel data");
   memcpy(_this->pBModels, v42, v48 * sizeof(struct class51_BModel));
   Src = v42 + v48 * sizeof(struct class51_BModel);
-
+ 
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
-  v170 = 0;
-  if (_this->uNumBModels > 0)
-  {
-    v51 = 0;
-   i = 0;
-    while (true)
-    {
-      _this->pBModels[i].ptr_000048 = 0;
-      _this->pBModels[i].ptr_000054 = 0;
-      _this->pBModels[i].ptr_000058 = 0;
-      _this->pBModels[i].ptr_000060 = 0;
+ // v170 = 0;
+//  if (_this->uNumBModels > 0)
+  for(i=0; i<_this->uNumBModels;i++) 
+	  {
+	  //  v51 = 0;
+	  // i = 0;
+	  // while (true)
+	  // {
+	  _this->pBModels[i].ptr_000048 = 0;
+	  _this->pBModels[i].ptr_000054 = 0;
+	  _this->pBModels[i].ptr_000058 = 0;
+	  _this->pBModels[i].ptr_000060 = 0;
 
-      lstrcpyA(FileName, (const char *)(_this->pBModels[i].pModelName));
-      v151 = 0;
-      v120 = (int)FileName;
+	  lstrcpyA(FileName, (const char *)(_this->pBModels[i].pModelName));
+	  // v151 = 0;
+	  // v120 = (int)FileName;
 
-      v119 = 12 * _this->pBModels[i].dword_000044;
-      _this->pBModels[i].ptr_000048 = NamedMemAlloc(class51_stru3, _this->pBModels[i].dword_000044, FileName);
-      memcpy(_this->pBModels[i].ptr_000048, Src, v119);
-      Src = (char *)Src + v119;
+	  v119 =  _this->pBModels[i].dword_000044*sizeof(struct class51_stru3);	
+	  _this->pBModels[i].ptr_000048 = NamedMemAlloc(class51_stru3, _this->pBModels[i].dword_000044, FileName);
+	  memcpy(_this->pBModels[i].ptr_000048, Src, v119);
+	  Src = (char *)Src + v119;
 
-      v119 = _this->pBModels[i].dword_00004C * sizeof(struct class51_stru2);
-      _this->pBModels[i].ptr_000054 = NamedMemAlloc(class51_stru2, _this->pBModels[i].dword_00004C, FileName);
-      memcpy(_this->pBModels[i].ptr_000054, Src, v119);
-      Src = (char *)Src + v119;
+	  v119 = _this->pBModels[i].dword_00004C * sizeof(struct class51_stru2);
+	  _this->pBModels[i].ptr_000054 = NamedMemAlloc(class51_stru2, _this->pBModels[i].dword_00004C, FileName);
+	  memcpy(_this->pBModels[i].ptr_000054, Src, v119);
+	  Src = (char *)Src + v119;
 
-      v119 = 2 * _this->pBModels[i].dword_00004C;
-      _this->pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, _this->pBModels[i].dword_00004C, FileName);
-      memcpy(_this->pBModels[i].ptr_000058, Src, v119);
-      Src = (char *)Src + v119;
+	  v119 = 2 * _this->pBModels[i].dword_00004C;
+	  _this->pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, _this->pBModels[i].dword_00004C, FileName);
+	  memcpy(_this->pBModels[i].ptr_000058, Src, v119);
+	  Src = (char *)Src + v119;
 
-      v119 = 8 * _this->pBModels[i].dword_00005C;
-      _this->pBModels[i].ptr_000060 = NamedMemAlloc(unsigned char, 8 * _this->pBModels[i].dword_00005C, FileName);
-      memcpy(_this->pBModels[i].ptr_000060, Src, v119);
-      Src = (char *)Src + v119;
-	  
-      pTexturesNames = NamedMemAlloc(unsigned char, 10 * _this->pBModels[i].dword_00004C, "ODM Loading tmp texture names");
-      v119 = 10 * _this->pBModels[i].dword_00004C;
-      memcpy(pTexturesNames, Src, v119);
-      Src = (char *)Src + v119;
+	  v119 = 8 * _this->pBModels[i].dword_00005C;
+	  _this->pBModels[i].ptr_000060 = NamedMemAlloc(unsigned char, 8 * _this->pBModels[i].dword_00005C, FileName);
+	  memcpy(_this->pBModels[i].ptr_000060, Src, v119);
+	  Src = (char *)Src + v119;
 
-      v157 = 0;
-      v52 = (int)_this->pBModels;
-      if (_this->pBModels[i].dword_00004C > 0 )
-        break;
+	  pTexturesNames = NamedMemAlloc(unsigned char, 10 * _this->pBModels[i].dword_00004C, "ODM Loading tmp texture names");
+	  v119 = 10 * _this->pBModels[i].dword_00004C;
+	  memcpy(pTexturesNames, Src, v119);
+	  Src = (char *)Src + v119;
 
-LABEL_74:
-      MemFree(pTexturesNames);
-      ++v170;
-      v51 += 188;
-      ++i;
-      if ( v170 >= _this->uNumBModels)
-        goto LABEL_75;
-    }
+	  // v157 = 0;
+	  //  v52 = (int)_this->pBModels;
+	  // if (_this->pBModels[i].dword_00004C > 0 )
+	  for(j=0; j<_this->pBModels[i].dword_00004C; j++)
+		  {
 
 
-    v168 = 0;
-    Str2 = (char *)pTexturesNames;
-    j = 0;
-    while ( 1 )
-    {
-      v66 = &_this->pBModels[i].ptr_000054[j];
-      if ( !(v66->byte_000010[13] & 0x40) )
-        break;
 
-      v64 = TextureFrameTable_sub_44E163(pTextureFrameTable, Str2);
-      v66->uTextureID = v64;
-      if ( !v64 )
-      {
-        v65 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( Str2, 0);
-
-        *(_BYTE *)(v66 + 29) &= 0xBFu;
-        *(_WORD *)(v66 + 272) = v65;
-        v158 = (cTexture *)(v65 != -1 ? 72 * v65 + 7278780 : 0);
-        v120 = *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x24 : 36);
-        *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v120);
-        goto LABEL_69;
-      }
-      v120 = _this->pBModels[v51 / 188].ptr_000054[v168 / 308].uTextureID;
-      TextureFrameTable_sub_44E0ED(pTextureFrameTable, v120);
-LABEL_69:
-      if ( *(_WORD *)(wtf + 292) )
-      {
-        if ( sub_44C1E8((class51_stru2 *)wtf) )
-          *(_BYTE *)(wtf + 30) |= 0x10u;
-        else
-          *(_BYTE *)(wtf + 30) &= 0xEFu;
-      }
-      ++v157;
-      v52 = (int)_this->pBModels;
-      v168 += 308;
-      ++j;
-      Str2 += 10;
-      if ( v157 >= _this->pBModels[i].dword_00004C)
-        goto LABEL_74;
-    }
-
+		  //  v168 = 0;
+		  Str2 = (char *)pTexturesNames+j*10;
+		  //  j = 0;
+		  // while ( 1 )
+		  //  {
+		  v66 = &_this->pBModels[i].ptr_000054[j];
+		  if ( !(v66->byte_00001D & 0x40) )
+			  {	 
 #ifndef OLD_CODE
-	wchar_t  pFilename[256];
-    wsprintfW(pFilename, L"%S", Str2);
+			  wchar_t  pFilename[256];
+			  wsprintfW(pFilename, L"%S", Str2);
 
-    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
+			  v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
 #else
-    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(Str2,2);
+			  v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(Str2,2);
 #endif
+			  if  (!(v66->uTextureID<0))
+				  {
+				  v158 = &LODFile_Bitmaps_LOD.aLODHeaders[v66->uTextureID];
+				  v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
+				  }
 
-    if (v66->uTextureID != -1)
-    {
-     v158 = &LODFile_Bitmaps_LOD.aLODHeaders[v66->uTextureID];
-     v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
-    }
-    goto LABEL_69;
-  }
+			  }
+		  else
+			  {
+			  // break;
+			  v64 = TextureFrameTable_sub_44E163(pTextureFrameTable, Str2);
+			  v66->uTextureID = v64;
 
-LABEL_75:
+			  if ( !v64 )
+				  {
+				  v65 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( Str2, 0);
+
+				  //*(_BYTE *)(v66 + 29) &= 0xBFu;
+				  v66->byte_00001D&= 0xBFu;
+				  v66->uTextureID = v65;
+				  if  (!(v66->uTextureID<0))
+					  {
+					  v158 = &LODFile_Bitmaps_LOD.aLODHeaders[v66->uTextureID];
+					  v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
+					  }
+
+				  //  *(_WORD *)(v66 + 272) = v65;
+				  //  v158 = (cTexture *)(v65 != -1 ? &LODFile_Bitmaps_LOD.aLODHeaders[v65]: 0);
+				  //  v120 = (v65 != -1 ? LODFile_Bitmaps_LOD.aLODHeaders[v65].word_000024 : 36);
+				  //  (v65 != -1 ? LODFile_Bitmaps_LOD.aLODHeaders[v65].word_000026 : 38) = (short)class35_sub_48A3BC_MessWithPalettes(&class35_obj, v120);
+				  //   goto LABEL_69;
+				  }
+			  else
+				  {
+				  v120 = _this->pBModels[i].ptr_000054[j].uTextureID;
+				  TextureFrameTable_sub_44E0ED(pTextureFrameTable, v120);
+				  }
+
+			  if (v66->word_000124  )	// *(_WORD *)(wtf + 292)
+				  {
+				  if ( sub_44C1E8(v66))
+					  v66->byte_00001E|= 0x10;	 // *(_BYTE *)(wtf + 30) = 0x10;
+				  else
+					  v66->byte_00001E&= 0xEF;//*(_BYTE *)(wtf + 30) &= 0xEFu;
+				  }
+			  //  ++v157;
+			  //  v52 = (int)_this->pBModels;
+			  // v168 += 308;
+			  //  ++j;
+			  //  Str2 += 10;
+			  // if ( v157 >= _this->pBModels[i].dword_00004C)
+			  //  goto LABEL_74;
+			  // }
+
+			  }
+		  }
+	  //LABEL_74:
+	  MemFree(pTexturesNames);
+	  // ++v170;
+	  //  v51 += 188;	count bmodels
+	  //  ++i;
+	  //  if ( v170 >= _this->uNumBModels)
+	  //  goto LABEL_75;
+	  //  }
+	  }
+
+//LABEL_75:
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   memcpy(&uNumLevelDecorations, Src, 4);
   Src = (char *)Src + 4;
@@ -834,14 +854,14 @@ LABEL_75:
 
 
 
- MemFree((unsigned char *)HIDWORD(v155));
+ MemFree((unsigned char *)v156); // v155
  v77 = strlen(Str);
  strcpy(Str + v77 - 4, ".ddm");
  //hODMFile = LODFile_FindContainer(pLODFile_New_LOD, Str, 1);
  hODMFile = LODFile_Games_LOD.Find_Container( Str, 1);
- locked_fread(&v159, 0x10u, 1, hODMFile);
+ locked_fread(&v159, 16, 1, hODMFile);
  Str2 = 0;
- if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
+ if ( v159.signature1 != 91969 || v159.signature[0] != 'm' || v159.signature[1] != 'v' || v159.signature[2] != 'i' || v159.signature[3] != 'i' )
  {
     wtf = (int)&v115;
     Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
@@ -849,12 +869,12 @@ LABEL_75:
     Str2 = (char *)1;
  }
   v78 = 0;
-  wtf = v159.v164;
+  wtf = v159.packed_size;
   v168 = 0;
-  v166 = v159.Size;
+  v166 = v159.size_data;
   if ( !Str2 )
   {
-    v79 = (int)MemAlloc(char, v159.Size);
+    v79 = (int)MemAlloc(char, v159.size_data);
     v168 = v79;
     if ( wtf <= v166 )
     {
@@ -923,10 +943,10 @@ LABEL_112:
 
     *(_DWORD *)a5 = 1;
     hODMFile = LODFile_Games_LOD.Find_Container( Str, v120);
-    locked_fread(&v159, 0x10, 1, hODMFile);
-    wtf = v159.v164;
-    v166 = v159.Size;
-    v89 = (int)MemAlloc(char, v159.Size);
+    locked_fread(&v159, 16, 1, hODMFile);
+    wtf = v159.packed_size;
+    v166 = v159.size_data;
+    v89 = (int)MemAlloc(char, v159.size_data);
     v168 = v89;
     if ( wtf <= v166 )
     {
@@ -1098,12 +1118,12 @@ LABEL_120:
 
 LABEL_150:
   v111 = _this->array_0004F0[1];
-  LODWORD(v155) = _this->array_0004F0[0];
-  HIDWORD(v155) = _this->array_0004F0[1];
-  if ( v111 | (_DWORD)v155 )
+  v155 = _this->array_0004F0[0];
+  v156 = _this->array_0004F0[1];
+  if ( v111 | v155 )
   {
     v120 = 28;
-    if ( (signed int)((signed int)(signed __int64)((double)v155 * 0.234375) / 60 / 60 / 0x18u) % 28 != pParty_global->uDaysPlayed )
+    if ( (signed int)((signed int)(signed __int64)((double)v155 * 0.234375) / 60 / 60 / 24) % 28 != pParty_global->uDaysPlayed )
     {
       if ( rand() % 100 >= 20 )
         v120 = dword_4EC268[rand() % dword_4EC2A8];
