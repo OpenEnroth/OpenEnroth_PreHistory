@@ -8808,8 +8808,8 @@ void __cdecl sub_472866()
   if (pParty_global->bFlying)
   {
     pParty_global->bFlying = false;
-    if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
-      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
+  //  if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
+   //   *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
   }
   if ( i == -30000 )
   {

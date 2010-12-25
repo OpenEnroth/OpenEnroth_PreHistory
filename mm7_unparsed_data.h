@@ -99,8 +99,8 @@ extern char byte_4E2B70[array_size_unknown]; // weak
 extern char byte_4E2BC8; // weak
 extern int dword_4E2BCC; // weak
 extern int dword_4E2BEC; // weak
-extern int dword_4E2C0C[array_size_unknown]; // weak
-extern int dword_4E2C2C[array_size_unknown]; // weak
+extern int dword_4E2C0C[8]; // weak
+extern int dword_4E2C2C[8]; // weak
 //_UNKNOWN unk_4E2D80; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30"
 //_UNKNOWN unk_4E2DC8; // "\x0C%05d" (this one looks like 16-bit color number)
 //_UNKNOWN unk_4E2DE8; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30 - "
@@ -1513,7 +1513,7 @@ extern struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4C90[array_size_unknown]; // weak
 //char byte_5E4CDA[array_size_unknown]; // weak
 //char byte_5E4CDB[array_size_unknown]; // weak
-extern _UNKNOWN unk_5E4D52; // weak
+//extern _UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak
@@ -1522,15 +1522,16 @@ extern unsigned short array_5E4D58[50][10];//[42][12];
 //extern int dword_5E5130[array_size_unknown]; // weak
 extern int dword_5E5144; // weak
 
-extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
+extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150 //14CC
 //__int16 word_5E5150[array_size_unknown]; // weak
 //char byte_5E5152[array_size_unknown]; // 000002
 //_UNKNOWN unk_5E5154; // 000004
 //int dword_5E5160; // 000010
 //int dword_5E5164; // 000014
 //_UNKNOWN unk_5E5168; // 000018
-//char byte_5E516D[array_size_unknown]; // weak
-//__int16 word_5E6502[array_size_unknown]; // 13B2
+//char byte_5E516D[array_size_unknown]; 00001D	// weak
+
+//__int16 word_5E6502[array_size_unknown]; // 13B2 -1
 //__int16 word_5E6504[array_size_unknown]; // 13B4
 extern unsigned int dword_5FF140; // idb
 

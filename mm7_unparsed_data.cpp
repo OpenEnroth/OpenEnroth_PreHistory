@@ -98,8 +98,10 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_4E2BC8; // weak
  int dword_4E2BCC; // weak
  int dword_4E2BEC; // weak
- int dword_4E2C0C[array_size_unknown]; // weak
- int dword_4E2C2C[array_size_unknown]; // weak
+
+ int dword_4E2C0C[8]={9,9,9,9,9,9,9,9}; // weak
+ int dword_4E2C2C[8]={9,9,9,9,9,9,9,9}; // weak
+
  char byte_4E2FD4; // idb
  void *off_4E3044; // weak
  _UNKNOWN unk_4E3308; // weak
@@ -1534,7 +1536,7 @@ struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4C90[array_size_unknown]; // weak
 //char byte_5E4CDA[array_size_unknown]; // weak
 //char byte_5E4CDB[array_size_unknown]; // weak
-_UNKNOWN unk_5E4D52; // weak
+//_UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak	 
@@ -1545,7 +1547,7 @@ unsigned short array_5E4D58[50][10];  // [42][12];
  //int dword_5E5130[array_size_unknown]; // weak
  int dword_5E5144; // weak
 
-struct struct3                 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
+struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
 unsigned int dword_5FF140; // idb
 
 int                            chest_descriptor[2];   //struct @ MM7.exe::005FF144

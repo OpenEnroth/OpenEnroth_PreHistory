@@ -5553,7 +5553,8 @@ LABEL_9:
   if (pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].qword_000000 > 0)
   {
     v98 = 1;
-    *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C) |= 1u;
+   // *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C) |= 1u;
+	array_5E4D58[pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C-1][1]|= 1u;
     if (~pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].byte_00000F & 0x01)
     {
       if ( dword_ACD788[1743 * pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].byte_00000E] <= 0 )
@@ -5948,8 +5949,8 @@ LABEL_130:
         v115 = v105;
       if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) >= 0 )
       {
-       if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 )
-          *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) &= 0xFEu;
+     //  if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 )
+      //    *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) &= 0xFEu;
       }
       pParty_global->dword_000700 = v115;
       goto LABEL_141;
@@ -5968,8 +5969,8 @@ LABEL_130:
   v105 = v115;
   if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) >= 0 )
   {
-   if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 )
-      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
+  // if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 )
+    //  *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
   }
 LABEL_141:
   v24 = 0;
@@ -6441,7 +6442,7 @@ LABEL_344:
                 {
                 //  v66 = (int *)pPlayers;
                 //  do
-                   for(int i=1; i<5; i++) 
+                   for(int i=0; i<4; i++) 
 					   {
 					  v66 = pPlayers[i];
                     v102 = Player_GetMaxHealth(v66);
@@ -6510,8 +6511,8 @@ LABEL_313:
     if ( v98 )
     {
       LOBYTE(pParty_global->dword_007778) = pParty_global->dword_007778 & 0x7F;
-      v71 = 20 * pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C + 0x5E4D52;
-      *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C) |= 1u;
+    //  v71 = 20 * pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C + 0x5E4D52;
+    //  *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C) |= 1u;
       if ( !v114 || !v57 )
       {
         if ( !v68 )
