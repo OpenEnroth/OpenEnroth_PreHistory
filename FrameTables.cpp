@@ -604,14 +604,13 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
    #ifndef OLD_CODE
     wchar_t pFilename[256];
     wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
-    _this->pTiles[i].word_000012 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
+    _this->pTiles[i].sTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
+#else
+    _this->pTiles[i].sTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)_this->pTiles[i].sTileName,2);
    #endif
-#ifdef OLD_CODE
-	
-    _this->pTiles[i].word_000012 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)_this->pTiles[i].sTileName,0);
-   #endif
-    if (_this->pTiles[i].word_000012 != -1)
-      LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].word_000012].word_000026);
+    if (_this->pTiles[i].sTextureID != -1)
+      LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].sTextureID].word_000026 = 
+	                    class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].sTextureID].word_000026);
    }
   }
  }

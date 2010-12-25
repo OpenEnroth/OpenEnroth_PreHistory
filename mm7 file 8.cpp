@@ -4949,12 +4949,12 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
                         if (v8 <= v12->sSomeY2 && v8 >= v12->sSomeY1)
                           {
                             for (j = 0; j < v12->uNumVertices; ++j)
-                            {
-                                word_721040[2 * j + 0] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j]);
-                                word_721040[2 * j + 1] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1]);
+                            {														 //  *(_WORD *)
+                                word_721040[2 * j + 0] = v12->array_000098[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j]);
+                                word_721040[2 * j + 1] = v12->array_000098[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j + 1]);
 
-                                word_720F70[2 * j + 0] = v12->array_0000C0[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j] + 4);
-                                word_720F70[2 * j + 1] = v12->array_0000C0[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1] + 4);
+                                word_720F70[2 * j + 0] = v12->array_0000C0[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j] + 4);
+                                word_720F70[2 * j + 1] = v12->array_0000C0[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j + 1] + 4);
                               v7 = v42;
                             }
                             word_721040[2 * v12->uNumVertices] = word_721040[0];
@@ -8415,7 +8415,7 @@ int __fastcall sub_464866(int a1, int a2)
 
   pParty_global->dword_0006F4 = 0;
   if (strcmpi((char *)pLevelType, "blv"))
-    PrepareToLoadODM(v10, 0);
+    PrepareToLoadODM(v10,false);
   else
     sub_460A78((void *)v10);
 
@@ -8754,9 +8754,9 @@ int __fastcall sub_408AE7(int a1, int a2)
 }
 
 //----- (00486A28) --------------------------------------------------------
-void AllocateDrawBuffers(void *_this)
+void AllocateDrawBuffers(bool a1)
 {
-  if ( !_this || !pSpansBuf )
+  if ( !a1 || !pSpansBuf )
   {
     ReleaseDrawBuffers();
 

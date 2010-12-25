@@ -130,8 +130,19 @@ struct class51
 
  int            dword_0004C0;
  unsigned char *ptr_0004C4;
+ 
+ //int array_0004C8[10];
+ int dword_0004C8;
+ int dword_0004CC;
+ int dword_0004D0;
+ int dword_0004D4;
+ int dword_0004D8;
+ int dword_0004DC;
+ int dword_0004E0;
+ int dword_0004E4;
+ int dword_0004E8;
+ int dword_0004EC;
 
- int array_0004C8[10];
  int array_0004F0[14];
 
  unsigned char array_000528[0x3C8];
@@ -173,7 +184,7 @@ int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(struct class51 *_this, unsig
 
 
 void Level_LoadEvtAndStr(const char *pLevelName);
-bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a4, int a5);
+bool LoadLevel(struct class51 *_this, const char *Source, int time_of_day, signed int a4, bool *a5);
 
 
 

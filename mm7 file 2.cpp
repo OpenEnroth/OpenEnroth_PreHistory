@@ -12377,7 +12377,7 @@ LABEL_5:
 }
 
 //----- (0047A384) --------------------------------------------------------
-void sub_47A384(const char *pLevelFilename, void *a2)
+void sub_47A384(const char *pLevelFilename, bool *a2)
 {
   signed int v2; // eax@3
   int v3; // ebx@3
@@ -12389,12 +12389,13 @@ void sub_47A384(const char *pLevelFilename, void *a2)
   int v13; // [sp+88h] [bp-8h]@12
   int v14; // [sp+8Ch] [bp-4h]@11
  int i;
+ 
 
-  AllocateDrawBuffers(a2);
+  AllocateDrawBuffers(*a2);
   sub_485F64(pStruct9_global);
   dword_6BE024 = 0;
   Render_ClearZBuffer(pD3DRenderer, 0, 479);
-  a2 = (void *)1;
+  *a2 = true;
   sub_450DA3();
   if ( qword_A750D8 )
     qword_A750D8 = 0i64;
@@ -12418,7 +12419,7 @@ void sub_47A384(const char *pLevelFilename, void *a2)
     pLevelFilename,
     (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
     v2,
-    (int)&a2);
+    a2);
 
   if ( !(dword_6BE364 & 0x2000) )
   {
@@ -12428,8 +12429,8 @@ void sub_47A384(const char *pLevelFilename, void *a2)
   dword_6BE364 &= 0xFFFFDFFF; //clear 0x4000 flag
   v5 = 0;
   if ( !v3 )
-    a2 = 0;
-  if ( a2 == (void *)1 )
+    *a2 = false;
+  if ( *a2 )
   {
     v14 = 0;
     if ( dword_6A12B0 > 0 )

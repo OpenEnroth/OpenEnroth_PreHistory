@@ -2931,7 +2931,7 @@ LABEL_317:
             if ( !_strcmpi(CurrentLevelName, "out15.odm") || !_strcmpi(CurrentLevelName, "d47.blv") )
               byte_6BE3C5 = 1;
 
-            PrepareToLoadODM(1, (void *)1);
+            PrepareToLoadODM(1, true);
             LODWORD(v53) = AudioPlayer_sub_4AC041(pAudioPlayer);
             dword_5C35C4 = 0;
             sub_443FDC_MessWithEvents(v53);

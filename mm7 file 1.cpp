@@ -13707,7 +13707,7 @@ LABEL_23:
 }
 
 //----- (004610AA) --------------------------------------------------------
-void __fastcall PrepareToLoadODM(int a1, void *a2)
+void __fastcall PrepareToLoadODM(int a1, bool a2)
 {
   int v2; // edi@1
 
@@ -13715,7 +13715,7 @@ void __fastcall PrepareToLoadODM(int a1, void *a2)
   LevelLoadingUI_Reset(pLoadingUI, 27);
   sub_4A9D79(pSoundList, 0);
   dword_6BE360 = 2;
-  sub_47A384(CurrentLevelName, a2);
+  sub_47A384(CurrentLevelName, &a2);
   if ( !v2 )
     sub_4498D5((void *)dword_6BE35C);
   sub_443365(&struct_576FE8);
