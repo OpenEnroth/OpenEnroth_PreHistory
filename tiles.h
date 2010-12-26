@@ -7,7 +7,7 @@ struct TileDesc
  unsigned char sTileName[12];
  int           dword_00000C;
  short         word_000010;
- short         sTextureID; // texture id in bitmaps.lod? word_000012
+ unsigned short uBitmapID; // word @ 000012
  short         word_000014;
  short         word_000016;
  short         word_000018;

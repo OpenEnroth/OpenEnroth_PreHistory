@@ -1,12 +1,13 @@
 #include "RenderD3D10.h"
 #include "TextureD3D10.h"
+
 #include "..\\Window.h"
 
 
 
 
 
-unsigned int DepthStencilStateD3D10::Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator)
+unsigned int DepthStencilStateD3D10::Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Type eOperator)
 {
  D3D10_DEPTH_STENCIL_DESC depthStateDesc;
  depthStateDesc.DepthEnable = bZTest;
@@ -141,16 +142,16 @@ unsigned int RenderD3D10::CreateTexture(const wchar_t *pTextureName, Texture **p
 
 
 
-unsigned int RenderD3D10::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct Viewport *pOutputArea)
+unsigned int RenderD3D10::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct Rect<float> *pOutputArea)
 {
  pTargetWindow = pOutputWindow;
 
- struct Viewport windowClientArea;
+ struct Rect<float> windowClientArea;
  pTargetWindow->GetClientArea(&windowClientArea);
 
  DXGI_SWAP_CHAIN_DESC sd;
- sd.BufferDesc.Width = windowClientArea.z - windowClientArea.x;
- sd.BufferDesc.Height = windowClientArea.w - windowClientArea.y;
+ sd.BufferDesc.Width = windowClientArea.x.Length();
+ sd.BufferDesc.Height = windowClientArea.y.Length();
  sd.BufferDesc.RefreshRate.Numerator = 0;
  sd.BufferDesc.RefreshRate.Denominator = 1;
  sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -253,10 +254,10 @@ unsigned int RenderD3D10::Reset(OSWindow *pOutputWindow, bool bFullscreen, struc
  pDevice->CreateRasterizerState(&sRasterizerDesc, &pRasterizerState_Default);
  pDevice->RSSetState(pRasterizerState_Default);
 
- defaultViewport.TopLeftX = pOutputArea->x;
- defaultViewport.TopLeftY = pOutputArea->y;
- defaultViewport.Width = pOutputArea->z - pOutputArea->x;
- defaultViewport.Height = pOutputArea->w - pOutputArea->y;
+ defaultViewport.TopLeftX = pOutputArea->x.min;
+ defaultViewport.TopLeftY = pOutputArea->y.min;
+ defaultViewport.Width = pOutputArea->x.Length();
+ defaultViewport.Height = pOutputArea->y.Length();
  defaultViewport.MinDepth = 0.0f;
  defaultViewport.MaxDepth = 1.0f;
  pDevice->RSSetViewports(1, &defaultViewport);

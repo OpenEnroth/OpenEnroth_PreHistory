@@ -75,25 +75,21 @@ int sub_487F84(struct CTileTable *_this, int a2, int a3)
 //----- (00487E58) --------------------------------------------------------
 void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
 {
- int     i;
-
-
- for ( i = 0; i < _this->uNumTiles; ++i)
+ for (unsigned int i = 0; i < _this->uNumTiles; ++i)
  {
   if (_this->pTiles[i].word_000014 == a2)
   {
    if (_this->pTiles[i].sTileName[0])
    {
-   #ifndef OLD_CODE
+#ifndef OLD_CODE
     wchar_t pFilename[256];
     wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
-    _this->pTiles[i].sTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
+    _this->pTiles[i].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(pFilename);
 #else
-    _this->pTiles[i].sTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)_this->pTiles[i].sTileName,2);
-   #endif
-    if (_this->pTiles[i].sTextureID != -1)
-      LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].sTextureID].word_000026 = 
-	                    class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].sTextureID].word_000026);
+    _this->pTiles[i].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)_this->pTiles[i].sTileName,0);
+#endif
+    if (_this->pTiles[i].uBitmapID != -1)
+      LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].uBitmapID].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].uBitmapID].word_000026);
    }
   }
  }

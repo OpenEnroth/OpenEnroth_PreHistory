@@ -105,38 +105,39 @@ class Location
 
 class OutdoorLocation: public Location
 {
- struct TerrainData
- {
-  inline TerrainData():
-    pHeightmap(nullptr), pTilemap(nullptr), pAttributemap(nullptr), ptr_00000C(nullptr)
-  {}
+ protected:
+   struct TerrainData
+   {
+    inline TerrainData():
+      pHeightmap(nullptr), pTilemap(nullptr), pAttributemap(nullptr), ptr_00000C(nullptr)
+    {}
 
-  unsigned char *pHeightmap;    // ptr @ 000000    128x128 heightmap data scaled by 1/32
-  unsigned char *pTilemap;      // ptr @ 000004    128x128 tilemap data
-  unsigned char *pAttributemap; // ptr @ 000008    128x128 attributes
-  unsigned char *ptr_00000C;
-  short          word_000010;
-  short          word_000012;
-  short          word_000014;
-  short          word_000016;
-  int            dword_000018;
-  int            dword_00001C;
+    unsigned char *pHeightmap;    // ptr @ 000000    128x128 heightmap data scaled by 1/32
+    unsigned char *pTilemap;      // ptr @ 000004    128x128 tilemap data
+    unsigned char *pAttributemap; // ptr @ 000008    128x128 attributes
+    unsigned char *ptr_00000C;
+    short          word_000010;
+    short          word_000012;
+    short          word_000014;
+    short          word_000016;
+    int            dword_000018;
+    int            dword_00001C;
 
-  Result::Code Initialize();
+    Result::Code Initialize();
 
-  Result::Code Reset();
-  Result::Code Clear();
+    Result::Code Reset();
+    Result::Code Clear();
 
-  void sub_47C80A(int sX, int sY, int sZ, int sW);
- };
- //sizeof == 20
- //bool sub_47CD44(int_this)                                   0047CD44  TerrainData::Initialize
- //void sub_47C7C2(int_this)                                   0047C7C2  TerrainData::Clear
- //void sub_47C80A(int _this, int sX, int sY, int sZ, int sW)  0047C80A  TerrainData::sub_47C80A
- //signed int sub_47CCE2(void **_this)                         0047CCE2  TerrainData::Reset
+    void sub_47C80A(int sX, int sY, int sZ, int sW);
+   };
+   //sizeof == 20
+   //bool sub_47CD44(int_this)                                   0047CD44  TerrainData::Initialize
+   //void sub_47C7C2(int_this)                                   0047C7C2  TerrainData::Clear
+   //void sub_47C80A(int _this, int sX, int sY, int sZ, int sW)  0047C80A  TerrainData::sub_47C80A
+   //signed int sub_47CCE2(void **_this)                         0047CCE2  TerrainData::Reset
+
 
  public:
-
  unsigned char  string_000000[32];
  unsigned char  pLocationFileName[32];        // byte[32] @ 000020
  unsigned char  pLocationFileDescription[32]; // byte[32] @ 000040

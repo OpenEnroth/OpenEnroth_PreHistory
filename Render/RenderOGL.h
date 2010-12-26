@@ -2,13 +2,14 @@
 #include <windows.h>
 #include <gl\\gl.h>
 #include "Render.h"
-#include "..\\Window.h"
 
 class DepthStencilStateOGL: public DepthStencilState
 {
  public:
-   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator);
+   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Type eOperator);
 };
+
+class OSWindow;
 
 class TextureOGL;
 class RenderOGL: public Render
@@ -18,7 +19,7 @@ class RenderOGL: public Render
  friend class RenderOperatorOGL_DrawEnvironment;
  public:
    virtual unsigned int Initialize();
-   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
+   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Rect<float> *pOutputArea);
    
    virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut);
 
@@ -42,5 +43,5 @@ class RenderOGL: public Render
    TextureOGL *pPrimaryColorTarget;
    TextureOGL *pPrimaryDepthTarget;
 
-   struct Viewport defaultViewport;
+   struct Rect<float> defaultViewport;
 };

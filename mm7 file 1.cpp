@@ -1511,7 +1511,7 @@ LABEL_161:
         }
         v37 = (void *)v15;
 LABEL_56:
-        sub_4811A3(v37);
+        sub_4811A3((struct8 *)v37);
       }
 LABEL_162:
       v3 = v88 + 1;
@@ -1642,7 +1642,7 @@ LABEL_105:
     v56 = *(_DWORD *)(v39 + 48);
     if ( BYTE1(v56) & 1 )
     {
-      sub_4811A3((void *)v39);
+      sub_4811A3((struct8 *)v39);
     }
     else
     {

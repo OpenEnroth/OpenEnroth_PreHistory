@@ -6,7 +6,7 @@
 class DepthStencilStateD3D10: public DepthStencilState
 {
  public:
-   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator);
+   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Type eOperator);
 
    ID3D10DepthStencilState *pState;
 };
@@ -26,7 +26,7 @@ class RenderD3D10: public Render
    virtual ~RenderD3D10();
 
    virtual unsigned int Initialize();
-   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
+   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Rect<float> *pOutputArea);
    
    virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut);
 

@@ -1,11 +1,12 @@
 #pragma once
 #include "Texture.h"
 #include "RenderOperators.h"
+#include "..\\CoreDefinitions.h"
 
 
 namespace DepthOperator
 {
- enum Op
+ enum Type
  {
   Equal = 0,
   NotEqual,
@@ -21,7 +22,7 @@ namespace DepthOperator
 class DepthStencilState
 {
  public:
-   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator) = 0;
+   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Type eOperator) = 0;
 };
 
 class OSWindow;
@@ -29,7 +30,7 @@ class Render
 {
  public:
    virtual unsigned int Initialize() = 0;
-   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea) = 0;
+   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Rect<float> *pOutputArea) = 0;
 
    virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut) = 0;
 

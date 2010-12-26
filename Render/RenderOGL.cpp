@@ -2,9 +2,11 @@
 #include "wgl\\wglext.h"
 #include "TextureOGL.h"
 
+#include "..\Window.h"
 
 
-unsigned int DepthStencilStateOGL::Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator)
+
+unsigned int DepthStencilStateOGL::Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Type eOperator)
 {
  return -1;
 }
@@ -63,10 +65,10 @@ unsigned int RenderOGL::CreateTexture(const wchar_t *pName, Texture **)
 
 
 
-unsigned int RenderOGL::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct Viewport *pOutputArea)
+unsigned int RenderOGL::Reset(OSWindow *pOutputWindow, bool bFullscreen, Rect<float> *pOutputArea)
 {
  pTargetWindow = pOutputWindow;
- memcpy(&defaultViewport, pOutputArea, sizeof(struct Viewport));
+ defaultViewport = *pOutputArea;
 
  PIXELFORMATDESCRIPTOR pfd =
  {
@@ -135,7 +137,7 @@ unsigned int RenderOGL::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct 
  wglDeleteContext(hLegacyRC);
  wglMakeCurrent(hTargetWindowDC, hTargetWindowRC);
 
- struct Viewport windowClientArea;
+ Rect<float> windowClientArea;
  pTargetWindow->GetClientArea(&windowClientArea);
  if (bFullscreen)
  {
@@ -143,8 +145,8 @@ unsigned int RenderOGL::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct 
   memset(&devmod, 0, sizeof(DEVMODE));
 
   EnumDisplaySettings(0, ENUM_CURRENT_SETTINGS, &devmod);
-  devmod.dmPelsWidth = windowClientArea.z - windowClientArea.x;
-  devmod.dmPelsHeight = windowClientArea.w - windowClientArea.y;
+  devmod.dmPelsWidth = windowClientArea.x.Length();
+  devmod.dmPelsHeight = windowClientArea.y.Length();
 
   ChangeDisplaySettings(&devmod, CDS_FULLSCREEN);
  }
@@ -155,8 +157,8 @@ unsigned int RenderOGL::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct 
  pPrimaryDepthTarget = new TextureOGL;
  pPrimaryDepthTarget->eFormat = TF_D32_float;
 
- glViewport(defaultViewport.x, defaultViewport.y,
-            defaultViewport.z - defaultViewport.x, defaultViewport.w - defaultViewport.y);
+ glViewport(defaultViewport.x.min,      defaultViewport.y.min,
+            defaultViewport.x.Length(), defaultViewport.y.Length());
 
  glClearColor(0, 0, 0, 1);
  glClear(GL_COLOR_BUFFER_BIT);
