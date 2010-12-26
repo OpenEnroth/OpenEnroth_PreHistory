@@ -1,7 +1,7 @@
 
 #pragma once
 
-
+#pragma pack(1)
 struct TileDesc
 {
  unsigned char sTileName[12];
