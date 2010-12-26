@@ -10,6 +10,7 @@
 #include "defs.h"
 #include "_lod.h"
 #include "clock.h"
+#include "tiles.h"
 #include "classes.h"
 #include "data.h"
 #include "AudioPlayer.h"

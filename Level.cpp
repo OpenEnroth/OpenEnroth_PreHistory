@@ -2,6 +2,7 @@
 
 #include "Level.h"
 #include "menus.h"
+#include "tiles.h"
 #include "data.h"
  #include "_lod.h"
 

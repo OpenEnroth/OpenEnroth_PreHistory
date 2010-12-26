@@ -194,6 +194,7 @@
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="PartyActions.cpp" />
     <ClCompile Include="GameEvents.cpp" />
+    <ClCompile Include="tiles.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -405,6 +406,7 @@
       <Filter>libs\AIL</Filter>
     </ClInclude>
     <ClInclude Include="UserInput.h" />
+    <ClInclude Include="tiles.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">
