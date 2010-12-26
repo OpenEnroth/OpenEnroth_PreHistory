@@ -1489,43 +1489,38 @@ bool LoadLevel(struct class51 *_this, const char *Source, int time_of_day, signe
 //----- (0047F223) --------------------------------------------------------
 int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
 {
-  signed int v1; // ebx@1
-  int v2; // esi@2
-  int v3; // eax@7
+  int i; 
   void *v5; // [sp+0h] [bp-4h]@1
+  LayingItem *pItem;
+  ItemGen *pItGen;
 
   v5 = _this;
-  v1 = 0;
-  if ( (signed int)uNumLayingItems > 0 )
+  for(i = 0;i < uNumLayingItems; i++)
   {
-   v2 = (int)&pLayingItemsList[0].uObjectDescriptionID;
-    do
+    pItem = &pLayingItemsList[i];
+    
+    if ( !pItem->uObjectDescriptionID )
+     continue;
+    
+    if ( !(pItem->word_00001A & 8) ) 
     {
-      if ( *(_WORD *)v2 )
+      if ( !(pObjectDescriptionList->pDescriptions[pItem->uObjectDescriptionID].byte_000026 & 0x10) )
+        pItem->sItemPosZ = sub_48257A(pItem->sItemPosX, pItem->sItemPosY, (int)&v5, 0); // something strange goes here with v5
+    }
+    pItGen = &pItem->stru_000024;
+    if ( pItGen->uItemID )
+    {
+      if ( pItGen->uItemID != 220 )
       {
-        if ( !(*(_BYTE *)(v2 + 24) & 8) )
+        if (pClass40->pItems[pItGen->uItemID - 1].uEquipType == 14 )
         {
-          if ( !(*(_BYTE *)(56 * *(_WORD *)v2 + pObjectDescriptionList->pDescriptions + 38) & 0x10) )
-            *(_DWORD *)(v2 + 10) = sub_48257A(*(_DWORD *)(v2 + 2), *(_DWORD *)(v2 + 6), (int)&v5, 0);
-        }
-        v3 = *(_DWORD *)(v2 + 34);
-        if ( v3 )
-        {
-          if ( v3 != 220 )
-          {
-           if (pClass40->pItems[v3 - 1].uEquipType == 14 )
-            {
-              if ( !*(_DWORD *)(v2 + 38) )
-                *(_DWORD *)(v2 + 38) = rand() % 15 + 5;
-            }
-          }
-          class40_sub_456D17(pClass40, (ItemGen *)(v2 + 34));
+          if ( !pItGen->dword_000004 )
+            pItGen->dword_000004 = rand() % 15 + 5;
         }
       }
-      ++v1;
-      v2 += 112;
+      class40_sub_456D17(pClass40, pItGen);
     }
-    while ( v1 < (signed int)uNumLayingItems );
+    
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   return 1;
