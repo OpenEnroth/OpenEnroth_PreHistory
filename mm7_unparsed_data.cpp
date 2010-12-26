@@ -1160,12 +1160,15 @@ struct NPCData *dword_50C9E0; // weak
  _UNKNOWN unk_50D9D8; // weak
  _UNKNOWN unk_50DA04; // weak
  char byte_50E5D8; // weak
- _UNKNOWN unk_50E5E0; // weak
- _UNKNOWN unk_50E5E4; // weak
- _UNKNOWN unk_50E5FC; // weak
- _UNKNOWN unk_50E600; // weak
- _UNKNOWN unk_50E60C; // weak
+ _UNKNOWN unk_50E5E0[1000]; // weak	   arrays!!!
+ _UNKNOWN unk_50E5E4[1000]; // weak
+ _UNKNOWN unk_50E5FC[1000]; // weak
+ _UNKNOWN unk_50E600[1000]; // weak
+ _UNKNOWN unk_50E60C[1000]; // weak
  char byte_50F1E0; // weak
+
+
+
 unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
  int dword_50FDFC; // weak
  int dword_50FE00; // weak

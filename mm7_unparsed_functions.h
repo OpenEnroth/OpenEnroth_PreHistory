@@ -810,7 +810,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3);
 void __cdecl loc_481185(); // idb
 void __cdecl loc_48118F(); // idb
 void __cdecl loc_481199(); // idb
-void __thiscall sub_4811A3(void *_this);
+void __thiscall sub_4811A3(struct struct8 *_this);
 void __fastcall sub_481212(int a1, int a2, int a3);
 void sub_481CCE(struct RenderVertex *a1);
 void sub_481D77(struct RenderVertex *_this);

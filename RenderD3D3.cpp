@@ -1433,8 +1433,8 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
               _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 5);
             else
               _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
-            compile_error;
-           //_this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND);
+           // compile_error;
+            //_this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND);
           }
           
 

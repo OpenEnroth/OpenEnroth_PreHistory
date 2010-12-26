@@ -4681,7 +4681,7 @@ char __thiscall sub_4371C3(void *_this, void *a2, int a3, int a4)
   if ( !(byte_50F1E0 & 1) )
   {
     byte_50F1E0 |= 1u;
-    v4 = &unk_50E60C;
+    v4 = &unk_50E60C[0];
     v5 = 64;
     do
     {
@@ -4690,31 +4690,37 @@ char __thiscall sub_4371C3(void *_this, void *a2, int a3, int a4)
       --v5;
     }
     while ( v5 );
-    atexit(0);
+   // atexit(0);
   }
   v12 = 0;
   v7 = a2;
   v6 = a3;
   if ( *(_DWORD *)a3 > 0 )
   {
-    v14 = (char *)(&unk_50E5E0 - (char*)a2);
-    v13 = (char *)(&unk_50E5FC - (char*)a2);
-    v9 = &unk_50E5E4;
+    v14 = (char *)(&unk_50E5E0[0] - (char*)a2);
+    v13 = (char *)(&unk_50E5FC[0] - (char*)a2);
+    v9 = &unk_50E5E4[0];
+
     v8 = (int)((char *)v7 + 8);
     do
     {
       ++v12;
-      *((_DWORD *)v9 - 1) = *(_DWORD *)(v8 - 8);
-      *(_DWORD *)v9 = *(_DWORD *)(v8 - 4);
+     // *((_DWORD *)v9 - 1) = *(_DWORD *)(v8 - 8);
+
+     // *(_DWORD *)v9 = *(_DWORD *)(v8 - 4);
+
       v9 = (char *)v9 + 48;
-      *(float *)&v14[v8] = *(float *)v8;
-      *(float *)&v13[v8] = *(float *)(v8 + 28);
-      *(float *)(&unk_50E600 - (char*)v7 + v8) = *(float *)(v8 + 32);
+
+      //*(float *)&v14[v8] = *(float *)v8;
+     // *(float *)&v13[v8] = *(float *)(v8 + 28);
+
+    //  *(float *)(&unk_50E600[0] - (char*)v7 + v8) = *(float *)(v8 + 32);
+
       v8 += 48;
     }
-    while ( v12 < *(_DWORD *)v6 );
+    while ( v12 < a3 );
   }
-  return sub_437285((int)&unk_50E5E0, v6, v7, (int)((char *)v11 + 52), 4, 0, a4);
+  return sub_437285((int)&unk_50E5E0[0], v6, v7, (int)((char *)v11 + 52), 4, 0, a4);
 }
 
 //----- (00437285) --------------------------------------------------------
@@ -9414,13 +9420,13 @@ bool __stdcall sub_45D036(struct Normal *pNormal, int a2, struct RenderVertex *a
         break;
       sub_45D0D5((struct6 *)&array_519ABC[i], pNormal, a2, a3, a4, X, (int)&v10);
   }
-
+  /*
   for (i = 0; i < pStationaryLightsStack->uNumStationaryLightsActive; ++i)
   {
       if ( v10 >= 20 )
         break;
       sub_45D0D5((struct6 *)&pStationaryLightsStack->pLights[i], pNormal, a2, a3, a4, X, (int)&v10);
-  }
+  }	  crushes */ 
 
   dword_F8ADD4 = v10;
   return true;

@@ -13464,9 +13464,9 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v33; // edi@38
   int v34; // ecx@47
   int v35; // eax@50
-  void *v37; // ecx@55
+  struct8 *v37; // ecx@55
   int v38; // eax@59
-  int v39; // ebx@62
+  struct8 *v39; // ebx@62
   __int16 v40; // ax@62
   int v41; // eax@63
   int v42; // eax@63
@@ -13734,7 +13734,7 @@ LABEL_161:
           Render_DrawTerrainPolygon(pD3DRenderer, (RenderVertex *)v31, v76, (struct8 *)v77, (IDirect3DTexture2 *)v78, false, v80);
           goto LABEL_162;
         }
-        v37 = (void *)v15;
+        v37 = v15;
 LABEL_56:
         sub_4811A3(v37);
       }
@@ -13745,7 +13745,7 @@ LABEL_162:
       if (++v88 >= v84)
         return;
     }
-    v39 = (int)&array_77EC08[pStruct9_global->dword_00002C];
+    v39 = &array_77EC08[pStruct9_global->dword_00002C];
     v40 = class51_GetTileTexture(pClass51_global, v98, v101);
     *(_WORD *)(v39 + 76) = v40;
     if ( v40 == -1 )
@@ -13806,7 +13806,7 @@ LABEL_162:
     }
     v96 = (int)pGame->class04_obj;
     sub_45D036(pNormal, (int)&v86, array_50AC10, 3, 0);
-    class58_sub_49BE8A(pClass58_global, v39, pNormal, (int)&v86, (int)array_50AC10, 3, 0);
+    class58_sub_49BE8A(pClass58_global, (int)v39, pNormal, (int)&v86, (int)array_50AC10, 3, 0);
     v99 = 3;
     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
     {
@@ -13867,7 +13867,7 @@ LABEL_105:
     v56 = *(_DWORD *)(v39 + 48);
     if ( BYTE1(v56) & 1 )
     {
-      sub_4811A3((void *)v39);
+      sub_4811A3(v39);
     }
     else
     {
@@ -13948,7 +13948,7 @@ LABEL_126:
     }
     v96 = (int)pGame->class04_obj;
     sub_45D036(pNormal, (int)&v87, array_50AC10, 3, 1);
-    class58_sub_49BE8A(pClass58_global, v39, pNormal, (int)&v87, (int)array_50AC10, 3, 1);
+    class58_sub_49BE8A(pClass58_global, (int)v39, pNormal, (int)&v87, (int)array_50AC10, 3, 1);
     v100 = 3;
     if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80)
     {
@@ -14016,7 +14016,7 @@ LABEL_154:
           v76 = *(_DWORD *)(v31 + 20);
           goto LABEL_161;
         }
-        v37 = (void *)v31;
+        v37 = v31;
         goto LABEL_56;
       }
       v71 = sub_424EE0_MakeFanFromTriangle(v70);
@@ -14028,23 +14028,23 @@ LABEL_154:
 }
 
 //----- (004811A3) --------------------------------------------------------
-void __thiscall sub_4811A3(void *_this)
+void __thiscall sub_4811A3(struct8 *_this)
 {
-  int v1; // esi@1
+  struct8 * v1; // esi@1
 
-  v1 = (int)_this;
+  v1 = _this;
   pD3DRenderer->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 0);
   Render_DrawTerrainPolygon(pD3DRenderer, (RenderVertex *)v1,
-    *(_DWORD *)(v1 + 20),
-    (struct8 *)v1,
+     v1->uNumVertices,
+     v1,
     LODFile_Bitmaps_LOD.pHardwareTextures[uTextureID_WaterTiles[dword_EF5290]],
     0,
     0);
   pD3DRenderer->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 1);
   Render_DrawTerrainPolygon(pD3DRenderer, (RenderVertex *)v1,
-    *(_DWORD *)(v1 + 20),
-    (struct8 *)v1,
-    LODFile_Bitmaps_LOD.pHardwareTextures[4 * *(_WORD *)(v1 + 76)],
+    v1->uNumVertices,
+    v1,
+    LODFile_Bitmaps_LOD.pHardwareTextures[v1->uTextureID],
     1,
     1);
 }

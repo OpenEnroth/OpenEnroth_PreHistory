@@ -1033,11 +1033,11 @@ extern char byte_50D9D0; // weak
 extern _UNKNOWN unk_50D9D8; // weak
 extern _UNKNOWN unk_50DA04; // weak
 extern char byte_50E5D8; // weak
-extern _UNKNOWN unk_50E5E0; // weak
-extern _UNKNOWN unk_50E5E4; // weak
-extern _UNKNOWN unk_50E5FC; // weak
-extern _UNKNOWN unk_50E600; // weak
-extern _UNKNOWN unk_50E60C; // weak
+extern _UNKNOWN unk_50E5E0[]; // weak
+extern _UNKNOWN unk_50E5E4[]; // weak
+extern _UNKNOWN unk_50E5FC[]; // weak
+extern _UNKNOWN unk_50E600[]; // weak
+extern _UNKNOWN unk_50E60C[]; // weak
 extern char byte_50F1E0; // weak
 extern unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
 extern int dword_50FDFC; // weak

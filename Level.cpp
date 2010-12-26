@@ -536,17 +536,17 @@ LABEL_33:
     _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v119, 2);
     strcpy((char *)_this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
     v38 = (int)TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
-
+	
     _this->dword_0000EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v38, 2);
     if ( _this->uSkyTextureID != -1 )
-      *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
+      LODFile_Bitmaps_LOD.aLODHeaders[_this->uSkyTextureID].word_000026 = class35_sub_48A3BC_MessWithPalettes(
                                                                  &class35_obj,
-                                                                 *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x24 : 36));
+                                                                LODFile_Bitmaps_LOD.aLODHeaders[_this->uSkyTextureID].word_000024);
     v39 = _this->dword_0000EC;
     if ( v39 != -1 )
-      *(_WORD *)(v39 != -1 ? 72 * v39 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
+      LODFile_Bitmaps_LOD.aLODHeaders[v39].word_000026 = class35_sub_48A3BC_MessWithPalettes(
                                                                  &class35_obj,
-                                                                 *(_WORD *)(v39 != -1 ? 72 * v39 + 7278780 + 0x24 : 36));
+                                                                  LODFile_Bitmaps_LOD.aLODHeaders[v39].word_000024);
     sub_47F0E2();
     LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
     fclose(v24);

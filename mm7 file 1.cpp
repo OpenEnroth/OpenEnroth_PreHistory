@@ -967,7 +967,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
  {
     RenderSky();
     RenderBuildings();
-    //sub_47F5C6_MessWithTerrainDrawing();
+  //  sub_47F5C6_MessWithTerrainDrawing();
  }
  else // software
  {

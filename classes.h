@@ -876,7 +876,22 @@ struct struct5
 //sizeof == 18
 //void __thiscall sub_440F07(int _this);
 void sub_440F07(struct struct5 *pArray);
-
+/*
+struct RenderVertex
+{
+ float x; // float @ 000000   looks like world coordinates
+ float z; // float @ 000004
+ float y; // float @ 000008
+ float flt_00000C;
+ float flt_000010;
+ float flt_000014;
+ float flt_000018;  // value lies between pOldViewport->uGameX and pOldViewport->uGameZ  screen-space transformed x
+ float flt_00001C; //  value lies between pOldViewport->uGameY and pOldViewport->uGameW  screen-space transformed y
+ float flt_000020;
+ float u;          // float @ 000024   looks like texture coordinates
+ float v;          // float @ 000028
+ float flt_00002C;
+};	*/
 
 struct struct8
 {
@@ -892,6 +907,7 @@ struct struct8
  int                    dword_000024;
  int                    dword_000028;
  int                    dword_00002C;
+
  short                  word_000030;  // word_000018 in struct TileDesc  0x4000 flag -> TextureFrameTable unsupported  0x0002 -> water tile
  short                  word_000032;
  int                    dword_000034;
