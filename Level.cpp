@@ -19,14 +19,11 @@
 #include "RenderD3D3.h"
 
 
-bool __cdecl TryLoadLevelFromFile(); // internal
-bool LoadLevelFromODM(struct class51 *_this, const char *Source, int time_of_day, int a4, bool *a5); // internal
 
 
 
-//----- (00488EB1) --------------------------------------------------------
-int class51_sub_488EB1_GetSomeOtherTileInfo(struct class51 *_this, int sX, int sY)
-{
+OutdoorLocation::OutdoorLocation(){ uNumBModels = 0; dword_0004C0 = 0; pBModels = nullptr; ptr_0004C4 = nullptr; ptr_0000D4 = nullptr; ptr_0000E4 = nullptr; ptr_0000E0 = nullptr; pTerrainNormals = nullptr;}//----- (00488EB1) --------------------------------------------------------
+int class51_sub_488EB1_GetSomeOtherTileInfo(OutdoorLocation *_this, int sX, int sY){
   int v3; // eax@1
   int v4; // edi@1
 
@@ -39,24 +36,21 @@ int class51_sub_488EB1_GetSomeOtherTileInfo(struct class51 *_this, int sX, int s
 }
 
 //----- (0047EDB3) --------------------------------------------------------
-int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(struct class51 *_this, unsigned int uX, unsigned int uY)
-{
+int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsigned int uX, unsigned int uY){
   int v3; // esi@5
 
  if (uX > 127 || uY > 127)
    return 0;
  else
  {
-   v3 = _this->struct_0000B4.pTilemap[128 * uY + uX];
-   if ( v3 >= 90 )
+  v3 = _this->cTerrainData.pTilemap[128 * uY + uX];   if ( v3 >= 90 )
      v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
    return pTileTable->pTiles[v3].word_000018;
  }
 }
 
 //----- (00488EEF) --------------------------------------------------------
-int class51_GetTileTexture(struct class51 *_this, int sX, int sY)
-{
+int class51_GetTileTexture(OutdoorLocation *_this, int sX, int sY){
  int v3; // eax@1
  int v4; // edi@1
 
@@ -68,15 +62,13 @@ int class51_GetTileTexture(struct class51 *_this, int sX, int sY)
 }
 
 //----- (0047ED08) --------------------------------------------------------
-int class51_GetTileTexture2(struct class51 *_this, unsigned int uX, unsigned int uY)
-{
+int class51_GetTileTexture2(OutdoorLocation *_this, unsigned int uX, unsigned int uY){
  int v3; // esi@5
 
  if (uX > 127 || uY > 127)
    return 0;
 
- v3 = _this->struct_0000B4.pTilemap[uY * 128 + uX];
- if (v3 < 198)
+ v3 = _this->cTerrainData.pTilemap[uY * 128 + uX]; if (v3 < 198)
  {
   if (v3 >= 90)
     v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
@@ -84,13 +76,10 @@ int class51_GetTileTexture2(struct class51 *_this, unsigned int uX, unsigned int
  else
    v3 = v3 + _this->array_0000A0[7] - 198;
 
- return pTileTable->pTiles[v3].sTextureID;
-}
+ return pTileTable->pTiles[v3].uBitmapID;}
 
-//----- (0047D0A6) --------------------------------------------------------
-bool LoadLevelFromODM(struct class51 *_this, const char *Source, int time_of_day, int a4, bool *a5)
-{
- int v5;
+//----- (0047CF9C) --------------------------------------------------------Result::Code OutdoorLocation::Clear(){ lstrcpyA((char *)string_000000, "blank"); lstrcpyA((char *)pLocationFileName, "default.odm"); lstrcpyA((char *)pLocationFileDescription, "WW Outdoor v1.00"); lstrcpyA((char *)pSkyTextureName, "sky043"); lstrcpyA((char *)pGroundTileset, "hm005"); for (unsigned int i = 0; i < uNumBModels; ++i)   BModel_Clear((int)&pBModels[i].dword_000044); uNumBModels = 0; dword_0004C0 = 0; cTerrainData.Clear(); if (pBModels) {  MemFree(pBModels);  pBModels = nullptr; } if (ptr_0004C4) {  MemFree(ptr_0004C4);  ptr_0004C4 = nullptr; } if (ptr_0000D4) {  MemFree(ptr_0000D4);  ptr_0000D4 = nullptr; } if (ptr_0000E4) {  MemFree(ptr_0000E4);  ptr_0000E4 = nullptr; } if (ptr_0000E0) {  MemFree(ptr_0000E0);  ptr_0000E0 = nullptr; } if (pTerrainNormals) {  MemFree(pTerrainNormals);  pTerrainNormals = nullptr; } return Result::Success;}//----- (00478389) --------------------------------------------------------int BModel_Clear(int _this){  int result; // eax@1  int v2; // esi@1  int v3; // ST00_4@1  int v4; // ST00_4@1  int v5; // ST00_4@1  result=0;  v2 = _this;  MemFree(*(_DWORD **)(_this + 4));  v3 = *(_DWORD *)(v2 + 16);  *(_DWORD *)(v2 + 4) = 0;  MemFree((void *)v3);  v4 = *(_DWORD *)(v2 + 20);  *(_DWORD *)(v2 + 16) = 0;  MemFree((void *)v4);  v5 = *(_DWORD *)(v2 + 28);  *(_DWORD *)(v2 + 20) = 0;  MemFree((void *)v5);  *(_DWORD *)(v2 + 28) = 0;  *(_DWORD *)(v2 + 24) = 0;  *(_DWORD *)(v2 + 8) = 0;  *(_DWORD *)v2 = 0;  *(_WORD *)(v2 + 12) = 0;  return result;}//----- (0047D0A6) --------------------------------------------------------
+Result::Code OutdoorLocation::Load(const char *pFilename, int File, unsigned int uRespawnInterval, int a5){
   FILE *result; // eax@9
   FILE *v7; // ebx@9
   size_t v8; // eax@10
@@ -115,7 +104,6 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int time_of_day
   int v27; // eax@28
   unsigned __int8 v28; // zf@28
   unsigned __int8 v29; // sf@28
-  int i; // edx@29
   __int16 v31; // ax@33
   __int16 v33; // ax@37
   int v34; // ecx@37
@@ -123,24 +111,15 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int time_of_day
   int v36; // eax@38
   int v38; // eax@43
   int v39; // edi@45
-  size_t v40; // eax@50
-  unsigned char *v42; // eax@56
-  size_t v44; // edi@56
   int v45; // eax@58
-  int v48; // eax@59
   int v51; // ebx@60
   int v52; // eax@61
   __int16 v64; // ax@64
   __int16 v65; // ax@65
   struct class51_stru2 *v66; // ecx@65
   __int16 v67; // ax@80
-  int v69; // eax@81
-  int v73; // eax@81
   int v76; // eax@81
-  size_t v77; // eax@81
-  int v78; // edi@87
-  int v79; // edi@88
-  int v80; // eax@92
+  int v78;  int v80; // eax@92
   int v82; // ecx@94
   int v83; // eax@95
   int v84; // edx@97
@@ -149,7 +128,6 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int time_of_day
   int v87; // eax@110
   int v89; // edi@114
   int v90; // eax@118
-  size_t v92; // eax@120
   int v100; // eax@129
   int v106; // eax@147
   int v108; // eax@147
@@ -165,8 +143,6 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int time_of_day
   int v120; // [sp+0h] [bp-B80h]@10
   char v121[0x3C8]; // [sp+10h] [bp-B70h]@110
   char v122[0x3C8]; // [sp+3D8h] [bp-7A8h]@110
-  //char v123[4]; // [sp+79Ch] [bp-3E4h]@50
-  char Str1[256]; // [sp+7A0h] [bp-3E0h]@50
   char DstBuf; // [sp+8A0h] [bp-2E0h]@10
   __int32 Offset; // [sp+8A4h] [bp-2DCh]@10
   __int32 v127; // [sp+8B0h] [bp-2D0h]@10
@@ -192,948 +168,217 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int time_of_day
   __int32 v147; // [sp+9A0h] [bp-1E0h]@38
   __int32 v148; // [sp+9ACh] [bp-1D4h]@38
   __int32 v149; // [sp+9D0h] [bp-1B0h]@10
-  char FileName[8 + 4*array_size_unknown]; // [sp+A20h] [bp-160h]@8
-  char v151; // [sp+A28h] [bp-158h]@12
-  char v152; // [sp+B1Ch] [bp-64h]@10
-  char Str[32]; // [sp+B20h] [bp-60h]@1
-  char *v154; // [sp+B40h] [bp-40h]@50
-  int v155; // [sp+B44h] [bp-3Ch]@55
-  int v156; 
-  size_t ElementSize; // [sp+B4Ch] [bp-34h]@56
-  int v157; // [sp+B50h] [bp-30h]@61
+  //__int64 v155; // [sp+B44h] [bp-3Ch]@55  int v157; // [sp+B50h] [bp-30h]@61
   cTexture *v158; // [sp+B54h] [bp-2Ch]@68
-  ODM_struct v159;
-  /*struct maybe_odm_header
-  {
+  struct maybe_odm_header  {
    int v159; // [sp+B58h] [bp-28h]@50
-   char v160; // [sp+B5Ch] [bp-24h]@50
-   char v161; // [sp+B5Dh] [bp-23h]@50
-   char v162; // [sp+B5Eh] [bp-22h]@50
-   char v163; // [sp+B5Fh] [bp-21h]@50
-   unsigned int v164; // [sp+B60h] [bp-20h]@50
-   size_t Size; // [sp+B64h] [bp-1Ch]@50
-  };
-  struct maybe_odm_header v159;	*/
-
+   unsigned int magic;  // "MVII" for mm7   unsigned int uCompressedSize; // [sp+B60h] [bp-20h]@50   unsigned int uUncompressedSize; // [sp+B64h] [bp-1Ch]@50  };
+  struct maybe_odm_header v159;
   unsigned int v166; // [sp+B68h] [bp-18h]@13
   void *v167; // [sp+B6Ch] [bp-14h]@12
   unsigned int v168; // [sp+B70h] [bp-10h]@19
-  char *Str2; // [sp+B74h] [bp-Ch]@12
   int v170; // [sp+B78h] [bp-8h]@59
-  void *Src; // [sp+B7Ch] [bp-4h]@59
-  int wtf;
-   char *temp_buff;
+  char *Str2;  unsigned char *Src; // [sp+B7Ch] [bp-4h]@59  int wtf;
  unsigned char *pTexturesNames;
 
- unsigned char *curr_position;
- unsigned char *mem_buffer;
- int var4;
- bool var5;
 
- 
- FILE    *hODMFile;
- 
- int      j;
 
-  v5 = (int)_this;
-  strcpy(Str, Source);
-  if ( byte_6BE3C4_MaybeDrowningFlag )
-  {
-    class35_obj.byte_267AD3 = 16;
-    class35_obj.byte_267AD4 = -62;
-    class35_obj.byte_267AD5 = -103;
-    class35_obj.byte_267AD0 = 37;
-    class35_obj.byte_267AD1 = -113;
-    class35_obj.byte_267AD2 = 92;
-    class35_sub_48A614(&class35_obj);
-  }
-  else
-  {
-   class35_obj.byte_267AD3 = 0;
-   class35_obj.byte_267AD4 = 0;
-   class35_obj.byte_267AD5 = 0;
-   if ( class35_obj.byte_267AD0 != -128 || class35_obj.byte_267AD1 != -128 || class35_obj.byte_267AD2 != -128 )
-   {
-     class35_obj.byte_267AD0 = -128;
-     class35_obj.byte_267AD1 = -128;
-     class35_obj.byte_267AD2 = -128;
-     class35_sub_48A614(&class35_obj);
-   }
-  }
-
-  dword_6807E0 = 0;
-  wsprintfA(FileName, "levels\\%s", Str);
-  if ( _access(FileName, 4) != -1 )
-  {
-    result = fopen(FileName, "rb");
-    v7 = result;
-   // File = (int)result;
-    if ( !result )
-      return result;
-    *(_DWORD *)a5 = 1;
-    v8 = strlen(Str);
-    v120 = 2;
-    *(&v152 + v8) = 0;
-    struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture( Str, v120);
-    locked_fread(&DstBuf, 0x180u, 1u, v7);
-    fseek(v7, Offset, 0);
-    locked_fread(_this, 0xB0u, 1u, v7);
-    class51_sub_47F420(_this);
-    class51_sub_47F3EA(_this);
-    strcpy((char *)_this->pGroundTileset, "grastyl");
-    fseek(v7, v127, 0);
-    locked_fread(&_this->uNumBModels, 4u, 1u, v7);
-    fseek(v7, v128, 0);
-    locked_fread(&uNumLayingItems, 4u, 1u, v7);
-    fseek(v7, v129, 0);
-    locked_fread(&uNumLevelDecorations, 4u, 1u, v7);
-    fseek(v7, v130, 0);
-    locked_fread(&uNumActors, 4u, 1u, v7);
-    fseek(v7, v131, 0);
-    locked_fread(&dword_5FF140, 4u, 1u, v7);
-    class51_InitializeGeodata((class51_Geodata *)(v5 + 180));
-    fseek(v7, v132, 0);
-    locked_fread(*(void **)(v5 + 180), 1u, 0x4000u, v7);
-    fseek(v7, v133, 0);
-    locked_fread(*(void **)(v5 + 184), 1u, 0x4000u, v7);
-    fseek(v7, v134, 0);
-    locked_fread(*(void **)(v5 + 188), 1u, 0x4000u, v7);
-    sub_47C80A((class51_Geodata *)(v5 + 180), 0, 0, 128, 128);
-    MemFree( (void *)(void *)*(_DWORD *)(v5 + 212));
-    *(_DWORD *)(v5 + 212) = 0;
-    v9 = (int)NamedMemAlloc(char, 32768, "CMAP");
-    v120 = *(_DWORD *)(v5 + 228);
-    *(_DWORD *)(v5 + 212) = v9;
-    MemFree( (void *)(void *)v120);
-    *(_DWORD *)(v5 + 228) = 0;
-    v10 = (int)NamedMemAlloc(char, 65536, "OMAP");
-    v120 = 0;
-    *(_DWORD *)(v5 + 228) = v10;
-    fseek(v7, v149, v120);
-    locked_fread(&uNumTerrainNormals, 4u, 1u, v7);
-    locked_fread(&unk_73D514, 1u, 0x20000u, v7);
-    locked_fread(uTerrainNormalIndices, 1u, 0x10000u, v7);
-    pTerrainNormals = NamedMemAlloc(Normal, uNumTerrainNormals, "TerNorm");
-    locked_fread(pTerrainNormals, 1u, uNumTerrainNormals * sizeof(struct Normal), v7);
-    v11 = (int)NamedMemAlloc(char, 188 * *(_DWORD *)(v5 + 176), "BDdata");
-    v120 = 0;
-    *(_DWORD *)(v5 + 216) = v11;
-    fseek(v7, v135, v120);
-    locked_fread(*(void **)(v5 + 216), 0xBCu, *(_DWORD *)(v5 + 176), v7);
-    fseek(v7, v136, 0);
-    a4 = 0;
-    if ( *(_DWORD *)(v5 + 176) > 0 )
-    {
-      v12 = 0;
-      while ( 1 )
-      {
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 72) = 0;
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 84) = 0;
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 88) = 0;
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 96) = 0;
-        FileName[0] = 0;
-        v120 = v12 + *(_DWORD *)(v5 + 216);
-        wsprintfA(FileName, "%s", v120);
-        v14 = *(_DWORD *)(v5 + 216);
-        v151 = 0;
-        v120 = (int)FileName;
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 72) = (int)NamedMemAlloc(char,
-                                                          12 * *(_DWORD *)(v12 + v14 + 68),
-                                                          FileName);
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 84) = (int)NamedMemAlloc(char,
-                                                          308 * *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 76),
-                                                          FileName);
-        v15 = v12 + *(_DWORD *)(v5 + 216);
-        v120 = (int)FileName;
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 88) = (int)NamedMemAlloc(char,
-                                                          2 * *(_DWORD *)(v15 + 76),
-                                                          FileName);
-        v16 = v12 + *(_DWORD *)(v5 + 216);
-        v120 = (int)FileName;
-        v17 = (int)NamedMemAlloc(char, 8 * *(_DWORD *)(v16 + 92), FileName);
-        v18 = *(_DWORD *)(v5 + 216);
-       // v120 = File;
-        *(_DWORD *)(v18 + v12 + 96) = v17;
-        locked_fread(
-          *(void **)(v12 + *(_DWORD *)(v5 + 216) + 72),
-          0xCu,
-          *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 68),
-          v7);
-        locked_fread(
-          *(void **)(v12 + *(_DWORD *)(v5 + 216) + 84),
-          0x134u,
-          *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 76),
-          v7);
-        locked_fread(
-          *(void **)(v12 + *(_DWORD *)(v5 + 216) + 88),
-          2,
-          *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 76),
-          v7);
-        locked_fread(
-          *(void **)(v12 + *(_DWORD *)(v5 + 216) + 96),
-          8u,
-          *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 92),
-          v7);
-        v19 = MemAlloc(char, 10 * *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 76));
-       // v119 = File;
-        v20 = *(_DWORD *)(v5 + 216);
-        v167 = v19;
-        locked_fread(v19, 0xAu, *(_DWORD *)(v20 + v12 + 76),v7);
-        v13 = *(_DWORD *)(v5 + 216);
-        Str2 = 0;
-        if ( *(_DWORD *)(v13 + v12 + 76) > 0 )
-          break;
-LABEL_25:
-        MemFree(v167);
-        ++a4;
-        v12 += 188;
-        if ( a4 >= *(_DWORD *)(v5 + 176) )
-          goto LABEL_26;
-      }
-      v166 = 0;
-      wtf = (int)v167;
-      while ( 1 )
-      {
-        var4 = v166 + *(_DWORD *)(v13 + v12 + 84);
-        if ( !(*(_BYTE *)(a5 + 29) & 0x40) )
-          break;
-        v21 = TextureFrameTable_sub_44E163(pTextureFrameTable, (char *)wtf);
-        *(_WORD *)(a5 + 272) = v21;
-        if ( !v21 )
-        {
-          v22 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((char *)wtf, 0);
-          v23 = var4;
-          *(_BYTE *)(v23 + 29) &= 0xBFu;
-LABEL_19:
-          *(_WORD *)(v23 + 272) = v22;
-          v168 = v22 != -1 ? 72 * v22 + 7278780 : 0;
-          *(_WORD *)(v22 != -1 ? 72 * v22 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
-                                                                     &class35_obj,
-                                                                     *(_WORD *)(v22 != -1 ? 72 * v22 + 7278780 + 0x24 : 36));
-          goto LABEL_20;
-        }
-        TextureFrameTable_sub_44E0ED(pTextureFrameTable, *(_WORD *)(*(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 84) + v166 + 272));
-LABEL_20:
-        if ( *(_WORD *)(a5 + 292) )
-        {
-          if ( sub_44C1E8((class51_stru2 *)a5) )
-            *(_BYTE *)(a5 + 30) |= 0x10u;
-          else
-            *(_BYTE *)(a5 + 30) &= 0xEFu;
-        }
-        ++Str2;
-        v13 = *(_DWORD *)(v5 + 216);
-        v166 += 308;
-        wtf += 10;
-        if ( (signed int)Str2 >= *(_DWORD *)(v13 + v12 + 76) )
-          goto LABEL_25;
-      }
-      v22 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((char *)wtf, 0);
-      v23 = var4;
-      goto LABEL_19;
-    }
-LABEL_26:
-    v24 = v7;//(FILE *)File;
-    fseek(v7, v137, 0);
-    locked_fread(pLayingItemsList, 0x70u, uNumLayingItems, v24);
-    if ( (signed int)uNumLayingItems > 0 )
-    {
-      v25 = (char *)pLayingItemsList;
-      a4 = uNumLayingItems;
-      do
-      {
-        v27 = *((_DWORD *)v25 + 9);
-        var4 = 0;
-        v26 = (FILE *)(48 * v27);
-        v28 = pObjectDescriptionList->uNumObjects == 0;
-        v29 = pObjectDescriptionList->uNumObjects < 0;
-        LOWORD(v26) = *(_WORD *)((_DWORD)word_5D29F8 + (_DWORD)v26);
-      //  File = (int)v26;
-        *(_WORD *)v25 = (_WORD)v26;
-        if ( v29 | v28 )
-        {
-LABEL_33:
-          v31 = 0;
-        }
-        else
-        {
-          for ( i = (int)(pObjectDescriptionList->pDescriptions + 32); (_WORD)v26 != *(_WORD *)i; i = wtf )
-          {
-            ++var4;
-            wtf = i + 56;
-            if ( var4 >= pObjectDescriptionList->uNumObjects )
-              goto LABEL_33;
-         //   LOWORD(v26) = File;
-          }
-          v31 = var4;
-        }
-        *((_WORD *)v25 + 1) = v31;
-        v25 = (char *)v25 + 112;
-      }
-      while ( a4-- != 1 );
-    }
-    fseek(v24, v138, 0);
-    locked_fread(pLevelDecorations, sizeof(struct LevelDecoration), uNumLevelDecorations, v24);
-    a4 = 0;
-    if ( (signed int)uNumLevelDecorations > 0 )
-    {
-      var4 = (int)pLevelDecorations;
-      do
-      {
-        locked_fread(&FileName, 1u, 0x20u, v24);
-        v33 = sub_4488B6(pDecorationDescriptionList, FileName);
-        v34 = var4;
-        ++a4;
-        var4 += 32;
-        *(_WORD *)v34 = v33;
-      }
-      while ( a4 < (signed int)uNumLevelDecorations );
-    }
-    fseek(v24, v139, 0);
-    locked_fread(pActors, 0x344u, uNumActors, v24);
-    fseek(v24, v140, 0);
-    locked_fread(array_5E5150, 0x14CCu, dword_5FF140, v24);
-    fseek(v24, v141, 0);
-    locked_fread((void *)(v5 + 220), 4u, 1u, v24);
-    MemFree((void *)*(_DWORD *)(v5 + 224));
-    v35 = *(_DWORD *)(v5 + 220);
-    *(_DWORD *)(v5 + 224) = 0;
-    v36 = (int)NamedMemAlloc(char, 2 * v35, "IDLIST");
-    v120 = (int)v24;
-    *(_DWORD *)(v5 + 224) = v36;
-    locked_fread((void *)v36, 2, *(_DWORD *)(v5 + 220), (FILE *)v120);
-    fseek(v24, v142, 0);
-    locked_fread(*(void **)(v5 + 228), 4u, 0x4000u, v24);
-    fseek(v24, v143, 0);
-    locked_fread((void *)(v5 + 1216), 4u, 1u, v24);
-    *(_DWORD *)(v5 + 1220) = (int)NamedMemAlloc(char, 24 * *(_DWORD *)(v5 + 1216), "Spawn");
-    fseek(v24, v144, 0);
-    locked_fread(*(void **)(v5 + 1220), 0x18u, *(_DWORD *)(v5 + 1216), v24);
-    fseek(v24, v145, 0);
-    locked_fread((void *)(v5 + 1224), 0x28u, 1u, v24);
-    fseek(v24, v146, 0);
-    locked_fread(&global_5E4C90, 1, sizeof(struct struct4), v24);
-    fseek(v24, v147, 0);
-    locked_fread((void *)(v5 + 1264), 1u, 0x38u, v24);
-    fseek(v24, v148, 0);
-    locked_fread((void *)(v5 + 1264), 1u, 4u, v24);
-    CTileTable_LoadSomeTiles(pTileTable, 4);
-    *a5 = v5 + 160;
-    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 160));
-    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 164));
-    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 168));
-    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 172));
-    if ( v5 != -96 && *(_BYTE *)(v5 + 96) )
-    {
-      v120 = 0;
-      v119 = v5 + 96;
-    }
-    else
-    {
-      v120 = 0;
-      v119 = (signed int)byte_6BE114_cfg_textures_DefaultSkyTexture;
-    }
-    _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v119, 2);
-    strcpy((char *)_this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
-    v38 = (int)TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
-	
-    _this->dword_0000EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v38, 2);
-    if ( _this->uSkyTextureID != -1 )
-      LODFile_Bitmaps_LOD.aLODHeaders[_this->uSkyTextureID].word_000026 = class35_sub_48A3BC_MessWithPalettes(
-                                                                 &class35_obj,
-                                                                LODFile_Bitmaps_LOD.aLODHeaders[_this->uSkyTextureID].word_000024);
-    v39 = _this->dword_0000EC;
-    if ( v39 != -1 )
-      LODFile_Bitmaps_LOD.aLODHeaders[v39].word_000026 = class35_sub_48A3BC_MessWithPalettes(
-                                                                 &class35_obj,
-                                                                  LODFile_Bitmaps_LOD.aLODHeaders[v39].word_000024);
-    sub_47F0E2();
-    LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-    fclose(v24);
-   // goto LABEL_150;
-  }
-  else
-	  {
-  if (!LODFile_Games_LOD.IsContainerExist( Str))
-    erroneous_printf("Unable to find %s in Games.LOD", Str);
-
-  strcpy(FileName, Str);
-
-  strcpy(Str1, Str);
-  Str1[strlen(Str1) - 4] = 0;
-
-#ifndef OLD_CODE
-  wchar_t  pLevelMapFilename[256];
-  wsprintfW(pLevelMapFilename, L"%S", Str1);
-  struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture_New( pLevelMapFilename);
-#endif
-#ifdef OLD_CODE
- 
-  struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
-#endif
-  v154 = &v152;
-  v40 = strlen(Str);
-  strcpy(Str + v40 - 4, ".odm");
-  hODMFile = LODFile_Games_LOD.Find_Container( Str, 1);
-
-  v159.signature1 = 91969;
-  v159.signature[0] = 'm';
-  v159.signature[1] = 'v';
-  v159.signature[2] = 'i';
-  v159.signature[3] = 'i';
-  v159.packed_size = 0;
-  v159.size_data = 0;
-
-  locked_fread(&v159, 16, 1, hODMFile);
-  if ( v159.signature1 != 91969 || v159.signature[0] != 'm' || v159.signature[1] != 'v' || v159.signature[2] != 'i' || v159.signature[3] != 'i' )
-  {
-    wtf = (int)&v115;
-    Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-  }
- // v44 = v159.packed_size;
- // ElementSize = v159.size_data;
-  mem_buffer = MemAlloc(unsigned char, v159.size_data);
-
-  curr_position = mem_buffer;
-  if ( v159.packed_size < v159.size_data )
-  {
-    temp_buff = (char*)MemAlloc(char, v159.packed_size);
-    locked_fread(temp_buff, v159.packed_size, 1, hODMFile);
-    MemUnzip(mem_buffer, &v159.size_data, temp_buff, v159.packed_size);
-    MemFree(temp_buff);	 
-  }
-  else
-  {
-    locked_fread(mem_buffer, v159.size_data, 1, hODMFile);
-  }
-
-  memcpy(_this, curr_position, 0xB0);
-  curr_position += 0xB0;
-
-  class51_sub_47F420(_this);
-  class51_sub_47F3EA(_this);
-
-  strcpy((char *)_this->pGroundTileset, "grastyl");
-
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  class51_InitializeGeodata(&_this->struct_0000B4);
-
-  memcpy(_this->struct_0000B4.pHeightmap, curr_position, 128 * 128);
-  curr_position += 128 * 128;
-
-  memcpy(_this->struct_0000B4.pTilemap, curr_position, 128 * 128);
-  curr_position += 128 * 128;
-
-  memcpy(_this->struct_0000B4.pAttributemap, curr_position, 128 * 128);
-  curr_position += 128 * 128;
-
-  MemFree(_this->ptr_0000D4);
-  _this->ptr_0000D4 = NamedMemAlloc(unsigned char, 0x8000, "ODM CMAP");
-
-  sub_47C80A(&_this->struct_0000B4, 0, 0, 128, 128);
-
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  memcpy(&uNumTerrainNormals, curr_position, 4);
-  curr_position += 4;
-
-  memcpy(unk_73D514, curr_position, 0x20000);
-  curr_position += 0x20000;
-
-  memcpy(uTerrainNormalIndices, curr_position, 0x10000);
-  curr_position += 0x10000;
-
-  pTerrainNormals = NamedMemAlloc(Normal, uNumTerrainNormals, "ODM Terrain Normals");
-  memcpy(pTerrainNormals, curr_position, uNumTerrainNormals * sizeof(struct Normal));
-  curr_position += uNumTerrainNormals * sizeof(struct Normal);
-
-  memcpy(&_this->uNumBModels, curr_position, 4);
-  curr_position += 4;
-
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  v48 = _this->uNumBModels;
-
-  _this->pBModels = NamedMemAlloc(class51_BModel, v48, "ODM BModel data");
-  memcpy(_this->pBModels, curr_position, v48 * sizeof(struct class51_BModel));
-  curr_position+= v48 * sizeof(struct class51_BModel);
- 
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
- // v170 = 0;
-//  if (_this->uNumBModels > 0)
-  for(i=0; i<_this->uNumBModels;i++) 
-	  {
-	  //  v51 = 0;
-	  // i = 0;
-	  // while (true)
-	  // {
-	  _this->pBModels[i].ptr_000048 = 0;
-	  _this->pBModels[i].ptr_000054 = 0;
-	  _this->pBModels[i].ptr_000058 = 0;
-	  _this->pBModels[i].ptr_000060 = 0;
-
-	  lstrcpyA(FileName, (const char *)(_this->pBModels[i].pModelName));
-	  // v151 = 0;
-	  // v120 = (int)FileName;
-
-	  v119 =  _this->pBModels[i].dword_000044*sizeof(struct class51_stru3);	
-	  _this->pBModels[i].ptr_000048 = NamedMemAlloc(class51_stru3, _this->pBModels[i].dword_000044, FileName);
-	  memcpy(_this->pBModels[i].ptr_000048, curr_position, v119);
-	  curr_position +=v119;
-
-	  v119 = _this->pBModels[i].dword_00004C * sizeof(struct class51_stru2);
-	  _this->pBModels[i].ptr_000054 = NamedMemAlloc(class51_stru2, _this->pBModels[i].dword_00004C, FileName);
-	  memcpy(_this->pBModels[i].ptr_000054,curr_position, v119);
-	  curr_position +=v119;
-
-	  v119 = 2 * _this->pBModels[i].dword_00004C;
-	  _this->pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, _this->pBModels[i].dword_00004C, FileName);
-	  memcpy(_this->pBModels[i].ptr_000058,curr_position, v119);
-	  curr_position +=v119;
-
-	  v119 = 8 * _this->pBModels[i].dword_00005C;
-	  _this->pBModels[i].ptr_000060 = NamedMemAlloc(unsigned char, 8 * _this->pBModels[i].dword_00005C, FileName);
-	  memcpy(_this->pBModels[i].ptr_000060,curr_position, v119);
-	  curr_position +=v119;
-
-	  pTexturesNames = NamedMemAlloc(unsigned char, 10 * _this->pBModels[i].dword_00004C, "ODM Loading tmp texture names");
-	  v119 = 10 * _this->pBModels[i].dword_00004C;
-	  memcpy(pTexturesNames, curr_position, v119);
-	  curr_position +=v119;
-
-	  // v157 = 0;
-	  //  v52 = (int)_this->pBModels;
-	  // if (_this->pBModels[i].dword_00004C > 0 )
-	  for(j=0; j<_this->pBModels[i].dword_00004C; j++)
-		  {
-		  //  v168 = 0;
-		  Str2 = (char *)pTexturesNames+j*10;
-		  //  j = 0;
-		  // while ( 1 )
-		  //  {
-		  v66 = &_this->pBModels[i].ptr_000054[j];
-		  if ( !(v66->byte_00001D & 0x40) )
-			  {	 
-#ifndef OLD_CODE
-			  wchar_t  pFilename[256];
-			  wsprintfW(pFilename, L"%S", Str2);
-			  v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
-#else
-			  v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(Str2,2);
-#endif
-			  if  (!(v66->uTextureID<0))
-				  {
-				  v158 = &LODFile_Bitmaps_LOD.aLODHeaders[v66->uTextureID];
-				  v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
-				  }
-			  }
-		  else
-			  {
-			  // break;
-			  v64 = TextureFrameTable_sub_44E163(pTextureFrameTable, Str2);
-			  v66->uTextureID = v64;
-
-			  if ( !v64 )
-				  {
-				  v65 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( Str2, 0);
-				  //*(_BYTE *)(v66 + 29) &= 0xBFu;
-				  v66->byte_00001D&= 0xBFu;
-				  v66->uTextureID = v65;
-				  if  (!(v66->uTextureID<0))
-					  {
-					  v158 = &LODFile_Bitmaps_LOD.aLODHeaders[v66->uTextureID];
-					  v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
-					  }
-
-				  //  *(_WORD *)(v66 + 272) = v65;
-				  //  v158 = (cTexture *)(v65 != -1 ? &LODFile_Bitmaps_LOD.aLODHeaders[v65]: 0);
-				  //  v120 = (v65 != -1 ? LODFile_Bitmaps_LOD.aLODHeaders[v65].word_000024 : 36);
-				  //  (v65 != -1 ? LODFile_Bitmaps_LOD.aLODHeaders[v65].word_000026 : 38) = (short)class35_sub_48A3BC_MessWithPalettes(&class35_obj, v120);
-				  //   goto LABEL_69;
-				  }
-			  else
-				  {
-				  v120 = _this->pBModels[i].ptr_000054[j].uTextureID;
-				  TextureFrameTable_sub_44E0ED(pTextureFrameTable, v120);
-				  }
-
-			  if (v66->word_000124  )	// *(_WORD *)(wtf + 292)
-				  {
-				  if ( sub_44C1E8(v66))
-					  v66->byte_00001E|= 0x10;	 // *(_BYTE *)(wtf + 30) = 0x10;
-				  else
-					  v66->byte_00001E&= 0xEF;//*(_BYTE *)(wtf + 30) &= 0xEFu;
-				  }
-			  //  ++v157;
-			  //  v52 = (int)_this->pBModels;
-			  // v168 += 308;
-			  //  ++j;
-			  //  Str2 += 10;
-			  // if ( v157 >= _this->pBModels[i].dword_00004C)
-			  //  goto LABEL_74;
-			  // }
-			  }
-		  }
-	  //LABEL_74:
-	  MemFree(pTexturesNames);
-	  // ++v170;
-	  //  v51 += 188;	count bmodels
-	  //  ++i;
-	  //  if ( v170 >= _this->uNumBModels)
-	  //  goto LABEL_75;
-	  //  }
-	  }
-
-//LABEL_75:
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  memcpy(&uNumLevelDecorations, curr_position, 4);
-  curr_position += 4;
-  if ( (signed int)uNumLevelDecorations < 0 || (signed int)uNumLevelDecorations > 3000 )
-  {
-    wtf = (int)&v115;
-    Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09(&v167, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-  }
-
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+ if (!pFilename)   return Result::InvalidParams;
+ Clear(); LODFile_Bitmaps_LOD.sub_46454B(); LODFile_Sprites_LOD.sub_4645DC(); SpriteFrameTable_fn3(pSpriteFrameTable); LODFile_Icons_LOD.sub_46454B();    /*if ( !_this->Load(Source, File, a4, a5) )    {
+      MessageBoxA(0, "Error!", "Couldn't Load Map!", 0);      class51_sub_47CDE2((int)_this);    }*/	
 
 
 
- memcpy(pLevelDecorations, curr_position, uNumLevelDecorations * sizeof(struct LevelDecoration));
- curr_position += uNumLevelDecorations * sizeof(struct LevelDecoration);
-
- for (i = 0; i < uNumLevelDecorations; ++i)
+ if (byte_6BE3C4_MaybeDrowningFlag)
  {
-  memcpy(FileName, curr_position, 32);
-  curr_position += 32;
-
-  pLevelDecorations[i].uDecorationDescriptionID = sub_4488B6(pDecorationDescriptionList, FileName);
+  class35_obj.byte_267AD3 = 16;
+  class35_obj.byte_267AD4 = -62;
+  class35_obj.byte_267AD5 = -103;
+  class35_obj.byte_267AD0 = 37;
+  class35_obj.byte_267AD1 = -113;
+  class35_obj.byte_267AD2 = 92;
+  class35_sub_48A614(&class35_obj);
  }
- LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
-
- memcpy(&_this->dword_0000DC, curr_position, 4);
- curr_position +=  4;
-
- v120 = (int)_this->ptr_0000E0;
- v69 = _this->dword_0000DC;
-
- //MemFree( (void *)_this->ptr_0000E0);
- MemFree(_this->ptr_0000E0);
- _this->ptr_0000E0 = NamedMemAlloc(unsigned short, v69, "ODM IDLIST");
- memcpy(_this->ptr_0000E0, curr_position, 2 * v69);
- curr_position += 2 * v69;
-
- LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
- MemFree(_this->ptr_0000E4);
- _this->ptr_0000E4 = NamedMemAlloc(unsigned int, 128 * 128, "ODM OMAP");
- memcpy(_this->ptr_0000E4, curr_position, 128 * 128 * 4);
- curr_position += 65536;
- LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
- memcpy(&_this->dword_0004C0, curr_position, 4);
- curr_position +=  4;
- LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
- v73 = _this->dword_0004C0;
- _this->ptr_0004C4 = NamedMemAlloc(unsigned char, 24 * v73, "ODM Spawn");
- memcpy(_this->ptr_0004C4, curr_position, 24 * v73);
- LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
- MemFree(mem_buffer); // v155
- v77 = strlen(Str);
- strcpy(Str + v77 - 4, ".ddm");
- //hODMFile = LODFile_FindContainer(pLODFile_New_LOD, Str, 1);
- hODMFile = LODFile_Games_LOD.Find_Container( Str, 1);
- locked_fread(&v159, 16, 1, hODMFile);
- var5 = false;
- if ( v159.signature1 != 91969 || v159.signature[0] != 'm' || v159.signature[1] != 'v' || v159.signature[2] != 'i' || v159.signature[3] != 'i' )
- {
-    wtf = (int)&v115;
-    Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-    var5 = true;
+ else
+ {  class35_obj.byte_267AD3 = 0;  class35_obj.byte_267AD4 = 0;  class35_obj.byte_267AD5 = 0;  if (class35_obj.byte_267AD0 != -128 ||      class35_obj.byte_267AD1 != -128 ||      class35_obj.byte_267AD2 != -128)  {   class35_obj.byte_267AD0 = -128;   class35_obj.byte_267AD1 = -128;   class35_obj.byte_267AD2 = -128;   class35_sub_48A614(&class35_obj);  }
  }
-  v78 = 0;
- // wtf = v159.packed_size;
-  v168 = 0;
-  //v166 = v159.size_data;
-  if ( !var5 )
-  {
-    mem_buffer = MemAlloc(unsigned char, v159.size_data);
-    curr_position = mem_buffer;
-    if ( v159.packed_size<= v159.size_data )
-    {
-      if ( v159.packed_size== v159.size_data )
-      {
-        locked_fread(mem_buffer, v159.size_data, 1, hODMFile);
-      }
-      else
-      {
-        temp_buff = MemAlloc(char,v159.packed_size);
-        locked_fread(temp_buff, v159.packed_size, 1, hODMFile);
-        MemUnzip(mem_buffer, &v159.size_data, temp_buff, v159.packed_size);
-        MemFree(temp_buff);
-      }
-    }
-    else
-    {
-      wtf = (int)&v115;
-      Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-      sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-    }
-    memcpy(&_this->dword_0004C8, curr_position, 40);
-    curr_position += 40;
-  }
+ dword_6807E0 = 0;
 
-  v82 = 0;
-  for (i = 0; i < _this->uNumBModels; ++i)
-    v82 += _this->pBModels[i].dword_00004C;
+ if (!LODFile_Games_LOD.IsContainerExist(pFilename))   erroneous_printf("Unable to find %s in Games.LOD", pFilename);#ifndef OLD_CODE
+ wchar_t pLevelMapFilename[256]; wsprintfW(pLevelMapFilename, L"%S", pFilename); pLevelMapFilename[lstrlenW(pLevelMapFilename) - 4] = 0; struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture_New(pLevelMapFilename);#else char pLevelMapFilename[256]; lstrcpyA(pLevelMapFilename, pFilename); pLevelMapFilename[lstrlenA(pLevelMapFilename) - 4] = 0; struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture(pLevelMapFilename, 2);#endif
 
-  v84 = _this->dword_0004D8;
-  if ( v84 )
+ FILE *hODMFile = LODFile_Games_LOD.Find_Container(pFilename, 1);
+ v159.v159 = 91969; v159.magic = 'IIVM'; v159.uCompressedSize = 0; v159.uUncompressedSize = 0;
+ locked_fread(&v159, 0x10, 1, hODMFile); if (v159.v159 != 91969 || v159.magic != 'iivm' && v159.magic != 'IIVM') {  Game_sub_40E2C8(nullptr, "Invalid ODM format", 0);  ExitProcess(0); }
+ unsigned char *pRawODM = MemAlloc(unsigned char, v159.uUncompressedSize); if (v159.uCompressedSize < v159.uUncompressedSize) {  Src = MemAlloc(unsigned char, v159.uCompressedSize);  wtf = (int)Src;  locked_fread(Src, v159.uCompressedSize, 1, hODMFile);  MemUnzip(pRawODM, &v159.uUncompressedSize, Src, v159.uCompressedSize); } else   locked_fread(pRawODM, v159.uUncompressedSize, 1, hODMFile);
+ Src = pRawODM; memcpy(string_000000, Src, 32); memcpy(pLocationFileName, Src + 1 * 32, 32); memcpy(pLocationFileDescription, Src + 2 * 32, 32); memcpy(pSkyTextureName, Src + 3 * 32, 32); memcpy(pGroundTileset, Src + 4 * 32, 32);
+ memcpy(array_0000A0, Src + 5 * 32, 16); Src += 0xB0;
+ class51_sub_47F420(this); class51_sub_47F3EA(this);
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);  cTerrainData.Initialize();
+  memcpy(cTerrainData.pHeightmap, Src, 128 * 128);  Src += 128 * 128;
+  memcpy(cTerrainData.pTilemap, Src, 128 * 128);  Src += 128 * 128;
+  memcpy(cTerrainData.pAttributemap, Src, 128 * 128);  Src += 128 * 128;
+  ptr_0000D4 = NamedMemAlloc(unsigned char, 128 * 128 * 2, "ODM CMAP");  cTerrainData.sub_47C80A(0, 0, 128, 128);
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);  memcpy(&uNumTerrainNormals, Src, 4);  Src += 4;
+  memcpy(pTerrainSomeOtherData, Src, 128 * 128 * 2 * sizeof(unsigned int));  Src += 0x20000;
+  memcpy(pTerrainNormalIndices, Src, 128 * 128 * 2 * sizeof(unsigned short));  Src += 0x10000;
+  pTerrainNormals = NamedMemAlloc(Vec3, uNumTerrainNormals, "ODM Terrain Normals");  memcpy(pTerrainNormals, Src, uNumTerrainNormals * sizeof(struct Vec3));  Src += uNumTerrainNormals * sizeof(struct Vec3);
+  memcpy(&uNumBModels, Src, 4);  Src += 4;
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  pBModels = NamedMemAlloc(class51_BModel, uNumBModels, "ODM BModel data");  memcpy(pBModels, Src, uNumBModels * sizeof(struct class51_BModel));  Src += uNumBModels * sizeof(struct class51_BModel);
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  v170 = 0;  if (uNumBModels > 0)  {    v51 = 0;   unsigned int i = 0;    while (true)    {      pBModels[i].ptr_000048 = 0;      pBModels[i].ptr_000054 = 0;      pBModels[i].ptr_000058 = 0;      pBModels[i].ptr_000060 = 0;
+      pBModels[i].ptr_000048 = NamedMemAlloc(class51_stru3, pBModels[i].dword_000044, (char *)pBModels[i].pModelName);      memcpy(pBModels[i].ptr_000048, Src, pBModels[i].dword_000044 * sizeof(class51_stru3));      Src += pBModels[i].dword_000044 * sizeof(class51_stru3);
+      pBModels[i].ptr_000054 = NamedMemAlloc(class51_stru2, pBModels[i].dword_00004C, (char *)pBModels[i].pModelName);      memcpy(pBModels[i].ptr_000054, Src, pBModels[i].dword_00004C * sizeof(struct class51_stru2));      Src += pBModels[i].dword_00004C * sizeof(struct class51_stru2);
+      pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, pBModels[i].dword_00004C, (char *)pBModels[i].pModelName);      memcpy(pBModels[i].ptr_000058, Src, pBModels[i].dword_00004C * 2);      Src += pBModels[i].dword_00004C * 2;
+      pBModels[i].ptr_000060 = NamedMemAlloc(unsigned char, 8 * pBModels[i].dword_00005C, (char *)pBModels[i].pModelName);      memcpy(pBModels[i].ptr_000060, Src, 8 * pBModels[i].dword_00005C);      Src += 8 * pBModels[i].dword_00005C;	        pTexturesNames = NamedMemAlloc(unsigned char, 10 * pBModels[i].dword_00004C, "ODM Loading tmp texture names");      memcpy(pTexturesNames, Src, 10 * pBModels[i].dword_00004C);      Src += 10 * pBModels[i].dword_00004C;
+      v157 = 0;      v52 = (int)pBModels;      if (pBModels[i].dword_00004C > 0)        break;
+LABEL_74:      MemFree(pTexturesNames);      ++v170;      v51 += 188;      ++i;      if ( v170 >= this->uNumBModels)        goto LABEL_75;    }    v168 = 0;    Str2 = (char *)pTexturesNames;    unsigned int j = 0;    while ( 1 )    {      v66 = &this->pBModels[i].ptr_000054[j];      if ( !(v66->byte_000010[13] & 0x40) )        break;      v64 = TextureFrameTable_sub_44E163(pTextureFrameTable, Str2);      v66->uTextureID = v64;      if ( !v64 )      {        v65 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( Str2, 0);        *(_BYTE *)(v66 + 29) &= 0xBFu;        *(_WORD *)(v66 + 272) = v65;        v158 = (cTexture *)(v65 != -1 ? 72 * v65 + 7278780 : 0);        v120 = *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x24 : 36);        *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v120);        goto LABEL_69;      }      v120 = this->pBModels[v51 / 188].ptr_000054[v168 / 308].uTextureID;      TextureFrameTable_sub_44E0ED(pTextureFrameTable, v120);LABEL_69:      if ( *(_WORD *)(wtf + 292) )      {        if ( sub_44C1E8((class51_stru2 *)wtf) )          *(_BYTE *)(wtf + 30) |= 0x10u;        else          *(_BYTE *)(wtf + 30) &= 0xEFu;      }      ++v157;      v52 = (int)this->pBModels;      v168 += 308;      ++j;      Str2 += 10;      if ( v157 >= this->pBModels[i].dword_00004C)        goto LABEL_74;    }#ifndef OLD_CODE
+	wchar_t  pFilename[256];    wsprintfW(pFilename, L"%S", Str2);    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);#else
+    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(Str2,2);#endif
+
+    if (v66->uTextureID != -1)    {     v158 = &LODFile_Bitmaps_LOD.aLODHeaders[v66->uTextureID];     v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);    }    goto LABEL_69;  }
+LABEL_75:  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  memcpy(&uNumLevelDecorations, Src, 4);  Src += 4;  if ( (signed int)uNumLevelDecorations < 0 || (signed int)uNumLevelDecorations > 3000 )
   {
-    if (_this->dword_0004E0)
-    {
-      v85 = _this->dword_0004DC;
-      if ( v85 )
+    Game_sub_40E2C8(0, "Can't load file!", (int)((char *)&pFilename + 3));    sub_466D09(0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);  }
+
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+
+
+ memcpy(pLevelDecorations, Src, uNumLevelDecorations * sizeof(struct LevelDecoration)); Src += uNumLevelDecorations * sizeof(struct LevelDecoration);
+ for (unsigned int i = 0; i < uNumLevelDecorations; ++i) {
+  char pStr[32];  memcpy(pStr, Src, 32);  Src += 32;
+  pLevelDecorations[i].uDecorationDescriptionID = sub_4488B6(pDecorationDescriptionList, pStr); }
+ runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+
+
+ memcpy(&dword_0000DC, Src, 4); Src += 4;
+ ptr_0000E0 = NamedMemAlloc(unsigned short, dword_0000DC, "ODM IDLIST"); memcpy(ptr_0000E0, Src, 2 * dword_0000DC); Src += 2 * dword_0000DC;
+ runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+
+
+ ptr_0000E4 = NamedMemAlloc(unsigned int, 128 * 128, "ODM OMAP"); memcpy(ptr_0000E4, Src, 128 * 128 * 4); Src += 65536; runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+ memcpy(&dword_0004C0, Src, 4); Src += 4; runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI); ptr_0004C4 = NamedMemAlloc(unsigned char, 24 * dword_0004C0, "ODM Spawn"); memcpy(ptr_0004C4, Src, 24 * dword_0004C0); runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI); MemFree((void *)wtf); MemFree(pRawODM); char pDDMName[256]; lstrcpyA(pDDMName, pFilename); pDDMName[lstrlenA(pDDMName) - 3] = 'd'; FILE *hDDMFile = LODFile_Games_LOD.Find_Container(pDDMName, 1); locked_fread(&v159, 0x10u, 1, hDDMFile); if ( v159.v159 != 91969 || v159.magic != 'iivm' && v159.magic != 'IIVM') {
+    Game_sub_40E2C8(&v115, "Invalid DDM format", 0);    sub_466D09((char *)0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__); }
+  wtf = v159.uCompressedSize;  v166 = v159.uUncompressedSize;
+ unsigned char *pRawDDMFile = MemAlloc(unsigned char, v159.uUncompressedSize); if (v159.uCompressedSize == v159.uUncompressedSize)   locked_fread(pRawDDMFile, v159.uUncompressedSize, 1, hDDMFile); else if (v159.uCompressedSize < v159.uUncompressedSize) {  Src = MemAlloc(unsigned char, v159.uCompressedSize);  locked_fread(Src, v159.uCompressedSize, 1, hDDMFile);  MemUnzip(pRawDDMFile, &v159.uUncompressedSize, Src, v159.uCompressedSize);  MemFree(Src); } else {      Game_sub_40E2C8(0, "Uncompressed DDM", 0);      sub_466D09((char *)0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__); } memcpy(array_0004C8, pRawDDMFile, 0x28); Src = pRawDDMFile + 40;  v82 = 0;
+  for (unsigned int i = 0; i < uNumBModels; ++i)    v82 += pBModels[i].dword_00004C;
+  v84 = array_0004C8[4];  Str2 = 0;  if ( v84 )
+  {
+    if (array_0004C8[6])    {
+      v85 = array_0004C8[5];      if ( v85 )
       {
-        if ( v84 != v82 || _this->dword_0004E0 != _this->uNumBModels || v85 != uNumLevelDecorations )
-          var5 = true;
-      }
+        if ( v84 != v82 || this->array_0004C8[6] != this->uNumBModels || v85 != uNumLevelDecorations )          Str2 = (char *)1;      }
     }
   }
-  if ( BYTE1(dword_6BE364) & 0x20 )
-    var4 = 29030400;
-
-  if ( var5 )
-  {
+  if (dword_6BE364 & 0x2000)    uRespawnInterval = 29030400;
+  if ( Str2 )  {
     memset(v122, 0, 0x3C8u);
-    memset(v121, 0, 0x3C8u);
-    goto LABEL_112;
+    v87 = (int)memset(v121, 0, 0x3C8u);    goto LABEL_112;
   }
 
-  v86 = _this->dword_0004CC;
-  if ( time_of_day - v86 >= var4 || !v86 )
-  {
-    memcpy(v122, curr_position, 0x3C8);
-	curr_position+=0x3C8;
-    memcpy(v121, curr_position, 0x3C8);
-
+  v86 = this->array_0004C8[1];  if ( File - v86 >= (unsigned int)uRespawnInterval || !v86 )  {
+    memcpy(v122, (const void *)Src, 0x3C8);    v87 = (int)memcpy(v121, (const void *)(Src + 0x3C8), 0x3C8);
 LABEL_112:
-    MemFree(mem_buffer);
-
-    _this->dword_0004CC = time_of_day;
-    if (!var5)
-      ++_this->dword_0004C8;
-    v120 = 0;
-
-    *a5 = true;
-    hODMFile = LODFile_Games_LOD.Find_Container( Str,0);
-    locked_fread(&v159, 16, 1, hODMFile);
-   // wtf = v159.packed_size;
-  //  v166 = v159.size_data;
-    mem_buffer = MemAlloc(unsigned char, v159.size_data);
-    curr_position = mem_buffer;
-    if (  v159.packed_size <= v159.size_data )
-    {
-      if (  v159.packed_size == v159.size_data )
-      {
-        locked_fread(mem_buffer, v159.size_data, 1, hODMFile);
-      }
+    MemFree(pRawDDMFile);
+    array_0004C8[1] = File;    if (!Str2)      ++array_0004C8[0];
+    *(_DWORD *)a5 = 1;    hDDMFile = LODFile_Games_LOD.Find_Container(pDDMName, 0);    locked_fread(&v159, 0x10, 1, hDDMFile);    wtf = v159.uCompressedSize;    v166 = v159.uUncompressedSize;    v89 = (int)MemAlloc(char, v159.uUncompressedSize);    v168 = v89;    if ( wtf <= v166 )    {
+      if ( wtf == v166 )      {
+        locked_fread((void *)v89, v166, 1, hDDMFile);      }
       else
       {
-        temp_buff = MemAlloc(char,v159.packed_size);
-        locked_fread(temp_buff,  v159.packed_size, 1, hODMFile);
-        MemUnzip(mem_buffer, &v159.size_data,temp_buff,  v159.packed_size);
-        MemFree(temp_buff);
-      }
+        Src = MemAlloc(unsigned char, wtf);        locked_fread(Src, wtf, 1, hDDMFile);        MemUnzip((char *)v89, &v166, Src, wtf);        MemFree(Src);      }
     }
     else
     {
-      a4 = (signed int)&v115;
-      Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a4 + 3));
-      sub_466D09(&time_of_day, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-    }
-    curr_position += 40;
-    goto LABEL_120;
+      Game_sub_40E2C8(nullptr, "Can't load file!", 0);      sub_466D09(&File, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);    }
+    v78 = v89 + 40;    goto LABEL_120;
   }
 
-  *a5 = false;
-
+  *(_DWORD *)a5 = 0;
 LABEL_120:
-  v92 = strlen(Str);
-  strcpy(Str + v92 - 4, ".odm");
-  memcpy(_this->array_000528, curr_position, 0x3C8);
-  curr_position+=0x3C8;
-  memcpy(_this->array_0008F0, curr_position, 0x3C8);
-  curr_position+=0x3C8;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+  memcpy(this->array_000528, (char *)v78, 0x3C8);
+  memcpy(this->array_0008F0, (char *)v78 + 0x3C8, 0x3C8);  v78 = (int)((char *)v78 + 0x3C8 + 0x3C8);  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
+  if ( *(_DWORD *)a5 )  {
+    memcpy(this->array_000528, v122, 0x3C8);    memcpy(this->array_0008F0, v121, 0x3C8);  }
 
+  for (unsigned i = 0; i < this->uNumBModels; ++i)  {
 
-  if ( *a5 )
-  {
-    memcpy(_this->array_000528, v122, 0x3C8);
-    memcpy(_this->array_0008F0, v121, 0x3C8);
-  }
+      for (unsigned j = 0; j < this->pBModels[i].dword_00004C; ++j)      {
+        v118 = (void *)(this->pBModels[i].ptr_000054[j].byte_000010 + 12);        memcpy(v118, (char *)v78, 4);        v78 = (int)((char *)v78 + 4);      }
 
-  for (i = 0; i < _this->uNumBModels; ++i)
-  {
-
-      for (j = 0; j < _this->pBModels[i].dword_00004C; ++j)
-      {
-        v118 = (void *)(&_this->pBModels[i].ptr_000054[j].byte_00001C);
-        memcpy(v118, curr_position, 4);
-        curr_position += 4;
-      }
-
-      for (j = 0; j < _this->pBModels[i].dword_00004C; ++j)
-      {
-          if (_this->pBModels[i].ptr_000054[j].word_000124)
-          {
-            if ( sub_44C1E8(&_this->pBModels[i].ptr_000054[j]) )
-              _this->pBModels[i].ptr_000054[j].byte_00001E |= 0x10u;
-            else
-              _this->pBModels[i].ptr_000054[j].byte_00001E &= 0xEFu;
-          }
+      for (unsigned j = 0; j < this->pBModels[i].dword_00004C; ++j)      {
+          if (this->pBModels[i].ptr_000054[j].word_000124)          {
+            if ( sub_44C1E8(&this->pBModels[i].ptr_000054[j]) )              this->pBModels[i].ptr_000054[j].byte_000010[14] |= 0x10u;            else
+              this->pBModels[i].ptr_000054[j].byte_000010[14] &= 0xEFu;          }
 
       }
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
-  for (i = 0; i < uNumLevelDecorations; ++i)
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  for (unsigned int i = 0; i < uNumLevelDecorations; ++i)  {
+      memcpy(&pLevelDecorations[i].word_000002, (char *)v78, 2);      v78 = (int)((char *)v78 + 2);  }
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  memcpy(&uNumActors, (char *)v78, 4);  v78 = (int)((char *)v78 + 4);  if ( (signed int)uNumActors < 0 || uNumActors > 500 )
   {
-      memcpy(&pLevelDecorations[i].word_000002, curr_position, 2);
-      curr_position += 2;
-  }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+    Game_sub_40E2C8(0, "Can't load file!", 0);    sub_466D09(nullptr, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);  }
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
-  memcpy(&uNumActors, curr_position, 4);
-  curr_position +=4;
-  if ( (signed int)uNumActors < 0 || uNumActors > 500 )
+  memcpy(pActors, (char *)v78, uNumActors * sizeof(struct Actor));  v78 = (int)((char *)v78 + uNumActors * sizeof(struct Actor));  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);  memcpy(&uNumLayingItems, (char *)v78, 4);  v78 = (int)((char *)v78 + 4);  if ( (signed int)uNumLayingItems < 0 || uNumLayingItems > 1000 )
   {
-    *a5 = (int)&v115;
-    Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-  }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+    Game_sub_40E2C8(0, "Can't load file!", (int)((char *)&a5 + 3));    sub_466D09(0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);  }
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
-  memcpy(pActors, curr_position, uNumActors * sizeof(struct Actor));
-  curr_position += uNumActors * sizeof(struct Actor);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
-  memcpy(&uNumLayingItems, curr_position, 4);
-  curr_position += 4;
-  if ( (signed int)uNumLayingItems < 0 || uNumLayingItems > 1000 )
+  memcpy(pLayingItemsList, (char *)v78, uNumLayingItems * sizeof(struct LayingItem));  v78 = (int)((char *)v78 + uNumLayingItems * sizeof(struct LayingItem));  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);  memcpy(&dword_5FF140, (char *)v78, 4);  v78 = (int)((char *)v78 + 4);  if ( (signed int)dword_5FF140 < 0 || (signed int)dword_5FF140 > 20 )
   {
-    *a5 = (int)&v115;
-    Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-  }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+    Game_sub_40E2C8(0, "Can't load file!", 0);    sub_466D09(0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);  }
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
-  memcpy(pLayingItemsList, curr_position, uNumLayingItems * sizeof(struct LayingItem));
-  curr_position += uNumLayingItems * sizeof(struct LayingItem);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
-  memcpy(&dword_5FF140, curr_position, 4);
-  curr_position += 4;
-  if ( (signed int)dword_5FF140 < 0 || (signed int)dword_5FF140 > 20 )
-  {
-    *a5 = (int)&v115;
-    Game_sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
-  }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
-  memcpy(array_5E5150, curr_position, dword_5FF140 * sizeof(struct struct3));
-  curr_position += dword_5FF140 * sizeof(struct struct3);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
-  memcpy(&global_5E4C90, curr_position, sizeof(struct struct4));
-  curr_position+=sizeof(struct struct4);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-
-  memcpy(_this->array_0004F0, curr_position, 0x38);
-  MemFree(mem_buffer);
-
-  CTileTable_LoadSomeTiles(pTileTable, 4);
-  CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[0]);
-  CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[2]);
-  CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[4]);
-  CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[6]);
-
-  strcpy((char *)_this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
-  v109 = _this->array_0000A0[1];
-  v120 = 0;
-  v110 = TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
-
+  memcpy(array_5E5150, (char *)v78, dword_5FF140 * sizeof(struct struct3));  v78 = (int)((char *)v78 + dword_5FF140 * sizeof(struct struct3));  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  memcpy(&global_5E4C90, (char *)v78, sizeof(struct struct4));  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);  memcpy(this->array_0004F0, (char *)v78 + 200, 0x38);  MemFree((char *)v168);  CTileTable_LoadSomeTiles(pTileTable, 4);
+  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[0]);  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[2]);  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[4]);  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[6]);
+  strcpy((char *)this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);  v109 = this->array_0000A0[1];  v120 = 0;
+  v110 = TileTable_GetTile(pTileTable, this->array_0000A0[1]);  {
 #ifndef OLD_CODE
    wchar_t pTmp[256];
    wsprintfW(pTmp, L"%S", v110->sTileName);
 
    v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pTmp);
+#else   v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*) &v110->sTileName,2);
 #endif
-#ifdef OLD_CODE
-   v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*) &v110->sTileName,2);
-#endif
-  _this->dword_0000EC = v106;
-  if ( v106 != -1 )
-    LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, 
-	                                                                  LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000024);
-
+  }  this->dword_0000EC = v106;  if ( v106 != -1 )
+    LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000024);
   sub_47F0E2();
-   }
-//LABEL_150:
-  v111 = _this->array_0004F0[1];
-  v155 = _this->array_0004F0[0];
-  v156 = _this->array_0004F0[1];
-  if ( v111 | v155 )
-  {
+LABEL_150:  v111 = this->array_0004F0[1];  __int64 v155;  LODWORD(v155) = this->array_0004F0[0];  HIDWORD(v155) = this->array_0004F0[1];  if ( v111 | (_DWORD)v155 )  {
     v120 = 28;
-    if ( (signed int)((signed int)(signed __int64)((double)v155 * 0.234375) / 60 / 60 / 24) % 28 != pParty_global->uDaysPlayed )
-    {
+    if ( (signed int)((signed int)(signed __int64)((double)v155 * 0.234375) / 60 / 60 / 0x18u) % 28 != pParty_global->uDaysPlayed )    {
       if ( rand() % 100 >= 20 )
         v120 = dword_4EC268[rand() % dword_4EC2A8];
       else
         v120 = dword_4EC28C[rand() % dword_4EC2AC];
-      wsprintfA((char *)&_this->array_0004F0[2], "plansky%d", v120);
-    }
+      wsprintfA((char *)&this->array_0004F0[2], "plansky%d", v120);    }
   }
   else
   {
-    strcpy((char *)&_this->array_0004F0[2], "plansky3");
-  }
+    strcpy((char *)&this->array_0004F0[2], "plansky3");  }
 
-
+  {
 #ifndef OLD_CODE
    wchar_t pSkyFilename[256];
 
-   wsprintfW(pSkyFilename, L"%S", &_this->array_0004F0[2]);
-   _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pSkyFilename);
-#endif
-  #ifdef OLD_CODE
-  
-   _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)&_this->array_0004F0[2],2);
-#endif
-  if ( _this->uSkyTextureID != -1 )
-	  {
-  v158 = &LODFile_Bitmaps_LOD.aLODHeaders[_this->uSkyTextureID];
-  v120 = v158->word_000024;
+   wsprintfW(pSkyFilename, L"%S", &this->array_0004F0[2]);   this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pSkyFilename);#else     _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)&this->array_0004F0[2],2);#endif
+  }  v158 = &LODFile_Bitmaps_LOD.aLODHeaders[this->uSkyTextureID];  v120 = v158->word_000024;
   v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
-	  }																 
-  class35_sub_48A614(&class35_obj);
+																		   class35_sub_48A614(&class35_obj);
   sub_4A9A67(pSoundList, 53, 0);
   sub_4A9A67(pSoundList, 92, 0);
   sub_4A9A67(pSoundList, 57, 0);
   sub_4A9A67(pSoundList, 96, 0);
   sub_4A9A67(pSoundList, 64, 0);
   sub_4A9A67(pSoundList, 103, 0);
-  v113 = (int)_this->array_0000A0;
-  var4= 3;
-  do
+  v113 = (int)this->array_0000A0;  a5 = 3;  do
   {
     if ( *(_WORD *)v113 )
     {
@@ -1186,72 +431,24 @@ LABEL_120:
 LABEL_175:
     v113 += 4;
   }
-  while ( var4-- != 1 );
- return true;
-}
+  while ( a5-- != 1 );
 
 
-
-
-//----- (00460706) --------------------------------------------------------
-bool __cdecl TryLoadLevelFromFile()
-{
-  FILE *v1; // esi@1
-  __int32 v2; // edi@2
-  char Ext[256]; // [sp+4h] [bp-40Ch]@1
-  char Dir[256]; // [sp+104h] [bp-30Ch]@1
-  char Filename[256]; // [sp+204h] [bp-20Ch]@1
-  char FullPath[260]; // [sp+304h] [bp-10Ch]@1
-  char Drive[4]; // [sp+408h] [bp-8h]@1
-  int DstBuf; // [sp+40Ch] [bp-4h]@2
- void *f;
-
- strcpy(FullPath, CurrentLevelName);
- _splitpath(FullPath, Drive, Dir, Filename, Ext);
- wsprintfA(FullPath, "levels\\%s%s", Filename, ".lod");
-
- //no files outside LODs in release version, so skip
-
- //v1 = fopen(FullPath, "rb");
- f = CreateFileA(FullPath, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
-  /*if (v1)
-  {
-    fseek(v1, 0, 2);
-    v2 = ftell(v1);
-    rewind(v1);
-    dword_6A0D08 = mem_mng.AllocatedNamedBuffer( dword_6A0D08, v2, "LevelLod");
-    locked_fread(dword_6A0D08, v2, 1u, v1);
-    fseek(v1, v2 - 6, 0);
-    DstBuf = 0;
-    locked_fread(&DstBuf, 4u, 1u, v1);
-    locked_fread(&unk_6A0D10, 2, 1u, v1);
-    dword_6A0D0C = DstBuf + dword_6A0D08;
-    fclose(v1);
-  }*/
- if (f != INVALID_HANDLE_VALUE)
- {
-  CloseHandle(f);
- }
-
- return false;
-}
+    dword_6BE030 = this->array_0004F0[5];    dword_6BE040 = this->array_0004F0[6];    dword_6BE044 = this->array_0004F0[7];    if (!_strcmpi(pFilename, "out15.odm"))      sub_464851();    dword_6BE134 = this->array_0000A0[0];
+  return Result::Success;}
 
 
 
 //----- (0047F420) --------------------------------------------------------
-bool class51_sub_47F420(struct class51 *_this)
-{
- int i;
- for (i = 0; i < 6; i += 2)
-   _this->array_0000A0[i + 1] = sub_487ED6(pTileTable, _this->array_0000A0[i], 1);
+bool class51_sub_47F420(OutdoorLocation *_this){
+ for (unsigned int i = 0; i < 6; i += 2)   _this->array_0000A0[i + 1] = sub_487ED6(pTileTable, _this->array_0000A0[i], 1);
 
  return true;
 }
 
 
 //----- (0047F3EA) --------------------------------------------------------
-bool class51_sub_47F3EA(struct class51 *_this)
-{
+bool class51_sub_47F3EA(OutdoorLocation *_this){
  _this->array_0000A0[7] = sub_487ED6(pTileTable, _this->array_0000A0[6], 1);
  CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[6]);
 
@@ -1261,57 +458,24 @@ bool class51_sub_47F3EA(struct class51 *_this)
 
 
 //----- (0047CD44) --------------------------------------------------------
-bool class51_InitializeGeodata(struct class51_Geodata *_this)
-{
- //_this->pHeightmap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pHeightmap, 128 * 128, "ODM Heightmap");
- //_this->pTilemap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pTilemap, 128 * 128, "ODM Tilemap");
- //_this->pAttributemap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pAttributemap, 128 * 128, "ODM Attributes map");
- //_this->ptr_00000C = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->ptr_00000C, 128 * 128 * 2, "DMAP");
- _this->pHeightmap = NamedMemAlloc(unsigned char, 128 * 128, "ODM Heightmap");
- _this->pTilemap = NamedMemAlloc(unsigned char, 128 * 128, "ODM Tilemap");
- _this->pAttributemap = NamedMemAlloc(unsigned char, 128 * 128, "ODM Attributes map");
- _this->ptr_00000C = NamedMemAlloc(unsigned char, 128 * 128 * 2, "DMAP");
-
- if (_this->pHeightmap && _this->pTilemap && _this->pAttributemap && _this->ptr_00000C)
-   return true;
- else return false;
-}
+Result::Code OutdoorLocation::TerrainData::Initialize(){
+ pHeightmap = NamedMemAlloc(unsigned char, 128 * 128, "ODM TerrainData::Heightmap"); if (!pHeightmap)   return Result::OutOfMemory;
+ pTilemap = NamedMemAlloc(unsigned char, 128 * 128, "ODM TerrainData::Tilemap"); if (!pTilemap) {  MemFree(pHeightmap);  return Result::OutOfMemory; } pAttributemap = NamedMemAlloc(unsigned char, 128 * 128, "ODM TerrainData::Attributes map"); if (!pAttributemap) {  MemFree(pHeightmap);  MemFree(pTilemap);  return Result::OutOfMemory; } ptr_00000C = NamedMemAlloc(unsigned char, 128 * 128 * 2, "ODM TerrainData::DMAP"); if (!ptr_00000C) {  MemFree(pHeightmap);  MemFree(pTilemap);  MemFree(pAttributemap);  return Result::OutOfMemory; } return Result::Success;}
 
 //----- (0047C7C2) --------------------------------------------------------
-void class51_FreeGeodata(struct class51_Geodata *_this)
-{
- //MemFree( (void *)_this->pHeightmap);
- MemFree(_this->pHeightmap);
- _this->pHeightmap = 0;
-
- //MemFree( (void *)_this->pTilemap);
- MemFree(_this->pTilemap);
- _this->pTilemap = 0;
-
- //MemFree( (void *)_this->pAttributemap);
- MemFree(_this->pAttributemap);
- _this->pAttributemap = 0;
-
- //MemFree( (void *)_this->ptr_00000C);
- MemFree(_this->ptr_00000C);
- _this->ptr_00000C = 0;
-
- _this->word_000010 = 0;
- _this->word_000012 = 0;
- _this->word_000014 = 0;
- _this->word_000016 = 0;
-
- _this->dword_000018 = 0;
- _this->dword_00001C = 0;
-}
+Result::Code OutdoorLocation::TerrainData::Clear(){
+ if (pHeightmap) {  MemFree(pHeightmap);  pHeightmap = nullptr; }
+ if (pTilemap) {  MemFree(pTilemap);  pTilemap = nullptr; }
+ if (pAttributemap) {  MemFree(pAttributemap);  pAttributemap = nullptr; }
+ if (ptr_00000C) {  MemFree(ptr_00000C);  ptr_00000C = nullptr; }
+ word_000010 = 0; word_000012 = 0; word_000014 = 0; word_000016 = 0;
+ dword_000018 = 0; dword_00001C = 0; return Result::Success;}
 
 
 
 //----- (0047C80A) --------------------------------------------------------
-void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
-{
+void OutdoorLocation::TerrainData::sub_47C80A(int sX, int sY, int sZ, int sW){
   int v1;
-  void *v5; // ebx@1
   double v6; // st7@1
   double v7; // st7@2
   double v8; // st7@2
@@ -1347,8 +511,6 @@ void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
   v46 = -64.0;
   v47 = -64.0;
 
-  v5 = _this;
-
   v6 = sqrt(12288.0);
   if ( v6 != 0.0 )
   {
@@ -1383,15 +545,11 @@ void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
     v1 = (sX - 64 + x + 1) * 512;
 
                   v17 = (64 - y) * 512;
-                  v16 = 32 * _this->pHeightmap[y * _this->word_000010 + x];
-                  v22 = 32 * _this->pHeightmap[y * _this->word_000010 + x + 1];
-                  v23 = (63 - y) * 512;
+                  v16 = 32 * pHeightmap[y * word_000010 + x];                  v22 = 32 * pHeightmap[y * word_000010 + x + 1];                  v23 = (63 - y) * 512;
 
                   v25 = v23 - v17;
 
-                  v40 = 32 * _this->pHeightmap[(y + 1) * _this->word_000010 + x];
-                  v42 = 32 * _this->pHeightmap[(y + 1) * _this->word_000010 + x + 1];
-
+                  v40 = 32 * pHeightmap[(y + 1) * word_000010 + x];                  v42 = 32 * pHeightmap[(y + 1) * word_000010 + x + 1];
                   v26 = v1 - 512 - v1;
 
                   v27 = (double)-((v16 - v22) * v25);
@@ -1411,8 +569,7 @@ void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
                   else if (v31 > 31.0)
                     v31 = 31.0;
 
-                  _this->ptr_00000C[2 * (x + y * _this->word_000010) + 1] = v31;
-
+                  ptr_00000C[2 * (x + y * word_000010) + 1] = v31;
                   v33 = v1 - (v1 - 512);
                   v34 = (double)-((v42 - v40) * (v17 - v23));
                   v35 = (double)-(v33 * (v16 - v40));
@@ -1431,8 +588,7 @@ void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
                     v38 = 0.0;
                   else if (v38 > 31.0)
                     v38 = 31.0;
-                  _this->ptr_00000C[2 * (x + y * _this->word_000010)] = v38;
-    }
+                  ptr_00000C[2 * (x + y * word_000010)] = v38;    }
   }
  }
 }
@@ -1442,10 +598,7 @@ void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
 //----- (0044C1E8) --------------------------------------------------------
 bool sub_44C1E8(struct class51_stru2 *_this)
 {
- int i;
-
- for (i = 0; i < uLevelEVT_NumEvents; ++i)
-   if (pLevelEVT_Events[i].dword_000000 == _this->word_000124)
+ for (unsigned i = 0; i < uLevelEVT_NumEvents; ++i)   if (pLevelEVT_Events[i].dword_000000 == _this->word_000124)
    {
     if (pLevelEVT[pLevelEVT_Events[i].uEventOffsetInEVT + 4] != 4 ||
         pLevelEVT[pLevelEVT_Events[i + 1].uEventOffsetInEVT + 4] != 1)
@@ -1457,39 +610,8 @@ bool sub_44C1E8(struct class51_stru2 *_this)
 
 
 
-//----- (00488F5C) ------.text:0048A961 --------------------------------------------------
-bool LoadLevel(struct class51 *_this, const char *Source, int time_of_day, signed int a4, bool *a5)
-{
-  if ( Source )
-  {
-    class51_sub_47CF9C(_this);
-    LODFile_Bitmaps_LOD.sub_46454B();
-    LODFile_Sprites_LOD.sub_4645DC();
-    SpriteFrameTable_fn3(pSpriteFrameTable);
-    LODFile_Icons_LOD.sub_46454B();
-    sub_46080D();
-    TryLoadLevelFromFile();
-    if ( !LoadLevelFromODM(_this, Source, time_of_day, a4, a5) )
-    {
-      MessageBoxA(0, "Error!", "Couldn't Load Map!", 0);
-      class51_sub_47CDE2((int)_this);
-    }
-    dword_6BE030 = _this->array_0004F0[5];
-    dword_6BE040 = _this->array_0004F0[6];
-    dword_6BE044 = _this->array_0004F0[7];
-    if ( sub_464839() )
-      sub_464851();
-    dword_6BE134 = _this->array_0000A0[0];
-    return true;
-  }
-  else return false;
-}
-
-
-
 //----- (0047F223) --------------------------------------------------------
-int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
-{
+int sub_47F223_LooksLikeGenerateMonsterLoot(OutdoorLocation *_this){
   int i; 
   void *v5; // [sp+0h] [bp-4h]@1
   LayingItem *pItem;
@@ -1523,15 +645,13 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
     }
     
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  return 1;
+  runtime_warning();  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);  return 1;
 }
 
 
 
 //----- (004892E6) --------------------------------------------------------
-int __thiscall class51_sub_4892E6(struct class51 *_this)
-{
+int __thiscall class51_sub_4892E6(OutdoorLocation *_this){
   int result; // eax@1
   void *v2; // esi@1
   int v3; // edi@3
@@ -1727,14 +847,7 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
         (int)_this->sLightPosY * a2->dword_000004 +
         (int)_this->sLightPosZ * a2->dword_000008 + a2->dword_00000C) >> 16;
 
- if ((_this->word_000006 > 0) &&
-     (_this->sLightPosX > a2->sSomeX1 - _this->word_000006) &&
-     (_this->sLightPosX < a2->sSomeX2 + _this->word_000006) &&
-     (_this->sLightPosY > a2->sSomeY1 - _this->word_000006) &&
-     (_this->sLightPosY < a2->sSomeY2 + _this->word_000006) &&
-     (_this->sLightPosZ > a2->sSomeZ1 - _this->word_000006) &&
-     (_this->sLightPosZ < a2->sSomeZ2 + _this->word_000006) && a4 ||
-     v8 >= 0 && v8 <= _this->word_000006)
+ if (_this->word_000006 > 0 &&     _this->sLightPosX > *(_WORD *)(a2 + 278) - _this->word_000006 &&     _this->sLightPosX < *(_WORD *)(a2 + 280) + _this->word_000006 &&     _this->sLightPosY > *(_WORD *)(a2 + 282) - _this->word_000006 &&     _this->sLightPosY < *(_WORD *)(a2 + 284) + _this->word_000006 &&     _this->sLightPosZ > *(_WORD *)(a2 + 286) - _this->word_000006 &&     _this->sLightPosZ < *(_WORD *)(a2 + 288) + _this->word_000006 && a4 ||     v8 >= 0 && v8 <= _this->word_000006)
   {
     dword_F8ADD8[*(_DWORD *)a3] = _this->word_000006;
     dword_F8AE28[*(_DWORD *)a3] = 65536 / _this->word_000006;
@@ -1779,8 +892,7 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
 
 
 //----- (00488F2E) --------------------------------------------------------
-int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY)
-{
+int class51_sub_488F2E_GetHeightOnTerrain(OutdoorLocation *_this, unsigned int uX, unsigned int uY){
  if (uX > 127 || uY > 127)
    return 0;
  else
@@ -1788,17 +900,14 @@ int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, unsigned int uX
 }
 
 //----- (0047EE16) --------------------------------------------------------
-int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY)
-{
+int class51_sub_47EE16_ActuallyGetHeightOnTerrain(OutdoorLocation *_this, unsigned int uX, unsigned int uY){
  if (uX > 127 || uY > 127)
    return 0;
  else
-  return 32 * _this->struct_0000B4.pHeightmap[128 * uY + uX];
-}
+  return 32 * _this->cTerrainData.pHeightmap[128 * uY + uX];}
 
 //----- (0047EF60) --------------------------------------------------------
-bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4)
-{
+bool class51_sub_47EF60(OutdoorLocation *_this, int a2, int a3, int a4){
   int v4; // ecx@1
   int v5; // edx@2
   int v6; // edi@2
@@ -1874,4 +983,4 @@ bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4)
     }
   }
   return 1;
-}
+}//----- (0047CCE2) --------------------------------------------------------Result::Code OutdoorLocation::TerrainData::Reset(){ void **v2; // esi@1  v2 = (void **)this;  memset(pHeightmap, 0, 128 * 128);  memset(pTilemap, 90, 128 * 128);  memset(pAttributemap, 0, 128 * 128);  memset(ptr_00000C, 0, 128 * 128 * 2);  *((_WORD *)v2 + 9) = 128;  *((_WORD *)v2 + 8) = 128;  *((_WORD *)v2 + 11) = 7;  *((_WORD *)v2 + 10) = 7;  v2[7] = (void *)127;  v2[6] = (void *)127;  return Result::Success;}

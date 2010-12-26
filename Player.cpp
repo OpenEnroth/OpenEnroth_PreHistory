@@ -959,7 +959,7 @@ LABEL_31:
         {
           if ( v25 == 6 )
           {
-            compile_error;//v28 = __SETO__(v23, 2);
+            compile_error();//v28 = __SETO__(v23, 2);
             v27 = v23 - 2 < 0;
             goto LABEL_53;
           }
@@ -967,7 +967,7 @@ LABEL_55:
           v30 = v72 * (v24 & 0x3F);
           return (int)&v70[v30];
         }
-        compile_error;//v28 = __SETO__(v23, 3);
+        compile_error();//v28 = __SETO__(v23, 3);
         v27 = v23 - 3 < 0;
       }
 LABEL_53:
@@ -1204,7 +1204,7 @@ unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, unsigned
 
   if (!CanPlaceItemInInventory(_this, uInventorySlot, uItemID))
   {
-    AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
+    pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
 
     if ( uActiveCharacter )
       Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
@@ -3055,7 +3055,7 @@ LABEL_138:
 LABEL_118:
             if ( v6 < 0 )
               goto LABEL_361;
-            compile_error;//v39 = __SETO__(v6, 6);
+            compile_error();//v39 = __SETO__(v6, 6);
             v37 = v6 == 6;
             v38 = v6 - 6 < 0;
           }
@@ -3064,7 +3064,7 @@ LABEL_118:
 LABEL_253:
             if ( v6 < 10 )
               goto LABEL_361;
-            compile_error;//v39 = __SETO__(v6, 15);
+            compile_error();//v39 = __SETO__(v6, 15);
             v37 = v6 == 15;
             v38 = v6 - 15 < 0;
           }

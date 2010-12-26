@@ -9,6 +9,21 @@
 
 
 
+
+//----- (MM7.exe::0049FDBF) --------------------------------------------------------
+Result::Code RenderDirect3D3::InitializeZBuffer()
+{
+ if (!pDefaultZBuffer)
+ {
+  pDefaultZBuffer = NamedMemAlloc(int, 640 * 480, "RenderDirect3D3::default ZBuffer");
+  pActiveZBuffer = pDefaultZBuffer;
+  memset_dw(pDefaultZBuffer, -1, 640 * 480);
+ }
+ return Result::Success;
+}
+
+
+
 RenderDirect3D3::RenderDirect3D3():
   BaseRender()
 {
@@ -30,7 +45,7 @@ HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this)
   pD3DRenderer->uTargetSurfacePitch = 0;
   pD3DRenderer->dword_000018 = 0;
 
-  compile_error;
+  compile_error();
   //hr = (**(_DWORD **)(pD3DRenderer->dword_040098) + 128)(*(_DWORD *)(pD3DRenderer + 262296), 0);
   return (HRESULT)CheckHRESULT((void **)0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 207, 0);
  }
@@ -1018,10 +1033,10 @@ LABEL_21:
             }
             else
             {
-              compile_error;//v16 = __ROL__(v15, 16);
+              compile_error();//v16 = __ROL__(v15, 16);
               if ( (_WORD)v16 == (_WORD)v11 )
               {
-                compile_error;//v18 = __ROR__(v16, 16);
+                compile_error();//v18 = __ROR__(v16, 16);
                 *(_DWORD *)v12 = *(_DWORD *)v12 & 0xFFFF0000 | (unsigned __int16)v18;
                 v12 += 4;
                 --v10;
@@ -1030,7 +1045,7 @@ LABEL_21:
               }
               else
               {
-                compile_error;//v17 = __ROR__(v16, 16);
+                compile_error();//v17 = __ROR__(v16, 16);
                 *(_DWORD *)v12 = v17;
                 v12 += 4;
                 --v10;
@@ -1433,8 +1448,8 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
               _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 5);
             else
               _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
-           // compile_error;
-            //_this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND);
+            compile_error();
+           //_this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND);
           }
           
 
@@ -1484,7 +1499,7 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
               v15 = *v12 * 1000.0;
               *(_DWORD *)(LODWORD(v11) - 4) = *((_DWORD *)v12 + 3);
               v16 = v15 / (double)pStruct9_global->shading_dist_mist;
-              compile_error;//*LODWORD(v11) = *((_DWORD *)v12 + 4);
+              compile_error();//*LODWORD(v11) = *((_DWORD *)v12 + 4);
               *(float *)(LODWORD(v11) + 4) = 1.0 - 1.0 / v16;
               *(float *)(LODWORD(v11) + 8) = 1.0 / (*v12 + 0.0000001000000011686097);
               v17 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a4 + 88), 0, *v12, 0, 0);
@@ -1552,7 +1567,7 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
           CheckHRESULT((void **)&a7, v27, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x35Du, 0);
           v66 = *(const char **)(*(_DWORD *)(v8 + 262280) + 56);
           (*(void (**)(void))(*(_DWORD *)v66 + 88))();
-          compile_error;//sub_45D74F_MessWithLight(COERCE_FLOAT(1), -1, 0);
+          compile_error();//sub_45D74F_MessWithLight(COERCE_FLOAT(1), -1, 0);
           v23 = uNumVertices;
           if (uNumVertices > 0)
           {

@@ -725,7 +725,7 @@ void __fastcall sub_4ADD1D(int a1)
                     }
                     while ( 1 )
                     {
-                      compile_error;//v42 = __SETO__(v64, 2);
+                      compile_error();//v42 = __SETO__(v64, 2);
                       v41 = v64 - 2 < 0;
                       v64 -= 2;
                       if ( v41 ^ v42 )
@@ -779,7 +779,7 @@ LABEL_32:
                     }
                     while ( 1 )
                     {
-                      compile_error;//v31 = __SETO__(v64, 2);
+                      compile_error();//v31 = __SETO__(v64, 2);
                       v30 = v64 - 2 < 0;
                       v64 -= 2;
                       if ( v30 ^ v31 )
@@ -1372,7 +1372,7 @@ void __fastcall sub_4AE5F1(int a1)
         }
       }
       v30 = v80 + 1;
-      compile_error;//v42 = __SETO__(v80 + 1, v77);
+      compile_error();//v42 = __SETO__(v80 + 1, v77);
       v41 = v80++ + 1 - v77 < 0;
       if ( !(v41 ^ v42) )
         break;
@@ -1689,7 +1689,7 @@ char __thiscall class37_sub_4AFB86(void *_this, int a2, int a3)
           *((_WORD *)v4 + 1126 * *((_DWORD *)v4 + 1001) + 2007) = dword_51B73C;
           *((_WORD *)v4 + 1126 * *((_DWORD *)v4 + 1001) + 2006) = dword_51B738;
           *((_WORD *)v4 + 1126 * *((_DWORD *)v4 + 1001) + 2008) = dword_51B740;
-          compile_error;
+          compile_error();
           /*
           sub_43F9E1(
             (int)(v4 + 2252 * *((_DWORD *)v4 + 1001)++ + 4020),
@@ -1747,7 +1747,7 @@ char __thiscall class37_sub_4AFB86(void *_this, int a2, int a3)
               {
                 if ( v22 <= *((_WORD *)v20 + 2008) )
                 {
-                  compile_error;//v3 = sub_424829(v3, (int)(v4 + 2252 * *((_DWORD *)v4 + 1001) + 4020), (int)(v20 + 4020), a3);
+                  compile_error();//v3 = sub_424829(v3, (int)(v4 + 2252 * *((_DWORD *)v4 + 1001) + 4020), (int)(v20 + 4020), a3);
                   if ( v3 )
                   {
                     v16 = *(_WORD *)(v21 + 76);
@@ -2516,7 +2516,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
       {
         byte_F7CE28 |= 4u;
         sub_49B001(&unk_F7B60C);
-        compile_error;//atexit(loc_4B0DFB);
+        compile_error();//atexit(loc_4B0DFB);
       }
       v9 = dword_6BE644 + 96 * v4;
       if ( *(_BYTE *)(v9 + 93) >= 3u )
@@ -2546,7 +2546,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                   *((float *)v12 - 1) = (double)*(_WORD *)(v13 + 6 * *(_WORD *)(*(_DWORD *)(v9 + 48) + v14) + 2);
                   *(float *)v12 = (double)*(_WORD *)(v13 + 6 * *(_WORD *)(*(_DWORD *)(v9 + 48) + v14) + 4);
                   v12 = (char *)v12 + 48;
-                  compile_error;//v16 = __SETO__(v11, v35);
+                  compile_error();//v16 = __SETO__(v11, v35);
                   v15 = v11 - v35 < 0;
                   *((float *)v12 - 5) = (double)*(_WORD *)(v14 + *(_DWORD *)(v9 + 64));
                   *((float *)v12 - 4) = (double)*(_WORD *)(*(_DWORD *)(v9 + 68) + v14);
@@ -2618,7 +2618,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                       v37 = v35;
                       for ( i = v25; ; v25 = i )
                       {
-                       compile_error;
+                       compile_error();
                         //*(float *)v26 = (double)(LODFile_Bitmaps_LOD.array_00024C[9 + 36 * *(_WORD *)(v9 + 74)] & (class59_class59_sub_402CAE(
                         //                                                                    pClass59_global,
                         //                                                                    v25) >> 8))
@@ -2768,7 +2768,7 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4014) = dword_51B73C;
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4012) = dword_51B738;
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4016) = dword_51B740;
-        compile_error;//sub_43F9E1(2252 * *(_DWORD *)(v5 + 4004)++ + v5 + 4020, dword_51B734, dword_51B738, dword_51B73C, dword_51B740);
+        compile_error();//sub_43F9E1(2252 * *(_DWORD *)(v5 + 4004)++ + v5 + 4020, dword_51B734, dword_51B738, dword_51B73C, dword_51B740);
         LOBYTE(v3) = sub_440639(*(_DWORD *)(v5 + 4004) - 1, v8);
         return v3;
       }
@@ -2985,7 +2985,7 @@ LABEL_13:
   if ( v3 )
   {
     v7 = &unk_6A12B8;
-    if ( dword_6BE360 != 2 )
+    if ( uCurrentlyLoadedLevelType != 2 )
       v7 = &unk_6BE68C;
     *((_DWORD *)v7 + 2) += v3;
     if ( *((_DWORD *)v7 + 2) > 10000 )
@@ -3127,7 +3127,7 @@ signed int __cdecl sub_4B1784()
   else
   {
     pDialogueWindow->dword_000028 = 0;
-    memcpy(&local_04, pGUIWindow0, sizeof(struct GUIWindow));
+    memcpy(&local_04, pGUIWindow0, sizeof(GUIWindow));
     local_04.uFrameX = 483;
     local_04.uFrameWidth = 148;
     local_04.uFrameZ = 334;
@@ -3441,9 +3441,7 @@ LABEL_18:
 void __fastcall sub_4B1E92(int a1, int a2)
 {
   if ( byte_4E5F7D[16 * word_59143A[26 * a1]] )
-    AudioPlayer_sub_4AA306(
-      pAudioPlayer,
-      a2 + 100 * ((unsigned __int8)byte_4E5F7D[16 * word_59143A[26 * a1]] + 300),
+    pAudioPlayer->sub_4AA306(a2 + 100 * ((unsigned __int8)byte_4E5F7D[16 * word_59143A[26 * a1]] + 300),
       806,
       0,
       -1,
@@ -3538,7 +3536,7 @@ LABEL_10:
       v12 += 6972;
       ++v5;
 
-      compile_error;
+      compile_error();
       //if ( v12 >= (signed int)&unk_AD472D )
       //  return;
       return; // phail
@@ -4295,7 +4293,7 @@ void __cdecl sub_4B2A74()
   int v64; // [sp+114h] [bp-8h]@12
   int v65; // [sp+118h] [bp-4h]@6
 
-  memcpy(&local_B4, pDialogueWindow, sizeof(struct GUIWindow));
+  memcpy(&local_B4, pDialogueWindow, sizeof(GUIWindow));
   if ( dword_5913F0 == dword_591424 && dword_5C35D0 )
   {
    v1 = (int)pMapStats->pMapInfos[dword_5C35D0].pLocationName;
@@ -4362,7 +4360,7 @@ void __cdecl sub_4B2A74()
   }
   v14 = (int)pDialogueWindow;
 
-  memcpy(&local_60, pDialogueWindow, sizeof(struct GUIWindow));
+  memcpy(&local_60, pDialogueWindow, sizeof(GUIWindow));
   local_60.uFrameX = 483;
   local_60.uFrameWidth = 148;
   local_60.uFrameZ = 334;
@@ -5799,7 +5797,7 @@ LABEL_82:
               if ( v43 == 94 || v43 == 95 )
                 v42 += 720;
               sub_4B1BDB(v42 + 10080);
-              if ( dword_6BE360 == 2 )
+              if ( uCurrentlyLoadedLevelType == 2 )
                 sub_489487();
             }
             Player_PlaySound((Player *)v3, 87, 0);
@@ -5904,7 +5902,7 @@ LABEL_60:
       v53 = -*(_DWORD *)(v45 + 40) < 0;
       v78 = *(_DWORD *)(v45 + 56);
 
-      compile_error;//if ( v53 ^ __SETO__(result, v52) )
+      compile_error();//if ( v53 ^ __SETO__(result, v52) )
       if (1)
       {
         i = 2;
@@ -6125,7 +6123,7 @@ signed int __cdecl sub_4B4FCF()
       v82 = -pDialogueWindow->dword_000028 < 0;
       v121 = pDialogueWindow->dword_000038;
 
-      compile_error;//if ( v82 ^ __SETO__(result, v81) )
+      compile_error();//if ( v82 ^ __SETO__(result, v81) )
       if (1)
       {
         v125 = 2;
@@ -6315,7 +6313,7 @@ LABEL_140:
         v20 = -pDialogueWindow->dword_000028 < 0;
         v125 = pDialogueWindow->dword_000038;
 
-        compile_error;//if ( v20 ^ __SETO__(result, v19) )
+        compile_error();//if ( v20 ^ __SETO__(result, v19) )
         if (1)
         {
           v122 = 2;
@@ -6604,7 +6602,7 @@ LABEL_61:
     }
     sub_4B46A5(v69, 0);
     if ( !v120 )
-      compile_error;//return (signed int)sub_4B1854(
+      compile_error();//return (signed int)sub_4B1854(
                     //       &v113,
                     //       __PAIR__(
                     //         dword_ACD048[2 * *(_DWORD *)(dword_507BC0 + 28)],
@@ -6747,7 +6745,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         {
           wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[403], aClassNames[20 + dword_F8B19C]);
           sub_44C175((char *)TmpBuf, 2);
-          AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
+          pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
         }
         else
         {
@@ -6829,7 +6827,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         v11 = (char *)pGlobalTXT_LocalizationStrings[196];
       sub_4B46A5(v11, 0);
       if ( !v10 )
-        compile_error;//return (signed int)sub_4B1854(
+        compile_error();//return (signed int)sub_4B1854(
                       //       &v52,
                       //       __PAIR__(
                       //         dword_ACCD98[2 * *(_DWORD *)(dword_507BC0 + 28)],
@@ -7052,7 +7050,7 @@ void __cdecl sub_4B6478()
       if ( !*(&byte_4ED94C[37 * *(_BYTE *)(v1 + 185) / 3] + dword_F8B19C)
         || (v6 = v1 + 2 * dword_F8B19C + 192, *(_WORD *)v6) )
       {
-        AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
+        pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
       }
       else
       {
@@ -7445,7 +7443,7 @@ LABEL_78:
       {
         sub_492BB6((signed __int64)v25);
         v26 = (int)&unk_6A12B8;
-        if ( dword_6BE360 != 2 )
+        if ( uCurrentlyLoadedLevelType != 2 )
           v26 = (int)&unk_6BE68C;
         v27 = *(_DWORD *)(v26 + 8);
         v68 = (const char *)v26;
@@ -7561,7 +7559,7 @@ LABEL_55:
       }
     }
 LABEL_63:
-    AudioPlayer_sub_4AA306(pAudioPlayer, 202, -1, 0, -1, 0, 0, 0, 0);
+    pAudioPlayer->sub_4AA306(202, -1, 0, -1, 0, 0, 0, 0);
     Player_PlaySound((Player *)v1, 82, 0);
     sub_4418B1(20, uActiveCharacter + 99, 0, 65536);
 LABEL_46:
@@ -7691,7 +7689,7 @@ void __cdecl sub_4B7911()
   int v37; // [sp+114h] [bp-8h]@29
   int v38; // [sp+118h] [bp-4h]@21
 
-  memcpy(&local_B4, ptr_507BC0, sizeof(struct GUIWindow));
+  memcpy(&local_B4, ptr_507BC0, sizeof(GUIWindow));
   local_B4.uFrameX = 483;
   local_B4.uFrameWidth = 148;
   local_B4.uFrameZ = 334;
@@ -7725,7 +7723,7 @@ void __cdecl sub_4B7911()
     v19 = -pDialogueWindow->dword_000028 < 0;
     v38 = pDialogueWindow->dword_000038;
 
-    compile_error;//if ( v19 ^ __SETO__(v0, HIDWORD(v17)) )
+    compile_error();//if ( v19 ^ __SETO__(v0, HIDWORD(v17)) )
     if (1)
     {
       v37 = 2;
@@ -7822,7 +7820,7 @@ LABEL_8:
     wsprintfA((char *)pStringBuffer, (const char *)dword_F8B1A4, TmpBuf, 100 * *((_BYTE *)v7 + 8));
     dword_F8B1E8 = pStringBuffer;
 
-    memcpy(&local_0C, pDialogueWindow, sizeof(struct GUIWindow));
+    memcpy(&local_0C, pDialogueWindow, sizeof(GUIWindow));
     local_60.uFrameWidth = 458;
     local_60.uFrameZ = 457;
     v38 = (int)pFontArrus;
@@ -8314,7 +8312,7 @@ void __cdecl sub_4B8285()
         v55 = -pDialogueWindow->dword_000028 < 0;
         v94 = pDialogueWindow->dword_000038;
 
-        compile_error;//if ( v55 ^ __SETO__(v53, HIDWORD(v53)) )
+        compile_error();//if ( v55 ^ __SETO__(v53, HIDWORD(v53)) )
         if (1)
         {
           v90 = 2;
@@ -8547,7 +8545,7 @@ LABEL_43:
     v37 = -pDialogueWindow->dword_000028 < 0;
     v96 = pDialogueWindow->dword_000038;
     
-    compile_error;//if ( !(v37 ^ __SETO__(v35, v36)) )
+    compile_error();//if ( !(v37 ^ __SETO__(v35, v36)) )
     if (1)
     {
 LABEL_75:
@@ -8636,7 +8634,7 @@ LABEL_73:
   }
   if ( dword_F8B19C == 103 )
   {
-    compile_error;//strcpy((char *)(char *)TmpBuf, *(const char **)&dword_721E24[8 * *(_DWORD *)(dword_507BC0 + 28)]);
+    compile_error();//strcpy((char *)(char *)TmpBuf, *(const char **)&dword_721E24[8 * *(_DWORD *)(dword_507BC0 + 28)]);
     local_19C.uFrameWidth = 460;
     local_19C.uFrameZ = 452;
     v65 = GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_19C, 12, 0);
@@ -8989,7 +8987,7 @@ int __cdecl sub_4B910F()
       v71 = -pDialogueWindow->dword_000028 < 0;
       v110 = pDialogueWindow->dword_000038;
 
-      compile_error;//if ( v71 ^ __SETO__(result, v70) )
+      compile_error();//if ( v71 ^ __SETO__(result, v70) )
       if (1)
       {
         v111 = 2;
@@ -9193,7 +9191,7 @@ LABEL_105:
         v20 = -pDialogueWindow->dword_000028 < 0;
         v111 = pDialogueWindow->dword_000038;
         
-        compile_error;//if ( v20 ^ __SETO__(result, v19) )
+        compile_error();//if ( v20 ^ __SETO__(result, v19) )
         if (1)
         {
           v112 = 2;
@@ -9443,7 +9441,7 @@ LABEL_15:
     }
     else
     {
-      compile_error;//result = (int)sub_4B1854(
+      compile_error();//result = (int)sub_4B1854(
                     //  &v102,
                     //  __PAIR__(
                     //    dword_ACD048[2 * *(_DWORD *)(dword_507BC0 + 28)],
@@ -9613,7 +9611,7 @@ signed int __cdecl sub_4B9CC6()
       v78 = -pDialogueWindow->dword_000028 < 0;
       v115 = pDialogueWindow->dword_000038;
 
-      compile_error;//if ( v78 ^ __SETO__(result, v77) )
+      compile_error();//if ( v78 ^ __SETO__(result, v77) )
       if (1)
       {
         v113 = 2;
@@ -9735,7 +9733,7 @@ LABEL_45:
     v28 = -pDialogueWindow->dword_000028 < 0;
     v115 = pDialogueWindow->dword_000038;
     
-    compile_error;//if ( v28 ^ __SETO__(result, v27) )
+    compile_error();//if ( v28 ^ __SETO__(result, v27) )
     if (1)
     {
       v113 = 2;
@@ -9936,7 +9934,7 @@ LABEL_134:
     }
     sub_4B46A5(v65, 0);
     if ( !v112 )
-      compile_error;//return (signed int)sub_4B1854(
+      compile_error();//return (signed int)sub_4B1854(
                     //       &v105,
                     //       __PAIR__(
                     //         dword_ACD048[2 * *(_DWORD *)(dword_507BC0 + 28)],
@@ -10347,7 +10345,7 @@ char __cdecl sub_4BA928()
       v81 = -pDialogueWindow->dword_000028 < 0;
       v148 = pDialogueWindow->dword_000038;
       
-      compile_error;//if ( v81 ^ __SETO__(v1, v80) )
+      compile_error();//if ( v81 ^ __SETO__(v1, v80) )
       if (1)
       {
         v151 = 2;
@@ -10631,7 +10629,7 @@ LABEL_36:
     }
     v67 = ptr_507BC0->dword_00001C;
 LABEL_96:
-    compile_error;//LOBYTE(v1) = (unsigned int)sub_4B1854(&v140, __PAIR__(dword_ACD048[2 * v67], dword_ACD044[2 * v67]) - pParty_global->qword_00002C);
+    compile_error();//LOBYTE(v1) = (unsigned int)sub_4B1854(&v140, __PAIR__(dword_ACD048[2 * v67], dword_ACD044[2 * v67]) - pParty_global->qword_00002C);
     return v1;
   }
   if ( dword_F8B19C == 5 )
@@ -10687,7 +10685,7 @@ LABEL_96:
       v22 = -pDialogueWindow->dword_000028 < 0;
       v150 = pDialogueWindow->dword_000038;
       
-      compile_error;//if ( v22 ^ __SETO__(v1, v21) )
+      compile_error();//if ( v22 ^ __SETO__(v1, v21) )
       if (1)
       {
         v148 = 2;
@@ -10890,12 +10888,12 @@ signed int __fastcall sub_4BB756(signed int a1)
     v22 = 0;
     v21 = 12040;
 LABEL_40:
-    AudioPlayer_sub_4AA306(pAudioPlayer, v21, v22, v23, v24, v25, v27, v29, v31);
+    pAudioPlayer->sub_4AA306(v21, v22, v23, v24, v25, v27, v29, v31);
     return 0;
   }
   if ( a1 == 39 )
   {
-    if ( dword_6BE360 == 1 )
+    if ( uCurrentlyLoadedLevelType == 1 )
     {
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[494], 2);
       v31 = 0;
@@ -11134,7 +11132,7 @@ LABEL_23:
           Player_sub_44A5CB((char *)&pParty_global->pPlayers[i], 12, (unsigned __int8)byte_ACD76D + 3);
 
         sub_420C05(uArenaReward, 0);
-        AudioPlayer_sub_4AA306(pAudioPlayer, 14060, 0, 0, -1, 0, 0, 0, 0);
+        pAudioPlayer->sub_4AA306(14060, 0, 0, -1, 0, 0, 0, 0);
         byte_ACD76D = -1;
       }
       else
@@ -11147,7 +11145,7 @@ LABEL_23:
         pParty_global->sRotationY = 512;
         pParty_global->sRotationX = 0;
         pParty_global->dword_0006E8 = 0;
-        AudioPlayer_sub_4AA306(pAudioPlayer, 14060, 0, 0, -1, 0, 0, 0, 0);
+        pAudioPlayer->sub_4AA306(14060, 0, 0, -1, 0, 0, 0, 0);
       }
     }
   }
@@ -11215,7 +11213,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
     if ( (dword_71FFF8 >> 10) - (dword_71FFF4 >> 10) >= 2000 )
     {
       v16 = 0;
-      if ( dword_6BE360 == 1 )
+      if ( uCurrentlyLoadedLevelType == 1 )
       {
         v5 = uNumActors;
         v16 = sub_49AC17((int)byte_6BE3C8, a2, a3, a4);
@@ -11291,7 +11289,7 @@ void __cdecl sub_4BC109()
   signed int v22; // [sp-4h] [bp-144h]@51
   __int16 v23[100]; // [sp+Ch] [bp-134h]@39
 
-  struct GUIWindow local_D4;
+  GUIWindow local_D4;
   //char v24; // [sp+D4h] [bp-6Ch]@1
   //int v25; // [sp+DCh] [bp-64h]@1
   //int v26; // [sp+E4h] [bp-5Ch]@1
@@ -11306,19 +11304,19 @@ void __cdecl sub_4BC109()
   v29 = 0;
   byte_ACD76D = uDialogueType;
 
-  memcpy(&local_D4, pDialogueWindow, sizeof(struct GUIWindow));
+  memcpy(&local_D4, pDialogueWindow, sizeof(GUIWindow));
 
   local_D4.uFrameWidth = 460;
   local_D4.uFrameZ = 452;
   v0 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[575], &local_D4, 13, 0) + 7;
   pD3DRenderer->BeginScene();
-  if ( dword_6BE360 == 1 )
+  if ( uCurrentlyLoadedLevelType == 1 )
   {
     sub_441BD4();
   }
   else
   {
-    if ( dword_6BE360 == 2 )
+    if ( uCurrentlyLoadedLevelType == 2 )
       sub_441CFF();
   }
   //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
@@ -11488,7 +11486,7 @@ LABEL_55:
     v21 = rand();
     sub_4BBF61((unsigned __int16)v28[v21 % v31], dword_4F0E90[2 * v19], v20, 1);
   }
-  AudioPlayer_sub_4AA306(pAudioPlayer, 14060, 0, 0, -1, 0, 0, 0, 0);
+  pAudioPlayer->sub_4AA306(14060, 0, 0, -1, 0, 0, 0, 0);
 }
 
 //----- (004BC49B) --------------------------------------------------------
@@ -12578,7 +12576,7 @@ bool __fastcall sub_4BDAAF(int a1, int a2)
   v6 = v3 - 1;
   if ( !v6 )
   {
-    compile_error;//v11 = __SETO__(v4, 2);
+    compile_error();//v11 = __SETO__(v4, 2);
     v9 = v4 == 2;
     v10 = v4 - 2 < 0;
     goto LABEL_23;
@@ -12600,7 +12598,7 @@ bool __fastcall sub_4BDAAF(int a1, int a2)
       return 1;
     if ( v4 != 17 || v5 < 740 )
       return 0;
-    compile_error;//v11 = __SETO__(v5, 771);
+    compile_error();//v11 = __SETO__(v5, 771);
     v9 = v5 == 771;
     v10 = v5 - 771 < 0;
 LABEL_23:
@@ -12610,7 +12608,7 @@ LABEL_23:
   }
   if ( v4 >= 3 )
   {
-    compile_error;//v11 = __SETO__(v4, 9);
+    compile_error();//v11 = __SETO__(v4, 9);
     v9 = v4 == 9;
     v10 = v4 - 9 < 0;
     goto LABEL_23;
@@ -12834,7 +12832,9 @@ LABEL_49:
     v79 = 0;
     v77 = 0;
     v74 = v37;
-    v33 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
+
+    compile_error(file name should not be global);
+    //v33 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
     if ( v33 )
       v77 = pMapStats->pMapInfos[v33].dword_000024;
     v38 = sub_47752B();
@@ -12926,7 +12926,7 @@ LABEL_81:
     v48 = 0;
     v47 = 0;
 LABEL_87:
-    AudioPlayer_sub_4AA306(pAudioPlayer, 27, v47, v48, v49, v50, v51, v53, v57);
+    pAudioPlayer->sub_4AA306(27, v47, v48, v49, v50, v51, v53, v57);
     return;
   }
   if ( dword_F8B19C == 4 )
@@ -12958,7 +12958,7 @@ LABEL_87:
               }
               goto LABEL_26;
             }
-            AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
+            pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
             v54 = 0;
             goto LABEL_28;
           }
@@ -13016,7 +13016,7 @@ LABEL_84:
                 sub_4B1E92(v13, v56);
                 return;
               }
-              AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
+              pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
               v54 = 0;
 LABEL_28:
               v52 = 79;
@@ -13227,7 +13227,7 @@ int __thiscall sub_4BE623(int _this)
   v3 = sub_4BE5B1(_this) * (double)*(signed int *)(_this + 44);
   v4 = v3 + 6.755399441055744e15;
   v1 = LODWORD(v4);
-  if ( LODWORD(v4) >= *(_DWORD *)(v2 + 44) )
+  if (LODWORD(v4) >= *(_DWORD *)(v2 + 44) )
     v1 = *(_DWORD *)(v2 + 44);
   return v1 + *(_DWORD *)(v2 + 40);
 }
@@ -13315,7 +13315,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   BYTE1(dword_6BE364) &= 0xBFu;
   dword_F8BC10 = 1;
 
-  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   pD3DRenderer->BeginScene();
   Render_sub_49ECC4((int)pD3DRenderer);
   pD3DRenderer->EndScene();
@@ -13376,8 +13376,8 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
     LODWORD(v34) = v7 + v34;
     HIDWORD(v34) += *(_DWORD *)(i - 4) + v8;
     ++v31;
-    compile_error;//v10 = __SETO__(i + 6972, &unk_AD471C);
-    compile_error;//v9 = i + 6972 - (_DWORD)&unk_AD471C < 0;
+    compile_error();//v10 = __SETO__(i + 6972, &unk_AD471C);
+    compile_error();//v9 = i + 6972 - (_DWORD)&unk_AD471C < 0;
     //phail
     i += 6972;
     if ( !(v9 ^ v10) )
@@ -13504,7 +13504,7 @@ bool Vis_sub_4C05CC(struct Vis *_this, struct class25 *a2, int a3, int a4)
 
  v5->dword_002004 = 0;
  Vis_sub_4C06F8(_this, _this->dword_0020CC, v5, (unnamed_F93E6C *)a3);
- if (dword_6BE360 == 1)
+ if (uCurrentlyLoadedLevelType == 1)
    Vis_sub_4C0D32(_this, _this->dword_0020CC, (int)v5, a4);
  else
    Vis_sub_4C0DEA(_this, _this->dword_0020CC, (int)v5, a4);
@@ -13524,7 +13524,7 @@ bool Vis_sub_4C0646(struct Vis *_this, float a2, float fMouseX, float fMouseY, i
  Vis_sub_4C248E(local_1C, fMouseX, fMouseY, a2);
  Vis_sub_4C1542(_this, a2, fMouseX, fMouseY, &_this->class25_obj, a5);
 
- if ( dword_6BE360 == 1 )
+ if ( uCurrentlyLoadedLevelType == 1 )
    sub_4C16B4(_this, SLOBYTE(a2), (int)local_1C, (int)&_this->class25_obj, a6);
  else
    sub_4C17CF_ProbablyIfMouseOverBModel(_this, SLOBYTE(a2), (int)local_1C, (int)&_this->class25_obj, a6, 0);
@@ -13590,7 +13590,7 @@ bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6
   if (a2->dword_000000 != 2)
     return true;
 
-  if (dword_6BE360 != 1)
+  if (uCurrentlyLoadedLevelType != 1)
   {
     v14 = *(_WORD *)(uD3DBillboardID + 292) == 0;
     v15 = *(_DWORD *)(uD3DBillboardID + 28);
@@ -13750,7 +13750,7 @@ LABEL_49:
     v37 = v5;
     Vis_ProbablyGetD3DBillboardCenter(_this, pBillboardRenderListD3D3[v4/156].pQuad, 4, (float *)&v35, (float *)&v36);
     Vis_sub_4C248E(local_20, *(float *)&v35, *(float *)&v36, a2);
-    if ( dword_6BE360 == 1 )
+    if ( uCurrentlyLoadedLevelType == 1 )
     {
       v6 = a2;
       sub_4C16B4(v39, SLOBYTE(v6), (int)local_20, (int)&class25_F91E10, (int)&dword_F93E44);
@@ -13802,7 +13802,7 @@ LABEL_49:
                 v14 = v11;
                 v15 = v12;
                 Vis_sub_4C248E(local_80, SLODWORD(v15), v14, a2);
-                if ( dword_6BE360 == 1 )
+                if ( uCurrentlyLoadedLevelType == 1 )
                 {
                   v16 = a2;
                   sub_4C16B4(v39, SLOBYTE(v16), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44);
@@ -13830,7 +13830,7 @@ LABEL_49:
         LODWORD(v38) += 32;
         if ( v40 >= 4 )
         {
-          if ( dword_6BE360 != 2 )
+          if ( uCurrentlyLoadedLevelType != 2 )
             return false;
           v21 = pBillboardRenderListD3D3[v4/156].pQuad[0].x;
           v20 = pBillboardRenderListD3D3[v4/156].pQuad[3].x;
@@ -13852,7 +13852,7 @@ LABEL_49:
             || v23 > (double)pOldViewport->uScreenZ
             || (double)pOldViewport->uScreenY > v41
             || (double)pOldViewport->uScreenW < v41
-            || ((v24 = v39, v25 = v23, Vis_sub_4C248E(local_80, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF_ProbablyIfMouseOverBModel(v24, SLOBYTE(v27), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44)),
+            || ((v24 = v39, v25 = v23, Vis_sub_4C248E(local_80, SLODWORD(v25), v41, a2), uCurrentlyLoadedLevelType != 1) ? (v27 = a2, sub_4C17CF_ProbablyIfMouseOverBModel(v24, SLOBYTE(v27), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44)),
                 (class25_create_object_pointers(&class25_F91E10, 0),
                  class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1),
                  class25_F91E10.dword_002004)
@@ -13921,7 +13921,7 @@ int Vis_sub_4C0D32(struct Vis *_this, float a2, int a3, int a4)
         }
       }
       result = v14 + 1;
-      compile_error;//v13 = __SETO__(v14 + 1, class37_global0.dword_000000);
+      compile_error();//v13 = __SETO__(v14 + 1, class37_global0.dword_000000);
       v12 = v14++ + 1 - class37_global0.dword_000000 < 0;
     }
     while ( v12 ^ v13 );
@@ -14092,7 +14092,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
   v6 = a2;
   v25 = 0;
   v7 = *(_BYTE *)(v6 + 93);
-  if ( dword_6BE360 == 1 )
+  if ( uCurrentlyLoadedLevelType == 1 )
   {
     if ( v7 > 0 )
     {
@@ -14143,7 +14143,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
   if (sub_4C12C3_FindSomeBillboard(array_F8F200, v7, v23, v24))
     return result = 0;
 
-  if (Vis_sub_4C248E(local_20, v23, v24, a4), dword_6BE360 != 1)
+  if (Vis_sub_4C248E(local_20, v23, v24, a4), uCurrentlyLoadedLevelType != 1)
   {
    v17 = a4;
    sub_4C17CF_ProbablyIfMouseOverBModel(v15, SLOBYTE(v17), (int)local_20, (int)&class25_F8FE00, (int)&dword_F93E44, 1);
@@ -14386,7 +14386,7 @@ int __thiscall sub_4C16B4(void *_this, char a2, int a3, int a4, int a5)
         }
       }
       result = v20 + 1;
-      compile_error;//v13 = __SETO__(v20 + 1, class37_global0.dword_000000);
+      compile_error();//v13 = __SETO__(v20 + 1, class37_global0.dword_000000);
       v12 = v20++ + 1 - class37_global0.dword_000000 < 0;
     }
     while ( v12 ^ v13 );

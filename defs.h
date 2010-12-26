@@ -12,23 +12,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <windows.h>
-#include <ddraw.h>
 #include <math.h>
 #include <string.h>
-
-namespace Error
-{
- enum
- {
-  Generic = -1,       // Generic error without description
-
-  Success = 0,
-
-  InvalidParams = 1,  // Invalid parameters passed to function
-  FileNotFound = 2,   // Some files cannot be found
-  OutOfMemory = 3     // Ran out of memory during operation
- };
-};
 
 
 
@@ -59,7 +44,7 @@ namespace Error
 #endif
 #define compile_error
 #else
-#define compile_error __asm int 3;
+#define compile_error(x) __asm int 3;
 #endif
 
 #define __thiscall __cdecl
@@ -86,12 +71,6 @@ namespace Error
 #define UNDEF
 
 
-
-//Smacker & AIL types
-typedef struct _DIG_DRIVER *HDIGDRIVER;
-//AIL
-typedef struct _REDBOOK    *HREDBOOK;
-typedef struct _SAMPLE     *HSAMPLE;
 
 
 #if defined(__GNUC__)
@@ -235,6 +214,7 @@ typedef int bool;       // we want to use bool in our C programs
 
 
 
+/*
 #pragma warning(disable: 4311)
 #pragma warning(disable: 4312)
 #pragma warning(disable: 4244)
@@ -245,8 +225,9 @@ typedef int bool;       // we want to use bool in our C programs
 #pragma warning(disable: 4133) // 'function' : incompatible types - from 'type1' to 'type2'
 #pragma warning(disable: 4024) // 'function' : different types for formal and actual parameter
 #pragma warning(disable: 4410) // asm: illegal size for operand
-#pragma warning(disable: 4013) // 'function' undefined; assuming /*extern*/ returning int
+#pragma warning(disable: 4013) // 'function' undefined; assuming /extern/ returning int
 #pragma warning(disable: 4267) // '=' conversion from 'type' to 'type, possible loss of data
 #pragma warning(disable: 4305) // double -> float
 #pragma warning(disable: 4700) // uninitialized local variable
 #pragma warning(disable: 4101) // unreferenced local variable
+*/

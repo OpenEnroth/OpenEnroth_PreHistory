@@ -2,11 +2,11 @@
 
 #include "Window.h"
 
-unsigned int Win32Window::AttachRender(BaseRender *pNewRender)
+Result::Code Win32Window::AttachRender(BaseRender *pNewRender)
 {
  pRender = pNewRender;
 
- return Error::Success;
+ return Result::Success;
 }
 
 BaseRender *Win32Window::GetRender() const
@@ -32,32 +32,26 @@ unsigned int Win32Window::Update(float dt)
 }
 
 
-unsigned int Win32Window::GetClientArea(struct Viewport *pOutArea)
+Result::Code Win32Window::GetClientArea(Rect<float> *pOutArea)
 {
  RECT rcClient;
 
  GetClientRect(hWindow, &rcClient);
- pOutArea->x = rcClient.left;
- pOutArea->y = rcClient.top;
- pOutArea->z = rcClient.right;
- pOutArea->w = rcClient.bottom;
- pOutArea->znear = 0;
- pOutArea->zfar = 0;
- return 0;
+ pOutArea->x = Range<float>(rcClient.left, rcClient.right);
+ pOutArea->y = Range<float>(rcClient.top, rcClient.bottom);
+
+ return Result::Success;
 }
 
-unsigned int Win32Window::GetWindowArea(struct Viewport *pOutArea)
+Result::Code Win32Window::GetWindowArea(Rect<float> *pOutArea)
 {
  RECT rcWindow;
 
  GetWindowRect(hWindow, &rcWindow);
- pOutArea->x = rcWindow.left;
- pOutArea->y = rcWindow.top;
- pOutArea->z = rcWindow.right;
- pOutArea->w = rcWindow.bottom;
- pOutArea->znear = 0;
- pOutArea->zfar = 0;
- return 0;
+ pOutArea->x = Range<float>(rcWindow.left, rcWindow.right);
+ pOutArea->y = Range<float>(rcWindow.top, rcWindow.bottom);
+
+ return Result::Success;
 }
 
 HWND Win32Window::GetAPIHandle()
@@ -65,12 +59,12 @@ HWND Win32Window::GetAPIHandle()
  return hWindow;
 }
 
-unsigned int Win32Window::OnClose()
+Result::Code Win32Window::OnClose()
 {
- return -1;
+ return Result::Generic;
 }
 
-unsigned int Win32Window::SetClientArea(struct Viewport *pArea)
+Result::Code Win32Window::SetClientArea(const Rect<float> *pArea)
 {
  RECT rcWindow, rcClient;
  GetWindowRect(hWindow, &rcWindow);
@@ -81,27 +75,30 @@ unsigned int Win32Window::SetClientArea(struct Viewport *pArea)
  unsigned int uWindowHeight = rcWindow.bottom - rcWindow.top,
               uClientHeight = rcClient.bottom - rcClient.top;
 
- SetWindowPos(hWindow, HWND_TOP, pArea->x, pArea->y,
-              (pArea->z - pArea->x) + (uWindowWidth - uClientWidth),
-              (pArea->w - pArea->y) + (uWindowHeight - uClientHeight), 0);
- return 0;
+ SetWindowPos(hWindow, HWND_TOP, pArea->x.min, pArea->y.min,
+              pArea->x.Length() + (uWindowWidth - uClientWidth),
+              pArea->y.Length() + (uWindowHeight - uClientHeight), 0);
+
+ return Result::Success;
 }
 
-unsigned int Win32Window::SetWindowArea(struct Viewport *pArea)
+Result::Code Win32Window::SetWindowArea(const Rect<float> *pArea)
 {
- SetWindowPos(hWindow, HWND_TOP, pArea->x, pArea->y, pArea->z - pArea->x, pArea->w - pArea->y, 0);
- return 0;
+ SetWindowPos(hWindow, HWND_TOP, pArea->x.min, pArea->y.min, pArea->x.Length(), pArea->y.Length(), 0);
+
+ return Result::Success;
 }
 
 
-unsigned int Win32Window::Show()
+Result::Code Win32Window::Show()
 {
  ShowWindow(hWindow, SW_SHOWNORMAL);
- return 0;
+
+ return Result::Success;
 }
 
 long *__stdcall wDefaultWinProc(HWND, unsigned int, unsigned int, long *);
-unsigned int Win32Window::Initialize(const wchar_t *pWindowClassName, const wchar_t *pWindowCaptionName, unsigned int uCreationParams)
+Result::Code Win32Window::Initialize(const wchar_t *pWindowClassName, const wchar_t *pWindowCaptionName, unsigned int uCreationParams)
 {
  lstrcpyW(pClassName, pWindowClassName);
  lstrcpyW(pWindowName, pWindowCaptionName);
@@ -118,7 +115,7 @@ unsigned int Win32Window::Initialize(const wchar_t *pWindowClassName, const wcha
   UpdateWindow(hWindow);
 
   SetForegroundWindow(GetLastActivePopup(hWindow));
-  return -1;
+  return Result::Generic;
  }
 
  wcxw.cbClsExtra = 0;
@@ -138,12 +135,12 @@ unsigned int Win32Window::Initialize(const wchar_t *pWindowClassName, const wcha
    hWindow = CreateWindowExW(0, pClassName, pWindowName, WS_OVERLAPPEDWINDOW, 0, 0, 1, 1, 0, 0, wcxw.hInstance, this);
  else hWindow = CreateWindowExW(0, pClassName, pWindowName, WS_POPUP, 0, 0, 1, 1, 0, 0, wcxw.hInstance, this);
 
- return 0;
+ return Result::Success;
 }
 
-unsigned int Win32Window::SystemMessageHandler(unsigned int msg, unsigned int wparam, long *lparam)
+Result::Code Win32Window::SystemMessageHandler(unsigned int msg, unsigned int wparam, long *lparam)
 {
- return -1;
+ return Result::NotImplemented;
 }
 
 

@@ -7,6 +7,54 @@
 
 
 
+unsigned int ActionQueue::Clear()
+{
+ uNumActions = 0;
+ return Result::Success;
+}
+
+
+//----- (004760C1) --------------------------------------------------------
+unsigned int ActionQueue::Add(Action::Type eAction)
+{
+ if (uNumActions < 30)
+ {
+  pActions[uNumActions++] = eAction;
+  return Result::Success;
+ }
+ return Result::OutOfMemory;
+}
+
+//----- (004760D5) --------------------------------------------------------
+unsigned int ActionQueue::Next(Action::Type *pOut)
+{
+ if (!uNumActions)
+   return Result::NotFound;
+
+ if (pOut)
+   *pOut = pActions[0];
+
+ for (unsigned int i = 1; i < uNumActions; ++i)
+   pActions[i - 1] = pActions[i];
+
+ --uNumActions;
+ return Result::Success;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void PartyAction_OnStrafeRight()
 {
@@ -15,7 +63,7 @@ void PartyAction_OnStrafeRight()
 
  if (!pParty_global->bTurnBasedModeOn)
  {
-  sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::StrafeRight);
+  pPartyActionQueue->Add(Action::StrafeRight);
   return;
  }
 
@@ -23,7 +71,7 @@ void PartyAction_OnStrafeRight()
    return;
 
  dword_4F886C -= 26;
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::StrafeRight);
+ pPartyActionQueue->Add(Action::StrafeRight);
 }
 
 
@@ -36,7 +84,7 @@ void PartyAction_OnStrafeLeft()
 
  if (!pParty_global->bTurnBasedModeOn)
  {
-  sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::StrafeLeft);
+  pPartyActionQueue->Add(Action::StrafeLeft);
   return;
  }
 
@@ -44,7 +92,7 @@ void PartyAction_OnStrafeLeft()
    return;
 
  dword_4F886C -= 26;
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::StrafeLeft);
+ pPartyActionQueue->Add(Action::StrafeLeft);
 }
 
 
@@ -55,7 +103,7 @@ void PartyAction_OnLand()
  if (dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004)
    return;
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::Land);
+ pPartyActionQueue->Add(Action::Land);
 }
 
 
@@ -64,7 +112,7 @@ void PartyAction_OnFlyDown()
  if (dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004)
    return;
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::FlyDown);
+ pPartyActionQueue->Add(Action::FlyDown);
 }
 
 
@@ -76,7 +124,7 @@ void PartyAction_OnFlyUp()
  if (dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004)
    return;
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::FlyUp);
+ pPartyActionQueue->Add(Action::FlyUp);
 }
 
 
@@ -101,7 +149,7 @@ void PartyAction_OnCenterView()
  if (cClock1.dword_000004)
    return;
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::CenterView);
+ pPartyActionQueue->Add(Action::CenterView);
 }
 
 void PartyAction_OnLookDown()
@@ -109,7 +157,7 @@ void PartyAction_OnLookDown()
  if (cClock1.dword_000004)
    return;
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::LookDown);
+ pPartyActionQueue->Add(Action::LookDown);
 }
 
 
@@ -118,7 +166,7 @@ void PartyAction_OnLookUp()
  if (cClock1.dword_000004)
    return;
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::LookUp);
+ pPartyActionQueue->Add(Action::LookUp);
 }
 
 
@@ -291,7 +339,7 @@ void PartyAction_OnJump()
  if (dword_4E28F8_PartyCantJumpIfTrue || pParty_global->bTurnBasedModeOn)
    return;
  
- sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::Jump);
+ pPartyActionQueue->Add(Action::Jump);
 }
 
 
@@ -339,8 +387,8 @@ void PartyAction_OnTurningRight()
     eAction = Action::TurnRight;
  }
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, eAction);
- if (dword_6BE360 == 2 && dword_6BE024 == 1)
+ pPartyActionQueue->Add(eAction);
+ if (uCurrentlyLoadedLevelType == 2 && dword_6BE024 == 1)
    sub_4C2F0B(&struct_6BD080, -10);
 }
 
@@ -371,8 +419,8 @@ void PartyAction_OnTurningLeft()
     eAction = Action::TurnLeft;
  }
 
- sub_4760C1_QueuePlayerAction(&stru_7215D8, eAction);
- if (dword_6BE360 == 2 && dword_6BE024 == 1)
+ pPartyActionQueue->Add(eAction);
+ if (uCurrentlyLoadedLevelType == 2 && dword_6BE024 == 1)
    sub_4C2F0B(&struct_6BD080, 10);
 }
 
@@ -388,18 +436,18 @@ void PartyAction_OnMovingBackwards()
  if (!pParty_global->bTurnBasedModeOn)
  {
   if (pParty_global->dword_000884 & 2)
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, (Action::Type)17);
+    pPartyActionQueue->Add((Action::Type)17);
   else
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::WalkBackwards);
+    pPartyActionQueue->Add(Action::WalkBackwards);
  }
  else if (dword_4F885C != 1 && dword_4F885C != 2 && dword_4F886C > 0)
  {
   dword_4F886C -= 26;
 
   if (pParty_global->dword_000884 & 2)
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, (Action::Type)17);
+    pPartyActionQueue->Add((Action::Type)17);
   else
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::WalkBackwards);
+    pPartyActionQueue->Add(Action::WalkBackwards);
  }
 }
 
@@ -414,17 +462,17 @@ void PartyAction_OnMovingForward()
  if (!pParty_global->bTurnBasedModeOn)
  {
   if (pParty_global->dword_000884 & 2)
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, (Action::Type)16);
+    pPartyActionQueue->Add((Action::Type)16);
   else
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::WalkForward);
+    pPartyActionQueue->Add(Action::WalkForward);
  }
  else if (dword_4F885C != 1 && dword_4F885C != 2 && dword_4F886C > 0)
  {
   dword_4F886C -= 26;
 
   if (pParty_global->dword_000884 & 2)
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, (Action::Type)16);
+    pPartyActionQueue->Add((Action::Type)16);
   else
-    sub_4760C1_QueuePlayerAction(&stru_7215D8, Action::WalkForward);
+    pPartyActionQueue->Add(Action::WalkForward);
  }
 }

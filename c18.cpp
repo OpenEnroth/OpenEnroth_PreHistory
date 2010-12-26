@@ -857,7 +857,7 @@ signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned i
   }
   if ( a3 != 1 && a3 == 2 )
   {
-    compile_error;//v13 = (int)operator new(4 * v9 + 8);
+    compile_error();//v13 = (int)operator new(4 * v9 + 8);
     *((_DWORD *)v3 + 8) |= 1u;
 LABEL_16:
     *((_DWORD *)v3 + 9) = v13;

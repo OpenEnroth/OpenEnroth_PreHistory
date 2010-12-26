@@ -304,9 +304,7 @@ struct SpriteFrame *CSpriteFrameTable_fn2(struct SpriteFrameTable *_this, int a2
 //----- (0044D4F6) --------------------------------------------------------
 void SpriteFrameTable_fn3(struct SpriteFrameTable *_this)
 {
- int i;
-
- for (i = 0; i < _this->uNumSpriteFrames; ++i)
+ for (unsigned int i = 0; i < _this->uNumSpriteFrames; ++i)
    _this->pSpriteSFrames[i].dword_00002C &= 0xFFFFFF7F;
 }
 
@@ -347,7 +345,7 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
   if (_this->pSpriteSFrames[i].dword_00002C & 0x10)
   {
 
-   v10 = LODFile_Sprites_LOD.LODFile_LoadSprite( (char *)_this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
+   v10 = LODFile_Sprites_LOD.LODFile_LoadSprite((char *)_this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
 
    for (j = 0; j < 8; ++j)
      _this->pSpriteSFrames[i].pSpriteIDs[j] = v10;
@@ -391,7 +389,7 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
     else
       wsprintfA(Size, "%s%i", v19->sTextureName, 8 - j);
 
-    v20 = LODFile_Sprites_LOD.LODFile_LoadSprite( Size, _this->pSpriteSFrames[i].word_000032);
+    v20 = LODFile_Sprites_LOD.LODFile_LoadSprite(Size, _this->pSpriteSFrames[i].word_000032);
 
     _this->pSpriteSFrames[i].pSpriteIDs[j] = v20;
    }
@@ -519,6 +517,93 @@ void SpriteFrameTablsub_SpriteBinarySearch(struct SpriteFrameTable *_this, int a
   }
 
  _this->dword_000008 = -1;
+}
+
+
+
+
+
+
+//----- (00488000) --------------------------------------------------------
+void CTileTable_Initialize(struct CTileTable *_this, unsigned char *pSrc)
+{
+ _this->uNumTiles = *(int *)(pSrc);
+ //_this->pTiles = (TileDesc *)mem_mng.AllocatedNamedBuffer(_this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
+ _this->pTiles = NamedMemAlloc(TileDesc, _this->uNumTiles, "Tile Descrip");
+ memcpy(_this->pTiles, pSrc + 4, _this->uNumTiles * sizeof(struct TileDesc));
+}
+
+//----- (00487ED6) --------------------------------------------------------
+int sub_487ED6(struct CTileTable *_this, int a2, int a3)
+{
+  int v5; // edx@3
+  int v6; // edx@11
+
+ if (a2 > 8)
+   return sub_487F84(_this, a2, 0);
+
+ v5 = rand() % 50;
+ if (a3 || v5 < 20)
+   return sub_487F84(_this, a2, 0);
+ else if (v5 < 30)
+   return sub_487F84(_this, a2, 1);
+ else if (v5 < 40)
+   return sub_487F84(_this, a2, 2);
+ else if (v5 < 48)
+   return sub_487F84(_this, a2, 3);
+
+ v6 = rand() % 8;
+ return sub_487F84(_this, a2, 4 + v6);
+}
+
+//----- (00487E3B) --------------------------------------------------------
+struct TileDesc *TileTable_GetTile(struct CTileTable *_this, unsigned int uTileID)
+{
+ if (uTileID < 0 || uTileID > _this->uNumTiles - 1)
+   return _this->pTiles;
+ else
+   return &_this->pTiles[uTileID];
+}
+
+//----- (00487F84) --------------------------------------------------------
+int sub_487F84(struct CTileTable *_this, int a2, int a3)
+{
+ int i;
+
+ if (!_this->uNumTiles)
+   return 0;
+
+ i = 0;
+ while (_this->pTiles[i].word_000014 != a2 || _this->pTiles[i].word_000016 != a3 )
+ {
+  ++i;
+  if (i >= _this->uNumTiles)
+    return 0;
+ }
+ return i;
+}
+
+//----- (00487E58) --------------------------------------------------------
+void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
+{
+ for (unsigned int i = 0; i < _this->uNumTiles; ++i)
+ {
+  if (_this->pTiles[i].word_000014 == a2)
+  {
+   if (_this->pTiles[i].sTileName[0])
+   {
+#ifndef OLD_CODE
+    wchar_t pFilename[256];
+    wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
+    _this->pTiles[i].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(pFilename);
+#else
+    _this->pTiles[i].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)_this->pTiles[i].sTileName,0);
+#endif
+    if (_this->pTiles[i].uBitmapID != -1)
+      LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].uBitmapID].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].uBitmapID].word_000026);
+   }
+  }
+ }
 }
 
 
@@ -683,9 +768,7 @@ void *CObjectDescriptionList_Initialize(struct CObjectDescriptionList *_this, un
 //----- (00459064) --------------------------------------------------------
 void sub_459064(struct CObjectDescriptionList *_this)
 {
- int i;
-
- for (i = 0; i < _this->uNumObjects; ++i)
+ for (unsigned int i = 0; i < _this->uNumObjects; ++i)
    SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].uSpriteID);
 }
 
@@ -711,10 +794,8 @@ void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, 
 
 //----- (00458D97) --------------------------------------------------------
 void sub_458D97(struct COverlayDescriptionList *_this)
-{
- int i;
-										 
- for (i = 0; i < _this->uNumOverlays; ++i)
+{								 
+ for (unsigned int i = 0; i < _this->uNumOverlays; ++i)
    SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000004);
 }
 

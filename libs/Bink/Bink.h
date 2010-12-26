@@ -1,8 +1,9 @@
-#include "defs.h"
+#include "..\..\CoreDefinitions.h"
+#include "..\..\defs.h"
 
 void BINKW32_DLL_Initialize();
 
-struct BINK
+struct _BINK
 {
  unsigned int Width;
  unsigned int Height;
@@ -14,7 +15,7 @@ struct BINK
  unsigned int Flags;
 };
 
-struct BINKBUF
+struct _BINKBUF
 {
  unsigned int               uWidth; // dword @ 000000
  unsigned int               uHeight; // dword @ 000004
@@ -48,9 +49,6 @@ struct BINKBUF
  unsigned int               dword_000074;
  unsigned int               dword_000078;
 };
-
-typedef struct BINK    *HBINK;
-typedef struct BINKBUF *HBINKBUF;
 
 
 int __stdcall BinkDDSurfaceType(struct IDirectDrawSurface *);

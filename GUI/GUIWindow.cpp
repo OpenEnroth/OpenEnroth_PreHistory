@@ -3,8 +3,26 @@
 
 #include "..\mm7_unparsed_data.h"
 
+
+
+
+
+Result::Code GUIWindow::Initialize(Rect<float> *pArea, GUIImage *pImage)
+{
+ cClientArea = *pArea;
+ pBackgroundImage = pImage;
+
+ return Result::Success;
+}
+
+
+
+
+
+
+
 //----- (0044D406) --------------------------------------------------------
-void GUIWindow_DrawText(struct GUIWindow *_this, struct Font *pFont,
+void GUIWindow_DrawText(GUIWindow *_this, struct Font *pFont,
                         unsigned int uHorizontalMargin, unsigned int uVerticalMargin,
                         unsigned int uDefaultColor, const char *pString, int sLineSpacing)
 {
@@ -13,7 +31,8 @@ void GUIWindow_DrawText(struct GUIWindow *_this, struct Font *pFont,
   char *v12; // eax@1
   int v13; // eax@2
 
-  v8 = _this->uFrameWidth - uHorizontalMargin;
+  v8 = _this->uFrameWidth;
+  v8 -= uHorizontalMargin;
   
   unsigned char pOutString[2048];
   v12 = (char *)FitTextInAWindow((unsigned char *)pString, pOutString, pFont, _this, uHorizontalMargin, 0);

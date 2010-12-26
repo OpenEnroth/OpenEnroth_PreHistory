@@ -8,7 +8,7 @@
 #include "GUI\GUI.h"
 #include "GUI\GUIFont.h"
 
-#include "Render.h"
+#include "BaseRender.h"
 
 #pragma pack(push, 1)
 
@@ -607,7 +607,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2);
 //int __thiscall sub_48A8A3(int _this);
 int class35_sub_48A8A3(struct class35 *_this);
 //signed int __thiscall sub_48A336(void *_this);
-int sub_48A336(struct class35 *_this);
+int class35_sub_48A336(struct class35 *_this);
 //int __thiscall sub_48A8CC(int _this)
 int class35_sub_48A8CC(struct class35 *_this);
 
@@ -851,8 +851,8 @@ struct struct3
 {
  short          word_000000;
  short          word_000002;
- ItemGen        array_000004[140];	// array_size_unknown
- short			array_13B4[140];
+ struct ItemGen array_000004[array_size_unknown];
+ char           byte_000028[5320 - array_size_unknown * sizeof(struct ItemGen)];
 };
 //sizeof == 14CC
 
@@ -964,7 +964,7 @@ struct OldCamera
  int          dword_000028;
  float        fRotationYSine;             // float @ 00002C    = sin(2ï * (sRotationY / 2048))
  float        fRotationYCosine;           // float @ 000030    = cos(2ï * (sRotationY / 2048))
- float        fRotationXSine;             // float @ 000034    = +/- sin(2ï * (sRotationX / 2048))   sign depends on condition  (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1)
+ float        fRotationXSine;             // float @ 000034    = +/- sin(2ï * (sRotationX / 2048))   sign depends on condition  (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || uCurrentlyLoadedLevelType == 1)
  float        fRotationXCosine;           // float @ 000038    = +/- cos(2ï * (sRotationX / 2048))   -//-
  int          some_angle_int_sine;         // dword @ 00003C   next four guys look like obsolete since are never used;  probably used in MM6 instead
  int          some_angle_int_cosine;       // dword @ 000040   65536 * cos(sRotationY)

@@ -98,10 +98,8 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_4E2BC8; // weak
  int dword_4E2BCC; // weak
  int dword_4E2BEC; // weak
-
- int dword_4E2C0C[8]={9,9,9,9,9,9,9,9}; // weak
- int dword_4E2C2C[8]={9,9,9,9,9,9,9,9}; // weak
-
+ int dword_4E2C0C[array_size_unknown]; // weak
+ int dword_4E2C2C[array_size_unknown]; // weak
  char byte_4E2FD4; // idb
  void *off_4E3044; // weak
  _UNKNOWN unk_4E3308; // weak
@@ -342,12 +340,6 @@ struct unnamed_4EB8B8  array_4EBBD0[128];       // struct[128] @ MM7.exe::004EBB
  int dword_4EC28C[array_size_unknown]; // weak
  int dword_4EC2A8; // weak
  int dword_4EC2AC; // weak
-
-// _UNKNOWN unk_4EC3EC; // weak
-struct Edge defaultEdge = // struct @ MM7.exe::004EC3EC
-{
- 2.1474836e+009
-};
 
  char byte_4ECA93[array_size_unknown]; // weak
  char byte_4ECACF[array_size_unknown]; // weak
@@ -850,11 +842,11 @@ unsigned char stru_506580_MonsterInfoUI_bDollInitialized; // byte   @ MM7.exe::0
 
  int dword_506F48; // weak
 
- struct GUIWindow *pGUIWindow_MainMenu = 0; // ptr @ MM7.exe::00506F4C
+ GUIWindow *pGUIWindow_MainMenu = 0; // ptr @ MM7.exe::00506F4C
 //int dword_506F4C; // idb
 
 
- struct GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
+ GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
 //int dword_506F50[array_size_unknown]; // weak
 //int dword_506F54; // weak
 //int dword_506F60; // weak
@@ -1004,20 +996,20 @@ unsigned int uTextureID_ibground = -1; // dword @ MM7.exe::00507BA8 addon, used 
  int dword_507BB0; // weak
 
 //int dword_507BB4; // idb
- struct GUIWindow *pGUIWindow0 = 0; // ptr @ MM7.exe::00507BB4
+ GUIWindow *pGUIWindow0 = 0; // ptr @ MM7.exe::00507BB4
 
  int dword_507BB8; // idb
-struct GUIWindow *pDialogueWindow = 0; // dword @ MM7.exe::00507BBC
-struct GUIWindow *ptr_507BC0 = 0;      // dword @ MM7.exe::00507BC0
-struct GUIWindow *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
+GUIWindow *pDialogueWindow = 0; // dword @ MM7.exe::00507BBC
+GUIWindow *ptr_507BC0 = 0;      // dword @ MM7.exe::00507BC0
+GUIWindow *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
  int dword_507BC8; // weak
 
-struct GUIWindow *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
-struct GUIWindow *ptr_507BD4 = 0; // idb  dword @ MM7.exe::00507B4
-struct GUIWindow *ptr_507BDC = 0; // weak
-struct GUIWindow *ptr_507BE0 = 0; // dword @ MM7.exe::00507BE0
+GUIWindow *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
+GUIWindow *ptr_507BD4 = 0; // idb  dword @ MM7.exe::00507B4
+GUIWindow *ptr_507BDC = 0; // weak
+GUIWindow *ptr_507BE0 = 0; // dword @ MM7.exe::00507BE0
 
- struct GUIWindow *pGUIWindow2 = 0;         // ptr   @ MM7.exe::00507BE4
+ GUIWindow *pGUIWindow2 = 0;         // ptr   @ MM7.exe::00507BE4
  unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
  int dword_507BF0; // weak
  int dword_507BF4; // weak
@@ -1181,8 +1173,6 @@ unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
  int dword_51076C; // weak
  int dword_510774; // weak
 
- unsigned char pStartMapName[36]; // idb
-
  struct class36 class36_global0; // struct @ MM7.exe::005107A8
  float flt_5107B8[620]; // idb
  //char byte_51117E[array_size_unknown]; // byte_5111C0 - 66
@@ -1325,13 +1315,9 @@ unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::00576E24
  int dword_576E28; // weak
  int dword_576E2C; // weak
 
-//struct related to loading screen
-struct class56 *pLoadingUI = 0; // struct @ MM7.exe::00576E30
-//_UNKNOWN unk_576E30; // weak
-//char byte_576E3A; // pLoadingUI::uProgressMax
-//int dword_576E3C; // 00000C
-
-struct unnamed_576FE8 struct_576FE8;      // struct @ MM7.exe::00576FE8
+GUIWindow              *pGameLoadingWindow = 0; // new
+GUIProgressBar_Generic *pLevelLoadingUI = 0;    // struct @ MM7.exe::00576E30
+struct unnamed_576FE8   struct_576FE8;          // struct @ MM7.exe::00576FE8
 
  __int64 qword_5773B8; // weak
  int dword_5773C0; // weak
@@ -1539,7 +1525,7 @@ struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4C90[array_size_unknown]; // weak
 //char byte_5E4CDA[array_size_unknown]; // weak
 //char byte_5E4CDB[array_size_unknown]; // weak
-//_UNKNOWN unk_5E4D52; // weak
+_UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak	 
@@ -1550,7 +1536,7 @@ unsigned short array_5E4D58[50][10];  // [42][12];
  //int dword_5E5130[array_size_unknown]; // weak
  int dword_5E5144; // weak
 
-struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
+struct struct3                 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
 unsigned int dword_5FF140; // idb
 
 int                            chest_descriptor[2];   //struct @ MM7.exe::005FF144
@@ -1613,17 +1599,13 @@ struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
  HWND dword_6A0CFC; // idb
  int dword_6A0D00; // weak
 
- unsigned char *dword_6A0D08; // idb
- int dword_6A0D0C; // weak
- _UNKNOWN unk_6A0D10; // weak
-
 struct unnamed_6A0D14 array_6A0D14[4]; // struct[4] @ MM7.exe::006A0D14
 unsigned int          uCurrentMenuID;  // dword     @ MM7.exe::006A0D44
 
  int dword_6A0D48; // weak
 
-struct class51 class51_6A0DA0_dwReserved;
-struct class51 *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
+OutdoorLocation class51_6A0DA0_dwReserved;
+OutdoorLocation *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
  struct tagOFNA stru_6A0DA0; // idb
 //dwReserved @ 6A0DF0 @ pClass51_global::000000
  int dword_6A12B0; // weak
@@ -1713,11 +1695,11 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  LONG dwNewLong; // idb
  HMENU hMenu; // idb
  int dword_6BE340; // weak
- char CurrentLevelName[20]; // idb	 Str1
 unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
  int dword_6BE35C; // weak
- int dword_6BE360; // weak
+unsigned int uCurrentlyLoadedLevelType; // dword @ MM7.exe::006BE360
  int dword_6BE364; // game settings
+                   // 0x0001: ?
                    // 0x0002: desktop color depth != 16, unable to start in window
                    // 0x0004: no intro
                    // 0x0008: no logo
@@ -1725,6 +1707,7 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
                    // 0x0020: no walk sound
                    // 0x0040: no anim
                    // 0x0100: application is minimized to tray/not active right now
+                   // 0x2000: ?
                    // 0x4000: ?
 
  int dword_6BE368; // debug flags
@@ -1793,6 +1776,8 @@ unsigned int bUseOverrideData;   // dword @ MM7.exe::00720008
 unsigned int bNoVideo = false;   // dword @ MM7.exe::0072000C
 unsigned int bNoCredits = false; // new
 unsigned int bNoIntro = false;   // new
+unsigned int bNoSound = false;   // new
+unsigned int bNo3DSound = false; // new
 int pAsyncMouse; // dword @ MM7.exe::00720010
 
 struct Game *pGame = 0; //struct @ MM7.exe::00720014
@@ -1831,7 +1816,7 @@ struct Game *pGame = 0; //struct @ MM7.exe::00720014
  __int16 word_721460[104]; // weak
 
 struct unnamed_721530 stru_721530; // struct @ MM7.exe::00721530
-struct unnamed_7215D8_PlayerActionBuffer stru_7215D8; // struct @ MM7.exe::007215D8
+struct ActionQueue *pPartyActionQueue; // struct @ MM7.exe::007215D8
  int dword_721654; // weak
  int dword_721658; // weak
  int dword_72165C; // weak
@@ -1911,12 +1896,12 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
  _UNKNOWN unk_73C834[array_size_unknown]; // weak
  char byte_73C84C; // weak
 
-
+/*
 unsigned int uNumTerrainNormals; // dword @ MM7.exe::0073D510
  _UNKNOWN unk_73D514[0x20000]; // weak
 unsigned short uTerrainNormalIndices[128 * 128 * 2]; // word[32768] @ MM7.exe::0075D514
 
-struct Normal *pTerrainNormals = 0;         // ptr @ MM7.exe::0076D514
+struct Normal *pTerrainNormals = 0;         // ptr @ MM7.exe::0076D514*/
 
  int dword_76D518; // weak
  int dword_76D51C; // weak
@@ -1973,11 +1958,6 @@ struct RenderVertex   array_806210[384];  // struct[384]  @ MM7.exe::00806210
  int dword_80AA20; // weak
 unsigned int    uNumElementsIn80AA28; // dword        @ MM7.exe::0080AA24
 struct struct8 *array_80AA28[2000];   // dword[~2000] @ MM7.exe::0080AA28
-struct Edge *ptr_80C978; // ptr    @ MM7.exe::0080C978
-struct Surf *ptr_80C97C; // ptr    @ MM7.exe::0080C97C
-struct Surf someSurf;    // struct @ MM7.exe::0080C980
-struct Edge someEdge1;   // struct @ MM7.exe::0080C9A4
-struct Edge someEdge2;   // struct @ MM7.exe::0080C9D8
 
 struct Edge *ptr_80CA10[480]; // dword[480] @ MM7.exe::0080CA10
 
@@ -2099,7 +2079,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_ACD9E0; // weak
  _UNKNOWN unk_ACD9E4; // weak
  _UNKNOWN unk_ACD9FC; // weak
- _UNKNOWN unk_ACDA24; // weak
  _UNKNOWN unk_ACDA9C; // weak
  _UNKNOWN unk_ACDAD6; // weak
  _UNKNOWN unk_ACDB98; // weak
@@ -2220,7 +2199,7 @@ struct RenderBillboardD3D3  pBillboardRenderListD3D3[1000]; // struct[1000] @ MM
 
  int dword_F1B4C8; // weak
  int dword_F1B4D0; // weak
- int dword_F1B4D4; // weak
+ int sLastTrackLengthMS; // dword @ MM7.exe::00F1B4D4
 
 struct unnamed_F1B4D8 struct_F1B4D8[3000];
 //_UNKNOWN unk_F1B4D8; // weak
@@ -2246,13 +2225,11 @@ struct unnamed_F1B4D8 struct_F1B4D8[3000];
 //int dword_F79D48; // weak
 //char cGameCDDriveLetter; //byte @ MM7.exe::F79D58; // weak
 
-struct CSoundList *pSoundList = 0; // struct @ MM7.exe::00F79D5C
+SoundList *pSoundList = 0; // struct @ MM7.exe::00F79D5C
 //int dword_F79D5C; // weak
 //int dword_F79D60; // weak
 
- int dword_F79D64; // weak
  int dword_F79D70; // weak
- int dword_F79D7C = 2; // weak
  _UNKNOWN unk_F79E08; // weak
  _UNKNOWN unk_F79E34; // weak
  _UNKNOWN unk_F7AA08; // weak

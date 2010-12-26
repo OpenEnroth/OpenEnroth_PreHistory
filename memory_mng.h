@@ -1,4 +1,5 @@
 #pragma once
+#include "CoreDefinitions.h"
 #include "defs.h"
 
 /*
@@ -143,7 +144,7 @@ class MemoryWatch
 
 
 #ifdef _DEBUG
-   inline unsigned int MakeRealtimeReport()
+   inline Result::Code MakeRealtimeReport()
    {
     SYSTEMTIME stCurrentTime;
     GetSystemTime(&stCurrentTime);
@@ -166,11 +167,11 @@ class MemoryWatch
      memcpy(&stLastInfoOutput, &stCurrentTime, sizeof(SYSTEMTIME));
     }
 
-    return Error::Success;
+    return Result::Success;
    }
 
    template<typename type>
-     inline unsigned int TrackAllocation(type *pMemory, unsigned int uNumElements, const char *pAllocationName,
+     inline Result::Code TrackAllocation(type *pMemory, unsigned int uNumElements, const char *pAllocationName,
                                           const char *pFunction, const char *pFile, unsigned int uLine)
    {
     if (!uNumElements)
@@ -233,10 +234,10 @@ class MemoryWatch
     }
 
     MakeRealtimeReport();
-    return Error::Success;
+    return Result::Success;
    }
 #else
-   inline unsigned int TrackAllocation(void *pMemory, unsigned int uElemSize, unsigned int uNumElements)
+   inline Result::Code TrackAllocation(void *pMemory, unsigned int uElemSize, unsigned int uNumElements)
    {
     if (uNumBlocks == uNumBlocksAllocated)
     {
@@ -269,14 +270,14 @@ class MemoryWatch
     if (uPeakMemoryUsage < uCurrentMemoryUsage)
       uPeakMemoryUsage = uCurrentMemoryUsage;
 
-    return Error::Success;
+    return Result::Success;
    }
 #endif
 
 
 #ifdef _DEBUG
    template<typename type>
-     inline unsigned int TrackDeallocation(type *pMemory, const char *pFunction, const char *pFile, unsigned int uLine)
+     inline Result::Code TrackDeallocation(type *pMemory, const char *pFunction, const char *pFile, unsigned int uLine)
    {
     if (!pMemory)
     {
@@ -287,7 +288,7 @@ class MemoryWatch
      fflush(pLog);
      
      MakeRealtimeReport();
-     return Error::Success;
+     return Result::Success;
     }
 
     unsigned int bFound = false;
@@ -323,13 +324,13 @@ class MemoryWatch
     }
     
     MakeRealtimeReport();
-    return Error::Success;
+    return Result::Success;
    }
 #else
-   inline unsigned int TrackDeallocation()
+   inline Result::Code TrackDeallocation()
    {
     uOverallDeallocations++;
-    return Error::Success;
+    return Result::Success;
    }
 #endif
 

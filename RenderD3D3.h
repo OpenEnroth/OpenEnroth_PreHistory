@@ -1,5 +1,5 @@
 #pragma once
-#include "Render.h"
+#include "BaseRender.h"
 #include "libs\legacy_dx\d3d.h"
 //#include "legacy dx\dinput.h"
 

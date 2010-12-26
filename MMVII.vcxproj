@@ -68,6 +68,7 @@
       <SubSystem>Windows</SubSystem>
       <StackReserveSize>8192</StackReserveSize>
       <TargetMachine>MachineX86</TargetMachine>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AudioPlayer.cpp" />
+    <ClCompile Include="BaseRender.cpp" />
     <ClCompile Include="c18.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CbmTools.cpp" />
@@ -102,8 +104,10 @@
     <ClCompile Include="GameEvents.cpp" />
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="GUI\GUIButton.cpp" />
+    <ClCompile Include="GUI\GUIControl.cpp" />
     <ClCompile Include="GUI\GUICursor.cpp" />
     <ClCompile Include="GUI\GUIFont.cpp" />
+    <ClCompile Include="GUI\GUIImage.cpp" />
     <ClCompile Include="GUI\GUIProgressBar.cpp" />
     <ClCompile Include="GUI\GUIWindow.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -154,9 +158,9 @@
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="PartyActions.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderD3D3.cpp" />
     <ClCompile Include="RenderOpenGL.cpp" />
+    <ClCompile Include="RenderSoftware.cpp" />
     <ClCompile Include="Render\RenderD3D10.cpp" />
     <ClCompile Include="Render\RenderOGL.cpp" />
     <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
@@ -169,19 +173,25 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AudioPlayer.h" />
+    <ClInclude Include="BaseRender.h" />
     <ClInclude Include="c18.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CbmTools.h" />
     <ClInclude Include="classes.h" />
     <ClInclude Include="clock.h" />
+    <ClInclude Include="CoreDefinitions.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="Extras\List.h" />
+    <ClInclude Include="Extras\Pool.h" />
     <ClInclude Include="FrameTables.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="GUI\GUIButton.h" />
+    <ClInclude Include="GUI\GUIControl.h" />
     <ClInclude Include="GUI\GUICursor.h" />
     <ClInclude Include="GUI\GUIFont.h" />
+    <ClInclude Include="GUI\GUIImage.h" />
     <ClInclude Include="GUI\GUIProgressBar.h" />
     <ClInclude Include="GUI\GUIWindow.h" />
     <ClInclude Include="Items.h" />
@@ -238,7 +248,6 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Render.h" />
     <ClInclude Include="RenderD3D3.h" />
     <ClInclude Include="RenderSoftware.h" />
     <ClInclude Include="Render\Render.h" />

@@ -81,8 +81,12 @@ struct Game
  int                      dummy_000E6C; //member moved to class UserInput
  struct CGammaController *pGammaController; // dword @ 000E70
  int                      dword_000E74;
+
+ Result::Code PrepareForLoop(const char *pLevelName);
+ Result::Code Loop(const char *pLevelName);
 };
 //sizeof = 0E78
+//int __cdecl sub_463149()              00463149   Game::Loop
 
 //int __thiscall sub_44E4B7(int _this);
 void Game_ctor(Game *_this);

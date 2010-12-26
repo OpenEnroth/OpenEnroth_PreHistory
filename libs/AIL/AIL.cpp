@@ -16,30 +16,56 @@ unsigned int (__stdcall *mss32_AIL_redbook_pause)(HREDBOOK) = 0;
 void (__stdcall *mss32_AIL_redbook_track_info)(HREDBOOK, unsigned int, unsigned int *, unsigned int *) = 0;
 unsigned int (__stdcall *mss32_AIL_redbook_play)(HREDBOOK, unsigned int, unsigned int) = 0;
 unsigned int (__stdcall *mss32_AIL_redbook_resume)(HREDBOOK) = 0;
-int (__stdcall *mss32_AIL_sample_status)(long a1) = 0;
-int (__stdcall *mss32_AIL_sample_volume)(long a1, long a2) = 0;
+AIL::Sample::Status (__stdcall *mss32_AIL_sample_status)(HSAMPLE) = 0;
+int (__stdcall *mss32_AIL_sample_volume)(HSAMPLE) = 0;
+int (__stdcall *mss32_AIL_enumerate_3D_providers)(int *, HPROVIDER *, char **) = 0;
+DWORD (__stdcall *mss32_AIL_open_3D_provider)(HPROVIDER) = 0;
+int (__stdcall *mss32_AIL_end_sample)(HSAMPLE) = 0;
+int (__stdcall *mss32_AIL_set_sample_volume)(HSAMPLE, long) = 0;
+int (__stdcall *mss32_AIL_set_sample_pan)(HSAMPLE, long) = 0;
+void (__stdcall *mss32_AIL_end_sequence)(HSEQUENCE) = 0;
+void (__stdcall *mss32_AIL_pause_stream)(HSTREAM, int) = 0;
+void (__stdcall *mss32_AIL_init_sample)(HSAMPLE) = 0;
+int (__stdcall *mss32_AIL_set_sample_file)(HSAMPLE, const void *, int) = 0;
+void (__stdcall *mss32_AIL_set_sample_loop_count)(HSAMPLE, int) = 0;
+void (__stdcall *mss32_AIL_set_sample_playback_rate)(HSAMPLE, int) = 0;
+void (__stdcall *mss32_AIL_sample_ms_position)(HSAMPLE, int *, int *) = 0;
+void (__stdcall *mss32_AIL_start_sample)(HSAMPLE) = 0;
 void MSS32_DLL_Initialize()
 {
- void *pDll = LoadLibraryW(L"mss32.dll");
+ HMODULE pDll = LoadLibraryW(L"mss32.dll");
 
- mss32_AIL_startup = (int (__stdcall *)())GetProcAddress((HMODULE)pDll, "_AIL_startup@0");
- mss32_AIL_redbook_open_drive = (HREDBOOK (__stdcall *)(long))GetProcAddress((HMODULE)pDll, "_AIL_redbook_open_drive@4");
- mss32_AIL_set_preference = (int (__stdcall *)(unsigned int, int))GetProcAddress((HMODULE)pDll, "_AIL_set_preference@8");
- mss32_AIL_waveOutOpen = (int (__stdcall *)(HDIGDRIVER *, HWAVEOUT *, int, WAVEFORMAT *))GetProcAddress((HMODULE)pDll, "_AIL_waveOutOpen@16");
- mss32_AIL_get_preference = (int (__stdcall *)(unsigned int))GetProcAddress((HMODULE)pDll, "_AIL_get_preference@4");
- mss32_AIL_digital_configuration = (int (__stdcall *)(HDIGDRIVER, int *, int *, char *))GetProcAddress((HMODULE)pDll, "_AIL_digital_configuration@16");
- mss32_AIL_allocate_sample_handle = (HSAMPLE (__stdcall *)(HDIGDRIVER))GetProcAddress((HMODULE)pDll, "_AIL_allocate_sample_handle@4");
- mss32_AIL_redbook_tracks = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_tracks@4");
- mss32_AIL_redbook_volume = (int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_volume@4");
- mss32_AIL_redbook_stop = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_stop@4");
- mss32_AIL_set_digital_master_volume = (void (__stdcall *)(HDIGDRIVER, float))GetProcAddress((HMODULE)pDll, "_AIL_set_digital_master_volume@8");
- mss32_AIL_redbook_set_volume = (int (__stdcall *)(HREDBOOK, int))GetProcAddress((HMODULE)pDll, "_AIL_redbook_set_volume@8");
- mss32_AIL_redbook_pause = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_pause@4");
- mss32_AIL_redbook_track_info = (void (__stdcall *)(HREDBOOK, unsigned int, unsigned int *, unsigned int *))GetProcAddress((HMODULE)pDll, "_AIL_redbook_track_info@16");
- mss32_AIL_redbook_play = (unsigned int (__stdcall *)(HREDBOOK, unsigned int, unsigned int))GetProcAddress((HMODULE)pDll, "_AIL_redbook_play@12");
- mss32_AIL_redbook_resume = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_resume@4");
- mss32_AIL_sample_status = (int (__stdcall *)(long a1))GetProcAddress((HMODULE)pDll, "_AIL_sample_status@4");
- mss32_AIL_sample_volume = (int (__stdcall *)(long a1, long a2))GetProcAddress((HMODULE)pDll, "_AIL_sample_volume@8");
+ mss32_AIL_startup = (int (__stdcall *)())GetProcAddress(pDll, "_AIL_startup@0");
+ mss32_AIL_redbook_open_drive = (HREDBOOK (__stdcall *)(long))GetProcAddress(pDll, "_AIL_redbook_open_drive@4");
+ mss32_AIL_set_preference = (int (__stdcall *)(unsigned int, int))GetProcAddress(pDll, "_AIL_set_preference@8");
+ mss32_AIL_waveOutOpen = (int (__stdcall *)(HDIGDRIVER *, HWAVEOUT *, int, WAVEFORMAT *))GetProcAddress(pDll, "_AIL_waveOutOpen@16");
+ mss32_AIL_get_preference = (int (__stdcall *)(unsigned int))GetProcAddress(pDll, "_AIL_get_preference@4");
+ mss32_AIL_digital_configuration = (int (__stdcall *)(HDIGDRIVER, int *, int *, char *))GetProcAddress(pDll, "_AIL_digital_configuration@16");
+ mss32_AIL_allocate_sample_handle = (HSAMPLE (__stdcall *)(HDIGDRIVER))GetProcAddress(pDll, "_AIL_allocate_sample_handle@4");
+ mss32_AIL_redbook_tracks = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress(pDll, "_AIL_redbook_tracks@4");
+ mss32_AIL_redbook_volume = (int (__stdcall *)(HREDBOOK))GetProcAddress(pDll, "_AIL_redbook_volume@4");
+ mss32_AIL_redbook_stop = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress(pDll, "_AIL_redbook_stop@4");
+ mss32_AIL_set_digital_master_volume = (void (__stdcall *)(HDIGDRIVER, float))GetProcAddress(pDll, "_AIL_set_digital_master_volume@8");
+ mss32_AIL_redbook_set_volume = (int (__stdcall *)(HREDBOOK, int))GetProcAddress(pDll, "_AIL_redbook_set_volume@8");
+ mss32_AIL_redbook_pause = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress(pDll, "_AIL_redbook_pause@4");
+ mss32_AIL_redbook_track_info = (void (__stdcall *)(HREDBOOK, unsigned int, unsigned int *, unsigned int *))GetProcAddress(pDll, "_AIL_redbook_track_info@16");
+ mss32_AIL_redbook_play = (unsigned int (__stdcall *)(HREDBOOK, unsigned int, unsigned int))GetProcAddress(pDll, "_AIL_redbook_play@12");
+ mss32_AIL_redbook_resume = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress(pDll, "_AIL_redbook_resume@4");
+ mss32_AIL_sample_status = (AIL::Sample::Status (__stdcall *)(HSAMPLE))GetProcAddress(pDll, "_AIL_sample_status@4");
+ mss32_AIL_sample_volume = (int (__stdcall *)(HSAMPLE))GetProcAddress(pDll, "_AIL_sample_volume@4");
+ mss32_AIL_enumerate_3D_providers = (int (__stdcall *)(int *, HPROVIDER *, char **))GetProcAddress(pDll, "_AIL_enumerate_3D_providers@12");
+ mss32_AIL_open_3D_provider = (DWORD (__stdcall *)(HPROVIDER))GetProcAddress(pDll, "_AIL_open_3D_provider@4");
+ mss32_AIL_end_sample = (int (__stdcall *)(HSAMPLE))GetProcAddress(pDll, "_AIL_end_sample@4");
+ mss32_AIL_set_sample_volume = (int (__stdcall *)(HSAMPLE, long))GetProcAddress(pDll, "_AIL_set_sample_volume@8");
+ mss32_AIL_set_sample_pan = (int (__stdcall *)(HSAMPLE, long))GetProcAddress(pDll, "_AIL_set_sample_pan@8");
+ mss32_AIL_end_sequence = (void (__stdcall *)(HSEQUENCE))GetProcAddress(pDll, "_AIL_end_sequence@4");
+ mss32_AIL_pause_stream = (void (__stdcall *)(HSTREAM, int))GetProcAddress(pDll, "_AIL_pause_stream@8");
+ mss32_AIL_init_sample = (void (__stdcall *)(HSAMPLE))GetProcAddress(pDll, "_AIL_init_sample@4");
+ mss32_AIL_set_sample_file = (int (__stdcall *)(HSAMPLE, const void *, int))GetProcAddress(pDll, "_AIL_set_sample_file@12");
+ mss32_AIL_set_sample_loop_count = (void (__stdcall *)(HSAMPLE, int))GetProcAddress(pDll, "_AIL_set_sample_loop_count@8");
+ mss32_AIL_set_sample_playback_rate = (void (__stdcall *)(HSAMPLE, int))GetProcAddress(pDll, "_AIL_set_sample_playback_rate@8");
+ mss32_AIL_sample_ms_position = (void (__stdcall *)(HSAMPLE, int *, int *))GetProcAddress(pDll, "_AIL_sample_ms_position@12");
+ mss32_AIL_start_sample = (void (__stdcall *)(HSAMPLE))GetProcAddress(pDll, "_AIL_start_sample@4");
 }
 
 
@@ -59,15 +85,19 @@ unsigned int __stdcall AIL_redbook_resume(HREDBOOK hRedbook)
  return (mss32_AIL_redbook_resume)(hRedbook);
 }
 
-
-// sub_4D83A4: using guessed type int __thiscall AIL_sample_volume(_DWORD, _DWORD);
-int __stdcall AIL_sample_volume(long a1, long a2)
+int __stdcall AIL_enumerate_3D_providers(int *a1, HPROVIDER *pOutProv, char **pOutName)
 {
- return (mss32_AIL_sample_volume)(a1, a2);
+ return (mss32_AIL_enumerate_3D_providers)(a1, pOutProv, pOutName);
 }
 
-// sub_4D82F8: using guessed type int __stdcall AIL_sample_status(_DWORD);
-int __stdcall AIL_sample_status(long a1)
+
+
+int __stdcall AIL_sample_volume(HSAMPLE s)
+{
+ return (mss32_AIL_sample_volume)(s);
+}
+
+AIL::Sample::Status __stdcall AIL_sample_status(HSAMPLE a1)
 {
  return (mss32_AIL_sample_status)(a1);
 }
@@ -114,22 +144,14 @@ int __stdcall AIL_waveOutOpen(HDIGDRIVER *drv, HWAVEOUT *phWaveOut, int wDeviceI
  return (mss32_AIL_waveOutOpen)(drv, phWaveOut, wDeviceID, pFormat);
 }
 
-// sub_4D8364: using guessed type int __stdcall AIL_enumerate_3D_providers(_DWORD, _DWORD, _DWORD);
-int __stdcall AIL_enumerate_3D_providers(long a1, long a2, long a3)
-{
- __asm int 3
- return 0;
-}
 
-// sub_4D8368: using guessed type int __fastcall AIL_open_3D_provider(_DWORD, _DWORD);
-int __fastcall AIL_open_3D_provider(long a1, long a2)
+DWORD __stdcall AIL_open_3D_provider(HPROVIDER a2)
 {
- __asm int 3
- return 0;
+ return (mss32_AIL_open_3D_provider)(a2);
 }
 
 // sub_4D836C: using guessed type int __stdcall AIL_3D_provider_attribute(_DWORD, _DWORD, _DWORD);
-int __stdcall AIL_3D_provider_attribute(long a1, long a2, long a3)
+int __stdcall AIL_3D_provider_attribute(HPROVIDER a1, long a2, long a3)
 {
  __asm int 3
  return 0;
@@ -241,11 +263,9 @@ int __stdcall AIL_shutdown()
  return 0;
 }
 
-// sub_4D82FC: using guessed type int __stdcall AIL_end_sample(_DWORD);
-int __stdcall AIL_end_sample(long a1)
+int __stdcall AIL_end_sample(HSAMPLE a1)
 {
- __asm int 3
- return 0;
+ return (mss32_AIL_end_sample)(a1);
 }
 
 // sub_4D8300: using guessed type int __stdcall AIL_end_3D_sample(_DWORD);
@@ -255,46 +275,35 @@ int __stdcall AIL_end_3D_sample(long a1)
  return 0;
 }
 
-// sub_4D837C: using guessed type int __stdcall AIL_end_sequence(_DWORD);
-int __stdcall AIL_end_sequence(long a1)
+
+void __stdcall AIL_end_sequence(HSEQUENCE a1)
 {
- __asm int 3
- return 0;
+ (mss32_AIL_end_sequence)(a1);
 }
 
-// sub_4D8380: using guessed type int __stdcall AIL_pause_stream(_DWORD, _DWORD);
-int __stdcall AIL_pause_stream(long a1, long a2)
+void __stdcall AIL_pause_stream(HSTREAM a1, int onoff)
 {
- __asm int 3
- return 0;
+ (mss32_AIL_pause_stream)(a1, onoff);
 }
 
-// sub_4D82E0: using guessed type int __stdcall AIL_set_sample_file(_DWORD, _DWORD, _DWORD);
-int __stdcall AIL_set_sample_file(long a1, long a2, long a3)
+int __stdcall AIL_set_sample_file(HSAMPLE s, const void *file_image, int block)
 {
- __asm int 3
- return 0;
+ return (mss32_AIL_set_sample_file)(s, file_image, block);
 }
 
-// sub_4D82E8: using guessed type int __stdcall AIL_start_sample(_DWORD);
-int __stdcall AIL_start_sample(long a1)
+void __stdcall AIL_start_sample(HSAMPLE s)
 {
- __asm int 3
- return 0;
+ (mss32_AIL_start_sample)(s);
 }
 
-// sub_4D82EC: using guessed type int __stdcall AIL_set_sample_playback_rate(_DWORD, _DWORD);
-int __stdcall AIL_set_sample_playback_rate(long a1, long a2)
+void __stdcall AIL_set_sample_playback_rate(HSAMPLE s, int rate)
 {
- __asm int 3
- return 0;
+ (mss32_AIL_set_sample_playback_rate)(s, rate);
 }
 
-// sub_4D82F0: using guessed type int __stdcall AIL_sample_ms_position(_DWORD, _DWORD, _DWORD);
-int __stdcall AIL_sample_ms_position(long a1, long a2, long a3)
+void __stdcall AIL_sample_ms_position(HSAMPLE s, int *pTotalMS, int *pCurrentMS)
 {
- __asm int 3
- return 0;
+ (mss32_AIL_sample_ms_position)(s, pTotalMS, pCurrentMS);
 }
 
 // sub_4D82F4: using guessed type int __stdcall AIL_3D_sample_status(_DWORD);
@@ -304,18 +313,14 @@ int __stdcall AIL_3D_sample_status(long a1)
  return 0;
 }
 
-// sub_4D8334: using guessed type int __stdcall AIL_set_sample_loop_count(_DWORD, _DWORD);
-int __stdcall AIL_set_sample_loop_count(long a1, long a2)
+void __stdcall AIL_set_sample_loop_count(HSAMPLE s, int num)
 {
- __asm int 3
- return 0;
+ (mss32_AIL_set_sample_loop_count)(s, num);
 }
 
-// sub_4D8378: using guessed type int __stdcall AIL_set_sample_volume(_DWORD, _DWORD);
-int __stdcall AIL_set_sample_volume(long a1, long a2)
+int __stdcall AIL_set_sample_volume(HSAMPLE a1, long a2)
 {
- __asm int 3
- return 0;
+ return (mss32_AIL_set_sample_volume)(a1, a2);
 }
 
 // sub_4D8384: using guessed type int __thiscall AIL_3D_position(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
@@ -360,18 +365,14 @@ int __stdcall AIL_set_3D_orientation(long a1, long a2, long a3, long a4, long a5
  return 0;
 }
 
-// sub_4D83A8: using guessed type int __stdcall AIL_init_sample(_DWORD);
-int __stdcall AIL_init_sample(long a1)
+void __stdcall AIL_init_sample(HSAMPLE a1)
 {
- __asm int 3
- return 0;
+ (mss32_AIL_init_sample)(a1);
 }
 
-// sub_4D83AC: using guessed type int __stdcall AIL_set_sample_pan(_DWORD, _DWORD);
-int __stdcall AIL_set_sample_pan(long a1, long a2)
+int __stdcall AIL_set_sample_pan(HSAMPLE a1, long a2)
 {
- __asm int 3
- return 0;
+ return (mss32_AIL_set_sample_pan)(a1, a2);
 }
 
 // sub_4D8310: using guessed type int __stdcall AIL_file_type(_DWORD, _DWORD);

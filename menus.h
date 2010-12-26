@@ -26,13 +26,6 @@
 	    char name_list[40][MAX_SAVEGAME_PATH]; // idb 40  byte_69CFF4[11200]
 	 };
 
- struct ODM_struct
-	{
-	DWORD signature1;
-	char signature[4];
-	unsigned int packed_size;
-	unsigned int size_data;
-	};
 
 int __cdecl sub_45E93E();
 

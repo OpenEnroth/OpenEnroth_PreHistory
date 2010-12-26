@@ -65,7 +65,6 @@ class cTexture
 		
 		void cTexture_Zero();
 	};
-
 //sizeof = 000048	  
 
 void cTexture_Free(cTexture* cTxtr);

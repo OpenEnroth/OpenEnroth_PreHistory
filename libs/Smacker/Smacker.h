@@ -1,8 +1,9 @@
-#include "defs.h"
+#include "..\..\CoreDefinitions.h"
+#include "..\..\defs.h"
 
 void SMACKW32_DLL_Initialize();
 
-struct SMACK
+struct _SMACK
 {
   unsigned int Version;           // SMK2 only right now
   unsigned int Width;             // Width (1 based, 640 for example)
@@ -38,7 +39,7 @@ struct SMACK
   unsigned int addr32;            // translated address for 16 bit interface
 };
 
-struct SMACKBLIT
+struct _SMACKBLIT
 {
   unsigned int    Flags;
   unsigned char  *Palette;
@@ -53,7 +54,7 @@ struct SMACKBLIT
   unsigned int    firstpalette;
 };
 
-struct SMACKBUF
+struct _SMACKBUF
 {
         unsigned int Reversed;             // 1 if the buffer is upside down
         unsigned int SurfaceType;          // SMACKSURFACExxxx defines
@@ -90,7 +91,7 @@ struct SMACKBUF
         void * lpDD;
         void * lpDDSP;
         unsigned int DDSurfaceType;
-        struct SMACKBLIT DDblit;
+        struct _SMACKBLIT DDblit;
         int ddSoftwarecur;
         int didaddblit;
         int lastwasdd;
@@ -102,10 +103,6 @@ struct SMACKBUF
         int numrects;
         HDC lastdc;
 };
-
-typedef struct SMACK     *HSMACK;
-typedef struct SMACKBLIT *HSMACKBLIT;
-typedef struct SMACKBUF  *HSMACKBUF;
 
 
 

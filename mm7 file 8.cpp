@@ -30,484 +30,6 @@
 
 
 
-//----- (00481212) --------------------------------------------------------
-void __fastcall sub_481212(int a1, int a2, int a3)
-{
-  int v3; // edi@1
-  int v4; // esi@1
-  int v5; // ecx@1
-  int v6; // ST10_4@1
-  int v7; // ebx@2
-  int v8; // eax@2
-  struct RenderVertex *v10; // edi@3
-  struct RenderVertex *v11; // ecx@4
-  struct RenderVertex *v12; // ebx@4
-  struct struct8 *v16; // ebx@12
-  __int16 v17; // ax@12
-  int v18; // eax@13
-  int v20; // ecx@13
-  double v24; // st7@18
-  double v25; // st5@24
-  double v26; // st5@24
-  double v27; // st5@24
-  double v28; // st5@24
-  float v29; // eax@25
-  int v30; // edi@29
-  double v31; // st7@31
-  int v32; // esi@35
-  int v33; // edx@36
-  int v34; // ecx@36
-  signed int v35; // eax@39
-  int v36; // esi@40
-  struct struct8 *v37; // ebx@43
-  int v39; // eax@44
-  int v40; // eax@44
-  int v41; // ecx@44
-  int v42; // eax@44
-  int v43; // eax@44
-  int v44; // eax@44
-  double v46; // st7@49
-  double v47; // st5@57
-  double v48; // st5@57
-  double v49; // st5@57
-  float v50; // eax@58
-  int v51; // edi@62
-  double v52; // st7@63
-  int v53; // esi@66
-  int v54; // eax@69
-  signed int v55; // esi@71
-  int v57; // eax@76
-  int v58; // eax@76
-  struct Normal *pNormal; // eax@77
-  double v60; // st7@80
-  double v61; // st5@88
-  double v62; // st5@88
-  double v63; // st5@88
-  float v64; // eax@89
-  double v65; // st7@94
-  int v68; // [sp-Ch] [bp-C4h]@36
-  int v69; // [sp-8h] [bp-C0h]@36
-  int v70; // [sp-4h] [bp-BCh]@36
-  char v71; // [sp+Ch] [bp-ACh]@88
-  double v73; // [sp+18h] [bp-A0h]@82
-  double v75; // [sp+28h] [bp-90h]@51
-  char v79; // [sp+48h] [bp-70h]@57
-  int v82; // [sp+54h] [bp-64h]@1
-  int v83; // [sp+58h] [bp-60h]@6
-  int v84; // [sp+5Ch] [bp-5Ch]@82
-  int v85; // [sp+60h] [bp-58h]@20
-  int v86; // [sp+64h] [bp-54h]@1
-  int v87; // [sp+68h] [bp-50h]@1
-  int v88; // [sp+6Ch] [bp-4Ch]@51
-  float v89; // [sp+70h] [bp-48h]@51
-  int v90; // [sp+74h] [bp-44h]@6
-  int v91; // [sp+78h] [bp-40h]@1
-  char v92; // [sp+7Ch] [bp-3Ch]@24
-  int v93; // [sp+80h] [bp-38h]@2
-  float v94; // [sp+84h] [bp-34h]@44
-  int v95; // [sp+88h] [bp-30h]@6
-  float v96; // [sp+8Ch] [bp-2Ch]@1
-  float v97; // [sp+90h] [bp-28h]@1
-  float v98; // [sp+94h] [bp-24h]@1
-  int X; // [sp+98h] [bp-20h]@1
-  float v100; // [sp+9Ch] [bp-1Ch]@6
-  int v101; // [sp+A0h] [bp-18h]@6
-  int v102; // [sp+A4h] [bp-14h]@6
-  struct RenderVertex *v105; // [sp+B0h] [bp-8h]@6
-  float v107; // [sp+C0h] [bp+8h]@6
-  float v108; // [sp+C0h] [bp+8h]@6
-
-  v4 = a1;
-  v5 = *(_WORD *)(a3 + 4);
-  v6 = *(_WORD *)(a3 + 6);
-  v86 = a2;
-  v87 = v5;
-  X = abs(v6);
-  v3 = 0;
-  v91 = 0;
-  v82 = v4 - 1;
-  v96 = pClass51_global->dword_000D30 / 65536.0;
-  v97 = pClass51_global->dword_000D34 / 65536.0;
-  v98 = pClass51_global->dword_000D38 / 65536.0;
-  if ( v4 - 1 > 0 )
-  {
-    while ( 1 )
-    {
-      v7 = abs(X);
-      v8 = abs(v87);
-      --X;
-      v93 = (int)(4 * ((v7 * 128) + v8) + byte_76E5C8);
-
-      if ( !byte_76E5C8[4 * ((v7 * 128) + v8)])
-        goto LABEL_105;
-
-      v10 = &array_806210[v3];
-      if (!v86)
-      {
-       v12 = &array_801A10[v3];
-       v11 = &array_806210[v3 + 1];
-      }
-      else
-      {
-       v12 = &array_806210[v3 + 1];
-       v11 = &array_801A10[v3];
-      }
-      v105 = &array_801A10[v3 + 1];
-
-      v102 = floorf(v10->x + 0.5);
-      v101 = floorf(v10->z + 0.5);
-
-      v107 = (v11->x + v10->x) / 2;
-      v90 = floorf(v107 + 0.5f);
-      v95 = WorldPosToGridCellX(v90);
-
-      v108 = (v12->z + v10->z) / 2;
-      v83 = floorf(v108 + 0.5f);
-      LODWORD(v100) = WorldPosToGridCellZ(v83);
-
-      WorldPosToGridCellX(v102);
-      WorldPosToGridCellZ(v101);
-
-      if ((!byte_4D8410[572] || !(pGame->uSomeFlags & 0x80)) && !sub_481EFA(v10, v12, v11, v105, 1))
-        goto LABEL_105;
-
-      if (v10->y != v12->y ||
-          v12->y != v105->y ||
-          v105->y != v11->y)
-        break;
-
-      v16 = &array_77EC08[pStruct9_global->dword_00002C];
-      v17 = class51_GetTileTexture(pClass51_global, v102, v101);
-      array_77EC08[pStruct9_global->dword_00002C].uTextureID = v17;
-      if ( v17 != -1 )
-      {
-        v20 = LODWORD(v100);
-        array_77EC08[pStruct9_global->dword_00002C].word_000030 = 0x8010 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
-        array_77EC08[pStruct9_global->dword_00002C].byte_000059 = 1;
-        array_77EC08[pStruct9_global->dword_00002C].byte_00005C = v95;
-        array_77EC08[pStruct9_global->dword_00002C].byte_00005D = v20;
-        array_77EC08[pStruct9_global->dword_00002C].dword_000034 = *(_WORD *)(v93 + 2);
-        v18 = (unsigned __int16)uTerrainNormalIndices[2 * (v20 + (v95 * 128)) + 1];
-        if (v18 < 0 || v18 > uNumTerrainNormals - 1)
-          pNormal = 0;
-        else
-          pNormal = pTerrainNormals + v18;
-
-        if (pNormal)
-        {
-         v24 = -(v98 * pNormal->y + v97 * pNormal->z + v96 * pNormal->x);
-          if ( v24 < 0.0 )
-            v24 = 0.0;
-          v100 = v24 * 31.0;
-          v85 = floorf(v100 + 0.5f);
-          array_77EC08[pStruct9_global->dword_00002C].byte_000058 = 31 - (char)(v85);
-        }
-        else
-          array_77EC08[pStruct9_global->dword_00002C].byte_000058 = 0;
-
-        if ( pStruct9_global->dword_00002C >= 1999 )
-          return;
-        ++pStruct9_global->dword_00002C;
-        if ( !sub_481FC9(v10, v12, v11, v16) )
-          goto LABEL_104;
-
-        v25 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
-        memcpy(&array_50AC10[0], v10, sizeof(struct RenderVertex));
-        array_50AC10[0].flt_000020 = v25;
-        array_50AC10[0].u = 0.0;
-        array_50AC10[0].v = 0.0;
-
-        v26 = v12->flt_00000C + 0.0000001000000011686097;
-        memcpy(&array_50AC10[1], v12, sizeof(struct RenderVertex));
-        array_50AC10[1].flt_000020 = 1.0 / v26;
-        array_50AC10[1].u = 0.0;
-        array_50AC10[1].v = 1.0;
-
-        v27 = v105->flt_00000C + 0.0000001000000011686097;
-        memcpy(&array_50AC10[2], v105, sizeof(struct RenderVertex));
-        array_50AC10[2].flt_000020 = 1.0 / v27;
-        array_50AC10[2].u = 1.0;
-        array_50AC10[2].v = 1.0;
-
-        v28 = v11->flt_00000C + 0.0000001000000011686097;
-        memcpy(&array_50AC10[3], v11, sizeof(struct RenderVertex));
-        array_50AC10[3].flt_000020 = 1.0 / v28;
-        array_50AC10[3].u = 1.0;
-        array_50AC10[3].v = 0.0;
-
-        sub_45D036(pNormal, (int)&v92, array_50AC10, 4, 1);
-        if ( dword_F8ADD4 <= 0 )
-        {
-          v16->byte_000108 = 0;
-        }
-        else
-        {
-          v29 = *(float *)&pGame;
-          v16->byte_000108 = 1;
-          sub_45CA88(*(void **)(LODWORD(v29) + 3656), (int)&dword_F8AD28, (int)array_50AC10, 4, (int)pNormal);
-        }
-        if (v10->flt_00000C < 8.0
-          || v12->flt_00000C < 8.0
-          || (v30 = (int)v11, v11->flt_00000C < 8.0)
-          || v105->flt_00000C < 8.0 )
-        {
-          v35 = sub_4250FE(4);
-        }
-        else
-        {
-          v31 = (double)pStruct9_global->shading_dist_mist;
-          if (v31 >= v10->flt_00000C &&
-              v31 >= v12->flt_00000C &&
-              v31 >= v11->flt_00000C &&
-              v31 >= v105->flt_00000C)
-          {
-            v32 = sub_4254D2(4);
-            v16->uNumVertices = v32;
-            if ( !v32 )
-              goto LABEL_104;
-            v33 = (int)v12;
-            v34 = (int)v10;
-            v70 = 0;
-            v69 = (int)v16;
-            v68 = v30;
-            goto LABEL_37;
-          }
-          v35 = sub_4252E8(4);
-        }
-        v36 = v35;
-        if ( !v35 )
-          goto LABEL_104;
-LABEL_41:
-        sub_481E55(v36);
-LABEL_102:
-        v32 = sub_4254D2(v36);
-        v16->uNumVertices = v32;
-        if ( !v32 )
-          goto LABEL_104;
-        sub_48276F((struct8 *)v16);
-        goto LABEL_38;
-      }
-LABEL_105:
-      v3 = v91 + 1;
-      //v67 = __SETO__(v91 + 1, v82);
-      //v66 = v91++ + 1 - v82 < 0;
-      if (++v91 >= v82)
-        return;
-    }
-    v37 = &array_77EC08[pStruct9_global->dword_00002C];
-    array_77EC08[pStruct9_global->dword_00002C].uTextureID = class51_GetTileTexture(pClass51_global, v102, v101);
-    if (array_77EC08[pStruct9_global->dword_00002C].uTextureID == -1)
-      goto LABEL_105;
-    v40 = 0x80 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
-
-    v41 = LODWORD(v100);
-    array_77EC08[pStruct9_global->dword_00002C].word_000030 = v40;
-    v42 = v93;
-    v37->byte_000059 = 1;
-    v37->byte_00005D = v41;
-    v37->dword_000034 = *(_WORD *)(v42 + 2);
-    v43 = v95;
-    v37->byte_00005C = v95;
-    v44 = 4 * (v41 + (v43 << 7));
-    LODWORD(v94) = v44;
-    v39 = *(unsigned __int16 *)((char *)uTerrainNormalIndices + v44 + 2);
-    if ( v39 < 0 || v39 > uNumTerrainNormals - 1 )
-      pNormal = 0;
-    else
-      pNormal = pTerrainNormals + v39;
-
-    if (pNormal)
-    {
-      v46 = -(v98 * pNormal->y + v97 * pNormal->z + v96 * pNormal->x);
-      if ( v46 < 0.0 )
-        v46 = 0.0;
-      v89 = v46 * 31.0;
-      v75 = v89 + 6.755399441055744e15;
-      v88 = LODWORD(v75);
-      v37->byte_000058 = 31 - LOBYTE(v75);
-    }
-    else
-    {
-     v37->byte_000058 = 0;
-    }
-    if (v37->byte_000058 < 0 )
-      v37->byte_000058 = 0;
-    if ( pStruct9_global->dword_00002C >= 1999 )
-      return;
-    ++pStruct9_global->dword_00002C;
-    if ( !sub_481FC9(v12, v105, v10, v37) )
-      goto LABEL_74;
-
-    v47 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
-    memcpy(&array_50AC10[0], v10, sizeof(struct RenderVertex));
-    array_50AC10[0].flt_000020 = v47;
-    array_50AC10[0].u = 0.0;
-    array_50AC10[0].v = 0.0;
-
-    v48 = v12->flt_00000C + 0.0000001000000011686097;
-    memcpy(&array_50AC10[1], v12, sizeof(struct RenderVertex));
-    array_50AC10[1].flt_000020 = 1.0 / v48;
-    array_50AC10[1].u = 0.0;
-    array_50AC10[1].v = 1.0;
-
-    v49 = v105->flt_00000C + 0.0000001000000011686097;
-    memcpy(&array_50AC10[2], v105, sizeof(struct RenderVertex));
-    array_50AC10[2].flt_000020 = 1.0 / v49;
-    array_50AC10[2].u = 1.0;
-    array_50AC10[2].v = 1.0;
-
-    sub_45D036(pNormal, (int)&v79, array_50AC10, 3, 0);
-    if ( dword_F8ADD4 <= 0 )
-    {
-     v37->byte_000108 = 0;
-    }
-    else
-    {
-      v50 = *(float *)&pGame;
-      v37->byte_000108 = 1;
-      sub_45CA88(*(void **)(LODWORD(v50) + 3656), (int)&dword_F8AD28, (int)array_50AC10, 3, (int)pNormal);
-    }
-    if (v10->flt_00000C < 8.0 || v12->flt_00000C < 8.0 || (v51 = (int)v105, v105->flt_00000C < 8.0) )
-    {
-      v54 = sub_4250FE(3);
-    }
-    else
-    {
-      v52 = (double)pStruct9_global->shading_dist_mist;
-      if (v52 >= v10->flt_00000C && v52 >= v12->flt_00000C && v52 >= v105->flt_00000C)
-      {
-        v53 = sub_4254D2(3);
-        v37->uNumVertices = v53;
-        if ( v53 )
-        {
-          sub_4829B9(v12, (RenderVertex *)v51, v10, v37, 0);
-LABEL_68:
-          sub_481DB2(array_508690, v53, v37);
-LABEL_75:
-          v16 = &array_77EC08[pStruct9_global->dword_00002C];
-          v16->uTextureID = class51_GetTileTexture(pClass51_global, v102, v101);
-          if (v16->uTextureID == -1)
-            goto LABEL_105;
-          v16->word_000030 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
-          v16->word_000032 = 0;
-          v58 = v93;
-          v16->byte_000059 = 1;
-          v16->dword_000034 = *(_WORD *)(v58 + 2);
-          v16->byte_00005C = v95;
-          v16->byte_00005D = LOBYTE(v100);
-          v57 = *(unsigned __int16 *)((char *)uTerrainNormalIndices + LODWORD(v94));
-          if ( v57 > uNumTerrainNormals - 1 )
-             pNormal = 0;
-          else
-             pNormal = pTerrainNormals + v57;
-          if ( pNormal )
-          {
-           v60 = -(v98 * pNormal->y + v97 * pNormal->z + v96 * pNormal->x);
-            if ( v60 < 0.0 )
-              v60 = 0.0;
-            v94 = v60 * 31.0;
-            v73 = v94 + 6.755399441055744e15;
-            v84 = LODWORD(v73);
-            v16->byte_000058 = 31 - LOBYTE(v73);
-          }
-          else
-          {
-            v16->byte_000058 = 0;
-          }
-          if (v16->byte_000058 < 0 )
-            v16->byte_000058 = 0;
-          if ( pStruct9_global->dword_00002C >= 1999 )
-            return;
-          ++pStruct9_global->dword_00002C;
-          if ( !sub_481FC9(v11, v10, v105, v16) )
-          {
-LABEL_104:
-            --pStruct9_global->dword_00002C;
-            goto LABEL_105;
-          }
-
-          v61 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
-          memcpy(&array_50AC10[0], v10, sizeof(struct RenderVertex));
-          array_50AC10[0].flt_000020 = v61;
-          array_50AC10[0].u = 0.0;
-          array_50AC10[0].v = 0.0;
-
-          v62 = v105->flt_00000C + 0.0000001000000011686097;
-          memcpy(&array_50AC10[1], v105, sizeof(struct RenderVertex));
-          array_50AC10[1].flt_000020 = 1.0 / v62;
-          array_50AC10[1].u = 1.0;
-          array_50AC10[1].v = 1.0;
-
-          v63 = v11->flt_00000C + 0.0000001000000011686097;
-          memcpy(&array_50AC10[2], v11, sizeof(struct RenderVertex));
-          array_50AC10[2].flt_000020 = 1.0 / v63;
-          array_50AC10[2].u = 1.0;
-          array_50AC10[2].v = 0.0;
-
-          sub_45D036(pNormal, (int)&v71, array_50AC10, 3, 1);
-          if ( dword_F8ADD4 <= 0 )
-          {
-           v16->byte_000108 = 0;
-          }
-          else
-          {
-            v64 = *(float *)&pGame;
-            v16->byte_000108 = 1;
-            sub_45CA88(*(void **)(LODWORD(v64) + 3656), (int)&dword_F8AD28, (int)array_50AC10, 3, (int)pNormal);
-          }
-          if (v10->flt_00000C < 8.0 || v105->flt_00000C < 8.0 || v11->flt_00000C < 8.0 )
-          {
-            v36 = sub_4250FE(3);
-            sub_481E55(v36);
-            if ( !v36 )
-              goto LABEL_104;
-            goto LABEL_102;
-          }
-          v65 = (double)pStruct9_global->shading_dist_mist;
-          if ( v65 < v10->flt_00000C || v65 < v105->flt_00000C || v65 < v11->flt_00000C)
-          {
-            v36 = sub_4252E8(3);
-            if ( !v36 )
-              goto LABEL_105;
-            goto LABEL_41;
-          }
-          v32 = sub_4254D2(3);
-          v16->uNumVertices = v32;
-          if ( !v32 )
-            goto LABEL_104;
-          v33 = (int)v10;
-          v34 = (int)v11;
-          v70 = 0;
-          v69 = (int)v16;
-          v68 = (int)v105;
-LABEL_37:
-          sub_4829B9((RenderVertex *)v34, (RenderVertex *)v33, (RenderVertex *)v68, (struct8 *)v69, v70);
-LABEL_38:
-          sub_481DB2(array_508690, v32, v16);
-          goto LABEL_105;
-        }
-        goto LABEL_74;
-      }
-      v54 = sub_4252E8(3);
-    }
-    v55 = v54;
-    if ( v54 )
-    {
-      sub_481E55(v54);
-      v53 = sub_4254D2(v55);
-      v37->uNumVertices = v53;
-      if ( v53 )
-      {
-        sub_48276F(v37);
-        goto LABEL_68;
-      }
-    }
-LABEL_74:
-    --pStruct9_global->dword_00002C;
-    goto LABEL_75;
-  }
-}
-
 
 
 //----- (00497526) --------------------------------------------------------
@@ -801,30 +323,10 @@ LABEL_69:
   }
 
 
-  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   if (pAsyncMouse)
     CAsyncMouse_suspend(pAsyncMouse);
   return v28;
-}
-
-//----- (00486AFC) --------------------------------------------------------
-void __cdecl ReleaseDrawBuffers()
-{
- MemFree(pSpansBuf);
- MemFree(pEdgesBuf);
- MemFree(pSurfsBuf);
- MemFree(pNewEdgesBuf);
- 
-
-  //MemFree(pSpansBuf);
-  //MemFree(pEdgesBuf);
-  //MemFree(pSurfsBuf);
-  //MemFree(pNewEdgesBuf);
-
-  pSpansBuf = 0;
-  pEdgesBuf = 0;
-  pSurfsBuf = 0;
-  pNewEdgesBuf = 0;
 }
 
 //----- (00466CA0) --------------------------------------------------------
@@ -1318,7 +820,7 @@ LABEL_31:
 }
 
 //----- (00450218) --------------------------------------------------------
-char __cdecl sub_450218()
+char __cdecl sub_450218(const char *pLevelFilename)
 {
   signed int v0; // eax@1
   struct MapInfo *v2; // esi@1
@@ -1371,7 +873,7 @@ char __cdecl sub_450218()
  int i, j;
 
  v48 = rand() % 100;
- v0 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
+ v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
  v50 = (int *)&pMapStats->pMapInfos[v0];
  v2 = (MapInfo *)v50;
  v51 = (int)array_5E5150;
@@ -1895,7 +1397,7 @@ LABEL_34:
 //----- (004666D5) --------------------------------------------------------
 void sub_4666D5()
 {
-  if ( dword_6BE360 == 2 )
+  if ( uCurrentlyLoadedLevelType == 2 )
   {
     if ( !byte_6BE388_graphicsmode )
     {
@@ -1939,7 +1441,7 @@ void sub_4666D5()
   memset(pOldViewport, 0, sizeof(struct OldViewport));
   Viewport_fn0(pOldViewport, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
 
-  if ( dword_6BE360 == 2 )
+  if ( uCurrentlyLoadedLevelType == 2 )
     sub_485F64(pStruct9_global);
 }
 
@@ -2056,7 +1558,7 @@ int __cdecl MenuLoop_Main()
   int v10; // ecx@36
   int v11; // ecx@37
   int v15; // [sp-14h] [bp-50h]@39
-  struct GUIWindow *v17; // [sp+4h] [bp-38h]@11
+  GUIWindow *v17; // [sp+4h] [bp-38h]@11
   //int v18; // [sp+8h] [bp-34h]@11
   //int v19; // [sp+Ch] [bp-30h]@11
   //char v20; // [sp+10h] [bp-2Ch]@11
@@ -2065,15 +1567,9 @@ int __cdecl MenuLoop_Main()
   MSG Msg; // [sp+20h] [bp-1Ch]@15
 
  dword_4E28F8_PartyCantJumpIfTrue = 0;
- if (pAsyncMouse)
-   CAsyncMouse_sub_46B105((void *)pAsyncMouse);
- /*if (pGame->Win32Keyboard_obj->dword_000004)
- {
-  if (pAsyncKeyboard)
-    CAsyncKeyboard_Resume(pAsyncKeyboard);
- }*/
+
  pGUIWindow2 = 0;
- AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+ pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
  GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
  ++LODFile_Icons_LOD.uTexturePacksCount;
  if (!LODFile_Icons_LOD.uPrevLoadedFiles)
@@ -2602,7 +2098,7 @@ LABEL_191:
               {
                 ++LODWORD(v140);
                 v66 += 56;
-                if ( LODWORD(v140) >= pObjectDescriptionList->uNumObjects )
+                if (LODWORD(v140) >= pObjectDescriptionList->uNumObjects )
                   goto LABEL_191;
               }
               v86 = LOWORD(v140);
@@ -2679,7 +2175,7 @@ LABEL_191:
             }
             return;
           }
-          if ( dword_6BE360 == 1 )
+          if ( uCurrentlyLoadedLevelType == 1 )
             return;
           v139 = pParty_global->sPartyPosZ;
           v115 = pParty_global->sPartyPosX;
@@ -2801,7 +2297,7 @@ LABEL_57:
               {
                 v36 = 8 * v35;
                 LOBYTE(v36) = v36 | 2;
-                AudioPlayer_sub_4AA306(pAudioPlayer, word_4EE09A, v36, 0, -1, 0, 0, 0, 0);
+                pAudioPlayer->sub_4AA306(word_4EE09A, v36, 0, -1, 0, 0, 0, 0);
               }
               v143 = rand() % 1024 - 512;
               v37 = rand();
@@ -2848,7 +2344,7 @@ LABEL_79:
             v103 = v40;
             v102 = 10040;
 LABEL_222:
-            AudioPlayer_sub_4AA306(pAudioPlayer, v102, v103, v104, v105, v106, v107, v108, v110);
+            pAudioPlayer->sub_4AA306(v102, v103, v104, v105, v106, v107, v108, v110);
             return;
           }
         }
@@ -3337,7 +2833,7 @@ LABEL_183:
       v81 = *(_DWORD *)(v74 + 20);
       v124 = v149 + *(_WORD *)(v74 + 20);
       v80 = sub_42F5ED((int)&v119, v81, *(_DWORD *)(v74 + 24), *(_WORD *)(56 * v120 + pObjectDescriptionList->pDescriptions + 48), 0);
-      compile_error;//v84 = __SETO__(v137 + v149, v73);
+      compile_error();//v84 = __SETO__(v137 + v149, v73);
       v82 = v137 + v149 == v73;
       v83 = v137 + v149 - v73 < 0;
       v149 += v137;
@@ -3362,34 +2858,30 @@ LABEL_183:
 
 
 //----- (00464479) ------------------. --------------------------------------
-void __cdecl sub_464479()
+void __cdecl sub_464479_ResetCursorAndOther()
 {
   int v0; // esi@9
 
   if (pGame->pGUICursor)
     GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON1");
-  sub_48A336(&class35_obj);
+  class35_sub_48A336(&class35_obj);
   LODFile_Bitmaps_LOD.sub_46454B();
   LODFile_Sprites_LOD.sub_4645DC();
-  //LODFile_Icons_LOD.sub_46454B();	crash
+  LODFile_Icons_LOD.sub_46454B();
   if ( pD3DRenderer->pRenderD3D3 )
   {
     dword_EF52A0 = 0;
     dword_EF52A4 = 0;
   }
-  sub_46080D();
-  if ( dword_6BE360 == 1 )
-  {
+
+  if ( uCurrentlyLoadedLevelType == 1 )
     sub_498B15((int)byte_6BE3C8);
-  }
-  else
-  {
-    if ( dword_6BE360 == 2 )
-      class51_sub_48901B((char *)pClass51_global);
-  }
-  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+  else if ( uCurrentlyLoadedLevelType == 2 )
+    pClass51_global->Clear();
+
+  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   sub_4A9D79(pSoundList, 0);
-  dword_6BE360 = 0;
+  uCurrentlyLoadedLevelType = 0;
   SpriteFrameTable_fn3(pSpriteFrameTable);
   v0 = sLastGUIWindowIdx;
   pParty_global->dword_01613C = sLastGUIWindowIdx;
@@ -3444,9 +2936,9 @@ signed int __thiscall sub_4059DB_ProbablyStartTurn(void *_this)
   dword_4F8870 &= 0xFFFFFFFDu;
   v1 = (int)_this;
   cClock1.clock_sub_426386();
-  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   v2 = 0;
-  AudioPlayer_sub_4AA306(pAudioPlayer, 207, 0, 0, -1, 0, 0, 0, 0);
+  pAudioPlayer->sub_4AA306(207, 0, 0, -1, 0, 0, 0, 0);
 
   //dword_50C998 = 8 * pIconFrameTable->pIcons[dword_50C990].word_00001A;
   dword_50C998 = 8 * pIconFrameTable->GetImage(dword_50C990)->word_00001A;
@@ -3695,9 +3187,9 @@ void __thiscall sub_405CFF(int _this, int a2)
     while ( v14 < *(_DWORD *)(v3 + 12) );
     v2 = 0;
   }
-  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   if ( a2 != v2 )
-    AudioPlayer_sub_4AA306(pAudioPlayer, 206, v2, v2, -1, v2, v2, v2, v2);
+    pAudioPlayer->sub_4AA306(206, v2, v2, -1, v2, v2, v2, v2);
   dword_4F8870 &= 0xFFFFFFFDu;
   cClock1.clock_sub_4263A0();
   dword_50C994 = v2;
@@ -3812,7 +3304,7 @@ LABEL_36:
     }
     v28 = qword_6A12E0;
     v3 = (char *)&array_5B5928[dword_5B65C8];
-    if ( dword_6BE360 == 1 )
+    if ( uCurrentlyLoadedLevelType == 1 )
       v28 = qword_6BE6B4[0];
     v5 = pLevelEVT[(_DWORD)a1 + 4];
     WORD2(a1) = *(_WORD *)v2;
@@ -3939,22 +3431,6 @@ int __cdecl err_show()
     Game_DeinitializeAndTerminate((void *)1);
   }
   return 0;
-}
-
-//----- (00487DBE) --------------------------------------------------------
-void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf()
-{
- int i;
-
- for (i = 0; i < 480; ++i)
- {
-  pNewEdgesBuf[i].pNext = &defaultEdge;
-  ptr_80CA10[i] = 0;
- }
-
- runtime_warning(wtf is _this shit? o_O);
- for (i = 0; i < 2000; ++i)
-   *((_WORD *)pSurfsBuf + 17) = 0;
 }
 
 //----- (0049F5A2) --------------------------------------------------------
@@ -4949,12 +4425,12 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
                         if (v8 <= v12->sSomeY2 && v8 >= v12->sSomeY1)
                           {
                             for (j = 0; j < v12->uNumVertices; ++j)
-                            {														 //  *(_WORD *)
-                                word_721040[2 * j + 0] = v12->array_000098[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j]);
-                                word_721040[2 * j + 1] = v12->array_000098[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j + 1]);
+                            {
+                                word_721040[2 * j + 0] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j]);
+                                word_721040[2 * j + 1] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1]);
 
-                                word_720F70[2 * j + 0] = v12->array_0000C0[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j] + 4);
-                                word_720F70[2 * j + 1] = v12->array_0000C0[j] + (v10->ptr_000048->x + 12 * v12->array_000020[j + 1] + 4);
+                                word_720F70[2 * j + 0] = v12->array_0000C0[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j] + 4);
+                                word_720F70[2 * j + 1] = v12->array_0000C0[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1] + 4);
                               v7 = v42;
                             }
                             word_721040[2 * v12->uNumVertices] = word_721040[0];
@@ -5081,7 +4557,7 @@ LABEL_55:
 LABEL_56:
   if ( v29 )
   {
-    v34 = *(_DWORD *)(188 * dword_721160[v29] + pClass51_global->pBModels + 84) + 308 * dword_721110[v29];
+    v34 = *(_DWORD *)((char *)&pClass51_global->pBModels[dword_721160[v29]] + 84) + 308 * dword_721110[v29];
     *(_DWORD *)a5 = 0;
     if ( *(_BYTE *)(v34 + 28) & 0x10 )
       *(_DWORD *)a5 = 1;
@@ -5353,21 +4829,21 @@ __int16 __thiscall sub_40680F(void *_this, int a2)
         {
           if ( v9 == 2 )
           {
-            compile_error;//v11 = __SETO__(v6, 1024);
+            compile_error();//v11 = __SETO__(v6, 1024);
             v10 = v6 - 1024 < 0;
           }
           else
           {
             if ( v9 == 3 )
             {
-              compile_error;//v11 = __SETO__(v6, 2560);
+              compile_error();//v11 = __SETO__(v6, 2560);
               v10 = v6 - 2560 < 0;
             }
             else
             {
               if ( v9 != 4 )
                 goto LABEL_26;
-              compile_error;//v11 = __SETO__(v6, 5120);
+              compile_error();//v11 = __SETO__(v6, 5120);
               v10 = v6 - 5120 < 0;
             }
           }
@@ -5583,13 +5059,13 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
   if ( pD3DRenderer->pRenderD3D3 )
   {
     pD3DRenderer->BeginScene();
-    if ( dword_6BE360 == 1 )
+    if ( uCurrentlyLoadedLevelType == 1 )
     {
       sub_441BD4();
     }
     else
     {
-      if ( dword_6BE360 == 2 )
+      if ( uCurrentlyLoadedLevelType == 2 )
         sub_441CFF();
     }
     //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
@@ -5597,7 +5073,7 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
 
     memset(&Dst, 0, 0x7Cu);
     Dst = 124;
-    if ( LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, (DDSURFACEDESC2 *)&Dst, 1) )
+    if (LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, (DDSURFACEDESC2 *)&Dst, 1) )
     {
       v10 = v23;
       v9 = 0;
@@ -5651,13 +5127,13 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
   else
   {
     pD3DRenderer->BeginScene();
-    if ( dword_6BE360 == 1 )
+    if ( uCurrentlyLoadedLevelType == 1 )
     {
       sub_441BD4();
     }
     else
     {
-      if ( dword_6BE360 == 2 )
+      if ( uCurrentlyLoadedLevelType == 2 )
         sub_441CFF();
    } 
     v26 = (int)pD3DRenderer->pTargetSurface;
@@ -5837,7 +5313,7 @@ int __cdecl sub_494035()
         }
       }
     }
-    if ( dword_6BE360 == 2 )
+    if ( uCurrentlyLoadedLevelType == 2 )
       sub_489487();
 
     for (i = 0; i < 4; ++i)
@@ -5913,7 +5389,7 @@ LABEL_39:
     v16 = (double)v57 * 0.5;
     v17 = v16 + 6.755399441055744e15;
     v61 = LODWORD(v17);
-    if ( LODWORD(v17) <= 0 )
+    if (LODWORD(v17) <= 0 )
       v61 = 1;
   }
 
@@ -6368,14 +5844,14 @@ LABEL_20:
   }
   if ( v12 == 2 )
   {
-    compile_error;//v14 = __SETO__(v9, 1024);
+    compile_error();//v14 = __SETO__(v9, 1024);
     v13 = v9 - 1024 < 0;
   }
   else
   {
     if ( v12 != 3 )
       goto LABEL_21;
-    compile_error;//v14 = __SETO__(v9, 2560);
+    compile_error();//v14 = __SETO__(v9, 2560);
     v13 = v9 - 2560 < 0;
   }
   if ( v13 ^ v14 )
@@ -6601,7 +6077,7 @@ void __thiscall sub_406FA8(int _this)
       }
       ++v17;
       v3 = v14 + 16;
-      compile_error;//v9 = __SETO__(v17, *(_DWORD *)(v13 + 12));
+      compile_error();//v9 = __SETO__(v17, *(_DWORD *)(v13 + 12));
       v8 = v17 - *(_DWORD *)(v13 + 12) < 0;
       v14 += 16;
     }
@@ -6764,7 +6240,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
   v23 = sub_452A9E(v24 * v24 + (v60 - v64) * (v60 - v64) + v50 * v50);
   if ( v23 > 5120 )
     return 0;
-  if ( dword_6BE360 == 2 )
+  if ( uCurrentlyLoadedLevelType == 2 )
     return 1;
   v25 = 65536;
   if ( v23 )
@@ -6892,7 +6368,6 @@ void ReadMM6_ini(const wchar_t *pMM6ConfigFilename)
   size_t v3; // ebx@32
   size_t v4; // edi@36
   char String[32]; // [sp+84h] [bp-104h]@32
-  unsigned int v12; // [sp+184h] [bp-4h]@28
 
  char pIniFile[256];
 
@@ -6902,44 +6377,7 @@ void ReadMM6_ini(const wchar_t *pMM6ConfigFilename)
  struct_576FE8.dword_000018 = GetPrivateProfileIntA("screen", "vx2", 468, pIniFile);
  struct_576FE8.dword_00001C = GetPrivateProfileIntA("screen", "vy2", 351, pIniFile);
 
-  if (GetPrivateProfileIntA("settings", "nointro", 0, pIniFile))
-    dword_6BE364 |= 4;
-  if (GetPrivateProfileIntA("settings", "nologo", 0, pIniFile))
-    dword_6BE364 |= 8;
-  if (GetPrivateProfileIntA("settings", "nosound", 0, pIniFile))
-    dword_6BE364 |= 16;
-  if (GetPrivateProfileIntA("settings", "nowalksound", 0, pIniFile))
-    dword_6BE364 |= 32;
 
-  if (bUseRegistry)
-    v1 = ReadWindowsRegistry("startinwindow", 0);
-  else
-    v1 = GetPrivateProfileIntA("debug", "startinwindow", 0, pIniFile);
-  if ( v1 )
-    dword_6BE368 |= 1;
-
-  if ( GetPrivateProfileIntA("debug", "showFR", 0, pIniFile) )
-    dword_6BE368 |= 2;
-  if ( GetPrivateProfileIntA("debug", "nomonster", 0, pIniFile) )
-    dword_6BE368 |= 4;
-  if ( GetPrivateProfileIntA("debug", "nodecoration", 0, pIniFile) )
-    dword_6BE368 |= 8;
-  if ( GetPrivateProfileIntA("debug", "nodamage", 0, pIniFile) )
-    dword_6BE368 |= 16;
-  pParty_global->uWalkSpeed = GetPrivateProfileIntA("debug", "walkspeed", 384, pIniFile);
-  GetPrivateProfileStringA("file", "startmap", "out01.odm", (char *)pStartMapName, 32, pIniFile);
-  v12 = 0;
-  if ( strlen((char *)pStartMapName) )
-  {
-    do
-    {
-      if ( pStartMapName[v12] == 32 )
-        pStartMapName[v12] = 0;
-      ++v12;
-      v2 = strlen((char *)pStartMapName);
-    }
-    while ( v12 < v2 );
-  }
   byte_6BE108 = GetPrivateProfileIntA("outdoor", "RGBDayTop.r", 81, pIniFile);
   byte_6BE109 = GetPrivateProfileIntA("outdoor", "RGBDayTop.g", 121, pIniFile);
   byte_6BE10A = GetPrivateProfileIntA("outdoor", "RGBDayTop.b", 236, pIniFile);
@@ -7006,14 +6444,10 @@ void ReadMM6_ini(const wchar_t *pMM6ConfigFilename)
   dword_6BE058 = GetPrivateProfileIntA("texmapping", "building_subdivsize", 32, pIniFile);
   dword_6BE05C = GetPrivateProfileIntA("texmapping", "building_subdivpow2", 5, pIniFile);
 
-  pParty_global->uEyelevel = pParty_global->uDefaultEyelevel = GetPrivateProfileIntA("party", "eyelevel", 160, pIniFile);
-  pParty_global->uPartyHeight = pParty_global->uDefaultPartyHeight = GetPrivateProfileIntA("party", "height", 192, pIniFile);
-
- sub_4666D5();
 }
 
 //----- (0047F138) --------------------------------------------------------
-bool __cdecl sub_47F138()
+bool __cdecl sub_47F138_MessWithDecorations()
 {
   signed int v0; // ebx@1
   int v2;
@@ -7025,7 +6459,7 @@ bool __cdecl sub_47F138()
 
   v0 = 0;
   v7 = 0;
-  if ( !_strcmpi(CurrentLevelName, "out09.odm") )
+    if ( !_strcmpi((char *)pClass51_global->pLocationFileName, "out09.odm") )
     v7 = 1;
 
   for (i = 0; i < uNumLevelDecorations; ++i)
@@ -7064,7 +6498,8 @@ bool __cdecl sub_47F138()
       }
   }
 
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+  runtime_warning();
+            //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
   return true;
 }
 
@@ -7331,7 +6766,7 @@ signed int __fastcall sub_4075DB(int a1, int a2, int a3, int a4)
     }
     v21 = v22 >= v6;
     v20 = v33 + 1;
-    compile_error;//v30 = __SETO__(v33 + 1, v32);
+    compile_error();//v30 = __SETO__(v33 + 1, v32);
     v29 = v33++ + 1 - v32 < 0;
   }
   while ( v29 ^ v30 );
@@ -7480,168 +6915,6 @@ LABEL_29:
   return result;
 }
 
-//----- (00486B4E) --------------------------------------------------------
-void __fastcall sub_486B4E(struct RenderVertex *a1, int *a2, int *a3, struct struct8 *a4)
-{
- int v0;
-  float v4;
-  float v5;
-  int v10; // ebx@8
-  int v11; // eax@10
-  int i; // edx@20
-  char v31; // [sp-18h] [bp-98h]@2
-  int v32; // [sp-14h] [bp-94h]@2
-  int v33; // [sp-10h] [bp-90h]@2
-  int v34; // [sp-Ch] [bp-8Ch]@2
-  const char *v35; // [sp-8h] [bp-88h]@2
-  int v36; // [sp-4h] [bp-84h]@2
-  int v45; // [sp+40h] [bp-40h]@28
-  int v46; // [sp+44h] [bp-3Ch]@20
-  int v52; // [sp+5Ch] [bp-24h]@14
-  int v53; // [sp+60h] [bp-20h]@6
-  int v54; // [sp+64h] [bp-1Ch]@6
-  char *v61; // [sp+8Ch] [bp+Ch]@2
- struct Edge *pEdge;
-
-
-  if (a4->word_000030 & 0x4000)
-  {
-    v61 = &v31;
-    Game_sub_40E2C8(&v31, "The Texture Frame Table is not a supported feature.", (int)((char *)&a4 + 3));
-    sub_466D09(&v31, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odspan.cpp", __LINE__);
-  }
-
- v0 = a4->byte_000108;
- a4->byte_000108 = 0;
-
- if (a4->uNumVertices <= 0)
-   return;
-
- if (pStruct9_global->uNumSurfs >= 1999 || pStruct9_global->uNumEdges >= 5979)
-   return;
-
- a4->dword_0000B0 = 0;
- a4->dword_000104= 0;
-
- v54 = -1;
- v53 = 10000;
-
- sub_45CB89(a1, a4->uNumVertices);
-
-
- for (i = 0; i < a4->uNumVertices; ++i)
- {
-  ++pStruct9_global->uNumEdges;
-
-  v10 = i + 1;
-  if (v10 >= a4->uNumVertices)
-    v10 = 0;
-
-  v11 = a3[i];
-
-  if (a3[i] > v54)
-    v54 = a3[i];
-
-  if (a3[i] < v53)
-    v53 = a3[i];
-
-  v52 = floorf(a3[v10] - a3[i] + 0.5f);
-  if (!v52)
-    continue;
-
-  if (v52 >= 0)
-  {
-   v4 = a3[i];
-   v5 = a3[v10];
-
-   ptr_80C978->dword_000008 = 1;
-
-   ptr_80C978->flt_000004 = (double)(a2[v10] - a2[i]) / (double)(a3[v10] - a3[i]);
-   ptr_80C978->flt_000000 = (a3[i] - a3[i]) * ptr_80C978->flt_000004 + a2[i];
-
-   if (v0)
-   {
-    ptr_80C978->flt_00001C = a1[i].flt_00002C;
-    ptr_80C978->flt_000020 = a1[v10].flt_00002C;
-    ptr_80C978->flt_000024 = a2[i];
-    ptr_80C978->flt_000028 = a2[v10];
-    ptr_80C978->flt_00002C = a3[i];
-    ptr_80C978->flt_000030 = a3[v10];
-    a4->array_000060[a4->dword_0000B0++] = ptr_80C978;
-   }
-  }
-  else
-  {
-   v4 = a3[v10];
-   v5 = a3[i];
-
-   ptr_80C978->dword_000008 = 0;
-   
-   ptr_80C978->flt_000004 = (double)(a2[i] - a2[v10]) / (double)(a3[i] - a3[v10]);
-   ptr_80C978->flt_000000 = (a3[v10] - a3[v10]) * ptr_80C978->flt_000004 + a2[v10];
-
-   if (v0)
-   {
-    ptr_80C978->flt_00001C = a1[v10].flt_00002C;
-    ptr_80C978->flt_000020 = a1[i].flt_00002C;
-    ptr_80C978->flt_000024 = (double)a2[v10];
-    ptr_80C978->flt_000028 = (double)a2[i];
-    ptr_80C978->flt_00002C = (double)a3[v10];
-    ptr_80C978->flt_000030 = (double)a3[i];
-    a4->array_0000B4[a4->dword_000104++] = ptr_80C978;
-   }
-  }
-
-  v46 = floorf(v4 + 0.5f);
-  for (pEdge = &pNewEdgesBuf[v46]; pEdge->pNext->flt_000000 < ptr_80C978->flt_000000; pEdge = pEdge->pNext)
-    ;
-
-  if (pEdge->flt_000000 != ptr_80C978->flt_000000 || pEdge->dword_000008 || ptr_80C978->dword_000008 != 1 )
-  {
-   ptr_80C978->pNext = pEdge->pNext;
-   pEdge->pNext = ptr_80C978;
-  }
-  else
-  {
-   ptr_80C978->pNext = pEdge;
-   pEdge->pPrev->pNext = ptr_80C978;
-  }
-
-  v45 = floorf(v5 - 1.0 + 0.5f); 
-  ptr_80C978->ptr_000018 = ptr_80CA10[v45];
-  ptr_80CA10[v45] = ptr_80C978;
-
-  ptr_80C978->pSurf = ptr_80C97C;
-  if (ptr_80C978 < &pEdgesBuf[5999])
-    ptr_80C978++;
- }
-
-
-
- if (a4->uNumVertices > 0)
- {
-  a4->ptr_000048 = 0;
-
-  ptr_80C97C->flt_000000 = a4->flt_000000;
-  ptr_80C97C->flt_000004 = a4->flt_000004;
-  ptr_80C97C->flt_000008 = a4->flt_000008;
-  ptr_80C97C->flt_00000C = a4->flt_00000C;
-  ptr_80C97C->flt_000010 = a4->flt_000010;
-
-  ptr_80C97C->ptr_00001C = a4;
-
-  ptr_80C97C->word_000022 = 0;
-
-  if (ptr_80C97C < &pSurfsBuf[1999])
-  {
-   ptr_80C97C++;
-   pStruct9_global->uNumSurfs++;
-  }
-
-  if (v0)
-    a4->byte_000108 = 1;
- }
-}
 
 //----- (00407A1C) --------------------------------------------------------
 bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
@@ -7827,7 +7100,7 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
   v112 = 0;
   v111 = 0;
   v115 = v6;
-  if ( dword_6BE360 != 2 )
+  if ( uCurrentlyLoadedLevelType != 2 )
   {
     sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
     sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
@@ -8374,40 +7647,53 @@ LABEL_68:
 }
 
 //----- (00464866) --------------------------------------------------------
-int __fastcall sub_464866(int a1, int a2)
+int __fastcall sub_464866(const char *pLevelFilename, int a1, int uLoadingUIType)
 {
-  int v3; // esi@1
+  //int v3; // esi@1
   signed __int64 v6; // qax@8
   int v10; // [sp+20h] [bp-4h]@1
  unsigned char pLevelName[128],
                pLevelType[32];
  int i;
 
-  v3 = a2;
+  //v3 = uLoadingUIType;
   v10 = a1;
-  sub_464479();
+  sub_464479_ResetCursorAndOther();
 
  pClass58_global = MemAlloc(class58, 1);
  memset(pClass58_global, 0, sizeof(struct class58));
  class58_sub_49B525(pClass58_global, 0);
 
- pLoadingUI = MemAlloc(class56, 1);
- memset(pLoadingUI, 0, sizeof(struct class56));
- LevelLoadingUI_Initialize(pLoadingUI, a2);
+ pMainGUI->Reset();
+ {
+  GUIWindow *pGameLoadingWindow = pMainGUI->CreateControl<GUIWindow>(0);
+  GUIImage  *pGameLoadingWindowBackground = pMainGUI->CreateControl<GUIImage>(pGameLoadingWindow);
 
- sscanf(CurrentLevelName, "%[^.].%s", pLevelName, pLevelType);
+  pGameLoadingWindow->Initialize(&Rect<float>(0, 640, 0, 480), pGameLoadingWindowBackground);
+  pGameLoadingWindowBackground->Initialize(&Rect<float>(0, 640, 0, 480), L"loading1");
+
+  GUIProgressBar_LevelLoading *pProgressBar_LevelLoading = pMainGUI->CreateControl<GUIProgressBar_LevelLoading>(pGameLoadingWindow);
+  pProgressBar_LevelLoading->Initialize(&Rect<float>(100, 200, 100, 120), &Rect<float>(100, 200, 100, 120), &_Render::Color(1.0f, 1.0f, 1.0f, 1.0f));
+  pLevelLoadingUI = pProgressBar_LevelLoading;
+  //pLevelLoadingUI = MemAlloc(GUIProgressBar, 1);
+  //LevelLoadingUI_Initialize(pLevelLoadingUI, a2);
+
+  pMainGUI->GetChildrenList()->Add(pGameLoadingWindow);
+ }
+
+ sscanf(pLevelFilename, "%[^.].%s", pLevelName, pLevelType);
  Level_LoadEvtAndStr((char *)pLevelName);
  LoadLevel_InitializeLevelEvt();
  
  for (i = 0; i < 1000; ++i)
    pLayingItemsList[i].uObjectDescriptionID = 0;
  
- uLevelMapStatsID = CMapStats_FindLocation(pMapStats, CurrentLevelName);
-  byte_6BE3C4_MaybeDrowningFlag = 0;
+ uLevelMapStatsID = CMapStats_FindLocation(pMapStats, pLevelFilename);
+  byte_6BE3C4_MaybeDrowningFlag = false;
 
   pGame->dword_000E24 &= 0xFFFFFFF7;
 
-  if ( !strcmpi(CurrentLevelName, "out15.odm") )
+  if ( !strcmpi(pLevelFilename, "out15.odm") )
   {
     byte_6BE3C4_MaybeDrowningFlag = true;
     pGame->dword_000E24 |= 8;
@@ -8415,13 +7701,13 @@ int __fastcall sub_464866(int a1, int a2)
 
   pParty_global->dword_0006F4 = 0;
   if (strcmpi((char *)pLevelType, "blv"))
-    PrepareToLoadODM(v10,false);
+    PrepareToLoadODM(pLevelFilename, v10);
   else
-    sub_460A78((void *)v10);
+    PrepareToLoadBLV((void *)v10);
 
   AudioPlayer_sub_4AC041(pAudioPlayer);
-  sub_461103();
-  if (!strcmpi(CurrentLevelName, "d11.blv") || !strcmpi(CurrentLevelName, "d10.blv"))
+  sub_461103(pLevelFilename);
+  if (!strcmpi(pLevelFilename, "d11.blv") || !strcmpi(pLevelFilename, "d10.blv"))
   {
     for (i = 0; i < uNumActors; ++i)
     {
@@ -8434,8 +7720,11 @@ int __fastcall sub_464866(int a1, int a2)
 
   dword_5C35C4 = 0;
   sub_443FDC_MessWithEvents(v6);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  LevelLoadingUI_Release(pLoadingUI);
+
+  runtime_warning();
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  runtime_warning();
+            //LevelLoadingUI_Release(pLevelLoadingUI);
   return _flushall();
 }
 
@@ -8751,31 +8040,6 @@ int __fastcall sub_408AE7(int a1, int a2)
     while ( v2 < (signed int)uNumActors );
   }
   return v9;
-}
-
-//----- (00486A28) --------------------------------------------------------
-void AllocateDrawBuffers(bool a1)
-{
-  if ( !a1 || !pSpansBuf )
-  {
-    ReleaseDrawBuffers();
-
-    //pSpansBuf = (Span *)mem_mng.AllocatedNamedBuffer( pSpansBuf, 12500 * sizeof(struct Span), "SPANS");
-    pSpansBuf = NamedMemAlloc(Span, 12500, "SPANS");
-    memset(pSpansBuf, 0, 12500 * sizeof(struct Span));
-
-    //pEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pEdgesBuf, 6000 * sizeof(struct Edge), "EDGES");
-    pEdgesBuf = NamedMemAlloc(Edge, 6000, "EDGES");
-    memset(pEdgesBuf, 0, 6000 * sizeof(struct Edge));
-
-    //pSurfsBuf = (Surf *)mem_mng.AllocatedNamedBuffer( pSurfsBuf, 2000 * sizeof(struct Surf), "SURFS");
-    pSurfsBuf = NamedMemAlloc(Surf, 2000, "SURFS");
-    memset(pSurfsBuf, 0, 2000 * sizeof(struct Surf));
-
-    //pNewEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pNewEdgesBuf, 480 * sizeof(struct Edge), "NEWEDGES");
-    pNewEdgesBuf = NamedMemAlloc(Edge, 480, "NEWEDGES");
-    memset(pNewEdgesBuf, 0, 480 * sizeof(struct Edge));
-  }
 }
 
 //----- (00408B54) --------------------------------------------------------
@@ -9455,10 +8719,10 @@ LABEL_130:
       }
     }
     v58 = v139 - 1;
-    for ( l = v139 - 1; l >= 0; --l )
+    for (l = v139 - 1; l >= 0; --l )
     {
       v142 = 0;
-      if ( l > 0 )
+      if (l > 0 )
       {
         v60 = (int)dword_4FA9B0;
         v135 = l;
@@ -9812,7 +9076,7 @@ int __cdecl sub_409C8B()
 
   if (pAsyncMouse)
     CAsyncMouse_sub_409E3D(pAsyncMouse, 1);
-  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   strcpy(struct_505898.Dest.sContainerName, "Иг");
   strcpy((char *)struct_505898.byte_50596C, "П");
   LOBYTE(word_4FAA75) = 0;
@@ -9874,153 +9138,12 @@ int __cdecl sub_409C8B()
   byte_4FAA77 = 0;
   sub_409FE9();
   sub_40A255();
-  compile_error;//nullsub_1(&dword_4FAA28);
+  compile_error();//nullsub_1(&dword_4FAA28);
   struct_505898.byte_50598D = 0;
   struct_505898.dword_5058E0 = pFontComic;
   result = (int)pFontArrus;
   struct_505898.dword_5058E4 = pFontArrus;
   return result;
-}
-
-//----- (0048276F) --------------------------------------------------------
-void __thiscall sub_48276F(struct struct8 *_this)
-{
-  double v3; // st7@2
-  int v8; // ecx@13
-  int i; // eax@16
-  int v10; // edx@20
-  int v11; // edx@22
-  int v12; // ecx@22
-  float *v13; // esi@22
-  int v14; // ebx@26
-  float *v15; // ebx@27
-  double v16; // st4@28
-  double v17; // st5@28
-  double v18; // st6@28
-
-  int v23;
-  int v24;
-  int v25;
-  int v29;
-  struct
-  {
-   int v19; // [sp+4h] [bp-2Ch]@20
-   int v20; // [sp+8h] [bp-28h]@22
-   int v21; // [sp+Ch] [bp-24h]@22
-   int v22; // [sp+10h] [bp-20h]@1
-   int v23; // [sp+14h] [bp-1Ch]@11
-
-   float v24; // [sp+18h] [bp-18h]@7
-   float v25; // [sp+1Ch] [bp-14h]@5
-   float v26; // [sp+20h] [bp-10h]@2
-   float v27; // [sp+24h] [bp-Ch]@2
-   float v28; // [sp+28h] [bp-8h]@2
-   float v29; // [sp+2Ch] [bp-4h]@9
-
-   float uncharted_stack[16*array_size_unknown]; //[sp+2C+edx*4]
-  } v19;
-  int uncharted_stack[16*array_size_unknown];
-
-  v19.v22 = (int)_this;
-  if (_this->uNumVertices < 3)
-    return;
-
-    v19.v26 = 10000.0;
-    v19.v28 = 10000.0;
-    v3 = -10000.0;
-    v19.v27 = -10000.0;
-
-      for (i = 0; i < _this->uNumVertices; ++i)
-      {
-        if (array_508690[i].flt_000018 < (double)v19.v26 )
-        {
-          v25 = i;
-          v19.v26 = array_508690[i].flt_000018;
-        }
-        if (array_508690[i].flt_000018 > (double)v19.v27 )
-        {
-          v24 = i;
-          v19.v27 = array_508690[i].flt_000018;
-        }
-
-        if (array_508690[i].flt_00001C < (double)v19.v28 )
-        {
-          v29 = i;
-          v19.v28 = array_508690[i].flt_00001C;
-        }
-        if (array_508690[i].flt_00001C > v3)
-        {
-          v23 = i;
-          v3 = array_508690[i].flt_00001C;
-        }
-      }
-
-    v8 = v29;
-    if (v29 == v25 || v29 == v24)
-      v8 = v23;
-    v29 = 0;
-
-    for (i = 0; i < _this->uNumVertices; ++i)
-    {
-      if (i == v25 || i == v24 || i == v8)
-      {
-        v10 = v29;
-        uncharted_stack[v29++] = i;
-      }
-    }
-    //v12 = (int)&flt_508690[12 * v19.v19];
-    //v11 = (int)&flt_508690[12 * v19.v20];
-    //v13 = &flt_508690[12 * v19.v21];
-    v12 = (int)&array_508690[uncharted_stack[0]];
-    v11 = (int)&array_508690[uncharted_stack[1]];
-    v13 = (float *)&array_508690[uncharted_stack[2]];
-
-    if (v29 != 3)
-    {
-      v13 = (float *)&array_508690[_this->uNumVertices - 1];
-      v12 = (int)&array_508690[0];
-      v11 = (int)&array_508690[1];
-
-      v19.v28 = array_508690[1].x - array_508690[0].x;
-      v19.v27 = array_508690[1].z - array_508690[0].z;
-      v19.v29 = array_508690[1].y - array_508690[0].y;
-      v19.v26 = array_508690[_this->uNumVertices - 1].x - array_508690[0].x;
-      v19.v25 = array_508690[_this->uNumVertices - 1].z - array_508690[0].z;
-      v19.v24 = array_508690[_this->uNumVertices - 1].y - array_508690[0].y;
-      if ( v19.v24 * v19.v27 - v19.v25 * v19.v29 == 0.0 )
-      {
-        if ( v19.v26 * v19.v29 - v19.v24 * v19.v28 == 0.0 )
-        {
-          if ( v19.v25 * v19.v28 - v19.v26 * v19.v27 == 0.0 )
-          {
-            v14 = _this->uNumVertices - 2;
-            LODWORD(v19.v26) = v14;
-            if ( v14 >= 2 )
-            {
-              v15 = (float *)&array_508690[v14];
-              do
-              {
-               v18 = *v15 - array_508690[0].x;
-               v17 = v15[1] - array_508690[0].z;
-               v16 = v15[2] - array_508690[0].y;
-                v13 = v15;
-                if ( v19.v27 * v16 - v17 * v19.v29 != 0.0 )
-                  break;
-                if ( v18 * v19.v29 - v16 * v19.v28 != 0.0 )
-                  break;
-                if ( v19.v28 * v17 - v18 * v19.v27 != 0.0 )
-                  break;
-                --LODWORD(v19.v26);
-                v15 -= 12;
-              }
-              while ( LODWORD(v19.v26) >= 2 );
-            }
-          }
-        }
-      }
-    }
-    //sub_4829B9(v12, v11, (int)v13, &v19.v22, 1);
- sub_4829B9((RenderVertex *)v12, (RenderVertex *)v11, (RenderVertex *)v13, _this, 1);
 }
 
 //----- (00409E6A) --------------------------------------------------------
@@ -10065,7 +9188,7 @@ LABEL_8:
     dword_4FAA70 = sub_40DFA7(dword_4FAA28) / 1000;
   else
     dword_4FAA70 = -1;
-  compile_error;//nullsub_2(dword_4FAA28);
+  compile_error();//nullsub_2(dword_4FAA28);
   v0 = &dword_4FAC10;
   do
   {
@@ -10404,13 +9527,13 @@ void __cdecl sub_40A383()
     if ( byte_505728[0] != 1 || byte_5057E4 != 1 )
     {
       ++dword_4FAA6C;
-      compile_error;//byte_4FAA75 = 1;
+      compile_error();//byte_4FAA75 = 1;
       if ( dword_4FAA6C >= 2 )
         dword_4FAA6C = 0;
     }
     else
     {
-      compile_error;//nullsub_1(0);
+      compile_error();//nullsub_1(0);
       v13 = 0;
       v14 = 0;
       sub_40DEBE("След", &Dest);
@@ -10418,9 +9541,9 @@ void __cdecl sub_40A383()
       v14 = 200;
       v13 = 320 - 12 * v1 / 2;
       sub_40D75D(-1, &Dest, (int)&v13);
-      compile_error;//byte_4FAA75 = 1;
+      compile_error();//byte_4FAA75 = 1;
       v0 = dword_4FAA6C + 1;
-      compile_error;//v3 = __SETO__(dword_4FAA6C + 1, 2);
+      compile_error();//v3 = __SETO__(dword_4FAA6C + 1, 2);
       v2 = dword_4FAA6C++ - 1 < 0;
       if ( !(v2 ^ v3) )
       {
@@ -10436,9 +9559,9 @@ void __cdecl sub_40A383()
       v9 = 640;
       v8 = 0;
       v10 = 480;
-      compile_error;//nullsub_1(&v7);
+      compile_error();//nullsub_1(&v7);
       sub_40DF3D();
-      compile_error;//nullsub_1(1);
+      compile_error();//nullsub_1(1);
       while ( 1 )
       {
         while ( 1 )
@@ -10449,7 +9572,7 @@ void __cdecl sub_40A383()
             break;
           if ( v12 )
             goto LABEL_13;
-          compile_error;//nullsub_1(v5);
+          compile_error();//nullsub_1(v5);
         }
         if ( v11 > 4 )
         {
@@ -10468,7 +9591,7 @@ LABEL_13:
       v9 = 640;
       v8 = 0;
       v10 = 480;
-      compile_error;//nullsub_1(&v7);
+      compile_error();//nullsub_1(&v7);
       sub_40DF3D();
     }
   }
@@ -10591,8 +9714,8 @@ LABEL_17:
         {
           if ( !byte_4FAA2D )
           {
-            compile_error;//if ( byte_4FAA75 )
-              compile_error;//byte_4FAA76 = 1;
+            compile_error();//if ( byte_4FAA75 )
+              compile_error();//byte_4FAA76 = 1;
             sub_408BB4(dword_4FAA6C, v2);
             v3 = dword_4FAA6C;
             byte_4FAA2E = 1;
@@ -10646,8 +9769,8 @@ LABEL_17:
         {
           if ( sub_40BCFB(v27, dword_4FABBC) )
           {
-            compile_error;//if ( byte_4FAA75 )
-              compile_error;//byte_4FAA76 = 1;
+            compile_error();//if ( byte_4FAA75 )
+              compile_error();//byte_4FAA76 = 1;
             if ( dword_4FAA64 > 0 )
             {
               --dword_4FAA64;
@@ -10660,8 +9783,8 @@ LABEL_17:
         {
           if ( sub_40BCFB(v27, dword_4FABBC) )
           {
-            compile_error;//if ( byte_4FAA75 )
-              compile_error;//byte_4FAA76 = 1;
+            compile_error();//if ( byte_4FAA75 )
+              compile_error();//byte_4FAA76 = 1;
             if ( dword_4FAA64 > 0 )
             {
               --dword_4FAA64;
@@ -10678,8 +9801,8 @@ LABEL_17:
           if ( sub_40BE0E(v27, dword_4FABBC) )
           {
             byte_4FAA2E = 1;
-            compile_error;//if ( byte_4FAA75 )
-              compile_error;//byte_4FAA76 = 1;
+            compile_error();//if ( byte_4FAA75 )
+              compile_error();//byte_4FAA76 = 1;
           }
         }
         if ( v23 == 8 )
@@ -10687,18 +9810,18 @@ LABEL_17:
           if ( sub_40BCFB(v27, dword_4FABBC) )
           {
             byte_4FAA2E = 1;
-            compile_error;//if ( byte_4FAA75 )
-              compile_error;//byte_4FAA76 = 1;
+            compile_error();//if ( byte_4FAA75 )
+              compile_error();//byte_4FAA76 = 1;
           }
         }
       }
     }
-    compile_error;//nullsub_1(v3);
+    compile_error();//nullsub_1(v3);
     if ( sub_40DD2C() )
     {
       if ( !v28 )
       {
-        compile_error;//nullsub_1(v6);
+        compile_error();//nullsub_1(v6);
         v28 = 1;
       }
     }
@@ -10708,11 +9831,11 @@ LABEL_17:
     }
     if ( sub_40DD2C() )
     {
-      compile_error;//nullsub_1(v7);
-      compile_error;//nullsub_1(34);
+      compile_error();//nullsub_1(v7);
+      compile_error();//nullsub_1(34);
       sub_40DEBE("В", &Dest);
       v8 = sub_40DB22((int)&unk_4E19FC, 0);
-      compile_error;//nullsub_1(v9);
+      compile_error();//nullsub_1(v9);
       if ( v8 == 1 )
       {
         sub_40DEA5();
@@ -10724,7 +9847,7 @@ LABEL_17:
       v19 = 640;
       v18 = 0;
       v20 = 480;
-      compile_error;//nullsub_1(&v17);
+      compile_error();//nullsub_1(&v17);
     }
     if ( dword_4FABB8 != sub_40BB67(v27) )
     {
@@ -11427,7 +10550,7 @@ LABEL_15:
   v11 = 0;
   do
   {
-    compile_error;//if ( byte_4FAA76 == (_BYTE)v0 )
+    compile_error();//if ( byte_4FAA76 == (_BYTE)v0 )
     if (v0)
     {
       v13 = 32 * v11;
@@ -11456,8 +10579,8 @@ LABEL_15:
       {
         if ( v11 == 9 )
         {
-          compile_error;//byte_4FAA76 = v0;
-          compile_error;//byte_4FAA75 = v0;
+          compile_error();//byte_4FAA76 = v0;
+          compile_error();//byte_4FAA75 = v0;
           dword_4FAA34 = 5;
         }
         v18 = 32 * v11;
@@ -11487,7 +10610,7 @@ LABEL_15:
     ++v11;
   }
   while ( v11 < 10 );
-  compile_error;//if ( byte_4FAA76 != (_BYTE)v0 )
+  compile_error();//if ( byte_4FAA76 != (_BYTE)v0 )
   if (!v0)
     --dword_4FAA34;
   v22 = 192;
@@ -11781,7 +10904,7 @@ int __stdcall sub_47CB57(unsigned char *pIndexedPixels, int a2, unsigned int uNu
           v24 = (double)(v21 & v9) + v24;
         }
         v4 = v25 + 1;
-        compile_error;//v11 = __SETO__(v25 + 1, uNumPixels);
+        compile_error();//v11 = __SETO__(v25 + 1, uNumPixels);
         v10 = v25++ + 1 - uNumPixels < 0;
       }
       while ( v10 ^ v11 );
@@ -12064,42 +11187,42 @@ int __cdecl sub_4CA676()
 //----- (004CAEC7) --------------------------------------------------------
 int __cdecl sub_4CAEC7()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CAF26) --------------------------------------------------------
 int __cdecl sub_4CAF26()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CAFC6) --------------------------------------------------------
 int __cdecl sub_4CAFC6()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CB01E) --------------------------------------------------------
 int __cdecl sub_4CB01E()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CDA08) --------------------------------------------------------
 int __cdecl sub_4CDA08()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CDA91) --------------------------------------------------------
 int __cdecl sub_4CDA91()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
@@ -12119,28 +11242,28 @@ int sub_4CE45A(int result, int a2)
 //----- (004CEFD3) --------------------------------------------------------
 int __cdecl sub_4CEFD3()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CF121) --------------------------------------------------------
 int __cdecl sub_4CF121()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CF1E1) --------------------------------------------------------
 int __cdecl sub_4CF1E1()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
 //----- (004CF25C) --------------------------------------------------------
 int __cdecl sub_4CF25C()
 {
- compile_error;
+ compile_error();
   //return _unlock(9);
 }
 
@@ -12243,7 +11366,7 @@ __int32 __cdecl sub_4CFBCF()
     while ( *v8 )
     {
       if ( *v8 == 59 )
-        compile_error;//*v8 = 0;
+        compile_error();//*v8 = 0;
       else
         ++v8;
     }
@@ -12368,7 +11491,7 @@ unsigned int __cdecl sub_4CFDE7(unsigned int a1, int a2)
           {
             v19 = ~(0x80000000u >> (v16 - 32));
             *(_DWORD *)(result + 4 * v4 + 196) &= v19;
-            compile_error;//v20 = *(_BYTE *)(v16 + result + 4)-- == 1;
+            compile_error();//v20 = *(_BYTE *)(v16 + result + 4)-- == 1;
             if ( v20 )
               *(_DWORD *)(a1 + 4) &= v19;
           }
@@ -12376,7 +11499,7 @@ unsigned int __cdecl sub_4CFDE7(unsigned int a1, int a2)
           {
             v17 = ~(0x80000000u >> v16);
             *(_DWORD *)(result + 4 * v4 + 68) &= v17;
-            compile_error;//v18 = *(_BYTE *)(v16 + result + 4)-- == 1;
+            compile_error();//v18 = *(_BYTE *)(v16 + result + 4)-- == 1;
             if ( v18 )
               *(_DWORD *)a1 &= v17;
           }
@@ -12434,7 +11557,7 @@ unsigned int __cdecl sub_4CFDE7(unsigned int a1, int a2)
         {
           VirtualFree(*((LPVOID *)v23 + 3), 0, 0x8000u);
           HeapFree(hHeap, 0, *((LPVOID *)dword_F944F4 + 4));
-          compile_error;
+          compile_error();
           /*memcpy_0(
             dword_F944F4,
             (char *)dword_F944F4 + 20,
@@ -12536,7 +11659,7 @@ BOOL __cdecl sub_4D09FF(void **lpMem)
     result = (BOOL)lpMem[1];
     off_4F4D88 = (void **)lpMem[1];
   }
-  if ( lpMem == &off_4F2D68 )
+  if (lpMem == &off_4F2D68 )
   {
     dword_4F2D78 = -1;
   }
@@ -12691,8 +11814,8 @@ int __cdecl sub_4D0BB3(unsigned int a1)
     else
     {
       v4 = (int)v1[2];
-      compile_error;//v3 = (int)((char *)v2 + 4096 * ((signed int)(v1[2] - v1 - 24) >> 3));
-      compile_error;//v19 = (int)((char *)v2 + 4096 * ((signed int)(v1[2] - v1 - 24) >> 3));
+      compile_error();//v3 = (int)((char *)v2 + 4096 * ((signed int)(v1[2] - v1 - 24) >> 3));
+      compile_error();//v19 = (int)((char *)v2 + 4096 * ((signed int)(v1[2] - v1 - 24) >> 3));
       if ( v4 < (unsigned int)(v1 + 2054) )
       {
         while ( 1 )
@@ -12767,7 +11890,7 @@ LABEL_11:
   v9 = v7[3];
   v21 = 0;
   v8 = v9;
-  compile_error;
+  compile_error();
   /*for ( i = (int)((char *)v7[4] + 4096 * ((signed int)(v9 - v7 - 24) >> 3)); *(_DWORD *)v8 == -1; ++v21 )
   {
     if ( v21 >= 16 )
@@ -13035,7 +12158,7 @@ void sub_4D191D(int a1, int a2, int a3, int a4, int a5)
   int v13; // [sp+14h] [bp-4h]@1
 
   v12 = 5092216;
-  compile_error;//v11 = unknown_libname_59;
+  compile_error();//v11 = unknown_libname_59;
   v10 = a1;
   v9 = a2;
   v7 = a3;
@@ -13046,7 +12169,7 @@ void sub_4D191D(int a1, int a2, int a3, int a4, int a5)
   if ( off_4F4DA0 )
   {
     off_4F4DA0(v5, v6, v7, (int)v8, v9, v10, (int)v11, v12, 1);
-    compile_error;//JUMPOUT(*(int *)unk_4D1958);
+    compile_error();//JUMPOUT(*(int *)unk_4D1958);
   }
   v13 = -1;
   terminate();
@@ -13058,16 +12181,16 @@ double sub_4D31E1(double result)
 {
   double v3; // st6@2
 
-  compile_error;//_ST6 = result;
+  compile_error();//_ST6 = result;
   __asm { frndint }
 
-  compile_error;//if ( _ST6 == result )
+  compile_error();//if ( _ST6 == result )
   if (0)
   {
     v3 = result * dbl_4F5372;
-    compile_error;//_ST5 = result * dbl_4F5372;
+    compile_error();//_ST5 = result * dbl_4F5372;
     __asm { frndint }
-    compile_error;//_ST5 == v3;
+    compile_error();//_ST5 == v3;
   }
   return result;
 }
@@ -13108,7 +12231,7 @@ int __cdecl sub_4D4504(int a1, int a2)
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5554()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13116,7 +12239,7 @@ int sub_4D5554()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D555F()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13124,7 +12247,7 @@ int sub_4D555F()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D556A()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13132,7 +12255,7 @@ int sub_4D556A()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5570()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13140,7 +12263,7 @@ int sub_4D5570()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5576()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13148,7 +12271,7 @@ int sub_4D5576()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D557C()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13156,7 +12279,7 @@ int sub_4D557C()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5582()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13164,7 +12287,7 @@ int sub_4D5582()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D55A3()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13172,7 +12295,7 @@ int sub_4D55A3()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D55BE()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13180,7 +12303,7 @@ int sub_4D55BE()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D55DA()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13188,7 +12311,7 @@ int sub_4D55DA()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D55EA()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13196,7 +12319,7 @@ int sub_4D55EA()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D55FE()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13204,7 +12327,7 @@ int sub_4D55FE()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D560E()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13212,7 +12335,7 @@ int sub_4D560E()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5633()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13220,7 +12343,7 @@ int sub_4D5633()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5652()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13228,7 +12351,7 @@ int sub_4D5652()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5672()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13236,7 +12359,7 @@ int sub_4D5672()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5686()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13244,7 +12367,7 @@ int sub_4D5686()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D569E()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13252,7 +12375,7 @@ int sub_4D569E()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D56B2()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13260,7 +12383,7 @@ int sub_4D56B2()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D56D7()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13268,7 +12391,7 @@ int sub_4D56D7()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D56F6()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13276,7 +12399,7 @@ int sub_4D56F6()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5716()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13284,7 +12407,7 @@ int sub_4D5716()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D572A()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13292,7 +12415,7 @@ int sub_4D572A()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5742()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13300,7 +12423,7 @@ int sub_4D5742()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5756()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13308,7 +12431,7 @@ int sub_4D5756()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D577B()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13316,7 +12439,7 @@ int sub_4D577B()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D579A()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13324,7 +12447,7 @@ int sub_4D579A()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D57BA()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13332,7 +12455,7 @@ int sub_4D57BA()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D57CE()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13340,7 +12463,7 @@ int sub_4D57CE()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D57E6()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13348,7 +12471,7 @@ int sub_4D57E6()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D57FA()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13356,7 +12479,7 @@ int sub_4D57FA()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D581F()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13364,7 +12487,7 @@ int sub_4D581F()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D583E()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13372,7 +12495,7 @@ int sub_4D583E()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D585E()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13380,7 +12503,7 @@ int sub_4D585E()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5872()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13388,7 +12511,7 @@ int sub_4D5872()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D588A()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13396,7 +12519,7 @@ int sub_4D588A()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D589E()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13404,7 +12527,7 @@ int sub_4D589E()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D58C3()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13412,7 +12535,7 @@ int sub_4D58C3()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D58E2()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13420,7 +12543,7 @@ int sub_4D58E2()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5902()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13428,7 +12551,7 @@ int sub_4D5902()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5916()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13436,7 +12559,7 @@ int sub_4D5916()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D592E()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13444,7 +12567,7 @@ int sub_4D592E()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5942()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13452,7 +12575,7 @@ int sub_4D5942()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5967()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13460,7 +12583,7 @@ int sub_4D5967()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D5986()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13468,7 +12591,7 @@ int sub_4D5986()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D59A6()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13476,7 +12599,7 @@ int sub_4D59A6()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D59BA()
 {
- compile_error;
+ compile_error();
  return 0;
 }
 
@@ -13484,155 +12607,8 @@ int sub_4D59BA()
 function_error;//#error "FFFFFFFF: positive sp value has been found (funcsize=0)"
 int sub_4D59D2()
 {
- compile_error;
+ compile_error();
  return 0;
-}
-
-//----- (004D6FB0) --------------------------------------------------------
-function_error;//int __usercall sub_4D6FB0<eax>(int a1<ebp>)
-int sub_4D6FB0(int a1)
-{
-  int result; // eax@1
-  int v2; // ebp@1
-  unsigned int v3; // edi@1
-  unsigned int v4; // esi@1
-  int v5; // edx@2
-  int v6; // ebx@2
-  int v7; // ebx@3
-  __int16 v8; // cx@3
-  int v9; // edx@4
-  __int16 v10; // cx@4
-  unsigned __int8 v11; // sf@5
-  unsigned __int8 v12; // of@5
-
-  v2 = *(_DWORD *)(a1 + 8);
-  v4 = *(_DWORD *)(v2 + 48);
-  v3 = *(_DWORD *)(v2 + 44);
-  result = *(_DWORD *)(v2 + 64);
-  if ( !(*(_DWORD *)(v2 + 40) & 1) )
-    goto LABEL_5;
-  --*(_DWORD *)(v2 + 40);
-  result -= 2;
-  v6 = *(_DWORD *)(v2 + 60);
-  v5 = *(_DWORD *)(v2 + 36);
-  *(_DWORD *)(v2 + 60) += 4;
-  while ( 1 )
-  {
-    *(_DWORD *)v6 = v5;
-    v9 = *(_DWORD *)(v2 + 12) & (v4 >> 16);
-    result += 4;
-    v4 += *(_DWORD *)(v2 + 4);
-    v10 = *(_WORD *)(*(_DWORD *)(v2 + 52)
-                   + 2 * *(_BYTE *)(*(_DWORD *)(v2 + 56) + v9 + ((*(_DWORD *)(v2 + 8) & v3) >> *(_BYTE *)(v2 + 16))));
-    v3 += *(_DWORD *)v2;
-    *(_WORD *)(result - 2) = v10;
-LABEL_5:
-    compile_error;//v12 = __SETO__(*(_DWORD *)(v2 + 40), 2);
-    v11 = *(_DWORD *)(v2 + 40) - 2 < 0;
-    *(_DWORD *)(v2 + 40) -= 2;
-    if ( v11 ^ v12 )
-      break;
-    v7 = *(_BYTE *)(*(_DWORD *)(v2 + 56)
-                  + (*(_DWORD *)(v2 + 12) & (v4 >> 16))
-                  + ((*(_DWORD *)(v2 + 8) & v3) >> *(_BYTE *)(v2 + 16)));
-    v4 += *(_DWORD *)(v2 + 4);
-    v8 = *(_WORD *)(*(_DWORD *)(v2 + 52) + 2 * v7);
-    v3 += *(_DWORD *)v2;
-    v6 = *(_DWORD *)(v2 + 60);
-    v5 = *(_DWORD *)(v2 + 36);
-    *(_WORD *)result = v8;
-    *(_DWORD *)(v2 + 60) += 8;
-    *(_DWORD *)(v6 + 4) = v5;
-  }
-  *(_DWORD *)(v2 + 64) = result;
-  *(_DWORD *)(v2 + 48) = v4;
-  *(_DWORD *)(v2 + 44) = v3;
-  return result;
-}
-
-//----- (004D705A) --------------------------------------------------------
-function_error;//int __usercall sub_4D705A<eax>(int a1<ebp>)
-int sub_4D705A(int a1)
-{
-  int result; // eax@1
-  int v2; // ebp@1
-  unsigned int v3; // edi@1
-  unsigned int v4; // esi@1
-  int v5; // edx@2
-  int v6; // ebx@2
-  unsigned int v7; // edx@3
-  unsigned int v8; // ebx@3
-  __int16 v9; // cx@11
-  unsigned int v10; // edx@12
-  unsigned int v11; // ebx@12
-  unsigned __int8 v12; // sf@21
-  unsigned __int8 v13; // of@21
-
-  v2 = *(_DWORD *)(a1 + 8);
-  v4 = *(_DWORD *)(v2 + 48);
-  v3 = *(_DWORD *)(v2 + 44);
-  result = *(_DWORD *)(v2 + 64);
-  if ( !(*(_DWORD *)(v2 + 40) & 1) )
-    goto LABEL_21;
-  --*(_DWORD *)(v2 + 40);
-  result -= 2;
-  v6 = *(_DWORD *)(v2 + 60);
-  v5 = *(_DWORD *)(v2 + 36);
-  *(_DWORD *)(v2 + 60) += 4;
-  while ( 1 )
-  {
-    *(_DWORD *)v6 = v5;
-    v11 = v3;
-    v10 = v4;
-    if ( (signed int)v4 < *(_DWORD *)(v2 + 20) )
-      v10 = *(_DWORD *)(v2 + 20);
-    if ( (signed int)v3 < *(_DWORD *)(v2 + 28) )
-      v11 = *(_DWORD *)(v2 + 28);
-    if ( (signed int)v10 > *(_DWORD *)(v2 + 24) )
-      v10 = *(_DWORD *)(v2 + 24);
-    if ( (signed int)v11 > *(_DWORD *)(v2 + 32) )
-      v11 = *(_DWORD *)(v2 + 32);
-    result += 4;
-    v4 += *(_DWORD *)(v2 + 4);
-    v3 += *(_DWORD *)v2;
-    *(_WORD *)(result - 2) = *(_WORD *)(*(_DWORD *)(v2 + 52)
-                                      + 2
-                                      * *(_BYTE *)(*(_DWORD *)(v2 + 56)
-                                                 + (*(_DWORD *)(v2 + 12) & (v10 >> 16))
-                                                 + ((*(_DWORD *)(v2 + 8) & v11) >> *(_BYTE *)(v2 + 16))));
-LABEL_21:
-    compile_error;//v13 = __SETO__(*(_DWORD *)(v2 + 40), 2);
-    v12 = *(_DWORD *)(v2 + 40) - 2 < 0;
-    *(_DWORD *)(v2 + 40) -= 2;
-    if ( v12 ^ v13 )
-      break;
-    v8 = v3;
-    v7 = v4;
-    if ( (signed int)v4 < *(_DWORD *)(v2 + 20) )
-      v7 = *(_DWORD *)(v2 + 20);
-    if ( (signed int)v3 < *(_DWORD *)(v2 + 28) )
-      v8 = *(_DWORD *)(v2 + 28);
-    if ( (signed int)v7 > *(_DWORD *)(v2 + 24) )
-      v7 = *(_DWORD *)(v2 + 24);
-    if ( (signed int)v8 > *(_DWORD *)(v2 + 32) )
-      v8 = *(_DWORD *)(v2 + 32);
-    v4 += *(_DWORD *)(v2 + 4);
-    v9 = *(_WORD *)(*(_DWORD *)(v2 + 52)
-                  + 2
-                  * *(_BYTE *)(*(_DWORD *)(v2 + 56)
-                             + (*(_DWORD *)(v2 + 12) & (v7 >> 16))
-                             + ((*(_DWORD *)(v2 + 8) & v8) >> *(_BYTE *)(v2 + 16))));
-    v3 += *(_DWORD *)v2;
-    v6 = *(_DWORD *)(v2 + 60);
-    v5 = *(_DWORD *)(v2 + 36);
-    *(_WORD *)result = v9;
-    *(_DWORD *)(v2 + 60) += 8;
-    *(_DWORD *)(v6 + 4) = v5;
-  }
-  *(_DWORD *)(v2 + 64) = result;
-  *(_DWORD *)(v2 + 48) = v4;
-  *(_DWORD *)(v2 + 44) = v3;
-  return result;
 }
 
 //----- (004D714C) --------------------------------------------------------
@@ -13676,7 +12652,7 @@ int sub_4D714C(int a1)
     v3 += *(_DWORD *)v2;
     *(_WORD *)(result + 2) = v12;
 LABEL_5:
-    compile_error;//v14 = __SETO__(*(_DWORD *)(v2 + 40), 2);
+    compile_error();//v14 = __SETO__(*(_DWORD *)(v2 + 40), 2);
     v13 = *(_DWORD *)(v2 + 40) - 2 < 0;
     *(_DWORD *)(v2 + 40) -= 2;
     if ( v13 ^ v14 )
@@ -13753,7 +12729,7 @@ int sub_4D71F8(int a1)
                                                  + (*(_DWORD *)(v2 + 12) & (v12 >> 16))
                                                  + ((*(_DWORD *)(v2 + 8) & v13) >> *(_BYTE *)(v2 + 16))));
 LABEL_21:
-    compile_error;//v15 = __SETO__(*(_DWORD *)(v2 + 40), 2);
+    compile_error();//v15 = __SETO__(*(_DWORD *)(v2 + 40), 2);
     v14 = *(_DWORD *)(v2 + 40) - 2 < 0;
     *(_DWORD *)(v2 + 40) -= 2;
     if ( v14 ^ v15 )
@@ -13840,7 +12816,7 @@ int sub_4D72EC(int a1)
       *(_WORD *)(result - 2) = *(_WORD *)(*(_DWORD *)(v2 + 52) + 2 * v12);
     v3 += *(_DWORD *)v2;
 LABEL_25:
-    compile_error;//v14 = __SETO__(*(_DWORD *)(v2 + 40), 2);
+    compile_error();//v14 = __SETO__(*(_DWORD *)(v2 + 40), 2);
     v13 = *(_DWORD *)(v2 + 40) - 2 < 0;
     *(_DWORD *)(v2 + 40) -= 2;
     if ( v13 ^ v14 )
@@ -13910,7 +12886,7 @@ int sub_4D73DF(int a1)
                                                    + ((*(_DWORD *)(v2 + 8) & v3) >> *(_BYTE *)(v2 + 16))));
     v3 += *(_DWORD *)v2;
 LABEL_9:
-    compile_error;//v10 = __SETO__(*(_DWORD *)(v2 + 40), 2);
+    compile_error();//v10 = __SETO__(*(_DWORD *)(v2 + 40), 2);
     v9 = *(_DWORD *)(v2 + 40) - 2 < 0;
     *(_DWORD *)(v2 + 40) -= 2;
     if ( v9 ^ v10 )

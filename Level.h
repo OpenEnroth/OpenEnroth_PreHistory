@@ -3,26 +3,16 @@
 #include <stdio.h>
 
 #include "defs.h"
+#include "CoreDefinitions.h"
+
+#include "Math\Math.h"
+
+
+
+
 
 
 #pragma pack(push, 1)
-
-struct class51_Geodata
-{
- unsigned char *pHeightmap;    // ptr @ 000000    128x128 heightmap data scaled by 1/32
- unsigned char *pTilemap;      // ptr @ 000004    128x128 tilemap data
- unsigned char *pAttributemap; // ptr @ 000008    128x128 attributes
- unsigned char *ptr_00000C;
- short          word_000010;
- short          word_000012;
- short          word_000014;
- short          word_000016;
- int            dword_000018;
- int            dword_00001C;
-};
-//sizeof == 20
-
-
 
 struct class51_stru3
 {
@@ -70,12 +60,7 @@ struct class51_stru2
  int    dword_000008;
  int    dword_00000C;
  char   byte_000010[12]; //if (byte_000010[13] & 0x40) then word_000110 == TextureFrameTable ID  else  plain Texture ID
-
- //int    dword_00001C;
- char  byte_00001C;
- char  byte_00001D;
- char  byte_00001E;
- char  byte_00001F;	 
+ int    dword_00001C;
  short  array_000020[20];
  short  array_000048[20];
  short  array_000070[20];
@@ -106,19 +91,62 @@ struct class51_stru2
 };
 //sizeof == 134
 
-struct class51
+#pragma pack(pop)
+
+
+
+
+
+
+//class51
+class Location
 {
+};
+
+class OutdoorLocation: public Location
+{
+ struct TerrainData
+ {
+  inline TerrainData():
+    pHeightmap(nullptr), pTilemap(nullptr), pAttributemap(nullptr), ptr_00000C(nullptr)
+  {}
+
+  unsigned char *pHeightmap;    // ptr @ 000000    128x128 heightmap data scaled by 1/32
+  unsigned char *pTilemap;      // ptr @ 000004    128x128 tilemap data
+  unsigned char *pAttributemap; // ptr @ 000008    128x128 attributes
+  unsigned char *ptr_00000C;
+  short          word_000010;
+  short          word_000012;
+  short          word_000014;
+  short          word_000016;
+  int            dword_000018;
+  int            dword_00001C;
+
+  Result::Code Initialize();
+
+  Result::Code Reset();
+  Result::Code Clear();
+
+  void sub_47C80A(int sX, int sY, int sZ, int sW);
+ };
+ //sizeof == 20
+ //bool sub_47CD44(int_this)                                   0047CD44  TerrainData::Initialize
+ //void sub_47C7C2(int_this)                                   0047C7C2  TerrainData::Clear
+ //void sub_47C80A(int _this, int sX, int sY, int sZ, int sW)  0047C80A  TerrainData::sub_47C80A
+ //signed int sub_47CCE2(void **_this)                         0047CCE2  TerrainData::Reset
+
+ public:
+
  unsigned char  string_000000[32];
- unsigned char  pFileName[32];        // byte[32] @ 000020
- unsigned char  pFileDescription[32]; // byte[32] @ 000040
- unsigned char  pSkyTextureName[32];  // byte[32] @ 000060
- unsigned char  pGroundTileset[32];   // byte[32] @ 000080
+ unsigned char  pLocationFileName[32];        // byte[32] @ 000020
+ unsigned char  pLocationFileDescription[32]; // byte[32] @ 000040
+ unsigned char  pSkyTextureName[32];   // byte[32] @ 000060
+ unsigned char  pGroundTileset[32];    // byte[32] @ 000080
 
  short array_0000A0[8];
 
- unsigned int           uNumBModels; // dword @ 0000B0
-
- struct class51_Geodata struct_0000B4;
+ unsigned int       uNumBModels;  // dword  @ 0000B0
+ struct TerrainData cTerrainData; // struct @ 0000B4
 
  unsigned char         *ptr_0000D4;
  struct class51_BModel *pBModels;      // ptr @ 0000D8
@@ -130,19 +158,8 @@ struct class51
 
  int            dword_0004C0;
  unsigned char *ptr_0004C4;
- 
- //int array_0004C8[10];
- int dword_0004C8;
- int dword_0004CC;
- int dword_0004D0;
- int dword_0004D4;
- int dword_0004D8;
- int dword_0004DC;
- int dword_0004E0;
- int dword_0004E4;
- int dword_0004E8;
- int dword_0004EC;
 
+ int array_0004C8[10];
  int array_0004F0[14];
 
  unsigned char array_000528[0x3C8];
@@ -162,41 +179,50 @@ struct class51
  int   dword_01C288;
 
  char maybe_more[0x30000];
+
+
+
+
+          OutdoorLocation();
+ virtual ~OutdoorLocation() {}
+
+
+ virtual Result::Code Clear();
+ virtual Result::Code Load(const char *pFilename, int File, unsigned int uRespawnInterval, int a5);
+
+ unsigned int    uNumTerrainNormals;
+ Vec3           *pTerrainNormals;
+ unsigned short  pTerrainNormalIndices[128 * 128 * 2];
+ unsigned int    pTerrainSomeOtherData[128 * 128 * 2];
 };
 //sizeof ~ ?
-//int __thiscall sub_488F2E(int _this, signed int a2, signed int a3);
-int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY);
-//int __thiscall sub_47EE16(int _this, signed int a2, signed int a3);
-int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY);
-//signed int __thiscall sub_47EF60(void *_this, int a2, int a3, int a4);
-bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4);
-bool class51_sub_47F420(struct class51 *_this);
-bool class51_sub_47F3EA(struct class51 *_this);
-//int __thiscall sub_488EEF(void *_this, signed int a2, signed int a3);
-int class51_GetTileTexture(struct class51 *_this, int a2, int a3);
-//int __thiscall sub_47ED08(int _this, signed int a2, signed int a3);
-int class51_GetTileTexture2(struct class51 *_this, unsigned int uX, unsigned int uY);
-//int __thiscall sub_488EB1(void *_this, signed int a2, signed int a3);
-int class51_sub_488EB1_GetSomeOtherTileInfo(struct class51 *_this, int sX, int sY);
-//int __thiscall sub_47EDB3(int _this, signed int a2, signed int a3);
-int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(struct class51 *_this, unsigned int uX, unsigned int uY);
+//int  sub_47CF9C(int _this)                                                      0047CF9C  OutdoorLocation::Clear
+//bool sub_488F5C(int _this, const char *Source, int File, signed int a4, int a5) 00488F5C  merged ->
+//bool sub_47D0A6(int _this, const char *Source, int File, int a4, int a5)        0047D0A6  OutdoorLocation::Load
 
+//int __thiscall sub_488F2E(int _this, signed int a2, signed int a3);
+int class51_sub_488F2E_GetHeightOnTerrain(OutdoorLocation *_this, unsigned int uX, unsigned int uY);
+//int __thiscall sub_47EE16(int _this, signed int a2, signed int a3);
+int class51_sub_47EE16_ActuallyGetHeightOnTerrain(OutdoorLocation *_this, unsigned int uX, unsigned int uY);
+//signed int __thiscall sub_47EF60(void *_this, int a2, int a3, int a4);
+bool class51_sub_47EF60(OutdoorLocation *_this, int a2, int a3, int a4);
+bool class51_sub_47F420(OutdoorLocation *_this);
+bool class51_sub_47F3EA(OutdoorLocation *_this);
+//int __thiscall sub_488EEF(void *_this, signed int a2, signed int a3);
+int class51_GetTileTexture(OutdoorLocation *_this, int a2, int a3);
+//int __thiscall sub_47ED08(int _this, signed int a2, signed int a3);
+int class51_GetTileTexture2(OutdoorLocation *_this, unsigned int uX, unsigned int uY);
+//int __thiscall sub_488EB1(void *_this, signed int a2, signed int a3);
+int class51_sub_488EB1_GetSomeOtherTileInfo(OutdoorLocation *_this, int sX, int sY);
+//int __thiscall sub_47EDB3(int _this, signed int a2, signed int a3);
+int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsigned int uX, unsigned int uY);
 
 
 void Level_LoadEvtAndStr(const char *pLevelName);
-bool LoadLevel(struct class51 *_this, const char *Source, int time_of_day, signed int a4, bool *a5);
 
 
 
-bool class51_InitializeGeodata(struct class51_Geodata *_this);
-void sub_47C7C2(struct class51_Geodata *_this);
-void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW);
 
 bool sub_44C1E8(struct class51_stru2 *_this);
 bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct struct8 *a3);
 bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *);
-
-//----- (0047C7C2) --------------------------------------------------------
-void class51_FreeGeodata(struct class51_Geodata *_this);
-
-#pragma pack(pop)

@@ -3,7 +3,7 @@
 
 #include "..\data.h"
 
-#include "localization_defs.h"
+#include "..\localization_defs.h"
 #include "..\mm7_unparsed_data.h"
 #include "..\_lod.h"
 
@@ -284,7 +284,7 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
 
 
 //----- (0044CE08) -------.text:0044DEA3   -------------------------------------------------
-void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
+void FontDrawText(GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
 {
   int v9; // ebx@1
   int v10; // edi@1
@@ -445,7 +445,7 @@ const unsigned char *test_string;
 }
 
 //----- (0044C6C2) --------------------------------------------------------
-int __fastcall Font_sub_44C6C2(Font *a1, const unsigned char *a2, struct GUIWindow *a3, char a4, int a5)
+int __fastcall Font_sub_44C6C2(Font *a1, const unsigned char *a2, GUIWindow *a3, char a4, int a5)
 {
   int v5; // edi@1
   const unsigned char *v6; // esi@1
@@ -574,7 +574,7 @@ unsigned int GUIFont_GetLineWidth(Font *pFont, const unsigned char *pString)
 
 							//  (const char *a1, int a2, char a3, int a4, int a5, int a6)
 //----- (0044C933) ---------.text:0044D92F -----------------------------------------------
-unsigned char *sub_44C933(const char *pString, char *pOutString, struct Font *pFont1, struct Font *pFont2, struct GUIWindow *a4, int uX, bool a6)
+unsigned char *sub_44C933(const char *pString, char *pOutString, struct Font *pFont1, struct Font *pFont2, GUIWindow *a4, int uX, bool a6)
 {
  
   Font *current_font;
@@ -782,7 +782,7 @@ unsigned int uInStrLen;
 }
 
 //----- (0044C62E) ---.text:0044D607   -----------------------------------------------------
-int  sub_44C62E(Font *pFont1, Font *pFont2, const char *pString, struct GUIWindow *a4, int a5, bool bParagraph)
+int  sub_44C62E(Font *pFont1, Font *pFont2, const char *pString, GUIWindow *a4, int a5, bool bParagraph)
 {
   int i; // edi@1
   unsigned char *v8; // ebx@3
@@ -860,7 +860,7 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
   v7 = a1;
   if ( Str )
   {
-   compile_error;
+   compile_error();
    //pass this thing as a function parameter
     //v23 = sub_44D1E7_DrawTextLine_DefaultTextColor;
 
@@ -917,7 +917,7 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
           }
         }
         v6 = v24 + 1;
-      //  compile_error;//v19 = __SETO__(v24 + 1, v22);
+      //  compile_error();//v19 = __SETO__(v24 + 1, v22);
         v18 = (signed int)(v24++ + 1 - v22) < 0;
       }
       while ( v18 ^ v19 );
@@ -1132,7 +1132,7 @@ void sub_44D2FD(struct Font *a1, struct Font *a2, int Str, int a4, int a5, int a
   v25 = (int)a2;
   v23 = (char *)(Str + a5 - 1);
   
-   compile_error;
+   compile_error();
    //pass this thing as a function parameter
   //sub_44D1E7_DrawTextLine_DefaultTextColor = a7;
 
@@ -1151,7 +1151,7 @@ void sub_44D2FD(struct Font *a1, struct Font *a2, int Str, int a4, int a5, int a
     {
       v17 = v26;
       
-   compile_error;
+   compile_error();
       //sub_44D1E7_DrawTextLine_DefaultTextColor = v12;
       v16 = 0;
       v28 = v12;
@@ -1160,7 +1160,7 @@ void sub_44D2FD(struct Font *a1, struct Font *a2, int Str, int a4, int a5, int a
         v17 = v25;
         v28 = a8;
         
-   compile_error;
+   compile_error();
         //sub_44D1E7_DrawTextLine_DefaultTextColor = a8;
         v16 = 1;
       }

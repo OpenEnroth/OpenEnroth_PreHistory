@@ -1,4 +1,4 @@
-#include "Render.h"
+#include "BaseRender.h"
 #include "Window.h"
 
 #include <gl/GL.h>
@@ -6,7 +6,23 @@
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
-unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
+
+//----- (MM7.exe::0049FDBF) --------------------------------------------------------
+Result::Code RenderOpenGL::InitializeZBuffer()
+{
+ if (!pDefaultZBuffer)
+ {
+  pDefaultZBuffer = NamedMemAlloc(int, 640 * 480, "RenderOpenGL::default ZBuffer");
+  pActiveZBuffer = pDefaultZBuffer;
+  memset_dw(pDefaultZBuffer, -1, 640 * 480);
+ }
+ return Result::Success;
+}
+
+
+
+
+Result::Code RenderOpenGL::Initialize(OSWindow *pOutputWindow)
 {
   int v2; // esi@1
   int v7; // ecx@5
@@ -59,10 +75,10 @@ unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
 
  int iPixelFormat = ChoosePixelFormat(hTargetWindowDC, &pfd);
  if (!iPixelFormat)
-   return -1;
+   return Result::Generic;
 
  if (!SetPixelFormat(hTargetWindowDC, iPixelFormat, &pfd))
-   return -1;
+   return Result::Generic;
 
 
  HGLRC hLegacyRC = wglCreateContext(hTargetWindowDC);
@@ -99,7 +115,7 @@ unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
  this->pdds4_BackBuffer = 0;
  this->dword_040098 = 0;
 
- Render_Initialize_ZBuffer(this);
+ InitializeZBuffer();
 
 
   this->pRenderD3D3 = 0;
@@ -161,17 +177,17 @@ unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
 
       this->dword_040110 = 1;
       this->bWindowMode = true;
-      return 0;
+      return Result::Success;
 
  }
- return 0;
+ return Result::Success;
 }
 
 
 
 
 //----- (MM7.exe::004A51CB) --------------------------------------------------------
-unsigned int RenderOpenGL::BeginScene()
+Result::Code RenderOpenGL::BeginScene()
 {
  int v1;
 
@@ -182,11 +198,11 @@ unsigned int RenderOpenGL::BeginScene()
 
       this->uTargetSurfacePitch = 640;
  }
- return v1;
+ return Result::Success;
 }
 
 
-unsigned int RenderOpenGL::Present()
+Result::Code RenderOpenGL::Present()
 {
  unsigned int uScreenQuadID;
  
@@ -242,26 +258,26 @@ unsigned int RenderOpenGL::Present()
  glDeleteTextures(1, &uScreenQuadID);
 
  SwapBuffers(hTargetWindowDC);
- return 0;
+ return Result::Success;
 }
 
 
-unsigned int RenderOpenGL::EndScene()
+Result::Code RenderOpenGL::EndScene()
 {
  if (!this->bSceneBegun)
-   return -1;
+  return Result::Generic;
 
  this->bSceneBegun--;
  //this->pTargetSurface = 0;
  //this->uTargetSurfacePitch = 0;
  this->dword_000018 = 0;
- return 0;
+ return Result::Success;
 }
 
 
-unsigned int RenderOpenGL::IsGammaControlSupported()
+Result::Code RenderOpenGL::IsGammaControlSupported()
 {
- return false;
+ return Result::NotImplemented;
 }
 
 

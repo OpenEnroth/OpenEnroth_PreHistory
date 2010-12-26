@@ -2,13 +2,7 @@
 #define MMWINDOW_H
 
 #include <windows.h>
-
-struct Viewport
-{
- float x,     y;
- float z,     w;
- float znear, zfar;
-};
+#include "CoreDefinitions.h"
 
 
 namespace WindowCreationParams
@@ -24,7 +18,7 @@ namespace WindowCreationParams
 class EventHandler
 {
  public:
-   virtual unsigned int OnClose() = 0;
+   virtual Result::Code OnClose() = 0;
 };
 
 
@@ -32,19 +26,17 @@ struct BaseRender;
 class OSWindow: public EventHandler
 {
  public:
-   virtual unsigned int Initialize(const wchar_t *pClassName, const wchar_t *pWindowName, unsigned int uCreationParams) = 0;
-   virtual unsigned int SetWindowArea(struct Viewport *) = 0;
-   virtual unsigned int SetClientArea(struct Viewport *) = 0;
-   virtual unsigned int AttachRender(BaseRender *) = 0;
-   virtual unsigned int Show() = 0;
+   virtual Result::Code Initialize(const wchar_t *pClassName, const wchar_t *pWindowName, unsigned int uCreationParams) = 0;
+   virtual Result::Code SetWindowArea(const Rect<float> *) = 0;
+   virtual Result::Code SetClientArea(const Rect<float> *) = 0;
+   virtual Result::Code AttachRender(BaseRender *) = 0;
+   virtual Result::Code Show() = 0;
    virtual unsigned int Update(float dt) = 0;
 
-   virtual unsigned int  GetClientArea(struct Viewport *) = 0;
-   virtual unsigned int  GetWindowArea(struct Viewport *) = 0;
+   virtual Result::Code  GetClientArea(Rect<float> *) = 0;
+   virtual Result::Code  GetWindowArea(Rect<float> *) = 0;
    virtual HWND          GetAPIHandle() = 0;
    virtual BaseRender   *GetRender() const = 0;
-
-   virtual unsigned int OnClose() = 0;
 
  protected:
    BaseRender *pRender;
@@ -55,23 +47,23 @@ class OSWindow: public EventHandler
 class Win32Window: public OSWindow
 {
  public:
-   virtual unsigned int Initialize(const wchar_t *pClassName, const wchar_t *pWindowName, unsigned int uCreationParams);
-   virtual unsigned int SetWindowArea(struct Viewport *);
-   virtual unsigned int SetClientArea(struct Viewport *);
-   virtual unsigned int AttachRender(BaseRender *);
-   virtual unsigned int Show();
+   virtual Result::Code Initialize(const wchar_t *pClassName, const wchar_t *pWindowName, unsigned int uCreationParams);
+   virtual Result::Code SetWindowArea(const Rect<float> *);
+   virtual Result::Code SetClientArea(const Rect<float> *);
+   virtual Result::Code AttachRender(BaseRender *);
+   virtual Result::Code Show();
    virtual unsigned int Update(float dt);
 
-   virtual unsigned int  GetClientArea(struct Viewport *);
-   virtual unsigned int  GetWindowArea(struct Viewport *);
+   virtual Result::Code  GetClientArea(Rect<float> *);
+   virtual Result::Code  GetWindowArea(Rect<float> *);
    virtual HWND          GetAPIHandle();
    virtual BaseRender   *GetRender() const;
 
-   virtual unsigned int OnClose();
+   virtual Result::Code OnClose();
 
  protected:
    friend long *__stdcall wDefaultWinProc(HWND hWnd, unsigned int Msg, unsigned int wParam, long *lParam);
-   unsigned int           SystemMessageHandler(unsigned int msg, unsigned int wparam, long *lparam);
+   Result::Code           SystemMessageHandler(unsigned int msg, unsigned int wparam, long *lparam);
 
    WNDCLASSEXW  wcxw;
    wchar_t      pClassName[256],

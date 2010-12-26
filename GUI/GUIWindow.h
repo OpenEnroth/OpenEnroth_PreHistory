@@ -1,11 +1,14 @@
 #ifndef GUIWINDOW_H
 #define GUIWINDOW_H
 
-#pragma pack(push, 1)
+#include "GUIImage.h"
+
+#include "..\Extras\List.h"
 
 
-struct GUIWindow
+class GUIWindow: public GUIControl
 {
+ public:
  unsigned int uFrameX;      // dword @ 000000
  unsigned int uFrameY;      // dword @ 000004
  unsigned int uFrameWidth;  // dword @ 000008
@@ -31,20 +34,25 @@ struct GUIWindow
  unsigned char    *ptr_000048; // some string ptr
  struct GUIButton *pControlsHead; // ptr @ 00004C
  struct GUIButton *pControlsTail; // ptr @ 000050
+
+
+ Rect<float>         cClientArea;
+ GUIImage           *pBackgroundImage;
+ List<GUIControl *>  cChildren;
+
+ Result::Code Initialize(Rect<float> *pArea, GUIImage *pBackground);
 };
 //sizeof = 54
 
 
 
 
-void GUIWindow_DrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uHorizontalMargin, unsigned int uVerticalMargin, unsigned int uDefaultColor, const char *pString, int sLineSpacing);
+void GUIWindow_DrawText(GUIWindow *_this, struct Font *pFont, unsigned int uHorizontalMargin, unsigned int uVerticalMargin, unsigned int uDefaultColor, const char *pString, int sLineSpacing);
 int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this);
 void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5);
 void __cdecl GUIWindow_DrawCopyrightWindow();
 void GUIWindow_sub_415551(GUIWindow *_this, int a2);
 
 
-
-#pragma pack(pop)
 
 #endif

@@ -1157,11 +1157,10 @@ unsigned char memory_4F2688[752 /*size unknown*/] ={
 
 
 
-float aMusicVolumeLevels[10] =  // float array @ MM7.exe::004E4534
+float pSoundVolumeLevels[10] =  // float array @ MM7.exe::004E4534
 {
- 0.0000000, 0.1099999, 0.2199999, 0.3300000,
- 0.4399999, 0.5500000, 0.6600000, 0.7699999,
- 0.8799999, 0.9900000
+ 0.0000000f, 0.1099999f, 0.2199999f, 0.3300000f, 0.4399999f,
+ 0.5500000f, 0.6600000f, 0.7699999f, 0.8799999f, 0.9900000f
 };
 
 unsigned char *aNPCProfessionNames[59];      // ptr array @ MM7.exe::0073C290
@@ -1212,8 +1211,6 @@ int bCanLoadFromCD;    // byte @ MM7.exe::006BE36E
 //unsigned char cGameCDDriveLetter; // byte @ MM7.exe::006A0D04
 wchar_t cGameCDDriveLetter; // byte @ MM7.exe::006A0D04
 
-PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
-
 
 
 struct BaseRender *pD3DRenderer = 0;
@@ -1246,7 +1243,7 @@ unsigned int uTextureID_PlayerCreationUI_BtnRight = 0; // ptr @ MM7.exe::0050792
 unsigned int uTextureID_PlayerCreationUI_BtnMinus = 0; // ptr @ MM7.exe::00507924
 unsigned int uTextureID_PlayerCreationUI_BtnPlus = 0; // ptr @ MM7.exe::00507928
 
-struct GUIWindow *pGUIWindow_CurrentMenu = 0; // ptr @ MM7.exe::00507BCC
+GUIWindow *pGUIWindow_CurrentMenu = 0; // ptr @ MM7.exe::00507BCC
 
 unsigned int uTextureIdx_BtnEsc2 = 0;  // dword @ MM7.exe::005076D4
 unsigned int uTextureIdx_BtnXxU = 0;   // dword @ MM7.exe::005076D8

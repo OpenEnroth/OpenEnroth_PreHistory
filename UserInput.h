@@ -1,6 +1,10 @@
 #ifndef USERINPUT_H
 #define USERINPUT_H
 
+#include "CoreDefinitions.h"
+
+
+
 namespace Keyboard
 {
  namespace Key
@@ -66,18 +70,18 @@ class UserInput // keyboard controller
    UserInput();
    ~UserInput() {}
 
-   unsigned int Initialize();
-   unsigned int SetDefaultKeyMapping();  // reset key scheme to default
+   Result::Code Initialize();
+   Result::Code SetDefaultKeyMapping();  // reset key scheme to default
 
 
    bool         IsKeyToggled(Keyboard::Key::Type);      // checks if key was toggled.
                                                         // TODO change to event subscription
    bool         IsShiftToggled();                       // bawww.. OLD CODE
-   unsigned int ResetKeyboard();                        // resets all key toggle status
-   unsigned int GetVirtualCodeMappings(unsigned int *); // bawww... that OLD CODE
+   Result::Code ResetKeyboard();                        // resets all key toggle status
+   Result::Code GetVirtualCodeMappings(unsigned int *); // bawww... that OLD CODE
 
 
-   unsigned int Deinitialize();
+   Result::Code Deinitialize();
 
 
 
@@ -88,7 +92,7 @@ class UserInput // keyboard controller
    void sub_459E5A(int a2, int a3, int a4);
 
  protected:
-   unsigned int SetKeyMappingFromRegistry();
+   Result::Code SetKeyMappingFromRegistry();
 
    unsigned int KeyNameToVKeyCode(const char *pName);
 
@@ -137,8 +141,8 @@ class OSKeyboard
    virtual bool IsKeyBeingHeld(unsigned int uVirtualKeyCode) = 0;
    virtual bool IsKeyPressed(unsigned int uVirtualKeyCode) = 0;
 
-   virtual unsigned int Reset(unsigned int uVirtualKey) = 0;
-   virtual unsigned int Reset(unsigned int *pVirtualKeys, unsigned int uNumKeys) = 0;
+   virtual Result::Code Reset(unsigned int uVirtualKey) = 0;
+   virtual Result::Code Reset(unsigned int *pVirtualKeys, unsigned int uNumKeys) = 0;
    
    virtual bool IsShiftToggled() = 0;
 
@@ -158,8 +162,8 @@ class Win32Keyboard: public OSKeyboard
    virtual bool IsKeyBeingHeld(unsigned int uVirtualKeyCode);
    virtual bool IsKeyPressed(unsigned int uVirtualKeyCode);
 
-   virtual unsigned int Reset(unsigned int uVirtualKey);
-   virtual unsigned int Reset(unsigned int *pVirtualKeys, unsigned int uNumKeys);
+   virtual Result::Code Reset(unsigned int uVirtualKey);
+   virtual Result::Code Reset(unsigned int *pVirtualKeys, unsigned int uNumKeys);
 
    virtual bool IsShiftToggled();
 };

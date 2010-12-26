@@ -23,7 +23,7 @@ bool Actor_sub_40894B(struct Actor *_this)
     v1 = true;
 
   v3 = _this->word_0000B0_state;
-  return !(v1 || v3 == 4 || v3 == 5 || v3 == 11 || v3 == 17 || v3 == 19);
+  return (v1 || v3 == 4 || v3 == 5 || v3 == 11 || v3 == 17 || v3 == 19) == 0;
 }
 
 //----- (00408768) --------------------------------------------------------
@@ -36,23 +36,22 @@ void __cdecl UpdateActors()
   signed int v8; // [sp+18h] [bp-4h]@1
 
   struct Actor *pActor;
-  int i;
 
   v8 = 0;
   v6 = 0;
   v7 = 0;
   v5 = 0;
 
-  if ( !_strcmpi(CurrentLevelName, "d25.blv") ) //Celeste
+  if ( !_strcmpi((char *)pClass51_global->pLocationFileName, "d25.blv") ) //Celeste
     v8 = 1;
-  if ( !_strcmpi(CurrentLevelName, "d26.blv") ) //The Pit
+  if ( !_strcmpi((char *)pClass51_global->pLocationFileName, "d26.blv") ) //The Pit
     v6 = 1;
   if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )
     v7 = 1;  
   if ( sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) )
     v5 = 1;
 
-  for (i = 0; i < uNumActors; ++i)
+  for (unsigned int i = 0; i < uNumActors; ++i)
   {
     pActor = &pActors[i];
 
@@ -216,7 +215,7 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   }
   else if ( type1 == 6 )
   {
-    if ( dword_6BE360 == 1 )
+    if ( uCurrentlyLoadedLevelType == 1 )
     {
       char *ptr = (char *)dword_6BE644 + 96 * idx1;
       x0 = (*(_WORD *)(ptr + 80) + (signed int)*(_WORD *)(ptr + 82)) >> 1;
@@ -777,7 +776,7 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   pActor = &pActors[uActorID];
   if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
   {
-    if (pActor->byte_00003E[7] && (dword_6BE360 == 2))
+    if (pActor->byte_00003E[7] && (uCurrentlyLoadedLevelType == 2))
       v4 = pActor->word_000088 + 512;      
     else
       v4 = pParty_global->uPartyHeight;
@@ -848,7 +847,7 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
   pActor = &pActors[uActorID];
   if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
   {
-    if (pActor->byte_00003E[7] && (dword_6BE360 == 2))
+    if (pActor->byte_00003E[7] && (uCurrentlyLoadedLevelType == 2))
       v5 = pActor->word_000088 + 512;      
     else
       v5 = pParty_global->uPartyHeight;
@@ -1422,8 +1421,7 @@ void Actor_PlaySound(unsigned int uActorID, int soundId)
       v8 = 0;
     }
     
-    AudioPlayer_sub_4AA306(pAudioPlayer, pActor->pSoundSampleIDs[soundId], 
-                           (uActorID * 8) | 3, 0, v8, 0, 0, 0, v12);
+    pAudioPlayer->sub_4AA306(pActor->pSoundSampleIDs[soundId], (uActorID * 8) | 3, 0, v8, 0, 0, 0, v12);
   }
 }
 
@@ -1460,7 +1458,6 @@ void Actor_Die(unsigned int uActorID)
     SpellBuff_sub_458585(&pActor->pActorBuffs[i]);
 
   ItemGen_Reset((ItemGen *)&itemGen);
-  ItemGen_Reset((ItemGen *)&itemGen);
   
   if (monsterID >= 20 && monsterID <= 22) //devil worker, devil warrior, devil captain
   {
@@ -1487,8 +1484,7 @@ void Actor_Die(unsigned int uActorID)
   {
     if ( (rand() % 100) < 20 )
     {
-      sub_42F7EB(
-        (unsigned __int16)word_5D29F8[24 * itemGen.uItemID],
+      sub_42F7EB_DropItemAt((unsigned __int16)word_5D29F8[24 * itemGen.uItemID],
         pActor->sActorPosX,
         pActor->sActorPosY,
         pActor->sActorPosZ + 16,
@@ -1791,7 +1787,8 @@ bool InitializeActors(unsigned int uLocationID)
     }
   }
 
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+  runtime_warning();
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
   Actor_TotalReset(&v6);
   v6.uMonsterID = 45;

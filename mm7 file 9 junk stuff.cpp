@@ -61,6 +61,15 @@
 
 
 
+/*extern "C" _DWORD __cdecl _ld12cvt(_DWORD, _DWORD, void *)
+{
+ return 0;
+}
+
+extern "C" _DWORD __cdecl __strgtold12(void *, void *, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD)
+{
+ return 0;
+}*/
 
 // sub_4CC57F: using guessed type _DWORD __stdcall _CxxThrowException(_DWORD, _DWORD);
 long __stdcall _CxxThrowException(long a1, long a2)
@@ -107,7 +116,7 @@ int __ArrayUnwind(char *a3, unsigned int a4, int a5, int (*a6)(void))
   signed int v12; // [sp+10h] [bp-8h]@1
   int v13; // [sp+14h] [bp-4h]@1
 
-  compile_error;
+  compile_error();
   v12 = 5091600;
   //v11 = unknown_libname_59;
   v8 = &v7;
@@ -445,11 +454,6 @@ void __fastcall class04_stru0_ctor(struct class04_stru0 *_this)
  _this->ptr_000000 = (char *)0x4D86F8;
 }
 
-int sub_486009()
-{
-  ReleaseDrawBuffers();
-  return 0;
-}
 
 void __fastcall sub_43B60C(void *_this)
 {
@@ -1202,7 +1206,7 @@ void __cdecl sub_465FF0_InitializeAsyncKeyboardAndSomething()
     if ( !pAsyncKeyboard )
     {
       v6 = 0;
-      compile_error;//v1 = (int)operator new(0x710u);
+      compile_error();//v1 = (int)operator new(0x710u);
       v4 = v1;
       LOBYTE(v6) = 1;
       if ( v1 )
@@ -1256,7 +1260,7 @@ void __cdecl sub_465F5A_InitializeAsyncMouseAndSomething()
   if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
   {
         v5 = 0;
-        compile_error;//v0 = (int)operator new(0x88u);
+        compile_error();//v0 = (int)operator new(0x88u);
         v3 = v0;
         LOBYTE(v5) = 1;
         if ( v0 )
@@ -1732,7 +1736,7 @@ char __thiscall CAsyncMouse_sub_46AE97(void *_this, void *Source)
   CheckHRESULT((void **)&v9, v4, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp", 0x81u, 0);
   
   cTexture_obj.cTexture_Zero();
-  if ( LODFile_Icons_LOD.LoadTextureFromLOD( &cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
+  if (LODFile_Icons_LOD.LoadTextureFromLOD( &cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
   {
     cTexture_Free(&cTexture_obj);
     LeaveCriticalSection(&pGame->class01_obj->cs2);
@@ -1743,6 +1747,94 @@ char __thiscall CAsyncMouse_sub_46AE97(void *_this, void *Source)
     result = 0;
   }
   return result;
+}
+
+
+//----- (0043B9FF) --------------------------------------------------------
+int __thiscall sub_43B9FF(int _this)
+{
+  int v1; // esi@1
+  int v3; // eax@5
+  signed int v4; // [sp-18h] [bp-24h]@3
+  int v5; // [sp-14h] [bp-20h]@3
+  int v6; // [sp-10h] [bp-1Ch]@3
+  const char *v7; // [sp-Ch] [bp-18h]@3
+  unsigned int v8; // [sp-8h] [bp-14h]@3
+  int v9; // [sp-4h] [bp-10h]@3
+  char v10; // [sp+8h] [bp-4h]@5
+
+  v1 = _this;
+  *(_DWORD *)(_this + 8) = 0;
+  *(_BYTE *)(_this + 28) = 0;
+  *(_DWORD *)(_this + 40) = 0;
+  *(_DWORD *)_this = 5080584;
+  if (dword_F79D70 != 4 )
+  {
+    v9 = 1;
+    v8 = 30;
+    v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\DirectInputMouse.cpp";
+    v6 = 0;
+    v5 = _this + 4;
+    v4 = 1280;
+  }
+  else
+  {
+    v9 = 1;
+    v8 = 28;
+    v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\DirectInputMouse.cpp";
+    v6 = 0;
+    v5 = _this + 4;
+    v4 = 768;
+  }
+  compile_error();//v3 = DirectInputCreateA(hInstance, v4, v5, v6);
+  CheckHRESULT((void **)&v10, v3, v7, v8, v9);
+  sub_43BACE(v1);
+  sub_43BB18(v1);
+  *(_DWORD *)(v1 + 32) = 0;
+  *(_DWORD *)(v1 + 36) = 0;
+  return v1;
+}
+
+//----- (0043B76D) --------------------------------------------------------
+int __thiscall sub_43B76D(int _this)
+{
+  int v1; // esi@1
+  int v3; // eax@5
+  signed int v4; // [sp-18h] [bp-20h]@3
+  int v5; // [sp-14h] [bp-1Ch]@3
+  int v6; // [sp-10h] [bp-18h]@3
+  const char *v7; // [sp-Ch] [bp-14h]@3
+  unsigned int v8; // [sp-8h] [bp-10h]@3
+  int v9; // [sp-4h] [bp-Ch]@3
+  char v10; // [sp+4h] [bp-4h]@5
+
+  v1 = _this;
+  *(_DWORD *)(_this + 8) = 0;
+  *(_BYTE *)(_this + 28) = 0;
+  *(_DWORD *)_this = 5080580;
+  if (dword_F79D70 != 4 )
+  {
+    v9 = 1;
+    v8 = 28;
+    v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\DirectInputKeyboard.cpp";
+    v6 = 0;
+    v5 = _this + 4;
+    v4 = 1280;
+  }
+  else
+  {
+    v9 = 1;
+    v8 = 26;
+    v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\DirectInputKeyboard.cpp";
+    v6 = 0;
+    v5 = _this + 4;
+    v4 = 768;
+  }
+  compile_error();//v3 = DirectInputCreateA(hInstance, v4, v5, v6);
+  CheckHRESULT((void **)&v10, v3, v7, v8, v9);
+  sub_43B831(v1);
+  sub_43B87B(v1);
+  return v1;
 }
 
 
@@ -1998,7 +2090,7 @@ void __cdecl sub_46B879()
         else
         {
           if ( v3 & 4 )
-            compile_error;//nullsub_1(v1 + 12);
+            compile_error();//nullsub_1(v1 + 12);
         }
       }
       v1 = *(_DWORD *)v1;
@@ -2260,12 +2352,12 @@ void *sub_4CEE48(int a1, const void *Src, int Size)
   signed int v22; // [sp+30h] [bp-8h]@1
   int v23; // [sp+34h] [bp-4h]@1
 
-  compile_error;
+  compile_error();
   return 0;
   /*
   v23 = -1;
   v22 = 5091904;
-  compile_error;//v21 = unknown_libname_59;
+  compile_error();//v21 = unknown_libname_59;
   v20 = a1;
   v3 = Src;
   v4 = 0;
@@ -2474,7 +2566,7 @@ LABEL_63:
   /*
   v13 = -1;
   v12 = 5091560;
-  compile_error;//v11 = unknown_libname_59;
+  compile_error();//v11 = unknown_libname_59;
   v10 = result;
   if ( a2 )
   {
@@ -2602,7 +2694,7 @@ LPVOID __cdecl sub_4CAE60(unsigned int a1)
   int v6; // eax@14
   SIZE_T v7; // [sp-10h] [bp-2Ch]@11
 
-  compile_error;
+  compile_error();
   return 0;
   /*
   if ( dword_F94508 == 3 )
@@ -2659,12 +2751,12 @@ SIZE_T sub_4CF177(int a1, unsigned int lpMem)
   signed int v13; // [sp+24h] [bp-8h]@1
   int v14; // [sp+28h] [bp-4h]@1
 
-  compile_error;
+  compile_error();
   return 0;
   /*
   v14 = -1;
   v13 = 5091928;
-  compile_error;//v12 = unknown_libname_59;
+  compile_error();//v12 = unknown_libname_59;
   v11 = a1;
   if ( dword_F94508 == 3 )
   {
@@ -2716,7 +2808,7 @@ signed int __cdecl sub_4CFD17(int a1)
   __int32 v1; // eax@2
   LPVOID v2; // eax@3
 
-  compile_error;
+  compile_error();
   return 0;
   /*
   hHeap = HeapCreate(a1 == 0, 0x1000u, 0);
@@ -2989,3 +3081,240 @@ LABEL_8:
     result = v4(phkResult);
   return result;
 }*/
+
+
+/*
+
+/*
+//----- (00488F5C) ------.text:0048A961 --------------------------------------------------
+bool LoadLevel(OutdoorLocation *_this, const char *Source, int File, signed int a4, int a5)
+{
+  if ( Source )
+  {
+    class51_sub_47CF9C(_this);
+    LODFile_Bitmaps_LOD.sub_46454B();
+    LODFile_Sprites_LOD.sub_4645DC();
+    SpriteFrameTable_fn3(pSpriteFrameTable);
+    LODFile_Icons_LOD.sub_46454B();
+    sub_46080D_Clear_LevelLod();
+    sub_460706_Load_LevelLod(Source);
+    if ( !_this->Load(Source, File, a4, a5) )
+    {
+      MessageBoxA(0, "Error!", "Couldn't Load Map!", 0);
+      class51_sub_47CDE2((int)_this);
+    }
+    dword_6BE030 = _this->array_0004F0[5];
+    dword_6BE040 = _this->array_0004F0[6];
+    dword_6BE044 = _this->array_0004F0[7];
+    if (!_strcmpi(Source, "out15.odm"))
+      sub_464851();
+    dword_6BE134 = _this->array_0000A0[0];
+    return true;
+  }
+  else return false;
+}*/
+
+
+/*
+//----- (00486A28) --------------------------------------------------------
+void AllocateSoftwareDrawBuffers(void *_this)
+{
+  if ( !_this || !pSpansBuf )
+  {
+    ReleaseSoftwareDrawBuffers();
+
+    //pSpansBuf = (Span *)mem_mng.AllocatedNamedBuffer( pSpansBuf, 12500 * sizeof(struct Span), "SPANS");
+    pSpansBuf = NamedMemAlloc(Span, 12500, "SPANS");
+    memset(pSpansBuf, 0, 12500 * sizeof(struct Span));
+
+    //pEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pEdgesBuf, 6000 * sizeof(struct Edge), "EDGES");
+    pEdgesBuf = NamedMemAlloc(Edge, 6000, "EDGES");
+    memset(pEdgesBuf, 0, 6000 * sizeof(struct Edge));
+
+    //pSurfsBuf = (Surf *)mem_mng.AllocatedNamedBuffer( pSurfsBuf, 2000 * sizeof(struct Surf), "SURFS");
+    pSurfsBuf = NamedMemAlloc(Surf, 2000, "SURFS");
+    memset(pSurfsBuf, 0, 2000 * sizeof(struct Surf));
+
+    //pNewEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pNewEdgesBuf, 480 * sizeof(struct Edge), "NEWEDGES");
+    pNewEdgesBuf = NamedMemAlloc(Edge, 480, "NEWEDGES");
+    memset(pNewEdgesBuf, 0, 480 * sizeof(struct Edge));
+  }
+}
+
+//----- (00486AFC) --------------------------------------------------------
+void __cdecl ReleaseSoftwareDrawBuffers()
+{
+ MemFree(pSpansBuf);
+ MemFree(pEdgesBuf);
+ MemFree(pSurfsBuf);
+ MemFree(pNewEdgesBuf);
+ 
+  pSpansBuf = 0;
+  pEdgesBuf = 0;
+  pSurfsBuf = 0;
+  pNewEdgesBuf = 0;
+}
+
+
+int ReleaseSoftwareDrawBuffers_proxy()
+{
+  ReleaseSoftwareDrawBuffers();
+  return 0;
+}
+
+
+//----- (0048901B) --------------------------------------------------------
+signed int __thiscall class51_sub_48901B_clear_and_ReleaseSoftwareDrawBuffers(OutdoorLocation *_this)
+{
+ _this->Clear();
+ ReleaseSoftwareDrawBuffers_proxy();
+  return 1;
+}
+*/
+
+/*
+//----- (MM7.exe::004AB818) --------------------------------------------------------
+int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this)
+{
+ DWORD w;
+
+ strcpy((char *)TmpBuf, "Sounds\\Audio.snd");
+ _this->hSoundsSource = CreateFileA("Sounds\\Audio.snd", GENERIC_READ, 1, 0, 3, 0x8000080, 0);
+ if (_this->hSoundsSource == INVALID_HANDLE_VALUE)
+ {
+  wsprintfA((char *)pStringBuffer, "Can't open file - %s", (char *)TmpBuf);
+  return MessageBoxA(0, (char *)pStringBuffer, "Sound File Error", 0);
+ }
+
+ ReadFile(_this->hSoundsSource, &_this->uNumSounds, 4, &w, 0);
+
+ //_this->pSoundHeaders = (AudioPlayer_sound_header_struct *)mem_mng.AllocatedNamedBuffer(NULL, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
+ _this->pSoundHeaders = NamedMemAlloc(AudioPlayer_sound_header_struct, _this->uNumSounds, "AudioPlayer audio headers");
+
+ return ReadFile(_this->hSoundsSource, _this->pSoundHeaders, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct), &w, 0);
+}*/
+
+
+/*//----- (00487DBE) --------------------------------------------------------
+void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf()
+{
+ int i;
+
+ for (i = 0; i < 480; ++i)
+ {
+  pNewEdgesBuf[i].pNext = &defaultEdge;
+  ptr_80CA10[i] = 0;
+ }
+
+ runtime_warning(wtf is _this shit? o_O);
+ for (i = 0; i < 2000; ++i)
+   *((_WORD *)pSurfsBuf + 17) = 0;
+}
+
+//----- (00487DA9) --------------------------------------------------------
+void __cdecl sub_487DA9_ResetSomeStruct8ArrayFlags()
+{
+ int i;
+
+ for (i = 0; i < 2000; ++i)
+   array_77EC08[i].byte_000108 = 0;
+}
+
+
+
+
+//----- (00479332) --------------------------------------------------------
+signed int __cdecl sub_479332_SoftwareRender_OnDraw_NoRedraw()
+{
+  signed int result; // eax@1
+  unsigned int v1; // edi@1
+  _UNKNOWN *v2; // esi@2
+  char v3; // cl@3
+  double v4; // st7@4
+  int v5; // eax@6
+  float v6; // ST34_4@6
+  double v7; // ST24_8@6
+  int v8; // eax@11
+  int v9; // eax@13
+  int v10; // eax@14
+  double v11; // st7@17
+  float v12; // ST34_4@19
+  double v13; // ST1C_8@19
+  float v14; // [sp+4h] [bp-34h]@1
+  float v15; // [sp+8h] [bp-30h]@1
+  float v16; // [sp+Ch] [bp-2Ch]@1
+ int i;
+
+  v14 = (double)pClass51_global->dword_000D30 * 0.0000152587890625;
+  result = 0;
+  v1 = (int)&array_77EC08[pStruct9_global->dword_00002C];
+  v15 = (double)pClass51_global->dword_000D34 * 0.0000152587890625;
+  v16 = (double)pClass51_global->dword_000D38 * 0.0000152587890625;
+  if ( pStruct9_global->dword_00002C > 0)
+  {
+   i = 0;
+   v2 = (char *)&array_77EC08[0].ptr_000048;
+    while ( 1 )
+    {
+      v3 = *((_BYTE *)v2 + 5);
+      if ( v3 == 5 )
+        break;
+      if ( v3 == 1 )
+      {
+       v9 = (unsigned __int16)pClass51_global->pTerrainNormalIndices[((*((_DWORD *)v2 - 9) >> 15) & 1)
+                                         + 2 * (*((_BYTE *)v2 + 9) + (*((_BYTE *)v2 + 8) << 7))];
+       if ( v9 > pClass51_global->uNumTerrainNormals - 1 )
+          v10 = 0;
+        else
+         v10 = (int)pClass51_global->pTerrainNormals + v9;
+        if ( v10 )
+        {
+          v11 = -(v16 * *(float *)(v10 + 8) + v15 * *(float *)(v10 + 4) + v14 * *(float *)v10);
+          if ( v11 < 0.0 )
+            v11 = 0.0;
+          v12 = v11 * 31.0;
+          v13 = v12 + 6.755399441055744e15;
+          *((_BYTE *)v2 + 4) = 31 - LOBYTE(v13);
+        }
+        else
+        {
+          *((_BYTE *)v2 + 4) = 0;
+        }
+        if ( *((_BYTE *)v2 + 4) < 0 )
+          *((_BYTE *)v2 + 4) = 0;
+        goto LABEL_23;
+      }
+LABEL_24:
+      //v2 = (char *)v2 + 268;
+      //if ( (unsigned int)((char *)v2 - 84) >= v1 )
+      //  return result;
+      if ((int)&array_77EC08[i++].array_0000B4[19] >= v1)
+         return result;
+     v2 = (char *)&array_77EC08[i].ptr_000048;
+    }
+
+    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -pClass51_global->dword_000D30 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[1] * -pClass51_global->dword_000D34 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[2] * -pClass51_global->dword_000D38 / 65536) / 65536.0;
+    if ( v4 < 0.0 )
+      v4 = 0.0;
+    v6 = v4 * 31.0;
+    v7 = v6 + 6.755399441055744e15;
+    v5 = (int)((char *)v2 + 4);
+    *((_BYTE *)v2 + 4) = 31 - LOBYTE(v7);
+    if ( (char)(31 - LOBYTE(v7)) < 0 )
+      *(_BYTE *)v5 = 0;
+    if ( *(_BYTE *)v5 > 31 )
+      *(_BYTE *)v5 = 31;
+    if ( *(_BYTE *)((char *)array_77EC08[i].ptr_000048 + 29) & 0x40 )
+    {
+      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cClock1.dword_000024);
+      *((_DWORD *)v2 - 6) = v8 != -1 ? 72 * v8 + 7278780 : 0;
+    }
+LABEL_23:
+    result = 1;
+    goto LABEL_24;
+  }
+  return result;
+}
+*/

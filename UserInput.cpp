@@ -344,16 +344,16 @@ LABEL_53:
   return &word_69ADE0;
 }
 
-unsigned int UserInput::GetVirtualCodeMappings(unsigned int *pOutKeys)
+Result::Code UserInput::GetVirtualCodeMappings(unsigned int *pOutKeys)
 {
  memcpy(pOutKeys, pVirtualKeyCodesMapping, 30 * sizeof(unsigned int));
- return Error::Success;
+ return Result::Success;
 }
 
 //----- (00459C82) --------------------------------------------------------
 int UserInput::sub_459C82_LooksLikeBindKey(unsigned int uKey)
 {
-  return pVirtualKeyCodesMapping[uKey];
+ return pVirtualKeyCodesMapping[uKey];
 }
 
 
@@ -381,12 +381,6 @@ Win32Keyboard::Win32Keyboard()
 {
  detor_ptr = (void (*)(OSKeyboard *))0x4D86B4;
  bUsingAsyncClass = false;
-
- if (dword_F79D7C == 2)
- {
-  if (dword_F79D70 == 4)
-    bUsingAsyncClass = false;
- }
 }
 
 //----- (0045B0A9) --------------------------------------------------------
@@ -441,7 +435,7 @@ bool UserInput::IsKeyToggled(Keyboard::Key::Type eKey)
 
 
 //----- (00459CC4) --------------------------------------------------------
-unsigned int UserInput::SetDefaultKeyMapping()
+Result::Code UserInput::SetDefaultKeyMapping()
 {
  pVirtualKeyCodesMapping[Keyboard::Key::Forward] = KeyNameToVKeyCode("UP");
  pActionToggleConditions[Keyboard::Key::Forward] = Keyboard::Toggle::Holding;
@@ -533,22 +527,22 @@ unsigned int UserInput::SetDefaultKeyMapping()
  pVirtualKeyCodesMapping[Keyboard::Key::StrafeRight] = KeyNameToVKeyCode("]");
  pActionToggleConditions[Keyboard::Key::StrafeRight] = Keyboard::Toggle::Holding;
 
- return Error::Success;
+ return Result::Success;
 }
 
 
 //----- (00459FFC) --------------------------------------------------------
-unsigned int UserInput::SetKeyMappingFromRegistry()
+Result::Code UserInput::SetKeyMappingFromRegistry()
 {
  HKEY hKeySoft;
  if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, 0x2001F, &hKeySoft))
-   return Error::FileNotFound;
+   return Result::NotFound;
 
  HKEY hKeyNWC;
  if (RegCreateKeyExW(hKeySoft, L"New World Computing", 0, L"", 0, 983103, 0, &hKeyNWC, 0))
  {
   RegCloseKey(hKeySoft);
-  return Error::FileNotFound;
+  return Result::NotFound;
  }
 
  HKEY hKeyMM7;
@@ -556,7 +550,7 @@ unsigned int UserInput::SetKeyMappingFromRegistry()
  {
   RegCloseKey(hKeyNWC);
   RegCloseKey(hKeySoft);
-  return Error::FileNotFound;
+  return Result::NotFound;
  }
 
  HKEY hKeyV1_0;
@@ -565,7 +559,7 @@ unsigned int UserInput::SetKeyMappingFromRegistry()
   RegCloseKey(hKeyMM7);
   RegCloseKey(hKeyNWC);
   RegCloseKey(hKeySoft);
-  return Error::FileNotFound;
+  return Result::NotFound;
  }
 
  char  pResult[256];
@@ -786,13 +780,13 @@ unsigned int UserInput::SetKeyMappingFromRegistry()
  RegCloseKey(hKeyNWC);
  RegCloseKey(hKeySoft);
 
- return Error::Success;
+ return Result::Success;
 }
 
 
 
 
-unsigned int UserInput::Initialize()
+Result::Code UserInput::Initialize()
 {
 #ifdef _WIN32
  pKeyboard = MemAlloc(Win32Keyboard, 1);
@@ -803,28 +797,28 @@ unsigned int UserInput::Initialize()
  if (SetKeyMappingFromRegistry())
    SetDefaultKeyMapping();
 
- return Error::Success;
+ return Result::Success;
 }
 
 
 
 
-unsigned int Win32Keyboard::Reset(unsigned int uVirtualKey)
+Result::Code Win32Keyboard::Reset(unsigned int uVirtualKey)
 {
  GetAsyncKeyState(uVirtualKey);
- return Error::Success;
+ return Result::Success;
 }
 
-unsigned int Win32Keyboard::Reset(unsigned int *pVirtualKeys, unsigned int uNumKeys)
+Result::Code Win32Keyboard::Reset(unsigned int *pVirtualKeys, unsigned int uNumKeys)
 {
  for (unsigned int i = 0; i < uNumKeys; ++i)
    GetAsyncKeyState(pVirtualKeys[i]);
 
- return Error::Success;
+ return Result::Success;
 }
 
 //----- (00459E3F) --------------------------------------------------------
-unsigned int UserInput::ResetKeyboard()
+Result::Code UserInput::ResetKeyboard()
 {
  uLastKeyPressed = 0;
  return pKeyboard->Reset(pVirtualKeyCodesMapping, 30);

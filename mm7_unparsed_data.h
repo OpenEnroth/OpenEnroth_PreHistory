@@ -23,8 +23,10 @@ struct Square
 	unsigned short heght;
 	};
 
-		  
+class GUIWindow;
+
 extern OSWindow *pAppWindow;
+extern GUI      *pMainGUI;
 
 
 
@@ -99,8 +101,8 @@ extern char byte_4E2B70[array_size_unknown]; // weak
 extern char byte_4E2BC8; // weak
 extern int dword_4E2BCC; // weak
 extern int dword_4E2BEC; // weak
-extern int dword_4E2C0C[8]; // weak
-extern int dword_4E2C2C[8]; // weak
+extern int dword_4E2C0C[array_size_unknown]; // weak
+extern int dword_4E2C2C[array_size_unknown]; // weak
 //_UNKNOWN unk_4E2D80; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30"
 //_UNKNOWN unk_4E2DC8; // "\x0C%05d" (this one looks like 16-bit color number)
 //_UNKNOWN unk_4E2DE8; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30 - "
@@ -253,7 +255,7 @@ extern int dword_4EC28C[array_size_unknown]; // weak
 extern int dword_4EC2A8; // weak
 extern int dword_4EC2AC; // weak
 
-extern struct Edge defaultEdge; // struct @ MM7.exe::004EC3EC
+//extern struct Edge defaultEdge; // struct @ MM7.exe::004EC3EC
 
 extern char byte_4ECA93[array_size_unknown]; // weak
 extern char byte_4ECACF[array_size_unknown]; // weak
@@ -677,11 +679,11 @@ extern int dword_506F1C; // weak
 
 extern int dword_506F48; // weak
 
-extern struct GUIWindow *pGUIWindow_MainMenu; // ptr @ MM7.exe::00506F4C
+extern GUIWindow *pGUIWindow_MainMenu; // ptr @ MM7.exe::00506F4C
 //int dword_506F4C; // idb
 
 
-extern struct GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
+extern GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
 //int dword_506F50[array_size_unknown]; // weak
 //int dword_506F54; // weak
 //int dword_506F60; // weak
@@ -834,20 +836,20 @@ extern int dword_507BAC; // weak
 extern int dword_507BB0; // weak
 
 //int dword_507BB4; // idb
-extern struct GUIWindow *pGUIWindow0; // ptr @ MM7.exe::00507BB4
+extern GUIWindow *pGUIWindow0; // ptr @ MM7.exe::00507BB4
 
 extern int dword_507BB8; // idb
-extern struct GUIWindow *pDialogueWindow; // dword @ MM7.exe::00507BBC
-extern struct GUIWindow *ptr_507BC0;      // dword @ MM7.exe::00507BC0
-extern struct GUIWindow *ptr_507BC4;      // dword @ MM7.exe::00507BC4
+extern GUIWindow *pDialogueWindow; // dword @ MM7.exe::00507BBC
+extern GUIWindow *ptr_507BC0;      // dword @ MM7.exe::00507BC0
+extern GUIWindow *ptr_507BC4;      // dword @ MM7.exe::00507BC4
 extern int dword_507BC8; // weak
 
-extern struct GUIWindow *ptr_507BD0; //  dword @ MM7.exe::00507BD0
-extern struct GUIWindow *ptr_507BD4; // idb
-extern struct GUIWindow *ptr_507BDC; // weak
-extern struct GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
+extern GUIWindow *ptr_507BD0; //  dword @ MM7.exe::00507BD0
+extern GUIWindow *ptr_507BD4; // idb
+extern GUIWindow *ptr_507BDC; // weak
+extern GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
 
-extern struct GUIWindow *pGUIWindow2;         // ptr   @ MM7.exe::00507BE4
+extern GUIWindow *pGUIWindow2;         // ptr   @ MM7.exe::00507BE4
 extern unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
 extern int dword_507BF0; // weak
 extern int dword_507BF4; // weak
@@ -1051,7 +1053,7 @@ extern _UNKNOWN unk_5102BC; // weak
 extern int dword_51076C; // weak
 extern int dword_510774; // weak
 
-extern unsigned char pStartMapName[36]; // idb
+//extern unsigned char pStartMapName[36]; // byte[36] @ MM7.exe::00510784
 
 extern struct class36 class36_global0; // struct @ MM7.exe::005107A8
 //_UNKNOWN unk_5107A8;
@@ -1192,10 +1194,10 @@ extern unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::005
 extern int dword_576E28; // weak
 extern int dword_576E2C; // weak
 
-//struct related to loading screen
-extern struct class56 *pLoadingUI; // struct @ MM7.exe::00576E30
+extern class GUIWindow              *pGameLoadingWindow; // new
+extern class GUIProgressBar_Generic *pLevelLoadingUI;    // struct @ MM7.exe::00576E30
 //_UNKNOWN unk_576E30; // weak
-//char byte_576E3A; // pLoadingUI::uProgressMax
+//char byte_576E3A; // pLevelLoadingUI::uProgressMax
 //int dword_576E3C; // 00000C
 
 
@@ -1513,7 +1515,7 @@ extern struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4C90[array_size_unknown]; // weak
 //char byte_5E4CDA[array_size_unknown]; // weak
 //char byte_5E4CDB[array_size_unknown]; // weak
-//extern _UNKNOWN unk_5E4D52; // weak
+extern _UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak
@@ -1522,16 +1524,15 @@ extern unsigned short array_5E4D58[50][10];//[42][12];
 //extern int dword_5E5130[array_size_unknown]; // weak
 extern int dword_5E5144; // weak
 
-extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150 //14CC
+extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
 //__int16 word_5E5150[array_size_unknown]; // weak
 //char byte_5E5152[array_size_unknown]; // 000002
 //_UNKNOWN unk_5E5154; // 000004
 //int dword_5E5160; // 000010
 //int dword_5E5164; // 000014
 //_UNKNOWN unk_5E5168; // 000018
-//char byte_5E516D[array_size_unknown]; 00001D	// weak
-
-//__int16 word_5E6502[array_size_unknown]; // 13B2 -1
+//char byte_5E516D[array_size_unknown]; // weak
+//__int16 word_5E6502[array_size_unknown]; // 13B2
 //__int16 word_5E6504[array_size_unknown]; // 13B4
 extern unsigned int dword_5FF140; // idb
 
@@ -1679,9 +1680,9 @@ extern int global_dword_6A0CA8;
 extern HWND dword_6A0CFC; // idb
 extern int dword_6A0D00; // weak
 
-extern unsigned char *dword_6A0D08; // idb
-extern int dword_6A0D0C; // weak
-extern _UNKNOWN unk_6A0D10; // weak
+//extern unsigned char *dword_6A0D08_pLevelLod; // loading level.odm -> levels\level.lod but never used
+//extern unsigned char *dword_6A0D0C_BeginingOfSomethingInLevelLod; // weak
+//extern short unk_6A0D10; // weak
 
 struct unnamed_6A0D14 //glow3, glow5, torchlight and wizard eye spell anims
 {
@@ -1715,8 +1716,8 @@ extern __int16 word_6A0D42; // weak*/
 extern unsigned int uCurrentMenuID; // dword @ MM7.exe::006A0D44
 extern int dword_6A0D48; // weak
 
-extern struct class51 class51_6A0DA0_dwReserved;
-extern struct class51 *pClass51_global; // struct @ stru_6A0DA0.dwReserved
+extern OutdoorLocation class51_6A0DA0_dwReserved;
+extern OutdoorLocation *pClass51_global; // struct @ stru_6A0DA0.dwReserved
 extern struct tagOFNA stru_6A0DA0; // idb
 //dwReserved @ 6A0DF0 @ pClass51_global::000000
 //int dword_6A0EA0; // ::dword_0000B0
@@ -1843,10 +1844,10 @@ extern unsigned int uWindowPosY;
 extern LONG dwNewLong; // idb
 extern HMENU hMenu; // idb
 extern int dword_6BE340; // weak
-extern char CurrentLevelName[20]; // idb
+//extern char CurrentLevelName[20]; // idb
 extern unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
 extern int dword_6BE35C; // weak
-extern int dword_6BE360; // weak
+extern unsigned int uCurrentlyLoadedLevelType; // dword @ MM7.exe::006BE360    1 indoor  2 outdoor
 extern int dword_6BE364; // weak
 extern int dword_6BE368; // weak
 
@@ -1902,6 +1903,8 @@ extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
 extern unsigned int bNoVideo;         // dword @ MM7.exe::0072000C
 extern unsigned int bNoCredits;       // new
 extern unsigned int bNoIntro;         // new
+extern unsigned int bNoSound;         // new
+extern unsigned int bNo3DSound;       // new
 extern int pAsyncMouse; // dword @ MM7.exe::00720010
 
 extern struct Game *pGame; //struct @ MM7.exe::00720014
@@ -2023,7 +2026,7 @@ extern struct unnamed_721530
 //int dword_7215CC; // weak
 //int dword_7215D0; // 0000A0
 
-extern struct unnamed_7215D8_PlayerActionBuffer stru_7215D8; // struct @ MM7.exe::007215D8
+extern struct ActionQueue *pPartyActionQueue; // struct @ MM7.exe::007215D8
 //extern int dword_7215D8; // weak
 
 extern int dword_721654; // weak
@@ -2120,7 +2123,7 @@ extern char byte_73C830; // weak
 extern _UNKNOWN unk_73C834[]; // weak
 extern char byte_73C84C; // weak
 
-
+/*
 extern unsigned int uNumTerrainNormals;
 extern _UNKNOWN unk_73D514[0x20000]; // weak
 extern unsigned short uTerrainNormalIndices[]; // weak
@@ -2130,7 +2133,7 @@ extern struct Normal
  float x;
  float z;
  float y;
-} *pTerrainNormals;                      // ptr @ MM7.exe::0076D514  terrain normals?
+} *pTerrainNormals;                      // ptr @ MM7.exe::0076D514  terrain normals?*/
 
 extern int dword_76D518; // weak
 extern int dword_76D51C; // weak
@@ -2214,12 +2217,11 @@ extern int dword_80AA1C; // weak
 extern int dword_80AA20; // weak
 extern unsigned int    uNumElementsIn80AA28; // dword        @ MM7.exe::0080AA24
 extern struct struct8 *array_80AA28[2000];   // dword[~2000] @ MM7.exe::0080AA28
-extern struct Edge *ptr_80C978; // ptr @ MM7.exe::0080C978
-extern struct Surf *ptr_80C97C; // ptr @ MM7.exe::0080C97C
-
-extern struct Surf someSurf;  // struct @ MM7.exe::0080C980
-extern struct Edge someEdge1; // struct @ MM7.exe::0080C9A4
-extern struct Edge someEdge2; // struct @ MM7.exe::0080C9D8
+//struct Edge *ptr_80C978; // dword @ MM7.exe::0080C978   software redraw buffers
+//struct Surf *ptr_80C97C; // dword @ MM7.exe::0080C97C   software redraw buffers
+//struct Surf someSurf;  // struct @ MM7.exe::0080C980
+//struct Edge someEdge1; // struct @ MM7.exe::0080C9A4
+//struct Edge someEdge2; // struct @ MM7.exe::0080C9D8
 extern struct Edge *ptr_80CA10[];
 
 extern struct class35 class35_obj; // struct @ MM7.exe::0080D198
@@ -2465,7 +2467,7 @@ extern _UNKNOWN unk_ACD9E4; // weak
 extern _UNKNOWN unk_ACD9FC; // weak
 //extern int dword_ACDA04; // weak
 //extern int dword_ACDA08; // weak
-extern _UNKNOWN unk_ACDA24; // weak
+//_UNKNOWN unk_ACDA24; // pPlayers[0]::uExperience
 //_UNKNOWN unk_ACDA2C; // pParty_global::pPlayers[0]::sName
 //char byte_ACDA3D[array_size_unknown]; // pParty_global::pPlayers[0]::uClass
 //char byte_ACDA3E; // pParty_global::pPlayers[0]::uFace
@@ -2707,15 +2709,17 @@ extern _UNKNOWN unk_F1B430; // weak
 extern BYTE dword_F1B4B0; // idb
 extern BYTE Data; // idb
 
+//PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8  AudioPlayer internal
+
 extern int dword_F1B4C8; // weak
 extern int dword_F1B4D0; // weak
-extern int dword_F1B4D4; // weak
+extern int sLastTrackLengthMS; // dword @ MM7.exe::00F1B4D4
 
 extern struct unnamed_F1B4D8
 {
- int dword_000000; // weak
- unsigned char string_000004[120]; // byte[?]
- int dword_00007C; // weak
+ int           dword_000000; // weak
+ char          string_000004[120]; // byte[?]
+ unsigned int *pSoundData;   // dword @ 00007C
 //extern _UNKNOWN unk_F1B4DC; // weak
  //int dword_F1B554[4800]; // idb
  //int unk_F20054[91169]; // weak
@@ -2739,13 +2743,12 @@ extern _UNKNOWN unk_F79154; // weak
 //int dword_F79D48; // weak
 //char cGameCDDriveLetter; //byte @ MM7.exe::F79D58; // weak
 
-extern struct CSoundList *pSoundList; // struct @ MM7.exe::00F79D5C
+extern struct SoundList *pSoundList; // struct @ MM7.exe::00F79D5C
 //int dword_F79D5C; // weak
 //int dword_F79D60; // weak
-
-extern int dword_F79D64; // weak
+//int dword_F79D64; // weak
 extern int dword_F79D70; // weak
-extern int dword_F79D7C; // weak
+//extern int dword_F79D7C; // set to 2 and doesnt change;
 extern _UNKNOWN unk_F79E08; // weak
 extern _UNKNOWN unk_F79E34; // weak
 extern _UNKNOWN unk_F7AA08; // weak

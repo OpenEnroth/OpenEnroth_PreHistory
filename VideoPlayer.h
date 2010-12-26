@@ -1,10 +1,8 @@
 #pragma once
 
 #include <windows.h>
+#include "CoreDefinitions.h"
 #include "defs.h"
-
-#include "libs\Smacker\Smacker.h"
-#include "libs\Bink\Bink.h"
 
 
 
@@ -35,25 +33,25 @@ class VideoPlayer
     UnloadAll();
    }
    
-   unsigned int Initialize(OSWindow *pWindow, AudioPlayer *pAudioPlayer);
-   unsigned int PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop);
-   unsigned int StopMovie();
+   Result::Code Initialize(OSWindow *pWindow, AudioPlayer *pAudioPlayer);
+   Result::Code PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop);
+   Result::Code StopMovie();
 
  protected:
-   unsigned int OpenMovie(const char *pVideoName);
+   Result::Code OpenMovie(const char *pVideoName);
    HBINK        OpenBinkMovie(const char *pVideoFile);
    HSMACK       OpenSmackMovie(const char *pVideoFile);
 
-   unsigned int SmackPlayMovie(unsigned int uOutX, unsigned int uOutY);
+   Result::Code SmackPlayMovie(unsigned int uOutX, unsigned int uOutY);
    void         SmackDrawFrame(unsigned int uOutX, unsigned int uOutY);
    unsigned int SmackCheckSurfaceFromat();
 
    
    HBINKBUF     BinkCreateBuffer(unsigned int uWidth, unsigned int uHeight, char a4);
-   unsigned int BinkPlayMovie(unsigned int uOutX, unsigned int uOutY);
-   unsigned int BinkDrawFrame(unsigned int uOutX, unsigned int uOutY);
-   unsigned int BinkLockBuffer(HBINKBUF pBinkBuffer);
-   unsigned int BinkUnlockBuffer(HBINKBUF pBinkBuffer);
+   Result::Code BinkPlayMovie(unsigned int uOutX, unsigned int uOutY);
+   Result::Code BinkDrawFrame(unsigned int uOutX, unsigned int uOutY);
+   Result::Code BinkLockBuffer(HBINKBUF pBinkBuffer);
+   Result::Code BinkUnlockBuffer(HBINKBUF pBinkBuffer);
 
 
 

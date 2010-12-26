@@ -4,7 +4,7 @@
 
 
 #include "c18.h"
-#include "Render.h"
+#include "BaseRender.h"
 #include "CbmTools.h"
 
 
@@ -65,7 +65,7 @@ class LOD_file
 		void FreeSubIndxIOBuffers();
 		bool IsContainerExist(const char *pContainerName);
 		void AllocateSubidexAndIOBuffer(unsigned int uNumSubInd, unsigned int uIOBuffSize);
-		bool Load_LODHeader( const char *pFilename, bool openmode);
+        Result::Code Load_LODHeader(const char *pFilename, bool openmode);
 		FILE *Find_Container(const char *pContainerName, bool linearSearch);
 		LOD_file();
 		~LOD_file();
@@ -81,7 +81,7 @@ class LOD_file
 	   bool Append_item_to_temp_file(const LODIndex *container_index, const void *container_data);
 	   signed int ReloadFile();
 	   int Write_SubIndex();
-	   int Write_Lod_Header( LODFileHeader* file_header, LODIndex * indx, const char *Source);
+	   int Write_Lod_Header(LODFileHeader* file_header, LODIndex * indx, const char *Source);
 	  
 	  }	;
 
@@ -120,12 +120,13 @@ public:
 	 ~LODFile_IB();
 
 //bool __thiscall sub_40FAEE(int _this, const char *Filename);
-bool LODFile_LoadLOD_Icons_Events( const char *pLODFilename);
+Result::Code LODFile_LoadLOD_Icons_Events( const char *pLODFilename);
 //bool __thiscall sub_40FA2E(int _this, const char *Filename);
-bool LODFile_LoadLOD_Bitmaps( const char *pLODFilename);
+Result::Code LODFile_LoadLOD_Bitmaps( const char *pLODFilename);
 
 //int __thiscall sub_41088B(void *_this, const char *Args, int a3);
-void *LODFile_LoadRaw( const char *pLODContainer, int a3);
+void *LODFile_LoadRaw(const char *pLODContainer, int a3);
+void *LODFile_LoadRaw(const wchar_t *pLODContainer, int a3);
 
 void Reset_TextureBuffs(); //LODFile_fn4();
 
@@ -193,7 +194,7 @@ void  sub_41033D();
 		   int LoadSpriteFromFile( Sprites_Header *pSpriteHdr, const char *pFilename);
 		   int LODFile_sub_461397();   
 		   //bool __thiscall sub_4AC795(int _this, const char *Filename);
-            bool LODFile_LoadLOD_Sprites( const char *pLODFilename);
+            Result::Code LODFile_LoadLOD_Sprites( const char *pLODFilename);
 		   unsigned int LODFile_LoadSprite( const char *pSourceFile, int a3);
 	   };
 

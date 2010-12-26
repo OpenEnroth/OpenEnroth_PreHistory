@@ -31,6 +31,9 @@
     <Filter Include="libs\AIL">
       <UniqueIdentifier>{f773e185-099c-402d-bac1-7394022806dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extras">
+      <UniqueIdentifier>{0eaa8547-5577-4c0e-8631-789864dfdc5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Render\RenderD3D10.cpp">
@@ -82,7 +85,6 @@
     <ClCompile Include="mm7_unparsed_data.cpp" />
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderD3D3.cpp" />
     <ClCompile Include="RenderOpenGL.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -195,6 +197,14 @@
     <ClCompile Include="PartyActions.cpp" />
     <ClCompile Include="GameEvents.cpp" />
     <ClCompile Include="tiles.cpp" />
+    <ClCompile Include="GUI\GUIImage.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GUIControl.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseRender.cpp" />
+    <ClCompile Include="RenderSoftware.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -263,7 +273,6 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Render.h" />
     <ClInclude Include="RenderD3D3.h" />
     <ClInclude Include="RenderSoftware.h" />
     <ClInclude Include="Spells.h" />
@@ -407,6 +416,20 @@
     </ClInclude>
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="tiles.h" />
+    <ClInclude Include="CoreDefinitions.h" />
+    <ClInclude Include="GUI\GUIImage.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GUIControl.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Extras\List.h">
+      <Filter>Extras</Filter>
+    </ClInclude>
+    <ClInclude Include="Extras\Pool.h">
+      <Filter>Extras</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseRender.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

@@ -13,7 +13,7 @@ extern int bUseLoResSprites;
 extern int bUseRegistry;
 extern int bCanLoadFromCD;
 
-extern float aMusicVolumeLevels[];
+extern float pSoundVolumeLevels[];
 
 extern union unnamed_4D8410
 {
@@ -179,8 +179,6 @@ extern unsigned char *pMindResistanceAttributeDescription;
 extern unsigned char *pBodyResistanceAttributeDescription;
 extern unsigned char *pSkillPointsAttributeDescription;
 
-extern PCMWAVEFORMAT sPCMWaveFormat;
-
 
 
 extern struct BaseRender *pD3DRenderer;
@@ -188,7 +186,7 @@ extern class LODFile_IB      LODFile_Icons_LOD;
 extern class LODFile_IB      LODFile_Events_LOD;
 extern class LODFile_IB      LODFile_Bitmaps_LOD;
 extern class LODFile_Sprite      LODFile_Sprites_LOD;
-extern struct AudioPlayer  *pAudioPlayer;
+extern class AudioPlayer  *pAudioPlayer;
 extern class VideoPlayer *pVideoPlayer;
 
 extern class cPCXTexture      Class33_global0;
@@ -221,7 +219,7 @@ extern unsigned int uTextureID_PlayerCreationUI_BtnRight;
 extern unsigned int uTextureID_PlayerCreationUI_BtnMinus;
 extern unsigned int uTextureID_PlayerCreationUI_BtnPlus;
 
-extern struct GUIWindow *pGUIWindow_CurrentMenu;
+extern class GUIWindow *pGUIWindow_CurrentMenu;
 
 extern unsigned int uTextureIdx_BtnEsc2;
 extern unsigned int uTextureIdx_BtnXxU;
@@ -266,10 +264,3 @@ extern struct Font *pFontCreate;
 extern struct Font *pFontCChar;
 extern struct Font *pFontComic;
 extern struct Font *pFontSmallnum;
-
-
-
-
-int __fastcall ReadWindowsRegistryString(const char *pKeyName, unsigned char *pOut, unsigned int uBufLen, const unsigned char *pDefaultValue);
-int __fastcall ReadWindowsRegistry(const char *pKeyName, int iDefaultValue);
-LSTATUS __stdcall sub_4ABC9B(char a1);

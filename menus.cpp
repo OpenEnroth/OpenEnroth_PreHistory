@@ -24,7 +24,13 @@ int dword_4E94DC[2] = { 60,   0}; // weak
 int dword_4E94E4[2] = {460, 640}; // weak
 int dword_4E94EC[2] = {344, 480}; // weak
 
-
+struct save_struct01
+	{
+	int data1;
+	char signature[4];
+	int data2;
+	int data3;
+	};
 
  int uGUIx_u; // weak	 dword_69CEFC
  int uGUILS_saveU; // weak
@@ -232,7 +238,7 @@ void sub_45EE8A(int a1)
   if ( v2 )
   {
     v23 = (int)pAudioPlayer;
-    AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
+    pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
   }
   else
   {
@@ -257,7 +263,7 @@ LABEL_12:
         }
         else
         {
-         v5 = (int)pSoundList->pDescriptions + 32;
+         v5 = (int)pSoundList->pSounds + 32;
           while ( *(_DWORD *)v5 != 2 * ((unsigned __int8)byte_4ED498 + 50 * *(_DWORD *)(v40 + 6432)) + 4998 )
           {
             ++v4;
@@ -276,7 +282,7 @@ LABEL_17:
         }
         else
         {
-          v8 = (int)pSoundList->pDescriptions + 32;
+          v8 = (int)pSoundList->pSounds + 32;
           while ( *(_DWORD *)v8 != 2 * ((unsigned __int8)byte_4ED498 + 50 * *(_DWORD *)(v40 + 6432)) + 4999 )
           {
             ++v7;
@@ -440,7 +446,7 @@ LABEL_17:
     v23 = (int)pAudioPlayer;
   }
 //load level
-  v25 = LODFile_Games_LOD.IsContainerExist( loc_hdr.location_name);
+  v25 = LODFile_Games_LOD.IsContainerExist(loc_hdr.location_name);
   v36 = (int)&loc_hdr.location_name;
   wsprintfA((char *)TmpBuf, "levels\\%s",loc_hdr.location_name);
   v24 = _access((char *)TmpBuf, 4) != -1;
@@ -454,7 +460,8 @@ LABEL_17:
     }
   }
 
-  v26 = strcpy(CurrentLevelName, loc_hdr.location_name);
+  compile_error(level name should not be globally-defined);
+  //v26 = strcpy(CurrentLevelName, loc_hdr.location_name);
   LOWORD(dword_6BE364) = dword_6BE364 | 0x2001;
 
   v27 = 0;
@@ -465,9 +472,9 @@ LABEL_17:
   
   }
   LODFile_Icons_LOD.LODFile_sub_4114F2();
-  AudioPlayer_SetVolume((AudioPlayer *)v23, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
-  v36 = (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 128.0);
-  AudioPlayer_sub_4AA214((AudioPlayer *)v23, v36);
+  v36 = (signed __int64)(pSoundVolumeLevels[uSoundVolumeMultiplier] * 128.0);
+  ((AudioPlayer *)v23)->SetMasterVolume(128.0f * pSoundVolumeLevels[uSoundVolumeMultiplier]);
+  ((AudioPlayer *)v23)->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
   if ( uTurnSpeed )
     pParty_global->sRotationY = uTurnSpeed * pParty_global->sRotationY / uTurnSpeed;
   sub_4666D5();
@@ -878,13 +885,15 @@ int __fastcall sub_460078(int a1)
 
   v1 = a1;
   v9 = a1;
-  v8 = _strcmpi(CurrentLevelName, "d05.blv");
+  compile_error(level name should not be globally-defined);
+  //v8 = _strcmpi(CurrentLevelName, "d05.blv");
   if ( v8 )
   {
     SaveGame(0, 0);
     Reset_LODIndex(&St);
     //v2 = 100 * v1;
-    strcpy((char *)&saves_hdr[v1].location_name, CurrentLevelName);
+    compile_error(level name should not be globally-defined);
+  //strcpy((char *)&saves_hdr[v1].location_name, CurrentLevelName);
     //*(int *)((char *)dword_69BD90 + v2) = pParty_global->qword_00002C;
     //*(int *)((char *)&dword_69BD90 + 4 + v2) = HIDWORD(pParty_global->qword_00002C);
 	saves_hdr[v1].qWorld_time=pParty_global->qword_00002C;
@@ -990,7 +999,7 @@ int __fastcall SaveGame(int a1, int a2)
   int v56; // [sp+20Ch] [bp-64h]@2
   int v57; // [sp+210h] [bp-60h]@2
   int v58; // [sp+214h] [bp-5Ch]@2
-  ODM_struct Src; // [sp+218h] [bp-58h]@30
+  save_struct01 Src; // [sp+218h] [bp-58h]@30
  // char v60; // [sp+21Ch] [bp-54h]@30
  // char v61; // [sp+21Dh] [bp-53h]@30
 //  char v62; // [sp+21Eh] [bp-52h]@30
@@ -1014,8 +1023,10 @@ int __fastcall SaveGame(int a1, int a2)
 
   v71 = a2;
   v69 = a1;
-  strcpy(byte_6BE3B0, CurrentLevelName);
-  result = stricmp(CurrentLevelName, "d05.blv");
+  compile_error(level name should not be globally-defined);
+  //strcpy(byte_6BE3B0, CurrentLevelName);
+  compile_error(level name should not be globally-defined);
+  //result = stricmp(CurrentLevelName, "d05.blv");
   if ( result )
   {
     DstBuf = MemAlloc(char, 1000000);//DstBuf = operator new(0xF4240u);
@@ -1032,7 +1043,7 @@ int __fastcall SaveGame(int a1, int a2)
     pParty_global->sRotationX = pParty_global->sOldRotationX;
     pParty_global->dword_000700 = pParty_global->sOldPosZ;
 
-    if (dword_6BE360 == 1)
+    if (uCurrentlyLoadedLevelType == 1)
       qword_6BE6B4[0] = pParty_global->qword_00002C;
     else
       qword_6A12E0 = pParty_global->qword_00002C;
@@ -1059,7 +1070,7 @@ int __fastcall SaveGame(int a1, int a2)
       FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v7 + 25, 299, v40, 0, 0, 0);
       pD3DRenderer->Present();
     }
-  /* if ( LODFile_New_LOD.Add_Container_to_File( &St2, DstBuf, 0) )
+  /* if (LODFile_New_LOD.Add_Container_to_File( &St2, DstBuf, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 200);
       v76 = (unsigned int)&v38;
@@ -1067,7 +1078,8 @@ int __fastcall SaveGame(int a1, int a2)
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     } 	*/
 
-    strcpy(v47.location_name, CurrentLevelName);
+    compile_error(level name should not be globally-defined);
+  //strcpy(v47.location_name, CurrentLevelName);
     v47.qWorld_time = pParty_global->qword_00002C;
     strcpy(&St2.pFilename[0], "header.bin");
     St2.size_data = 100;
@@ -1174,15 +1186,15 @@ int __fastcall SaveGame(int a1, int a2)
       v11 = (unsigned int)MemAlloc(char, 1000000);
       v76 = v11;
 
-      Src.signature1 = 91969;
+      Src.data1 = 91969;
       Src.signature[0] = 'm';
       Src.signature[1] = 'v';
       Src.signature[2] = 'i';
       Src.signature[3] = 'i';
-      Src.packed_size = 0;
-      Src.size_data = 0;
+      Src.data2 = 0;
+      Src.data3 = 0;
       memcpy((void *)v11, &Src, 16);
-      if ( dword_6BE360 == 1 )
+      if ( uCurrentlyLoadedLevelType == 1 )
       {
         v13 = DstBuf;
         dword_6BE69C = dword_6BE640;
@@ -1235,10 +1247,10 @@ int __fastcall SaveGame(int a1, int a2)
         v17 = (char *)v17 + 4;
         memcpy(v17, array_5E5150, 5324 * dword_5FF140);
         v18 = (char *)v17 + 5324 * dword_5FF140;
-        compile_error;//memcpy(v18, ::Src, 0x3E80u);
+        compile_error();//memcpy(v18, ::Src, 0x3E80u);
         v18 = (char *)v18 + 16000;
-        compile_error;//memcpy(v18, dword_6BE67C, ::Size);
-        compile_error;//v19 = (char *)v18 + ::Size;
+        compile_error();//memcpy(v18, dword_6BE67C, ::Size);
+        compile_error();//v19 = (char *)v18 + ::Size;
         memcpy(v19, &global_5E4C90, sizeof(struct struct4));
         v14 = (int)((char *)v19 + 200);
         memcpy((void *)v14, &qword_6BE6B4,56);
@@ -1273,7 +1285,7 @@ int __fastcall SaveGame(int a1, int a2)
             {
              for (v71 = 0;v71 < pClass51_global->pBModels->dword_00004C; v71++)	//count	sub models
               {		
-                memcpy(v23, &pClass51_global->pBModels[v75].ptr_000054[v71].byte_00001C, 4);
+                memcpy(v23, &pClass51_global->pBModels[v75].ptr_000054[v71].dword_00001C, 4);
                 v23 = (char *)v23 + 4;
               }
             }
@@ -1314,7 +1326,8 @@ int __fastcall SaveGame(int a1, int a2)
         v11 = v76;
       }
       v34 = v14 + 56;
-      strcpy(FullPath, CurrentLevelName);
+      compile_error(level name should not be globally-defined);
+  //strcpy(FullPath, CurrentLevelName);
       _splitpath(FullPath, (char*)&Drive, (char*)&Dir, (char*)&v50, (char*)&Ext);
       Ext[1] = 'd';
       Size = v34 - (_DWORD)DstBuf;
@@ -1609,7 +1622,7 @@ LABEL_71:
         v55 = *(char **)v68;
         v40 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[561], &local_208, 0, 0);
         GUIWindow_DrawText(&local_208, pFontArrus, 0, (174 - v40) / 2 + 138, (unsigned __int16)v55, v56[0], (int)v56[1]);
-        AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+        pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
       }
     }
   }
@@ -1634,10 +1647,13 @@ LABEL_71:
       v5 = &byte_4F09B0[32 * (unsigned __int8)*(&byte_4F0CCF[4 * ptr_507BC0->dword_00001C] + dword_F8B19C)];
       if ( v5[pParty_global->uDaysPlayed % 7u + 1] )
       {
-        if ( _strcmpi(CurrentLevelName, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename))
+        compile_error(level name should not be globally-defined);
+  //if ( _strcmpi(CurrentLevelName, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename))
+        if (0)
         {
           SaveGame(1, 0);
-          strcpy(CurrentLevelName, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename);
+          compile_error(level name should not be globally-defined);
+  //strcpy(CurrentLevelName, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename);
           v8 = *((_DWORD *)v5 + 6);
           v9 = *((_DWORD *)v5 + 5);
           v10 = *((_DWORD *)v5 + 4);
@@ -1716,7 +1732,7 @@ LABEL_33:
       else
       {
         dword_F8B19C = 1;
-        AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
+        pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
       }
     }
   }
@@ -1953,7 +1969,7 @@ LABEL_29:
       v36 += 40;
       v35 += 28;
       result = v34 + 1;
-      compile_error;//v16 = __SETO__(v34 + 1, v37);
+      compile_error();//v16 = __SETO__(v34 + 1, v37);
       v15 = v34++ + 1 - v37 < 0;
       if ( !(v15 ^ v16) )
         goto LABEL_30;

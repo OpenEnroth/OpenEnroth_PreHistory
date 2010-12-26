@@ -1,4 +1,5 @@
 #pragma once
+#if 0
 #pragma pack(push, 1)
 
 
@@ -51,3 +52,4 @@ struct Surf
 
 
 #pragma pack(pop)
+#endif

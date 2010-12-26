@@ -15,20 +15,8 @@ void Game_Initialize()
  pGameCamera->Initialize(&Vec3(0, 0, 0), &Quaternion(1, 0, 0, 0));
  pGameCamera->SetProjection(3.14159f * (45.0 / 360.0), 1024.0 / 768.0, 0.1, 1000.0);
 
- struct Viewport dxWindowArea =
- {
-  400,  0,
-  1200, 600,
-  0,    0
- };
-
- struct Viewport dxRenderArea =
- {
-  0,    0,
-  800,  600,
-  0,    0
- };
-
+ Rect<float> dxWindowArea = Rect<float>(400, 0, 1200, 600);
+ Rect<float> dxRenderArea = Rect<float>(0, 0, 800, 600);
 
  pDxWindow = new Win32Window;
  pDxWindow->Initialize(L"MM7w2dx", L"MM7 C++ Direct3D10 Render", true);

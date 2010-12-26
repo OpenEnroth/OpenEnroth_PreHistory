@@ -1,35 +1,70 @@
 #include "GUIProgressBar.h"
+#include "GUIImage.h"
 
-#include "defs.h"
+#include "..\defs.h"
 #include "..\mm7_unparsed_data.h"
 #include "..\mm7_unparsed_functions.h"
 
 #include "..\_lod.h"
 #include "..\UserInput.h"
 
-//----- (004435E2) --------------------------------------------------------
-void LevelLoadingUI_Release(struct class56 *_this)
-{
-  void *v1; // esi@1
-  int v6; // eax@8
-  int v7; // eax@9
 
-  v1 = _this;
- if (pAsyncMouse)
-   CAsyncMouse_sub_46B105((void *)pAsyncMouse);
+using namespace _Render;
+
+
+
+Result::Code GUIProgressBar_LevelLoading::Initialize(const Rect<float> *pBackgroundRect, const Rect<float> *pProgressRect, _Render::Color *pColor)
+{
+ cColorMask = *pColor;
+ 
+ cBackgroundRect = *pBackgroundRect;
+ pBackgroundImage = pHostInterface->CreateControl<GUIImage>(this);
+ pBackgroundImage->Initialize(pBackgroundRect, L"loadframe");
+ 
+ cProgressRect = *pProgressRect;
+ pProgressImage = pHostInterface->CreateControl<GUIImage>(this);
+ pProgressImage->Initialize(pProgressRect, L"loadprog");
+
+ return Result::Success;
+ /*
+#ifndef OLD_CODE
+ //wchar_t pTextureNameW[256];
+ //wsprintfW(pTextureNameW, L"loading%d", rand() % 10);
+
+ //uTextureID_Loading = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
+ _addon_loadprog_id_in_Icons_LOD = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"loadprog");
+#else
+    wsprintfA(Str1, "loading%d.pcx", v7);
+	// realy or not
+	_this->loading = MemAlloc(cPCXTexture, 1);
+	_this->loading->PCXTexture_Zero();
+    _this->loading->LODPCXLoad( Str1,2); 
+    _this->loadprog = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("loadprog",2)];
+#endif
+    _this->uX = 122;
+    _this->uY = 151;
+    _this->uWidth = 449;
+    _this->uHeight = 56;
+
+    _this->uProgressMax = 26;
+    _this->uProgressCurrent = 0;
+
+    DrawLoadingScreen((GUIProgressBar *)v2);
+    
+ return true;*/
 }
 
 
-//----- (004435CD) --------------------------------------------------------
-void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this)
+Result::Code GUIProgressBar_LevelLoading::Reset()
 {
- if (++_this->uProgressCurrent > _this->uProgressMax)
-   _this->uProgressCurrent = _this->uProgressMax;
- DrawLoadingScreen(_this);
+ fProgress = 0;
+ return Result::Success;
 }
 
+
+/*
 //----- (00443484) --------------------------------------------------------
-bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarType)
+bool LevelLoadingUI_Initialize(struct GUIProgressBar *_this, unsigned int uProgressBarType)
 {
   void *v2; // esi@1
   int v5; // ecx@8
@@ -71,7 +106,7 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
     wsprintfW(Str1W, L"loading%d", v7);
 
     _this->uTextureID_Loading = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1W);
-    _this->_addon_loadprog_id_in_Icons_LOD = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"loadprog");
+    _this->_addon_loadprog_id_in_Icons_LOD = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"loadprog");
 #else
     wsprintfA(Str1, "loading%d.pcx", v7);
 	// realy or not
@@ -88,7 +123,7 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
     _this->uProgressMax = 26;
     _this->uProgressCurrent = 0;
 
-    DrawLoadingScreen((class56 *)v2);
+    DrawLoadingScreen((GUIProgressBar *)v2);
   }
   else
   {
@@ -101,16 +136,56 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
 
    *((_BYTE *)v2 + 11) = 0;
    *((_BYTE *)v2 + 10) = 26;
-   DrawLoadingScreen((class56 *)v2);
+   DrawLoadingScreen((GUIProgressBar *)v2);
   }
  return true;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+GUIProgressBar_LevelLoading::GUIProgressBar_LevelLoading():
+  GUIProgressBar_Generic()
+{
+ fProgress = 0;
+}
+
+
+GUIProgressBar_Generic::GUIProgressBar_Generic():
+  GUIControl()
+{
+}
+
+
+
+
+
+
+
+//----- (004435E2) --------------------------------------------------------
+void LevelLoadingUI_Release(struct GUIProgressBar_Generic *_this)
+{
+  void *v1; // esi@1
+  int v6; // eax@8
+  int v7; // eax@9
+
+  v1 = _this;
+ if (pAsyncMouse)
+   CAsyncMouse_sub_46B105((void *)pAsyncMouse);
 }
 
 
 
 
 //----- (00443670) --------------------------------------------------------
-void DrawLoadingScreen(struct class56 *_this)
+void DrawLoadingScreen(struct GUIProgressBar_Generic *_this)
 {
   int v1; // edi@1
   int v4; // eax@10
@@ -118,7 +193,10 @@ void DrawLoadingScreen(struct class56 *_this)
 
   v1 = (int)_this;
   pD3DRenderer->BeginScene();
-  if (_this->uProgressBarType != 1 )
+  
+  compile_error();
+  //if (_this->uProgressBarType != 1 )
+  if (0)
   {
     if ( *(_DWORD *)(v1 + 344) )
     {
@@ -131,7 +209,7 @@ void DrawLoadingScreen(struct class56 *_this)
       v4 = (int)pIconFrameTable->GetImage(dword_50C984, 0);
       Render_DrawTransparentTexture(pD3DRenderer, 100, 146, (cTexture *)(&LODFile_Icons_LOD.aLODHeaders[(v4 + 30)]));
       v5 = (double)(113 * *(_BYTE *)(v1 + 11)) / (double)*(_BYTE *)(v1 + 10);
-      compile_error;//Render_FillRect2(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->uTargetRMask);
+      compile_error();//Render_FillRect2(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->uTargetRMask);
 
       pD3DRenderer->EndScene();
       pD3DRenderer->Present();
@@ -160,8 +238,18 @@ void DrawLoadingScreen(struct class56 *_this)
 }
 
 
+//----- (004435CD) --------------------------------------------------------
+void LevelLoadingUI_UpdateAndDrawProgressBar(struct GUIProgressBar_Generic *_this)
+{
+ if (++_this->uProgressCurrent > _this->uProgressMax)
+   _this->uProgressCurrent = _this->uProgressMax;
+ DrawLoadingScreen(_this);
+}
+
+
+
 //----- (004435BB) --------------------------------------------------------
-void LevelLoadingUI_Reset(struct class56 *_this, char a2)
+void LevelLoadingUI_Reset(struct GUIProgressBar_Generic *_this, char a2)
 {
  _this->byte_000009 = 0;
  _this->uProgressMax = a2;

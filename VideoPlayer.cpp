@@ -12,26 +12,28 @@
 
 #include "GUI\GUIWindow.h"
 
+#include "libs\Smacker\Smacker.h"
+#include "libs\Bink\Bink.h"
 #include "libs\AIL\AIL.h" // parasite include, have to move all ail stuff to AudioPlayer class
 
 
 
 
-unsigned int VideoPlayer::StopMovie()
+Result::Code VideoPlayer::StopMovie()
 {
  if (bPlayingMovie)
  {
   bStopBeforeSchedule = true;
-  return Error::Success;
+  return Result::Success;
  }
 
- return Error::Generic;
+ return Result::Generic;
 }
 
-unsigned int VideoPlayer::BinkPlayMovie(unsigned int uOutX, unsigned int uOutY)
+Result::Code VideoPlayer::BinkPlayMovie(unsigned int uOutX, unsigned int uOutY)
 {
  if (!pBinkMovie)
-   return Error::Generic;
+   return Result::Generic;
 
  BinkDrawFrame(uOutX, uOutY);
  while (pBinkMovie)
@@ -56,14 +58,14 @@ unsigned int VideoPlayer::BinkPlayMovie(unsigned int uOutX, unsigned int uOutY)
        BinkDrawFrame(uOutX, uOutY);
  }
 
- return Error::Success;
+ return Result::Success;
 }
 
 
-unsigned int VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
+Result::Code VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
 {
  if (!pSmackerMovie)
-   return Error::Generic;
+   return Result::Generic;
 
  SmackDrawFrame(uOutX, uOutY);
  while (pSmackerMovie)
@@ -87,15 +89,15 @@ unsigned int VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
        SmackDrawFrame(uOutX, uOutY);
  }
 
- return Error::Success;
+ return Result::Success;
 }
 
 
 //----- (004BE70E) --------------------------------------------------------
-unsigned int VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop)
+Result::Code VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop)
 {
  if (OpenMovie(pMovieName))
-   return Error::Generic;
+   return Result::Generic;
 
  bStopBeforeSchedule = false;
  bLoopPlaying = bLoop;
@@ -119,7 +121,7 @@ unsigned int VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, 
 
  dword_4E28F8_PartyCantJumpIfTrue = 0;
 
- return Error::Success;
+ return Result::Success;
 }
 
 
@@ -129,16 +131,16 @@ unsigned int VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, 
 
 //----- (MM7.exe::004BEB41) --------------------------------------------------------
 //----- (MM7.exe::004BE9D8) --------------------------------------------------------
-unsigned int VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExternalAudioPlayer)
+Result::Code VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExternalAudioPlayer)
 {
  if (!pTargetWindow)
-   return Error::InvalidParams;
+   return Result::InvalidParams;
 
  hMightVid = CreateFileW(L"anims\\might7.vid", GENERIC_READ, 1, 0, 3, 0x8000080, 0);
  if (hMightVid == INVALID_HANDLE_VALUE)
  {
   MessageBoxW(0, L"Can't open file: Might7.vid", L"VideoPlayer error", 0);
-  return Error::FileNotFound;
+  return Result::NotFound;
  }
 
  hMagicVid = CreateFileW(L"anims\\magic7.vid", GENERIC_READ, 1, 0, 3, 0x8000080, 0);
@@ -152,15 +154,15 @@ unsigned int VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExte
  if (hMagicVid == INVALID_HANDLE_VALUE)
  {
   MessageBoxW(0, L"Can't open file: Magic7.vid", L"VideoPlayer error", 0);
-  return Error::FileNotFound;
+  return Result::NotFound;
  }
  
  DWORD w;
  ReadFile(hMightVid, &uNumMightVideoHeaders, 4, &w, 0);
  ReadFile(hMagicVid, &uNumMagicVideoHeaders, 4, &w, 0);
 
- pMightVideoHeaders = NamedMemAlloc(VideoPlayer::MovieHeader, uNumMightVideoHeaders, 0);
- pMagicVideoHeaders = NamedMemAlloc(VideoPlayer::MovieHeader, uNumMagicVideoHeaders, 0);
+ pMightVideoHeaders = NamedMemAlloc(VideoPlayer::MovieHeader, uNumMightVideoHeaders, "Might video headers");
+ pMagicVideoHeaders = NamedMemAlloc(VideoPlayer::MovieHeader, uNumMagicVideoHeaders, "Magic video headers");
 
  ReadFile(hMightVid, pMightVideoHeaders, uNumMightVideoHeaders * sizeof(VideoPlayer::MovieHeader), &w, 0);
  ReadFile(hMagicVid, pMagicVideoHeaders, uNumMagicVideoHeaders * sizeof(VideoPlayer::MovieHeader), &w, 0);
@@ -170,9 +172,14 @@ unsigned int VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExte
 
  pAudioPlayer = pExternalAudioPlayer;
  if (pAudioPlayer)
-   BinkSetSoundSystem(BinkOpenMiles, pAudioPlayer->hDigDriver);  
- else BinkSetSoundSystem(BinkOpenMiles, 0);
+ {
+  BinkSetSoundSystem(BinkOpenMiles, pAudioPlayer->hDigDriver);  
+  SmackSoundUseMSS(pAudioPlayer->hDigDriver);
+ }
+ else
+   BinkSetSoundSystem(BinkOpenMiles, 0);
  
+
  pSmackerMovie = 0;
  pSmackerBuffer = 0;
  
@@ -186,7 +193,7 @@ unsigned int VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExte
 
  sBinkDirectDrawSurfaceType = BinkDDSurfaceType((IDirectDrawSurface *)pWindow->GetRender()->pdds4_BackBuffer);
 
- return Error::Success;
+ return Result::Success;
 }
 
 
@@ -226,7 +233,7 @@ VideoPlayer::VideoPlayer()
 
 
 //----- (MM7.exe::004BF411) --------------------------------------------------------
-unsigned int VideoPlayer::OpenMovie(const char *pVideoName)
+Result::Code VideoPlayer::OpenMovie(const char *pVideoName)
 {
  wsprintfA(pCurrentMovieName, "%s.bik", pVideoName);
 
@@ -238,7 +245,7 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName)
   pBinkBuffer = BinkCreateBuffer(pBinkMovie->Width, pBinkMovie->Height, 0);
 
   bFirstFrame = true;
-  return Error::Success;
+  return Result::Success;
  }
 
  wsprintfA(pCurrentMovieName, "%s.smk", pVideoName);
@@ -249,7 +256,7 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName)
   MessageBoxA(0, pCurrentMovieName, "VideoPlayer::OpenMovie", 0);
 
   pCurrentMovieName[0] = 0;
-  return Error::FileNotFound;
+  return Result::NotFound;
  }
 
  uMovieFormat = Video::Format::Smack;
@@ -261,7 +268,7 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName)
   UnloadAll();
   MessageBoxW(0, L"Out of memory", L"VideoPlayer::OpenMovie", 0);
 
-  return Error::OutOfMemory;
+  return Result::OutOfMemory;
  }
 
 
@@ -275,11 +282,11 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName)
   UnloadAll();
   MessageBoxW(0, L"Failed to open Smacker Blit API", L"VideoPlayer::OpenMovie", 0);
 
-  return Error::Generic;
+  return Result::Generic;
  }
 
  bFirstFrame = true;
- return Error::Success;
+ return Result::Success;
 }
 
 //----- (MM7.exe::004BF1E6) --------------------------------------------------------
@@ -359,7 +366,7 @@ void VideoPlayer::UnloadAll()
 }
 
 //----- (004BED4F) --------------------------------------------------------
-unsigned int VideoPlayer::BinkDrawFrame(unsigned int uOutX, unsigned int uOutY)
+Result::Code VideoPlayer::BinkDrawFrame(unsigned int uOutX, unsigned int uOutY)
 {
   //int v6; // edx@6
   //int v7; // edx@6
@@ -423,7 +430,7 @@ unsigned int VideoPlayer::BinkDrawFrame(unsigned int uOutX, unsigned int uOutY)
  else
    UnloadAll();
 
- return Error::Success;
+ return Result::Success;
 }
 
 //----- (MM7.exe::004BF141) --------------------------------------------------------
@@ -679,7 +686,7 @@ HBINKBUF VideoPlayer::BinkCreateBuffer(unsigned int uWidth, unsigned int uHeight
 }
 
 //----- (004C0133) --------------------------------------------------------
-unsigned int VideoPlayer::BinkLockBuffer(HBINKBUF pBinkBuffer)
+Result::Code VideoPlayer::BinkLockBuffer(HBINKBUF pBinkBuffer)
 {
  DDSURFACEDESC2 ddsd2;//int v8; // [sp+Ch] [bp-7Ch]@10
   int Dst; // [sp+1Ch] [bp-6Ch]@4
@@ -704,7 +711,7 @@ unsigned int VideoPlayer::BinkLockBuffer(HBINKBUF pBinkBuffer)
 
     pBinkBuffer->uBinkDDSurfaceType |= 0x04000000;
     pdds->Restore();
-    return Error::Generic;
+    return Result::Generic;
    }
 
    pBinkBuffer->pDDrawSurfaceData = ddsd2.lpSurface;
@@ -713,11 +720,11 @@ unsigned int VideoPlayer::BinkLockBuffer(HBINKBUF pBinkBuffer)
   }
 
 
- return Error::Success;
+ return Result::Success;
 }
 
 //----- (004C01FB) --------------------------------------------------------
-unsigned int VideoPlayer::BinkUnlockBuffer(HBINKBUF pBinkBuffer)
+Result::Code VideoPlayer::BinkUnlockBuffer(HBINKBUF pBinkBuffer)
 {
  IDirectDrawSurface *pdds;
 
@@ -730,7 +737,7 @@ unsigned int VideoPlayer::BinkUnlockBuffer(HBINKBUF pBinkBuffer)
   pBinkBuffer->pDDrawSurfaceData = 0;
   pBinkBuffer->uDDrawSurfacePitch = 0;
  }
- return Error::Success;
+ return Result::Success;
 }
 
 
@@ -741,7 +748,7 @@ int sub_4BECBD(int a1, int a2)
  if (!bNoVideo)
    pVideoPlayer->StopMovie();
 
- compile_error;
+ compile_error();
  return 0; //RGBTexture_Release((int)pVideoPlayer);
 }
 
@@ -842,7 +849,7 @@ void VideoPlayer::sub_4BF28F(char a2, int a3)
   char *v22; // [sp+3Ch] [bp+8h]@5
   int v23; // [sp+3Ch] [bp+8h]@8
 
-  compile_error;
+  compile_error();
 /*
   v3 = (int)_this;
   if ( !*(_DWORD *)(_this + 84) )
@@ -900,7 +907,7 @@ LABEL_6:
       pD3DRenderer->EndScene();
     }
     v19 = 32767;
-    v11 = (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 32767.0);
+    v11 = (signed __int64)(pSoundVolumeLevels[uSoundVolumeMultiplier] * 32767.0);
     SmackVolumePan(v6, HIDWORD(v11), *(_DWORD *)(v3 + 40), 1040384, v11, 32767);
   }*/
 }
@@ -951,7 +958,7 @@ int VideoPlayer::sub_4BF5B2()
     if ( result != 1 )
       return result;
     SmackGoto(*(_DWORD *)((int)this + 40), 1);
-    if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
+    if (dword_F79D70 != 4 )
     {
       SmackDoFrame((HSMACK)*(_DWORD *)(v2 + 40));
       SmackNextFrame((HSMACK)*(_DWORD *)(v2 + 40));
@@ -972,7 +979,7 @@ int VideoPlayer::sub_4BF5B2()
         result = sub_44622E(165);
         if ( result )
         {
-          AudioPlayer_sub_4AA306(pAudioPlayer, 0, 0, 0, -1, 0, 0, 0, 0);
+          pAudioPlayer->sub_4AA306(0, 0, 0, -1, 0, 0, 0, 0);
           ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton*)165, 0);
           GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, NULL, 0);
           GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, NULL, 0);

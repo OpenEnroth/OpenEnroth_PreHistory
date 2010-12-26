@@ -1881,7 +1881,7 @@ LABEL_196:
   pStatsTXT_Raw = (unsigned char*)LODFile_Events_LOD.LODFile_LoadRaw( "stats.txt", 0);
 #endif
   #ifndef OLD_CODE
-  pStatsTXT_Raw = LODFile_Events_LOD.LODFile_LoadEvent( L"stats.txt");
+  pStatsTXT_Raw = LODFile_Events_LOD.LODFile_LoadEvent(L"stats.txt");
   #endif
   strtok((char *)pStatsTXT_Raw, "\r");
   v77 = 0;
@@ -3971,7 +3971,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
     {
       sprintf(Source, "pal%03i", a2);
       cTexture_obj.cTexture_Zero();
-      if ( LODFile_Bitmaps_LOD.LoadTextureFromLOD( &cTexture_obj, Source, 1) == 1 )
+      if (LODFile_Bitmaps_LOD.LoadTextureFromLOD( &cTexture_obj, Source, 1) == 1 )
       {
         v4 = 0;
         v18 = 1 - (_DWORD)&v10;
@@ -4944,7 +4944,7 @@ LABEL_73:
     v36 = v34;
     v18 = v34 / 100;
     v35 = v36 % 100;
-    compile_error;//v32 = __SETO__(v35, *(_DWORD *)v33);
+    compile_error();//v32 = __SETO__(v35, *(_DWORD *)v33);
     v31 = v35 - *(_DWORD *)v33 < 0;
   }
   else
@@ -5001,7 +5001,7 @@ LABEL_128:
       return v18;
     }
     v18 = v23 + *((_DWORD *)_this + v53 + 17837);
-    compile_error;//v32 = __SETO__(v22, v18);
+    compile_error();//v32 = __SETO__(v22, v18);
     v31 = v22 - v18 < 0;
   }
   if ( !(v31 ^ v32) )
@@ -5088,7 +5088,7 @@ LABEL_119:
 
 
 //----- (0048A336) --------------------------------------------------------
-int sub_48A336(struct class35 *_this)
+int class35_sub_48A336(struct class35 *_this)
 {
  int i;
   int v3; // esi@1
@@ -5132,56 +5132,6 @@ unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocati
 }
 
 
-
-//----- (0047CF9C) --------------------------------------------------------
-int class51_sub_47CF9C(struct class51 *_this)
-{
-  int v1; // edi@1
-  int v3; // ebx@2
-
- strcpy((char *)_this->string_000000, "blank");
- strcpy((char *)_this->pFileName, "default.odm");
- strcpy((char *)_this->pFileDescription, "MM6 Outdoor v1.00");
- strcpy((char *)_this->pSkyTextureName, "sky043");
- strcpy((char *)_this->pGroundTileset, "hm005");
-
-  v1 = 0;
-  if (_this->uNumBModels > 0 )
-  {
-    v3 = 0;
-    do
-    {
-      sub_478389(v3 + *((_DWORD *)_this + 54) + 68);
-      ++v1;
-      v3 += 188;
-    }
-    while (v1 < _this->uNumBModels);
-  }
- _this->uNumBModels = 0;
- _this->dword_0004C0 = 0;
-
- MemFree( (void *)_this->pBModels);
- _this->pBModels = 0;
-
- MemFree( (void *)_this->ptr_0004C4);
- _this->ptr_0004C4 = 0;
-
- class51_FreeGeodata(&_this->struct_0000B4);
-
- MemFree( (void *)_this->ptr_0000D4);
- _this->ptr_0000D4 = 0;
-
- MemFree( (void *)_this->ptr_0000E4);
- _this->ptr_0000E4 = 0;
-
- MemFree( (void *)_this->ptr_0000E0);
- _this->ptr_0000E0 = 0;
-
- MemFree( (void *)pTerrainNormals);
- pTerrainNormals = 0;
-
- return 0;
-}
 
 
 
@@ -5364,7 +5314,7 @@ void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this)
  _this->flt_0000D4 = (double)pOldViewport->dword_000024 * 0.8814736008644104;
  _this->flt_0000D8 = 1.1344639f;
 
- _this->flt_0000C4 = max(_this->flt_0000D0, _this->flt_0000D4);
+ _this->flt_0000C4 = _max(_this->flt_0000D0, _this->flt_0000D4);
  _this->flt_0000C8 = (double)pOldViewport->dword_000028;
  _this->flt_0000CC = (double)(pOldViewport->dword_00002C - pOldViewport->uScreenY);
 }
@@ -5513,7 +5463,7 @@ void OldCamera_CalculateSinCos(struct OldCamera *_this)
  _this->fRotationYCosine = cos(angle);
 
 
- if (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1)
+ if (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || uCurrentlyLoadedLevelType == 1)
    angle = 2 * 3.1415926535897931 * ((double)_this->sRotationX / 2048);
  else
    angle = -2 * 3.1415926535897931 * ((double)_this->sRotationX / 2048);
@@ -5697,7 +5647,7 @@ void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, 
 
  for (i = 0; i < a3; ++i)
  {
-      if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || dword_6BE360 == 1 )
+      if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || uCurrentlyLoadedLevelType == 1 )
       {
         v7 = 1.0 / a2[i].flt_00000C;
         a2[i].flt_000018 = a2[i].flt_000010 * _this->flt_0000C4 * v7 + _this->flt_0000C8;
@@ -6409,34 +6359,6 @@ void class59_ctor(struct class59 *_this)
 }
 
 
-
-//----- (0045D3C7) --------------------------------------------------------
-bool __stdcall sub_45D3C7(struct struct8 *_this)
-{
- struct struct8 *v2; // ecx@2
- struct Span    *i; // edi@5
-
- if (!_this->ptr_000040)
-   return false;
-
- if (_this->ptr_000040->pParent)
- {
-  v2 = _this->ptr_000040->pParent;
-  if (v2->ptr_000040)
-  {
-   for (i = _this->ptr_000040; ; i = i->pNext)
-   {
-    compile_error;
-    //if (i->pParent->byte_000108)
-    //   sub_45D426((int)i, _this->array_000060, _this->dword_0000B0, _this->array_0000B4, _this->dword_000104);
-     if (_this->ptr_000044 == i)
-       break;
-   }
-   return true;
-  }
- }
- return false;
-}
 
 
 
@@ -7260,7 +7182,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                         *(_DWORD *)((*(_DWORD *)(v2 + 52000) << 6) + v2 + 52052) = *(_DWORD *)(v7 + 14);
                         *(_DWORD *)((*(_DWORD *)(v2 + 52000) << 6) + v2 + 52056) = 0;
                         *(float *)((*(_DWORD *)(v2 + 52000) << 6) + v2 + 52060) = 0.0;
-                        compile_error;//*(float *)((*(_DWORD *)(v2 + 52000)++ << 6) + v2 + 52064) = 0.0;
+                        compile_error();//*(float *)((*(_DWORD *)(v2 + 52000)++ << 6) + v2 + 52064) = 0.0;
                       }
                     }
                     if ( *(_BYTE *)(v7 - 85) & 4 )
@@ -7320,7 +7242,7 @@ void class02_sub_48BBA6(struct class02 *_this)
       }
       v7 += 104;
       LODWORD(v1) = v26 + 1;
-      compile_error;//v16 = __SETO__(v26 + 1, *(_DWORD *)(v2 + 58408));
+      compile_error();//v16 = __SETO__(v26 + 1, *(_DWORD *)(v2 + 58408));
       v14 = v26 + 1 == *(_DWORD *)(v2 + 58408);
       v15 = v26++ + 1 - *(_DWORD *)(v2 + 58408) < 0;
     }
@@ -7404,7 +7326,7 @@ void class02_sub_48BEEF(struct class02 *_this)
               *(_DWORD *)((*(_DWORD *)(v2 + 52000) << 6) + v2 + 52052) = *(_DWORD *)(v7 + 18);
               *(_DWORD *)((*(_DWORD *)(v2 + 52000) << 6) + v2 + 52056) = 0;
               *(float *)((*(_DWORD *)(v2 + 52000) << 6) + v2 + 52060) = 0.0;
-              compile_error;//*(float *)((*(_DWORD *)(v2 + 52000)++ << 6) + v2 + 52064) = 0.0;
+              compile_error();//*(float *)((*(_DWORD *)(v2 + 52000)++ << 6) + v2 + 52064) = 0.0;
             }
           }
           if ( *(_BYTE *)(v7 - 81) & 4 )

@@ -138,7 +138,7 @@ int Party_Reset(struct Party *_this)
   signed int v12; // edi@18
  int i, j;
 
- memset(&_this->qword_00002C, 0, sizeof(struct Party)- 0x2C);	    //
+ //memset(&_this->qword_00002C, 0, sizeof(struct Party) - 0x2C);
 
  
  _this->uEyelevel = 160;
@@ -340,7 +340,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
     }
     memcpy((void *)(v10 + 36 * v9 + 496), (const void *)a2, 0x24u);
     ItemGen_Reset((ItemGen *)a2);
-    AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
+    pAudioPlayer->sub_4AA306(200, 0, 0, -1, 0, 0, 0, 0);
     Player_PlaySound((Player *)v22, 60, 0);
     if ( !v24 )
     {
@@ -679,7 +679,16 @@ void Party_ctor(struct Party *_this)
  _this->flt_016230 = 255.0;
  _this->flt_016234 = 255.0;
 
- pParty_global->pickedItem.uItemID = -1;
+ _this->pickedItem.uItemID = -1;
+
+ _this->dword_007778 = 0;
+
+
+ _this->uEyelevel = _this->uDefaultEyelevel = 160;
+ _this->uPartyHeight = _this->uDefaultPartyHeight = 192;
+
+ pPartyActionQueue = NamedMemAlloc(ActionQueue, 1, "Party Action Queue");
+
 }
 
 
@@ -696,7 +705,6 @@ void Party_sub_491BF9_ResetPosMiscAndSpellBuffs(struct Party *_this)
  _this->dword_0006E8 = 0;
 
  _this->dword_000028 = 0;
- _this->uDefaultPartyHeight = 120;
  _this->dword_000014 = 37;
  _this->dword_000018 = 25;
  _this->uWalkSpeed = 384;

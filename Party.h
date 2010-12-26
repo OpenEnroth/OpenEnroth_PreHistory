@@ -43,11 +43,17 @@ namespace Action
 //19 turning right under some sircumstances
 
 
-struct unnamed_7215D8_PlayerActionBuffer
+struct ActionQueue
 {
  unsigned int uNumActions;  // dword     @ 000000
  Action::Type pActions[30]; // dword[30] @ 000004
+
+ unsigned int Clear();
+ unsigned int Add(Action::Type   eAction);
+ unsigned int Next(Action::Type *pOut);
 };
+//void sub_4760C1(struct ActionQueue *_this, Action::Type eAction)  004760C1  ActionQueue::Add
+//unsigned int sub_4760D5(struct ActionQueue *_this)                004760D5  ActionQueue::Next
 
 
 
@@ -194,9 +200,6 @@ void Party_sub_4936E1_ReceiveItemInHandsWhileInGame(Party *_this, const struct I
 
 
 
-
-void sub_4760C1_QueuePlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this, Action::Type eAction);
-unsigned int sub_4760D5_GetNextPlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this);
 
 
 

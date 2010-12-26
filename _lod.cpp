@@ -266,7 +266,7 @@ FILE *LOD_file::Find_Container(const char *pContainerName, bool linearSearch)
 	  }
   else
 	  {
-	  container_index=Fast_Calc_Index( 0, uNumSubidices, pContainerName);
+	  container_index = Fast_Calc_Index( 0, uNumSubidices, pContainerName);
 	  if ( container_index < 0 )
 		  return NULL;
 	  }
@@ -318,7 +318,7 @@ int LOD_file::Fast_Calc_Index( int startIndex, int maxIndex, const char *pContai
 }
 
 //----- (MM7.exe::004617D5) ---LODFile_MaybeLoadLODHeader-----------------------------------------------------
-bool LOD_file::Load_LODHeader( const char *pFilename, bool openmode)
+Result::Code LOD_file::Load_LODHeader(const char *pFilename, bool openmode)
 {
 	const char *mode; // [sp-4h] [bp-Ch]@4
 
@@ -330,19 +330,19 @@ bool LOD_file::Load_LODHeader( const char *pFilename, bool openmode)
 		mode = "rb+";
 	fopen_s(&pLODFile, pFilename, mode);
 	if (!pLODFile)
-		return false;
+      return Result::NotFound;
 	strcpy(sLODName, pFilename);
 	locked_fread(&sLODFileHeader, sizeof(LODFileHeader), 1, pLODFile);
 	pLODCArray = NamedMemAlloc(char, 160, "LOD CArray");
 	if (!pLODCArray)
 		{
 		fclose(pLODFile);
-		return false;
+        return Result::Generic;
 		}
 	locked_fread(pLODCArray, sizeof(LODIndex), sLODFileHeader.uNumIndexDirs, pLODFile);
 	fseek(pLODFile, 0, SEEK_SET);
-	file_opened= true;
-	return true;
+	file_opened = true;
+    return Result::Success;
 }
 
 
@@ -584,9 +584,15 @@ unsigned int LOD_Writefile::Add_Container_to_File(const LODIndex *container_inde
 
 
 
+void *LODFile_IB::LODFile_LoadRaw(const wchar_t *pContainer, int a3)
+{
+ char pFilenameA[64];
+ wsprintfA(pFilenameA, "%S", pContainer);
 
+ return LODFile_LoadRaw(pFilenameA, a3);
+}
 //----- (MM7.exe::0041088B) --------------------------------------------------------
-void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
+void *LODFile_IB::LODFile_LoadRaw(const char *pContainer, int a3)
 {
   unsigned char *result; // ebx@7
   unsigned char *v8; // edi@7
@@ -1056,9 +1062,9 @@ unsigned int LODFile_IB::LODFile_LoadTexture_New(const wchar_t *pFilename)
   {
    //try open PNG
    wsprintfW(pFilePath, L".\\Data\\%S\\%s.png",  sContainerName, pFilename);
-   if (LoadPNG(pFilePath, &uCBMWdith, &uCBMHeight, &aLODHeaders[ uNumLoadedFiles].pTruecolorPixels))
+   if (LoadPNG(pFilePath, &uCBMWdith, &uCBMHeight, &aLODHeaders[uNumLoadedFiles].pTruecolorPixels))
    {
-    if (LoadHWL(pFilename, &uCBMWdith, &uCBMHeight, &aLODHeaders[ uNumLoadedFiles].pTruecolorPixels))
+    if (LoadHWL(pFilename, &uCBMWdith, &uCBMHeight, &aLODHeaders[uNumLoadedFiles].pTruecolorPixels))
     {
      if (!hStdHandle)
        hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -1094,7 +1100,7 @@ bool LODFile_IB::LODFile_ReleaseTexture( unsigned int uTextureID)
  
 #endif
 //----- (004AC7C0) -------------------.text:004AE61A     -------------------------------------
-unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3)
+unsigned int LODFile_Sprite::LODFile_LoadSprite(const char *pSourceFile, int a3)
 {
 
   FILE * work_file; 
@@ -1111,7 +1117,7 @@ unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3
 	 if (!strcmpi(aSpriteHeaders[i].sContainerName, pSourceFile))
 		 return i;
 
- if (uNumLoadedSprites >= 1500)
+ if (uNumLoadedSprites >= 2500)
 	 return -1;
 
  //not found loaded
@@ -1131,7 +1137,7 @@ unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3
      }
 
 	 Sprites_Header local_spr_hdr;
-	 work_file = Find_Container( pSourceFile, false);
+	 work_file = Find_Container(pSourceFile, false);
 	 if ( !work_file )
 		 {
 		 return -1;
@@ -1140,11 +1146,11 @@ unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3
 	 pHardwareSprites[uNumLoadedSprites].dword_000018 = local_spr_hdr.word_000010;
 	 pHardwareSprites[uNumLoadedSprites].dword_00001C = local_spr_hdr.uSomeSprtDataCount;
 	 aSpriteHeaders[uNumLoadedSprites].word_000010 = local_spr_hdr.word_000010;
-	 aSpriteHeaders[uNumLoadedSprites]. uSomeSprtDataCount = local_spr_hdr.uSomeSprtDataCount;	
+	 aSpriteHeaders[uNumLoadedSprites].uSomeSprtDataCount = local_spr_hdr.uSomeSprtDataCount;	
 	 }
  else
 	 {
-	 if ( LoadSpriteFromFile( &aSpriteHeaders[uNumLoadedSprites], pSourceFile) == -1 )
+	 if (LoadSpriteFromFile( &aSpriteHeaders[uNumLoadedSprites], pSourceFile) == -1 )
 		 {
 		 if (!uNumLoadedSprites)
 			 {
@@ -1153,7 +1159,7 @@ unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3
 					 return i;
 			 }
 		 else
-			 if ( LoadSpriteFromFile(&aSpriteHeaders[uNumLoadedSprites], "pending") == -1 )
+			 if (LoadSpriteFromFile(&aSpriteHeaders[uNumLoadedSprites], "pending") == -1 )
 				 return -1;
 		 }
 
@@ -1174,11 +1180,11 @@ unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3
 
 
 //----- (MM7.exe::0040FAEE) -------0040FDE7 -------------------------------------------------
-bool LODFile_IB::LODFile_LoadLOD_Icons_Events( const char *pFilename)
+Result::Code LODFile_IB::LODFile_LoadLOD_Icons_Events(const char *pFilename)
 {
  Reset_TextureBuffs();
- if (!Load_LODHeader( pFilename, 1))
-   return 0;
+ if (Result::Code eCode = Load_LODHeader(pFilename, 1))
+   return eCode;
 
 #ifndef OLD_CODE 
  pHardwareSurfaces = NamedMemAlloc(IDirectDrawSurface4 *, 1000, "Hardware sprite dd4 surfaces");
@@ -1189,17 +1195,17 @@ bool LODFile_IB::LODFile_LoadLOD_Icons_Events( const char *pFilename)
  memset(lod_IB_dword_011BB4, 0, 1000);
 #endif
 
- return Load_SubIndexes("icons") == 0;
+ return !Load_SubIndexes("icons") ? Result::Success : Result::Generic;
 }
 
 //----- (MM7.exe::0040FA2E) ---------.text:0040FD27 -----------------------------------------------
-bool LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
+Result::Code LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
 {
  Reset_TextureBuffs();
- if (!Load_LODHeader( pFilename, 1))
-   return 0;
+ if (Result::Code eCode = Load_LODHeader(pFilename, 1))
+   return eCode;
 
- #ifndef OLD_CODE
+#ifndef OLD_CODE
  pHardwareSurfaces = NamedMemAlloc(IDirectDrawSurface4 *, 1000, "Hardware sprite dd4 surfaces");
  pHardwareTextures = NamedMemAlloc(IDirect3DTexture2 *, 1000, "Hardware sprite d3d2 textures");
  lod_IB_dword_011BB4 = MemAlloc(char, 1000);
@@ -1208,16 +1214,16 @@ bool LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
  memset(lod_IB_dword_011BB4, 0, 1000);
 #endif
 
- return Load_SubIndexes( "bitmaps") == 0;
+ return !Load_SubIndexes("bitmaps") ? Result::Success : Result::Generic;
 }
 
 //----- (MM7.exe::004AC795) --------------------------------------------------------
-bool LODFile_Sprite::LODFile_LoadLOD_Sprites(const char *pFilename)
+Result::Code LODFile_Sprite::LODFile_LoadLOD_Sprites(const char *pFilename)
 {
- if (!Load_LODHeader(pFilename, 1))
-   return 0;
+ if (Result::Code eCode = Load_LODHeader(pFilename, 1))
+   return eCode;
 
- return  Load_SubIndexes("sprites08") == 0;
+ return !Load_SubIndexes("sprites08") ? Result::Success : Result::Generic;
 }
 
 
@@ -1854,7 +1860,7 @@ int LODFile_Sprite::LODFile_sub_461397()
 }
 
 //----- (00461492) ------LODFile_sub_461492---.text:00462798 -----------------------------------------------
- int LOD_Writefile::Write_Lod_Header( LODFileHeader* file_header, LODIndex *indx, const char *Source)
+ int LOD_Writefile::Write_Lod_Header(LODFileHeader* file_header, LODIndex *indx, const char *Source)
 {
 
   FILE *open_file; 

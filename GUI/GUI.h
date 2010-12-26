@@ -1,6 +1,8 @@
 #pragma once
+#include "GUIControl.h"
 
-#include "defs.h"
+#include "..\defs.h"
+#include "..\Extras\List.h"
 
 #define MENU_MAIN        0
 #define MENU_NEWGAME     1
@@ -30,6 +32,55 @@
 #define MESSAGE_MINIMAP_ZOOM_OUT       0x170
 
 #define MESSAGE_INTERACT               0x194
+
+
+
+
+
+class GUIControl;
+class GUI
+{
+ public:
+   virtual Result::Code Draw(float dt)
+   {
+    for (List<GUIControl *>::NodeType *pNode = cChildren.First(); pNode != cChildren.Last(); pNode = pNode->pNext)
+      pNode->pData->OnDraw(dt);
+
+    return Result::Success;
+   }
+
+
+   virtual Result::Code Reset()
+   {
+    cChildren.Clear();
+    cDrawList.Clear();
+    return Result::Success;
+   }
+
+   template<typename tControl>
+     tControl *CreateControl(GUIControl *pParent)
+   {
+    tControl *pNewControl = MemAlloc(tControl, 1);
+
+    pNewControl->pHostInterface = this;
+    pNewControl->pParent = pParent;
+
+    return pNewControl;
+   }
+
+   List<GUIControl *> *GetChildrenList()
+   {
+    return &cChildren;
+   }
+
+ protected:
+   List<GUIControl *> cChildren;
+   List<GUIControl *> cDrawList;
+};
+
+
+
+
 
 
 
@@ -89,21 +140,21 @@ void SetCurrentMenu(unsigned int uMenuID);
 
 
 
-struct GUIWindow * GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
+class GUIWindow * GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
                                              unsigned int uWindowType, struct GUIButton *a6, int a7);
 
-struct GUIButton*  GUIButtonCreate(struct GUIWindow *pParentWindow,
+struct GUIButton*  GUIButtonCreate(class GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
                                              int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1,  
 											 class cTexture* pButtnTexture2=NULL);	 //was multiparametr function!!
 
-void GUIWindowDelete(struct GUIWindow *);
-void GUIWindow_sub_459C2B(struct GUIWindow *a1, signed int a2, int a3, int a4);
+void GUIWindowDelete(class GUIWindow *);
+void GUIWindow_sub_459C2B(class GUIWindow *a1, signed int a2, int a3, int a4);
 
 //int __thiscall sub_41CD3B(int _this, int a2);
-struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
+struct GUIButton *GUIWindow_GetChild(GUIWindow *_this, int uID);
 
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
@@ -154,7 +205,7 @@ extern unsigned int uTextureID_GameUI_RightPanel;
 extern unsigned int uTextureID_GameUI_PartyFrame;
 
 
-struct GUIWindow *GameUI_InitializeCharacterWindow(int a1);
+GUIWindow *GameUI_InitializeCharacterWindow(int a1);
 
 void __cdecl CharacterUI_SkillsTab_ShowHint();
 void CharacterUI_DrawSkillsTab(int uSelectedCharacter);
