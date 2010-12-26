@@ -106,7 +106,7 @@ LABEL_27:
        if (v6 >= v5->uX && v6 <= v5->uZ &&
            v4 >= v5->uY && v4 <= v5->uW)
        {
-        v8 = v5->dword_000024;
+        v8 = v5->uControlParam;
             /*    if ( v7 < 40 )
                 {
                   dword_50CBD0[3 * v7 + 1] = *(_DWORD *)(v5 + 28);
@@ -135,7 +135,7 @@ LABEL_27:
     else
     {
       PlayerCreationUI_Draw();
-      sub_435748();
+      sub_435748_PlayerCreationUI_MessageProc();
       pD3DRenderer->BeginScene();
       sub_4156F0_LooksLike_UI_ProcessCallbacks();
       pD3DRenderer->EndScene();
@@ -1698,7 +1698,7 @@ int __cdecl MenuLoop_Main()
 #endif
       if (pAsyncMouse)
         CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
-      sub_435748();
+      sub_435748_PlayerCreationUI_MessageProc();
       sub_4156F0_LooksLike_UI_ProcessCallbacks();
       if ( pAsyncMouse)
         CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
@@ -1722,7 +1722,7 @@ int __cdecl MenuLoop_Main()
              ptMouse.y >= v8->uY && ptMouse.y <= v8->uW &&
              v17 == pGUIWindow_MainMenu)
          {
-          switch (v8->dword_000024)
+          switch (v8->uControlParam)
           {
                case 0: //New Game
                case 1: //Load Game
@@ -1754,7 +1754,7 @@ int __cdecl MenuLoop_Main()
       pD3DRenderer->Present();
     }
   }
-  sub_435748();
+  sub_435748_PlayerCreationUI_MessageProc();
   pD3DRenderer->BeginScene();
   sub_4156F0_LooksLike_UI_ProcessCallbacks();
   pD3DRenderer->EndScene();

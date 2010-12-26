@@ -2831,7 +2831,7 @@ __int16 __thiscall Player_sub_494A25(Player *_this, int a2, int a3)
   int v6; // esi@17
   int v7; // eax@20
 
-  LOWORD(v3) = *(_WORD *)(_this + 6812);
+  LOWORD(v3) = _this->uDefaultFaceID;
   v4 = a2;
   if ( (_WORD)v3 != 4 && (_WORD)v3 != 12 || a2 != 58 )
   {
@@ -3573,11 +3573,11 @@ int CreditsMenuLoop()
         SetCurrentMenu(MENU_MAIN);
       timeGetTime();
       pD3DRenderer->Present();
-      sub_435748();
+      sub_435748_PlayerCreationUI_MessageProc();
     }
   }
   while ( sub_466CA0() == 8 );
-  sub_435748();
+  sub_435748_PlayerCreationUI_MessageProc();
   pD3DRenderer->BeginScene();
   sub_4156F0_LooksLike_UI_ProcessCallbacks();
   pD3DRenderer->EndScene();

@@ -50,7 +50,7 @@ Result::Code VideoPlayer::BinkPlayMovie(unsigned int uOutX, unsigned int uOutY)
      DispatchMessageA(&msg);
     }
 
-    sub_435748();
+    sub_435748_PlayerCreationUI_MessageProc();
 
     if (bStopBeforeSchedule)
       break;
@@ -81,7 +81,7 @@ Result::Code VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
      TranslateMessage(&msg);
      DispatchMessageA(&msg);
     }
-    sub_435748();
+    sub_435748_PlayerCreationUI_MessageProc();
 
     if (bStopBeforeSchedule)
       break;

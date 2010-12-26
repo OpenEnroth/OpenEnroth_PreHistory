@@ -333,7 +333,7 @@ LABEL_150:
           return;
 
         AIL_init_sample(pFreeChannel->hSample);
-        AIL_set_sample_file(pFreeChannel->hSample, pSoundList->pSounds[uSoundIdx].pSoundData[a7] + 4 * (a7 == 0), -1);
+        AIL_set_sample_file(pFreeChannel->hSample, pSoundList->pSounds[uSoundIdx].pSoundData[a7] + (a7 ? 0 : 1), -1);
 
         if (uVolume)
           AIL_set_sample_volume(pFreeChannel->hSample, uVolume);
@@ -816,6 +816,17 @@ Result::Code AudioPlayer::PlayMusicTrack(unsigned int uTrackID)
   AIL_redbook_stop(hAILRedbook);
   AIL_redbook_track_info(hAILRedbook, uTrackID, &uTrackStartMS, &uTrackEndMS);
   AIL_redbook_play(hAILRedbook, uTrackStartMS + 1, uTrackEndMS);
+
+  return Result::Success;
+ }
+ return Result::Generic;
+}
+
+Result::Code AudioPlayer::StopMusic()
+{
+ if (bPlayerReady && hAILRedbook)
+ {
+  AIL_redbook_stop(hAILRedbook);
 
   return Result::Success;
  }

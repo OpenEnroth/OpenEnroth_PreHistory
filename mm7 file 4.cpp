@@ -3050,7 +3050,7 @@ void __cdecl sub_4356FF()
 }
 
 //----- (00435748) --------------------------------------------------------
-void __cdecl sub_435748()
+void __cdecl sub_435748_PlayerCreationUI_MessageProc()
 {
   int v0; // ebx@2
   int v1; // ebp@2
@@ -3111,6 +3111,46 @@ void __cdecl sub_435748()
     do
     {
       dword_50CBD0.GetQueueMessage(&v49, &v48, &v50);
+
+      if (v49 == 145) // button change voice (right)
+      {
+          Player               *pPlayer = &pParty_global->pPlayers[v48];
+          Character::Sex::Type  eOriginalSex = Player_GetSexByVoice(pPlayer);
+
+          do
+          {
+           pPlayer->dword_001920 = (pPlayer->dword_001920 + 1) % 20;
+           Player_GetSexByVoice(pPlayer);
+          }
+          while (Player_GetSexByVoice(pPlayer) != eOriginalSex);
+
+          GUIButton *pButton = pBtn_CharacterCreationUI_VoiceNext[v48];
+          GUIWindowCreate(pButton->uX, pButton->uY, 0, 0, 92, pButton, 1);
+
+          pAudioPlayer->sub_4AA306(66, 0, 0, -1, 0, 0, 0, 0);
+          Player_PlaySound(pPlayer, 102, 0);
+          continue;
+      }
+      else if (v49 == 144) // button change voice (left)
+      {
+          Player *pPlayer = &pParty_global->pPlayers[v48];
+            v50 = Player_GetSexByVoice(pPlayer);
+            do
+            {
+              pPlayer->dword_001920--;
+              if ( pPlayer->dword_001920 < 0 )
+                pPlayer->dword_001920 = 19;
+              v14 = Player_GetSexByVoice(pPlayer);
+            }
+            while ( v14 != v50 );
+            v12 = (int)pBtn_CharacterCreationUI_VoicePrev[v48];
+
+            GUIWindowCreate(*(_DWORD *)v12, *(_DWORD *)(v12 + 4), 0, 0, 92, (GUIButton*)v12, 1);
+            pAudioPlayer->sub_4AA306(66, 0, 0, -1, 0, 0, 0, 0);
+            Player_PlaySound(pPlayer, 102, 0);
+            continue;
+      }
+      else
       if ( v49 > 75 )
       {
         if ( v49 > 163 )
@@ -3384,38 +3424,7 @@ LABEL_40:
             ((AudioPlayer *)v1)->sub_4AA306(v33, v34, v35, v36, v38, v40, v42, v46);
             continue;
           }
-          if ( v49 == 144 ) // button change voice (left)
-          {
-            v10 = &pParty_global->pPlayers[v48];
-            v50 = Player_GetVoiceSex(v10);
-            do
-            {
-              v10->dword_001920--;
-              if ( v10->dword_001920 < 0 )
-                v10->dword_001920 = 19;
-              v14 = Player_GetVoiceSex(v10);
-            }
-            while ( v14 != v50 );
-            v12 = (int)array_A74C9C[v48];
-            goto LABEL_60;
-          }
-          if ( v49 == 145 ) // button change voice (right)
-          {
-            v10 = &pParty_global->pPlayers[v48];
-            v50 = Player_GetVoiceSex(v10);
-            do
-            {
-              v10->dword_001920 = (v10->dword_001920 + 1) % 20;
-              v11 = Player_GetVoiceSex(v10);
-            }
-            while ( v11 != v50 );
-            v12 = (int)array_A74C8C[v48];
-LABEL_60:
-            GUIWindowCreate(*(_DWORD *)v12, *(_DWORD *)(v12 + 4), 0, 0, 92, (GUIButton*)v12, 1);
-            ((AudioPlayer *)v1)->sub_4AA306(66, 0, 0, -1, 0, 0, 0, 0);
-            Player_PlaySound((Player *)v10, 102, 0);
-            continue;
-          }
+
           if ( v49 == 162 )
           {
             v7 = dword_6A0C9C-- - 1 < 0;

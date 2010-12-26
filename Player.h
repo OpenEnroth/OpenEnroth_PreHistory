@@ -14,7 +14,7 @@ namespace Character
 {
  namespace Sex
  {
-  enum
+  enum Type
   {
    Male = 0,
    Female = 1
@@ -295,6 +295,10 @@ struct Player
 };
 //sizeof == 1B3C
 
+
+Character::Sex::Type Player_GetSexByVoice(Player *_this);
+
+
 __int16 __thiscall Player_SetInitialStats(struct Player *_this);
 void Player_RandomizeName(struct Player *_this);
 
@@ -351,7 +355,6 @@ int Player_GetMaxHealth(struct Player *_this);
 int Player_GetMaxMana(struct Player *_this);
 
 int __thiscall Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2);
-signed int __thiscall Player_GetVoiceSex(struct Player *_this);
 
 bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime);
 

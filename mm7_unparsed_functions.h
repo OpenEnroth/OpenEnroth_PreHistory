@@ -340,7 +340,7 @@ void __cdecl sub_42FC4E_ProcessPressedKeys();
 void __thiscall sub_4355F7(int _this);
 int __thiscall Game_sub_435694(int _this, int a2);
 void __cdecl sub_4356FF();
-void __cdecl sub_435748();
+void __cdecl sub_435748_PlayerCreationUI_MessageProc();
 int loc_4363A2(); // weak
 void __thiscall sub_4363C6(void *_this);
 double __cdecl sub_436427();

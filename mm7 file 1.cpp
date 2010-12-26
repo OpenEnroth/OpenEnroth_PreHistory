@@ -221,8 +221,8 @@ LABEL_21:
           goto LABEL_68;
         if (uCurrentMenuID == MENU_NEWGAME)
         {
-          if ( pAudioPlayer->hAILRedbook )
-            AIL_redbook_stop(pAudioPlayer->hAILRedbook);
+         if (!bNoSound)
+           pAudioPlayer->StopMusic();
 
           Party_Reset(pParty_global);
 
@@ -5155,12 +5155,12 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   wchar_t pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
 
   wsprintfW(pWaterTileName, L"HDWTR%03u", i);
-  uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pWaterTileName);
+  uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(pWaterTileName);
 #else
   char pWaterTileName[16]; // [sp+10h] [bp-Ch]@9
 
   wsprintfA(pWaterTileName, "HDWTR%03u", i);
-  uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pWaterTileName,2);
+  uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture(pWaterTileName,2);
 #endif
   }
 
@@ -12202,7 +12202,7 @@ LABEL_1000:
           if ( *(_QWORD *)(v546 + 112) )
           {
             Player_sub_492D65((Player *)v546, 17, 1);
-            v550 = Player_GetVoiceSex((Player *)v546);
+            v550 = Player_GetSexByVoice((Player *)v546);
             sub_491DE7(*(_WORD *)(v2 + 4), (v550 != 0) + 23);
             *(_QWORD *)(v546 + 136) = pParty_global->qword_00002C;
           }

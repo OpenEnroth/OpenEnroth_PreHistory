@@ -2256,45 +2256,38 @@ LABEL_5:
 }
 
 //----- (00490141) --------------------------------------------------------
-signed int __thiscall Player_GetVoiceSex(struct Player *_this) 
+Character::Sex::Type Player_GetSexByVoice(Player *_this)
 {
-  signed int result; // eax@1
+ switch (_this->dword_001920)
+ {
+  case 0:
+  case 1:
+  case 2:
+  case 3:
+  case 8:
+  case 9:
+  case 0xC:
+  case 0xD:
+  case 0x10:
+  case 0x11:
+  case 0x14:
+  case 0x17:
+    return Character::Sex::Male;
 
-  result = 0;
-  switch ( _this->dword_001920 )
-  {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 8:
-    case 9:
-    case 0xC:
-    case 0xD:
-    case 0x10:
-    case 0x11:
-    case 0x14:
-    case 0x17:
-      result = 0;
-      break;
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 0xA:
-    case 0xB:
-    case 0xE:
-    case 0xF:
-    case 0x12:
-    case 0x13:
-    case 0x15:
-    case 0x18:
-      result = 1;
-      break;
-    default:
-      return result;
-  }
-  return result;
+  case 4:
+  case 5:
+  case 6:
+  case 7:
+  case 0xA:
+  case 0xB:
+  case 0xE:
+  case 0xF:
+  case 0x12:
+  case 0x13:
+  case 0x15:
+  case 0x18:
+    return Character::Sex::Female;
+ }
 }
 
 //----- (0048EAAE) --------------------------------------------------------

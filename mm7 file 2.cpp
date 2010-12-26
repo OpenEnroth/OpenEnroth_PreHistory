@@ -8078,7 +8078,7 @@ LABEL_50:
             dword_50CBD0[3 * dword_50CBD0[0] + 2] = v11;
             dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
           }	*/
-		  dword_50CBD0.PutMessageToQueue(i->dword_000020,i->dword_000024,0);
+		  dword_50CBD0.PutMessageToQueue(i->uControlID, i->uControlParam, 0);
           return;
         }
         continue;
@@ -8608,7 +8608,7 @@ void __cdecl sub_419220()
     dword_507CBC = 1;
     for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( pControl->dword_000020 == 120 )
+      if ( pControl->uControlID == 120 )
       {
         dword_50698C = pControl->uX;
         dword_506988 = pControl->uY;
@@ -8664,7 +8664,7 @@ void __cdecl sub_419379()
     dword_507B9C = 0;
     for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( pControl->dword_000020 == 120 )
+      if ( pControl->uControlID == 120 )
       {
         pControl->uX = dword_50698C;
         pControl->uY = dword_506988;
@@ -8706,7 +8706,7 @@ int __cdecl sub_419401()
   dword_507CC0 = uActiveCharacter;
   for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
   {
-    if ( pControl->dword_000020 == 120 )
+    if ( pControl->uControlID == 120 )
     {
       dword_50698C = pControl->uX;
       dword_506988 = pControl->uY;
@@ -8802,7 +8802,7 @@ void __cdecl sub_4196A0()
     }
     for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( pControl->dword_000020 == 120 )
+      if ( pControl->uControlID == 120 )
       {
         pControl->uX = dword_50698C;
         pControl->uY = dword_506988;
@@ -8840,14 +8840,14 @@ __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3)
 
   v3 = _this;
   v21 = (int)_this;
-  v22 = 1;
+  v22 = 0;
   do
   {
-    if (_this == pPlayers[v22 - 1])
+    if (_this == pPlayers[v22])
       break;
     ++v22;
   }
-  while ( v22 <= 4 );
+  while ( v22 < 4 );
 
   v4 = a2;
   v6 = 0;
@@ -8872,11 +8872,10 @@ __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3)
       if ( *(&byte_4ECEEF[25 * v11] + v10) )
       {
         v23 = rand() % (unsigned __int8)*(&byte_4ECEEF[25 * v11] + v10)
-            + 2 * (v11 + 50 * *(_DWORD *)(v21 + 6432))
-            + 4998;
+            + 2 * (v11 + 50 * *(_DWORD *)(v21 + 6432)) + 4998;
         v12 = 8 * v22 + 312;
         LOBYTE(v12) = v12 | 4;
-        pAudioPlayer->sub_4AA306(v23, v12, 0, -1, 0, 0, (signed __int64)(pSoundVolumeLevels[uVoicesVolumeMultiplier] * 128.0), 0);
+        pAudioPlayer->sub_4AA306(v23, v12, 0, -1, 0, 0, 128.0f * pSoundVolumeLevels[uVoicesVolumeMultiplier], 0);
       }
     }
   }

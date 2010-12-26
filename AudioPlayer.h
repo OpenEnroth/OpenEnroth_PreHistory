@@ -132,6 +132,7 @@ class AudioPlayer
  Result::Code SetMusicVolume(float fVolume);
 
  Result::Code PlayMusicTrack(unsigned int uTrackID);
+ Result::Code StopMusic();
 
  
  void sub_4AA306(int a2, signed int a3, unsigned int uNumRepeats, signed int a5, int a6, int a7, unsigned int uVolume = 0, int sPlaybackRate = 0);

@@ -147,7 +147,8 @@ class GUIWindow * GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
 struct GUIButton*  GUIButtonCreate(class GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1,  
+                                             int a6, int a7, unsigned int uControlID, unsigned int uControlParam,
+                                             unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1,  
 											 class cTexture* pButtnTexture2=NULL);	 //was multiparametr function!!
 
 void GUIWindowDelete(class GUIWindow *);

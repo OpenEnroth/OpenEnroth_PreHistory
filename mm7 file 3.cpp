@@ -2790,7 +2790,7 @@ char __thiscall sub_43ED6F(int a1)
   while ( 1 )
   {
     r = Player_GetRace(pPlayers[i]);
-    //Player_GetVoiceSex(pPlayers[i]);   // result not interested?
+    //Player_GetSexByVoice(pPlayers[i]);   // result not interested?
     if ( r != Character::Race::Human && r != Character::Race::Elf && r != Character::Race::Goblin )
       v5 = (a1 == 1);
     else
@@ -2817,7 +2817,7 @@ char __thiscall sub_43EDB9(int a1)
   while ( 1 )
   {
     r = Player_GetRace(pPlayers[i]);
-    sex = Player_GetVoiceSex(pPlayers[i]);
+    sex = Player_GetSexByVoice(pPlayers[i]);
     if ( r == Character::Race::Human || r == Character::Race::Elf || r == Character::Race::Goblin )
       break;
     if ( sex == Character::Sex::Male && a1 == 2 )
@@ -2959,7 +2959,7 @@ void __fastcall sub_43EF2B(int a1)
   {
     v4 = (int *)(4 * a1 + 10965188);
     v3 = Player_GetRace(pPlayers[a1]);
-    v2 = Player_GetVoiceSex((Player *)*v4);
+    v2 = Player_GetSexByVoice((Player *)*v4);
     if ( v3 && v3 != 1 && v3 != 2 )
       v5 = (v2 != 0) + 3;
     else
@@ -10995,7 +10995,7 @@ LABEL_22:
         *(_WORD *)(v5 + 6010) = 20;
       *(_WORD *)(v5 + 6018) = 200;
       *(_WORD *)(v5 + 6020) = 200;
-      v11 = Player_GetVoiceSex((Player *)v5);
+      v11 = Player_GetSexByVoice((Player *)v5);
       *(_DWORD *)(v5 + 6436) = *(_DWORD *)(v5 + 6432);
       *(_DWORD *)(v5 + 6440) = *(_BYTE *)(v5 + 186);
       if ( v11 )

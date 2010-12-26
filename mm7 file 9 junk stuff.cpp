@@ -2955,7 +2955,7 @@ signed int __cdecl sub_4CFD17(int a1)
      DispatchMessageA(&msg);
     }
 
-    sub_435748();
+    sub_435748_PlayerCreationUI_MessageProc();
     if (!pVideoPlayer->pBinkMovie)
       break;
 
@@ -2991,7 +2991,7 @@ signed int __cdecl sub_4CFD17(int a1)
      TranslateMessage(&msg);
      DispatchMessageA(&msg);
     }
-    sub_435748();
+    sub_435748_PlayerCreationUI_MessageProc();
 
     if (!pVideoPlayer->pSmackerMovie)
       break;

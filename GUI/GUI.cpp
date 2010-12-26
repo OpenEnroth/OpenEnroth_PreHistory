@@ -550,15 +550,15 @@ void GameUI_LoadIcons()
 
  for (i = 0; i < 14; ++i)
  {
-  #ifndef OLD_CODE
+#ifndef OLD_CODE
   wsprintfW(pFilepath, L"isn-%02d", i + 1);
-  uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilepath);
-#endif
-  #ifdef OLD_CODE
 
+  uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilepath);
+#else
   char pFilepath[16];
-   wsprintf(pFilepath, "isn-%02d", i + 1);
-   uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,2);
+  wsprintf(pFilepath, "isn-%02d", i + 1);
+
+  uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,2);
 #endif
  }
 
@@ -992,7 +992,7 @@ _mouse_is_on_UI:
              dword_506578 = 1;
              return;
             }
-            v38 = pControl->dword_000024;
+            v38 = pControl->uControlParam;
          /*   if ( dword_50CBD0.msg_count < 40 )
             {
 			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param1=v37;
@@ -1000,7 +1000,7 @@ _mouse_is_on_UI:
 			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
 			  dword_50CBD0.msg_count++;
             }  */
-			dword_50CBD0.PutMessageToQueue(pControl->dword_00001C,pControl->dword_000024,0);
+			dword_50CBD0.PutMessageToQueue(pControl->dword_00001C, pControl->uControlParam, 0);
             dword_506578 = 1;
             return;
           }
@@ -1027,7 +1027,7 @@ _mouse_is_on_UI:
 						  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
 						  dword_50CBD0.msg_count++;
 						}	*/
-				   dword_50CBD0.PutMessageToQueue(pControl->dword_00001C,pControl->dword_000024,0);
+				   dword_50CBD0.PutMessageToQueue(pControl->dword_00001C, pControl->uControlParam, 0);
                   }
               sub_41C0B8((char *)pControl->pButtonName);
               dword_506578 = 1;
@@ -1068,7 +1068,7 @@ LABEL_24:
 				  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
 				  dword_50CBD0.msg_count++;
 				}  */
-			  dword_50CBD0.PutMessageToQueue(pControl->dword_00001C,pControl->dword_000024,0);
+			  dword_50CBD0.PutMessageToQueue(pControl->dword_00001C, pControl->uControlParam, 0);
             }
 
             sub_41C0B8((char *)pControl->pButtonName);
@@ -1108,7 +1108,7 @@ LABEL_24:
             {
 LABEL_19:
               v6 = (int)pPlayers[uActiveCharacter - 1];
-              v7 = *(_BYTE *)(v6 + 2 * pControl->dword_000024 + 264);
+              v7 = *(_BYTE *)(v6 + 2 * pControl->uControlParam + 264);
               v4 = *(_DWORD *)(v6 + 6456);
               v5 = (v7 & 0x3F) + 1;
               if ( v4 < v5 )
@@ -4715,7 +4715,7 @@ void SetCurrentMenu(unsigned int uMenuID)
 struct GUIButton *GUIButtonCreate(GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey,
+                                             int a6, int a7, unsigned int uControlID, unsigned int uControlParam, unsigned int uHotkey,
 											 const unsigned char *pName,class cTexture* pButtnTexture1,
 											 class cTexture* pButtnTexture2)
 {
@@ -4734,8 +4734,8 @@ struct GUIButton *GUIButtonCreate(GUIWindow *pParentWindow,
  pButton->uW = uY + pParentWindow->uFrameY + uHeight - 1;
  pButton->dword_000018 = a6;
  pButton->dword_00001C = a7;
- pButton->dword_000020 = uControlID;
- pButton->dword_000024 = a9;
+ pButton->uControlID = uControlID;
+ pButton->uControlParam = uControlParam;
  pButton->dword_00002C = 0;
  pButton->pParentWindow = pParentWindow;
 
@@ -5303,15 +5303,15 @@ void __cdecl PlayerCreationUI_Initialize()
   array_A74CBC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 32, 11, 13, 1, 0, 172, 2, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
   array_A74CBC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 32, 11, 13, 1, 0, 172, 3, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
 
-  array_A74C9C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 103, 11, 13, 1, 0, 144, 0, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
-  array_A74C9C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 103, 11, 13, 1, 0, 144, 1, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
-  array_A74C9C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 103, 11, 13, 1, 0, 144, 2, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
-  array_A74C9C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 103, 11, 13, 1, 0, 144, 3, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
+  pBtn_CharacterCreationUI_VoicePrev[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 103, 11, 13, 1, 0, 144, 0, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
+  pBtn_CharacterCreationUI_VoicePrev[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 103, 11, 13, 1, 0, 144, 1, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
+  pBtn_CharacterCreationUI_VoicePrev[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 103, 11, 13, 1, 0, 144, 2, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
+  pBtn_CharacterCreationUI_VoicePrev[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 103, 11, 13, 1, 0, 144, 3, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft], 0);
 
-  array_A74C8C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 103, 11, 13, 1, 0, 145, 0, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
-  array_A74C8C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 103, 11, 13, 1, 0, 145, 1, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
-  array_A74C8C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 103, 11, 13, 1, 0, 145, 2, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
-  array_A74C8C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 103, 11, 13, 1, 0, 145, 3, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
+  pBtn_CharacterCreationUI_VoiceNext[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 103, 11, 13, 1, 0, 145, 0, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
+  pBtn_CharacterCreationUI_VoiceNext[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 103, 11, 13, 1, 0, 145, 1, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
+  pBtn_CharacterCreationUI_VoiceNext[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 103, 11, 13, 1, 0, 145, 2, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
+  pBtn_CharacterCreationUI_VoiceNext[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 103, 11, 13, 1, 0, 145, 3, 0, nullptr, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight], 0);
 
   v9 = 0;
   v14 = 8;
@@ -7185,7 +7185,7 @@ int CharacterUI_LoadPaperdollTextures()
     if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uPlayer) ) // underwater suits
     {
       v1 = Player_GetRace(pPlayers[uPlayer+1]);
-      v0 = Player_GetVoiceSex(pPlayers[uPlayer+1]);
+      v0 = Player_GetSexByVoice(pPlayers[uPlayer+1]);
       if ( v1 && v1 != 1 && v1 != 2 )
         uFace = (v0 != 0) + 3;
       else
@@ -7872,7 +7872,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
 
   LODFile_Icons_LOD.LODFile_LoadTexture("sptext01", 2);
   r = Player_GetRace(pPlayer);
-  sex = Player_GetVoiceSex(pPlayer);
+  sex = Player_GetSexByVoice(pPlayer);
   v5=0;
   if ( r != Character::Race::Human && r != Character::Race::Elf && r != Character::Race::Goblin )
   {
@@ -9579,11 +9579,11 @@ void __cdecl CharacterUI_SkillsTab_ShowHint()
    	curr_button=pGUIWindow_CurrentMenu->pControlsHead;
     while(curr_button)
 	 {
-      if ( (curr_button->dword_000020 == 121)&&( v5.x >= curr_button->uX )&& (v5.x <= curr_button->uZ )&&
+      if ( (curr_button->uControlID == 121)&&( v5.x >= curr_button->uX )&& (v5.x <= curr_button->uZ )&&
 		     ( v5.y>= curr_button->uY )&&( v5.y <=curr_button->uW ) )
       {
-             v3 = (const char *)sub_417BB5(uActiveCharacter-1, curr_button->dword_000024);
-              sub_4179BC(aSkillNames[curr_button->dword_000024], v3);//sub_4179BC((int)(&dword_AE32D0)[4 * *(_DWORD *)(i + 36)], v3);      
+             v3 = (const char *)sub_417BB5(uActiveCharacter - 1, curr_button->uControlParam);
+              sub_4179BC(aSkillNames[curr_button->uControlParam], v3);//sub_4179BC((int)(&dword_AE32D0)[4 * *(_DWORD *)(i + 36)], v3);      
       }
 	  curr_button=curr_button->pNext;
     }

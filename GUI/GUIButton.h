@@ -14,8 +14,8 @@ struct GUIButton
  unsigned int uW;      // dword @ 000014
  int dword_000018;
  int dword_00001C;
- int dword_000020;
- int dword_000024;
+ unsigned int uControlID;    // dword @ 000020
+ unsigned int uControlParam; // dword @ 000024
  int dword_000028;
  int dword_00002C;
  struct GUIButton *pPrev;         // ptr   @ 000030

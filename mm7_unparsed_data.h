@@ -286,8 +286,8 @@ extern char *off_4ECD68; // idb
 extern char *off_4ECDD0; // idb
 extern char *off_4ECE38; // idb
 extern char *off_4ECEA0; // idb
-extern char byte_4ECEEF[array_size_unknown]; // weak
-extern char byte_4ED3D8[856];
+extern char byte_4ECEEF[]; // weak
+extern char byte_4ED3D8[];
 extern char byte_4ED498; // weak
 //extern __int16 word_4ED746[array_size_unknown]; // this and next 4 or 5 words are X offsets of player portraits/selection frames i the bottom GameUI hud
 extern _WORD off_4ED748[]; // idb
@@ -2243,13 +2243,13 @@ extern struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //int dword_A74C78; // class35_obj::dword_267AE0
 extern int dword_A74C88; // weak
 
-extern struct GUIButton *array_A74C8C[4]; // ptr[4] @ MM7.exe::00A74C8C
+extern struct GUIButton *pBtn_CharacterCreationUI_VoiceNext[4]; // ptr[4] @ MM7.exe::00A74C8C
 //int dword_A74C8C[array_size_unknown]; // weak
 //int dword_A74C90; // weak
 //int dword_A74C94; // weak
 //int dword_A74C98; // weak
 
-extern struct GUIButton *array_A74C9C[4]; // ptr[4] @ MM7.exe::00A74C9C
+extern struct GUIButton *pBtn_CharacterCreationUI_VoicePrev[4]; // ptr[4] @ MM7.exe::00A74C9C
 //int dword_A74C9C[array_size_unknown]; // weak
 //int dword_A74CA0; // weak
 //int dword_A74CA4; // weak
