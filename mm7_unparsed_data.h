@@ -100,8 +100,8 @@ extern char byte_4E2B70[array_size_unknown]; // weak
 extern char byte_4E2BC8; // weak
 extern int dword_4E2BCC; // weak
 extern int dword_4E2BEC; // weak
-extern int dword_4E2C0C[array_size_unknown]; // weak
-extern int dword_4E2C2C[array_size_unknown]; // weak
+extern int dword_4E2C0C[]; // weak
+extern int dword_4E2C2C[]; // weak
 //_UNKNOWN unk_4E2D80; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30"
 //_UNKNOWN unk_4E2DC8; // "\x0C%05d" (this one looks like 16-bit color number)
 //_UNKNOWN unk_4E2DE8; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30 - "
@@ -1514,7 +1514,7 @@ extern struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4C90[array_size_unknown]; // weak
 //char byte_5E4CDA[array_size_unknown]; // weak
 //char byte_5E4CDB[array_size_unknown]; // weak
-extern _UNKNOWN unk_5E4D52; // weak
+//_UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak
@@ -1523,15 +1523,15 @@ extern unsigned short array_5E4D58[50][10];//[42][12];
 //extern int dword_5E5130[array_size_unknown]; // weak
 extern int dword_5E5144; // weak
 
-extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
+extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150   //14CC
 //__int16 word_5E5150[array_size_unknown]; // weak
 //char byte_5E5152[array_size_unknown]; // 000002
 //_UNKNOWN unk_5E5154; // 000004
 //int dword_5E5160; // 000010
 //int dword_5E5164; // 000014
 //_UNKNOWN unk_5E5168; // 000018
-//char byte_5E516D[array_size_unknown]; // weak
-//__int16 word_5E6502[array_size_unknown]; // 13B2
+//char byte_5E516D[array_size_unknown]; // 001D
+//__int16 word_5E6502[array_size_unknown]; // 13B2    [-1]
 //__int16 word_5E6504[array_size_unknown]; // 13B4
 extern unsigned int dword_5FF140; // idb
 
@@ -2218,11 +2218,15 @@ extern int dword_80AA1C; // weak
 extern int dword_80AA20; // weak
 extern unsigned int    uNumElementsIn80AA28; // dword        @ MM7.exe::0080AA24
 extern struct struct8 *array_80AA28[2000];   // dword[~2000] @ MM7.exe::0080AA28
-//struct Edge *ptr_80C978; // dword @ MM7.exe::0080C978   software redraw buffers
-//struct Surf *ptr_80C97C; // dword @ MM7.exe::0080C97C   software redraw buffers
-//struct Surf someSurf;  // struct @ MM7.exe::0080C980
-//struct Edge someEdge1; // struct @ MM7.exe::0080C9A4
-//struct Edge someEdge2; // struct @ MM7.exe::0080C9D8
+//struct Edge *pNewEdgesBuf; // dword @ MM7.exe::0080C968   global pool
+//struct Surf *pSurfsBuf;    // dword @ MM7.exe::0080C96C   global pool
+//struct Edge *pEdgesBuf;    // dword @ MM7.exe::0080C970   global pool
+//struct Span *pSpansBuf;    // dword @ MM7.exe::0080C974   global pool
+//struct Edge *ptr_80C978;   // dword @ MM7.exe::0080C978   software redraw buffers
+//struct Surf *ptr_80C97C;   // dword @ MM7.exe::0080C97C   software redraw buffers
+//struct Surf someSurf;      // struct @ MM7.exe::0080C980
+//struct Edge someEdge1;     // struct @ MM7.exe::0080C9A4
+//struct Edge someEdge2;     // struct @ MM7.exe::0080C9D8
 extern struct Edge *ptr_80CA10[];
 
 extern struct class35 class35_obj; // struct @ MM7.exe::0080D198

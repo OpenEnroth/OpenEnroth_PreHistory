@@ -98,8 +98,8 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_4E2BC8; // weak
  int dword_4E2BCC; // weak
  int dword_4E2BEC; // weak
- int dword_4E2C0C[array_size_unknown]; // weak
- int dword_4E2C2C[array_size_unknown]; // weak
+int dword_4E2C0C[8] = {9, 9, 9, 9, 9, 9, 9, 9}; // weak
+int dword_4E2C2C[8] = {9, 9, 9, 9, 9, 9, 9, 9}; // weak
  char byte_4E2FD4; // idb
  void *off_4E3044; // weak
  _UNKNOWN unk_4E3308; // weak
@@ -1563,10 +1563,6 @@ unsigned char *pPotionNotesTXT_Raw = 0;      // dword     @ MM7.exe::005E4C84
 unsigned char *pHistoryTXT_Raw = 0;          // dword     @ MM7.exe::005E4C88
 
 struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
-//char byte_5E4C90[array_size_unknown]; // weak
-//char byte_5E4CDA[array_size_unknown]; // weak
-//char byte_5E4CDB[array_size_unknown]; // weak
-_UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak	 
@@ -1577,8 +1573,8 @@ unsigned short array_5E4D58[50][10];  // [42][12];
  //int dword_5E5130[array_size_unknown]; // weak
  int dword_5E5144; // weak
 
-struct struct3                 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
-unsigned int dword_5FF140; // idb
+struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
+unsigned int   dword_5FF140; // idb
 
 int                            chest_descriptor[2];   //struct @ MM7.exe::005FF144
 struct MonsterDescriptionList *pMonsterDescriptionList = 0; // struct @ MM7.exe::05FF14C
@@ -1937,12 +1933,6 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
  _UNKNOWN unk_73C834[array_size_unknown]; // weak
  char byte_73C84C; // weak
 
-/*
-unsigned int uNumTerrainNormals; // dword @ MM7.exe::0073D510
- _UNKNOWN unk_73D514[0x20000]; // weak
-unsigned short uTerrainNormalIndices[128 * 128 * 2]; // word[32768] @ MM7.exe::0075D514
-
-struct Normal *pTerrainNormals = 0;         // ptr @ MM7.exe::0076D514*/
 
  int dword_76D518; // weak
  int dword_76D51C; // weak
@@ -1975,11 +1965,8 @@ struct Normal *pTerrainNormals = 0;         // ptr @ MM7.exe::0076D514*/
  char byte_76D5C0; // weak
 
  int dword_76D5C8[128]; // weak
-
  int dword_76D7C8[128]; // weak
-
  int dword_76D9C8[128]; // weak
-
  int dword_76DBC8[128]; // weak
 
 int dword_76DDC8[128]; // dword[128] @ MM7.exe::0076DDC8

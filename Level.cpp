@@ -313,7 +313,7 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  /*if ( !_this->Load(Source, File, a4, a5) )
    {
     MessageBoxA(0, "Error!", "Couldn't Load Map!", 0);
-    class51_sub_47CDE2((int)_this);
+    class51_CreateDefaultMap((int)_this);
     }*/	
 
 
@@ -1591,4 +1591,82 @@ Result::Code OutdoorLocation::TerrainData::Reset()
  v2[6] = (void *)127;
  
  return Result::Success;
+}
+
+
+
+//----- (004893C1) --------------------------------------------------------
+void __cdecl class51_sub_4893C1(struct OutdoorLocation *_this)
+{
+ _this->flt_01C284 = sub_488E23();
+}
+
+
+
+//----- (0047CDE2) --------------------------------------------------------
+int __thiscall class51_CreateDefaultMap(int Dest)
+{
+  int result; // eax@1
+  int v2; // esi@1
+  int v3; // eax@1
+  int v4; // ST14_4@1
+  int v5; // eax@1
+  int v6; // ST14_4@1
+  int v7; // eax@1
+  char v8; // zf@1
+
+  v2 = Dest;
+  strcpy((char *)Dest, "blank");
+  strcpy((char *)(v2 + 32), "i6.odm");
+  strcpy((char *)(v2 + 64), "MM6 Outdoor v1.00");
+  *(_DWORD *)(v2 + 176) = 0;
+  *(_WORD *)(v2 + 160) = 0;
+  *(_WORD *)(v2 + 164) = 5;
+  *(_WORD *)(v2 + 168) = 6;
+  *(_WORD *)(v2 + 172) = 10;
+  class51_sub_47F420((OutdoorLocation *)v2);
+  class51_sub_47F3EA((OutdoorLocation *)v2);
+  //MemFree( (void *)*(_DWORD *)(v2 + 216));
+  //MemFree( (void *)*(_DWORD *)(v2 + 1220));
+  MemFree(*(_DWORD **)(v2 + 216));
+  MemFree(*(_DWORD **)(v2 + 1220));
+  *(_DWORD *)(v2 + 216) = 0;
+  *(_DWORD *)(v2 + 1220) = 0;
+  //class51_InitializeGeodata((OutdoorLocation::TerrainData *)(v2 + 180));
+  //(TerrainData::Reset)((void **)(v2 + 180));
+  //(TerrainData::sub_47C80A)((OutdoorLocation::TerrainData *)(v2 + 180), 0, 0, 128, 128);
+  //MemFree( (void *)*(_DWORD *)(v2 + 212));
+  MemFree(*(_DWORD **)(v2 + 212));
+  *(_DWORD *)(v2 + 212) = 0;
+  //v3 = (int)mem_mng.AllocatedNamedBuffer( 0, 32768, "CMAP");
+  v3 = (int)NamedMemAlloc(char, 32768, "CMAP");
+  v4 = *(_DWORD *)(v2 + 228);
+  *(_DWORD *)(v2 + 212) = v3;
+  //MemFree( (void *)v4);
+  MemFree((void *)v4);
+  *(_DWORD *)(v2 + 228) = 0;
+  //v5 = (int)mem_mng.AllocatedNamedBuffer( 0, 65536, "OMAP");
+  v5 = (int)NamedMemAlloc(char, 65536, "OMAP");
+  *(_DWORD *)(v2 + 228) = v5;
+  memset((void *)v5, 0, 0x10000u);
+  v6 = *(_DWORD *)(v2 + 224);
+  *(_DWORD *)(v2 + 220) = 0;
+  //MemFree( (void *)v6);
+  MemFree((void *)v6);
+  *(_DWORD *)(v2 + 224) = 0;
+  //v7 = (int)mem_mng.AllocatedNamedBuffer( 0, 2, "IDLIST");
+  v7 = (int)NamedMemAlloc(char, 2, "IDLIST");
+  *(_DWORD *)(v2 + 224) = v7;
+  *(_WORD *)v7 = 0;
+  strcpy((char *)(v2 + 96), byte_6BE114_cfg_textures_DefaultSkyTexture);
+  *(_DWORD *)(v2 + 232) = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)(v2 + 96), 2);
+  strcpy((char *)(v2 + 128), byte_6BE124_cfg_textures_DefaultGroundTexture);
+  result = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)(v2 + 128), 0);
+  v8 = *(_DWORD *)(v2 + 232) == -1;
+  *(_DWORD *)(v2 + 236) = result;
+  if ( v8 )
+    erroneous_printf("Invalid Sky Tex Handle");
+  if ( *(_DWORD *)(v2 + 236) == -1 )
+    erroneous_printf("Invalid Ground Tex Handle");
+  return result;
 }

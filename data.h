@@ -206,14 +206,6 @@ extern unsigned char pStringBuffer[];
 //extern unsigned char cGameCDDriveLetter;
 extern wchar_t cGameCDDriveLetter;
 
-
-extern struct Edge *pNewEdgesBuf;
-extern struct Surf *pSurfsBuf;
-extern struct Edge *pEdgesBuf;
-extern struct Span *pSpansBuf;
-
-
-
 extern unsigned int uTextureID_PlayerCreationUI_BtnLeft;
 extern unsigned int uTextureID_PlayerCreationUI_BtnRight;
 extern unsigned int uTextureID_PlayerCreationUI_BtnMinus;

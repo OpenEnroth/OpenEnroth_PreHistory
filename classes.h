@@ -851,8 +851,8 @@ struct struct3
 {
  short          word_000000;
  short          word_000002;
- struct ItemGen array_000004[array_size_unknown];
- char           byte_000028[5320 - array_size_unknown * sizeof(struct ItemGen)];
+ struct ItemGen array_000004[140];
+ short			array_13B4[140];
 };
 //sizeof == 14CC
 

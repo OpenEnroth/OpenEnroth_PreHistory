@@ -3101,7 +3101,7 @@ bool LoadLevel(OutdoorLocation *_this, const char *Source, int File, signed int 
     if ( !_this->Load(Source, File, a4, a5) )
     {
       MessageBoxA(0, "Error!", "Couldn't Load Map!", 0);
-      class51_sub_47CDE2((int)_this);
+      class51_CreateDefaultMap((int)_this);
     }
     dword_6BE030 = _this->array_0004F0[5];
     dword_6BE040 = _this->array_0004F0[6];

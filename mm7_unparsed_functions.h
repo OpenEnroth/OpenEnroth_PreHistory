@@ -783,7 +783,6 @@ int __fastcall sub_47C3D7(int a1, int a2, float a3);
 signed int __fastcall sub_47C4FC_GetActorTintColor(int a1, int a2, float a3, int a4, int a5);
 int __thiscall sub_47C794(int _this);
 signed int __stdcall sub_47CB57(int a1, int a2, int a3);
-int __thiscall class51_sub_47CDE2(int Dest);
 signed int __thiscall sub_47ECC1(int _this, signed int a2);
 int __thiscall sub_47ED83(int _this, signed int a2, signed int a3);
 int __thiscall class51_sub_47EE49(int _this, signed int a2, signed int a3, int a4);

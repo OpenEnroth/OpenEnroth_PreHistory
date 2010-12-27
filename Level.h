@@ -219,6 +219,7 @@ int class51_sub_488EB1_GetSomeOtherTileInfo(OutdoorLocation *_this, int sX, int 
 int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsigned int uX, unsigned int uY);
 
 
+int __thiscall class51_CreateDefaultMap(int Dest);
 
 
 

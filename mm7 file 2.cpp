@@ -7611,9 +7611,10 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
       v9 = v38 + dword_5059A8[v39];
       if ( !(pD3DRenderer->pActiveZBuffer[v9] & 0xFFFF) )
         goto LABEL_132;
+      runtime_warning(Gloval);
       //v8 = (char *)&dword_5E5130[1331 * *(_DWORD *)(dword_507BB8 + 28)] +
         //36 * word_5E6502[(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v9) & 0xFFFF) + 2662 * *(_DWORD *)(dword_507BB8 + 28)];
-         // 36 * ((short *)((char *)&array_5E5150[*(_DWORD *)(dword_507BB8 + 28)] + 0x13B2))[(pD3DRenderer->pActiveZBuffer[v9] & 0xFFFF)];
+         // 36 * ((short *)((char *)&array_5E5150[*(_DWORD *)(dword_507BB8 + 28)] + 0x13B2))[(pD3DRenderer->pActiveZBuffer[v9] & 0xFFFF)];array_13B4[indx-1]
 
 
           
@@ -12126,7 +12127,8 @@ LABEL_8:
       while ( v21-- != 1 );
     }
     //word_5E6504[v22 + 2662 * a3] = v19 + 1;
-    ((short *)((char *)&array_5E5150[a3] + 0x13B4))[v22] = v19 + 1;
+    //((short *)((char *)&array_5E5150[a3] + 0x13B4))[v22] = v19 + 1;
+    array_5E5150[a3].array_13B4[v22] = v19 + 1;
 
     memcpy(&array_5E5150[a3].array_000004[v19], v18, sizeof(struct ItemGen));
     result = v22 + 1;
@@ -12223,7 +12225,8 @@ int __fastcall sub_42013E(int a1, int a2, int a3)
   }
   result = v22 + 2662 * a3;
   //word_5E6504[result] = v19 + 1;
-    ((short *)((char *)&array_5E5150[a3] + 0x13B4))[v22] = v19 + 1;
+    //((short *)((char *)&array_5E5150[a3] + 0x13B4))[v22] = v19 + 1;
+   array_5E5150[a3].array_13B4[v22] = v19 + 1;
   return result;
 }
 
@@ -12575,14 +12578,14 @@ void __fastcall sub_42092D(int a1)
   signed int v18; // [sp+18h] [bp-1Ch]@1
   int v19; // [sp+1Ch] [bp-18h]@1
   signed int v20; // [sp+20h] [bp-14h]@1
-  char *v21; // [sp+2Ch] [bp-8h]@2
+  short v21; // [sp+2Ch] [bp-8h]@2
   signed int v22; // [sp+30h] [bp-4h]@1
 
   v2 = (int)pD3DRenderer;
   v3 = a1;
   v16 = (int)pD3DRenderer->pActiveZBuffer;
   Render_ClearZBuffer(pD3DRenderer, 0, 479);
-  v1 = 5324 * v3;
+  //v1 = 5324 * v3;
   v4 = 4 * *(__int16 *)((char *)array_5E5150 + v1);
   v19 = *(int *)((char *)&dword_4E2BCC + v4);
   v17 = *(int *)((char *)&dword_4E2BEC + v4);
@@ -12595,10 +12598,12 @@ void __fastcall sub_42092D(int a1)
   if ( v20 * v18 > 0 )
   {
     //v21 = (char *)word_5E6504 + v1;
-    v21 = (char *)&array_5E5150[v3] + 0x13B4;
+    //v21 = (char *)&array_5E5150[v3] + 0x13B4;
+    v21 = array_5E5150[v1].array_13B4[v3];
     do
     {
-      v6 = *(_WORD *)v21;
+      //v6 = *(_WORD *)v21;
+      v6 = v21;
       if ( v6 > 0 )
       {
         v11 =-1;// LODFile_Icons_LOD.LODFile_LoadTexture(  temporaly 
@@ -12842,10 +12847,10 @@ void __cdecl sub_420E01()
   POINT v8; // [sp+84h] [bp-8h]@2
 
   sub_404828(&v6);
-  v0 = *(_DWORD *)(pGUIWindow_CurrentMenu + 28);
+  v0 = pGUIWindow_CurrentMenu->dword_00001C;
   if (pParty_global->pickedItem.uItemID)
   {
-    if ( sub_41FFA2(-1, &pParty_global->pickedItem, *(_DWORD *)(pGUIWindow_CurrentMenu + 28)) )
+    if ( sub_41FFA2(-1, &pParty_global->pickedItem, pGUIWindow_CurrentMenu->dword_00001C) )
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
   }
   else
@@ -12860,7 +12865,8 @@ void __cdecl sub_420E01()
       else
         v3 = -1;
       //v5 = word_5E6504[v3 + 2662 * v0] - 1;
-      v5 = ((short *)((char *)&array_5E5150[v0] + 0x13B4))[v3] - 1;
+      //v5 = ((short *)((char *)&array_5E5150[v0] + 0x13B4))[v3] - 1;
+      v5 = array_5E5150[v0].array_13B4[v3] - 1;
 
       v4 = 5324 * v0 + 36 * v5;
       //if ( byte_5D2A00[48 * *(_DWORD *)((char *)&unk_5E5154 + v4)] == 18 )
