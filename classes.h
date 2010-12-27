@@ -1016,7 +1016,7 @@ struct struct9
  int          shading_dist_shade;     // dword @ 000004
  int          shading_dist_shademist; // dword @ 000008
  int          shading_dist_mist;      // dword @ 00000C
- int          dword_000010;
+ int          dword_000010;		//render dist?
  int          dword_000014;
  int          dword_000018;
  int          camera_rotation_y_int_sine;   // dword @ 00001C  integer sine   65536*sin(OldCamera->rot_y)
@@ -1030,7 +1030,7 @@ struct struct9
  int          dword_00003C;
  int          dword_000040;
  int          dword_000044;
- int          dword_000048;
+ int          dword_000048;	   //fov?
  int          dword_00004C;
  int          dword_000050;
  int          dword_000054;

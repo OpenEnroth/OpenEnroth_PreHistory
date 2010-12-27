@@ -2163,14 +2163,16 @@ extern _UNKNOWN unk_76D578; // weak
 extern _UNKNOWN unk_76D590; // weak
 extern _UNKNOWN unk_76D5A8; // weak
 extern char byte_76D5C0; // weak
-extern int dword_76D5C8[12*array_size_unknown]; // weak
-extern int dword_76D7C8[12*array_size_unknown]; // weak
-extern int dword_76D9C8[12*array_size_unknown]; // weak
-extern int dword_76DBC8[12*array_size_unknown]; // weak
+
+extern int dword_76D5C8[]; // weak
+extern int dword_76D7C8[]; // weak
+extern int dword_76D9C8[]; // weak
+extern int dword_76DBC8[]; // weak
 extern int dword_76DDC8[];
 extern int dword_76DFC8[];
 extern int dword_76E1C8[];
 extern int dword_76E3C8[];
+
 extern _BYTE byte_76E5C8[]; // idb
 
 extern struct RenderVertexD3D3 pVertices[50];  // struct[50] @ MM7.exe::0077E5C8

@@ -1973,11 +1973,16 @@ struct Normal *pTerrainNormals = 0;         // ptr @ MM7.exe::0076D514*/
  _UNKNOWN unk_76D578; // weak
  _UNKNOWN unk_76D590; // weak
  _UNKNOWN unk_76D5A8; // weak
+
  char byte_76D5C0; // weak
- int dword_76D5C8[12*array_size_unknown]; // weak
- int dword_76D7C8[12*array_size_unknown]; // weak
- int dword_76D9C8[12*array_size_unknown]; // weak
- int dword_76DBC8[12*array_size_unknown]; // weak
+
+ int dword_76D5C8[128]; // weak
+
+ int dword_76D7C8[128]; // weak
+
+ int dword_76D9C8[128]; // weak
+
+ int dword_76DBC8[128]; // weak
 
 int dword_76DDC8[128]; // dword[128] @ MM7.exe::0076DDC8
 int dword_76DFC8[128]; // dword[128] @ MM7.exe::0076DFC8
