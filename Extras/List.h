@@ -74,16 +74,19 @@ template<typename type>
   Node *pNewTail = &pNodePool[uFreePoolSlot];
   if (!pHead)
   {
-   pHead = pTail = pNewTail;
+   pHead = pNewTail;
    pNewTail->pData = pElement;
+
+   pTail = pNewTail;
+   pTail->pNext = 0;
   }
   else
   {
    pNewTail->pData = pElement;
-  }
 
-  pTail->pNext = pNewTail;
-  pTail = pNewTail;
+   pTail->pNext = pNewTail;
+   pTail = pNewTail;
+  }
 
   return Result::Success;
  }

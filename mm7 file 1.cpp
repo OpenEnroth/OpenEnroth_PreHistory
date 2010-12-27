@@ -18,10 +18,6 @@
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUICursor.h"
-#include "GUI\GUIFont.h"
-#include "GUI\GUIProgressBar.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"
@@ -13315,8 +13311,10 @@ void __cdecl sub_461103()
   runtime_warning(Random item generation? randomly crashes);
   sub_450218();
 
-  v0 = pLoadingUI;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+  v0 = pGameLoadingUI_ProgressBar;
+
+  runtime_warning();
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   pParty_global->dword_007778 |= 2;
   byte_ACD76D = 0;
   dword_5C6DF8 = 1;
@@ -13356,7 +13354,8 @@ void __cdecl sub_461103()
 LABEL_12:
       pActors[i].word_000020 = 0;
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+  runtime_warning();
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
 
 
@@ -13383,7 +13382,8 @@ LABEL_12:
           break;
       }
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+  runtime_warning();
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
 
 
@@ -13762,8 +13762,9 @@ void __fastcall PrepareToLoadODM(int a1, bool a2)
   int v2; // edi@1
 
   v2 = a1;
-  LevelLoadingUI_Reset(pLoadingUI, 27);
-  sub_4A9D79(pSoundList, 0);
+
+
+  SoundList_sub_4A9D79(pSoundList, false);
   dword_6BE360 = 2;
   sub_47A384(CurrentLevelName, &a2);
   if ( !v2 )

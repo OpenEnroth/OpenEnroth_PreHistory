@@ -1294,7 +1294,7 @@ LABEL_16:
 
 
 //----- (004A9D79) --------------------------------------------------------
-void sub_4A9D79(SoundList *_this, int a2)
+void SoundList_sub_4A9D79(SoundList *_this, bool a2)
 {
   int i; // ebx@1
   int v3; // edi@1
@@ -1305,25 +1305,44 @@ void sub_4A9D79(SoundList *_this, int a2)
 
   v4 = _this;
   v3 = 0;
-  for ( i = 0; i < *(_DWORD *)v4; v3 += 120 )
+  for ( i = 0; i < _this->uNumSounds; ++i, v3 += 120 )
   {
-    v5 = v3 + *((_DWORD *)v4 + 1);
-    v6 = *(_DWORD *)(v5 + 36);
+    v5 = (int)&_this->pSounds[i];
+    v6 = _this->pSounds[i].dword_000024;
     if ( v6 != 1 )
     {
       if ( a2 || v6 != 4 )
       {
-        v7 = *(void **)(v5 + 44);
+        v7 = _this->pSounds[i].pSoundData[0];
         if ( v7 )
         {
           sub_4A96BE(v7);
-          *(_DWORD *)(v3 + *((_DWORD *)v4 + 1) + 44) = 0;
+          _this->pSounds[i].pSoundData[0] = nullptr;
         }
-        *(_DWORD *)(v3 + *((_DWORD *)v4 + 1) + 40) &= 0xFFFFFFFEu;
+        _this->pSounds[i].dword_000028 &= 0xFFFFFFFEu;
       }
     }
-    ++i;
   }
+}
+
+//----- (004A96BE) --------------------------------------------------------
+void *__thiscall sub_4A96BE(void *_this)
+{
+  void *result; // eax@1
+  int v2; // esi@1
+
+  v2 = 0;
+  result = &struct_F1B4D8[0].pSoundData;
+  while ( *(void **)result != _this )
+  {
+    result = (char *)result + 128;
+    ++v2;
+    if ( (signed int)result >= (signed int)&unk_F79154 )
+      return result;
+  }
+  //MemFree( (void *)(int)_this);
+  MemFree(_this);
+  return memset(&struct_F1B4D8[v2], 0, sizeof(struct unnamed_F1B4D8));
 }
 
 

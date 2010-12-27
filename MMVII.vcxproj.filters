@@ -206,6 +206,7 @@
     <ClCompile Include="RenderSoftware.cpp" />
     <ClCompile Include="tiles.cpp" />
     <ClCompile Include="Events..cpp" />
+    <ClCompile Include="Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -432,6 +433,7 @@
     <ClInclude Include="BaseRender.h" />
     <ClInclude Include="tiles.h" />
     <ClInclude Include="Events.h" />
+    <ClInclude Include="Thread.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

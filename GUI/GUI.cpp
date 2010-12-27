@@ -7,7 +7,6 @@
 #include "GUICursor.h"
 #include "GUIFont.h"
 #include "GUIProgressBar.h"
-#include "GUIWindow.h"
 
 #include "..\Game.h"
 
@@ -2837,7 +2836,7 @@ LABEL_92:
             if ( *dword_591164 != 48 )
             {
              compile_error();
-                //pLevelLoadingUI->uProgressBarType = 2;
+                //pGameLoadingUI_ProgressBar->uProgressBarType = 2;
               dword_5B65C0 = dword_5B65A8 | dword_5B65AC | dword_5B65B0 | dword_5B65B4 | dword_5B65B8 | v49;
               sub_443F95();
               sub_44987B(dword_591164, 0);
@@ -2899,11 +2898,11 @@ LABEL_317:
             cClock1.clock_fn1();
 
             compile_error(0);
-            //LevelLoadingUI_Initialize(pLevelLoadingUI, 2);
-            //++pLevelLoadingUI->uProgressMax;
+            //LevelLoadingUI_Initialize(pGameLoadingUI_ProgressBar, 2);
+            //++pGameLoadingUI_ProgressBar->uProgressMax;
             SaveGame(1, 0);
             compile_error();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
             sub_4B1BDB(1440 * v211);
             if ( pParty_global->uNumFood )
             {
@@ -2964,7 +2963,7 @@ LABEL_317:
             dword_4E28F8_PartyCantJumpIfTrue = 0;
 
             compile_error();
-            //LevelLoadingUI_Release(pLevelLoadingUI);
+            //LevelLoadingUI_Release(pGameLoadingUI_ProgressBar);
           }
           goto LABEL_422;
         case 0x5B:

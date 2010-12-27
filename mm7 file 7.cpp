@@ -8,10 +8,6 @@
 #include "UserInput.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUIButton.h"
-#include "GUI\GUICursor.h"
-#include "GUI\GUIFont.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"

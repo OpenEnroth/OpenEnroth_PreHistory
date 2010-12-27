@@ -11,8 +11,6 @@
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUIFont.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"
@@ -5104,20 +5102,20 @@ LABEL_50:
   *(_DWORD *)(v6 + 80) = 1;
   memcpy((void *)v230, (const void *)v231, v232);
   v99 = (const void *)(v94 + 136);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 624), v99, 4u);
   v99 = (char *)v99 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 6 * *(_DWORD *)(v6 + 624);
   v233 = (int)v99;
   v232 = *(_DWORD *)(v6 + 628);
   v283 = v234;
   memcpy((void *)v232, v99, v234);
   v100 = (char *)v99 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 632), v100, 4u);
   v100 = (char *)v100 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 96 * *(_DWORD *)(v6 + 632);
   v233 = (int)v100;
   v232 = *(_DWORD *)(v6 + 636);
@@ -5210,10 +5208,10 @@ LABEL_50:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 640), v98, 4u);
   v123 = (char *)v98 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 36 * *(_DWORD *)(v6 + 640);
   v233 = (int)v123;
   v232 = *(_DWORD *)(v6 + 644);
@@ -5260,10 +5258,10 @@ LABEL_50:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 648), v122, 4u);
   v132 = (char *)v122 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 116 * *(_DWORD *)(v6 + 648);
   v233 = (int)v132;
   v232 = *(_DWORD *)(v6 + 652);
@@ -5341,7 +5339,7 @@ LABEL_50:
   v283 = v153;
   memcpy((void *)v152, v131, v153);
   v151 = (char *)v131 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v154 = *(_DWORD *)(v6 + 648) == 0;
   v155 = *(_DWORD *)(v6 + 648) < 0;
   Src = 0;
@@ -5362,13 +5360,13 @@ LABEL_50:
         break;
     }
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 664), v151, 4u);
   v160 = (char *)v151 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy(&uNumLevelDecorations, v160, 4u);
   v160 = (char *)v160 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v283 = 32 * uNumLevelDecorations;
   memcpy(word_6836D0, v160, 32 * uNumLevelDecorations);
   v159 = (char *)v160 + v283;
@@ -5388,30 +5386,30 @@ LABEL_50:
     }
     while ( v283 < (signed int)uNumLevelDecorations );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 656), v159, 4u);
   v163 = (char *)v159 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 16 * *(_DWORD *)(v6 + 656);
   v233 = (int)v163;
   v232 = *(_DWORD *)(v6 + 660);
   v283 = v234;
   memcpy((void *)v232, v163, v234);
   v164 = (char *)v163 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 672), v164, 4u);
   v164 = (char *)v164 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 8 * *(_DWORD *)(v6 + 672);
   v233 = (int)v164;
   v232 = *(_DWORD *)(v6 + 676);
   v283 = v234;
   memcpy((void *)v232, v164, v234);
   v165 = (char *)v164 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 700), v165, 4u);
   v165 = (char *)v165 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v166 = *(_DWORD *)(v6 + 700);
   v234 = (int)"Spawn";
   v233 = 24 * v166;
@@ -5422,7 +5420,7 @@ LABEL_50:
   v283 = 24 * v168;
   memcpy((void *)v167, v165, 24 * v168);
   v169 = (int)((char *)v165 + v283);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 4;
   v233 = v169;
   v232 = *(_DWORD *)(v6 + 680);
@@ -5593,7 +5591,7 @@ LABEL_140:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v188 = 0;
   if ( (signed int)uNumLevelDecorations > 0 )
   {
@@ -5607,17 +5605,17 @@ LABEL_140:
     }
     while ( v188 < (signed int)uNumLevelDecorations );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy(&uNumActors, Src, 4u);
   Src = (char *)Src + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v189 = 836 * uNumActors;
   memcpy(pActors, Src, 836 * uNumActors);
   Src = (char *)Src + v189;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy(&::Count, Src, 4u);
   Src = (char *)Src + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v190 = 112 * ::Count;
   memcpy(pLayingItemsList, Src, 112 * ::Count);
   Src = (char *)Src + v190;
@@ -5656,14 +5654,14 @@ LABEL_165:
     }
     while ( i-- != 1 );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy(&dword_5FF140, Src, 4u);
   Src = (char *)Src + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v197 = 5324 * dword_5FF140;
   memcpy(array_5E5150, Src, 5324 * dword_5FF140);
   Src = (char *)Src + v197;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 16000;
   v233 = (int)Src;
   v232 = *(_DWORD *)(v6 + 668);
@@ -5746,10 +5744,10 @@ LABEL_165:
     }
     while ( v283 < *(_DWORD *)(v6 + 664) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v227 = Src;
   memcpy(byte_5E4C90, Src, 0xC8u);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v228 = (int)memcpy((void *)(v6 + 748), (char *)v227 + 200, 0x38u);
   free(v228, (unsigned int)File);
   v5 = 0;
@@ -13445,26 +13443,6 @@ int __thiscall sub_4A8BFC(void *_this)
 
   *((_DWORD *)v2 + 373) = result;
   return result;
-}
-
-//----- (004A96BE) --------------------------------------------------------
-void *__thiscall sub_4A96BE(void *_this)
-{
-  void *result; // eax@1
-  int v2; // esi@1
-
-  v2 = 0;
-  result = &struct_F1B4D8[0].pSoundData;
-  while ( *(void **)result != _this )
-  {
-    result = (char *)result + 128;
-    ++v2;
-    if ( (signed int)result >= (signed int)&unk_F79154 )
-      return result;
-  }
-  //MemFree( (void *)(int)_this);
-  MemFree(_this);
-  return memset(&struct_F1B4D8[v2], 0, sizeof(struct unnamed_F1B4D8));
 }
 
 

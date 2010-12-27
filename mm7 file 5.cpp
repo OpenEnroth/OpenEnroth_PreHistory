@@ -12,8 +12,6 @@
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUICursor.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"

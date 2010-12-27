@@ -18,7 +18,6 @@ struct SoundDesc
  unsigned int uSoundID; // dword @ 000020
  int  dword_000024;
  int  dword_000028;
- //unsigned int *pSoundData; // dword @ 00002C
  unsigned int *pSoundData[19]; // dword[?] @ 00002C   blocks of memory; first int of rist block == size of following raw data
 };
 //sizeof == 78
@@ -43,8 +42,8 @@ struct SoundList
 
 //int __thiscall sub_4A9E3D(void *Str)
 int CSoundList_SaveToBIN(SoundList *_this);
-//void __thiscall sub_4A9D79(void *_this, int a2)
-void sub_4A9D79(SoundList *_this, int a2);
+//void __thiscall SoundList_sub_4A9D79(void *_this, int a2)
+void SoundList_sub_4A9D79(SoundList *_this, bool a2);
 //int __thiscall sub_4A9A67(void *_this, int a2, int a3);
 int sub_4A9A67(SoundList *_this, int a2, int a3);
 

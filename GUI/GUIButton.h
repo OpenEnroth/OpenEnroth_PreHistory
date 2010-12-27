@@ -1,6 +1,4 @@
 #pragma once
-#pragma pack(push, 1)
-
 
 
 
@@ -57,8 +55,3 @@ struct GUIButton
  int dword_0000B8; */
 };
 //sizeof == BC
-
-
-
-
-#pragma pack(pop)

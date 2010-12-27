@@ -10,7 +10,12 @@ class GUIImage: public GUIControl
 
    virtual Result::Code Initialize(const Rect<float> *pImageRect, const wchar_t *pTexture);
 
+
+
+   // Event handlers override
+   virtual Result::Code OnDraw(float dt);
+
+
  protected:
-   Rect<float>     cImageRect;
    class cTexture *pImageTexture;
 };

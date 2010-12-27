@@ -10,7 +10,7 @@
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
-#include "GUI\GUIProgressBar.h"
+#include "GUI\GUI.h"
 
 #include "AudioPlayer.h"
 #include "FrameTables.h"
@@ -60,10 +60,10 @@ int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsi
    return 0;
  else
  {
-   v3 = _this->cTerrainData.pTilemap[128 * uY + uX];
-   if ( v3 >= 90 )
+  v3 = _this->cTerrainData.pTilemap[128 * uY + uX];
+  if ( v3 >= 90 )
      v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
-   return pTileTable->pTiles[v3].word_000018;
+  return pTileTable->pTiles[v3].word_000018;
  }
 }
 
@@ -336,7 +336,8 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
   if (class35_obj.byte_267AD0 != -128 ||
       class35_obj.byte_267AD1 != -128 ||
       class35_obj.byte_267AD2 != -128)
-  {   class35_obj.byte_267AD0 = -128;
+  {
+   class35_obj.byte_267AD0 = -128;
    class35_obj.byte_267AD1 = -128;
    class35_obj.byte_267AD2 = -128;
    class35_sub_48A614(&class35_obj);
@@ -400,8 +401,7 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  class51_sub_47F420(this);
  class51_sub_47F3EA(this);
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  pGameLoadingUI_ProgressBar->SetProgress(0.15f);
  
  cTerrainData.Initialize();
  {
@@ -418,8 +418,7 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  }
  cTerrainData.sub_47C80A(0, 0, 128, 128);
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+ pGameLoadingUI_ProgressBar->SetProgress(0.20f);
  
  memcpy(&uNumTerrainNormals, Src, 4);
  Src += 4;
@@ -436,15 +435,14 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  memcpy(&uNumBModels, Src, 4);
  Src += 4;
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
  pBModels = NamedMemAlloc(class51_BModel, uNumBModels, "ODM BModel data");
  memcpy(pBModels, Src, uNumBModels * sizeof(struct class51_BModel));
  Src += uNumBModels * sizeof(struct class51_BModel);
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+
+ pGameLoadingUI_ProgressBar->SetProgress(0.25f);
+
 
  v170 = 0;
  if (uNumBModels > 0)
@@ -553,8 +551,7 @@ LABEL_69:
   }
 
 LABEL_75:
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  pGameLoadingUI_ProgressBar->SetProgress(0.30f);
 
   memcpy(&uNumLevelDecorations, Src, 4);
   Src += 4;
@@ -565,8 +562,6 @@ LABEL_75:
     sub_466D09(0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
 
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
  memcpy(pLevelDecorations, Src, uNumLevelDecorations * sizeof(struct LevelDecoration));
  Src += uNumLevelDecorations * sizeof(struct LevelDecoration);
@@ -578,8 +573,7 @@ LABEL_75:
   pLevelDecorations[i].uDecorationDescriptionID = DecorationList_FindDecoration(pDecorationDescriptionList, pStr);
  }
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+ pGameLoadingUI_ProgressBar->SetProgress(0.35f);
 
 
  memcpy(&dword_0000DC, Src, 4);
@@ -589,28 +583,20 @@ LABEL_75:
  memcpy(ptr_0000E0, Src, 2 * dword_0000DC);
  Src += 2 * dword_0000DC;
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
-
 
  ptr_0000E4 = NamedMemAlloc(unsigned int, 128 * 128, "ODM OMAP");
  memcpy(ptr_0000E4, Src, 128 * 128 * 4);
  Src += 65536;
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+ pGameLoadingUI_ProgressBar->SetProgress(0.40f);
 
  memcpy(&dword_0004C0, Src, 4);
  Src += 4;
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
-
  ptr_0004C4 = NamedMemAlloc(unsigned char, 24 * dword_0004C0, "ODM Spawn");
  memcpy(ptr_0004C4, Src, 24 * dword_0004C0);
 
- runtime_warning();
- //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+ pGameLoadingUI_ProgressBar->SetProgress(0.45f);
 
  MemFree((void *)wtf);
  MemFree(pRawODM);
@@ -649,6 +635,8 @@ LABEL_75:
   sub_466D09((char *)0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
  }
 
+ pGameLoadingUI_ProgressBar->SetProgress(0.50f);
+
  memcpy(array_0004C8, pRawDDMFile, 0x28);
  Src = pRawDDMFile + 40;
  v82 = 0;
@@ -673,7 +661,7 @@ LABEL_75:
   }
  }
 
-
+pGameLoadingUI_ProgressBar->SetProgress(0.55f);
 
 
   unsigned int uLocationID = CMapStats_FindLocation(pMapStats, pFilename);
@@ -738,13 +726,13 @@ LABEL_112:
   *(_DWORD *)a5 = 0;
 
 LABEL_120:
+  pGameLoadingUI_ProgressBar->SetProgress(0.60f);
+
   memcpy(this->array_000528, (char *)v78, 0x3C8);
   memcpy(this->array_0008F0, (char *)v78 + 0x3C8, 0x3C8);
 
   v78 = (int)((char *)v78 + 0x3C8 + 0x3C8);
 
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
   if ( *(_DWORD *)a5 )
   {
@@ -774,17 +762,13 @@ LABEL_120:
       }
   }
 
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  pGameLoadingUI_ProgressBar->SetProgress(0.65f);
 
   for (unsigned int i = 0; i < uNumLevelDecorations; ++i)
   {
       memcpy(&pLevelDecorations[i].word_000002, (char *)v78, 2);
       v78 = (int)((char *)v78 + 2);
   }
-
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
   memcpy(&uNumActors, (char *)v78, 4);
   v78 = (int)((char *)v78 + 4);
@@ -793,14 +777,11 @@ LABEL_120:
     Game_sub_40E2C8(0, "Can't load file!", 0);
     sub_466D09(nullptr, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+
+  pGameLoadingUI_ProgressBar->SetProgress(0.70f);
 
   memcpy(pActors, (char *)v78, uNumActors * sizeof(struct Actor));
   v78 = (int)((char *)v78 + uNumActors * sizeof(struct Actor));
-
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
   memcpy(&uNumLayingItems, (char *)v78, 4);
   v78 = (int)((char *)v78 + 4);
@@ -809,13 +790,12 @@ LABEL_120:
     Game_sub_40E2C8(0, "Can't load file!", (int)((char *)&a5 + 3));
     sub_466D09(0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
   memcpy(pLayingItemsList, (char *)v78, uNumLayingItems * sizeof(struct LayingItem));
   v78 = (int)((char *)v78 + uNumLayingItems * sizeof(struct LayingItem));
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+
+
+  pGameLoadingUI_ProgressBar->SetProgress(0.75f);
 
   memcpy(&dword_5FF140, (char *)v78, 4);
   v78 = (int)((char *)v78 + 4);
@@ -824,18 +804,13 @@ LABEL_120:
     Game_sub_40E2C8(0, "Can't load file!", 0);
     sub_466D09(0, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
 
   memcpy(array_5E5150, (char *)v78, dword_5FF140 * sizeof(struct struct3));
   v78 = (int)((char *)v78 + dword_5FF140 * sizeof(struct struct3));
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
 
   memcpy(&global_5E4C90, (char *)v78, sizeof(struct struct4));
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+
 
   memcpy(this->array_0004F0, (char *)v78 + 200, 0x38);
   MemFree((char *)v168);
@@ -850,6 +825,8 @@ LABEL_120:
   v109 = this->array_0000A0[1];
   v120 = 0;
   v110 = TileTable_GetTile(pTileTable, this->array_0000A0[1]);
+
+  pGameLoadingUI_ProgressBar->SetProgress(0.80f);
   {
 #ifndef OLD_CODE
    wchar_t pTmp[256];
@@ -961,6 +938,7 @@ LABEL_150:
    }
  }
 
+ pGameLoadingUI_ProgressBar->SetProgress(0.85f);
 
   dword_6BE030 = this->array_0004F0[5];
   dword_6BE040 = this->array_0004F0[6];
@@ -1247,7 +1225,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(OutdoorLocation *_this)
     
   }
   runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   return 1;
 }
 
@@ -1456,8 +1434,8 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
      _this->sLightPosY > *(_WORD *)(a2 + 282) - _this->word_000006 &&
      _this->sLightPosY < *(_WORD *)(a2 + 284) + _this->word_000006 &&
      _this->sLightPosZ > *(_WORD *)(a2 + 286) - _this->word_000006 &&
-     _this->sLightPosZ < *(_WORD *)(a2 + 288) + _this->word_000006 && a4 ||
-     v8 >= 0 && v8 <= _this->word_000006)
+     _this->sLightPosZ < *(_WORD *)(a2 + 288) + _this->word_000006 &&
+     a4 || v8 >= 0 && v8 <= _this->word_000006)
   {
     dword_F8ADD8[*(_DWORD *)a3] = _this->word_000006;
     dword_F8AE28[*(_DWORD *)a3] = 65536 / _this->word_000006;

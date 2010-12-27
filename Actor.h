@@ -10,7 +10,6 @@
 bool InitializeActors(unsigned int uLocationID);
 void __cdecl UpdateActors();
 
-#pragma pack(push, 1)
 
 
 struct DirectionInfo
@@ -152,5 +151,3 @@ void Actor_PlaySound(unsigned int uActorID, int soundId);
 void Actor_Die(unsigned int uActorID);
 
 signed int __stdcall Actor_sub_42756B(int a1, int a2, signed int a3);
-
-#pragma pack(pop)

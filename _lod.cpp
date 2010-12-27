@@ -1085,7 +1085,7 @@ unsigned int LODFile_IB::LODFile_LoadTexture_New(const wchar_t *pFilename)
  aLODHeaders[uNumLoadedFiles].uTextureWidth = uCBMWdith;
  aLODHeaders[uNumLoadedFiles].uTextureHeight = uCBMHeight;
 
- Render_MoveToGPU(pD3DRenderer, uCBMWdith, uCBMHeight,  aLODHeaders[ uNumLoadedFiles].pTruecolorPixels, & pHardwareSurfaces[ uNumLoadedFiles], & pHardwareTextures[ uNumLoadedFiles]);
+ Render_MoveToGPU(pD3DRenderer, uCBMWdith, uCBMHeight, aLODHeaders[uNumLoadedFiles].pTruecolorPixels, &pHardwareSurfaces[uNumLoadedFiles], &pHardwareTextures[uNumLoadedFiles]);
 
  uNumLoadedFiles++;
  return uNumLoadedFiles - 1;

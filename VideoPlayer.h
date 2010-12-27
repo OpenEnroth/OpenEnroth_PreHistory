@@ -23,7 +23,7 @@ namespace Video
 
 
 class OSWindow;
-struct AudioPlayer;
+class AudioPlayer;
 class VideoPlayer
 {
  public:

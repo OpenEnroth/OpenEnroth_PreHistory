@@ -13,8 +13,6 @@
 #include "Game.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUICursor.h"
-
 
 
 

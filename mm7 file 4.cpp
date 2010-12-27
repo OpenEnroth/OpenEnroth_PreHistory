@@ -14,10 +14,6 @@
 #include "UserInput.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUIButton.h"
-#include "GUI\GUICursor.h"
-#include "GUI\GUIProgressBar.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"
@@ -9801,7 +9797,7 @@ char __thiscall PrepareToLoadBLV(void *_this)
   v1 = 0;
   v39 = 0;
   compile_error();
-            //LevelLoadingUI_Reset(pLevelLoadingUI, 32);
+            //LevelLoadingUI_Reset(pGameLoadingUI_ProgressBar, 32);
   byte_6BE3C4_MaybeDrowningFlag = 0;
   byte_6BE3C5 = 0;
   v42 = 0;
@@ -9941,7 +9937,7 @@ LABEL_43:
   }
   v13 = 0;
   compile_error();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   i = 0;
   if ( (signed int)uNumLevelDecorations > 0 )
   {
@@ -10014,7 +10010,7 @@ LABEL_43:
     while ( i < (signed int)uNumLevelDecorations );
   }
   compile_error();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v23 = 0;
   if ( (signed int)uNumLayingItems > v13 )
   {
@@ -10087,7 +10083,7 @@ LABEL_90:
     while ( i < (signed int)uNumActors );
   }
   compile_error();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   Actor_TotalReset((Actor *)&v35);
   v36 = 45;
   Actor_LinkSprites((Actor *)&v35, 0);

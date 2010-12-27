@@ -10,7 +10,7 @@
 #include "mm7_unparsed_functions.h"
 #include "Game.h"
 
-#include "GUI\GUIWindow.h"
+#include "GUI\GUI.h"
 
 #include "libs\Smacker\Smacker.h"
 #include "libs\Bink\Bink.h"

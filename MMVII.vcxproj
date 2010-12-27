@@ -166,6 +166,7 @@
     <ClCompile Include="Render\RenderOGL.cpp" />
     <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
     <ClCompile Include="Render\RenderOperatorsOGL.cpp" />
+    <ClCompile Include="Thread.cpp" />
     <ClCompile Include="tiles.cpp" />
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
@@ -263,6 +264,7 @@
     <ClInclude Include="Render\TextureD3D10.h" />
     <ClInclude Include="Render\TextureOGL.h" />
     <ClInclude Include="Spells.h" />
+    <ClInclude Include="Thread.h" />
     <ClInclude Include="tiles.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="VideoPlayer.h" />

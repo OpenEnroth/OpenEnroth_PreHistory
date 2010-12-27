@@ -9,6 +9,17 @@ class GUIControl
     inline  GUIControl() {bActive = false, bVisible = false;}
    virtual ~GUIControl() {}
 
+   virtual Result::Code AddChild(GUIControl *)
+   {
+    return Result::NotImplemented;
+   }
+
+   virtual Result::Code SetControlArea(Rect<float> *pNewArea)
+   {
+    cControlArea = *pNewArea;
+    return Result::Success;
+   }
+
 
    virtual Result::Code OnCreation()     {return Result::NotImplemented;}
    virtual Result::Code OnActivation()   {return Result::NotImplemented;}
@@ -34,4 +45,6 @@ class GUIControl
    GUIControl *pParent;
    bool        bActive;
    bool        bVisible;
+
+   Rect<float> cControlArea;
 };

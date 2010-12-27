@@ -1,8 +1,8 @@
 #pragma once
-#include "GUIImage.h"
+#include "GUIControl.h"
 
 
-// class56 LoadingUI
+class GUIImage;
 class GUIProgressBar_Generic: public GUIControl
 {
  public:
@@ -57,6 +57,17 @@ class GUIProgressBar_LevelLoading: public GUIProgressBar_Generic
    virtual Result::Code Initialize(const Rect<float> *pBackgroundRect, const Rect<float> *pProgressRect, _Render::Color *pColor);
    virtual Result::Code Reset();
 
+   virtual Result::Code SetProgress(float fPercentage)
+   {
+    fProgress = fPercentage;
+    return Result::Success;
+   }
+
+
+   
+   // Event handlers override
+   virtual Result::Code OnDraw(float dt);
+
  protected:
    float fProgress;
 };
@@ -67,11 +78,3 @@ class GUIProgressBar_Small: public GUIProgressBar_Generic
 {
  public:
 };
-
-
-
-
-//void LevelLoadingUI_UpdateAndDrawProgressBar(GUIProgressBar_Generic *_this);
-//void DrawLoadingScreen(GUIProgressBar_Generic *_this);
-//void LevelLoadingUI_Reset(GUIProgressBar_Generic *_this, char a2);
-//void LevelLoadingUI_Release(GUIProgressBar_Generic *_this);

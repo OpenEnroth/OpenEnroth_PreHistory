@@ -12,11 +12,6 @@
 #include "Events.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUIButton.h"
-#include "GUI\GUICursor.h"
-#include "GUI\GUIFont.h"
-#include "GUI\GUIProgressBar.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"
@@ -7794,7 +7789,7 @@ LABEL_28:
               if ( v132 == 3 )
               {
                compile_error();
-                //pLevelLoadingUI->uProgressBarType = 1;
+                //pGameLoadingUI_ProgressBar->uProgressBarType = 1;
               }
               if ( v132 == 13 )
                 pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
@@ -8732,7 +8727,7 @@ LABEL_280:
             else
             {
               compile_error();
-                //pLevelLoadingUI->uProgressBarType = (dword_5C3420 == 0) + 1;
+                //pGameLoadingUI_ProgressBar->uProgressBarType = (dword_5C3420 == 0) + 1;
               sub_44987B(v104, 0);
               v137 = 1;
               if ( dword_4E28F8_PartyCantJumpIfTrue == 13 )
@@ -9998,7 +9993,7 @@ char *__fastcall sub_44987B(const char *Source, int a2)
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   
             compile_error(0);
-  //LevelLoadingUI_Initialize(pLevelLoadingUI, 0);
+  //LevelLoadingUI_Initialize(pGameLoadingUI_ProgressBar, 0);
   compile_error(level file name should not be global);
     //if ( _strcmpi(CurrentLevelName, v3) )
     SaveGame(1, 0);
@@ -12243,7 +12238,7 @@ int __cdecl sub_44C28F()
     dword_5B65BC = 0;
     dword_5B65C0 = 0;
     compile_error();
-                //pLevelLoadingUI->uProgressBarType = 1;
+                //pGameLoadingUI_ProgressBar->uProgressBarType = 1;
     sub_44987B("nwc.blv", 0);
     dword_4E28F8_PartyCantJumpIfTrue = 0;
     result = 1;

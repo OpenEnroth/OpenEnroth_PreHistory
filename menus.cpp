@@ -9,9 +9,9 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+
 #include "GUI\GUI.h"
-#include "GUI\GUIButton.h"
-#include "GUI\GUIWindow.h"
+
 #include "Level.h"
 #include "Actor.h"
 #include "UserInput.h"

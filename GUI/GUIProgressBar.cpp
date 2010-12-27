@@ -12,6 +12,40 @@
 using namespace _Render;
 
 
+Result::Code GUIProgressBar_LevelLoading::OnDraw(float dt)
+{
+ pBackgroundImage->SetControlArea(&cBackgroundRect);
+ pBackgroundImage->OnDraw(dt);
+
+ Rect<float> cTransformedProgressRect = Rect<float>(cProgressRect.x.min,
+                                                    cProgressRect.x.min + fProgress * cProgressRect.x.Length(),
+                                                    cProgressRect.y.min,
+                                                    cProgressRect.y.max);
+ pProgressImage->SetControlArea(&cTransformedProgressRect);
+ pProgressImage->OnDraw(dt);
+
+ return Result::Success;
+ /*
+#ifndef OLD_CODE  
+  Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, _this->uTextureID_Loading);
+#else
+  Render_DrawRGBTexture(pD3DRenderer, 0, 0, _this->loading);
+#endif
+  Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
+  Render_Set2DClippingRect(pD3DRenderer, 172, 459,
+    172 + 300 * ((float)(_this->uProgressCurrent) / (float)_this->uProgressMax),
+    471);
+#ifndef OLD_CODE 
+  Render_DrawTransparentTexture(pD3DRenderer, 172, 459, &LODFile_Icons_LOD.aLODHeaders[_this->_addon_loadprog_id_in_Icons_LOD]);
+#else
+   Render_DrawTransparentTexture(pD3DRenderer, 172, 459, _this->loadprog);
+#endif
+  Render_Reset2DClippingRect(pD3DRenderer);
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();*/
+}
+
+
 
 Result::Code GUIProgressBar_LevelLoading::Initialize(const Rect<float> *pBackgroundRect, const Rect<float> *pProgressRect, _Render::Color *pColor)
 {
@@ -58,6 +92,7 @@ Result::Code GUIProgressBar_LevelLoading::Initialize(const Rect<float> *pBackgro
 Result::Code GUIProgressBar_LevelLoading::Reset()
 {
  fProgress = 0;
+
  return Result::Success;
 }
 

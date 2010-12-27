@@ -1,5 +1,9 @@
 #pragma once
-#include "GUIControl.h"
+#include "GUIImage.h"
+#include "GUIWindow.h"
+#include "GUICursor.h"
+#include "GUIProgressBar.h"
+#include "GUIButton.h"
 
 #include "..\defs.h"
 #include "..\Extras\List.h"
@@ -37,13 +41,17 @@
 
 
 
-class GUIControl;
 class GUI
 {
  public:
+   virtual Result::Code Update(float dt)
+   {
+    return Result::Success;
+   }
+
    virtual Result::Code Draw(float dt)
    {
-    for (List<GUIControl *>::NodeType *pNode = cChildren.First(); pNode != cChildren.Last(); pNode = pNode->pNext)
+    for (List<GUIControl *>::NodeType *pNode = cChildren.First(); pNode; pNode = pNode->pNext)
       pNode->pData->OnDraw(dt);
 
     return Result::Success;
@@ -64,6 +72,8 @@ class GUI
 
     pNewControl->pHostInterface = this;
     pNewControl->pParent = pParent;
+    if (pParent)
+      pParent->AddChild(pNewControl);
 
     return pNewControl;
    }
@@ -83,8 +93,6 @@ class GUI
 
 
 
-
-#pragma pack(push, 1)
 
 
 
@@ -226,5 +234,3 @@ void sub_491DE7(int a1, int a2);
 
 
 unsigned char *__fastcall sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(unsigned char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6);
-
-#pragma pack(pop)

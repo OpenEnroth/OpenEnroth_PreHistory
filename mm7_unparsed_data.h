@@ -13,7 +13,6 @@
 #include "Window.h"
 
 
-#pragma pack(push, 1)
 
 struct Square
 	{
@@ -1194,10 +1193,10 @@ extern unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::005
 extern int dword_576E28; // weak
 extern unsigned int dword_576E2C_uDefaultMinimapZoom; // weak
 
-extern class GUIWindow              *pGameLoadingWindow; // new
-extern class GUIProgressBar_Generic *pLevelLoadingUI;    // struct @ MM7.exe::00576E30
+extern class GUIWindow                   *pGameLoadingUI_Window; // new
+extern class GUIProgressBar_LevelLoading *pGameLoadingUI_ProgressBar;    // struct @ MM7.exe::00576E30
 //_UNKNOWN unk_576E30; // weak
-//char byte_576E3A; // pLevelLoadingUI::uProgressMax
+//char byte_576E3A; // pGameLoadingUI_ProgressBar::uProgressMax
 //int dword_576E3C; // 00000C
 
 
@@ -2991,5 +2990,3 @@ extern int dword_F94500; // weak
 extern HANDLE hHeap; // idb
 
 extern int dword_F94508; // weak
-
-#pragma pack(pop)

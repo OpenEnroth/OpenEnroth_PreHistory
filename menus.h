@@ -1,9 +1,11 @@
 #pragma once
-#pragma pack(push, 1)
 
 
 #include "defs.h"
 #include "GUI\GUI.h"
+
+#pragma pack(push, 1)
+
 
 #define MAX_SAVEGAME_PATH 280
 

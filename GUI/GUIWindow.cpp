@@ -6,11 +6,21 @@
 
 
 
+Result::Code GUIWindow::OnDraw(float dt)
+{
+ for (List<GUIControl *>::NodeType *pChild = cChildren.First(); pChild; pChild = pChild->pNext)
+   pChild->pData->OnDraw(dt);
+
+ return Result::Success;
+}
+
 
 Result::Code GUIWindow::Initialize(Rect<float> *pArea, GUIImage *pImage)
 {
- cClientArea = *pArea;
+ cControlArea = *pArea;
+
  pBackgroundImage = pImage;
+ pBackgroundImage->SetControlArea(pArea);
 
  return Result::Success;
 }

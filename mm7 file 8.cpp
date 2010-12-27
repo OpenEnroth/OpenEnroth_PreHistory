@@ -15,15 +15,11 @@
 #include "UserInput.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUIButton.h"
-#include "GUI\GUICursor.h"
-#include "GUI\GUIFont.h"
-#include "GUI\GUIProgressBar.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"
 #include "Events.h"
+#include "Thread.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -2881,7 +2877,7 @@ void __cdecl sub_464479_ResetCursorAndOther()
     pClass51_global->Clear();
 
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
-  sub_4A9D79(pSoundList, 0);
+  SoundList_sub_4A9D79(pSoundList, 0);
   uCurrentlyLoadedLevelType = 0;
   SpriteFrameTable_fn3(pSpriteFrameTable);
   v0 = sLastGUIWindowIdx;
@@ -5339,8 +5335,8 @@ int __cdecl sub_494035()
         v55 = 0;
         if ( !sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(v9) )
         {
-          v11 = (int)pPlayers[v9 - 1];
-          v12 = (double)Player_GetMaxHealth(pPlayers[v9 - 1]) * 0.10000000000000001;
+          v11 = (int)pPlayers[v9];
+          v12 = (double)Player_GetMaxHealth(pPlayers[v9]) * 0.10000000000000001;
           Player_sub_48DC1E((Player *)v11, (signed __int64)v12, 0);
           if ( pParty_global->dword_007778 & 4 )
           {
@@ -6500,7 +6496,7 @@ bool __cdecl sub_47F138_MessWithDecorations()
   }
 
   runtime_warning();
-            //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+            //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   return true;
 }
 
@@ -7647,98 +7643,8 @@ LABEL_68:
   return !v112 || !v111;
 }
 
-//----- (00464866) --------------------------------------------------------
-int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUIType)
-{
-  //int v3; // esi@1
-  signed __int64 v6; // qax@8
-  int v10; // [sp+20h] [bp-4h]@1
- unsigned char pLevelName[128],
-               pLevelType[32];
- int i;
-
-  //v3 = uLoadingUIType;
-  v10 = a1;
-  sub_464479_ResetCursorAndOther();
-
- pClass58_global = MemAlloc(class58, 1);
- memset(pClass58_global, 0, sizeof(struct class58));
- class58_sub_49B525(pClass58_global, 0);
-
- pMainGUI->Reset();
- {
-  GUIWindow *pGameLoadingWindow = pMainGUI->CreateControl<GUIWindow>(0);
-  GUIImage  *pGameLoadingWindowBackground = pMainGUI->CreateControl<GUIImage>(pGameLoadingWindow);
-
-  pGameLoadingWindow->Initialize(&Rect<float>(0, 640, 0, 480), pGameLoadingWindowBackground);
-  pGameLoadingWindowBackground->Initialize(&Rect<float>(0, 640, 0, 480), L"loading1");
-
-  GUIProgressBar_LevelLoading *pProgressBar_LevelLoading = pMainGUI->CreateControl<GUIProgressBar_LevelLoading>(pGameLoadingWindow);
-  pProgressBar_LevelLoading->Initialize(&Rect<float>(100, 200, 100, 120), &Rect<float>(100, 200, 100, 120), &_Render::Color(1.0f, 1.0f, 1.0f, 1.0f));
-  pLevelLoadingUI = pProgressBar_LevelLoading;
-  //pLevelLoadingUI = MemAlloc(GUIProgressBar, 1);
-  //LevelLoadingUI_Initialize(pLevelLoadingUI, a2);
-
-  pMainGUI->GetChildrenList()->Add(pGameLoadingWindow);
- }
-
- sscanf(pLevelFilename, "%[^.].%s", pLevelName, pLevelType);
- Level_LoadEvtAndStr((char *)pLevelName);
- 
- for (i = 0; i < 1000; ++i)
-   pLayingItemsList[i].uObjectDescriptionID = 0;
- 
- uLevelMapStatsID = CMapStats_FindLocation(pMapStats, pLevelFilename);
-
-  pGame->dword_000E24 &= 0xFFFFFFF7;
-
-  if ( !strcmpi(pLevelFilename, "out15.odm") )
-  {
-    byte_6BE3C4_MaybeDrowningFlag = true;
-    pGame->dword_000E24 |= 8;
-  }
-  else   
-    byte_6BE3C4_MaybeDrowningFlag = false;
-
-  pParty_global->dword_0006F4 = 0;
-  if (strcmpi((char *)pLevelType, "blv"))
-    PrepareToLoadODM(pLevelFilename, v10);
-  else
-    PrepareToLoadBLV((void *)v10);
 
 
-  if (!bNoSound)
-  {
-   unsigned int v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
-   if (v0)
-   {
-    pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
-    pAudioPlayer->PlayMusicTrack(pMapStats->pMapInfos[v0].uRedbookTrackNum);
-   }
-   AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(pAudioPlayer);
-  }
-
-  sub_461103(pLevelFilename);
-  if (!strcmpi(pLevelFilename, "d11.blv") || !strcmpi(pLevelFilename, "d10.blv"))
-  {
-    for (i = 0; i < uNumActors; ++i)
-    {
-      pActors[i].byte_00002A[12] = 0;
-      pActors[i].byte_00002A[15] = 0;
-      pActors[i].uExperience = 0;
-    }
-  }
-  LODWORD(v6) = (int)&pActors[uNumActors].byte_00002A[15];
-
-  dword_5C35C4 = 0;
-  sub_443FDC_MessWithEvents(v6);
-
-  runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
-  runtime_warning();
-            //LevelLoadingUI_Release(pLevelLoadingUI);
-  return _flushall();
-}
 
 //----- (00448B67) --------------------------------------------------------
 void sub_448B67(bool a1)
@@ -12894,3 +12800,159 @@ LABEL_9:
   }
   return result;
 }
+
+
+
+
+
+
+
+
+
+
+const char *LoadWorld_pLevelFilename;
+int         LoadWorld_a1;
+int         LoadWorld_uLoadingUIType;
+Result::Code LoadWorld()
+{
+ const char *pLevelFilename = LoadWorld_pLevelFilename;
+ int         a1 = LoadWorld_a1;
+ int         uLoadingUIType = LoadWorld_uLoadingUIType;
+
+  //int v3; // esi@1
+  signed __int64 v6; // qax@8
+  int v10; // [sp+20h] [bp-4h]@1
+ unsigned char pLevelName[128],
+               pLevelType[32];
+ int i;
+
+ pGameLoadingUI_ProgressBar->Reset();
+
+  //v3 = uLoadingUIType;
+  v10 = a1;
+  sub_464479_ResetCursorAndOther();
+
+ pClass58_global = MemAlloc(class58, 1);
+ memset(pClass58_global, 0, sizeof(struct class58));
+ class58_sub_49B525(pClass58_global, 0);
+
+
+ sscanf(pLevelFilename, "%[^.].%s", pLevelName, pLevelType);
+ Level_LoadEvtAndStr((char *)pLevelName);
+
+ pGameLoadingUI_ProgressBar->SetProgress(0.05f);
+ 
+ for (i = 0; i < 1000; ++i)
+   pLayingItemsList[i].uObjectDescriptionID = 0;
+ 
+ uLevelMapStatsID = CMapStats_FindLocation(pMapStats, pLevelFilename);
+
+  pGame->dword_000E24 &= 0xFFFFFFF7;
+
+  if ( !strcmpi(pLevelFilename, "out15.odm") )
+  {
+    byte_6BE3C4_MaybeDrowningFlag = true;
+    pGame->dword_000E24 |= 8;
+  }
+  else   
+    byte_6BE3C4_MaybeDrowningFlag = false;
+
+  pParty_global->dword_0006F4 = 0;
+  if (strcmpi((char *)pLevelType, "blv"))
+    PrepareToLoadODM(pLevelFilename, v10);
+  else
+    PrepareToLoadBLV((void *)v10);
+
+
+  if (!bNoSound)
+  {
+   unsigned int v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
+   if (v0)
+   {
+    pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
+    pAudioPlayer->PlayMusicTrack(pMapStats->pMapInfos[v0].uRedbookTrackNum);
+   }
+   AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(pAudioPlayer);
+  }
+
+  sub_461103(pLevelFilename);
+  if (!strcmpi(pLevelFilename, "d11.blv") || !strcmpi(pLevelFilename, "d10.blv"))
+  {
+    for (i = 0; i < uNumActors; ++i)
+    {
+      pActors[i].byte_00002A[12] = 0;
+      pActors[i].byte_00002A[15] = 0;
+      pActors[i].uExperience = 0;
+    }
+  }
+  LODWORD(v6) = (int)&pActors[uNumActors].byte_00002A[15];
+
+
+  dword_5C35C4 = 0;
+  sub_443FDC_MessWithEvents(v6);
+
+  pGameLoadingUI_ProgressBar->SetProgress(1.00f);
+
+  return Result::Success;
+}
+
+
+//----- (00464866) --------------------------------------------------------
+int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUIType)
+{
+ pMainGUI->Reset();
+ {
+  pGameLoadingUI_Window = pMainGUI->CreateControl<GUIWindow>(0);
+  GUIImage *pGameLoadingUI_WindowBackground = pMainGUI->CreateControl<GUIImage>(pGameLoadingUI_Window);
+
+  pGameLoadingUI_Window->Initialize(&Rect<float>(0, 640, 0, 480), pGameLoadingUI_WindowBackground);
+  pGameLoadingUI_WindowBackground->Initialize(&Rect<float>(0, 640, 0, 480), L"loading1");
+
+  pGameLoadingUI_ProgressBar = pMainGUI->CreateControl<GUIProgressBar_LevelLoading>(pGameLoadingUI_Window);
+  pGameLoadingUI_ProgressBar->Initialize(&Rect<float>(169, 474, 455, 475), &Rect<float>(172, 472, 459, 471), &_Render::Color(1.0f, 1.0f, 1.0f, 1.0f));
+
+  pMainGUI->GetChildrenList()->Add(pGameLoadingUI_Window);
+ }
+
+
+ LoadWorld_pLevelFilename = pLevelFilename;
+ LoadWorld_a1 = a1;
+ LoadWorld_uLoadingUIType = uLoadingUIType;
+
+ OSThread *pLoadingThread = MemAlloc(Win32Thread, 1);
+ pLoadingThread->Initialize();
+ pLoadingThread->Execute(LoadWorld, true);
+
+ DWORD uLastTime,
+       uNewTime = GetTickCount(),
+       uElapsed = 350;
+ uLastTime = uNewTime;
+ while (pLoadingThread->IsBusy())
+ {
+  float dt = (GetTickCount() - uLastTime) / 1000.0f;
+  uElapsed += GetTickCount() - uLastTime;
+
+  uLastTime = uNewTime;
+  uNewTime = GetTickCount();
+
+  pMainGUI->Update(dt);
+  if (uElapsed >= 350)
+  {
+   pD3DRenderer->BeginScene();
+   {
+    pMainGUI->Draw(dt);
+   }
+   pD3DRenderer->EndScene();
+   pD3DRenderer->Present();
+
+   uElapsed %= 350;
+  }
+ }
+
+ pLoadingThread->Release();
+ MemFree(pLoadingThread);
+
+
+  return _flushall();
+}
+

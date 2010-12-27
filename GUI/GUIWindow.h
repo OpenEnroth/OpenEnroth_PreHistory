@@ -1,11 +1,9 @@
 #ifndef GUIWINDOW_H
 #define GUIWINDOW_H
 
-#include "GUIImage.h"
-
 #include "..\Extras\List.h"
 
-
+class GUIImage;
 class GUIWindow: public GUIControl
 {
  public:
@@ -36,11 +34,24 @@ class GUIWindow: public GUIControl
  struct GUIButton *pControlsTail; // ptr @ 000050
 
 
- Rect<float>         cClientArea;
+          GUIWindow(): GUIControl() {}
+ virtual ~GUIWindow(){}
+
  GUIImage           *pBackgroundImage;
  List<GUIControl *>  cChildren;
 
- Result::Code Initialize(Rect<float> *pArea, GUIImage *pBackground);
+ virtual Result::Code Initialize(Rect<float> *pArea, GUIImage *pBackground);
+
+ virtual Result::Code AddChild(GUIControl *pNewChild)
+ {
+  cChildren.Add(pNewChild);
+  return Result::Success;
+ }
+
+
+ 
+   // Event handlers override
+ virtual Result::Code OnDraw(float dt);
 };
 //sizeof = 54
 

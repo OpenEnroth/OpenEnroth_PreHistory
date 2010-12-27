@@ -1,14 +1,15 @@
 #ifndef MMGAME_H
 #define MMGAME_H
 
-#pragma pack(push, 1)
 
 #include "defs.h"
 
 #include "classes.h"
 
-#include "GUI\GUICursor.h"
+#include "GUI\GUI.h"
 
+
+#pragma pack(push, 1)
 
 struct Game;
 

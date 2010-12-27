@@ -13,10 +13,6 @@
 #include "UserInput.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUICursor.h"
-#include "GUI\GUIButton.h"
-#include "GUI\GUIFont.h"
-#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"
@@ -11958,6 +11954,8 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
   dword_6BE030 &= 0xFFFFFFFEu;
   dword_6BE13C = v3;
 
+  pGameLoadingUI_ProgressBar->SetProgress(0.10f);
+
   int v1;
   pClass51_global->Load(pLevelFilename,
              (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
@@ -12006,6 +12004,8 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
   strcpy((char *)pClass51_global->string_000000, Source);
   sub_4C2EA0(&struct_6BD080);
 
+  pGameLoadingUI_ProgressBar->SetProgress(0.90f);
+
   pOldCamera->sRotationX = pParty_global->sRotationX;
   pOldCamera->sRotationY = pParty_global->sRotationY;
 
@@ -12016,6 +12016,8 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
 
  pClass57_global = MemAlloc(class57, 1);
  memset(pClass57_global, 0, sizeof(struct class57));
+
+ pGameLoadingUI_ProgressBar->SetProgress(0.95f);
 
  for (i = 0; i < 2000; ++i)
  {

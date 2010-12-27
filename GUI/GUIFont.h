@@ -1,8 +1,8 @@
 #pragma once
-#pragma pack(push, 1)
 
 #include "..\defs.h"
 #include "GUI.h"
+
 
 
 struct LetterMetrics
@@ -60,6 +60,3 @@ int  GUIWindow_sub_44CB4F(class GUIWindow *a1, Font *a2, signed int a3, int a4, 
 __int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6, int a7);
 
 void sub_44D2FD(Font *a1, Font *a2, int Str, int a4, int a5, int a6, unsigned __int16 a7, unsigned __int16 a8, const char *a9, int a10, int a11);
-
-
-#pragma pack(pop)

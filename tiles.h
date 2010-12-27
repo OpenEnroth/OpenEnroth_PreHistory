@@ -1,7 +1,6 @@
-
 #pragma once
 
-#pragma pack(push, 1)
+
 
 struct TileDesc
 {

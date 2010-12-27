@@ -7,7 +7,7 @@
 #include "FrameTables.h"
 #include "AudioPlayer.h"
 
-#include "GUI\GUIProgressBar.h"
+#include "GUI\GUI.h"
 
 
 
@@ -1788,7 +1788,7 @@ bool InitializeActors(unsigned int uLocationID)
   }
 
   runtime_warning();
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pLevelLoadingUI);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
   Actor_TotalReset(&v6);
   v6.uMonsterID = 45;

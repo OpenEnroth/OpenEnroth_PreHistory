@@ -4,9 +4,23 @@
 #include "..\_lod.h"
 
 
+
+Result::Code GUIImage::OnDraw(float dt)
+{
+ Render_DrawTransparentRect(pD3DRenderer,
+                            cControlArea.x.min, cControlArea.y.min,
+                            0, 0, cControlArea.x.Length(), cControlArea.y.Length(),
+                            pImageTexture);
+
+ return Result::Success;
+}
+
+
+
+
 Result::Code GUIImage::Initialize(const Rect<float> *pImageRect, const wchar_t *pTexture)
 {
- cImageRect = *pImageRect;
+ cControlArea = *pImageRect;
  pImageTexture = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(pTexture)];
 
  return Result::Success;
@@ -14,6 +28,6 @@ Result::Code GUIImage::Initialize(const Rect<float> *pImageRect, const wchar_t *
 
 
 GUIImage::GUIImage():
-  GUIControl()
+  GUIControl(), pImageTexture(0)
 {
 }

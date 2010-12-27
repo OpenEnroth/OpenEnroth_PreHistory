@@ -3,8 +3,6 @@
 #include "mm7_unparsed_data.h"
 #include "Events.h"
 
-#include "GUI\GUIWindow.h"
-
 
 
 
@@ -1358,9 +1356,9 @@ unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::00576E24
  int dword_576E28; // weak
 unsigned int dword_576E2C_uDefaultMinimapZoom; // weak
 
-GUIWindow              *pGameLoadingWindow = 0; // new
-GUIProgressBar_Generic *pLevelLoadingUI = 0;    // struct @ MM7.exe::00576E30
-struct unnamed_576FE8   struct_576FE8;          // struct @ MM7.exe::00576FE8
+GUIWindow                   *pGameLoadingUI_Window = 0;      // new
+GUIProgressBar_LevelLoading *pGameLoadingUI_ProgressBar = 0; // struct @ MM7.exe::00576E30
+struct unnamed_576FE8        struct_576FE8;          // struct @ MM7.exe::00576FE8
 
  __int64 qword_5773B8; // weak
  int dword_5773C0; // weak
