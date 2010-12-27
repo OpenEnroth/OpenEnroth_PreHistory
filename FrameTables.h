@@ -448,8 +448,8 @@ void DecorationDescriptionList_ctor(struct DecorationDescriptionList *_this);
 void *DecorationDescriptionList_Initialize(struct DecorationDescriptionList *_this, unsigned char *pSrc);
 //int __thiscall sub_458600(void *Str);
 int DecorationDescriptionList_SaveToBIN(struct DecorationDescriptionList *_this);
-//__int16 __thiscall sub_4488B6(void *_this, const char *Str1);
-__int16 sub_4488B6(struct DecorationDescriptionList *_this, const char *Str1);
+//__int16 __thiscall DecorationList_FindDecoration(void *_this, const char *Str1);
+__int16 DecorationList_FindDecoration(struct DecorationDescriptionList *_this, const char *Str1);
 //void __thiscall sub_458693(int _this, int a2);
 void sub_458693(struct DecorationDescriptionList *_this, unsigned int uDecorationDescriptionID);
 

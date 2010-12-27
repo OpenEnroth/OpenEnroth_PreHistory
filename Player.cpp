@@ -58,7 +58,6 @@ bool Player_sub_48D6AA(struct Player *_this, unsigned int uSlotID)
 //----- (0049024A) --------------------------------------------------------
 void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
 {
- memset(_this,0,sizeof(Player));
  _this->uExperience = rand() % 100 + 251;
 
  _this->uClass = uDesiredClass;
@@ -1195,7 +1194,7 @@ unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, unsigned
    if (uInventorySlot == -1)
    {
     if (uActiveCharacter)
-      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], Character::Voice::NoRoom, 0);
 
     return -1;
    }
@@ -1207,7 +1206,7 @@ unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, unsigned
     pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
 
     if ( uActiveCharacter )
-      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], Character::Voice::NoRoom, 0);
 
     return -1;
   }
@@ -3370,7 +3369,7 @@ unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, struct I
   if (uInventorySlot == -1)
   {
    if (uActiveCharacter)
-     Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+     Player_PlaySound(pPlayers[uActiveCharacter - 1], Character::Voice::NoRoom, 0);
 
    return -1;
   }
@@ -3403,7 +3402,7 @@ unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, struct I
  if (!CanPlaceItemInInventory(_this, uInventorySlot, pItem->uItemID))
  {
   if (uActiveCharacter)
-    Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+    Player_PlaySound(pPlayers[uActiveCharacter - 1], Character::Voice::NoRoom, 0);
 
    return -1;
  }
@@ -3526,7 +3525,7 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
   if ( v13 == -1 )
   {
     if ( uActiveCharacter )
-      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], Character::Voice::NoRoom, 0);
     result = 0;
   }
   else

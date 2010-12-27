@@ -189,7 +189,7 @@ class OutdoorLocation: public Location
 
 
  virtual Result::Code Clear();
- virtual Result::Code Load(const char *pFilename, int File, unsigned int uRespawnInterval, int a5);
+ virtual Result::Code Load(const char *pFilename, int File, int a5);
 
  unsigned int    uNumTerrainNormals;
  Vec3           *pTerrainNormals;
@@ -219,7 +219,6 @@ int class51_sub_488EB1_GetSomeOtherTileInfo(OutdoorLocation *_this, int sX, int 
 int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsigned int uX, unsigned int uY);
 
 
-void Level_LoadEvtAndStr(const char *pLevelName);
 
 
 

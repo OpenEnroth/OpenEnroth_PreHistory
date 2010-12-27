@@ -836,11 +836,11 @@ struct LevelDecoration
  int            sPosX;                    // dword @ 000004
  int            sPosY;                    // dword @ 000008
  int            sPosZ;                    // dword @ 00000C
- int            dword_000010;
+ int            dword_000010; // orientation: Y rotation
  short          word_000014;
  short          word_000016; // event associated with interaction/triggering
  short          word_000018;
- short          word_00001A;
+ short          word_00001A; // some orientation, Y rotation in some form
  short          word_00001C;
  short          word_00001E;
 };
@@ -1084,14 +1084,6 @@ int class59_SinCos(struct class59 *_this, int a2);
 //int __thiscall sub_45281E(void *_this, int X, int a3);
 int class59_Atan2(struct class59 *_this, int X, int Y);
 
-
-struct Event
-{
- int          dword_000000; // event type?
- int          dword_000004;
- unsigned int uEventOffsetInEVT; // dword @ 000008
-};
-//sizeof == 0C
 
 
 struct Matrix

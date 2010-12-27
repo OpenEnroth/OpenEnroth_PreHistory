@@ -12797,7 +12797,7 @@ LABEL_62:
       memcpy((void *)(v0 + 36 * v25 + 496), (const void *)v19, 0x24u);
       goto LABEL_42;
     }
-    Player_PlaySound((Player *)v0, 15, 0);
+    Player_PlaySound((Player *)v0, Character::Voice::NoRoom, 0);
     v55 = 5;
 LABEL_70:
     v8 = (int)pGlobalTXT_LocalizationStrings[563];
@@ -12894,7 +12894,7 @@ LABEL_81:
       Player_PlaySound((Player *)v27, v52, v54);
       return;
     }
-    Player_PlaySound((Player *)v0, 15, 0);
+    Player_PlaySound((Player *)v0, Character::Voice::NoRoom, 0);
     v55 = 2;
     goto LABEL_70;
   }

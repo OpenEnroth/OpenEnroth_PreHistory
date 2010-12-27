@@ -16,6 +16,7 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+#include "Events.h"
 
 #include "GUI\GUI.h"
 #include "GUI\GUICursor.h"
@@ -1191,20 +1192,6 @@ signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine)
  return true;
 }
 
-//----- (00444360) --------------------------------------------------------
-void Level_LoadEvtAndStr(const char *pLevelName)
-{
- char pFilename[128];
-
- wsprintfA(pFilename, "%s.evt", pLevelName);
- uLevelEVT_Size = LoadFileToBuffer(pFilename, pLevelEVT, 9216);
-
- wsprintfA(pFilename, "%s.str", pLevelName);
- uLevelStrFileSize = LoadFileToBuffer(pFilename, pLevelStr, 9216);
-
- if (uLevelStrFileSize)
-   LoadLevel_InitializeLevelStr();
-}
 
 //----- (004C7C50) --------------------------------------------------------
 int __fastcall sub_4C7C50(int a1, int a2)
@@ -5168,6 +5155,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
  CNPCStats_ctor(pNPCStats);
  CNPCStats_Initialize(pNPCStats);
 
+
  Initialize_GlobalEVT();
 
  LODFile_Bitmaps_LOD.lod_IB_dword_011B80 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
@@ -5186,7 +5174,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
 
  result = sub_46082C();
  dword_576E28 = 9;
- dword_576E2C = 512;
+ dword_576E2C_uDefaultMinimapZoom = 512;
  return result;
 }
 
@@ -7238,7 +7226,7 @@ LABEL_59:
 }
 
 //----- (004498D5) --------------------------------------------------------
-void __thiscall sub_4498D5(void *_this)
+void __thiscall sub_4498D5_TeleportToStartingPoint(unsigned int uStartingPointType)
 {
   int v1; // ecx@2
   int v2; // ecx@3
@@ -7252,44 +7240,33 @@ void __thiscall sub_4498D5(void *_this)
   const char *v10; // [sp-4h] [bp-84h]@6
   char Str1[32]; // [sp+8h] [bp-78h]@11
 
-  if ( _this )
+  switch (uStartingPointType)
   {
-    v1 = (int)((char *)_this - 1);
-    if ( v1 )
-    {
-      v2 = v1 - 1;
-      if ( v2 )
-      {
-        v3 = v2 - 1;
-        if ( v3 )
-        {
-          if ( v3 != 1 )
-            return;
-          v10 = "West Start";
-        }
-        else
-        {
-          v10 = "East Start";
-        }
-      }
-      else
-      {
-        v10 = "South Start";
-      }
-    }
-    else
-    {
-      v10 = "North Start";
-    }
+   case 0:
+     v10 = "Party Start"; break;
+
+   case 1:
+     v10 = "North Start"; break;
+
+   case 2:
+     v10 = "South Start"; break;
+
+   case 3:
+     v10 = "East Start";  break;
+
+   case 4:
+     v10 = "West Start";  break;
+
+   default:
+     return;
   }
-  else
-  {
-    v10 = "Party Start";
-  }
+     
   strcpy(Str1, v10);
-  v4 = sub_4488B6(pDecorationDescriptionList, Str1);
-  if ( v4 )
-  {
+  v4 = DecorationList_FindDecoration(pDecorationDescriptionList, v10);
+  if (!v4)
+    return;
+
+
     v5 = 0;
     if ( (signed int)uNumLevelDecorations > 0 )
     {
@@ -7340,7 +7317,6 @@ LABEL_20:
     dword_5B65B0 = 0;
     dword_5B65AC = 0;
     dword_5B65A8 = 0;
-  }
 }
 
 //----- (00441CFF) --------------------------------------------------------
@@ -12906,17 +12882,16 @@ LABEL_12:
 
 
 
-  if ( v6 > 0 )
+  if (!bNoSound && v6 > 0 )
   {
-   runtime_warning(sound staff crashes);
-   /*
-   v1 = 0;
+
+   i = 0;
     do
     {
-      v9 = v22[v1];
+      v9 = v22[i];
       v19 = 4;
-      v10 = (char *)unk_5CCE98 + 88 * v9;
-      v11 = (int *)(pMonsterDescriptionList->pDescriptions + 152 * v9 + 12);
+      v10 = (char *)&pMonsterStats->pMonsterInfos[v9 + 1];
+      v11 = (int *)((char *)&pMonsterDescriptionList->pDescriptions[v9] + 12);
       do
       {
         sub_4A9A67(pSoundList, *(_WORD *)v11, 0);
@@ -12927,11 +12902,8 @@ LABEL_12:
       do
         v14 = sub_4A9A67(pSoundList, v13++ + word_4EE088[(unsigned __int8)v10[33]], 1);
       while ( v14 );
-      ++v1;
     }
-    while ( v1 < v21 );
-    v0 = pLevelLoadingUI;
-    v1 = 0;*/
+    while ( ++i < v21 );
   }
   runtime_warning();
   //LevelLoadingUI_UpdateAndDrawProgressBar((GUIProgressBar_Generic *)v0);
@@ -12962,45 +12934,6 @@ LABEL_12:
     SetCursorBitmapFromItemID(pParty_global->pickedItem.uItemID);
 }
 
-//----- (00443E31) --------------------------------------------------------
-void __cdecl LoadLevel_InitializeLevelStr()
-{
- unsigned int uMaxStringLen; // esi@1
-  int v5; // ebx@4
-  char errstr[100]; // [sp+Ch] [bp-68h]@9
-  int v10; // [sp+70h] [bp-4h]@1
- int i;
-
- memset(uLevelStrOffsets, 0, 500 * sizeof(unsigned int));
-
- uMaxStringLen = 0;
- uLevelStrNumStrings = 0;
-
- v10 = 0;
- for (i = 0; i < uLevelStrFileSize; ++i)
- {
-     if ( !pLevelStr[i] )
-      {
-       uLevelStrOffsets[uLevelStrNumStrings++] = i + 1;
-       if ( (signed __int16)(i - (_WORD)v10) > uMaxStringLen )
-         uMaxStringLen = i - v10;
-       v10 = i;
-     }
- }
- uLevelStrNumStrings--;
-
- if (uMaxStringLen > 800 )
- {
-   wsprintfA(errstr, "MAX_EVENT_TEXT_LENGTH needs to be increased to %lu", uMaxStringLen + 1);
-   erroneous_printf(errstr);
- }
-
- for (i = 0; i < uLevelStrNumStrings; ++i)
- {
-  if (RemoveQuote((char *)&pLevelStr[uLevelStrOffsets[i]]) != (char *)&pLevelStr[uLevelStrOffsets[i]] )
-    uLevelStrOffsets[i]++;
- }
-}
 
 //----- (004C2AA6) --------------------------------------------------------
 int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
@@ -13289,9 +13222,9 @@ void __fastcall PrepareToLoadODM(const char *pLevelName, int a1)
   uCurrentlyLoadedLevelType = 2;
   sub_47A384_LoadAndInitializeLevel(pLevelName);
   if ( !v2 )
-    sub_4498D5((void *)dword_6BE35C);
+    sub_4498D5_TeleportToStartingPoint(dword_6BE35C);
+
   sub_443365(&struct_576FE8);
-  LoadLevel_InitializeMusic(pLevelName);
 }
 
 //----- (00488E23) --------------------------------------------------------

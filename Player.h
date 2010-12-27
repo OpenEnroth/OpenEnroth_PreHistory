@@ -87,58 +87,22 @@ namespace Character
    Sorcerer = 32
   };
  };
+
+
+ namespace Voice
+ {
+  enum Code
+  {
+   NoRoom = 15, //"No room"  (inventory is full)
+
+   PickMe = 102 //"Pick me!" (voices cycle during party creation)
+  };
+ };
 };
-/*#define SKILL_STAFF         0
-#define SKILL_SWORD 	    1
-#define SKILL_DAGGER		2
-#define SKILL_AXE		    3
-#define SKILL_SPEAR		    4
-#define SKILL_BOW		    5
-#define SKILL_MACE		    6
-#define SKILL_BLASTER		7
-#define SKILL_SHIELD		8
-#define SKILL_LEATHER		9
-#define SKILL_CHAIN		    10
-#define SKILL_PLATE		    11
-#define SKILL_FIREMAGIC		12
-#define SKILL_AIRMAGIC		13
-#define SKILL_WATERMAGIC	14
-#define SKILL_EARTHMAGIC	15
-#define SKILL_SPIRITMAGIC	16
-#define SKILL_MINDMAGIC		17
-#define SKILL_BODYMAGIC		18
-#define SKILL_LIGHTMAGIC	19
-#define SKILL_DARKMAGIC		20
-#define SKILL_IDITEM		21
-#define SKILL_MERCHANT		22
-#define SKILL_REPAIR		23
-#define SKILL_BODYBUILDING	24
-#define SKILL_MEDITATION    25
-#define SKILL_PERCEPTION	26
-#define SKILL_DIPLOMACY		27
-#define SKILL_THIEVERY		28 // NOT USED
-#define SKILL_DISARMTRAP	29
-#define SKILL_DODGING		30
-#define SKILL_UNARMED		31
-#define SKILL_IDMONSTER		32
-#define SKILL_ARMSMASTER	33
-#define SKILL_STEALING		34
-#define SKILL_ALCHEMY		35
-#define SKILL_LEARNING		36
 
-#define CLASS_KNIGHT   0
-#define CLASS_THIEF    4
-#define CLASS_CLERIC   24
-#define CLASS_SORCERER 32
 
-#define RACE_HUMAN  0
-#define RACE_ELF    1
-#define RACE_GOBLIN 2
-#define RACE_DWARF  3
-#define RACE_UNDEAD 4
 
-#define SEX_MALE    0
-#define SEX_FEMALE  1*/
+
 
 extern  class cTexture *pTextureID_PCFaces[];
 
@@ -281,8 +245,8 @@ struct Player
 
    unsigned short uDefaultFaceID; // word @ 001A9C    id in PlayerFrameTable, face set
    short word_001A9E; //subframe in FrameTable, current face emotion?   doesnt generate random name if this is not zero
-   short word_001AA0;
-   short word_001AA2; //PlayerFrame::word_000002 - 1
+   short word_001AA0; // PlayerFrame::word_000006 * 8
+   short word_001AA2; // PlayerFrame::word_000002 - 1
    int dword_001AA4;
    int dword_001AA8;
 
@@ -403,7 +367,7 @@ int __thiscall Player_sub_48E656(int _this);
 int __thiscall Player_sub_48E68F(int _this);
 char __thiscall Player_GetActualSkillLevel(Player *_this, unsigned int uSkillType);
 __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
-__int16 __thiscall Player_sub_494A25(Player *_this, int a2, int a3);
+__int16 __thiscall Player_sub_494A25_LooksLikePlayEmotion(Player *_this, int a2, int a3);
 bool Player_CanEquip_RacialAndAlignmentCheck(Player *_this, unsigned int uItemID);
 //signed int __thiscall sub_492700(int this, signed int a2);
 bool Player_CheckIfHasSkill(Player *_this, unsigned int uSkillType);

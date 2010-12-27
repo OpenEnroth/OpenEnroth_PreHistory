@@ -341,7 +341,7 @@ int __thiscall sub_443365(struct unnamed_576FE8 *_this)
   {
     _this->word_000038 = 0;
     _this->word_00003A = 0;
-    _this->uMinimapZoom = dword_576E2C;
+    _this->uMinimapZoom = dword_576E2C_uDefaultMinimapZoom;
     _this->dword_000028 = dword_576E28;
     result = dword_576E28;
   }
@@ -4661,30 +4661,6 @@ int __fastcall ReadWindowsRegistry(const char *pKeyName, int iDefaultValue)
 
 
 
-//----- (00443DA1) --------------------------------------------------------
-int Initialize_GlobalEVT()
-{
- int result;
-  int v1; // esi@1
- struct Event *pEvent;
-
- uGlobalEVT_Size = LoadFileToBuffer("global.evt", pGlobalEVT, 46080);
-
- uGlobalEVT_NumEvents = 0;
- memset(pGlobalEVT_Events, 128, 4400 * sizeof(struct Event));
- pEvent = pGlobalEVT_Events + uGlobalEVT_NumEvents; //result = 12 * uGlobalEVT_NumEvents + (pGlobalEVT_Events + 4);
- for (v1 = 0; v1 < uGlobalEVT_Size; v1 += pGlobalEVT[v1] + 1)
- {
-      uGlobalEVT_NumEvents++;
-      pEvent->dword_000000 /**(_DWORD *)(result - 4)*/ = pGlobalEVT[v1 + 1] + (pGlobalEVT[v1 + 2] << 8);
-      pEvent->dword_000004 /**(_DWORD *)result*/ = pGlobalEVT[v1 + 3];
-      pEvent->uEventOffsetInEVT /**(_DWORD *)(result + 4)*/ = v1;
-      pEvent++;//result += 12;
- }
- return uGlobalEVT_Size;
-}
-
-
 
 //----- (00410B28) --------------------------------------------------------
 void sub_410B28(int _this)	//spell info
@@ -8834,12 +8810,10 @@ __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3)
   int v17; // ecx@19
   int v18; // edi@20
   int v20[5]; // [sp+Ch] [bp-1Ch]@7
-  int v21; // [sp+20h] [bp-8h]@1
   int v22; // [sp+24h] [bp-4h]@1
   int v23; // [sp+30h] [bp+8h]@4
 
   v3 = _this;
-  v21 = (int)_this;
   v22 = 0;
   do
   {
@@ -8872,7 +8846,7 @@ __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3)
       if ( *(&byte_4ECEEF[25 * v11] + v10) )
       {
         v23 = rand() % (unsigned __int8)*(&byte_4ECEEF[25 * v11] + v10)
-            + 2 * (v11 + 50 * *(_DWORD *)(v21 + 6432)) + 4998;
+            + 2 * (v11 + 50 * _this->dword_001920) + 4998;
         v12 = 8 * v22 + 312;
         LOBYTE(v12) = v12 | 4;
         pAudioPlayer->sub_4AA306(v23, v12, 0, -1, 0, 0, 128.0f * pSoundVolumeLevels[uVoicesVolumeMultiplier], 0);
@@ -8915,7 +8889,7 @@ LABEL_23:
       if ( *(_DWORD *)(120 * v17 + pSoundList->pSounds + 44) )
         v22 = (sLastTrackLengthMS << 7) / 1000;
     }
-    LOWORD(v13) = Player_sub_494A25((Player *)v21, v16, v22);
+    LOWORD(v13) = Player_sub_494A25_LooksLikePlayEmotion(_this, v16, v22);
   }
   return v13;
 }
@@ -11959,7 +11933,6 @@ LABEL_5:
 //----- (0047A384) --------------------------------------------------------
 void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
 {
-  signed int v2; // eax@3
   int v3; // ebx@3
   int v4; // edi@4
   int v5; // eax@8
@@ -11979,30 +11952,24 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
   v3 = CMapStats_FindLocation(pMapStats, pLevelFilename);
 
   if ( v3 )
-  {
    v4 = (int)&pMapStats->pMapInfos[v3];
-   v2 = pMapStats->pMapInfos[v3].uRespawnInterval;
-  }
   else
-  {
    v4 = 1;
-   v2 = 0;
-  }
+
   dword_6BE030 &= 0xFFFFFFFEu;
   dword_6BE13C = v3;
 
   int v1;
   pClass51_global->Load(pLevelFilename,
              (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
-            v2,
              (int)&v1);
 
-  if ( !(dword_6BE364 & 0x2000) )
+  if (~dword_6BE364 & 0x2000)
   {
     UpdateActors();
     sub_408896();
   }
-  dword_6BE364 &= 0xFFFFDFFF; //clear 0x4000 flag
+  dword_6BE364 &= ~0x4000;
   v5 = 0;
   if ( !v3 )
     v1 = 0;
@@ -12114,7 +12081,7 @@ LABEL_8:
     if ( v23 == v4 )
     {
       if ( uActiveCharacter )
-        Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter - 1], Character::Voice::NoRoom, 0);
       return 0;
     }
     v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[*v3].pIconName, 2);
@@ -13050,7 +13017,7 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
         goto LABEL_9;
       v4 = pPlayers[uActiveCharacter - 1];
     }
-    Player_PlaySound(v4, 15, 0);
+    Player_PlaySound(v4, Character::Voice::NoRoom, 0);
   }
 
 LABEL_9:

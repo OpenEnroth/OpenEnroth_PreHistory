@@ -2823,7 +2823,7 @@ int __thiscall sub_494836(void *_this, int a2, int a3)
 }
 
 //----- (00494A25) --------------------------------------------------------
-__int16 __thiscall Player_sub_494A25(Player *_this, int a2, int a3)
+__int16 __thiscall Player_sub_494A25_LooksLikePlayEmotion(Player *_this, int a2, int a3)
 {
   signed int v3; // eax@1
   __int16 v4; // dx@1
@@ -2858,8 +2858,8 @@ LABEL_12:
 LABEL_15:
   LOWORD(v3) = a3;
   v5 = 0;
-  *(_WORD *)(_this + 6816) = a3;
-  *(_WORD *)(_this + 6814) = 0;
+  _this->word_001AA0 = a3;
+  _this->word_001A9E = 0;
   if ( !a3 )
   {
     if ( pPlayerFrameTable->uNumFrames <= 0 )
@@ -2880,10 +2880,10 @@ LABEL_20:
       v7 = v5;
     }
     v4 = a2;
-    LOWORD(v3) = 8 * *(_WORD *)(pPlayerFrameTable->pFrames + 10 * v3 + 6);
-    *(_WORD *)(_this + 6816) = v3;
+    LOWORD(v3) = 8 * pPlayerFrameTable->pFrames[v3].word_000006;
+    _this->word_001AA0 = v3;
   }
-  *(_WORD *)(_this + 6812) = v4;
+  _this->uDefaultFaceID = v4;
   struct_576FE8.dword_000044 = 1;
   return v3;
 }
@@ -3462,7 +3462,7 @@ int CreditsMenuLoop()
   if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
     LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_A74C88 = 0;
-  sub_4AA13F((int)pAudioPlayer, 15);
+  pAudioPlayer->PlayMusicTrack(15);
   cBackGround.LODPCXLoad("mm6title.pcx", 0);
   v1 = (char *)LODFile_Events_LOD.LODFile_LoadRaw( "credits.txt", 0);
  // v1 = (const char *)v2;
@@ -4956,7 +4956,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
         do
         {
           locked_fread(&Str1, 1u, 0x20u, v8);
-          v79 = sub_4488B6(pDecorationDescriptionList, &Str1);
+          v79 = DecorationList_FindDecoration(pDecorationDescriptionList, &Str1);
           v80 = a5;
           ++v293;
           a5 += 32;
@@ -5380,7 +5380,7 @@ LABEL_50:
     {
       memcpy(&Str1, v159, 0x20u);
       v159 = (char *)v159 + 32;
-      v161 = sub_4488B6(pDecorationDescriptionList, &Str1);
+      v161 = DecorationList_FindDecoration(pDecorationDescriptionList, &Str1);
       v162 = File;
       ++v283;
       ++File;
@@ -13711,19 +13711,6 @@ int __fastcall sub_4AB6B1(int a1, int a2, int a3)
     result = 0;
   return result;
 }
-
-
-//----- (004ABFDB) --------------------------------------------------------
-char __cdecl LoadLevel_InitializeMusic(const char *pLevelFilename)
-{
-  signed int v0; // eax@1
-
-  v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
-  if ( v0 )
-    LOBYTE(v0) = sub_4AA13F((int)pAudioPlayer, pMapStats->pMapInfos[v0].uRedbookTrackNum);
-  return v0;
-}
-
 
 
 //----- (004AC277) --------------------------------------------------------

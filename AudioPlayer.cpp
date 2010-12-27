@@ -125,7 +125,7 @@ AudioPlayer::AudioPlayer()
 {
  uMixerChannels = 16;
 
- sMasterVolume = 127;
+ uMasterVolume = 127;
 
  bEAXSupported = false;
  b3DSoundInitialized = false;
@@ -137,7 +137,8 @@ AudioPlayer::AudioPlayer()
  hSequence = 0;
  hStream = 0;
 
- u_sub_4AA306_DefaultVolume = 128;
+ uCurrentMusicTrackStartMS = 0;
+ uCurrentMusicTrackEndMS = 0;
 
  bPlayerReady = false;
 }
@@ -316,7 +317,7 @@ LABEL_133:
       {
 LABEL_150:
         if (uDefaultVolume == 10000)
-          uDefaultVolume = u_sub_4AA306_DefaultVolume;
+          uDefaultVolume = uMasterVolume;
         if (!a7)
         {
           v70 = (int)&pSoundList->pSounds[uSoundIdx];
@@ -807,15 +808,17 @@ LABEL_100:
 
 
 
+
+//----- (004AA13F) --------------------------------------------------------
 Result::Code AudioPlayer::PlayMusicTrack(unsigned int uTrackID)
 {
  if (bPlayerReady && hAILRedbook)
  {
-  unsigned int uTrackStartMS,
-               uTrackEndMS;
   AIL_redbook_stop(hAILRedbook);
-  AIL_redbook_track_info(hAILRedbook, uTrackID, &uTrackStartMS, &uTrackEndMS);
-  AIL_redbook_play(hAILRedbook, uTrackStartMS + 1, uTrackEndMS);
+  AIL_redbook_track_info(hAILRedbook, uTrackID, &uCurrentMusicTrackStartMS, &uCurrentMusicTrackEndMS);
+  AIL_redbook_play(hAILRedbook, uCurrentMusicTrackStartMS + 1, uCurrentMusicTrackEndMS);
+
+  uCurrentMusicTrackLength = 128 * (uCurrentMusicTrackEndMS - uCurrentMusicTrackStartMS) / 1000;
 
   return Result::Success;
  }
@@ -838,9 +841,9 @@ Result::Code AudioPlayer::SetMasterVolume(float fVolume)
 {
  if (bPlayerReady)
  {
-  sMasterVolume = fVolume;
+  uMasterVolume = fVolume;
   if (hDigDriver)
-    AIL_set_digital_master_volume(hDigDriver, sMasterVolume);
+    AIL_set_digital_master_volume(hDigDriver, uMasterVolume);
 
   if (b3DSoundInitialized)
     s3DSoundVolume = 0.5f * fVolume;
@@ -1352,12 +1355,12 @@ int sub_4A9A67(SoundList *_this, int a2, int a3)
   v3 = (int)_this;
   v4 = _this->uNumSounds;
   v26 = 1;
-  if ( dword_6BE364 & 0x10 || _this->uNumSounds <= 0) // if (nosound)
+  if (_this->uNumSounds <= 0) // if (nosound)
     return 0;
 
   v9 = _this->pSounds;
   i = 1;
-  while ( a2 != v9[i].dword_000014)
+  while (_this->pSounds[i].dword_000014 != a2)
   {
     v26 = ++i;
     if ( i >= _this->uNumSounds)
@@ -1832,7 +1835,7 @@ LABEL_85:
 }
 
 //----- (004AC041) --------------------------------------------------------
-signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
+signed int AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(AudioPlayer *_this)
 {
   signed int result; // eax@1
   int v2; // esi@1
@@ -1841,9 +1844,9 @@ signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
   v2 = (int)_this;
   runtime_warning(level name should not be globally-defined);
   result = CMapStats_FindLocation(pMapStats, (char *)pClass51_global->pLocationFileName);
-  if ( *(_DWORD *)(v2 + 4) )
+  if (_this->b3DSoundInitialized)
   {
-    if ( *(_DWORD *)v2 )
+    if (_this->bEAXSupported )
     {
      v3 = pMapStats->pMapInfos[result].uEAXEnv;
       if ( v3 >= 0x1A )
@@ -1863,42 +1866,6 @@ signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
 }
 
 
-//----- (004AA13F) --------------------------------------------------------
-char __thiscall sub_4AA13F(int _this, int a2)
-{
-  int v2; // esi@1
-  unsigned int v3; // eax@3
-  int v4; // edi@5
-  signed __int64 v5; // qax@6
-
-  v2 = _this;
-  if ( !(dword_6BE364 & 0x10) )
-  {
-    if ( pAudioPlayer->hAILRedbook )
-    {
-      LOBYTE(v3) = uMusicVolimeMultiplier;
-      if ( uMusicVolimeMultiplier )
-      {
-        if ( *(_DWORD *)(_this + 668) )
-        {
-          v4 = *(_DWORD *)(_this + 676);
-          if ( v4 )
-          {
-            v5 = (signed __int64)(pSoundVolumeLevels[uMusicVolimeMultiplier] * 64.0);
-            //AIL_redbook_set_volume(_this, HIDWORD(v5), v4, v5);
-            AIL_redbook_set_volume((HREDBOOK)_this, HIDWORD(v5));
-          }
-        }
-        AIL_redbook_stop(pAudioPlayer->hAILRedbook);
-        AIL_redbook_track_info(pAudioPlayer->hAILRedbook, a2, (unsigned int *)(v2 + 736), (unsigned int *)(v2 + 740));
-        AIL_redbook_play(pAudioPlayer->hAILRedbook, *(_DWORD *)(v2 + 736) + 1, *(_DWORD *)(v2 + 740));
-        v3 = ((*(_DWORD *)(v2 + 740) - *(_DWORD *)(v2 + 736)) << 7) / 0x3E8u;
-        *(_DWORD *)(v2 + 728) = ((*(_DWORD *)(v2 + 740) - *(_DWORD *)(v2 + 736)) << 7) / 0x3E8u;
-      }
-    }
-  }
-  return 0;
-}
 
 //----- (004AA258) --------------------------------------------------------
 void __thiscall AudioPlayer_sub_4AA258(AudioPlayer *_this, int a2)

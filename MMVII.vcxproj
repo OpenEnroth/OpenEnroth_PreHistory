@@ -99,6 +99,7 @@
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="Events..cpp" />
     <ClCompile Include="FrameTables.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEvents.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Render\RenderOGL.cpp" />
     <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
     <ClCompile Include="Render\RenderOperatorsOGL.cpp" />
+    <ClCompile Include="tiles.cpp" />
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -182,6 +184,7 @@
     <ClInclude Include="CoreDefinitions.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="Extras\List.h" />
     <ClInclude Include="Extras\Pool.h" />
     <ClInclude Include="FrameTables.h" />
@@ -260,6 +263,7 @@
     <ClInclude Include="Render\TextureD3D10.h" />
     <ClInclude Include="Render\TextureOGL.h" />
     <ClInclude Include="Spells.h" />
+    <ClInclude Include="tiles.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="VideoPlayer.h" />
     <ClInclude Include="Window.h" />

@@ -1192,7 +1192,7 @@ extern unsigned int uTextureIdx_SpellEffecIcons[14]; // dword[14] @ MM7.exe::005
 extern unsigned int uIconIdx_Spell21;                // dword     @ MM7.exe::00576E20
 extern unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::00576E24
 extern int dword_576E28; // weak
-extern int dword_576E2C; // weak
+extern unsigned int dword_576E2C_uDefaultMinimapZoom; // weak
 
 extern class GUIWindow              *pGameLoadingWindow; // new
 extern class GUIProgressBar_Generic *pLevelLoadingUI;    // struct @ MM7.exe::00576E30
@@ -1309,9 +1309,9 @@ extern int dword_597F18; // weak
 extern unsigned int  uLevelStrOffsets[500]; // dword[500] @ MM7.exe::00597F20
 
 extern struct Event  pGlobalEVT_Events[4400];  // struct[4400] @ MM7.exe::005986F0
-extern unsigned int  uGlobalEVT_NumEvents; // dword        @ MM7.exe::005A5530
-extern unsigned int  uGlobalEVT_Size;      // dword        @ MM7.exe::005A5534
-extern unsigned char pGlobalEVT[];         // byte[46080]  @ MM7.exe::005A5538
+extern unsigned int  uGlobalEVT_NumEvents;     // dword        @ MM7.exe::005A5530
+extern unsigned int  uGlobalEVT_Size;          // dword        @ MM7.exe::005A5534
+extern unsigned char pGlobalEVT[];             // byte[46080]  @ MM7.exe::005A5538
 
 extern unsigned char byte_5B0938[]; // idb
 extern unsigned int  uLevelStrNumStrings; // dword      @ MM7.exe::005B1108
@@ -1442,7 +1442,7 @@ extern struct StorylineText *pStorylineText; // struct @ MM7.exe::005C8B60
 //LPCSTR lpsz; // idb
 extern _DWORD dword_5C8B64[87]; // idb
 
-extern struct class48 *pClass48; // struct @ MM7.exe::005C8CC0 
+extern struct class48 *pClass48; // struct @ MM7.exe::005C8CC0
 //char byte_5C8CC0[8]; // weak
 extern _UNKNOWN unk_5C8CC8; // weak
 extern char byte_5C8D1A[array_size_unknown]; // weak

@@ -196,7 +196,6 @@
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="PartyActions.cpp" />
     <ClCompile Include="GameEvents.cpp" />
-    <ClCompile Include="tiles.cpp" />
     <ClCompile Include="GUI\GUIImage.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
@@ -205,6 +204,8 @@
     </ClCompile>
     <ClCompile Include="BaseRender.cpp" />
     <ClCompile Include="RenderSoftware.cpp" />
+    <ClCompile Include="tiles.cpp" />
+    <ClCompile Include="Events..cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -415,7 +416,6 @@
       <Filter>libs\AIL</Filter>
     </ClInclude>
     <ClInclude Include="UserInput.h" />
-    <ClInclude Include="tiles.h" />
     <ClInclude Include="CoreDefinitions.h" />
     <ClInclude Include="GUI\GUIImage.h">
       <Filter>GUI</Filter>
@@ -430,6 +430,8 @@
       <Filter>Extras</Filter>
     </ClInclude>
     <ClInclude Include="BaseRender.h" />
+    <ClInclude Include="tiles.h" />
+    <ClInclude Include="Events.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

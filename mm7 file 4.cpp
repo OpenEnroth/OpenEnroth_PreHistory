@@ -3128,7 +3128,7 @@ void __cdecl sub_435748_PlayerCreationUI_MessageProc()
           GUIWindowCreate(pButton->uX, pButton->uY, 0, 0, 92, pButton, 1);
 
           pAudioPlayer->sub_4AA306(66, 0, 0, -1, 0, 0, 0, 0);
-          Player_PlaySound(pPlayer, 102, 0);
+          Player_PlaySound(pPlayer, Character::Voice::PickMe, 0);
           continue;
       }
       else if (v49 == 144) // button change voice (left)
@@ -3147,7 +3147,7 @@ void __cdecl sub_435748_PlayerCreationUI_MessageProc()
 
             GUIWindowCreate(*(_DWORD *)v12, *(_DWORD *)(v12 + 4), 0, 0, 92, (GUIButton*)v12, 1);
             pAudioPlayer->sub_4AA306(66, 0, 0, -1, 0, 0, 0, 0);
-            Player_PlaySound(pPlayer, 102, 0);
+            Player_PlaySound(pPlayer, Character::Voice::PickMe, 0);
             continue;
       }
       else
@@ -10100,7 +10100,7 @@ LABEL_90:
     pParty_global->sPartyPosX = 0;
     pParty_global->dword_000700 = 0;
     pParty_global->dword_0006E8 = 0;
-    sub_4498D5((void *)dword_6BE35C);
+    sub_4498D5_TeleportToStartingPoint(dword_6BE35C);
   }
   sub_443365(&struct_576FE8);
   compile_error(level name should not be globally-defined);
@@ -10310,7 +10310,7 @@ void __thiscall sub_4646F0(int _this)
   sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, 1);
   sub_464479_ResetCursorAndOther();
   compile_error(level name should not be globally-defined);
-  //sub_464866(0, (v1 == 0) + 1);
+  //PrepareWorld(0, (v1 == 0) + 1);
   cClock2.clock_sub_426363();
   cClock1.clock_sub_426363();
 }

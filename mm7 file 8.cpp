@@ -23,6 +23,7 @@
 
 #include "Level.h"
 #include "Actor.h"
+#include "Events.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -3958,7 +3959,7 @@ void __cdecl sub_4613C4()
  int i;
 
   dword_6836C8 = 0;
-  v3 = sub_4488B6(pDecorationDescriptionList, "Event Trigger");
+  v3 = DecorationList_FindDecoration(pDecorationDescriptionList, "Event Trigger");
   v2 = v3;
 
   for (i = 0; i < uNumLevelDecorations; ++i)
@@ -5349,7 +5350,7 @@ int __cdecl sub_494035()
           goto LABEL_39;
         }
       }
-      Player_sub_494A25(pPlayers[v9], 37, v55);
+      Player_sub_494A25_LooksLikePlayEmotion(pPlayers[v9], 37, v55);
 LABEL_39:
       ++v9;
       if ( v9 > 3 )
@@ -6603,10 +6604,10 @@ int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigne
   void *Src; // [sp+B8h] [bp-4h]@1
  FILE *f;
 
- Src = (void *)LODFile_Events_LOD.LODFile_LoadRaw( pSourceFile, 0);
+ Src = (void *)LODFile_Events_LOD.LODFile_LoadRaw(pSourceFile, 0);
  cTexture_obj.cTexture_Zero();
 
- f = LODFile_Events_LOD.Find_Container( pSourceFile, 0);
+ f = LODFile_Events_LOD.Find_Container(pSourceFile, 0);
  if (!f)
    erroneous_printf("Unable to load %s", pSourceFile);
  locked_fread(&cTexture_obj, 1, 0x30, f);
@@ -7647,7 +7648,7 @@ LABEL_68:
 }
 
 //----- (00464866) --------------------------------------------------------
-int __fastcall sub_464866(const char *pLevelFilename, int a1, int uLoadingUIType)
+int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUIType)
 {
   //int v3; // esi@1
   signed __int64 v6; // qax@8
@@ -7683,13 +7684,11 @@ int __fastcall sub_464866(const char *pLevelFilename, int a1, int uLoadingUIType
 
  sscanf(pLevelFilename, "%[^.].%s", pLevelName, pLevelType);
  Level_LoadEvtAndStr((char *)pLevelName);
- LoadLevel_InitializeLevelEvt();
  
  for (i = 0; i < 1000; ++i)
    pLayingItemsList[i].uObjectDescriptionID = 0;
  
  uLevelMapStatsID = CMapStats_FindLocation(pMapStats, pLevelFilename);
-  byte_6BE3C4_MaybeDrowningFlag = false;
 
   pGame->dword_000E24 &= 0xFFFFFFF7;
 
@@ -7698,6 +7697,8 @@ int __fastcall sub_464866(const char *pLevelFilename, int a1, int uLoadingUIType
     byte_6BE3C4_MaybeDrowningFlag = true;
     pGame->dword_000E24 |= 8;
   }
+  else   
+    byte_6BE3C4_MaybeDrowningFlag = false;
 
   pParty_global->dword_0006F4 = 0;
   if (strcmpi((char *)pLevelType, "blv"))
@@ -7705,7 +7706,18 @@ int __fastcall sub_464866(const char *pLevelFilename, int a1, int uLoadingUIType
   else
     PrepareToLoadBLV((void *)v10);
 
-  AudioPlayer_sub_4AC041(pAudioPlayer);
+
+  if (!bNoSound)
+  {
+   unsigned int v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
+   if (v0)
+   {
+    pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
+    pAudioPlayer->PlayMusicTrack(pMapStats->pMapInfos[v0].uRedbookTrackNum);
+   }
+   AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(pAudioPlayer);
+  }
+
   sub_461103(pLevelFilename);
   if (!strcmpi(pLevelFilename, "d11.blv") || !strcmpi(pLevelFilename, "d10.blv"))
   {
@@ -10983,31 +10995,6 @@ int __fastcall sub_40BB49(int a1)
   return result;
 }
 
-//----- (00443EF8) --------------------------------------------------------
-void __cdecl LoadLevel_InitializeLevelEvt()
-{
- int i, j;
-
- if (!uLevelEVT_Size)
-   return;
-
- memset(&array_5B5928, 0, 100 * sizeof(unnamed_5B5928));
-
- dword_5B65C8 = 0;
-
- uLevelEVT_NumEvents = 0;
- memset(pLevelEVT_Events, 128, 4400 * 12);
-
- for (i = 0, j = 0; j < uLevelEVT_Size; ++i)
- {
-  pLevelEVT_Events[i].dword_000000 = pLevelEVT[j + 1] + ((unsigned short)pLevelEVT[j + 2] << 8);
-  pLevelEVT_Events[i].dword_000004 = pLevelEVT[j + 3];
-  pLevelEVT_Events[i].uEventOffsetInEVT = j;
-  j += pLevelEVT[j] + 1;
-
-  uLevelEVT_NumEvents++;
- }
-}
 
 //----- (0040BB67) --------------------------------------------------------
 signed int __fastcall sub_40BB67(int a1)

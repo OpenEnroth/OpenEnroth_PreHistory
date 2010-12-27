@@ -105,17 +105,17 @@ class AudioPlayer
  SoundHeader  *pSoundHeaders;    // dword @ 0002B8
  HANDLE        hAudioSnd;        // dword @ 0002BC  OS file handle of Audio.snd
  unsigned int  uNumSoundHeaders; // dword @ 0002C0
- unsigned int  u_sub_4AA306_DefaultVolume;   // dword @ 0002C4
- unsigned int  uNumRedbookTracks; // dword @ 0002DC
+ unsigned int  uMasterVolume;    // dword @ 0002C4
+ int           dword_0002C8;
+ int           dword_0002CC;
 
-
- int  sMasterVolume; // dword @ 0002C4
- int  dword_0002C8;
- int  dword_0002CC;
-
- MixerChannel pMixerChannels[16];     // struct[16] @ 0002E8
- unsigned int uMixerChannels;         // dword      @ 0003E8
- char         pDeviceNames[16][128];  // byte[2048] @ 0003F0
+ unsigned int uCurrentMusicTrackLength;  // dword      @ 0002D8  measured in some weird units
+ unsigned int uNumRedbookTracks;         // dword      @ 0002DC
+ unsigned int uCurrentMusicTrackStartMS; // dword      @ 0002E0
+ unsigned int uCurrentMusicTrackEndMS;   // dword      @ 0002E4
+ MixerChannel pMixerChannels[16];        // struct[16] @ 0002E8
+ unsigned int uMixerChannels;            // dword      @ 0003E8
+ char         pDeviceNames[16][128];     // byte[2048] @ 0003F0
 
  int          array_000BF0[16];   // dword[16] @ 000BF0
  int          array_000C30[16];   // dword[16] @ 000C30
@@ -160,9 +160,10 @@ class AudioPlayer
 //int __fastcall sub_4A96FF(int a1, int a2, const char *Str1)                                       004A96FF  AudioPlayer::FindSound_BinarySearch
 //int sub_4A97C6(char *a1, int a2, _DWORD a3)                                                       004A97C6  AudioPlayer::LoadSound
 //int __thiscall sub_4AB71F(void *_this, int a2, int a3)                                            004AB71F  AudioPlayer::MessWithChannels
+//char __thiscall sub_4AA13F(int _this, int a2)                                                     004AA13F  AudioPlayer::PlayMusicTrack
 
 //signed int __thiscall sub_4AC041(void *_this);
-signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this);
+signed int AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(struct AudioPlayer *_this);
 int SoundList_sub_4A9DCD(int _this, int a2, char a3);
 void AudioPlayer_sub_4AA258(AudioPlayer *_this, int a2);
 int AudioPlayer_sub_4AC004(int _this);

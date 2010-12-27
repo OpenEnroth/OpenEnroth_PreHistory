@@ -3318,3 +3318,19 @@ LABEL_23:
   return result;
 }
 */
+
+
+/*
+//----- (004ABFDB) --------------------------------------------------------
+void LoadLevel_InitializeMusic(const char *pLevelFilename)
+{
+  signed int v0; // eax@1
+
+  v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
+  if (v0)
+  {
+   pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
+   pAudioPlayer->PlayMusicTrack(pMapStats->pMapInfos[v0].uRedbookTrackNum);
+  }
+}
+*/

@@ -9110,7 +9110,7 @@ LABEL_76:
           if ( !Player_sub_48D6D0(v41, 72) )
           {
             if ( !Player_sub_48D709(v41, 529, 8) )
-              Player_sub_494A25(v41, 46, 0);
+              Player_sub_494A25_LooksLikePlayEmotion(v41, 46, 0);
           }
           //++v41;
         }

@@ -5,6 +5,7 @@
 #include "tiles.h"
 #include "data.h"
  #include "_lod.h"
+#include "Events.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -187,7 +188,7 @@ Result::Code OutdoorLocation::Clear()
 
 
 //----- (0047CF9C) --------------------------------------------------------
-Result::Code OutdoorLocation::Load(const char *pFilename, int File, unsigned int uRespawnInterval, int a5)
+Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
 {
   FILE *result; // eax@9
   FILE *v7; // ebx@9
@@ -243,12 +244,11 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, unsigned int
   int v109; // eax@147
   struct TileDesc *v110; // eax@147
   int v111; // ecx@150
-  int v113; // edi@159
+  //int v113; // edi@159
   char v115; // [sp-14h] [bp-B94h]@55
   int v116; // [sp-10h] [bp-B90h]@55
   int v117; // [sp-Ch] [bp-B8Ch]@55
   void *v118; // [sp-8h] [bp-B88h]@55
-  signed int v119; // [sp-4h] [bp-B84h]@12
   int v120; // [sp+0h] [bp-B80h]@10
   char v121[0x3C8]; // [sp+10h] [bp-B70h]@110
   char v122[0x3C8]; // [sp+3D8h] [bp-7A8h]@110
@@ -562,7 +562,7 @@ LABEL_75:
  {
   char pStr[32];
   memcpy(pStr, Src, 32);  Src += 32;
-  pLevelDecorations[i].uDecorationDescriptionID = sub_4488B6(pDecorationDescriptionList, pStr);
+  pLevelDecorations[i].uDecorationDescriptionID = DecorationList_FindDecoration(pDecorationDescriptionList, pStr);
  }
 
  runtime_warning();
@@ -659,6 +659,13 @@ LABEL_75:
    }
   }
  }
+
+
+
+
+  unsigned int uLocationID = CMapStats_FindLocation(pMapStats, pFilename);
+  unsigned int uRespawnInterval =  pMapStats->pMapInfos[uLocationID].uRespawnInterval;
+
 
  if (dword_6BE364 & 0x2000)
    uRespawnInterval = 29030400;
@@ -887,68 +894,59 @@ LABEL_150:
   
   class35_sub_48A614(&class35_obj);
 
+ if (!bNoSound)
+ {
   sub_4A9A67(pSoundList, 53, 0);
   sub_4A9A67(pSoundList, 92, 0);
   sub_4A9A67(pSoundList, 57, 0);
   sub_4A9A67(pSoundList, 96, 0);
   sub_4A9A67(pSoundList, 64, 0);
   sub_4A9A67(pSoundList, 103, 0);
-  v113 = (int)this->array_0000A0;
-  a5 = 3;
-  do
+
+  for (unsigned int i = 0; i < 3; ++i)
   {
-    if ( *(_WORD *)v113 )
-    {
-      switch ( *(_WORD *)v113 )
+      switch (array_0000A0[i * 2])
       {
+        case 0:
+          sub_4A9A67(pSoundList, 54, 0);
+          sub_4A9A67(pSoundList, 93, 0);
+        break;
+
         case 1:
           sub_4A9A67(pSoundList, 58, 0);
-          v120 = 0;
-          v119 = 97;
-          break;
+          sub_4A9A67(pSoundList, 97, 0);
+        break;
+
         case 2:
           sub_4A9A67(pSoundList, 52, 0);
-          v120 = 0;
-          v119 = 91;
-          break;
+          sub_4A9A67(pSoundList, 91, 0);
+        break;
+
         case 3:
           sub_4A9A67(pSoundList, 51, 0);
-          v120 = 0;
-          v119 = 90;
+          sub_4A9A67(pSoundList, 90, 0);
           break;
+
         case 5:
           sub_4A9A67(pSoundList, 62, 0);
-          v120 = 0;
-          v119 = 101;
+          sub_4A9A67(pSoundList, 101, 0);
           break;
+
         case 6:
           sub_4A9A67(pSoundList, 49, 0);
-          v120 = 0;
-          v119 = 88;
+          sub_4A9A67(pSoundList, 88, 0);
           break;
-        default:
-          if ( *(_WORD *)v113 != 7 )
-            goto LABEL_175;
+
+        case 7:
           sub_4A9A67(pSoundList, 61, 0);
-          v120 = 0;
-          v119 = 100;
-          break;
+          sub_4A9A67(pSoundList, 100, 0);
+        break;
+
+        default:
+            continue;
       }
-    }
-    else
-    {
-      sub_4A9A67(pSoundList, 54, 0);
-      v120 = 0;
-      v119 = 93;
-    }
-
-    runtime_warning(sound loading error);
-    sub_4A9A67(pSoundList, v119, v120);
-
-LABEL_175:
-    v113 += 4;
-  }
-  while ( a5-- != 1 );
+   }
+ }
 
 
   dword_6BE030 = this->array_0004F0[5];

@@ -25,6 +25,7 @@
 #include "..\VideoPlayer.h"
 #include "..\_lod.h"
 #include "..\UserInput.h"
+#include "..\Events.h"
 
 #include "..\libs\AIL\AIL.h" // parasite include, have to move all ail stuff to AudioPlayer class
 
@@ -2949,11 +2950,11 @@ LABEL_317:
 
             compile_error(level name should not be globally-defined);
   //PrepareToLoadODM(1, (void *)1);
-            LODWORD(v53) = AudioPlayer_sub_4AC041(pAudioPlayer);
+            LODWORD(v53) = AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(pAudioPlayer);
             dword_5C35C4 = 0;
             sub_443FDC_MessWithEvents(v53);
             sub_489487();
-            sub_4498D5((void *)dword_6BE35C);
+            sub_4498D5_TeleportToStartingPoint(dword_6BE35C);
             pParty_global->sPartyPosZ = sub_48257A(pParty_global->sPartyPosX, pParty_global->sPartyPosY, (int)&v229, 0);
             pParty_global->dword_000700 = pParty_global->sPartyPosZ;
             compile_error(level name should not be globally-defined);
@@ -4236,7 +4237,7 @@ LABEL_788:
               struct_576FE8.uMinimapZoom = v134;
             }
 LABEL_789:
-            dword_576E2C = v133;
+            dword_576E2C_uDefaultMinimapZoom = v133;
             dword_576E28 = struct_576FE8.dword_000028;
           }
           else

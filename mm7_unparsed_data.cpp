@@ -1,8 +1,10 @@
 #include "memory_mng.h"
 #include  "_lod.h"
 #include "mm7_unparsed_data.h"
+#include "Events.h"
 
 #include "GUI\GUIWindow.h"
+
 
 
 
@@ -1354,7 +1356,7 @@ unsigned int uTextureIdx_SpellEffecIcons[14]; // dword[14] @ MM7.exe::00576DE8
 unsigned int uIconIdx_Spell21;                // dword     @ MM7.exe::00576E20
 unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::00576E24
  int dword_576E28; // weak
- int dword_576E2C; // weak
+unsigned int dword_576E2C_uDefaultMinimapZoom; // weak
 
 GUIWindow              *pGameLoadingWindow = 0; // new
 GUIProgressBar_Generic *pLevelLoadingUI = 0;    // struct @ MM7.exe::00576E30

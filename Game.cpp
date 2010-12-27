@@ -73,17 +73,16 @@ Result::Code Game::Loop(const char *pLevelName)
       pParty_global->bTurnBasedModeOn = false;
     }
 
-    sub_464866(pLevelName, v17, 1);
+    PrepareWorld(pLevelName, v17, 1);
     cClock1.clock_sub_426363();
     dword_6BE364 |= 0x80;
     dword_6BE340 = 2;
     dword_4E28F8_PartyCantJumpIfTrue = 0;
 
-    if (pAsyncMouse)
-      CAsyncMouse_sub_46B105((void *)pAsyncMouse);
-
     runtime_warning(async input);
-    /*if (pGame->Win32Keyboard_obj->dword_000004 && 0xFF)
+    /*if (pAsyncMouse)
+      CAsyncMouse_sub_46B105((void *)pAsyncMouse);
+    if (pGame->Win32Keyboard_obj->dword_000004 && 0xFF)
     {
       if (pAsyncKeyboard)
         CAsyncKeyboard_Resume(pAsyncKeyboard);

@@ -629,7 +629,7 @@ void *DecorationDescriptionList_Initialize(struct DecorationDescriptionList *_th
 }
 
 //----- (004488B6) --------------------------------------------------------
-__int16 sub_4488B6(struct DecorationDescriptionList *_this, const char *Str1)
+__int16 DecorationList_FindDecoration(struct DecorationDescriptionList *_this, const char *Str1)
 {
   void *v2; // esi@1
   signed int v3; // edi@2

@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <stdio.h>
 
+#include "defs.h"
 
 
 
@@ -53,8 +54,6 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus();
 int sub_47F223_LooksLikeGenerateMonsterLoot(class OutdoorLocation *_this);
 int __cdecl MenuLoop_Main();
 int __fastcall GetSizeInInventorySlots(unsigned int uNumPixels);
-void __cdecl LoadLevel_InitializeLevelStr();
-void __cdecl LoadLevel_InitializeLevelEvt();
 void ReadMM6_ini(const wchar_t *);
 void __cdecl RenderSky();
 char __cdecl RenderBuildings();
@@ -254,10 +253,10 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3);
 void __cdecl sub_41C047();
 void __thiscall sub_41C0B8(const char *Str1);
 signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key);
-int __thiscall GUIWindow_sub_41D08F(GUIWindow *_this, int a2, int a3, int a4, int a5);
+int __thiscall GUIWindow_sub_41D08F(class GUIWindow *_this, int a2, int a3, int a4, int a5);
 void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this);
 void sub_41D20D(int a1, int a2, __int64 a3, int a4);
-void GUIWindow_sub_41D3B7(GUIWindow *_this);
+void GUIWindow_sub_41D3B7(class GUIWindow *_this);
 void GUIWindow_sub_41D73D(int _this);
 void __thiscall sub_41D895(void *_this);
 void __fastcall sub_41E360(int a1, int a2);
@@ -493,7 +492,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
 int __thiscall sub_448DD6(int _this);
 void __fastcall sub_448DF8(int a1, int a2, signed int a3, int a4, __int64 a5, signed int a6, signed int a7, signed int a8);
 char *__fastcall sub_44987B(const char *Source, int a2);
-void __thiscall sub_4498D5(void *_this);
+void __thiscall sub_4498D5_TeleportToStartingPoint(unsigned int uPointType);
 __int16 __fastcall sub_449A49(int a1, int a2);
 unsigned int sub_449B57(unsigned char *a1, __int16 a2);
 int __fastcall sub_449B7E(int a1, __int16 a2, __int16 a3);
@@ -649,7 +648,7 @@ void __thiscall sub_4646F0(int _this);
 void __cdecl InitializeCameraAndViewport();
 char __cdecl sub_464839();
 void __cdecl sub_464851();
-int __fastcall sub_464866(const char *pLevelFilename, int a1, int uLoadingUIType);
+int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUIType);
 signed int __stdcall DialogFunc(HWND hDlg, int a2, __int16 a3, int a4);
 signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine);
 signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest();
@@ -935,7 +934,7 @@ void __stdcall sub_49CE9E(int a1, int a2, signed int a3, int a4);
 signed int __stdcall sub_49D379(int a1, int a2);
 
 int __thiscall sub_49DC90(int _this);
-bool __thiscall sub_49E756(IDirectDraw4 *pdd4);
+bool __thiscall sub_49E756(struct IDirectDraw4 *pdd4);
 int __thiscall sub_49EB79(int _this);
 int __thiscall sub_49F5A2(void *_this, int a2, int a3, int a4, void *Dst, int a6, int a7);
 FILE *__thiscall sub_49F8B5(void *_this, char *Filename, int a3, int a4, int a5);
@@ -982,11 +981,9 @@ void class06_sub_4A90A0(struct class06 *_this);
 void *__thiscall sub_4A96BE(void *_this);
 int __thiscall sub_4A9BBD(void *_this, signed int a2, LPVOID lpBuffer, signed int a4, int a5, int a6);
 int __thiscall sub_4A9D3E(void *_this);
-char __thiscall sub_4AA13F(int _this, int a2);
 int __fastcall sub_4AAEA6(int a1);
 int __fastcall sub_4AB66C(int a1, int a2);
 int __fastcall sub_4AB6B1(int a1, int a2, int a3);
-char __cdecl LoadLevel_InitializeMusic(const char *pLevelFilename);
 int __thiscall sub_4AC277(void *_this, int a2);
 int __stdcall sub_4AC33A(int a1);
 int __stdcall sub_4AC4FD(int a1);

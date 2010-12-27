@@ -9,6 +9,7 @@
 #include "VideoPlayer.h"
 #include "FrameTables.h"
 #include "UserInput.h"
+#include "Events.h"
 
 #include "GUI\GUI.h"
 #include "GUI\GUIButton.h"
@@ -8099,12 +8100,12 @@ LABEL_47:
 LABEL_108:
               v55 = (int)&pParty_global->pPlayers[v56];
 LABEL_109:
-              Player_sub_494A25((Player *)v55, v117, v121);
+              Player_sub_494A25_LooksLikePlayEmotion((Player *)v55, v117, v121);
               goto LABEL_291;
             }
 
             for (i = 0; i < 4; ++i)
-              Player_sub_494A25(&pParty_global->pPlayers[i], *(_BYTE *)(v10 + pSomeEVT + 6), 0);
+              Player_sub_494A25_LooksLikePlayEmotion(&pParty_global->pPlayers[i], *(_BYTE *)(v10 + pSomeEVT + 6), 0);
 
 LABEL_291:
             ++v126;
@@ -9092,7 +9093,7 @@ void __fastcall sub_44882F(int a1, int a2, const char *Str1)
         {
           if ( _strcmpi(Str1, "0") )
           {
-            v5 = sub_4488B6(pDecorationDescriptionList, Str1);
+            v5 = DecorationList_FindDecoration(pDecorationDescriptionList, Str1);
             *((_WORD *)v4 - 1) = v5;
             sub_458693(pDecorationDescriptionList, v5);
           }
