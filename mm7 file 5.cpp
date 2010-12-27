@@ -1637,7 +1637,7 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
         v24 = _this->ptr_00003C;
         v18 = pD3DRenderer->uTargetSurfacePitch;
 
-        runtime_warning(crush, shady and unclear code);
+        runtime_warning("crush, shady and unclear code");
         /*
         if ( v9 < _this->dword_00004C)
         {
@@ -10178,6 +10178,7 @@ signed int __stdcall sub_47730C(int a1)
   return 1;
 }
 
+#ifndef __BORLANDC__
 extern "C" int _ftol(float);
 //----- (0047732C) --------------------------------------------------------
 //function_error; //#error "FFFFFFFF: variables would overlap: ecx/4 and edx/8 (funcsize=165)"
@@ -10445,7 +10446,7 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  pop     esi
                  pop     ebx
                  leave
-                 retn    0x10
+                 ret near    0x10
  }
  #undef var_C
  #undef var_8
@@ -10455,6 +10456,7 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
  #undef arg_8
  #undef arg_C
 }
+#endif
 
 //----- (0047752B) --------------------------------------------------------
 int __cdecl sub_47752B()

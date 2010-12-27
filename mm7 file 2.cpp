@@ -8773,7 +8773,7 @@ void __cdecl sub_4196A0()
     dword_507CC0 = 0;
     for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( *(_BYTE *)((char *)pControl + 29) & 0x80 )
+      if ( pControl->dword_00001C & 0x8000 )		 //   + 29)
         GUIButton_sub_41D0D8(pControl);
     }
     for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
@@ -11904,27 +11904,26 @@ LABEL_15:
 signed int __fastcall sub_41FF64(int a1)
 {
   signed int result; // eax@1
-  int v2; // edx@1
-  int v3; // ecx@1
-  char *v4; // ecx@2
+  signed int v2; // edx@1
+ // int v3; // ecx@1
+  char v4; // ecx@2
 
-  v3 = 5324 * a1;
+  //v3 = 5324 * a1;
   result = 0;
-  v2 = dword_4E2C0C[*(__int16 *)((char *)array_5E5150 + v3)] * dword_4E2C2C[*(__int16 *)((char *)array_5E5150 + v3)];
+  v2 = dword_4E2C0C[array_5E5150[a1].word_000000] * dword_4E2C2C[array_5E5150[a1].word_000000];
   if ( v2 <= 0 )
   {
-LABEL_5:
     result = -1;
   }
   else
   {
-   v4 = (char *)array_5E5150[a1].array_000004;
-    while ( *(_DWORD *)v4 )
+   v4 = 0; (char *)array_5E5150[a1].array_000004;
+    while ( array_5E5150[a1].array_000004[v4].uItemID )
     {
       ++result;
-      v4 += 36;
+      v4 ++;//= 36;
       if ( result >= v2 )
-        goto LABEL_5;
+        result = -1;
     }
   }
   return result;

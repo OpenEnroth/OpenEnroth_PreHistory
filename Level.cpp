@@ -60,7 +60,8 @@ int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsi
    return 0;
  else
  {
-  v3 = _this->cTerrainData.pTilemap[128 * uY + uX];   if ( v3 >= 90 )
+   v3 = _this->cTerrainData.pTilemap[128 * uY + uX];
+   if ( v3 >= 90 )
      v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
    return pTileTable->pTiles[v3].word_000018;
  }
@@ -85,7 +86,8 @@ int class51_GetTileTexture2(OutdoorLocation *_this, unsigned int uX, unsigned in
  if (uX > 127 || uY > 127)
    return 0;
 
- v3 = _this->cTerrainData.pTilemap[uY * 128 + uX]; if (v3 < 198)
+ v3 = _this->cTerrainData.pTilemap[uY * 128 + uX];
+ if (v3 < 198)
  {
   if (v3 >= 90)
     v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
@@ -327,7 +329,18 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
   class35_sub_48A614(&class35_obj);
  }
  else
- {  class35_obj.byte_267AD3 = 0;  class35_obj.byte_267AD4 = 0;  class35_obj.byte_267AD5 = 0;  if (class35_obj.byte_267AD0 != -128 ||      class35_obj.byte_267AD1 != -128 ||      class35_obj.byte_267AD2 != -128)  {   class35_obj.byte_267AD0 = -128;   class35_obj.byte_267AD1 = -128;   class35_obj.byte_267AD2 = -128;   class35_sub_48A614(&class35_obj);  }
+ {
+  class35_obj.byte_267AD3 = 0;
+  class35_obj.byte_267AD4 = 0;
+  class35_obj.byte_267AD5 = 0;
+  if (class35_obj.byte_267AD0 != -128 ||
+      class35_obj.byte_267AD1 != -128 ||
+      class35_obj.byte_267AD2 != -128)
+  {   class35_obj.byte_267AD0 = -128;
+   class35_obj.byte_267AD1 = -128;
+   class35_obj.byte_267AD2 = -128;
+   class35_sub_48A614(&class35_obj);
+  }
  }
  dword_6807E0 = 0;
 
@@ -1437,7 +1450,14 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
         (int)_this->sLightPosY * a2->dword_000004 +
         (int)_this->sLightPosZ * a2->dword_000008 + a2->dword_00000C) >> 16;
 
- if (_this->word_000006 > 0 &&     _this->sLightPosX > *(_WORD *)(a2 + 278) - _this->word_000006 &&     _this->sLightPosX < *(_WORD *)(a2 + 280) + _this->word_000006 &&     _this->sLightPosY > *(_WORD *)(a2 + 282) - _this->word_000006 &&     _this->sLightPosY < *(_WORD *)(a2 + 284) + _this->word_000006 &&     _this->sLightPosZ > *(_WORD *)(a2 + 286) - _this->word_000006 &&     _this->sLightPosZ < *(_WORD *)(a2 + 288) + _this->word_000006 && a4 ||     v8 >= 0 && v8 <= _this->word_000006)
+ if (_this->word_000006 > 0 &&
+     _this->sLightPosX > *(_WORD *)(a2 + 278) - _this->word_000006 &&
+     _this->sLightPosX < *(_WORD *)(a2 + 280) + _this->word_000006 &&
+     _this->sLightPosY > *(_WORD *)(a2 + 282) - _this->word_000006 &&
+     _this->sLightPosY < *(_WORD *)(a2 + 284) + _this->word_000006 &&
+     _this->sLightPosZ > *(_WORD *)(a2 + 286) - _this->word_000006 &&
+     _this->sLightPosZ < *(_WORD *)(a2 + 288) + _this->word_000006 && a4 ||
+     v8 >= 0 && v8 <= _this->word_000006)
   {
     dword_F8ADD8[*(_DWORD *)a3] = _this->word_000006;
     dword_F8AE28[*(_DWORD *)a3] = 65536 / _this->word_000006;
