@@ -1,7 +1,8 @@
 
 #pragma once
 
-#pragma pack(1)
+#pragma pack(push, 1)
+
 struct TileDesc
 {
  unsigned char sTileName[12];
@@ -37,3 +38,5 @@ struct TileDesc *TileTable_GetTile(struct CTileTable *_this, unsigned int uTileI
 
 //----- (00488047) --------------------------------------------------------
 signed int __thiscall sub_488047(int _this, const char *a2);
+
+#pragma pack(pop)
