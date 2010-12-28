@@ -2165,9 +2165,9 @@ LSTATUS __stdcall CheckA3DSupport(char a1)
   if ( !result )
   {
     if ( a1 )
-      compile_error();//RegQueryValueExA(hKey, "SplashAudio", 0, 0, &::Data, &cbData);
+      RegQueryValueExA(hKey, "SplashAudio", 0, 0, &::Data, &cbData);
     else
-      compile_error();//*(_DWORD *)Data = *(_DWORD *)&::Data;
+      *(_DWORD *)Data = *(_DWORD *)&::Data;
     RegSetValueExA(hKey, "SplashAudio", 0, 4u, Data, 4u);
     *(_DWORD *)Data = 0;
     if ( a1 )

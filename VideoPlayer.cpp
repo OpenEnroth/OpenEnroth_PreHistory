@@ -525,7 +525,6 @@ void VideoPlayer::SmackDrawFrame(unsigned int uOutX, unsigned int uOutY)
  //}
 
 
-
  POINT ptWindowOffset = {0, 0};
  if (pD3DRenderer->bWindowMode)
    ClientToScreen(pWindow->GetAPIHandle(), &ptWindowOffset);
@@ -537,7 +536,7 @@ void VideoPlayer::SmackDrawFrame(unsigned int uOutX, unsigned int uOutY)
      uColor |= ((((((unsigned int)(pSmackerFrameData[y * 640 + x]) & 0x07E0) >> 5) * 4) & 0xFF) << 8);
      uColor |= ((((((unsigned int)(pSmackerFrameData[y * 640 + x]) & 0xF800) >> 11) * 8) & 0xFF) << 16);
 
-    pSurfaceData[(ptWindowOffset.y + y) * 1280 + ptWindowOffset.x + x] = uColor;
+    pSurfaceData[(ptWindowOffset.y + y) * uSurfacePitch + ptWindowOffset.x + x] = uColor;
    }
  Render_UnlockFrontBuffer(pD3DRenderer);
 
