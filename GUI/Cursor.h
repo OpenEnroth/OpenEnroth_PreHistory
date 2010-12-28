@@ -1,9 +1,8 @@
 #pragma once
+#include <windows.h>
 
-#include "..\Window.h"
 
-
-//GUICursor
+class OSWindow;
 struct GUICursor
 {
  int dword_000000; // when in Game, mouse over player portrait, highlighted player id is placed here

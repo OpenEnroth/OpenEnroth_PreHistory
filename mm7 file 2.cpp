@@ -4671,7 +4671,7 @@ void sub_410B28(int _this)	//spell info
   const char *v8; // ST44_4@12
   unsigned __int16 v9; // ax@12
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v10; // [sp+Ch] [bp-68h]@4
   //int v11; // [sp+10h] [bp-64h]@4
   //int v12; // [sp+14h] [bp-60h]@4
@@ -4943,7 +4943,7 @@ int __thiscall sub_411621(void *_this)
     if ( *(_BYTE *)(v7 + v1) )
     {
       v4 = 8 * (12 * *(_BYTE *)(v2 + 6734) + (unsigned __int8)*(&byte_4E2431[12 * *(_BYTE *)(v2 + 6734)] + v1));
-      GUIButtonCreate((GUIWindow *)v3,
+      GUIButtonCreate((GUI::Window *)v3,
         pOldViewport->uGameX + *(int *)((char *)&dword_4E20D0 + v4),
         pOldViewport->uGameY + *(int *)((char *)&dword_4E20D4 + v4),
         *(_WORD *)(dword_50640C[v1] + 24),
@@ -4960,30 +4960,30 @@ int __thiscall sub_411621(void *_this)
     ++v1;
   }
   while ( v1 < 11 );
-  GUIButtonCreate((GUIWindow *)v3, 0, 0, 0, 0, 1, 0, 51, 0, 9, NULL, 0);
+  GUIButtonCreate((GUI::Window *)v3, 0, 0, 0, 0, 1, 0, 51, 0, 9, NULL, 0);
   if ( v6 )
-    GUIWindow_sub_41D08F((GUIWindow *)v3, v6, 0, 0, 0);
+    GUIWindow_sub_41D08F((GUI::Window *)v3, v6, 0, 0, 0);
   if ( *(_WORD *)(v2 + 288) )
-    GUIButtonCreate((GUIWindow *)v3, 399, 10, 50, 36, 1, 0, 87, 0, 0, aSpellSchoolNames[0], 0);
+    GUIButtonCreate((GUI::Window *)v3, 399, 10, 50, 36, 1, 0, 87, 0, 0, aSpellSchoolNames[0], 0);
   if ( *(_WORD *)(v2 + 290) )
-    GUIButtonCreate((GUIWindow *)v3, 399, 46, 50, 36, 1, 0, 87, 1, 0, aSpellSchoolNames[1], 0);
+    GUIButtonCreate((GUI::Window *)v3, 399, 46, 50, 36, 1, 0, 87, 1, 0, aSpellSchoolNames[1], 0);
   if ( *(_WORD *)(v2 + 292) )
-    GUIButtonCreate((GUIWindow *)v3, 399, 83, 50, 36, 1, 0, 87, 2, 0, aSpellSchoolNames[2], 0);
+    GUIButtonCreate((GUI::Window *)v3, 399, 83, 50, 36, 1, 0, 87, 2, 0, aSpellSchoolNames[2], 0);
   if ( *(_WORD *)(v2 + 294) )
-    GUIButtonCreate((GUIWindow *)v3, 399, 121, 50, 36, 1, 0, 87, 3, 0, aSpellSchoolNames[3], 0);
+    GUIButtonCreate((GUI::Window *)v3, 399, 121, 50, 36, 1, 0, 87, 3, 0, aSpellSchoolNames[3], 0);
   if ( *(_WORD *)(v2 + 296) )
-    GUIButtonCreate((GUIWindow *)v3, 399, 158, 50, 36, 1, 0, 87, 4, 0, aSpellSchoolNames[4], 0);
+    GUIButtonCreate((GUI::Window *)v3, 399, 158, 50, 36, 1, 0, 87, 4, 0, aSpellSchoolNames[4], 0);
   if ( *(_WORD *)(v2 + 298) )
-    GUIButtonCreate((GUIWindow *)v3, 400, 196, 50, 36, 1, 0, 87, 5, 0, aSpellSchoolNames[5], 0);
+    GUIButtonCreate((GUI::Window *)v3, 400, 196, 50, 36, 1, 0, 87, 5, 0, aSpellSchoolNames[5], 0);
   if ( *(_WORD *)(v2 + 300) )
-    GUIButtonCreate((GUIWindow *)v3, 400, 234, 50, 36, 1, 0, 87, 6, 0, aSpellSchoolNames[6], 0);
+    GUIButtonCreate((GUI::Window *)v3, 400, 234, 50, 36, 1, 0, 87, 6, 0, aSpellSchoolNames[6], 0);
   if ( *(_WORD *)(v2 + 302) )
-    GUIButtonCreate((GUIWindow *)v3, 400, 271, 50, 36, 1, 0, 87, 7, 0, aSpellSchoolNames[7], 0);
+    GUIButtonCreate((GUI::Window *)v3, 400, 271, 50, 36, 1, 0, 87, 7, 0, aSpellSchoolNames[7], 0);
   if ( *(_WORD *)(v2 + 304) )
-    GUIButtonCreate((GUIWindow *)v3, 400, 307, 50, 36, 1, 0, 87, 8, 0, aSpellSchoolNames[8], 0);
-  GUIButtonCreate((GUIWindow *)v3, 476, 450, *(_WORD *)(dword_506444 + 24), *(_WORD *)(dword_506444 + 26), 1, 78, 88, 0, 0, NULL, 0);
-  dword_5064F8 = GUIButtonCreate((GUIWindow *)v3, 476, 450, 48, 32, 1, 78, 88, 0, 0, NULL,  &LODFile_Icons_LOD.aLODHeaders[dword_506444],0);
-  GUIButtonCreate((GUIWindow *)v3,
+    GUIButtonCreate((GUI::Window *)v3, 400, 307, 50, 36, 1, 0, 87, 8, 0, aSpellSchoolNames[8], 0);
+  GUIButtonCreate((GUI::Window *)v3, 476, 450, *(_WORD *)(dword_506444 + 24), *(_WORD *)(dword_506444 + 26), 1, 78, 88, 0, 0, NULL, 0);
+  dword_5064F8 = GUIButtonCreate((GUI::Window *)v3, 476, 450, 48, 32, 1, 78, 88, 0, 0, NULL,  &LODFile_Icons_LOD.aLODHeaders[dword_506444],0);
+  GUIButtonCreate((GUI::Window *)v3,
     561,
     450,
     *(_WORD *)(dword_506440 + 24),
@@ -4996,7 +4996,7 @@ int __thiscall sub_411621(void *_this)
     pGlobalTXT_LocalizationStrings[79],
     0);
   result =0; 
-  dword_5064F4 = GUIButtonCreate((GUIWindow *)v3, 561, 450, 48, 32, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[79],  &LODFile_Icons_LOD.aLODHeaders[dword_506440],0);
+  dword_5064F4 = GUIButtonCreate((GUI::Window *)v3, 561, 450, 48, 32, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[79],  &LODFile_Icons_LOD.aLODHeaders[dword_506440],0);
   return result;
 }
 
@@ -5059,9 +5059,9 @@ void sub_411AAA()
 
 
 //----- (00411BFC) -------------.text:00411F44 -------------------------------------------
-int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)	   // prepere textures for books
+int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures for books
 {
-  GUIWindow *v1; // ebp@1
+  GUI::Window *v1; // ebp@1
   int result; // eax@7
   signed int v3; // ecx@8
   __int64 *v4; // ebp@9
@@ -5387,7 +5387,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)	   // prepere textures for
 		  1, 0, 71, 11, 0,
 		  pGlobalTXT_LocalizationStrings[192],
 		  uTextureID_tab_an_6b__zoom_on,0);
-	  dword_506514 = GUIButtonCreate((GUIWindow *)v1,
+	  dword_506514 = GUIButtonCreate((GUI::Window *)v1,
 		  pOldViewport->uGameX + 398,
 		  pOldViewport->uGameY + 38,
 		  uTextureID_tab_an_7b__zoot_on->uTextureWidth,
@@ -5423,7 +5423,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)	   // prepere textures for
 				  if ( v5 )
 					  {
 					  v8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v5, uActiveCharacter, 0, 0, 0, v4);
-					  v9 = GUIFont_CalculateTextHeight(ptr_5C35E0, (unsigned char *)v8, (GUIWindow *)&v26, 1, 0);
+					  v9 = GUIFont_CalculateTextHeight(ptr_5C35E0, (unsigned char *)v8, (GUI::Window *)&v26, 1, 0);
 					  v6 = (v9 - 3) / v29;
 					  v7 = v6 + 1;
 					  if ( (_DWORD)v6 + 1 > 0 )
@@ -5693,7 +5693,7 @@ void __cdecl sub_412E85()
   class cTexture* v13; // [sp-4h] [bp-60h]@3
   class cTexture* v14; // [sp-4h] [bp-60h]@7
 
-  GUIWindow local_08;
+  GUI::Window local_08;
   //int v15; // [sp+8h] [bp-54h]@10
   //int v16; // [sp+Ch] [bp-50h]@10
   //int v17; // [sp+10h] [bp-4Ch]@10
@@ -5803,7 +5803,7 @@ void __cdecl sub_413126_DrawSpellbook_Quests()
   class cTexture* v10; // [sp-4h] [bp-64h]@3
   class cTexture* v11; // [sp-4h] [bp-64h]@7
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v12; // [sp+Ch] [bp-54h]@9
   //int v13; // [sp+10h] [bp-50h]@9
   //int v14; // [sp+14h] [bp-4Ch]@9
@@ -5932,7 +5932,7 @@ void __cdecl sub_41338E_DrawSpellbook_Autonotes()
   signed __int16 v31; // [sp+10h] [bp-58h]@1
   char *v32; // [sp+10h] [bp-58h]@49
 
-  GUIWindow local_14;
+  GUI::Window local_14;
   //int v33; // [sp+14h] [bp-54h]@46
   //int v34; // [sp+18h] [bp-50h]@46
   //int v35; // [sp+1Ch] [bp-4Ch]@46
@@ -6235,7 +6235,7 @@ void sub_413980_DrawSpellbook_Map()
   char Str[50]; // [sp+Ch] [bp-CCh]@37
 
 
-  GUIWindow local_84;
+  GUI::Window local_84;
   //int v22; // [sp+84h] [bp-54h]@35
   //int v23; // [sp+88h] [bp-50h]@35
   //int v24; // [sp+8Ch] [bp-4Ch]@35
@@ -6412,7 +6412,7 @@ void  sub_413D6F_DrawSpellbook_Calendar()
   int v2; // ecx@5
   unsigned char *v3; // eax@6
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v5; // [sp+Ch] [bp-60h]@5
   //int v6; // [sp+10h] [bp-5Ch]@5
   //int v7; // [sp+14h] [bp-58h]@5
@@ -6485,7 +6485,7 @@ int __fastcall sub_4141CA(int a1, int a2)
 //----- (0041420D) --------------------------------------------------------
 void __cdecl sub_41420D()
 {
-  GUIWindow v0; // [sp+4h] [bp-54h]@1	 x
+  GUI::Window v0; // [sp+4h] [bp-54h]@1	 x
  // int v1; // [sp+8h] [bp-50h]@1	 y
  // int v2; // [sp+Ch] [bp-4Ch]@1	 wd
  // int v3; // [sp+10h] [bp-48h]@1 ht
@@ -6777,7 +6777,7 @@ void __cdecl sub_414D9A()
   unsigned __int16 v1; // ax@3
   int v2; // eax@10
 
-  GUIWindow local_08;
+  GUI::Window local_08;
   //int v3; // [sp+8h] [bp-54h]@3
   //int v4; // [sp+Ch] [bp-50h]@3
   //int v5; // [sp+10h] [bp-4Ch]@3
@@ -7373,7 +7373,7 @@ LABEL_92:
     else
       v38 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v54) - 414;
     v43 = v38;
-    GUIWindow_sub_415551((GUIWindow *)&v43, 0);
+    GUIWindow_sub_415551((GUI::Window *)&v43, 0);
   }
 }
 
@@ -7393,7 +7393,7 @@ void __thiscall sub_416B01(void *_this)
   unsigned __int16 v13; // ax@28
   const char *v14; // eax@28
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v15; // [sp+Ch] [bp-60h]@23
   //int v16; // [sp+10h] [bp-5Ch]@23
   //int v17; // [sp+14h] [bp-58h]@23
@@ -7534,7 +7534,7 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
   char *v24; // edx@113
   unsigned int v25; // eax@113
 
-  GUIWindow local_04;
+  GUI::Window local_04;
   //int v26; // [sp+4h] [bp-74h]@33
   //int v27; // [sp+8h] [bp-70h]@33
   //int v28; // [sp+Ch] [bp-6Ch]@33
@@ -7930,7 +7930,7 @@ void __thiscall OnMouseLeftClick(void *_this)
   signed int v5; // eax@17
   signed int v6; // esi@19
   int v7; // esi@30
-  GUIWindow *v8; // edx@31
+  GUI::Window *v8; // edx@31
   struct GUIButton *i; // esi@37
   bool v10; // eax@50
   int v11; // ecx@52
@@ -8190,7 +8190,7 @@ void sub_4179BC(const unsigned char *a1, const char *a2)
   const unsigned char *v4; // edi@1
   unsigned int v5; // eax@1
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int Dst; // [sp+Ch] [bp-5Ch]@1
   //int v7; // [sp+10h] [bp-58h]@1
   //int v8; // [sp+14h] [bp-54h]@1
@@ -8202,7 +8202,7 @@ void sub_4179BC(const unsigned char *a1, const char *a2)
 
   v3 = a2;
   v4 = a1;
-  memset(&local_0C, 0, sizeof(GUIWindow));
+  memset(&local_0C, 0, sizeof(GUI::Window));
   local_0C.uFrameWidth = 384;
   local_0C.uFrameHeight = 256;
   local_0C.uFrameX = 128;
@@ -9291,7 +9291,7 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3)
   int l; // ecx@8
   char v9; // [sp+4h] [bp-8h]@1
   char v10; // [sp+8h] [bp-4h]@1
-  GUIWindow *curr_wnd;
+  GUI::Window *curr_wnd;
 
   v4 = a2;
   v10 = toupper(a1);
@@ -9331,44 +9331,6 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3)
     }  */
   }
   return result;
-}
-
-//----- (0041B578) --------------------------------------------------------
-int __cdecl MenuUI_LoadFontsAndSomeStuff()
-{
-  signed int v3; // edx@3
- int i;
-
- LODFile_Icons_LOD.SetupPalettes(5,6,5); //pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
- class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
- class35_sub_48A614(&class35_obj);
-
- for (i = 0; i < 480; ++i)
-   dword_5059A8[i] = i * 640;
-
-
- Render_Reset2DClippingRect(pD3DRenderer);
-
- dword_507988 = LODFile_Icons_LOD.LODFile_LoadTexture( "FONTPAL", 2);
-
- pFontArrus = LoadFont("arrus.fnt", "FONTPAL");
- pFontArrus->byte_000002[0] = 0;
-
- pFontLucida = LoadFont("lucida.fnt", "FONTPAL");
- pFontLucida->byte_000002[0] = 0;
-
- pFontCreate = LoadFont("create.fnt", "FONTPAL");
- pFontCreate->byte_000002[0] = 0;
-
- pFontComic = LoadFont("comic.fnt", "FONTPAL");
- pFontSmallnum = LoadFont("smallnum.fnt", "FONTPAL");
-
- sLastGUIWindowIdx = -1;
- memset(array_5075E0, 0, 20 * sizeof(int));
- for (i = 0; i < 20; ++i)
-   GUIWindow_List[i].uWindowType = 0;
-
- return 0;
 }
 
 
@@ -9737,7 +9699,7 @@ LABEL_46:
 }
 
 //----- (0041D08F) --------------------------------------------------------
-int __thiscall GUIWindow_sub_41D08F(GUIWindow *_this, int a2, int a3, int a4, int a5)
+int __thiscall GUIWindow_sub_41D08F(GUI::Window *_this, int a2, int a3, int a4, int a5)
 {
   int result; // eax@2
 
@@ -9883,16 +9845,16 @@ void sub_41D20D(int a1, int a2, __int64 a3, int a4)
       strcat((char *)TmpBuf, (char *)pStringBuffer);
     }
   }
-  FontDrawText((GUIWindow *)v16, (Font *)a4, 32, v15, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText((GUI::Window *)v16, (Font *)a4, 32, v15, (char *)TmpBuf, 0, 0, 0);
 }
 
 //----- (0041D3B7) --------------------------------------------------------
-void GUIWindow_sub_41D3B7(GUIWindow *_this)	  //show quick info
+void GUIWindow_sub_41D3B7(GUI::Window *_this)	  //show quick info
 {
   int v1; // eax@1
   int v2; // ecx@1
   signed int v3; // ebx@1
-  GUIWindow *v4; // edi@1
+  GUI::Window *v4; // edi@1
   int v6; // eax@5
   int v7; // ebx@5
   int v8; // ecx@5
@@ -9925,7 +9887,7 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)	  //show quick info
   char *v39; // eax@24
   int v41; // [sp+14h] [bp-14h]@1
   Font *v42; // [sp+18h] [bp-10h]@1
-  GUIWindow *v43; // [sp+1Ch] [bp-Ch]@1
+  GUI::Window *v43; // [sp+1Ch] [bp-Ch]@1
   signed int v44; // [sp+20h] [bp-8h]@9
   int v45; // [sp+20h] [bp-8h]@18
   signed int v46; // [sp+24h] [bp-4h]@18
@@ -10056,7 +10018,7 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)	  //show quick info
   if ( v45 == v32 )
     v39 = (char *)pGlobalTXT_LocalizationStrings[153];
   wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_ACTIVE_SPELL], v39);
-  FontDrawText((GUIWindow *)v43, pFontArrus, 14, 114, (char *)TmpBuf, v32, v32, (unsigned int)v32);
+  FontDrawText((GUI::Window *)v43, pFontArrus, 14, 114, (char *)TmpBuf, v32, v32, (unsigned int)v32);
 }
 
 //----- (0041D73D) --------------------------------------------------------
@@ -10102,10 +10064,10 @@ void GUIWindow_sub_41D73D(int _this)
   v7 = *(_DWORD *)(v2 + 12);
   *(_DWORD *)(v2 + 16) = v6 + *(_DWORD *)v2 - 1;
   *(_DWORD *)(v2 + 20) = *(_DWORD *)(v2 + 4) + v7 - 1;
-  GUIWindow_sub_415551((GUIWindow *)v2, 0);
-  GUIWindow_DrawText((GUIWindow *)v2, pFontArrus, 0, 12, 0, (char *)pGlobalTXT_LocalizationStrings[451], 3);
+  GUIWindow_sub_415551((GUI::Window *)v2, 0);
+  GUIWindow_DrawText((GUI::Window *)v2, pFontArrus, 0, 12, 0, (char *)pGlobalTXT_LocalizationStrings[451], 3);
   if ( !v19 )
-    GUIWindow_DrawText((GUIWindow *)v2, (Font *)v3, 0, 40, 0, (char *)pGlobalTXT_LocalizationStrings[153], 3);
+    GUIWindow_DrawText((GUI::Window *)v2, (Font *)v3, 0, 40, 0, (char *)pGlobalTXT_LocalizationStrings[153], 3);
   v20 = 0;
   GetTickCount();
   v8 = &unk_4E2B21;
@@ -10125,7 +10087,7 @@ void GUIWindow_sub_41D73D(int _this)
         v13 = (const char *)*v16;
         ++v20;
         v14 = 0xFF000000 | ((unsigned int)(*((_BYTE *)v8 - 1)) << 16) | ((unsigned int)(*(_BYTE *)v8) << 8) | *((_BYTE *)v8 + 1);//colored or white text flag
-        FontDrawText((GUIWindow *)v2, (Font *)v17, 52, v12, v13, 0, 0, 0);
+        FontDrawText((GUI::Window *)v2, (Font *)v17, 52, v12, v13, 0, 0, 0);
         sub_41D20D(v12, v2, v11, v17);
         v3 = v17;
       }
@@ -10222,7 +10184,7 @@ void __thiscall sub_41D895(void *_this)
   int v82; // [sp+200h] [bp-78h]@12
   int v83; // [sp+204h] [bp-74h]@5
 
-  GUIWindow local_208;
+  GUI::Window local_208;
   //int v84; // [sp+208h] [bp-70h]@5
   //int v85; // [sp+20Ch] [bp-6Ch]@2
   //int v86; // [sp+210h] [bp-68h]@2
@@ -11040,7 +11002,7 @@ LABEL_51:
   strncpy((char *)(char *)TmpBuf, (const char *)v72, v77);
 LABEL_59:
   v38 = 0xFFFFFF9B;
-  GUIWindow_DrawText((GUIWindow *)v145, pFontComic, 0, 12, v38, (char *)TmpBuf, 3);
+  GUIWindow_DrawText((GUI::Window *)v145, pFontComic, 0, 12, v38, (char *)TmpBuf, 3);
   sub_41AF52(v143, v145);
   v141 = 0;
   stru_506580_MonsterInfoUI_Doll.dword_0000B8 += cClock2.int_00001C;
@@ -11154,7 +11116,7 @@ LABEL_84:
 
   v50 = (int)pFontSmallnum;
   v140 = (int)pFontSmallnum;
-  FontDrawText((GUIWindow *)v145, pFontSmallnum, 12, 196, (char *)pGlobalTXT_LocalizationStrings[631], 0, 0, 0);
+  FontDrawText((GUI::Window *)v145, pFontSmallnum, 12, 196, (char *)pGlobalTXT_LocalizationStrings[631], 0, 0, 0);
   v49 = *(_BYTE *)(v50 + 5) + 193;
   if ( !v137 )
   {
@@ -11266,7 +11228,7 @@ LABEL_103:
       {
         v54 = Str1;
         v55 = sub_45828B(v146);
-        FontDrawText((GUIWindow *)v145, (Font *)v140, 28, v49, v54, 0, 0, 0);
+        FontDrawText((GUI::Window *)v145, (Font *)v140, 28, v49, v54, 0, 0, 0);
         v49 = v49 + *(_BYTE *)(v140 + 5) - 3;
         v51 = v142;
       }
@@ -11284,14 +11246,14 @@ LABEL_119:
     v69 = 0;
     v66 = (char *)pGlobalTXT_LocalizationStrings[153];
 LABEL_123:
-    FontDrawText((GUIWindow *)v145, (Font *)v140, 28, v49, v66, v69, v74, (unsigned int)v78);
+    FontDrawText((GUI::Window *)v145, (Font *)v140, 28, v49, v66, v69, v74, (unsigned int)v78);
   }
   v56 = (int)pFontSmallnum;
   Str1 = (char *)v125;
   if ( v141 )
   {
     wsprintfA((char *)TmpBuf, (const char *)&unk_4E3384, pGlobalTXT_LocalizationStrings[108], 0, *(_DWORD *)(v143 + 108));
-    FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+    FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     Str1 = &Str1[*(_BYTE *)(v56 + 5) - 3];
     v79 = *(char **)(v143 + 112);
     v75 = 0;
@@ -11301,7 +11263,7 @@ LABEL_123:
   else
   {
     wsprintfA((char *)TmpBuf, (const char *)&unk_4E3374, pGlobalTXT_LocalizationStrings[108], 0, pGlobalTXT_LocalizationStrings[630]);
-    FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+    FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     v79 = (char *)pGlobalTXT_LocalizationStrings[630];
     v75 = 0;
     v70 = (int)pGlobalTXT_LocalizationStrings[12];
@@ -11309,7 +11271,7 @@ LABEL_123:
     v67 = (const char *)&unk_4E3374;
   }
   wsprintfA((char *)TmpBuf, v67, v70, v75, v79);
-  FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
   Str1 = &Str1[*(_BYTE *)(v56 + 5) - 6] + *(_BYTE *)(v56 + 5);
   v103 = (int)pGlobalTXT_LocalizationStrings[87];
   v104 = (int)pGlobalTXT_LocalizationStrings[6];
@@ -11325,7 +11287,7 @@ LABEL_123:
   if ( v138 )
   {
     wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[18], 0, *(&v103 + *(_BYTE *)(v143 + 65)));
-    FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+    FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     Str1 = &Str1[*(_BYTE *)(v56 + 5) - 3];
     v57 = *(_BYTE *)(v143 + 68);
     if ( v57 )
@@ -11347,11 +11309,11 @@ LABEL_123:
   else
   {
     wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[18], 0, pGlobalTXT_LocalizationStrings[630]);
-    FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+    FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     Str1 = &Str1[*(_BYTE *)(v56 + 5) - 3];
     wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[53], 0, pGlobalTXT_LocalizationStrings[630]);
   }
-  FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
   v58 = *(_BYTE *)(v56 + 5);
   Str1 = &Str1[v58 - 6] + v58;
   if ( !i )
@@ -11373,7 +11335,7 @@ LABEL_123:
   if ( v136 )
   {
     wsprintfA((char *)TmpBuf, (const char *)&unk_4E3328, v142, 0, pSpellStats->pSpellInfos[v136].pSpellNameShort);
-    FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+    FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     v58 = *(_BYTE *)(v56 + 5);
     Str1 = &Str1[v58 - 3];
     v59 = v143;
@@ -11382,7 +11344,7 @@ LABEL_123:
   if ( v60 )
   {
     wsprintfA((char *)TmpBuf, (const char *)&unk_4E3318, 0, pSpellStats->pSpellInfos[v60].pSpellNameShort);
-    FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+    FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     v58 = *(_BYTE *)(v56 + 5);
     Str1 = &Str1[v58 - 3];
     v59 = v143;
@@ -11395,12 +11357,12 @@ LABEL_123:
     v68 = (const char *)&unk_4E3328;
 LABEL_144:
     wsprintfA((char *)TmpBuf, v68, v71, v76, v80);
-    FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+    FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     v58 = *(_BYTE *)(v56 + 5);
     Str1 = &Str1[v58 - 3];
   }
   Str1 = &Str1[v58 - 3];
-  FontDrawText((GUIWindow *)v145, (Font *)v56, 150, (int)Str1, (char *)pGlobalTXT_LocalizationStrings[626], 0, 0, 0);
+  FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)pGlobalTXT_LocalizationStrings[626], 0, 0, 0);
   Str1 = &Str1[*(_BYTE *)(v56 + 5) - 3];
   v93 = (int)pGlobalTXT_LocalizationStrings[87];
   v94 = (int)pGlobalTXT_LocalizationStrings[6];
@@ -11441,7 +11403,7 @@ LABEL_144:
           v81 = (int)pGlobalTXT_LocalizationStrings[153];
       }
       wsprintfA((char *)TmpBuf, (const char *)&unk_4E3308, *(int *)((char *)&v93 + v146), 0, v81);
-      FontDrawText((GUIWindow *)v145, (Font *)v56, 170, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+      FontDrawText((GUI::Window *)v145, (Font *)v56, 170, (int)Str1, (char *)TmpBuf, 0, 0, 0);
       v64 = *(_BYTE *)(v56 + 5);
       v146 += 4;
       result = &Str1[v64 - 3];
@@ -11455,7 +11417,7 @@ LABEL_144:
     do
     {
       wsprintfA((char *)TmpBuf, (const char *)&unk_4E3308, *(&v93 + i), 0, pGlobalTXT_LocalizationStrings[630]);
-      FontDrawText((GUIWindow *)v145, (Font *)v56, 170, (int)Str1, (char *)TmpBuf, 0, 0, 0);
+      FontDrawText((GUI::Window *)v145, (Font *)v56, 170, (int)Str1, (char *)TmpBuf, 0, 0, 0);
       v65 = *(_BYTE *)(v56 + 5);
       ++i;
       result = &Str1[v65 - 3];
@@ -11467,7 +11429,7 @@ LABEL_144:
   {
     wsprintfA((char *)TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[650], *(_WORD *)(v143 + 40));
     GUIFont_GetLineWidth(pFontSmallnum, TmpBuf);
-    GUIWindow_DrawText((GUIWindow *)v145,
+    GUIWindow_DrawText((GUI::Window *)v145,
                pFontSmallnum,
                0,
                *(_DWORD *)(v145 + 12) - *(_BYTE *)(pFontSmallnum + 5) - 12,
@@ -12545,11 +12507,11 @@ LABEL_12:
   }
   dword_507CD8 = 0;
   v4 = (int)GUIWindowCreate(0, 0, 640, 480, 20, (GUIButton*)v54, 0);
-  pGUIWindow_CurrentMenu = (GUIWindow *)v4;
+  pGUIWindow_CurrentMenu = (GUI::Window *)v4;
   dword_507BB8 = v4;
-  dword_5076F4 = GUIButtonCreate((GUIWindow *)v4, 471, 445,	169, 35, 1,	0, 113,  0, 0,  pGlobalTXT_LocalizationStrings[79],
+  dword_5076F4 = GUIButtonCreate((GUI::Window *)v4, 471, 445,	169, 35, 1,	0, 113,  0, 0,  pGlobalTXT_LocalizationStrings[79],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
-  GUIButtonCreate((GUIWindow *)dword_507BB8, 7, 8, 460, 343, 1, 0, 12, 0, 0, NULL, 0);
+  GUIButtonCreate((GUI::Window *)dword_507BB8, 7, 8, 460, 343, 1, 0, 12, 0, 0, NULL, 0);
   dword_4E28F8_PartyCantJumpIfTrue = 10;
   cClock1.clock_fn1();
   return 1;

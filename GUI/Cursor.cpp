@@ -1,4 +1,4 @@
-#include "GUICursor.h"
+#include "Cursor.h"
 
 #include "..\mm7_unparsed_data.h"
 

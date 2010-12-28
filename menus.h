@@ -78,4 +78,12 @@ extern struct GUIButton *pCancelBtn; // weak dword_69BD60
 extern struct GUIButton *pLoadSaveBtn; // weak
 
 
+
+
+
+
+
+void LoadUI_MainMenu();
+
+
 #pragma pack(pop)

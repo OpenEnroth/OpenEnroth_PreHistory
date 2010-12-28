@@ -48,18 +48,6 @@
     <ClCompile Include="Render\RenderOperatorsOGL.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\GUI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\GUIButton.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\GUIFont.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\GUIWindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="_lod.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="c18.cpp" />
@@ -175,12 +163,6 @@
     <ClCompile Include="libs\libpng143\pngwutil.c">
       <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\GUIProgressBar.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\GUICursor.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
@@ -196,17 +178,44 @@
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="PartyActions.cpp" />
     <ClCompile Include="GameEvents.cpp" />
-    <ClCompile Include="GUI\GUIImage.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\GUIControl.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="BaseRender.cpp" />
     <ClCompile Include="RenderSoftware.cpp" />
     <ClCompile Include="tiles.cpp" />
     <ClCompile Include="Events..cpp" />
     <ClCompile Include="Thread.cpp" />
+    <ClCompile Include="GUI\Align.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Button.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Control.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Cursor.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Font.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Image.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Label.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\ProgressBar.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Window.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\WindowOverlapped.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -241,18 +250,6 @@
     </ClInclude>
     <ClInclude Include="Render\TextureOGL.h">
       <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\GUI.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\GUIButton.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\GUIFont.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\GUIWindow.h">
-      <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Window.h" />
     <ClInclude Include="_lod.h" />
@@ -398,12 +395,6 @@
     <ClInclude Include="libs\libpng143\pngpriv.h">
       <Filter>libs\libpng</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\GUIProgressBar.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\GUICursor.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h" />
     <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="VideoPlayer.h" />
@@ -418,12 +409,6 @@
     </ClInclude>
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="CoreDefinitions.h" />
-    <ClInclude Include="GUI\GUIImage.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\GUIControl.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Extras\List.h">
       <Filter>Extras</Filter>
     </ClInclude>
@@ -434,6 +419,36 @@
     <ClInclude Include="tiles.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="Thread.h" />
+    <ClInclude Include="GUI\Align.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Button.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Control.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Cursor.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Font.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Image.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Label.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\ProgressBar.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Window.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

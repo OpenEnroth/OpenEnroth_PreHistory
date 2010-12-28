@@ -5924,7 +5924,7 @@ void __cdecl sub_444A51()
   int v8;
   char *v9;
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v10; // [sp+Ch] [bp-60h]@1
   //int v11; // [sp+14h] [bp-58h]@5
   //int v12; // [sp+1Ch] [bp-50h]@5
@@ -5933,7 +5933,7 @@ void __cdecl sub_444A51()
   int v14; // [sp+64h] [bp-8h]@1
   int v15; // [sp+6Bh] [bp-1h]@11
 
-  memcpy(&local_0C, pGUIWindow0, sizeof(GUIWindow));
+  memcpy(&local_0C, pGUIWindow0, sizeof(GUI::Window));
   compile_error(file name should not be global);
     //v14 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   v13 = sub_444810(dword_591164);
@@ -6022,7 +6022,7 @@ LABEL_6:
   else
     strcpy(byte_591098, (char *)pGlobalTXT_LocalizationStrings[79]);
   result = (int)GUIWindowCreate(0, 0, 640, 480, 17, 0, (int)byte_591098);
-  pDialogueWindow = (GUIWindow *)result;
+  pDialogueWindow = (GUI::Window *)result;
   return result;
 }
 
@@ -6064,7 +6064,7 @@ void __cdecl sub_444DCA()
   int v5; // [sp-Ch] [bp-90h]@3
   signed int v6; // [sp-8h] [bp-8Ch]@3
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v7; // [sp+Ch] [bp-78h]@1
   //int v8; // [sp+14h] [bp-70h]@2
   //int v9; // [sp+1Ch] [bp-68h]@2
@@ -6072,7 +6072,7 @@ void __cdecl sub_444DCA()
   char Str2; // [sp+60h] [bp-24h]@1
   int v11; // [sp+80h] [bp-4h]@1
 
-  memcpy(&local_0C, pGUIWindow0, sizeof(GUIWindow));
+  memcpy(&local_0C, pGUIWindow0, sizeof(GUI::Window));
   compile_error(file name should not be global);
     //v11 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
@@ -6124,7 +6124,7 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
   int v3; // edi@12
   char Str1[200]; // [sp+Ch] [bp-120h]@12
 
-  GUIWindow local_D4;
+  GUI::Window local_D4;
   //char v5; // [sp+D4h] [bp-58h]@4
   //int v6; // [sp+DCh] [bp-50h]@4
   //int v7; // [sp+E4h] [bp-48h]@4
@@ -6298,12 +6298,12 @@ void __cdecl sub_445350_DrawDialogueUI()
   int v47; // eax@104
   int v48; // edx@104
 
-  GUIWindow local_04;
+  GUI::Window local_04;
   //char v49; // [sp+4h] [bp-110h]@39
   //int v50; // [sp+Ch] [bp-108h]@39
   //int v51; // [sp+14h] [bp-100h]@39
 
-  GUIWindow local_58;
+  GUI::Window local_58;
   /*struct
   {
    char v52; // [sp+58h] [bp-BCh]@2
@@ -6314,7 +6314,7 @@ void __cdecl sub_445350_DrawDialogueUI()
    int unk_6C[10];
   } v52;*/
 
-  GUIWindow local_AC;
+  GUI::Window local_AC;
   //int v55; // [sp+ACh] [bp-68h]@42
   //int v56; // [sp+B4h] [bp-60h]@42
   //int v57; // [sp+BCh] [bp-58h]@42
@@ -6330,7 +6330,7 @@ void __cdecl sub_445350_DrawDialogueUI()
   if (!pDialogueWindow)
     return;
 
-  memcpy(&local_58, pDialogueWindow, sizeof(GUIWindow));
+  memcpy(&local_58, pDialogueWindow, sizeof(GUI::Window));
   v1 = sub_4459F9_GetNPCData(uDialogue_SpeakingActorID);
   v3 = sub_445C8B(uDialogue_SpeakingActorID);
   local_58.uFrameWidth -= 10;
@@ -6455,7 +6455,7 @@ LABEL_39:
   }
 
 LABEL_42:
-  memcpy(&local_AC, pDialogueWindow, sizeof(GUIWindow));
+  memcpy(&local_AC, pDialogueWindow, sizeof(GUI::Window));
   local_AC.uFrameX = 483;
   local_AC.uFrameWidth = 148;
   local_AC.uFrameZ = 334;
@@ -6608,7 +6608,7 @@ LABEL_79:
         v36 < j;
         j = pDialogueWindow->dword_000028 + pDialogueWindow->dword_000038 )
   {
-    v38 = GUIWindow_GetChild((GUIWindow *)v34, v36);
+    v38 = GUIWindow_GetChild((GUI::Window *)v34, v36);
     if ( !v38 )
     {
       v34 = (int)pDialogueWindow;
@@ -7004,7 +7004,7 @@ LABEL_17:
   if (uDialogue_SpeakingActorID < 0 )
     v8 = 4;
   v11 = (int)GUIWindowCreate(0, 0, 640, 480, 10, (GUIButton *)v8, 0);
-  pDialogueWindow = (GUIWindow *)v11;
+  pDialogueWindow = (GUI::Window *)v11;
   if (v6->dword_000008 & 0x80 )
   {
     if ( !*((_DWORD *)v3 + 17) )
@@ -7014,7 +7014,7 @@ LABEL_17:
       {
         if ( v12 <= 12 || v12 > 32 && (v12 <= 34 || v12 > 38 && (v12 <= 43 || v12 == 52)) )
         {
-          GUIButtonCreate((GUIWindow *)v11, 480, 250, 140, *(_BYTE *)(pFontArrus + 5) - 3, 1, 0, 136, 9, 0, NULL, 0);
+          GUIButtonCreate((GUI::Window *)v11, 480, 250, 140, *(_BYTE *)(pFontArrus + 5) - 3, 1, 0, 136, 9, 0, NULL, 0);
           GUIWindow_sub_41D08F(pDialogueWindow, 4, 1, 0, 1);
         }
       }
@@ -8042,7 +8042,7 @@ LABEL_47:
                 {
                   pAudioPlayer->sub_4AA306(0, 0, 0, -1, 0, 0, 0, 0);
                   v50 = (int)GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton *)165, 0);
-                  ptr_507BC0 = (GUIWindow *)v50;
+                  ptr_507BC0 = (GUI::Window *)v50;
                   v51 = *(_DWORD *)(v50 + 76);
                   if ( v51 )
                   {

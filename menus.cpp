@@ -514,7 +514,7 @@ void sub_4601B7(int a1)		 //render save_load
   const char *v26; // edi@36
   int v27; // eax@43
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int Dst; // [sp+Ch] [bp-78h]@8
   //int v30; // [sp+10h] [bp-74h]@8
   //int v31; // [sp+14h] [bp-70h]@8
@@ -557,7 +557,7 @@ void sub_4601B7(int a1)		 //render save_load
   }
   if ( dword_69CF28[dword_6A0CA0_indx] )
   {
-    memset(&local_0C, 0, sizeof(GUIWindow));
+    memset(&local_0C, 0, sizeof(GUI::Window));
     local_0C.uFrameX = pGUIWindow_CurrentMenu->uFrameX + 240;
     v5 = pGUIWindow_CurrentMenu->uFrameY -pFontSmallnum->uFontHeight+157;
     local_0C.uFrameWidth = 220;
@@ -1447,7 +1447,7 @@ void __cdecl sub_4B6943()
   char v60; // [sp+140h] [bp-150h]@68
   char Dest; // [sp+1A4h] [bp-ECh]@36
 
-  GUIWindow local_208;
+  GUI::Window local_208;
   //int v62; // [sp+208h] [bp-88h]@1
   //int v63; // [sp+210h] [bp-80h]@1
   //int v64; // [sp+218h] [bp-78h]@1
@@ -1467,7 +1467,7 @@ void __cdecl sub_4B6943()
   int v77; // [sp+28Ch] [bp-4h]@48
 
   v2 = (int)ptr_507BC0;
-  memcpy(&local_208, ptr_507BC0, sizeof(GUIWindow));
+  memcpy(&local_208, ptr_507BC0, sizeof(GUI::Window));
   v1 = 255;
   v72 = pPlayers[uActiveCharacter - 1];
   v3 = v72;
@@ -1511,7 +1511,7 @@ void __cdecl sub_4B6943()
         v28 = ptr_507BC0->dword_00001C;
         v27 = (void *)(unsigned __int8)*(&byte_4F0D38[4 * v28] + v73);
         v72 = (void *)(unsigned __int8)*(&byte_4F0D38[4 * v28] + v73);
-        v26 = (int)GUIWindow_GetChild((GUIWindow *)v20, v71);
+        v26 = (int)GUIWindow_GetChild((GUI::Window *)v20, v71);
         if ( v27 != v69
           && (v76 >= 6 ? (v29 = 1) : (v29 = (unsigned __int8)*(&byte_4F09B1[32 * (_DWORD)v27] + pParty_global->uDaysPlayed % 7u)),
               v29
@@ -1879,7 +1879,7 @@ int __cdecl sub_410DEC()
   int v22; // [sp-4h] [bp-8Ch]@21
   int v23; // [sp-4h] [bp-8Ch]@25
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v24; // [sp+Ch] [bp-7Ch]@1
   //int v25; // [sp+10h] [bp-78h]@1
   //int v26; // [sp+14h] [bp-74h]@1
@@ -2100,4 +2100,118 @@ void *__cdecl sub_45E006()
 	  }
   
   return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+void LoadUI_MainMenu()
+{
+ /* Main menu:
+
+    GUI
+    |___ Window [HostWindow]
+         |
+         |_________ Image [Window Background, mm7title.png]
+         |
+         |_________ WindowOverlapped [CopyrightWindow]
+         |          |
+         |          |____________ Image    [Window Background]
+         |          |
+         |          |____________ Image[4] [Window Borders]
+         |          |
+         |          |____________ Image[4] [Window Corners]
+         |          |
+         |          |____________ Label    [Copyright text]
+         |
+         |
+         |_________ Window [MenuWindow]
+                    |
+                    |__________ Image  [Window Background]
+                    |
+                    |__________ Button [New Game]
+                    |
+                    |__________ Button [Load Game]
+                    |
+                    |__________ Button [Options]
+                    |
+                    |__________ Button [Credits]
+                    |
+                    |__________ Button [Exit]
+*/
+ pMainGUI->Reset();
+ {
+   // MainMenu Background Window
+  GUI::Window *pMainMenu_HostWindow = pMainGUI->CreateControl<GUI::Window>(0);
+  pMainMenu_HostWindow->Initialize(&Rect<float>(0, 640, 0, 480));
+  {
+   GUI::Image *pMainMenu_WindowBackground = pMainGUI->CreateControl<GUI::Image>(pMainMenu_HostWindow);
+   pMainMenu_WindowBackground->Initialize(0, L"mm7title", GUI::Align::Center, GUI::Align::Center);
+
+   pMainMenu_HostWindow->SetBackgroundImage(pMainMenu_WindowBackground);
+  }
+
+  // MainMenu Copyright Window
+  GUI::WindowOverlapped *pMainMenu_CopyrightWindow = pMainGUI->CreateControl<GUI::WindowOverlapped>(pMainMenu_HostWindow);
+  pMainMenu_CopyrightWindow->Initialize(&Rect<float>(6, 634, 330, 470));
+  {
+   GUI::Image *pMainMenu_CopyrightWindowBackground = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow);
+   pMainMenu_CopyrightWindowBackground->Initialize(0, L"Parchment", GUI::Align::Wrap, GUI::Align::Wrap);
+   pMainMenu_CopyrightWindow->SetBackgroundImage(pMainMenu_CopyrightWindowBackground);
+
+   GUI::Image *pMainMenu_CopyrightWindowCornerUL = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow),
+              *pMainMenu_CopyrightWindowCornerUR = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow),
+              *pMainMenu_CopyrightWindowCornerLL = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow),
+              *pMainMenu_CopyrightWindowCornerLR = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow);
+   GUI::Image *pMainMenu_CopyrightWindowBorderLeft = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow),
+              *pMainMenu_CopyrightWindowBorderRight = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow),
+              *pMainMenu_CopyrightWindowBorderTop = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow),
+              *pMainMenu_CopyrightWindowBorderBottom = pMainGUI->CreateControl<GUI::Image>(pMainMenu_CopyrightWindow);
+
+   pMainMenu_CopyrightWindowCornerUL->Initialize(0, L"C_UL-b", GUI::Align::Negative, GUI::Align::Negative);
+   pMainMenu_CopyrightWindowCornerUR->Initialize(0, L"C_UR-b", GUI::Align::Positive, GUI::Align::Negative);
+   pMainMenu_CopyrightWindowCornerLL->Initialize(0, L"C_LL-b", GUI::Align::Negative, GUI::Align::Positive);
+   pMainMenu_CopyrightWindowCornerLR->Initialize(0, L"C_LR-b", GUI::Align::Positive, GUI::Align::Positive);
+
+   pMainMenu_CopyrightWindowBorderLeft->Initialize(0, L"WE-l-b", GUI::Align::Negative, GUI::Align::Wrap);
+   pMainMenu_CopyrightWindowBorderRight->Initialize(0, L"WE-r-b", GUI::Align::Positive, GUI::Align::Wrap);
+   pMainMenu_CopyrightWindowBorderTop->Initialize(0, L"WE-t-b", GUI::Align::Wrap, GUI::Align::Negative);
+   pMainMenu_CopyrightWindowBorderBottom->Initialize(0, L"WE-bot-b", GUI::Align::Wrap, GUI::Align::Positive);
+
+   pMainMenu_CopyrightWindow->SetStyle(pMainMenu_CopyrightWindowBorderLeft, pMainMenu_CopyrightWindowBorderRight,
+                                       pMainMenu_CopyrightWindowBorderTop, pMainMenu_CopyrightWindowBorderBottom,
+                                       pMainMenu_CopyrightWindowCornerUL, pMainMenu_CopyrightWindowCornerUR,
+                                       pMainMenu_CopyrightWindowCornerLL, pMainMenu_CopyrightWindowCornerLR);
+
+   GUI::Label *pMainMenu_CopyrightWindowText = pMainGUI->CreateControl<GUI::Label>(pMainMenu_CopyrightWindow);
+   pMainMenu_CopyrightWindowText->Initialize(&Rect<float>(12, 620, 347, 468), (char *)pGlobalTXT_LocalizationStrings[LOCSTR_3DO_COPYRHT],
+                                            pFontSmallnum, &_Render::Color(1.0f, 1.0f, 1.0f, 1.0f), GUI::Align::Center, 0, 0);
+
+   pMainMenu_CopyrightWindow->AddChild(pMainMenu_CopyrightWindowText);
+   pMainMenu_CopyrightWindow->Activate(true);
+  }
+  pMainMenu_HostWindow->AddChild(pMainMenu_CopyrightWindow);
+
+
+  // MainMenu Right tab with buttons
+  GUI::Window *pMainMenu_MenuWindow = pMainGUI->CreateControl<GUI::Window>(pMainMenu_HostWindow);
+  pMainMenu_MenuWindow->Initialize(&Rect<float>(400, 600, 200, 400));
+  {
+   pMainMenu_MenuWindow->Activate(false);
+  }
+  pMainMenu_HostWindow->AddChild(pMainMenu_MenuWindow);
+
+
+  pMainMenu_HostWindow->Activate(true);
+  pMainGUI->SetMainWindow(pMainMenu_HostWindow);
+ }
 }

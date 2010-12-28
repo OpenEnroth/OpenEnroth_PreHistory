@@ -18,6 +18,7 @@ Game *Game_Initialize();
 void  Game_Destroy();
 
 void InitializeGameText();
+void InitializeGameText();
 void InitializeScrolls();
 void InitializeMerchants();
 void InitializeTransitions();

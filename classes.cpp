@@ -1112,7 +1112,7 @@ void *class37_ctor(struct class37 *_this)
 
 
 
-
+extern char *RemoveQuote(char *pStr);
 //----- (00456D84) --------------------------------------------------------
 char *sub_456D84(struct class40 *_this)
 {

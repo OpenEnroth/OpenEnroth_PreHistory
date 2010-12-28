@@ -3,10 +3,10 @@
 #include <strsafe.h>
 
 #include "GUI.h"
-#include "GUIButton.h"
-#include "GUICursor.h"
-#include "GUIFont.h"
-#include "GUIProgressBar.h"
+#include "Button.h"
+#include "Cursor.h"
+#include "Font.h"
+#include "ProgressBar.h"
 
 #include "..\Game.h"
 
@@ -25,11 +25,12 @@
 #include "..\_lod.h"
 #include "..\UserInput.h"
 #include "..\Events.h"
+#include "..\Tiles.h"
 
 #include "..\libs\AIL\AIL.h" // parasite include, have to move all ail stuff to AudioPlayer class
 
 
-GUI *pMainGUI = 0;
+GUI::GUI *pMainGUI = 0;
 
 
 unsigned int uTextureID_CurrentMenu;
@@ -92,9 +93,9 @@ for(int i=a1; i< 56; i++)
 }
 
 //----- (00421626) --------------------------------------------------------
-GUIWindow *GameUI_InitializeCharacterWindow(int a1)
+GUI::Window *GameUI_InitializeCharacterWindow(int a1)
 {
- GUIWindow *pCharacterWindow;
+ GUI::Window *pCharacterWindow;
 
   ++LODFile_Icons_LOD.uTexturePacksCount;
   if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
@@ -570,8 +571,8 @@ void GameUI_LoadIcons()
 //----- (00415485) --------.text:004158F7 ------------------------------------------------
 void __cdecl GUIWindow_DrawCopyrightWindow()
 {
- GUIWindow local_08;
- GUIWindow *pWindow = &local_08;
+ GUI::Window local_08;
+ GUI::Window *pWindow = &local_08;
 
  local_08.uFrameX = 8;
  local_08.uFrameY = 30;
@@ -600,7 +601,7 @@ void __cdecl GUIWindow_DrawCopyrightWindow()
 }
 
 //----- (00415551) --------------------------------------------------------
-void __thiscall GUIWindow_sub_415551(GUIWindow *_this, int a2)
+void __thiscall GUIWindow_sub_415551(GUI::Window *_this, int a2)
 {
   int v3; // edi@1
   int v4; // eax@2
@@ -617,7 +618,7 @@ void __thiscall GUIWindow_sub_415551(GUIWindow *_this, int a2)
   int v15; // eax@19
   int v17; // eax@26
   
-  GUIWindow local_0C;//int v18; // [sp+Ch] [bp-60h]@18
+  GUI::Window local_0C;//int v18; // [sp+Ch] [bp-60h]@18
   //int v19; // [sp+10h] [bp-5Ch]@18
   //int v20; // [sp+14h] [bp-58h]@18
   //int v21; // [sp+18h] [bp-54h]@18
@@ -691,7 +692,7 @@ LABEL_14:
   local_0C.uFrameWidth = _this->uFrameWidth;
   local_0C.uFrameHeight = _this->uFrameHeight;
   local_0C.ptr_000048 = _this->ptr_000048;
-  //memcpy(&local_0C, (const void *)_this, sizeof(GUIWindow));
+  //memcpy(&local_0C, (const void *)_this, sizeof(GUI::Window));
 
   local_0C.uFrameX += 12;
   local_0C.uFrameWidth -= 24;
@@ -724,59 +725,6 @@ LABEL_14:
 }
 
 
-//----- (004BF794) --------------------------------------------------------
-void __cdecl ShowIntroVideo_LoadMainMenu_ShowGreetingWindow()
-{
-  int v5; // [sp+34h] [bp-8h]@8
-  int v6; // [sp+38h] [bp-4h]@8
-
- dword_F8BC10 = 1;
- 
- Render_ClearAndPresent(pD3DRenderer, 0xFF000000);
- if (!bNoVideo)
- {
-  if (!bNoCredits)
-  {
-   pVideoPlayer->PlayMovie("3DOLogo", 0, 0, false);
-   pVideoPlayer->PlayMovie("New World Logo", 0, 0, false);
-   pVideoPlayer->PlayMovie("JVC", 0, 0, false);
-  }
-
-  if (!bNoIntro)
-    pVideoPlayer->PlayMovie("Intro", 0, 0, false);
- }
-
-
-
- MenuUI_LoadTextures(1);
- MenuUI_LoadFontsAndSomeStuff();
-
-#ifndef OLD_CODE
- uTextureID_MainMenuUI_Title = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"mm7title");
-#else
- cPCXID_MainMenuUI_Title.LODPCXLoad("mm6title.pcx",0);
-#endif
-
- pD3DRenderer->BeginScene();
- {
-#ifndef OLD_CODE
-  Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
-#else
-  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_MainMenuUI_Title);
-#endif
-  GUIWindow_DrawCopyrightWindow();
- }
-
- pD3DRenderer->EndScene();
- pD3DRenderer->Present();
-
- if (!bNoSound)
- {
-  pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
-  pAudioPlayer->PlayMusicTrack(14);
- }
- dword_F8BC10 = 0;
-}
 
 //----- (00420EFF) --------------------------------------------------------
 void GameUI_Update()
@@ -1185,7 +1133,7 @@ void GameUI_Process()
   unsigned __int8 v41; // al@279
   unsigned __int8 v42; // al@280
   const char *v43; // edx@289
-  GUIWindow *v44; // ecx@332
+  GUI::Window *v44; // ecx@332
   int v45; // eax@336
   int v46; // eax@336
   int v47; // eax@336
@@ -2427,7 +2375,7 @@ LABEL_232:
                     case 25:
                       v36 = dword_507BC8;
 LABEL_249:
-                      GUIWindowDelete((GUIWindow *)v36);
+                      GUIWindowDelete((GUI::Window *)v36);
                       LODFile_Icons_LOD.LODFile_sub_4114F2();
                       dword_4E28F8_PartyCantJumpIfTrue = 0;
                       struct_576FE8.dword_000044 = 1;
@@ -4291,7 +4239,7 @@ LABEL_789:
 int __thiscall sub_4219BE(void *_this)
 {
   int v2; // esi@1
-  GUIWindow *v3; // ebx@1
+  GUI::Window *v3; // ebx@1
 
   v2 = (int)_this;
   cClock1.clock_fn1();
@@ -4671,7 +4619,7 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
 }
 
 //----- (0041CD3B) --------------------------------------------------------
-struct GUIButton *GUIWindow_GetChild(GUIWindow *_this, int uID)
+struct GUIButton *GUIWindow_GetChild(GUI::Window *_this, int uID)
 {
  struct GUIButton *v1;
  int               i;
@@ -4712,7 +4660,7 @@ void SetCurrentMenu(unsigned int uMenuID)
 }
 
 //----- (0041D12F) --------------------------------------------------------
-struct GUIButton *GUIButtonCreate(GUIWindow *pParentWindow,
+struct GUIButton *GUIButtonCreate(GUI::Window *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
                                              int a6, int a7, unsigned int uControlID, unsigned int uControlParam, unsigned int uHotkey,
@@ -4770,14 +4718,14 @@ struct GUIButton *GUIButtonCreate(GUIWindow *pParentWindow,
 
 
 //----- (0041C432) --------------------------------------------------------
-GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
+GUI::Window *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
                                              unsigned int uWindowType, struct GUIButton *a6, int a7)
 {
   signed int v7; // eax@1
   int v8; // ebp@1
   //int *v9; // esi@4
-  GUIWindow *v9;
+  GUI::Window *v9;
   int v11; // ebx@15
   char *v12; // ebp@15
   void *v13; // ecx@18
@@ -5060,7 +5008,7 @@ GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
 
 
 //----- (0041C26A) --------------------------------------------------------
-void GUIWindowDelete(GUIWindow *_this)
+void GUIWindowDelete(GUI::Window *_this)
 {
   int v1; // esi@1
   signed int v2; // eax@2
@@ -6586,8 +6534,8 @@ LABEL_43:
       v14 = *(int *)((char *)dword_723E84 + v25);
       ++dword_506520;
       v15 = 0xFF000000 | ((unsigned int)(byte_4E2AA4[3 * v14 % 6]) << 16) | ((unsigned int)(byte_4E2AA4[3 * v14 % 6 + 1]) << 8) | byte_4E2AA4[3 * v14 % 6 + 2];
-      FontDrawText((GUIWindow *)&v19, pFontArrus, 0, 0, v6, 0, 0, 0);
-      v16 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v6, (GUIWindow *)&v19, 0, 0);
+      FontDrawText((GUI::Window *)&v19, pFontArrus, 0, 0, v6, 0, 0, 0);
+      v16 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v6, (GUI::Window *)&v19, 0, 0);
       result = v16 + v20 + 4;
       if ( result <= v22 )
       {
@@ -9595,7 +9543,7 @@ void __cdecl CharacterUI_SkillsTab_ShowHint()
 }
 
 //----- (004B3157) --------------------------------------------------------
-void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
+void __thiscall GUIWindow_sub_4B3157(const GUI::Window *_this)
 {
   unsigned __int16 v1; // di@2
   const char *v2; // edx@4
@@ -9618,7 +9566,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
   int v19; // [sp+18h] [bp-A0h]@4
   int v20; // [sp+1Ch] [bp-9Ch]@45
 
-  GUIWindow local_60;
+  GUI::Window local_60;
   //char v21; // [sp+60h] [bp-58h]@2
   //int v22; // [sp+68h] [bp-50h]@2
   //int v23; // [sp+70h] [bp-48h]@2
@@ -9627,7 +9575,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
 
   if (ptr_507BC0)
   {
-    memcpy(&local_60, _this, sizeof(GUIWindow));
+    memcpy(&local_60, _this, sizeof(GUI::Window));
     local_60.uFrameWidth -= 18;
     local_60.uFrameZ -= 18;
     v1 = 0xFFFFFFFF;
@@ -9641,7 +9589,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
       v2 = (const char *)dword_59143C[13 * ptr_507BC0->dword_00001C];
       if ( v2 )
       {
-        v3 = 2 * (pFontCreate->uFontHeight) - 6 - GUIFont_CalculateTextHeight(pFontCreate, (unsigned char *)v2, (GUIWindow *)&v17, 0, 0);
+        v3 = 2 * (pFontCreate->uFontHeight) - 6 - GUIFont_CalculateTextHeight(pFontCreate, (unsigned char *)v2, (GUI::Window *)&v17, 0, 0);
         if ( v3 < 0 )
           v3 = 0;
         GUIWindow_DrawText(&local_60,
@@ -9774,7 +9722,7 @@ LABEL_36:
     {
       v18 = 458;
       v20 = 457;
-      v5 = GUIFont_CalculateTextHeight(pFontArrus, dword_F8B1E8, (GUIWindow *)&v17, 13, 0);
+      v5 = GUIFont_CalculateTextHeight(pFontArrus, dword_F8B1E8, (GUI::Window *)&v17, 13, 0);
       v6 = v5 + 7;
       Render_sub_4A6A68(
         pD3DRenderer,
@@ -9785,7 +9733,7 @@ LABEL_36:
       Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v6, pcTexture_EndcapTexture);
 
       unsigned char pOutString[2048];
-      v7 = (char *)FitTextInAWindow(dword_F8B1E8, pOutString, pFontArrus, (GUIWindow *)&v17, 13, 0);
+      v7 = (char *)FitTextInAWindow(dword_F8B1E8, pOutString, pFontArrus, (GUI::Window *)&v17, 13, 0);
       FontDrawText(ptr_507BC0, pFontArrus, 13, 354 - v6, v7, 0, 0, 0);
     }
     v8 = 0;
@@ -9843,7 +9791,7 @@ LABEL_56:
 void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks()
 {
   signed int v0; // eax@4
- GUIWindow *pWnd; // esi@4
+ GUI::Window *pWnd; // esi@4
   int v2; // eax@10
   int v3; // eax@11
   int v4; // eax@12
@@ -10224,7 +10172,7 @@ LABEL_82:
           cClock1.clock_sub_426363();
           v28 = (int)ptr_507BD0;
 LABEL_110:
-          GUIWindowDelete((GUIWindow *)v28);
+          GUIWindowDelete((GUI::Window *)v28);
           continue;
         }
       }
@@ -10422,7 +10370,7 @@ void __cdecl sub_411150()
   int v3; // edi@17
   __int16 v4; // dx@24
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v6; // [sp+Ch] [bp-64h]@1
   //int v7; // [sp+10h] [bp-60h]@1
   //int v8; // [sp+14h] [bp-5Ch]@1
@@ -10856,7 +10804,7 @@ void PlayerCreationUI_Draw()
   int v119; // [sp+0h] [bp-170h]@39
   unsigned char Str1[200]; // [sp+10h] [bp-160h]@14
 
-  GUIWindow v121; // [sp+D8h] [bp-98h]@85 x
+  GUI::Window v121; // [sp+D8h] [bp-98h]@85 x
   //int v122; // [sp+DCh] [bp-94h]@85	   y
   //int v123; // [sp+E0h] [bp-90h]@85	  wd
   //int v124; // [sp+E4h] [bp-8Ch]@85	  ht

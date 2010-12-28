@@ -6,7 +6,6 @@
 #include "Items.h"
 
 #include "GUI\GUI.h"
-#include "GUI\GUIFont.h"
 
 #include "BaseRender.h"
 

@@ -1,19 +1,6 @@
 #include "defs.h"
 
-#include "Window.h"
-
-Result::Code Win32Window::AttachRender(BaseRender *pNewRender)
-{
- pRender = pNewRender;
-
- return Result::Success;
-}
-
-BaseRender *Win32Window::GetRender() const
-{
- return pRender;
-}
-
+#include "OSWindow.h"
 
 
 

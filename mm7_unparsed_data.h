@@ -4,13 +4,12 @@
 #include "data.h"
 #include "memory_mng.h"
 #include "RenderD3D3.h"
-#include "RenderSoftware.h"
 #include "GUI\GUI.h"
 #include "Level.h"
 #include "Actor.h"
 #include "Player.h"
 #include "classes.h"
-#include "Window.h"
+#include "OSWindow.h"
 
 
 
@@ -22,10 +21,7 @@ struct Square
 	unsigned short heght;
 	};
 
-class GUIWindow;
-
 extern OSWindow *pAppWindow;
-extern GUI      *pMainGUI;
 
 
 
@@ -678,11 +674,11 @@ extern int dword_506F1C; // weak
 
 extern int dword_506F48; // weak
 
-extern GUIWindow *pGUIWindow_MainMenu; // ptr @ MM7.exe::00506F4C
+extern GUI::Window *pGUIWindow_MainMenu; // ptr @ MM7.exe::00506F4C
 //int dword_506F4C; // idb
 
 
-extern GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
+extern GUI::Window GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
 //int dword_506F50[array_size_unknown]; // weak
 //int dword_506F54; // weak
 //int dword_506F60; // weak
@@ -835,20 +831,20 @@ extern int dword_507BAC; // weak
 extern int dword_507BB0; // weak
 
 //int dword_507BB4; // idb
-extern GUIWindow *pGUIWindow0; // ptr @ MM7.exe::00507BB4
+extern GUI::Window *pGUIWindow0; // ptr @ MM7.exe::00507BB4
 
 extern int dword_507BB8; // idb
-extern GUIWindow *pDialogueWindow; // dword @ MM7.exe::00507BBC
-extern GUIWindow *ptr_507BC0;      // dword @ MM7.exe::00507BC0
-extern GUIWindow *ptr_507BC4;      // dword @ MM7.exe::00507BC4
+extern GUI::Window *pDialogueWindow; // dword @ MM7.exe::00507BBC
+extern GUI::Window *ptr_507BC0;      // dword @ MM7.exe::00507BC0
+extern GUI::Window *ptr_507BC4;      // dword @ MM7.exe::00507BC4
 extern int dword_507BC8; // weak
 
-extern GUIWindow *ptr_507BD0; //  dword @ MM7.exe::00507BD0
-extern GUIWindow *ptr_507BD4; // idb
-extern GUIWindow *ptr_507BDC; // weak
-extern GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
+extern GUI::Window *ptr_507BD0; //  dword @ MM7.exe::00507BD0
+extern GUI::Window *ptr_507BD4; // idb
+extern GUI::Window *ptr_507BDC; // weak
+extern GUI::Window *ptr_507BE0; // dword @ MM7.exe::00507BE0
 
-extern GUIWindow *pGUIWindow2;         // ptr   @ MM7.exe::00507BE4
+extern GUI::Window *pGUIWindow2;         // ptr   @ MM7.exe::00507BE4
 extern unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
 extern int dword_507BF0; // weak
 extern int dword_507BF4; // weak
@@ -1193,8 +1189,8 @@ extern unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::005
 extern int dword_576E28; // weak
 extern unsigned int dword_576E2C_uDefaultMinimapZoom; // weak
 
-extern class GUIWindow                   *pGameLoadingUI_Window; // new
-extern class GUIProgressBar_LevelLoading *pGameLoadingUI_ProgressBar;    // struct @ MM7.exe::00576E30
+extern class GUI::Window                   *pGameLoadingUI_Window;      // new
+extern class GUI::ProgressBar_LevelLoading *pGameLoadingUI_ProgressBar; // struct @ MM7.exe::00576E30
 //_UNKNOWN unk_576E30; // weak
 //char byte_576E3A; // pGameLoadingUI_ProgressBar::uProgressMax
 //int dword_576E3C; // 00000C
@@ -1832,10 +1828,10 @@ extern float flt_6BE148; // weak
 extern float fTurnSpeedMultiplier; // float @ MM7.exe::006BE14C
 extern float flt_6BE150; // weak
 //char byte_6BE2D8[20];
-//extern wchar_t pWindowClassName[20];
+//wchar_t pWindowClassName[20];
 extern HINSTANCE hInstance; // idb
-extern const char *pCommand;
-//extern HWND hWnd_global; // idb
+//const char *pCommand; // dword @ MM7.exe::006BE2F0     command line passed to application on startup
+//HWND hWnd_global; // idb
 extern unsigned int uWindowWidth;
 extern unsigned int uWindowHeight;
 extern unsigned int uWindowPosX;

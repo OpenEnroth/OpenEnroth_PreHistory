@@ -1555,7 +1555,7 @@ int __cdecl MenuLoop_Main()
   int v10; // ecx@36
   int v11; // ecx@37
   int v15; // [sp-14h] [bp-50h]@39
-  GUIWindow *v17; // [sp+4h] [bp-38h]@11
+  GUI::Window *v17; // [sp+4h] [bp-38h]@11
   //int v18; // [sp+8h] [bp-34h]@11
   //int v19; // [sp+Ch] [bp-30h]@11
   //char v20; // [sp+10h] [bp-2Ch]@11
@@ -3205,12 +3205,7 @@ void InitializeCameraAndViewport()
   pOldCamera = MemAlloc(OldCamera, 1);
   OldCamera_ctor(pOldCamera);
   OldCamera_SetPerspective(pOldCamera, 65, struct_576FE8.dword_000018 - struct_576FE8.dword_000010 + 1, struct_576FE8.dword_00001C - struct_576FE8.dword_000014 + 1);
- } 
-
- sub_42F3D6();
- LODFile_Bitmaps_LOD.lod_IB_dword_011B84 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
- LODFile_Sprites_LOD.dword_00ECA0 = LODFile_Sprites_LOD.uNumLoadedSprites;
- LODFile_Icons_LOD.lod_IB_dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
+ }
 }
 
 //----- (00443FDC) --------------------------------------------------------
@@ -12902,17 +12897,17 @@ int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUITy
 {
  pMainGUI->Reset();
  {
-  pGameLoadingUI_Window = pMainGUI->CreateControl<GUIWindow>(0);
-  GUIImage *pGameLoadingUI_WindowBackground = pMainGUI->CreateControl<GUIImage>(pGameLoadingUI_Window);
+  pGameLoadingUI_Window = pMainGUI->CreateControl<GUI::Window>(0);
+  pGameLoadingUI_Window->Initialize(&Rect<float>(0, 640, 0, 480));
 
-  pGameLoadingUI_Window->Initialize(&Rect<float>(0, 640, 0, 480), pGameLoadingUI_WindowBackground);
-  pGameLoadingUI_WindowBackground->Initialize(&Rect<float>(0, 640, 0, 480), L"loading1");
+  GUI::Image *pGameLoadingUI_WindowBackground = pMainGUI->CreateControl<GUI::Image>(pGameLoadingUI_Window);
+  pGameLoadingUI_WindowBackground->Initialize(&Rect<float>(0, 640, 0, 480), L"loading1", GUI::Align::Center, GUI::Align::Center);
+  pGameLoadingUI_Window->SetBackgroundImage(pGameLoadingUI_WindowBackground);
 
-  pGameLoadingUI_ProgressBar = pMainGUI->CreateControl<GUIProgressBar_LevelLoading>(pGameLoadingUI_Window);
+  pGameLoadingUI_ProgressBar = pMainGUI->CreateControl<GUI::ProgressBar_LevelLoading>(pGameLoadingUI_Window);
   pGameLoadingUI_ProgressBar->Initialize(&Rect<float>(169, 474, 455, 475), &Rect<float>(172, 472, 459, 471), &_Render::Color(1.0f, 1.0f, 1.0f, 1.0f));
-
-  pMainGUI->GetChildrenList()->Add(pGameLoadingUI_Window);
  }
+ pMainGUI->SetMainWindow(pGameLoadingUI_Window);
 
 
  LoadWorld_pLevelFilename = pLevelFilename;

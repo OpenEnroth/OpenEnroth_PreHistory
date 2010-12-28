@@ -131,6 +131,7 @@ class AudioPlayer
  Result::Code SetMusicVolume(float fVolume);
 
  Result::Code PlayMusicTrack(unsigned int uTrackID);
+ Result::Code PlayMusicTrack(unsigned int uTrackID, float fVolume);
  Result::Code StopMusic();
 
  

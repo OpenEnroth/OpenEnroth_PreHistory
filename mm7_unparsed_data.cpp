@@ -883,11 +883,11 @@ unsigned char stru_506580_MonsterInfoUI_bDollInitialized; // byte   @ MM7.exe::0
 
  int dword_506F48; // weak
 
- GUIWindow *pGUIWindow_MainMenu = 0; // ptr @ MM7.exe::00506F4C
+ GUI::Window *pGUIWindow_MainMenu = 0; // ptr @ MM7.exe::00506F4C
 //int dword_506F4C; // idb
 
 
- GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
+ GUI::Window GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
 //int dword_506F50[array_size_unknown]; // weak
 //int dword_506F54; // weak
 //int dword_506F60; // weak
@@ -1037,20 +1037,20 @@ unsigned int uTextureID_ibground = -1; // dword @ MM7.exe::00507BA8 addon, used 
  int dword_507BB0; // weak
 
 //int dword_507BB4; // idb
- GUIWindow *pGUIWindow0 = 0; // ptr @ MM7.exe::00507BB4
+ GUI::Window *pGUIWindow0 = 0; // ptr @ MM7.exe::00507BB4
 
  int dword_507BB8; // idb
-GUIWindow *pDialogueWindow = 0; // dword @ MM7.exe::00507BBC
-GUIWindow *ptr_507BC0 = 0;      // dword @ MM7.exe::00507BC0
-GUIWindow *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
+GUI::Window *pDialogueWindow = 0; // dword @ MM7.exe::00507BBC
+GUI::Window *ptr_507BC0 = 0;      // dword @ MM7.exe::00507BC0
+GUI::Window *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
  int dword_507BC8; // weak
 
-GUIWindow *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
-GUIWindow *ptr_507BD4 = 0; // idb  dword @ MM7.exe::00507B4
-GUIWindow *ptr_507BDC = 0; // weak
-GUIWindow *ptr_507BE0 = 0; // dword @ MM7.exe::00507BE0
+GUI::Window *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
+GUI::Window *ptr_507BD4 = 0; // idb  dword @ MM7.exe::00507B4
+GUI::Window *ptr_507BDC = 0; // weak
+GUI::Window *ptr_507BE0 = 0; // dword @ MM7.exe::00507BE0
 
- GUIWindow *pGUIWindow2 = 0;         // ptr   @ MM7.exe::00507BE4
+ GUI::Window *pGUIWindow2 = 0;         // ptr   @ MM7.exe::00507BE4
  unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
  int dword_507BF0; // weak
  int dword_507BF4; // weak
@@ -1356,8 +1356,8 @@ unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::00576E24
  int dword_576E28; // weak
 unsigned int dword_576E2C_uDefaultMinimapZoom; // weak
 
-GUIWindow                   *pGameLoadingUI_Window = 0;      // new
-GUIProgressBar_LevelLoading *pGameLoadingUI_ProgressBar = 0; // struct @ MM7.exe::00576E30
+GUI::Window                   *pGameLoadingUI_Window = 0;      // new
+GUI::ProgressBar_LevelLoading *pGameLoadingUI_ProgressBar = 0; // struct @ MM7.exe::00576E30
 struct unnamed_576FE8        struct_576FE8;          // struct @ MM7.exe::00576FE8
 
  __int64 qword_5773B8; // weak
@@ -1724,7 +1724,6 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  float flt_6BE150 = 1.0; // weak
 //char byte_6BE2D8[20];
  HINSTANCE hInstance; // idb
- const char *pCommand = 0; // dword @ MM7.exe::006BE2F0     command line passed to application on startup
  unsigned int uWindowWidth; // idb
  unsigned int uWindowHeight; // idb
  unsigned int uWindowPosX; // idb

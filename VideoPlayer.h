@@ -23,6 +23,7 @@ namespace Video
 
 
 class OSWindow;
+class BaseRender;
 class AudioPlayer;
 class VideoPlayer
 {
@@ -33,7 +34,7 @@ class VideoPlayer
     UnloadAll();
    }
    
-   Result::Code Initialize(OSWindow *pWindow, AudioPlayer *pAudioPlayer);
+   Result::Code Initialize(OSWindow *pWindow, BaseRender *pRender, AudioPlayer *pAudioPlayer);
    Result::Code PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop);
    Result::Code StopMovie();
 
@@ -109,4 +110,5 @@ class VideoPlayer
  protected:
    //new
    AudioPlayer *pAudioPlayer;
+   BaseRender  *pRender;
 };

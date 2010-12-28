@@ -1,9 +1,11 @@
 #pragma once
-#include "GUIImage.h"
-#include "GUIWindow.h"
-#include "GUICursor.h"
-#include "GUIProgressBar.h"
-#include "GUIButton.h"
+#include "Image.h"
+#include "Cursor.h"
+#include "ProgressBar.h"
+#include "Button.h"
+#include "Font.h"
+#include "Window.h"
+#include "Label.h"
 
 #include "..\defs.h"
 #include "..\Extras\List.h"
@@ -40,52 +42,63 @@
 
 
 
+extern class GUI::GUI *pMainGUI;
 
-class GUI
+
+
+namespace GUI
 {
- public:
-   virtual Result::Code Update(float dt)
-   {
-    return Result::Success;
-   }
+ class Window;
+ class Label;
+ class GUI
+ {
+  public:
+    virtual Result::Code Update(float dt)
+    {
+     return Result::Success;
+    }
 
-   virtual Result::Code Draw(float dt)
-   {
-    for (List<GUIControl *>::NodeType *pNode = cChildren.First(); pNode; pNode = pNode->pNext)
-      pNode->pData->OnDraw(dt);
+    virtual Result::Code Draw(float dt)
+    {
+     //for (List<GUIControl *>::NodeType *pNode = cChildren.First(); pNode; pNode = pNode->pNext)
+     //  pNode->pData->OnDraw(dt);
+     pMainWindow->OnDraw(dt);
 
-    return Result::Success;
-   }
+     return Result::Success;
+    }
 
 
-   virtual Result::Code Reset()
-   {
-    cChildren.Clear();
-    cDrawList.Clear();
-    return Result::Success;
-   }
+    virtual Result::Code Reset()
+    {
+     pMainWindow = nullptr;
+     cDrawList.Clear();
 
-   template<typename tControl>
-     tControl *CreateControl(GUIControl *pParent)
-   {
-    tControl *pNewControl = MemAlloc(tControl, 1);
+     return Result::Success;
+    }
 
-    pNewControl->pHostInterface = this;
-    pNewControl->pParent = pParent;
-    if (pParent)
-      pParent->AddChild(pNewControl);
+    template<typename tControl>
+      tControl *CreateControl(Control *pParent)
+    {
+     tControl *pNewControl = MemAlloc(tControl, 1);
 
-    return pNewControl;
-   }
+     pNewControl->pHostInterface = this;
+     pNewControl->pParent = pParent;
+     //if (pParent)
+     //  pParent->AddChild(pNewControl);
 
-   List<GUIControl *> *GetChildrenList()
-   {
-    return &cChildren;
-   }
+     return pNewControl;
+    }
 
- protected:
-   List<GUIControl *> cChildren;
-   List<GUIControl *> cDrawList;
+    virtual Result::Code SetMainWindow(Window *pWindow)
+    {
+     pMainWindow = pWindow;
+     return Result::Success;
+    }
+
+  protected:
+    Window          *pMainWindow;
+    List<Control *>  cDrawList;
+ };
 };
 
 
@@ -148,22 +161,22 @@ void SetCurrentMenu(unsigned int uMenuID);
 
 
 
-class GUIWindow * GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
+class GUI::Window * GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
                                              unsigned int uWindowType, struct GUIButton *a6, int a7);
 
-struct GUIButton*  GUIButtonCreate(class GUIWindow *pParentWindow,
+struct GUIButton*  GUIButtonCreate(class GUI::Window *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
                                              int a6, int a7, unsigned int uControlID, unsigned int uControlParam,
                                              unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1,  
 											 class cTexture* pButtnTexture2=NULL);	 //was multiparametr function!!
 
-void GUIWindowDelete(class GUIWindow *);
-void GUIWindow_sub_459C2B(class GUIWindow *a1, signed int a2, int a3, int a4);
+void GUIWindowDelete(class GUI::Window *);
+void GUIWindow_sub_459C2B(class GUI::Window *a1, signed int a2, int a3, int a4);
 
 //int __thiscall sub_41CD3B(int _this, int a2);
-struct GUIButton *GUIWindow_GetChild(GUIWindow *_this, int uID);
+struct GUIButton *GUIWindow_GetChild(GUI::Window *_this, int uID);
 
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
@@ -175,8 +188,6 @@ int __thiscall sub_4219BE(void *_this);
 extern unsigned int uTextureIdx_MapDirs[8];  
 extern unsigned int uTextureID_CurrentMenu;
 extern class cPCXTexture  cPCXID_CurrentMenu;
-
-void ShowIntroVideo_LoadMainMenu_ShowGreetingWindow();
 
 extern unsigned int uTextureID_MainMenuUI_Title;
 extern class cPCXTexture  cPCXID_GameUI_StatusBar;
@@ -214,7 +225,7 @@ extern unsigned int uTextureID_GameUI_RightPanel;
 extern unsigned int uTextureID_GameUI_PartyFrame;
 
 
-GUIWindow *GameUI_InitializeCharacterWindow(int a1);
+GUI::Window *GameUI_InitializeCharacterWindow(int a1);
 
 void __cdecl CharacterUI_SkillsTab_ShowHint();
 void CharacterUI_DrawSkillsTab(int uSelectedCharacter);

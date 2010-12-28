@@ -1,9 +1,8 @@
-#include "GUIProgressBar.h"
-#include "GUIImage.h"
-
-#include "..\defs.h"
 #include "..\mm7_unparsed_data.h"
 #include "..\mm7_unparsed_functions.h"
+
+#include "GUI.h"
+using namespace GUI;
 
 #include "..\_lod.h"
 #include "..\UserInput.h"
@@ -12,7 +11,7 @@
 using namespace _Render;
 
 
-Result::Code GUIProgressBar_LevelLoading::OnDraw(float dt)
+Result::Code ProgressBar_LevelLoading::OnDraw(float dt)
 {
  pBackgroundImage->SetControlArea(&cBackgroundRect);
  pBackgroundImage->OnDraw(dt);
@@ -47,17 +46,17 @@ Result::Code GUIProgressBar_LevelLoading::OnDraw(float dt)
 
 
 
-Result::Code GUIProgressBar_LevelLoading::Initialize(const Rect<float> *pBackgroundRect, const Rect<float> *pProgressRect, _Render::Color *pColor)
+Result::Code ProgressBar_LevelLoading::Initialize(const Rect<float> *pBackgroundRect, const Rect<float> *pProgressRect, _Render::Color *pColor)
 {
  cColorMask = *pColor;
  
  cBackgroundRect = *pBackgroundRect;
- pBackgroundImage = pHostInterface->CreateControl<GUIImage>(this);
- pBackgroundImage->Initialize(pBackgroundRect, L"loadframe");
+ pBackgroundImage = pHostInterface->CreateControl<Image>(this);
+ pBackgroundImage->Initialize(pBackgroundRect, L"loadframe", Align::Center, Align::Center);
  
  cProgressRect = *pProgressRect;
- pProgressImage = pHostInterface->CreateControl<GUIImage>(this);
- pProgressImage->Initialize(pProgressRect, L"loadprog");
+ pProgressImage = pHostInterface->CreateControl<Image>(this);
+ pProgressImage->Initialize(pProgressRect, L"loadprog", Align::Center, Align::Center);
 
  return Result::Success;
  /*
@@ -89,7 +88,7 @@ Result::Code GUIProgressBar_LevelLoading::Initialize(const Rect<float> *pBackgro
 }
 
 
-Result::Code GUIProgressBar_LevelLoading::Reset()
+Result::Code ProgressBar_LevelLoading::Reset()
 {
  fProgress = 0;
 
@@ -186,15 +185,15 @@ bool LevelLoadingUI_Initialize(struct GUIProgressBar *_this, unsigned int uProgr
 
 
 
-GUIProgressBar_LevelLoading::GUIProgressBar_LevelLoading():
-  GUIProgressBar_Generic()
+ProgressBar_LevelLoading::ProgressBar_LevelLoading():
+  ProgressBar()
 {
  fProgress = 0;
 }
 
 
-GUIProgressBar_Generic::GUIProgressBar_Generic():
-  GUIControl()
+ProgressBar::ProgressBar():
+  Control()
 {
 }
 
@@ -203,7 +202,7 @@ GUIProgressBar_Generic::GUIProgressBar_Generic():
 
 
 
-
+/*
 //----- (004435E2) --------------------------------------------------------
 void LevelLoadingUI_Release(struct GUIProgressBar_Generic *_this)
 {
@@ -289,4 +288,4 @@ void LevelLoadingUI_Reset(struct GUIProgressBar_Generic *_this, char a2)
  _this->byte_000009 = 0;
  _this->uProgressMax = a2;
  _this->uProgressCurrent = 0;
-}
+}*/

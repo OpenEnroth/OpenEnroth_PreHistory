@@ -1,30 +1,59 @@
-#include "GUIFont.h"
-#include "GUIWindow.h"
-
 #include "..\mm7_unparsed_data.h"
 
+#include "GUI.h"
+using namespace GUI;
 
 
 
-Result::Code GUIWindow::OnDraw(float dt)
+
+Result::Code Window::OnDraw(float dt)
 {
- for (List<GUIControl *>::NodeType *pChild = cChildren.First(); pChild; pChild = pChild->pNext)
-   pChild->pData->OnDraw(dt);
+ pBackgroundImage->OnDraw(dt);
+ for (List<Control *>::NodeType *pChild = cChildren.First(); pChild; pChild = pChild->pNext)
+ {
+  Control *pControl = pChild->pData;
+
+  if (pControl->Active())
+    pControl->OnDraw(dt);
+ }
 
  return Result::Success;
 }
 
 
-Result::Code GUIWindow::Initialize(Rect<float> *pArea, GUIImage *pImage)
+Result::Code Window::Initialize(Rect<float> *pArea)
 {
  cControlArea = *pArea;
 
+ return Result::Success;
+}
+
+Result::Code Window::SetBackgroundImage(Image *pImage)
+{
  pBackgroundImage = pImage;
- pBackgroundImage->SetControlArea(pArea);
+ pBackgroundImage->SetControlArea(&cControlArea);
 
  return Result::Success;
 }
 
+
+
+
+Result::Code Window::SetControlArea(Rect<float> *pNewArea)
+{
+ cControlArea = *pNewArea;
+ pBackgroundImage->SetControlArea(pNewArea);
+
+ return Result::Success;
+}
+
+
+
+
+Window::Window():
+  Control(), pBackgroundImage(nullptr)
+{
+}
 
 
 
@@ -32,7 +61,7 @@ Result::Code GUIWindow::Initialize(Rect<float> *pArea, GUIImage *pImage)
 
 
 //----- (0044D406) --------------------------------------------------------
-void GUIWindow_DrawText(GUIWindow *_this, struct Font *pFont,
+void GUIWindow_DrawText(Window *_this, struct Font *pFont,
                         unsigned int uHorizontalMargin, unsigned int uVerticalMargin,
                         unsigned int uDefaultColor, const char *pString, int sLineSpacing)
 {

@@ -22,24 +22,19 @@ class EventHandler
 };
 
 
-struct BaseRender;
+
 class OSWindow: public EventHandler
 {
  public:
    virtual Result::Code Initialize(const wchar_t *pClassName, const wchar_t *pWindowName, unsigned int uCreationParams) = 0;
    virtual Result::Code SetWindowArea(const Rect<float> *) = 0;
    virtual Result::Code SetClientArea(const Rect<float> *) = 0;
-   virtual Result::Code AttachRender(BaseRender *) = 0;
    virtual Result::Code Show() = 0;
    virtual unsigned int Update(float dt) = 0;
 
    virtual Result::Code  GetClientArea(Rect<float> *) = 0;
    virtual Result::Code  GetWindowArea(Rect<float> *) = 0;
    virtual HWND          GetAPIHandle() = 0;
-   virtual BaseRender   *GetRender() const = 0;
-
- protected:
-   BaseRender *pRender;
 };
 
 
@@ -50,14 +45,12 @@ class Win32Window: public OSWindow
    virtual Result::Code Initialize(const wchar_t *pClassName, const wchar_t *pWindowName, unsigned int uCreationParams);
    virtual Result::Code SetWindowArea(const Rect<float> *);
    virtual Result::Code SetClientArea(const Rect<float> *);
-   virtual Result::Code AttachRender(BaseRender *);
    virtual Result::Code Show();
    virtual unsigned int Update(float dt);
 
    virtual Result::Code  GetClientArea(Rect<float> *);
    virtual Result::Code  GetWindowArea(Rect<float> *);
    virtual HWND          GetAPIHandle();
-   virtual BaseRender   *GetRender() const;
 
    virtual Result::Code OnClose();
 

@@ -1,5 +1,5 @@
-#include "GUIFont.h"
-#include "GUIWindow.h"
+#include "Font.h"
+#include "Window.h"
 
 #include "..\data.h"
 
@@ -29,7 +29,7 @@ bool GUIFont_IsCharacterValid(Font *pFont, unsigned char c)
 
 
 //----- (0044C59D) --------------.text:0044D568------------------------------------------
-int GUIFont_CalculateTextHeight(Font *pFont, const unsigned char *pString, GUIWindow *pParentWindow, int uXOff, int a5)
+int GUIFont_CalculateTextHeight(Font *pFont, const unsigned char *pString, GUI::Window *pParentWindow, int uXOff, int a5)
 {
  if (!pString)
    return 0;
@@ -105,7 +105,7 @@ void __cdecl DeleteFontCChar()
 //----- (0044C768) -----------------.text:0044D751---------------------------------------
 unsigned char *FitTextInAWindow(const unsigned char *pInString,
                                 unsigned char *pOutString,
-                                Font *pFont, GUIWindow *pParent, unsigned int uX, bool a5)
+                                Font *pFont, GUI::Window *pParent, unsigned int uX, bool a5)
 {
  if (!pInString)
  {
@@ -284,7 +284,7 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
 
 
 //----- (0044CE08) -------.text:0044DEA3   -------------------------------------------------
-void FontDrawText(GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
+void FontDrawText(GUI::Window *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
 {
   int v9; // ebx@1
   int v10; // edi@1
@@ -445,7 +445,7 @@ const unsigned char *test_string;
 }
 
 //----- (0044C6C2) --------------------------------------------------------
-int __fastcall Font_sub_44C6C2(Font *a1, const unsigned char *a2, GUIWindow *a3, char a4, int a5)
+int __fastcall Font_sub_44C6C2(Font *a1, const unsigned char *a2, GUI::Window *a3, char a4, int a5)
 {
   int v5; // edi@1
   const unsigned char *v6; // esi@1
@@ -574,7 +574,7 @@ unsigned int GUIFont_GetLineWidth(Font *pFont, const unsigned char *pString)
 
 							//  (const char *a1, int a2, char a3, int a4, int a5, int a6)
 //----- (0044C933) ---------.text:0044D92F -----------------------------------------------
-unsigned char *sub_44C933(const char *pString, char *pOutString, struct Font *pFont1, struct Font *pFont2, GUIWindow *a4, int uX, bool a6)
+unsigned char *sub_44C933(const char *pString, char *pOutString, struct Font *pFont1, struct Font *pFont2, GUI::Window *a4, int uX, bool a6)
 {
  
   Font *current_font;
@@ -782,7 +782,7 @@ unsigned int uInStrLen;
 }
 
 //----- (0044C62E) ---.text:0044D607   -----------------------------------------------------
-int  sub_44C62E(Font *pFont1, Font *pFont2, const char *pString, GUIWindow *a4, int a5, bool bParagraph)
+int  sub_44C62E(Font *pFont1, Font *pFont2, const char *pString, GUI::Window *a4, int a5, bool bParagraph)
 {
   int i; // edi@1
   unsigned char *v8; // ebx@3
@@ -927,7 +927,7 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
 
 
 //----- (0044CB4F) -----------.text:0044DB6F  ---------------------------------------------
-int GUIWindow_sub_44CB4F(GUIWindow *a1, Font *a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8)
+int GUIWindow_sub_44CB4F(GUI::Window *a1, Font *a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8)
 {					//	 window			 font			   x         Y		color		   str			  widht			 reverse flag
   int v8; // ebx@1
  // int v9; // edi@1
@@ -1140,7 +1140,7 @@ void sub_44D2FD(struct Font *a1, struct Font *a2, int Str, int a4, int a5, int a
   v20 = a4;
   
   char pOutString[2048];
-  v15 = (char *)sub_44C933(a9, pOutString, a1, a2, (GUIWindow*)&v19, 0, true);
+  v15 = (char *)sub_44C933(a9, pOutString, a1, a2, (GUI::Window*)&v19, 0, true);
   result = strtok(v15, "\n");
   v27 = result;
   v14 = a10 + 2 * a11 * a4;
@@ -1219,7 +1219,7 @@ __int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6
 }
 
 //----- (00452C49) --------------------------------------------------------
-void  InitializeGameText()
+void InitializeGameText()
 {
  int i;
   unsigned char *test_string; // eax@3

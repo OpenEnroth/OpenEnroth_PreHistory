@@ -107,6 +107,15 @@ namespace _Render
    a = rh.a, r = rh.r, g = rh.g, b = rh.b;
    return *this;
   }
+
+
+  inline unsigned int ToA8R8G8B8_uint()
+  {
+   return (((unsigned int)(a * 256.0f) & 0xFF) << 24) +
+          (((unsigned int)(r * 256.0f) & 0xFF) << 16) +
+          (((unsigned int)(g * 256.0f) & 0xFF) << 8) +
+           ((unsigned int)(b * 256.0f) & 0xFF);
+  }
  };
 };
 

@@ -104,8 +104,7 @@ Result::Code VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, 
 
  bPlayingMovie = true;
 
- BaseRender *pRenderer = pWindow->GetRender();
- Render_ClearTarget(pRenderer, 0xFF000000);
+ Render_ClearAndPresent(pRender, 0xFF000000);
 
  dword_4E28F8_PartyCantJumpIfTrue = 16;
 
@@ -131,7 +130,7 @@ Result::Code VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, 
 
 //----- (MM7.exe::004BEB41) --------------------------------------------------------
 //----- (MM7.exe::004BE9D8) --------------------------------------------------------
-Result::Code VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExternalAudioPlayer)
+Result::Code VideoPlayer::Initialize(OSWindow *pTargetWindow, BaseRender *pTargetRenderer, AudioPlayer *pExternalAudioPlayer)
 {
  if (!pTargetWindow)
    return Result::InvalidParams;
@@ -190,8 +189,9 @@ Result::Code VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExte
  bUsingSmackerMMX = SmackUseMMX(1);
 
  pWindow = pTargetWindow;
+ pRender = pTargetRenderer;
 
- sBinkDirectDrawSurfaceType = BinkDDSurfaceType((IDirectDrawSurface *)pWindow->GetRender()->pdds4_BackBuffer);
+ sBinkDirectDrawSurfaceType = BinkDDSurfaceType((IDirectDrawSurface *)pRender->pdds4_BackBuffer);
 
  return Result::Success;
 }

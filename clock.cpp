@@ -100,7 +100,6 @@ void Clock::clock_sub_4263B7()
 //----- (MM7.exe::00426402) ------.text:00426BDA --------------------------------------------------
 void Clock::Clock_In()
 {
-// memset(_this, 0, sizeof(class class24));
  dword_000000 = 1;
  dword_000024 = 0;
 }

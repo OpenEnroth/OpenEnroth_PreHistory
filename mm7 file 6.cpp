@@ -3445,7 +3445,7 @@ int CreditsMenuLoop()
   char *Source; // [sp+130h] [bp-Ch]@5
   Font *v38; // [sp+134h] [bp-8h]@1
   Font *v39; // [sp+138h] [bp-4h]@1
-  GUIWindow stCreditsWindow;
+  GUI::Window stCreditsWindow;
 
   cBackGround.PCXTexture_Zero();
   v29.PCXTexture_Zero();

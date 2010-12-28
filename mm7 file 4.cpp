@@ -1531,7 +1531,7 @@ LABEL_56:
         ++LODFile_Icons_LOD.uTexturePacksCount;
         if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
           LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
-        ptr_507BD4 = (GUIWindow *)sub_4219BE((void *)(20 * result + 5292232));
+        ptr_507BD4 = (GUI::Window *)sub_4219BE((void *)(20 * result + 5292232));
         dword_50C9A0 = true;
         dword_50C0C4 = uActiveCharacter;
         return sub_421B2C_DropPickedItem();
@@ -7865,7 +7865,7 @@ signed int __thiscall sub_4598FC(int _this, const char *a2)
 }
 
 //----- (00459C2B) --------------------------------------------------------
-void GUIWindow_sub_459C2B(GUIWindow *a1, signed int a2, int a3, int a4)
+void GUIWindow_sub_459C2B(GUI::Window *a1, signed int a2, int a3, int a4)
 {
   unsigned int v4; // eax@1
   signed int v6; // esi@1
@@ -11073,7 +11073,7 @@ void __cdecl sub_467FB6()
   int v2; // ST18_4@3
   unsigned int v3; // eax@3
 
-  GUIWindow local_0C;
+  GUI::Window local_0C;
   //int v4; // [sp+Ch] [bp-54h]@1
   //int v5; // [sp+10h] [bp-50h]@1
   //int v6; // [sp+14h] [bp-4Ch]@1
@@ -11082,7 +11082,7 @@ void __cdecl sub_467FB6()
   //int v9; // [sp+20h] [bp-40h]@3
   //int v10; // [sp+54h] [bp-Ch]@1
 
-  memcpy(&local_0C, ptr_507BC4, sizeof(GUIWindow));
+  memcpy(&local_0C, ptr_507BC4, sizeof(GUI::Window));
   local_0C.ptr_000048 = 0;
   local_0C.uFrameX = 1;
   local_0C.uFrameY = 1;

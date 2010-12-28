@@ -825,6 +825,29 @@ Result::Code AudioPlayer::PlayMusicTrack(unsigned int uTrackID)
  return Result::Generic;
 }
 
+
+
+Result::Code AudioPlayer::PlayMusicTrack(unsigned int uTrackID, float fVolume)
+{
+ if (bPlayerReady && hAILRedbook)
+ {
+  AIL_redbook_stop(hAILRedbook);
+  AIL_redbook_track_info(hAILRedbook, uTrackID, &uCurrentMusicTrackStartMS, &uCurrentMusicTrackEndMS);
+
+  AIL_redbook_set_volume(hAILRedbook, fVolume);
+  AIL_redbook_play(hAILRedbook, uCurrentMusicTrackStartMS + 1, uCurrentMusicTrackEndMS);
+
+  uCurrentMusicTrackLength = 128 * (uCurrentMusicTrackEndMS - uCurrentMusicTrackStartMS) / 1000;
+  sRedbookVolume = AIL_redbook_volume(hAILRedbook);
+
+  return Result::Success;
+ }
+ return Result::Generic;
+}
+
+
+
+
 Result::Code AudioPlayer::StopMusic()
 {
  if (bPlayerReady && hAILRedbook)

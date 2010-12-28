@@ -1,5 +1,5 @@
 #include "BaseRender.h"
-#include "Window.h"
+#include "OSWindow.h"
 
 #include <gl/GL.h>
 
@@ -103,8 +103,9 @@ Result::Code RenderOpenGL::Initialize(OSWindow *pOutputWindow)
   v2 = (int)this;
   flt_6BE3A0 = 0.55000001;
 
-
+ ClipCursor(0);
  Viewport_fn2(pOldViewport, 36044);
+ InitializeCameraAndViewport();
 
  this->dword_040108 = 0;
  this->dword_040110 = 0;

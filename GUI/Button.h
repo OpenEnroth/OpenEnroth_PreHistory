@@ -1,6 +1,10 @@
 #pragma once
 
 
+namespace GUI
+{
+ class Window;
+};
 
 struct GUIButton
 {
@@ -18,7 +22,7 @@ struct GUIButton
  int dword_00002C;
  struct GUIButton *pPrev;         // ptr   @ 000030
  struct GUIButton *pNext;         // ptr   @ 000034
- class GUIWindow *pParentWindow; // ptr   @ 000038
+ class GUI::Window *pParentWindow; // ptr   @ 000038
  class cTexture   *pTexture[5];    // dword @ 00003C
 // class cTexture   *pTexture2; //int dword_000040;
  //class cTexture   *pTexture3; // int dword_000044;

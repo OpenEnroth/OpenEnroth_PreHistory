@@ -3334,3 +3334,35 @@ void LoadLevel_InitializeMusic(const char *pLevelFilename)
   }
 }
 */
+
+
+/*
+//----- (0041B578) --------------------------------------------------------
+int __cdecl MenuUI_LoadFontsAndSomeStuff()
+{
+  signed int v3; // edx@3
+ int i;
+
+
+
+ dword_507988 = LODFile_Icons_LOD.LODFile_LoadTexture( "FONTPAL", 2);
+
+ pFontArrus = LoadFont("arrus.fnt", "FONTPAL");
+ pFontArrus->byte_000002[0] = 0;
+
+ pFontLucida = LoadFont("lucida.fnt", "FONTPAL");
+ pFontLucida->byte_000002[0] = 0;
+
+ pFontCreate = LoadFont("create.fnt", "FONTPAL");
+ pFontCreate->byte_000002[0] = 0;
+
+ pFontComic = LoadFont("comic.fnt", "FONTPAL");
+ pFontSmallnum = LoadFont("smallnum.fnt", "FONTPAL");
+
+ sLastGUIWindowIdx = -1;
+ memset(array_5075E0, 0, 20 * sizeof(int));
+ for (i = 0; i < 20; ++i)
+   GUIWindow_List[i].uWindowType = 0;
+
+ return 0;
+}*/

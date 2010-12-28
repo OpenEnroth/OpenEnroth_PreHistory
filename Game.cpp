@@ -363,7 +363,7 @@ LABEL_85:
 //----- (00465C8B) --------------------------------------------------------
 Game *Game_Initialize()
 {
- pGame = MemAlloc(Game, 1);
+ Game *pGame = MemAlloc(Game, 1);
  if (pGame)
    Game_ctor(pGame);
 

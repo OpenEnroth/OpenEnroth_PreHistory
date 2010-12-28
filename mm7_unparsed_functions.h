@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "defs.h"
+#include "CoreDefinitions.h"
 
 
 
@@ -42,7 +43,6 @@ void CreateRegistryKey(const char *pName, const char *pValue);
 
 size_t __cdecl locked_fwrite(const void *Str, size_t Size, size_t Count, FILE *File);
 size_t __cdecl locked_fread(void *dst, size_t size, size_t count, FILE *f);
-int __cdecl MenuUI_LoadFontsAndSomeStuff();
 void __cdecl GameUI_LoadIcons();
 LSTATUS __fastcall RegistryWriteInt(const CHAR *a1, int a2);
 void erroneous_printf(const char *Format, ...);
@@ -253,11 +253,8 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3);
 void __cdecl sub_41C047();
 void __thiscall sub_41C0B8(const char *Str1);
 signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key);
-int __thiscall GUIWindow_sub_41D08F(class GUIWindow *_this, int a2, int a3, int a4, int a5);
 void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this);
 void sub_41D20D(int a1, int a2, __int64 a3, int a4);
-void GUIWindow_sub_41D3B7(class GUIWindow *_this);
-void GUIWindow_sub_41D73D(int _this);
 void __thiscall sub_41D895(void *_this);
 void __fastcall sub_41E360(int a1, int a2);
 char *__fastcall sub_41F50D(int a1, int a2, char a3);
@@ -650,8 +647,6 @@ char __cdecl sub_464839();
 void __cdecl sub_464851();
 int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUIType);
 signed int __stdcall DialogFunc(HWND hDlg, int a2, __int16 a3, int a4);
-signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine);
-signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest();
 void sub_4666D5();
 void __cdecl sub_4667E9();
 int __cdecl err_show();
@@ -1021,7 +1016,6 @@ int __fastcall sub_4B2001(int _this);
 const unsigned char *__thiscall sub_4B254D(void *_this);
 unsigned char *__fastcall sub_4B29F2(int a1);
 void __cdecl sub_4B2A74();
-void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this);
 int __fastcall sub_4B36CC(int a1, int a2);
 int __thiscall sub_4B3703(void *_this);
 int __thiscall sub_4B3A72(void *_this);
