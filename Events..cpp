@@ -94,7 +94,7 @@ void __cdecl LoadLevel_InitializeLevelStr()
 
  for (i = 0; i < uLevelStrNumStrings; ++i)
  {
-  if (RemoveQuote((char *)&pLevelStr[uLevelStrOffsets[i]]) != (char *)&pLevelStr[uLevelStrOffsets[i]] )
+  if (RemoveQuote((char *)&pLevelStr[uLevelStrOffsets[i]]) != &pLevelStr[uLevelStrOffsets[i]] )
     uLevelStrOffsets[i]++;
  }
 }

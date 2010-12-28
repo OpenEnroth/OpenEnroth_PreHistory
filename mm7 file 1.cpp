@@ -11581,7 +11581,7 @@ void __cdecl sub_461103(const char *pLevelFilename)
   int v15; // eax@41
   signed int v18; // [sp+14h] [bp-48h]@3
   signed int v19; // [sp+14h] [bp-48h]@23
-  signed int v20; // [sp+18h] [bp-44h]@1
+  //signed int v20; // [sp+18h] [bp-44h]@1
   signed int v21; // [sp+18h] [bp-44h]@14
   int v22[16]; // [sp+1Ch] [bp-40h]@17
  int i;
@@ -11599,7 +11599,9 @@ void __cdecl sub_461103(const char *pLevelFilename)
   byte_ACD76D = 0;
   dword_5C6DF8 = 1;
   pNPCStats->dword_017FC0 = 0;
-  v20 = CMapStats_FindLocation(pMapStats, pLevelFilename);
+
+  //v20 = CMapStats_FindLocation(pMapStats, pLevelFilename);
+  MapInfo *v20 = pMapStats->GetMapInfo(pLevelFilename);
 
   for (i = 0; i < uNumActors; ++i)
   {
@@ -11626,7 +11628,12 @@ void __cdecl sub_461103(const char *pLevelFilename)
         continue;
       if ( v18 )
       {
-        NPCStats_InitializeAdditionalNPCs(pNPCStats, 0, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, v20-1);//!!!! -1 hack
+       long aC;
+       for (unsigned int i = 0; i < 77; ++i)
+         if (&pMapStats->pMapInfos[i] == v20)
+           aC = i;
+
+        NPCStats_InitializeAdditionalNPCs(pNPCStats, 0, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, aC);
         v15 = pNPCStats->dword_017FC0++ + 5000;
         pActors[i].word_000020 = v15;
         continue;

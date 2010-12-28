@@ -11892,7 +11892,7 @@ signed int __fastcall sub_41FF64(int a1)
 void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
 {
   int v3; // ebx@3
-  int v4; // edi@4
+  MapInfo *v4; // edi@4
   int v5; // eax@8
   int v6; // edx@14
   size_t v8; // eax@19
@@ -11907,15 +11907,16 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
   sub_450DA3();
   if ( qword_A750D8 )
     qword_A750D8 = 0i64;
-  v3 = CMapStats_FindLocation(pMapStats, pLevelFilename);
 
+  /*v3 = CMapStats_FindLocation(pMapStats, pLevelFilename);
   if ( v3 )
    v4 = (int)&pMapStats->pMapInfos[v3];
   else
-   v4 = 1;
+   v4 = 1;*/
+  v4 = pMapStats->GetMapInfo(pLevelFilename);
 
   dword_6BE030 &= 0xFFFFFFFEu;
-  dword_6BE13C = v3;
+  dword_6BE13C_uCurrentlyLoadedLocationID = -1;
 
   pGameLoadingUI_ProgressBar->SetProgress(0.10f);
 
@@ -11931,8 +11932,7 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
   }
   dword_6BE364 &= ~0x4000;
   v5 = 0;
-  if ( !v3 )
-    v1 = 0;
+
   if ( v1 == 1 )
   {
     v14 = 0;
@@ -11943,9 +11943,9 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
       {
         v6 = dword_6A12B4 + v13;
         if ( *(_WORD *)(dword_6A12B4 + v13 + 14) == 3 )
-          sub_44F57C_MaybeCreateRandomMonster(v4, v6, v5, v5, v5);
+          sub_44F57C_MaybeCreateRandomMonster((int)v4, v6, v5, v5, v5);
         else
-          sub_44FFD8(v4, v6);
+          sub_44FFD8((int)v4, v6);
         ++v14;
         v13 += 24;
         if ( v14 >= dword_6A12B0 )
@@ -11960,7 +11960,7 @@ void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
 
   sub_47F138_MessWithDecorations();
   sub_47F223_LooksLikeGenerateMonsterLoot(pClass51_global);
-  InitializeActors(v3);
+  InitializeActors((MapInfo *)v4);
   class51_sub_48917E((int)pClass51_global);
   v8 = strlen("levels\\");
   strcpy(Source, &pLevelFilename[v8]);

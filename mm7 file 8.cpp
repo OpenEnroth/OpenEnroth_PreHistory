@@ -870,9 +870,11 @@ char __cdecl sub_450218(const char *pLevelFilename)
  int i, j;
 
  v48 = rand() % 100;
- v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
+
+ /*v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
  v50 = (int *)&pMapStats->pMapInfos[v0];
- v2 = (MapInfo *)v50;
+ v2 = (MapInfo *)v50;*/
+ v2 = pMapStats->GetMapInfo(pLevelFilename);
  v51 = (int)array_5E5150;
 
   for (i = 0; i < 20; ++i)
@@ -1074,7 +1076,7 @@ LABEL_56:
     }
     v51 += 5324;
   }
-  return v0;
+  return 0;
 }
 
 //----- (004768A9) --------------------------------------------------------
@@ -12839,8 +12841,6 @@ Result::Code LoadWorld()
  
  for (i = 0; i < 1000; ++i)
    pLayingItemsList[i].uObjectDescriptionID = 0;
- 
- uLevelMapStatsID = CMapStats_FindLocation(pMapStats, pLevelFilename);
 
   pGame->dword_000E24 &= 0xFFFFFFF7;
 
@@ -12861,12 +12861,9 @@ Result::Code LoadWorld()
 
   if (!bNoSound)
   {
-   unsigned int v0 = CMapStats_FindLocation(pMapStats, pLevelFilename);
-   if (v0)
-   {
-    pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
-    pAudioPlayer->PlayMusicTrack(pMapStats->pMapInfos[v0].uRedbookTrackNum);
-   }
+   pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
+   pAudioPlayer->PlayMusicTrack(pMapStats->GetMapInfo(pLevelFilename)->uRedbookTrackNum);
+
    AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(pAudioPlayer);
   }
 

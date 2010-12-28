@@ -7,7 +7,7 @@
 #include "Spells.h"
 
 
-bool InitializeActors(unsigned int uLocationID);
+bool InitializeActors(struct MapInfo *pMapInfo);
 void __cdecl UpdateActors();
 
 

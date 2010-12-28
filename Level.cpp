@@ -666,11 +666,13 @@ LABEL_75:
   }
  }
 
-pGameLoadingUI_ProgressBar->SetProgress(0.55f);
+ pGameLoadingUI_ProgressBar->SetProgress(0.55f);
 
 
-  unsigned int uLocationID = CMapStats_FindLocation(pMapStats, pFilename);
-  unsigned int uRespawnInterval =  pMapStats->pMapInfos[uLocationID].uRespawnInterval;
+ MapInfo *pMapInfo = pMapStats->GetMapInfo(pFilename);
+ unsigned int uRespawnInterval = pMapInfo->uRespawnInterval;
+  //unsigned int uLocationID = CMapStats_FindLocation(pMapStats, pFilename);
+  //unsigned int uRespawnInterval =  pMapStats->pMapInfos[uLocationID].uRespawnInterval;
 
 
  if (dword_6BE364 & 0x2000)

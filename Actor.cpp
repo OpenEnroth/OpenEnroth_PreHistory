@@ -1746,7 +1746,7 @@ void Actor_Reset(struct Actor *_this)
 }
 
 //----- (0047F2D3) --------------------------------------------------------
-bool InitializeActors(unsigned int uLocationID)
+bool InitializeActors(struct MapInfo *pMapInfo)
 {
   int          i;
   struct Actor v6;
@@ -1756,7 +1756,7 @@ bool InitializeActors(unsigned int uLocationID)
   for (i = 0; i < uNumActors; ++i)
   {
     bool bIsSomeFlagSet = pActors[i].dword_000024 & 0x100000;
-    if ( (!bIsSomeFlagSet && v8 != 1) || (uLocationID != 0 && v8 != 0) )
+    if ( (!bIsSomeFlagSet && v8 != 1) || v8 != 0 )
     {
       pActors[i].dword_0000B8 = 0;
       pActors[i].word_0000A0 = 0;
@@ -1780,7 +1780,7 @@ bool InitializeActors(unsigned int uLocationID)
     {
       pActors[i].word_0000B0_state = 19;
       pActors[i].dword_000024 |= 0x10000;
-      if (bIsSomeFlagSet && (uLocationID != 0) && !v8)
+      if (bIsSomeFlagSet && !v8)
       {
         v8 = sub_450DA3();
       }

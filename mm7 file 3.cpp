@@ -5867,10 +5867,17 @@ LABEL_6:
   {
     if ( !v23 )
     {
-      v14 = CMapStats_FindLocation(pMapStats, Str1);
+      /*v14 = CMapStats_FindLocation(pMapStats, Str1);
       if ( v14 )
       {
        v20 = (int)pMapStats->pMapInfos[v14].pLocationName;
+        v18 = (int)pGlobalTXT_LocalizationStrings[410];
+LABEL_10:
+        wsprintfA(byte_591098, (const char *)v18, v20);
+        goto LABEL_20;
+      }*/
+      if (v20 = (int)pMapStats->GetMapInfo(Str1))
+      {
         v18 = (int)pGlobalTXT_LocalizationStrings[410];
 LABEL_10:
         wsprintfA(byte_591098, (const char *)v18, v20);
@@ -5883,13 +5890,20 @@ LABEL_10:
   v15 = (const char *)Str2;
   if ( *(_BYTE *)Str2 == 48 )
     v15 = Str1;
-  v16 = CMapStats_FindLocation(pMapStats, v15);
+
+  /*v16 = CMapStats_FindLocation(pMapStats, v15);
   if ( v16 )
   {
     v20 = (int)pMapStats->pMapInfos[v16].pLocationName;
     v18 = (int)pGlobalTXT_LocalizationStrings[411];
     goto LABEL_10;
+  }*/
+  if (v20 = (int)pMapStats->GetMapInfo(v15))
+  {
+    v18 = (int)pGlobalTXT_LocalizationStrings[411];
+    goto LABEL_10;
   }
+
   v21 = (char *)pGlobalTXT_LocalizationStrings[73];
 LABEL_19:
   strcpy(byte_591098, v21);
@@ -5934,8 +5948,6 @@ void __cdecl sub_444A51()
   int v15; // [sp+6Bh] [bp-1h]@11
 
   memcpy(&local_0C, pGUIWindow0, sizeof(GUI::Window));
-  compile_error(file name should not be global);
-    //v14 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   v13 = sub_444810(dword_591164);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawIndexedTexture(pD3DRenderer,
@@ -5947,12 +5959,19 @@ void __cdecl sub_444A51()
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_5079E4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_5079E4] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (uTextureIdx_BtnXokU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXokU] : 0));
+
+  compile_error(file name should not be global);
+    /*
+    char *pSource = CurrentLevelName;
+    //v14 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if (pVideoPlayer->IsAnyMovieLoaded()|| v13 )
   {
     if ( *dword_591164 != 48 )
-      v14 = CMapStats_FindLocation(pMapStats, dword_591164);
+      //v14 = CMapStats_FindLocation(pMapStats, dword_591164);
+      pSource = dword_591164
   }
-  v0 = (const char **)&pMapStats->pMapInfos[v14];
+  v0 = (const char **)&pMapStats->GetMapInfo(pSource)->pLocationName;*/
+
   local_0C.uFrameX = 493;
   local_0C.uFrameWidth = 126;
   local_0C.uFrameZ = 366;
@@ -6016,11 +6035,15 @@ int __cdecl sub_444C8F()
 LABEL_6:
   uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2)];
   dword_59142C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "outside", 2)];
-  v1 = CMapStats_FindLocation(pMapStats, Str1);
-  if ( v1 )
-    wsprintfA(byte_591098, (char *)pGlobalTXT_LocalizationStrings[410], pMapStats->pMapInfos[v1].pLocationName);
+
+  //v1 = CMapStats_FindLocation(pMapStats, Str1);
+  //if ( v1 )
+  //  wsprintfA(byte_591098, (char *)pGlobalTXT_LocalizationStrings[410], pMapStats->pMapInfos[v1].pLocationName);
+  if (MapInfo *pMapInfp = pMapStats->GetMapInfo(Str1))
+    wsprintfA(byte_591098, (char *)pGlobalTXT_LocalizationStrings[410], pMapInfp->pLocationName);
   else
     strcpy(byte_591098, (char *)pGlobalTXT_LocalizationStrings[79]);
+
   result = (int)GUIWindowCreate(0, 0, 640, 480, 17, 0, (int)byte_591098);
   pDialogueWindow = (GUI::Window *)result;
   return result;
@@ -6076,13 +6099,15 @@ void __cdecl sub_444DCA()
   compile_error(file name should not be global);
     //v11 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
-  v0 = CMapStats_FindLocation(pMapStats, &Str2);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04_CurrentRightPanelType != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)(dword_59142C));
   Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (uTextureIdx_BtnXokU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXokU] : 0));
-  if ( v0 )
+  
+  //v0 = CMapStats_FindLocation(pMapStats, &Str2);
+  //if (v0)
+  if (v2 = (int *)pMapStats->GetMapInfo(&Str2))
   {
    v2 = (int *)&pMapStats->pMapInfos[v0];
    local_0C.uFrameX = 493;
@@ -7759,7 +7784,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             v17 = *(_BYTE *)(v16 + 5);
             v14 = *(_BYTE *)(v16 + 6);
             strcpy(&v147, &Str);
-            v15 = RemoveQuote(&v147);
+            v15 = (char *)RemoveQuote(&v147);
             //MoviePlayerLoop(v15, 0, v17, 1);
             pVideoPlayer->PlayMovie(v15, 0, 0, false);
             if ( !_strcmpi(v15, "arbiter good") )

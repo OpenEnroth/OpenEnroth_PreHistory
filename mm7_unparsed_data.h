@@ -1822,7 +1822,7 @@ extern char byte_6BE114_cfg_textures_DefaultSkyTexture[16]; // idb
 extern char byte_6BE124_cfg_textures_DefaultGroundTexture[16]; // idb
 extern int dword_6BE134; // weak
 extern int dword_6BE138; // weak
-extern int dword_6BE13C; // weak
+extern int dword_6BE13C_uCurrentlyLoadedLocationID; // weak
 extern float fWalkSpeedMultiplier; // float @ MM7.exe::006BE144
 extern float flt_6BE148; // weak
 extern float fTurnSpeedMultiplier; // float @ MM7.exe::006BE14C

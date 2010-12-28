@@ -694,17 +694,24 @@ struct MapInfo
 };
 //sizeof = 44
 
-struct CMapStats
+class MapStats
 {
- struct MapInfo pMapInfos[77]; // struct array @ 000000
- unsigned int   uNumMaps;      // dword        @ 001474
+ public:
+           MapStats();
+   inline ~MapStats() {}
+
+   Result::Code Initialize();
+   MapInfo      *GetMapInfo(const char *pMapName);
+   
+
+   struct MapInfo pMapInfos[77]; // struct array @ 000000
+   unsigned int   uNumMaps;      // dword        @ 001474
 };
 //sizeof ~ ?
-void CMapStats_ctor(struct CMapStats *_this);
-//int __thiscall sub_453F62(void *_this)
-int CMapStats_Initialize(struct CMapStats *_this);
-//signed int __thiscall sub_4547A3(int _this, const char *Str2);
-unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationName);
+
+//int __thiscall sub_453F62(void *_this)       00453F62  MapStats::_ctor
+//signed int __thiscall sub_453F62(int _this)  00453F62  MapStats::Initialize
+//int sub_4547A3(int this, const char *)       004547A3  MapStats::GetMapInfo
 
 
 

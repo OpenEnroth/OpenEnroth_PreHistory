@@ -103,7 +103,9 @@ GUI::Window *GameUI_InitializeCharacterWindow(int a1)
   ++LODFile_Icons_LOD.uTexturePacksCount;
   if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
     LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
-  	cClock1.clock_fn1();//	 class24_fn1);
+
+ cEventTimer.Pause();
+
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
 
  dword_5118E0 = 0;
@@ -1160,7 +1162,7 @@ void GameUI_Process()
   int v68; // edx@432
   int v69; // eax@432
   int v70; // edx@442
-  signed int v71; // eax@445
+  MapInfo *v71; // eax@445
   signed int v72; // ST64_4@459
   int v73; // eax@467
   int v74; // edx@467
@@ -1325,7 +1327,7 @@ void GameUI_Process()
  unsigned int uControlID;
 
   dword_50CDC8 = 0;
-  if ( !cClock1.dword_000004 )
+  if ( !cEventTimer.bPaused )
   {
     pParty_global->uEyelevel = pParty_global->uDefaultEyelevel;
     pParty_global->uPartyHeight = pParty_global->uDefaultPartyHeight;
@@ -2264,8 +2266,8 @@ LABEL_184:
           goto LABEL_92;
         case 0x7B:
           GUIWindowDelete(pGUIWindow_CurrentMenu);
-          //class24_sub_426363();
-		  cClock1.clock_sub_426363();
+
+		  cEventTimer.Resume();
           goto LABEL_188;
 
 
@@ -2276,7 +2278,9 @@ LABEL_184:
 			dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8_PartyCantJumpIfTrue )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
-          cClock1.clock_fn1();
+
+          cEventTimer.Pause();
+
           pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
           pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, (GUIButton*)uControlID, 0);
           ptr_507BE0 = GUIWindowCreate(600, 361, 0, 0, 99, pBtn_Game_Inventory, 0);
@@ -2359,7 +2363,7 @@ LABEL_232:
                       GUIWindowDelete(ptr_507BE0);
                       sub_45E006();
                       ptr_507BE0 = 0;
-                      cClock1.clock_sub_426363();
+                      cEventTimer.Resume();
                       goto LABEL_322;
                     case 11:
                     case 12:
@@ -2379,7 +2383,7 @@ LABEL_249:
                       LODFile_Icons_LOD.LODFile_sub_4114F2();
                       dword_4E28F8_PartyCantJumpIfTrue = 0;
                       struct_576FE8.dword_000044 = 1;
-                      cClock1.clock_sub_426363();
+                      cEventTimer.Resume();
                       goto LABEL_92;
                     case 2:
                       v197 = (signed int)&dword_507C60;
@@ -2615,7 +2619,7 @@ LABEL_322:
               if ( pGUIWindow_CurrentMenu == ptr_507BC0)
                 ptr_507BC0 = 0;
               pGUIWindow_CurrentMenu = 0;
-              cClock1.clock_sub_426363();
+              cEventTimer.Resume();
               dword_4E28F8_PartyCantJumpIfTrue = 0;
               struct_576FE8.dword_000044 = 1;
               LODFile_Icons_LOD.sub_4355F7();
@@ -2626,7 +2630,9 @@ LABEL_322:
             {
               dword_6BE138 = -1;
               GUIWindowCreate(602, 450, 0, 0, 90, pBtn_Game_Options, 1);
-              cClock1.clock_fn1();
+
+              cEventTimer.Pause();
+
               pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
               ++LODFile_Icons_LOD.uTexturePacksCount;
               dword_4E28F8_PartyCantJumpIfTrue = 1;
@@ -2843,7 +2849,7 @@ LABEL_317:
             pParty_global->dword_0006E0 = 0;
             sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, 1);
             sub_44603D();
-            cClock1.clock_fn1();
+            cEventTimer.Pause();
 
             compile_error(0);
             //LevelLoadingUI_Initialize(pGameLoadingUI_ProgressBar, 2);
@@ -2906,7 +2912,7 @@ LABEL_317:
             pParty_global->dword_000700 = pParty_global->sPartyPosZ;
             compile_error(level name should not be globally-defined);
   //sub_461103();
-            cClock1.clock_sub_426363();
+            cEventTimer.Resume();
             struct_576FE8.dword_000044 = 1;
             dword_4E28F8_PartyCantJumpIfTrue = 0;
 
@@ -3019,7 +3025,7 @@ LABEL_422:
               Player_SetRecoveryTime(&pParty_global->pPlayers[*(_WORD *)(v64 + 2)], 300);
               GUIWindowDelete( ptr_507BD4);
                ptr_507BD4 = NULL;
-              cClock1.clock_sub_426363();
+              cEventTimer.Resume();
               GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON1");
               dword_5C35B8_Some_GetTickCount_timer = 0;
               dword_50C9A0 = false;
@@ -3087,22 +3093,29 @@ LABEL_439:
           {
             if ( !cSaveTumbnail[v209].pPixels )
               goto LABEL_92;
-            v190 = (int)pMapStats->pMapInfos[sub_410D99(*(_WORD *)(v70 + 28 * v209 + 6854))].pLocationName;
+            compile_error(id to name);
+            //v190 = (int)pMapStats->GetMapInfo(sub_410D99(*(_WORD *)(v70 + 28 * v209 + 6854)))->pLocationName;
             v174 = (int)pGlobalTXT_LocalizationStrings[474];
             goto LABEL_520;
           }
+
           compile_error(level name should not be globally-defined);
-  //v71 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
+          /*v71 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
           v201 = (int)"Not in Map Stats";
           if ( v71 )
-            v201 = (int)pMapStats->pMapInfos[v71].pLocationName;
+            v201 = (int)pMapStats->pMapInfos[v71].pLocationName;*/
+
+          //new
+          //v201 = pMapStats->GetMapInfo(CurrentLevelName)->pLocationName;
+
           if ( !cSaveTumbnail[v209].pPixels || !v71 )
           {
             v190 = v201;
             v174 = (int)pGlobalTXT_LocalizationStrings[476];
             goto LABEL_520;
           }
-          v191 = (int)pMapStats->pMapInfos[sub_410D99(*(_WORD *)(v212 + 26))].pLocationName;
+          compile_error();
+          //v191 = (int)pMapStats->pMapInfos[sub_410D99(*(_WORD *)(v212 + 26))].pLocationName;
           v175 = v201;
           v163 = (int)pGlobalTXT_LocalizationStrings[475];
 LABEL_450:
@@ -3314,7 +3327,8 @@ LABEL_434:
             goto LABEL_92;
           }
 LABEL_506:
-          if ( v209 )
+          compile_error();
+          /*if ( v209 )
           {
             switch ( v209 )
             {
@@ -3340,7 +3354,7 @@ LABEL_506:
           else
           {
             v81 = (int)pMapStats->pMapInfos[21].pLocationName;
-          }
+          }*/
           v216 = v81;
 LABEL_519:
           v190 = v216;
@@ -3473,7 +3487,9 @@ LABEL_544:
             goto LABEL_92;
           dword_507BC8 = (int)GUIWindowCreate(0, 0, 640, 480, 104, (GUIButton *)v209, 0);
           dword_4E28F8_PartyCantJumpIfTrue = 25;
-          cClock1.clock_fn1();
+
+          cEventTimer.Pause();
+
           goto LABEL_92;
 
         case 0x1B:
@@ -3555,11 +3571,15 @@ LABEL_619:
             qword_ACF4D0 = pParty_global->qword_00002C;
             qword_ACD994 = pParty_global->qword_00002C;
             compile_error(level name should not be globally-defined);
-  //v102 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
+            /*old: v102 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
             if ( !v102 )
               //v102 = rand() % pMapStats->uNumMaps + 1;
               v102 = rand() % pMapStats->uNumMaps;
-            v206 = (int)&pMapStats->pMapInfos[v102];
+            v206 = (int)&pMapStats->pMapInfos[v102];*/
+
+            //new
+            //v206 = pMapStats->GetMapInfo(CurrentLevelName);
+
             if ( rand() % 100 + 1 <= *(_BYTE *)(v206 + 48) )
             {
               v105 = rand() % 100;
@@ -3765,7 +3785,7 @@ LABEL_662:
                 if ( dword_50654C - 1 == v209 )
                 {
                   GUIWindowDelete(pGUIWindow_CurrentMenu);
-                 cClock1.clock_sub_426363();
+                 cEventTimer.Resume();
                   struct_576FE8.dword_000044 = 1;
                   dword_4E28F8_PartyCantJumpIfTrue = 0;
                   LODFile_Icons_LOD.LODFile_sub_4114F2();
@@ -3813,7 +3833,7 @@ LABEL_678:
           if ( dword_4E28F8_PartyCantJumpIfTrue )
           {
             GUIWindowDelete(pGUIWindow_CurrentMenu);
-            cClock1.clock_sub_426363();
+            cEventTimer.Resume();
             dword_4E28F8_PartyCantJumpIfTrue = 0;
             struct_576FE8.dword_000044 = 1;
           }
@@ -4213,9 +4233,9 @@ LABEL_789:
   {
     if ( dword_50C9D0 > 0 )
     {
-      v135 = dword_50C9D8 == cClock1.int_00001C;
-      v136 = dword_50C9D8 - cClock1.int_00001C < 0;
-      dword_50C9D8 -= cClock1.int_00001C;
+      v135 = dword_50C9D8 == cEventTimer.int_00001C;
+      v136 = dword_50C9D8 - cEventTimer.int_00001C < 0;
+      dword_50C9D8 -= cEventTimer.int_00001C;
       if ( v136 | v135 )
       {
       /*  if ( dword_50CBD0[0] < 40 )
@@ -4242,7 +4262,9 @@ int __thiscall sub_4219BE(void *_this)
   GUI::Window *v3; // ebx@1
 
   v2 = (int)_this;
-  cClock1.clock_fn1();
+
+  cEventTimer.Pause();
+
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   dword_5118E0 = 0;
   CharacterUI_LoadPaperdollTextures();
@@ -4970,7 +4992,8 @@ GUI::Window *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
 	  }
   case 27: 
 	  {
-	  cClock1.clock_fn1();
+	  cEventTimer.Pause();
+
 	  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
 	  GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON2");
 	  sub_44C175((char *)pGlobalTXT_LocalizationStrings[LOCSTR_SELECT_TGT], 2);
@@ -5577,8 +5600,8 @@ char __cdecl LoadPlayerPortraintsAndVoices()
     result = byte_4ED498;
     if ( byte_4ED498 )
     {
-     sub_4A9A67(pSoundList, 2 * ((unsigned __int8)byte_4ED498 + 50 * pParty_global->pPlayers[i].dword_001920) + 4998, 0);
-     result = sub_4A9A67(pSoundList, 2 * ((unsigned __int8)byte_4ED498 + 50 * pParty_global->pPlayers[i].dword_001920) + 4999, 0);
+     sub_4A9A67(pSoundList, 2 * ((unsigned __int8)byte_4ED498 + 50 * pParty_global->pPlayers[i].uVoiceID) + 4998, 0);
+     result = sub_4A9A67(pSoundList, 2 * ((unsigned __int8)byte_4ED498 + 50 * pParty_global->pPlayers[i].uVoiceID) + 4999, 0);
     }
   }
   return result;
@@ -5609,7 +5632,7 @@ void GameUI_DrawPortraits(void *_this)
   v22 = _this;
   if ( qword_A750D8 )
   {
-    qword_A750D8 -= cClock2.int_00001C;
+    qword_A750D8 -= cMiscTimer.int_00001C;
     if ( qword_A750D8 <= 0 )
     {
       if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[word_A750E2]) )
@@ -5654,17 +5677,17 @@ LABEL_27:
 
     v7 = 1;
     for (j = 0; j < pPlayerFrameTable->uNumFrames; ++j)
-      if (pPlayerFrameTable->pFrames[j].word_000000 == pParty_global->pPlayers[i].uDefaultFaceID)
+      if (pPlayerFrameTable->pFrames[j].word_000000 == pParty_global->pPlayers[i].uExpressionID)
       {
        v7 = j;
        break;
       }
 
-    if (pParty_global->pPlayers[i].uDefaultFaceID == 21)
+    if (pParty_global->pPlayers[i].uExpressionID == 21)
       pPlayerFaceIcon = pPlayerFrameTable->PlayerFrameTable_sub_494B5E((int)&pParty_global->pPlayers[i].dword_001AA8,
-                                   (int)&pParty_global->pPlayers[i].dword_001AA4, cClock2.int_00001C);
+                                   (int)&pParty_global->pPlayers[i].dword_001AA4, cMiscTimer.int_00001C);
     else
-      pPlayerFaceIcon = pPlayerFrameTable->GetFrameFromFrameset(v7, pParty_global->pPlayers[i].word_001A9E);
+      pPlayerFaceIcon = pPlayerFrameTable->GetFrameFromFrameset(v7, pParty_global->pPlayers[i].uExpressionTimePassed);
 
     if (pParty_global->pPlayers[i].word_001AA2 != pPlayerFaceIcon->uTextureID - 1 || v22)
     {
@@ -5896,7 +5919,7 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
     {
      if ( HIDWORD(pParty_global->pPartyBuffs[16].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[16].qword_000000 )
       {
-        v0 = cClock1.clock_fn2();;
+        v0 = cEventTimer.Time();
         v1 = (int)pIconFrameTable->GetImage(array_6A0D14[2].uIconIdx, v0);
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[2].word_000008, array_6A0D14[2].word_00000A, (cTexture *)(72 * *(_WORD *)(v1 + 30) + 0x6D084C));
       }
@@ -5905,7 +5928,7 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
     {
      if (HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000) > 0 || LODWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000))
       {
-        v2 = cClock1.clock_fn2();;
+        v2 = cEventTimer.Time();
         v3 = (int)pIconFrameTable->GetImage(array_6A0D14[3].uIconIdx, v2);
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[3].word_000008, array_6A0D14[3].word_00000A, (cTexture *)(72 * *(_WORD *)(v3 + 30) + 0x6D084C));
       }
@@ -6401,12 +6424,12 @@ void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bo
             v24 = "sp91a";
 LABEL_24:
             v19 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v24, 2)];
-            //v20 = dword_50C9A8 == cClock1->int_00001C;
-            //v21 = dword_50C9A8 - cClock1->int_00001C < 0;
-            //dword_50C9A8 -= cClock1->int_00001C;
-            v20 = dword_50C9A8 == cClock1.int_00001C;
-            v21 = dword_50C9A8 - cClock1.int_00001C < 0;
-            dword_50C9A8 -= cClock1.int_00001C;
+            //v20 = dword_50C9A8 == cEventTimer->int_00001C;
+            //v21 = dword_50C9A8 - cEventTimer->int_00001C < 0;
+            //dword_50C9A8 -= cEventTimer->int_00001C;
+            v20 = dword_50C9A8 == cEventTimer.int_00001C;
+            v21 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+            dword_50C9A8 -= cEventTimer.int_00001C;
             if ( v21 | v20 )
             {
               dword_50C9A8 = 0;
@@ -6585,13 +6608,13 @@ LABEL_43:
       v7 = v5 - 85;
       if ( !v7 )
       {
-        v10 = pParty_global->dword_00073C;
+        v10 = pParty_global->uNumDeaths;
         goto LABEL_40;
       }
       v8 = v7 - 1;
       if ( !v8 )
       {
-        v10 = pParty_global->dword_000748;
+        v10 = pParty_global->uNumBountiesCollected;
         goto LABEL_40;
       }
       v9 = v8 - 1;
@@ -7900,9 +7923,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
             v197 = "sp91a";
 LABEL_49:
             v236 = (int)&LODFile_Icons_LOD.aLODHeaders[v28->LODFile_LoadTexture( v197, 2)];
-            v29 = dword_50C9A8 == cClock1.int_00001C;
-            v30 = dword_50C9A8 - cClock1.int_00001C < 0;
-            dword_50C9A8 -= cClock1.int_00001C;
+            v29 = dword_50C9A8 == cEventTimer.int_00001C;
+            v30 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+            dword_50C9A8 -= cEventTimer.int_00001C;
             if ( v30 | v29 )
             {
               dword_50C9A8 = 0;
@@ -7973,9 +7996,9 @@ LABEL_74:
                         v198 = "sp91a";
 LABEL_85:
                         v43 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v198, 2)];
-                        v44 = dword_50C9A8 == cClock1.int_00001C;
-                        v45 = dword_50C9A8 - cClock1.int_00001C < 0;
-                        dword_50C9A8 -= cClock1.int_00001C;
+                        v44 = dword_50C9A8 == cEventTimer.int_00001C;
+                        v45 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                        dword_50C9A8 -= cEventTimer.int_00001C;
                         if ( v45 | v44 )
                         {
                           dword_50C9A8 = 0;
@@ -8078,9 +8101,9 @@ LABEL_106:
                           v199 = "sp91a";
 LABEL_117:
                           v57 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v199, 2)];
-                          v58 = dword_50C9A8 == cClock1.int_00001C;
-                          v59 = dword_50C9A8 - cClock1.int_00001C < 0;
-                          dword_50C9A8 -= cClock1.int_00001C;
+                          v58 = dword_50C9A8 == cEventTimer.int_00001C;
+                          v59 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                          dword_50C9A8 -= cEventTimer.int_00001C;
                           if ( v59 | v58 )
                           {
                             dword_50C9A8 = 0;
@@ -8282,9 +8305,9 @@ LABEL_168:
                           v201 = "sp91a";
 LABEL_181:
                           v88 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v201, 2)];
-                          v89 = dword_50C9A8 == cClock1.int_00001C;
-                          v90 = dword_50C9A8 - cClock1.int_00001C < 0;
-                          dword_50C9A8 -= cClock1.int_00001C;
+                          v89 = dword_50C9A8 == cEventTimer.int_00001C;
+                          v90 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                          dword_50C9A8 -= cEventTimer.int_00001C;
                           if ( v90 | v89 )
                           {
                             dword_50C9A8 = 0;
@@ -8419,9 +8442,9 @@ LABEL_292:
                                           v208 = "sp91a";
 LABEL_284:
                                           v243 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v208, 2)];
-                                          v138 = dword_50C9A8 == cClock1.int_00001C;
-                                          v139 = dword_50C9A8 - cClock1.int_00001C < 0;
-                                          dword_50C9A8 -= cClock1.int_00001C;
+                                          v138 = dword_50C9A8 == cEventTimer.int_00001C;
+                                          v139 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                                          dword_50C9A8 -= cEventTimer.int_00001C;
                                           if ( v139 | v138 )
                                           {
                                             dword_50C9A8 = 0;
@@ -8514,9 +8537,9 @@ LABEL_312:
                                             v209 = "sp91a";
 LABEL_325:
                                             v151 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v209, 2)];
-                                            v152 = dword_50C9A8 == cClock1.int_00001C;
-                                            v153 = dword_50C9A8 - cClock1.int_00001C < 0;
-                                            dword_50C9A8 -= cClock1.int_00001C;
+                                            v152 = dword_50C9A8 == cEventTimer.int_00001C;
+                                            v153 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                                            dword_50C9A8 -= cEventTimer.int_00001C;
                                             if ( v153 | v152 )
                                             {
                                               dword_50C9A8 = 0;
@@ -8703,9 +8726,9 @@ LABEL_370:
                                                     v212 = "sp91a";
 LABEL_381:
                                                     v183 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v212, 2)];
-                                                    v184 = dword_50C9A8 == cClock1.int_00001C;
-                                                    v185 = dword_50C9A8 - cClock1.int_00001C < 0;
-                                                    dword_50C9A8 -= cClock1.int_00001C;
+                                                    v184 = dword_50C9A8 == cEventTimer.int_00001C;
+                                                    v185 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                                                    dword_50C9A8 -= cEventTimer.int_00001C;
                                                     if ( v185 | v184 )
                                                     {
                                                       dword_50C9A8 = 0;
@@ -8769,9 +8792,9 @@ LABEL_380:
                                           v211 = "sp91a";
 LABEL_348:
                                           v164 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v211, 2)];
-                                          v165 = dword_50C9A8 == cClock1.int_00001C;
-                                          v166 = dword_50C9A8 - cClock1.int_00001C < 0;
-                                          dword_50C9A8 -= cClock1.int_00001C;
+                                          v165 = dword_50C9A8 == cEventTimer.int_00001C;
+                                          v166 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                                          dword_50C9A8 -= cEventTimer.int_00001C;
                                           if ( v166 | v165 )
                                           {
                                             dword_50C9A8 = 0;
@@ -8851,9 +8874,9 @@ LABEL_209:
                                   v202 = "sp91a";
 LABEL_226:
                                   v110 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v202, 2)];
-                                  v111 = dword_50C9A8 == cClock1.int_00001C;
-                                  v112 = dword_50C9A8 - cClock1.int_00001C < 0;
-                                  dword_50C9A8 -= cClock1.int_00001C;
+                                  v111 = dword_50C9A8 == cEventTimer.int_00001C;
+                                  v112 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                                  dword_50C9A8 -= cEventTimer.int_00001C;
                                   if ( v112 | v111 )
                                   {
                                     dword_50C9A8 = 0;
@@ -8972,9 +8995,9 @@ LABEL_256:
                               v207 = "sp91a";
 LABEL_246:
                               v110 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v207, 2)];
-                              v126 = dword_50C9A8 == cClock1.int_00001C;
-                              v127 = dword_50C9A8 - cClock1.int_00001C < 0;
-                              dword_50C9A8 -= cClock1.int_00001C;
+                              v126 = dword_50C9A8 == cEventTimer.int_00001C;
+                              v127 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                              dword_50C9A8 -= cEventTimer.int_00001C;
                               if ( v127 | v126 )
                               {
                                 dword_50C9A8 = 0;
@@ -9024,9 +9047,9 @@ LABEL_246:
                     v200 = "sp91a";
 LABEL_145:
                     v72 =(int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v200, 2)];
-                    v73 = dword_50C9A8 == cClock1.int_00001C;
-                    v74 = dword_50C9A8 - cClock1.int_00001C < 0;
-                    dword_50C9A8 -= cClock1.int_00001C;
+                    v73 = dword_50C9A8 == cEventTimer.int_00001C;
+                    v74 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+                    dword_50C9A8 -= cEventTimer.int_00001C;
                     if ( v74 | v73 )
                     {
                       dword_50C9A8 = 0;
@@ -9126,9 +9149,9 @@ LABEL_48:
           v196 = "sp91a";
 LABEL_27:
           v16 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v196, 2)];
-          v17 = dword_50C9A8 == cClock1.int_00001C;
-          v18 = dword_50C9A8 - cClock1.int_00001C < 0;
-          dword_50C9A8 -= cClock1.int_00001C;
+          v17 = dword_50C9A8 == cEventTimer.int_00001C;
+          v18 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+          dword_50C9A8 -= cEventTimer.int_00001C;
           if ( v18 | v17 )
           {
             dword_50C9A8 = 0;
@@ -9336,9 +9359,9 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
 				}
 			
 			v49 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v45, 2)];
-			v8 = dword_50C9A8 == cClock1.int_00001C;
-			v9 = dword_50C9A8 - cClock1.int_00001C < 0;
-			dword_50C9A8 -= cClock1.int_00001C;
+			v8 = dword_50C9A8 == cEventTimer.int_00001C;
+			v9 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+			dword_50C9A8 -= cEventTimer.int_00001C;
 			if ( v9 | v8 )
 			{
 			  dword_50C9A8 = 0;
@@ -9427,9 +9450,9 @@ LABEL_36:
   v46 = "sptext01";
 LABEL_37:
   v51 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v46, 2)];
-  v22 = dword_50C9A8 == cClock1.int_00001C;
-  v23 = dword_50C9A8 - cClock1.int_00001C < 0;
-  dword_50C9A8 -= cClock1.int_00001C;
+  v22 = dword_50C9A8 == cEventTimer.int_00001C;
+  v23 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+  dword_50C9A8 -= cEventTimer.int_00001C;
   if ( v23 | v22 )
   {
     dword_50C9A8 = 0;
@@ -9499,9 +9522,9 @@ LABEL_57:
   v47 = "sptext01";
 LABEL_58:
   v37 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v47, 2)];
-  v38 = dword_50C9A8 == cClock1.int_00001C;
-  v39 = dword_50C9A8 - cClock1.int_00001C < 0;
-  dword_50C9A8 -= cClock1.int_00001C;
+  v38 = dword_50C9A8 == cEventTimer.int_00001C;
+  v39 = dword_50C9A8 - cEventTimer.int_00001C < 0;
+  dword_50C9A8 -= cEventTimer.int_00001C;
   if ( v39 | v38 )
   {
     dword_50C9A8 = 0;
@@ -9926,7 +9949,7 @@ LABEL_152:
                 {
                   ItemGen_Reset((ItemGen *)&v61);
                   GUIWindowDelete(pWnd);
-                 cClock1.clock_sub_426363();
+                 cEventTimer.Resume();
                   dword_4E28F8_PartyCantJumpIfTrue = 0;
                   struct_576FE8.dword_000044 = 1;
                   v39 = atoi((char *)pUserInput->pPressedKeysBuffer);
@@ -9999,7 +10022,7 @@ LABEL_138:
           {
             ItemGen_Reset(&local_04);
             GUIWindowDelete(pWnd);
-            cClock1.clock_sub_426363();
+            cEventTimer.Resume();
             dword_4E28F8_PartyCantJumpIfTrue = 0;
             struct_576FE8.dword_000044 = 1;
             v26 = atoi((char *)pUserInput->pPressedKeysBuffer);
@@ -10161,7 +10184,7 @@ LABEL_82:
             dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
           }	*/
 		  dword_50CBD0.PutMessageToQueue(ptr_507BD0->dword_00001C,0,0);
-          cClock1.clock_sub_426363();
+          cEventTimer.Resume();
           GUIWindowDelete(ptr_507BD0);
           dword_4E28F8_PartyCantJumpIfTrue = 0;
           goto LABEL_114;
@@ -10169,7 +10192,7 @@ LABEL_82:
         if (ptr_507BD0->dword_000040 == 3)
         {
           pWnd->dword_000040 = 0;
-          cClock1.clock_sub_426363();
+          cEventTimer.Resume();
           v28 = (int)ptr_507BD0;
 LABEL_110:
           GUIWindowDelete((GUI::Window *)v28);
@@ -10853,7 +10876,7 @@ void PlayerCreationUI_Draw()
    Render_DrawTransparentTexture(pD3DRenderer, 335, 35, pTextureID_PCFaces[pParty_global->pPlayers[2].uFace]);
    Render_DrawTransparentTexture(pD3DRenderer, 494, 35, pTextureID_PCFaces[pParty_global->pPlayers[3].uFace]);
 
-   v1 = pIconFrameTable->GetImage(uIconTableFrameID_CharacterFrame, cClock1.int_00000C);
+   v1 = pIconFrameTable->GetImage(uIconTableFrameID_CharacterFrame, cEventTimer.uStartTime);
 
    switch (uPlayerCreationUI_SelectedCharacter)
    {

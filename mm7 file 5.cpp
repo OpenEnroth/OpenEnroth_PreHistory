@@ -6392,7 +6392,7 @@ void __cdecl sub_46F228()
 
   v0 = 0;
   v1 = 0;
-  v89 = (unsigned __int16)word_4F0040[dword_6BE13C];
+  v89 = (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID];
   v84 = 0;
   if ( dword_6BE660 > 0 )
   {

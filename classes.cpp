@@ -1105,7 +1105,6 @@ void *class37_ctor(struct class37 *_this)
 
 
 
-extern char *RemoveQuote(char *pStr);
 //----- (00456D84) --------------------------------------------------------
 char *sub_456D84(struct class40 *_this)
 {
@@ -1186,9 +1185,8 @@ char *sub_456D84(struct class40 *_this)
 
   v1 = _this;
 
-  pMapStats = MemAlloc(CMapStats, 1);
-  CMapStats_ctor(pMapStats);
-  CMapStats_Initialize(pMapStats);
+  pMapStats = MemAlloc(MapStats, 1);
+  pMapStats->Initialize();
 
   pMonsterStats = MemAlloc(CMonsterStats, 1);
   CMonsterStats_ctor(pMonsterStats);
@@ -1243,7 +1241,7 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v104 == 1 )
           {
-           _this->pEnchantments[i].pName = (unsigned char *)RemoveQuote(v3);
+           _this->pEnchantments[i].pName = RemoveQuote(v3);
           }
           else
           {
@@ -1253,7 +1251,7 @@ char *sub_456D84(struct class40 *_this)
         }
         else
         {
-         _this->pEnchantments[i].pParam = (unsigned char *)RemoveQuote(v3);
+         _this->pEnchantments[i].pParam = RemoveQuote(v3);
         }
       }
       else
@@ -1341,7 +1339,7 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v106 == 1 )
           {
-           _this->pSpecialEnchantments[i].pName = (unsigned char *)RemoveQuote((char *)v17);
+           _this->pSpecialEnchantments[i].pName = RemoveQuote((char *)v17);
           }
           else
           {
@@ -1374,7 +1372,7 @@ char *sub_456D84(struct class40 *_this)
         }
         else
         {
-         _this->pSpecialEnchantments[i].pParam = (unsigned char *)RemoveQuote((char *)v17);
+         _this->pSpecialEnchantments[i].pParam = RemoveQuote((char *)v17);
         }
       }
       else
@@ -1432,8 +1430,8 @@ LABEL_63:
         switch ( v107 )
         {
           case 0: v28 = atoi(v30); break;
-          case 1: _this->pItems[v28 - 1].pIconName = (unsigned char *)RemoveQuote(v30); break;
-          case 2: _this->pItems[v28 - 1].pName = (unsigned char *)RemoveQuote(v30);     break;
+          case 1: _this->pItems[v28 - 1].pIconName = RemoveQuote(v30); break;
+          case 2: _this->pItems[v28 - 1].pName = RemoveQuote(v30);    break;
           case 3: _this->pItems[v28 - 1].uValue = atoi(v30);          break;
 
           case 4:
@@ -1537,7 +1535,7 @@ LABEL_63:
             break;
 
           case 9:  ((char *)(&_this->pItems[v28 - 1 + 1].dword_000000))[2] = atoi(v30); break;
-          case 10: _this->pItems[v28 - 1].pUnidentifiedName = (unsigned char *)RemoveQuote(v30); break;
+          case 10: _this->pItems[v28 - 1].pUnidentifiedName = RemoveQuote(v30); break;
           case 11: _this->pItems[v28 - 1].uSpriteIndex = atoi(v30); break;
 
           case 12:
@@ -1586,7 +1584,7 @@ LABEL_181:
 
           case 14: _this->pItems[v28 - 1].uEquipX = atoi(v30); break;
           case 15: _this->pItems[v28 - 1].uEquipY = atoi(v30); break;
-          case 16: _this->pItems[v28 - 1].pDescription = (unsigned char *)RemoveQuote(v30); break;
+          case 16: _this->pItems[v28 - 1].pDescription = RemoveQuote(v30); break;
 
           default:
             break;
@@ -1838,19 +1836,19 @@ LABEL_196:
         switch ( v110 )
         {
           case 1:
-            pSkillDescription[v53] = (unsigned char *)RemoveQuote(v54);
+            pSkillDescription[v53] = RemoveQuote(v54);
             break;
           case 2:
-            pNormalSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
+            pNormalSkillDescr[v53] = RemoveQuote(v54);
             break;
           case 3:
-            pExpertSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
+            pExpertSkillDescr[v53] = RemoveQuote(v54);
             break;
           case 4:
-            pMasterSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
+            pMasterSkillDescr[v53] = RemoveQuote(v54);
             break;
           case 5:
-            pGrandSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
+            pGrandSkillDescr[v53] = RemoveQuote(v54);
             break;
         }
       }
@@ -1912,26 +1910,26 @@ LABEL_196:
             case 3:
             case 4:
             case 5:
-            case 6:  pAttributeDescriptions[v77] = (unsigned char *)RemoveQuote(v58); break;
-            case 7:  pHealthPointsAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 8:  pArmourClassAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 9:  pSpellPointsAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 10: pPlayerConditionAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 11: pFastSpellAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 12: pPlayerAgeAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 13: pPlayerLevelAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 14: pPlayerExperienceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 15: pAttackBonusAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 16: pAttackDamageAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 17: pMissleBonusAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 18: pMissleDamageAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 19: pFireResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 20: pAirResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 21: pWaterResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 22: pEarthResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 23: pMindResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 24: pBodyResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
-            case 25: pSkillPointsAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 6:  pAttributeDescriptions[v77] = RemoveQuote(v58); break;
+            case 7:  pHealthPointsAttributeDescription = RemoveQuote(v58); break;
+            case 8:  pArmourClassAttributeDescription = RemoveQuote(v58); break;
+            case 9:  pSpellPointsAttributeDescription = RemoveQuote(v58); break;
+            case 10: pPlayerConditionAttributeDescription = RemoveQuote(v58); break;
+            case 11: pFastSpellAttributeDescription = RemoveQuote(v58); break;
+            case 12: pPlayerAgeAttributeDescription = RemoveQuote(v58); break;
+            case 13: pPlayerLevelAttributeDescription = RemoveQuote(v58); break;
+            case 14: pPlayerExperienceAttributeDescription = RemoveQuote(v58); break;
+            case 15: pAttackBonusAttributeDescription = RemoveQuote(v58); break;
+            case 16: pAttackDamageAttributeDescription = RemoveQuote(v58); break;
+            case 17: pMissleBonusAttributeDescription = RemoveQuote(v58); break;
+            case 18: pMissleDamageAttributeDescription = RemoveQuote(v58); break;
+            case 19: pFireResistanceAttributeDescription = RemoveQuote(v58); break;
+            case 20: pAirResistanceAttributeDescription = RemoveQuote(v58); break;
+            case 21: pWaterResistanceAttributeDescription = RemoveQuote(v58); break;
+            case 22: pEarthResistanceAttributeDescription = RemoveQuote(v58); break;
+            case 23: pMindResistanceAttributeDescription = RemoveQuote(v58); break;
+            case 24: pBodyResistanceAttributeDescription = RemoveQuote(v58); break;
+            case 25: pSkillPointsAttributeDescription = RemoveQuote(v58); break;
             default:
               break;
           }
@@ -1983,14 +1981,24 @@ LABEL_196:
 
 
 
-void CMapStats_ctor(struct CMapStats *_this)
+MapStats::MapStats()
 {
- memset(_this->pMapInfos, 0, 77 * sizeof(struct MapInfo));
- _this->uNumMaps = 0;
+ uNumMaps = 0;
+ memset(pMapInfos, 0, 77 * sizeof(struct MapInfo));
+}
+
+//----- (004547A3) --------------------------------------------------------
+MapInfo *MapStats::GetMapInfo(const char *pMapName)
+{
+ for (unsigned int i = 0; i < uNumMaps; ++i)
+   if (!lstrcmpiA((char *)pMapInfos[i].pLocationFilename, pMapName))
+      return &pMapInfos[i];
+
+ return nullptr;
 }
 
 //----- (00453F62) --------------------------------------------------------
-int CMapStats_Initialize(struct CMapStats *_this)
+Result::Code MapStats::Initialize()
 {
   //void *v1; // esi@1
   signed int v2; // ebx@3
@@ -2011,19 +2019,17 @@ int CMapStats_Initialize(struct CMapStats *_this)
   int v17; // [sp+34h] [bp-Ch]@4
   unsigned int v18; // [sp+38h] [bp-8h]@30
   char *v19; // [sp+3Ch] [bp-4h]@30
- struct MapInfo *pMapInfo;
 
  if (pMapStatsTXT_Raw)
    MemFree( (void *)pMapStatsTXT_Raw);
 
- pMapStatsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "MapStats.txt", 0);
+ pMapStatsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw("MapStats.txt", 0);
  strtok((char *)pMapStatsTXT_Raw, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
 
- do
+ for (unsigned int i = 0; i < 77; ++i)
  {
-  pMapInfo = &_this->pMapInfos[_this->uNumMaps+1];
   v4 = strtok(0, "\r");
   v17 = 0;
   v16 = 0;
@@ -2047,117 +2053,117 @@ int CMapStats_Initialize(struct CMapStats *_this)
    {
     switch ( v17 )
     {
-     case 1:  pMapInfo->pLocationName = (unsigned char *)RemoveQuote(v3);             break;
-     case 2:  pMapInfo->pLocationFilename = (unsigned char *)RemoveQuote(v3);         break;
-     case 16: pMapInfo->pEncounterMonster1Texture = (unsigned char *)RemoveQuote(v3); break;
-     case 20: pMapInfo->pEncounterMonster2Texture = (unsigned char *)RemoveQuote(v3); break;
-     case 24: pMapInfo->pEncounterMonster3Texture = (unsigned char *)RemoveQuote(v3); break;
+     case 1:  pMapInfos[i].pLocationName = RemoveQuote(v3);             break;
+     case 2:  pMapInfos[i].pLocationFilename = RemoveQuote(v3);         break;
+     case 16: pMapInfos[i].pEncounterMonster1Texture = RemoveQuote(v3); break;
+     case 20: pMapInfos[i].pEncounterMonster2Texture = RemoveQuote(v3); break;
+     case 24: pMapInfos[i].pEncounterMonster3Texture = RemoveQuote(v3); break;
 
 
-     case 3:  pMapInfo->uNumResets = atoi(v3); break;
-     case 4:  pMapInfo->uVisitedAt = atoi(v3); break;
-     case 5:  pMapInfo->dword_000028 = atoi(v3); break;
-     case 6:  pMapInfo->uRespawnInterval = atoi(v3); break;
-     case 7:  pMapInfo->dword_000020 = atoi(v3); break;
-     case 8:  pMapInfo->dword_000024 = atoi(v3); break;
+     case 3:  pMapInfos[i].uNumResets = atoi(v3); break;
+     case 4:  pMapInfos[i].uVisitedAt = atoi(v3); break;
+     case 5:  pMapInfos[i].dword_000028 = atoi(v3); break;
+     case 6:  pMapInfos[i].uRespawnInterval = atoi(v3); break;
+     case 7:  pMapInfos[i].dword_000020 = atoi(v3); break;
+     case 8:  pMapInfos[i].dword_000024 = atoi(v3); break;
 
-     case 9:  pMapInfo->byte_00002D = atoi(v3); break;
-     case 10: pMapInfo->byte_00002E = atoi(v3); break;
-     case 11: pMapInfo->byte_00002F = atoi(v3); break;
-     case 12: pMapInfo->byte_000030 = atoi(v3); break;
-     case 13: pMapInfo->byte_000031 = atoi(v3); break;
-     case 14: pMapInfo->byte_000032 = atoi(v3); break;
-     case 15: pMapInfo->byte_000033 = atoi(v3); break;
-     case 18: pMapInfo->byte_000034 = atoi(v3); break;
+     case 9:  pMapInfos[i].byte_00002D = atoi(v3); break;
+     case 10: pMapInfos[i].byte_00002E = atoi(v3); break;
+     case 11: pMapInfos[i].byte_00002F = atoi(v3); break;
+     case 12: pMapInfos[i].byte_000030 = atoi(v3); break;
+     case 13: pMapInfos[i].byte_000031 = atoi(v3); break;
+     case 14: pMapInfos[i].byte_000032 = atoi(v3); break;
+     case 15: pMapInfos[i].byte_000033 = atoi(v3); break;
+     case 18: pMapInfos[i].byte_000034 = atoi(v3); break;
 
      case 19:
-       pMapInfo->uEncounterMonster1AtLeast = 1;
-       pMapInfo->uEncounterMonster1AtMost = 2;
+       pMapInfos[i].uEncounterMonster1AtLeast = 1;
+       pMapInfos[i].uEncounterMonster1AtMost = 2;
 
-       sscanf(v3, "%u-%u", &pMapInfo->uEncounterMonster1AtLeast, &pMapInfo->uEncounterMonster1AtMost);
+       sscanf(v3, "%u-%u", &pMapInfos[i].uEncounterMonster1AtLeast, &pMapInfos[i].uEncounterMonster1AtMost);
      break;
 
      case 23:
-       pMapInfo->uEncounterMonster2AtLeast = 1;
-       pMapInfo->uEncounterMonster2AtMost = 2;
+       pMapInfos[i].uEncounterMonster2AtLeast = 1;
+       pMapInfos[i].uEncounterMonster2AtMost = 2;
 
-       sscanf(v3, "%u-%u", &pMapInfo->uEncounterMonster2AtLeast, &pMapInfo->uEncounterMonster2AtMost);
+       sscanf(v3, "%u-%u", &pMapInfos[i].uEncounterMonster2AtLeast, &pMapInfos[i].uEncounterMonster2AtMost);
      break;
 
      case 27:
-       pMapInfo->uEncounterMonster3AtLeast = 1;
-       pMapInfo->uEncounterMonster3AtMost = 2;
+       pMapInfos[i].uEncounterMonster3AtLeast = 1;
+       pMapInfos[i].uEncounterMonster3AtMost = 2;
 
-       sscanf(v3, "%u-%u", &pMapInfo->uEncounterMonster3AtLeast, &pMapInfo->uEncounterMonster3AtMost);
+       sscanf(v3, "%u-%u", &pMapInfos[i].uEncounterMonster3AtLeast, &pMapInfos[i].uEncounterMonster3AtMost);
      break;
 
      case 22:
-       pMapInfo->byte_000037 = atoi(v3);
+       pMapInfos[i].byte_000037 = atoi(v3);
      break;
 
      case 26:
-       pMapInfo->byte_00003A = atoi(v3);
+       pMapInfos[i].byte_00003A = atoi(v3);
      break;
 
      case 28:
-       pMapInfo->uRedbookTrackNum = atoi(v3);
+       pMapInfos[i].uRedbookTrackNum = atoi(v3);
      break;
 
      case 29:
        if (!strcmp(v3, "GENERIC"))
-         pMapInfo->uEAXEnv = 0;
+         pMapInfos[i].uEAXEnv = 0;
        else if (!strcmp(v3, "PADDEDCELL"))
-         pMapInfo->uEAXEnv = 1;
+         pMapInfos[i].uEAXEnv = 1;
        else if (!strcmp(v3, "ROOM"))
-         pMapInfo->uEAXEnv = 2;
+         pMapInfos[i].uEAXEnv = 2;
        else if (!strcmp(v3, "BATHROOM"))
-         pMapInfo->uEAXEnv = 3;
+         pMapInfos[i].uEAXEnv = 3;
        else if (!strcmp(v3, "LIVINGROOM"))
-         pMapInfo->uEAXEnv = 4;
+         pMapInfos[i].uEAXEnv = 4;
        else if (!strcmp(v3, "STONEROOM"))
-         pMapInfo->uEAXEnv = 5;
+         pMapInfos[i].uEAXEnv = 5;
        else if (!strcmp(v3, "AUDITORIUM"))
-         pMapInfo->uEAXEnv = 6;
+         pMapInfos[i].uEAXEnv = 6;
        else if (!strcmp(v3, "CONCERTHALL"))
-         pMapInfo->uEAXEnv = 7;
+         pMapInfos[i].uEAXEnv = 7;
        else if (!strcmp(v3, "CAVE"))
-         pMapInfo->uEAXEnv = 8;
+         pMapInfos[i].uEAXEnv = 8;
        else if (!strcmp(v3, "ARENA"))
-         pMapInfo->uEAXEnv = 9;
+         pMapInfos[i].uEAXEnv = 9;
        else if (!strcmp(v3, "HANGAR"))
-         pMapInfo->uEAXEnv = 10;
+         pMapInfos[i].uEAXEnv = 10;
        else if (!strcmp(v3, "CARPETEDHALLWAY"))
-         pMapInfo->uEAXEnv = 11;
+         pMapInfos[i].uEAXEnv = 11;
        else if (!strcmp(v3, "HALLWAY"))
-         pMapInfo->uEAXEnv = 12;
+         pMapInfos[i].uEAXEnv = 12;
        else if (!strcmp(v3, "STONECORRIDOR"))
-         pMapInfo->uEAXEnv = 13;
+         pMapInfos[i].uEAXEnv = 13;
        else if (!strcmp(v3, "ALLEY"))
-         pMapInfo->uEAXEnv = 14;
+         pMapInfos[i].uEAXEnv = 14;
        else if (!strcmp(v3, "FOREST"))
-         pMapInfo->uEAXEnv = 15;
+         pMapInfos[i].uEAXEnv = 15;
        else if (!strcmp(v3, "CITY"))
-         pMapInfo->uEAXEnv = 16;
+         pMapInfos[i].uEAXEnv = 16;
        else if (!strcmp(v3, "MOUNTAINS"))
-         pMapInfo->uEAXEnv = 17;
+         pMapInfos[i].uEAXEnv = 17;
        else if (!strcmp(v3, "QUARRY"))
-         pMapInfo->uEAXEnv = 18;
+         pMapInfos[i].uEAXEnv = 18;
        else if (!strcmp(v3, "PLAIN"))
-         pMapInfo->uEAXEnv = 19;
+         pMapInfos[i].uEAXEnv = 19;
        else if (!strcmp(v3, "PARKINGLOT"))
-         pMapInfo->uEAXEnv = 20;
+         pMapInfos[i].uEAXEnv = 20;
        else if (!strcmp(v3, "SEWERPIPE"))
-         pMapInfo->uEAXEnv = 21;
+         pMapInfos[i].uEAXEnv = 21;
        else if (!strcmp(v3, "UNDERWATER"))
-         pMapInfo->uEAXEnv = 22;
+         pMapInfos[i].uEAXEnv = 22;
        else if (!strcmp(v3, "DRUGGED"))
-         pMapInfo->uEAXEnv = 23;
+         pMapInfos[i].uEAXEnv = 23;
        else if (!strcmp(v3, "DIZZY"))
-         pMapInfo->uEAXEnv = 24;
+         pMapInfos[i].uEAXEnv = 24;
        else if (!strcmp(v3, "PSYCHOTIC"))
-         pMapInfo->uEAXEnv = 26;
+         pMapInfos[i].uEAXEnv = 26;
        else 
-		   pMapInfo->uEAXEnv = 25;
+		 pMapInfos[i].uEAXEnv = 25;
      break;
 
      default: break;
@@ -2172,10 +2178,11 @@ int CMapStats_Initialize(struct CMapStats *_this)
       result = v17 - 1;
     }
     while ( v17 - 1 <= 29 && !v16 );
-    ++_this->uNumMaps;
+
+    uNumMaps = i;
   }
-  while (_this->uNumMaps < 77);
-  return result;
+
+ return Result::Success;
 }
 
 
@@ -2358,11 +2365,11 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 1:
-            pMonsterInfo->pName = (unsigned char *)RemoveQuote((char *)test_str);
+            pMonsterInfo->pName = RemoveQuote((char *)test_str);
           break;
 
           case 2:
-            pMonsterInfo->pTexture = (unsigned char *)RemoveQuote((char *)test_str);
+            pMonsterInfo->pTexture = RemoveQuote((char *)test_str);
           break;
 
           case 3:
@@ -3439,7 +3446,7 @@ void CSpellStats_Initialize(struct CSpellStats *_this)
 				 {
 			 case 2:
 				 {
-				 pSpellInfo->pSpellName = (unsigned char *)RemoveQuote(string_pos);
+				 pSpellInfo->pSpellName = RemoveQuote(string_pos);
 				 break;
 				 }
 			 case 3:
@@ -3470,32 +3477,32 @@ void CSpellStats_Initialize(struct CSpellStats *_this)
 				 }
 			 case 4:
 				 {
-				 pSpellInfo->pSpellNameShort = (unsigned char *)RemoveQuote(string_pos);
+				 pSpellInfo->pSpellNameShort = RemoveQuote(string_pos);
 				 break;
 				 }
 			 case 5:
 				 {
-				 pSpellInfo->pSpellDescription = (unsigned char *)RemoveQuote(string_pos);
+				 pSpellInfo->pSpellDescription = RemoveQuote(string_pos);
 				 break;
 				 }
 			 case 6:
 				 {
-				 pSpellInfo->pSpellBasicSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 pSpellInfo->pSpellBasicSkillDesc = RemoveQuote(string_pos);
 				 break;
 				 }
 			 case 7:
 				 {
-				 pSpellInfo->pSpellExpertSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 pSpellInfo->pSpellExpertSkillDesc = RemoveQuote(string_pos);
 				 break;
 				 }
 			 case 8:
 				 {
-				 pSpellInfo->pSpellMasterSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 pSpellInfo->pSpellMasterSkillDesc = RemoveQuote(string_pos);
 				 break;
 				 }
 			 case 9:
 				 {
-				 pSpellInfo->pSpellGrandmasterSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 pSpellInfo->pSpellGrandmasterSkillDesc = RemoveQuote(string_pos);
 				 break;
 				 }
 			 case 10:
@@ -4106,11 +4113,11 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
         if ( v21 )
         {
           if ( v21 == 1 )
-            v17[1] = (unsigned char *)RemoveQuote(v4);
+            v17[1] = RemoveQuote(v4);
         }
         else
         {
-          v17[0] = (unsigned char *)RemoveQuote(v4);
+          v17[0] = RemoveQuote(v4);
         }
       }
       else
@@ -4173,16 +4180,16 @@ LABEL_45:
             _this->pProfessions[i].uHireCost = atoi(v9);
             break;
           case 3:
-            _this->pProfessions[i].pActionText = (unsigned char *)RemoveQuote(v9);
+            _this->pProfessions[i].pActionText = RemoveQuote(v9);
             break;
           case 4:
-            _this->pProfessions[i].pBenefits = (unsigned char *)RemoveQuote(v9);
+            _this->pProfessions[i].pBenefits = RemoveQuote(v9);
             break;
           case 5:
-            _this->pProfessions[i].pJoinText = (unsigned char *)RemoveQuote(v9);
+            _this->pProfessions[i].pJoinText = RemoveQuote(v9);
             break;
           case 6:
-            _this->pProfessions[i].pDismissText = (unsigned char *)RemoveQuote(v9);
+            _this->pProfessions[i].pDismissText = RemoveQuote(v9);
             break;
         }
       }
@@ -4266,8 +4273,8 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
         switch ( v40 )
         {
           case 0:
-            _this->pNPCData[i].pNPCName = (unsigned char *)RemoveQuote(v4);
-            _this->pNPCNames2[i] = (unsigned char *)RemoveQuote(v4);
+            _this->pNPCData[i].pNPCName = RemoveQuote(v4);
+            _this->pNPCNames2[i] = RemoveQuote(v4);
             break;
           case 1:
             _this->pNPCData[i].uPortraitID = atoi(v4);
@@ -4338,9 +4345,9 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v11 )
       {
         if ( v41 == 1 )
-          _this->pNPCGreetings[i].pGreeting1 = (unsigned char *)RemoveQuote(v10);
+          _this->pNPCGreetings[i].pGreeting1 = RemoveQuote(v10);
         else if (v41 == 2)
-          _this->pNPCGreetings[i].pGreeting2 = (unsigned char *)RemoveQuote(v10);
+          _this->pNPCGreetings[i].pGreeting2 = RemoveQuote(v10);
       }
       ++v41;
       v10 = (char *)(v13 + 1);
@@ -5111,16 +5118,6 @@ int class35_sub_48A336(struct class35 *_this)
 
 
 
-//----- (004547A3) --------------------------------------------------------
-unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationName)
-{
- int i;
-
- for (i = 1; i < _this->uNumMaps; ++i)
-   if (!lstrcmpiA((char *)_this->pMapInfos[i].pLocationFilename, pLocationName))
-      return i;
- return 0;
-}
 
 
 

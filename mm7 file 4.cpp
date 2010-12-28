@@ -9833,7 +9833,7 @@ char __thiscall PrepareToLoadBLV(void *_this)
   {
     v3 = v41;
   }
-  dword_6BE13C = v43;
+  dword_6BE13C_uCurrentlyLoadedLocationID = v43;
 
 
   pStationaryLightsStack->uNumStationaryLightsActive = 0;

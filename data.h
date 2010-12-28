@@ -234,7 +234,7 @@ extern unsigned int uPlayerCreationUI_SelectedCharacter;
 
 extern unsigned int uTextureID_PlayerCreationUI_FaceMask;
 
-extern struct CMapStats     *pMapStats;
+extern struct MapStats      *pMapStats;
 extern struct CSpellStats   *pSpellStats;
 extern struct CMonsterStats *pMonsterStats;
 

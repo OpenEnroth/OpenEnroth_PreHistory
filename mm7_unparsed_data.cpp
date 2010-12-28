@@ -1717,7 +1717,7 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  char byte_6BE124_cfg_textures_DefaultGroundTexture[16]; // idb
  int dword_6BE134; // weak
  int dword_6BE138; // weak
- int dword_6BE13C; // weak
+ int dword_6BE13C_uCurrentlyLoadedLocationID; // weak
  float fWalkSpeedMultiplier = 1.0; // float @ MM7.exe::006BE144
  float flt_6BE148 = 1.0; // weak
  float fTurnSpeedMultiplier = 1.0; // float @ MM7.exe::006BE14C

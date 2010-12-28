@@ -1885,12 +1885,12 @@ signed int AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(AudioPlayer *_this)
 
   v2 = (int)_this;
   runtime_warning(level name should not be globally-defined);
-  result = CMapStats_FindLocation(pMapStats, (char *)pClass51_global->pLocationFileName);
+ MapInfo *pMapInfo = pMapStats->GetMapInfo((char *)pClass51_global->pLocationFileName);
   if (_this->b3DSoundInitialized)
   {
     if (_this->bEAXSupported )
     {
-     v3 = pMapStats->pMapInfos[result].uEAXEnv;
+     v3 = pMapInfo->uEAXEnv;
       if ( v3 >= 0x1A )
       {
         result = AudioPlayer_sub_4AC004((int)_this);
@@ -1904,7 +1904,7 @@ signed int AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(AudioPlayer *_this)
       }
     }
   }
-  return result;
+  return 0;
 }
 
 

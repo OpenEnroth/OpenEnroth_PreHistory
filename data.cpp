@@ -1270,7 +1270,7 @@ class Clock cMiscTimer;  // struct @ MM7.exe::0050BBB8	 misc timer for water dam
 class Clock cEventTimer;  // struct @ MM7.exe::0050BBE0	   event timer
  //clock data end
 
-struct CMapStats     *pMapStats = 0;     // struct @ MM7.exe::005CABB8
+class MapStats *pMapStats = nullptr;     // struct @ MM7.exe::005CABB8
 
 struct CSpellStats   *pSpellStats = 0;   // struct @ MM7.exe::005CC030
 

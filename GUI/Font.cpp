@@ -1090,14 +1090,14 @@ LABEL_12:
 }
 
 //----- (00452C30) --------.text:00453D8------------------------------------------------
-char *RemoveQuote(char *pStr)
+unsigned char *RemoveQuote(char *pStr)
 {
   if ( *pStr == '"' )
   {
     pStr[strlen(pStr) - 1] = 0;
-    return pStr + 1;
+    return (unsigned char *)pStr + 1;
   }
-  return pStr;
+  return (unsigned char *)pStr;
 }
 
 //----- (0044D2FD) --------------------------------------------------------

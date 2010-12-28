@@ -575,8 +575,11 @@ void sub_4601B7(int a1)		 //render save_load
         pGUIWindow_CurrentMenu->uFrameY + 171,
        &cSaveTumbnail[dword_6A0CA0_indx]);
     }
-    v10 = CMapStats_FindLocation(pMapStats,(char *)&saves_hdr[dword_6A0CA0_indx].location_name);
-    GUIWindow_DrawText(&local_0C, pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
+
+    //v10 = CMapStats_FindLocation(pMapStats,(char *)&saves_hdr[dword_6A0CA0_indx].location_name);
+    //GUIWindow_DrawText(&local_0C, pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
+    GUIWindow_DrawText(&local_0C, pFontSmallnum, 0, 0, 0, (char *)pMapStats->GetMapInfo((char *)&saves_hdr[dword_6A0CA0_indx].location_name)->pLocationFilename, 3);
+
 	v11 = 	(saves_hdr[dword_6A0CA0_indx].qWorld_time * 0.234375) / 60;
    // v11 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0_indx] * 0.234375) / 60;
     //v12 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0_indx] * 0.234375) / 60;

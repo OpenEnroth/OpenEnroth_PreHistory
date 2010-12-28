@@ -741,7 +741,7 @@ bool CheckHiredNPCSpeciality(int param);
 void __thiscall NPCStats_sub_476C60(int _this);
 int __thiscall NPCStats_sub_477266(int _this);
 signed int __stdcall sub_47730C(int a1);
-_DWORD __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, int dummy_to_fill_edx_since_func_is__thiscall, struct NPCData *, _DWORD, _DWORD, _DWORD); // weak
+_DWORD __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, int dummy_to_fill_edx_since_func_is__thiscall, struct NPCData *, _DWORD, _DWORD, long); // weak
 int __cdecl sub_47752B();
 int __thiscall sub_4775C4(int _this);
 int __thiscall sub_4775ED(int _this, int a2);

@@ -33,7 +33,7 @@ struct Font
 
 
 
-char *RemoveQuote(char *Str);  
+unsigned char *RemoveQuote(char *Str);  
 unsigned int  GUIFont_GetLineWidth(Font *pFont, const unsigned char *pString);
 bool GUIFont_IsCharacterValid(Font *pFont, unsigned char c);	 //bool __fastcall sub_44C4DE(unsigned char a1, unsigned char *a2);
 
