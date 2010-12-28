@@ -13,7 +13,6 @@ using namespace _Render;
 
 Result::Code ProgressBar_LevelLoading::OnDraw(float dt)
 {
- pBackgroundImage->SetControlArea(&cBackgroundRect);
  pBackgroundImage->OnDraw(dt);
 
  Rect<float> cTransformedProgressRect = Rect<float>(cProgressRect.x.min,
@@ -53,10 +52,11 @@ Result::Code ProgressBar_LevelLoading::Initialize(const Rect<float> *pBackground
  cBackgroundRect = *pBackgroundRect;
  pBackgroundImage = pHostInterface->CreateControl<Image>(this);
  pBackgroundImage->Initialize(pBackgroundRect, L"loadframe", Align::Center, Align::Center);
+ pBackgroundImage->SetControlArea(&cBackgroundRect);
  
  cProgressRect = *pProgressRect;
  pProgressImage = pHostInterface->CreateControl<Image>(this);
- pProgressImage->Initialize(pProgressRect, L"loadprog", Align::Center, Align::Center);
+ pProgressImage->Initialize(pProgressRect, L"loadprog", Align::Negative, Align::Center);
 
  return Result::Success;
  /*

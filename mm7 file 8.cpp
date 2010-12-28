@@ -12905,7 +12905,11 @@ int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUITy
   pGameLoadingUI_Window->SetBackgroundImage(pGameLoadingUI_WindowBackground);
 
   pGameLoadingUI_ProgressBar = pMainGUI->CreateControl<GUI::ProgressBar_LevelLoading>(pGameLoadingUI_Window);
-  pGameLoadingUI_ProgressBar->Initialize(&Rect<float>(169, 474, 455, 475), &Rect<float>(172, 472, 459, 471), &_Render::Color(1.0f, 1.0f, 1.0f, 1.0f));
+  pGameLoadingUI_ProgressBar->Initialize(&Rect<float>(169, 474, 455, 475), &Rect<float>(172, 472, 460, 472), &_Render::Color(1.0f, 1.0f, 1.0f, 1.0f));
+  pGameLoadingUI_ProgressBar->Activate(true);
+
+  pGameLoadingUI_Window->AddChild(pGameLoadingUI_ProgressBar);
+  pGameLoadingUI_Window->Activate(true);
  }
  pMainGUI->SetMainWindow(pGameLoadingUI_Window);
 

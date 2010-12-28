@@ -655,17 +655,10 @@ void Viewport_fn0(struct OldViewport *_this, int a2, int a3, int a4, int a5)
   _this->uScreenW = v7;
   _this->dword_000020 = v6 - v5 + 1;
   _this->dword_000028 = (v6 + v5) >> 1;
-  if (!pD3DRenderer->pRenderD3D3)
-  {
-    v10 = v7 - v8 + 1;
-    _this->dword_000024 = v10;
-    _this->dword_00002C = _this->uScreenW - ((unsigned __int64)(_this->dword_000030 * v10) >> 16);
-  }
-  else
-  {
+
     _this->dword_000024 = v7 - v8 + 1;
     _this->dword_00002C = (v7 + v8) >> 1;
-  }
+
  Viewport_SetGameViewport(_this, _this->uScreenX, _this->uScreenY, _this->uScreenZ, _this->uScreenW);
 }
 

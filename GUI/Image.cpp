@@ -12,10 +12,15 @@ Result::Code Image::OnDraw(float dt)
 
  if (eXAlign == Align::Negative || eXAlign == Align::Center || eXAlign == Align::Positive)
  {
-  unsigned int uOutX;
+  unsigned int uOutX,
+               uOutWidth = cTextureDim.min;
   switch (eXAlign)
   {
-   case Align::Negative:  uOutX = cControlArea.x.min;  break;
+   case Align::Negative:
+      uOutX = cControlArea.x.min;
+      uOutWidth = cTextureDim.min <= cControlArea.x.Length() ? cTextureDim.min : cControlArea.x.Length();
+   break;
+
    case Align::Positive:  uOutX = cControlArea.x.max - cTextureDim.min; break;
    case Align::Center:    uOutX = cControlArea.x.min + cControlArea.x.Length() / 2 - cTextureDim.min / 2; break;
   }
@@ -33,7 +38,8 @@ Result::Code Image::OnDraw(float dt)
     case Align::Positive:  uOutY = cControlArea.y.max - cTextureDim.max; break;
     case Align::Center:    uOutY = cControlArea.y.min + cControlArea.y.Length() / 2 - cTextureDim.max / 2; break;
    }
-   Render_DrawTransparentTexture(pD3DRenderer, uOutX, uOutY, pImageTexture);
+   //Render_DrawTransparentTexture(pD3DRenderer, uOutX, uOutY, pImageTexture);
+   Render_DrawTransparentRect(pD3DRenderer, uOutX, uOutY, 0, 0, uOutWidth, cTextureDim.max, pImageTexture);
 
    return Result::Success;
   }

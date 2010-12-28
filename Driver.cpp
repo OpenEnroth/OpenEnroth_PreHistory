@@ -631,8 +631,8 @@ LABEL_21:
           //DeleteFontCChar();
           byte_50794A = 1;
 
-          if (!bNoVideo)
-            pVideoPlayer->PlayMovie("Intro Post", 0, 0, false);
+          //if (!bNoVideo)
+          //  pVideoPlayer->PlayMovie("Intro Post", 0, 0, false);
 
           runtime_warning(tries to save not yet loaded level; need to rethink this mechanism);
 
