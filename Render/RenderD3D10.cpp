@@ -1,7 +1,7 @@
 #include "RenderD3D10.h"
 #include "TextureD3D10.h"
 
-#include "..\\Window.h"
+#include "..\OSWindow.h"
 
 
 

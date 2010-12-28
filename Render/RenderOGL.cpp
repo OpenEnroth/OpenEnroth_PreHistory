@@ -1,8 +1,8 @@
 #include "RenderOGL.h"
-#include "wgl\\wglext.h"
+#include "wgl\wglext.h"
 #include "TextureOGL.h"
 
-#include "..\Window.h"
+#include "..\OSWindow.h"
 
 
 
