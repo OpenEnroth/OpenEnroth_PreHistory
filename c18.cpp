@@ -161,7 +161,7 @@ void cPCXTexture::PCXTexture_Zero()
  uNumPixels = 0;
  word_000020 = 0;
  word_000022 = 0;
- pPixels = NULL; //24
+ pPixels = nullptr; //24
 
 }
 ///------ (MM7.exe::0040F414) -------------.text:0040F703------------------- 

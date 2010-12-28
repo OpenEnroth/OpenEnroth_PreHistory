@@ -881,7 +881,7 @@ LABEL_150:
    wsprintfW(pSkyFilename, L"%S", &this->array_0004F0[2]);
    this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(pSkyFilename);
 #else
-   _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)&this->array_0004F0[2], 2);
+   this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)&this->array_0004F0[2], 2);
 #endif
   }
 

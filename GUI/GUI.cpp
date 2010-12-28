@@ -559,7 +559,7 @@ void GameUI_LoadIcons()
   uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilepath);
 #else
   char pFilepath[16];
-  wsprintf(pFilepath, "isn-%02d", i + 1);
+  wsprintfA(pFilepath, "isn-%02d", i + 1);
 
   uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,2);
 #endif
@@ -573,6 +573,19 @@ void GameUI_LoadIcons()
 //----- (00415485) --------.text:004158F7 ------------------------------------------------
 void __cdecl GUIWindow_DrawCopyrightWindow()
 {
+ uTextureIdx_Parchment = LODFile_Icons_LOD.LODFile_LoadTexture("parchment", 2);
+
+ uTextureID_WindowEdgeTop = LODFile_Icons_LOD.LODFile_LoadTexture("edge_top", 2);	  //, 	 //37
+ uTextureID_WindowEdgeBottom = LODFile_Icons_LOD.LODFile_LoadTexture("edge_btm", 2);  // , 	 //34
+ uTextureID_WindowEdgeLeft = LODFile_Icons_LOD.LODFile_LoadTexture("edge_lf", 2);	   //, 	 //35
+ uTextureID_WindowEdgeRight = LODFile_Icons_LOD.LODFile_LoadTexture("edge_rt", 2);	  //, 	 //36
+ 
+ uTextureIdx_CornerUpperLeft = LODFile_Icons_LOD.LODFile_LoadTexture("cornr_ul", 2);	// , 	 //32
+ uTextureIdx_CornerUpperRight = LODFile_Icons_LOD.LODFile_LoadTexture("cornr_ur", 2);	// , 	 //33
+ uTextureIdx_CornerLowerLeft = LODFile_Icons_LOD.LODFile_LoadTexture("cornr_ll", 2);	//,	 //30
+ uTextureIdx_CornerLowerRight = LODFile_Icons_LOD.LODFile_LoadTexture("cornr_lr", 2);	//  , 	 //31
+
+
  GUI::Window local_08;
  GUI::Window *pWindow = &local_08;
 
@@ -5233,7 +5246,7 @@ void __cdecl PlayerCreationUI_Initialize()
   for (i = 0; i < 25; ++i)
   {
   char pFilename[16];
-   wsprintf(pFilename, "%s01",portret_names[i]);
+   wsprintfA(pFilename, "%s01",portret_names[i]);
    pTextureID_PCFaces[i] =  &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,2)];
   }
 
@@ -7175,17 +7188,17 @@ int CharacterUI_LoadPaperdollTextures()
       wsprintfW(Str1, L"pc23v%dlhu", uFace);
       pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
 #else
-       wsprintf(Str1, "pc23v%dBod", uFace);
+      wsprintfA(Str1, "pc23v%dBod", uFace);
       pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
-      wsprintf(Str1, "pc23v%dlad", uFace);
+      wsprintfA(Str1, "pc23v%dlad", uFace);
       pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
-      wsprintf(Str1, "pc23v%dlau", uFace);
+      wsprintfA(Str1, "pc23v%dlau", uFace);
       pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
-      wsprintf(Str1, "pc23v%drh", uFace);
+      wsprintfA(Str1, "pc23v%drh", uFace);
       pPaperdollTextures_RightHands[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
-      wsprintf(Str1, "pc23v%dlh", uFace);
+      wsprintfA(Str1, "pc23v%dlh", uFace);
       pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
-      wsprintf(Str1, "pc23v%dlhu", uFace);
+      wsprintfA(Str1, "pc23v%dlhu", uFace);
       pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
       uFace = pPlayers[uPlayer]->uFace;
@@ -7219,25 +7232,25 @@ int CharacterUI_LoadPaperdollTextures()
       wsprintfW(Str1, L"item281pc%02d", uFace + 1);
       pPaperdollTextures_Feet[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture_New(Str1);
 #else
-      wsprintf(Str1, "pc%02dbod", uFace + 1);
+      wsprintfA(Str1, "pc%02dbod", uFace + 1);
       pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
-      wsprintf(Str1, "pc%02dlad", uFace + 1);
+      wsprintfA(Str1, "pc%02dlad", uFace + 1);
       pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
-      wsprintf(Str1, "pc%02dlau", uFace + 1);
+      wsprintfA(Str1, "pc%02dlau", uFace + 1);
       pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
-      wsprintf(Str1, "pc%02drh", uFace + 1);
+      wsprintfA(Str1, "pc%02drh", uFace + 1);
       pPaperdollTextures_RightHands[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
-      wsprintf(Str1, "pc%02dlh", uFace + 1);
+      wsprintfA(Str1, "pc%02dlh", uFace + 1);
       pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
-      wsprintf(Str1, "pc%02dlhu", uFace + 1); // something strange with pc20lhu, needs to check
+      wsprintfA(Str1, "pc%02dlhu", uFace + 1); // something strange with pc20lhu, needs to check
       pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
 
       if (uFace == 12 || uFace == 13) // dwarf male, load beard
       {
-        wsprintf(Str1, "pc%02dbrd", uFace + 1);
+        wsprintfA(Str1, "pc%02dbrd", uFace + 1);
         pPaperdollTextures_Beards[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
       }
-      wsprintf(Str1, "item281pc%02d", uFace + 1);
+      wsprintfA(Str1, "item281pc%02d", uFace + 1);
       pPaperdollTextures_Feet[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
 #endif
       IsPlayerWearingWatersuit[uPlayer] = 0;

@@ -571,6 +571,22 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 
 
 
+
+#ifdef OLD_CODE
+  cPCXTexture cTitle;
+  cTitle.PCXTexture_Zero();
+  cTitle.LODPCXLoad("mm6title.pcx", 0);
+
+  pD3DRenderer->BeginScene();
+  {
+   Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cTitle);
+   GUIWindow_DrawCopyrightWindow();
+  }
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();
+
+  SecondaryInitialization();
+#else
   extern void LoadUI_MainMenu();
   LoadUI_MainMenu();
 
@@ -600,7 +616,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
   }
   pLoadingThread->Release();
   MemFree(pLoadingThread);
-
+#endif
 
 
   Sleep(250);

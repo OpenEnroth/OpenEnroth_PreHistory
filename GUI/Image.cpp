@@ -185,7 +185,14 @@ Result::Code Image::Initialize(const Rect<float> *pImageRect, const wchar_t *pTe
  if (pImageRect)
    cControlArea = *pImageRect;
 
+#ifndef OLD_CODE
  pImageTexture = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(pTexture)];
+#else
+ char pFilenameA[256];
+ wsprintfA(pFilenameA, "%S", pTexture);
+
+ pImageTexture = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture(pFilenameA, 2)];
+#endif
 
  eXAlign = eHorizontalMode;
  eYAlign = eVerticalMode;
