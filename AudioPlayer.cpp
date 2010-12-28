@@ -197,7 +197,7 @@ void AudioPlayer::sub_4AA306(int a2, signed int a3, unsigned int uNumRepeats, si
   char *v57; // eax@114
   int v58; // edx@115
   int v59; // ecx@115
-  char *v60; // eax@118
+  Actor *v60; // eax@118
   int v61; // esi@126
   int v64; // edi@134
   int v65; // ebx@141
@@ -279,9 +279,9 @@ LABEL_123:
             v61 = (int)pMixerChannels;
             do
             {
-             if (AIL_sample_status(this->pMixerChannels[v95].hSample) == 4 &&
+             if (AIL_sample_status(this->pMixerChannels[v95].hSample) == AIL::Sample::Playing &&
                  this->pMixerChannels[v95].dword_000004 == a3 &&
-                 AIL_sample_status(this->pMixerChannels[v95].hSample) == 4 )
+                 AIL_sample_status(this->pMixerChannels[v95].hSample) == AIL::Sample::Playing)
               {
                if (pMixerChannels[v95].uSourceTrackIdx == uSoundIdx)
                   return;
@@ -352,7 +352,7 @@ LABEL_150:
             AIL_set_sample_loop_count(pFreeChannel->hSample, uNumRepeats - 1);
           v82 = sub_4AB66C(v74, a6);
           AIL_set_sample_pan(pFreeChannel->hSample, v82);
-          v83 = sub_4AB6B1(v74, a6, pParty_global->sPartyPosZ);
+          v83 = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(v74, a6, pParty_global->sPartyPosZ);
           AIL_set_sample_volume(pFreeChannel->hSample, v83);
           v75 = a3;
           goto LABEL_184;
@@ -365,7 +365,7 @@ LABEL_150:
           v81 = (char *)Src + 80 * (a3 >> 3);
           if ( !*((_DWORD *)v81 + 1) )
             return;
-          if ( !sub_4AB6B1(**((_WORD **)v81 + 14), **((_WORD **)v81 + 15), **((_WORD **)v81 + 16)) )
+          if ( !sub_4AB6B1_GetSoundStrengthByDistanceFromParty(**((_WORD **)v81 + 14), **((_WORD **)v81 + 15), **((_WORD **)v81 + 16)) )
           {
             AIL_end_sample(pFreeChannel->hSample);
             this->sub_4ABE55(pFreeChannel);
@@ -378,7 +378,7 @@ LABEL_150:
         if ( (a3 & 7) == 2 )
         {
           v76 = (char *)pLayingItemsList + 112 * (a3 >> 3);
-          if ( !sub_4AB6B1(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
+          if ( !sub_4AB6B1_GetSoundStrengthByDistanceFromParty(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
             return;
         }
         else
@@ -386,7 +386,7 @@ LABEL_150:
           if ( (a3 & 7) == 3 )
           {
             v80 = (char *)pActors + 836 * (a3 >> 3);
-            if ( !sub_4AB6B1(*((_WORD *)v80 + 71), *((_WORD *)v80 + 72), *((_WORD *)v80 + 73)) )
+            if ( !sub_4AB6B1_GetSoundStrengthByDistanceFromParty(*((_WORD *)v80 + 71), *((_WORD *)v80 + 72), *((_WORD *)v80 + 73)) )
               return;
             v77 = *((_WORD *)v80 + 72);
             v78 = *((_WORD *)v80 + 71);
@@ -409,7 +409,7 @@ LABEL_184:
             return;
           }
           v76 = (char *)&pLevelDecorations[(a3 >> 3)];
-          if ( !sub_4AB6B1(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
+          if ( !sub_4AB6B1_GetSoundStrengthByDistanceFromParty(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
             return;
           AIL_set_sample_loop_count(pFreeChannel->hSample, uNumRepeats - 1);
         }
@@ -474,12 +474,12 @@ LABEL_149:
       if ( (a3 & 7) == 3 )
       {
         cChannelsToUse = Range<unsigned int>(0, 3);
-        v60 = (char *)&pActors[a3 >> 3];
-        v58 = *((_WORD *)v60 + 72);
-        v86 = *((_WORD *)v60 + 73);
-        v59 = *((_WORD *)v60 + 71);
+        v60 = &pActors[a3 >> 3];
+        v58 = v60->sActorPosY;
+        v86 = v60->sActorPosZ;
+        v59 = v60->sActorPosX;
 LABEL_116:
-        uDefaultVolume = sub_4AB6B1(v59, v58, v86);
+        uDefaultVolume = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(v59, v58, v86);
         if ( !uDefaultVolume)
           return;
         goto LABEL_123;
@@ -1736,7 +1736,7 @@ LABEL_61:
                 v2 = v70;
                 goto LABEL_62;
               }
-              v44 = sub_4AB6B1(**((_WORD **)v43 + 14), **((_WORD **)v43 + 15), **((_WORD **)v43 + 16));
+              v44 = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(**((_WORD **)v43 + 14), **((_WORD **)v43 + 15), **((_WORD **)v43 + 16));
               if ( !v44 )
               {
 LABEL_58:
@@ -1763,7 +1763,7 @@ LABEL_60:
             if ( (*(_DWORD *)(v34 + 4) & 7) == 3 )
             {
               v38 = (char *)pActors + 836 * (v35 >> 3);
-              v37 = sub_4AB6B1(*((_WORD *)v38 + 71), *((_WORD *)v38 + 72), *((_WORD *)v38 + 73));
+              v37 = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(*((_WORD *)v38 + 71), *((_WORD *)v38 + 72), *((_WORD *)v38 + 73));
               if ( !v37 )
                 goto LABEL_58;
               AIL_set_sample_volume(*(HSAMPLE *)v34, v37);
@@ -1776,7 +1776,7 @@ LABEL_60:
               v36 = (char *)&pLevelDecorations[(v35 >> 3)];
 LABEL_53:
               v42 = v36;
-              v41 = sub_4AB6B1(*((_DWORD *)v36 + 1), *((_DWORD *)v36 + 2), *((_DWORD *)v36 + 3));
+              v41 = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(*((_DWORD *)v36 + 1), *((_DWORD *)v36 + 2), *((_DWORD *)v36 + 3));
               if ( !v41 )
                 goto LABEL_58;
               AIL_set_sample_volume(*(HSAMPLE *)v34, v41);
@@ -2353,5 +2353,30 @@ int __thiscall SoundList_sub_4A9DCD(int _this, int a2, char a3)
       *(_DWORD *)result &= 0xFFFFFFFEu;
     }
   }
+  return result;
+}
+
+
+//----- (004AB6B1) --------------------------------------------------------
+int __fastcall sub_4AB6B1_GetSoundStrengthByDistanceFromParty(int a1, int a2, int a3)
+{
+  int v3; // esi@1
+  int v4; // edi@1
+  int v5; // ST08_4@1
+  int v6; // esi@1
+  int v7; // eax@1
+  int result; // eax@2
+  int v9; // [sp+10h] [bp+8h]@1
+
+  v3 = a2;
+  v4 = a1;
+  v5 = abs(a3 - pParty_global->sPartyPosZ);
+  v6 = abs(v3 - pParty_global->sPartyPosY);
+  v7 = abs(v4 - pParty_global->sPartyPosX);
+  v9 = sub_4621DA(v7, v6, v5);
+  if ( v9 <= 8192 )
+    result = 114 - (signed __int64)((double)v9 * (1.0 / 8192.0) * 100.0);
+  else
+    result = 0;
   return result;
 }

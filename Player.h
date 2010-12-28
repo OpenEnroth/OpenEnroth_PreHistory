@@ -214,8 +214,8 @@ struct Player
    short            word_00179C;
    short            word_00179E;
    struct SpellBuff pPlayerBuffs[24]; // struct[24] @ 0017A0
-   int              dword_001920; //related to voice in SoundList
-   int              dword_001924;
+   unsigned int     uVoiceID;      // dword @ 001920   @ SoundList
+   int              dword_001924;  // dword @ 001924
    int              dword_001928;
    int              dword_00192C;
    int              dword_001930;
@@ -226,9 +226,15 @@ struct Player
    int              sMana;             // dword @ 001940
    unsigned int     uBirthYear;        // dword @ 001944
    int              pEquippedItemIndices[16]; // dword[16] @ 001948
-                                             // 1: right hand
-                                             // 3: body, leather armour
-   int              array_001988[65]; // dword[] @ 001988    looks like pEquippedItemIndices
+                                              // 0: left hand
+                                              // 1: right hand
+                                              // 2: bow
+                                              // 3: body, leather armour
+                                              // 4: helm
+                                              // 5: belt
+                                              // 6: cloak
+
+   int              array_001988[65]; // dword[] @ 001988
 
    char          byte_001A4E;	//spell skill? or school?
    unsigned char uQuickSpell;     // byte  @ 001A4F
@@ -243,9 +249,9 @@ struct Player
    char byte_001A98;
    char array_001A99[3];
 
-   unsigned short uDefaultFaceID; // word @ 001A9C    id in PlayerFrameTable, face set
-   short word_001A9E; //subframe in FrameTable, current face emotion?   doesnt generate random name if this is not zero
-   short word_001AA0; // PlayerFrame::word_000006 * 8
+   unsigned short uExpressionID; // word @ 001A9C    current face,  ID in PlayerFrameTable, /face set
+   unsigned short uExpressionTimePassed; // word @ 001A9E     subframe in FrameTable
+   unsigned short uExpressionTimeLength; // word @ 001AA0    PlayerFrame::word_000006 * 8
    short word_001AA2; // PlayerFrame::word_000002 - 1
    int dword_001AA4;
    int dword_001AA8;

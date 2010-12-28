@@ -10146,10 +10146,10 @@ char __thiscall Player_sub_449BB4(int _this, signed int a2, void *a3)
           goto LABEL_132;
         goto LABEL_170;
       case 307:
-       v3 = pParty_global->dword_00073C;
+       v3 = pParty_global->uNumDeaths;
         goto LABEL_170;
       case 308:
-        v3 = pParty_global->dword_000748;
+        v3 = pParty_global->uNumBountiesCollected;
         goto LABEL_170;
       case 309:
         v3 = pParty_global->dword_000744;
@@ -10775,7 +10775,7 @@ LABEL_172:
       switch ( a2 )
       {
         case 308:
-          pParty_global->dword_000748 = a3;
+          pParty_global->uNumBountiesCollected = a3;
           break;
         case 309:
           pParty_global->dword_000744 = a3;
@@ -10795,7 +10795,7 @@ LABEL_172:
       }
       return;
     }
-    pParty_global->dword_00073C = a3;
+    pParty_global->uNumDeaths = a3;
 LABEL_168:
     if ( v30 != 1 )
     {
@@ -11313,7 +11313,7 @@ LABEL_176:
       switch ( a2 )
       {
         case 308:
-          pParty_global->dword_000748 += a3;
+          pParty_global->uNumBountiesCollected += a3;
           break;
         case 309:
           pParty_global->dword_000744 += a3;
@@ -11333,7 +11333,7 @@ LABEL_176:
       }
       return;
     }
-    pParty_global->dword_00073C += a3;
+    pParty_global->uNumDeaths += a3;
 LABEL_173:
     if ( v37 != 1 )
       goto LABEL_175;
@@ -11783,7 +11783,7 @@ LABEL_8:
     {
       if ( a2 == 307 )
       {
-        pParty_global->dword_00073C -= a3;
+        pParty_global->uNumDeaths -= a3;
         return;
       }
       if ( a2 == 223 )
@@ -11875,7 +11875,7 @@ LABEL_112:
     switch ( a2 )
     {
       case 308:
-        pParty_global->dword_000748 -= a3;
+        pParty_global->uNumBountiesCollected -= a3;
         break;
       case 309:
         pParty_global->dword_000744 -= a3;

@@ -27,11 +27,11 @@ OutdoorLocation::OutdoorLocation()
 {
  uNumBModels = 0;
 
- dword_0004C0 = 0;
+ uNumSpawnPoints = 0;
+ pSpawnPoints = nullptr;
 
  pBModels = nullptr;
 
- ptr_0004C4 = nullptr;
  ptr_0000D4 = nullptr;
  ptr_0000E4 = nullptr;
  ptr_0000E0 = nullptr;
@@ -62,7 +62,7 @@ int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsi
  {
   v3 = _this->cTerrainData.pTilemap[128 * uY + uX];
   if ( v3 >= 90 )
-     v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
+     v3 = v3 + _this->pTileTypes[(v3 - 90) / 18].uTileID - 36 * (v3 - 90) / 36 - 90;
   return pTileTable->pTiles[v3].word_000018;
  }
 }
@@ -90,10 +90,10 @@ int class51_GetTileTexture2(OutdoorLocation *_this, unsigned int uX, unsigned in
  if (v3 < 198)
  {
   if (v3 >= 90)
-    v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
+    v3 = v3 + _this->pTileTypes[(v3 - 90) / 18].uTileID - 36 * (v3 - 90) / 36 - 90;
  }
  else
-   v3 = v3 + _this->array_0000A0[7] - 198;
+   v3 = v3 + _this->pTileTypes[3].uTileID - 198;
 
  return pTileTable->pTiles[v3].uBitmapID;
 }
@@ -145,7 +145,6 @@ Result::Code OutdoorLocation::Clear()
    BModel_Clear((int)&pBModels[i].dword_000044);
  uNumBModels = 0;
  
- dword_0004C0 = 0;
  
  cTerrainData.Clear();
  
@@ -155,10 +154,11 @@ Result::Code OutdoorLocation::Clear()
   pBModels = nullptr;
  }
 
- if (ptr_0004C4)
+ uNumSpawnPoints = 0;
+ if (pSpawnPoints)
  {
-  MemFree(ptr_0004C4);
-  ptr_0004C4 = nullptr;
+  MemFree(pSpawnPoints);
+  pSpawnPoints = nullptr;
  }
 
  if (ptr_0000D4)
@@ -395,7 +395,7 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  memcpy(pLocationFileDescription, Src + 2 * 32, 32);
  memcpy(pSkyTextureName, Src + 3 * 32, 32);
  memcpy(pGroundTileset, Src + 4 * 32, 32);
- memcpy(array_0000A0, Src + 5 * 32, 16);
+ memcpy(pTileTypes, Src + 5 * 32, 4 * sizeof(TileType));
  Src += 0xB0;
 
  class51_sub_47F420(this);
@@ -590,11 +590,16 @@ LABEL_75:
 
  pGameLoadingUI_ProgressBar->SetProgress(0.40f);
 
- memcpy(&dword_0004C0, Src, 4);
+ memcpy(&uNumSpawnPoints, Src, 4);
  Src += 4;
 
- ptr_0004C4 = NamedMemAlloc(unsigned char, 24 * dword_0004C0, "ODM Spawn");
- memcpy(ptr_0004C4, Src, 24 * dword_0004C0);
+#if 0
+ pSpawnPoints = NamedMemAlloc(SpawnPointMM6, uNumSpawnPoints * sizeof(SpawnPointMM6), "ODM Spawn");
+ memcpy(pSpawnPoints, Src, uNumSpawnPoints * sizeof(SpawnPointMM6));
+#else
+ pSpawnPoints = NamedMemAlloc(SpawnPointMM7, uNumSpawnPoints * sizeof(SpawnPointMM7), "ODM Spawn");
+ memcpy(pSpawnPoints, Src, uNumSpawnPoints * sizeof(SpawnPointMM7));
+#endif
 
  pGameLoadingUI_ProgressBar->SetProgress(0.45f);
 
@@ -816,15 +821,15 @@ LABEL_120:
   MemFree((char *)v168);
 
   CTileTable_LoadSomeTiles(pTileTable, 4);
-  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[0]);
-  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[2]);
-  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[4]);
-  CTileTable_LoadSomeTiles(pTileTable, this->array_0000A0[6]);
+  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[0].uTileGroup);
+  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[1].uTileGroup);
+  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[2].uTileGroup);
+  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[3].uTileGroup);
 
   strcpy((char *)this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
-  v109 = this->array_0000A0[1];
+  v109 = pTileTypes[0].uTileID;
   v120 = 0;
-  v110 = TileTable_GetTile(pTileTable, this->array_0000A0[1]);
+  v110 = TileTable_GetTile(pTileTable, pTileTypes[0].uTileID);
 
   pGameLoadingUI_ProgressBar->SetProgress(0.80f);
   {
@@ -895,19 +900,19 @@ LABEL_150:
 
   for (unsigned int i = 0; i < 3; ++i)
   {
-      switch (array_0000A0[i * 2])
+      switch (pTileTypes[i].uTileGroup)
       {
-        case 0:
+       case Terrain::Tileset::Grass:
           sub_4A9A67(pSoundList, 54, 0);
           sub_4A9A67(pSoundList, 93, 0);
         break;
 
-        case 1:
+        case Terrain::Tileset::Sand:
           sub_4A9A67(pSoundList, 58, 0);
           sub_4A9A67(pSoundList, 97, 0);
         break;
 
-        case 2:
+        case Terrain::Tileset::Volcanic:
           sub_4A9A67(pSoundList, 52, 0);
           sub_4A9A67(pSoundList, 91, 0);
         break;
@@ -917,7 +922,7 @@ LABEL_150:
           sub_4A9A67(pSoundList, 90, 0);
           break;
 
-        case 5:
+        case Terrain::Tileset::Water:
           sub_4A9A67(pSoundList, 62, 0);
           sub_4A9A67(pSoundList, 101, 0);
           break;
@@ -946,7 +951,7 @@ LABEL_150:
   if (!_strcmpi(pFilename, "out15.odm"))
     sub_464851();
   
-  dword_6BE134 = this->array_0000A0[0];
+  dword_6BE134 = pTileTypes[0].uTileGroup;
   return Result::Success;
 }
 
@@ -955,8 +960,8 @@ LABEL_150:
 //----- (0047F420) --------------------------------------------------------
 bool class51_sub_47F420(OutdoorLocation *_this)
 {
- for (unsigned int i = 0; i < 6; i += 2)
-   _this->array_0000A0[i + 1] = sub_487ED6(pTileTable, _this->array_0000A0[i], 1);
+ for (unsigned int i = 0; i < 3; ++i)
+   _this->pTileTypes[i].uTileID = sub_487ED6(pTileTable, _this->pTileTypes[i].uTileGroup, 1);
 
  return true;
 }
@@ -965,8 +970,8 @@ bool class51_sub_47F420(OutdoorLocation *_this)
 //----- (0047F3EA) --------------------------------------------------------
 bool class51_sub_47F3EA(OutdoorLocation *_this)
 {
- _this->array_0000A0[7] = sub_487ED6(pTileTable, _this->array_0000A0[6], 1);
- CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[6]);
+ _this->pTileTypes[3].uTileID = sub_487ED6(pTileTable, _this->pTileTypes[3].uTileGroup, 1);
+ CTileTable_LoadSomeTiles(pTileTable, _this->pTileTypes[3].uTileGroup);
 
  return true;
 }

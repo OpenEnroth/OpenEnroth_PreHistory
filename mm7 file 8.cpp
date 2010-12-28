@@ -195,7 +195,7 @@ LABEL_27:
     if (!pParty_global->pPlayers[i].uClass)
       pParty_global->pPlayers[i].word_00177E = 10;
 
-    pParty_global->pPlayers[i].word_001A9E = 0;
+    pParty_global->pPlayers[i].uExpressionTimePassed = 0;
     v15 = 0;
     v14 = &pParty_global->pPlayers[i].pActiveSkills[Character::Skill::Fire]; // starting from first magic skill 
     while (!*v14++)

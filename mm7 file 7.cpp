@@ -11075,7 +11075,7 @@ int __cdecl sub_4BBA85()
       for (i = 0; i < 4; ++i)
         Player_sub_44A5CB((char *)&pParty_global->pPlayers[i], 12, 86);
 
-      pParty_global->dword_000748 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)pParty_global->array_000750 + v6)].uLevel;
+      pParty_global->uNumBountiesCollected += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)pParty_global->array_000750 + v6)].uLevel;
       *(__int16 *)((char *)pParty_global->array_000750 + v6) = 0;
       *(__int16 *)((char *)pParty_global->array_00075A + v6) = 0;
     }
@@ -12214,7 +12214,7 @@ LABEL_15:
               for (i = 0; i < 4; ++i)
                 Player_sub_44A5CB((char *)&pParty_global->pPlayers[i], 12, 86);
 
-              pParty_global->dword_000748 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)pParty_global->array_000750 + v30)].uLevel;
+              pParty_global->uNumBountiesCollected += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)pParty_global->array_000750 + v30)].uLevel;
               *(__int16 *)((char *)pParty_global->array_000750 + v30) = v17;
               *(__int16 *)((char *)pParty_global->array_00075A + v30) = v17;
             }

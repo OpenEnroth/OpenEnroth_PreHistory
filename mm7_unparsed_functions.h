@@ -977,7 +977,7 @@ int __thiscall sub_4A9BBD(void *_this, signed int a2, LPVOID lpBuffer, signed in
 int __thiscall sub_4A9D3E(void *_this);
 int __fastcall sub_4AAEA6(int a1);
 int __fastcall sub_4AB66C(int a1, int a2);
-int __fastcall sub_4AB6B1(int a1, int a2, int a3);
+int __fastcall sub_4AB6B1_GetSoundStrengthByDistanceFromParty(int a1, int a2, int a3);
 int __thiscall sub_4AC277(void *_this, int a2);
 int __stdcall sub_4AC33A(int a1);
 int __stdcall sub_4AC4FD(int a1);

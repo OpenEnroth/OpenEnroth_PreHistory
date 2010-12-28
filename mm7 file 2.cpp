@@ -8838,12 +8838,12 @@ __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3)
     if ( v6 )
     {
       v9 = rand();
-      v10 = _this->dword_001920;
+      v10 = _this->uVoiceID;
       v11 = v20[v9 % v6];
       if ( *(&byte_4ECEEF[25 * v11] + v10) )
       {
         v23 = rand() % (unsigned __int8)*(&byte_4ECEEF[25 * v11] + v10)
-            + 2 * (v11 + 50 * _this->dword_001920) + 4998;
+            + 2 * (v11 + 50 * _this->uVoiceID) + 4998;
         v12 = 8 * v22 + 312;
         LOBYTE(v12) = v12 | 4;
         pAudioPlayer->sub_4AA306(v23, v12, 0, -1, 0, 0, 128.0f * pSoundVolumeLevels[uVoicesVolumeMultiplier], 0);
@@ -9928,10 +9928,10 @@ void GUIWindow_sub_41D3B7(GUI::Window *_this)	  //show quick info
   }
   else
   {
-      v44 = pPlayerFrameTable->GetFrameByNum(pPlayer->uDefaultFaceID);
+      v44 = pPlayerFrameTable->GetFrameByNum(pPlayer->uExpressionID);
       if ( !v44 )
         v44 = 1;
-      if (pPlayer->uDefaultFaceID == 21)
+      if (pPlayer->uExpressionID == 21)
       {
        v14 = pPlayerFrameTable->PlayerFrameTable_sub_494B5E( (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, cClock2.int_00001C);
       }

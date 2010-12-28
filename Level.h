@@ -97,6 +97,26 @@ struct class51_stru2
 
 
 
+namespace Terrain
+{
+ namespace Tileset
+ {
+  enum Type
+  {
+   Grass = 0,
+   Sand = 1,
+   Volcanic = 2,
+
+   // seems no 4 at all
+   Water = 5
+
+
+  };
+ };
+};
+
+
+
 
 //class51
 class Location
@@ -136,6 +156,30 @@ class OutdoorLocation: public Location
    //void sub_47C80A(int _this, int sX, int sY, int sZ, int sW)  0047C80A  TerrainData::sub_47C80A
    //signed int sub_47CCE2(void **_this)                         0047CCE2  TerrainData::Reset
 
+   struct SpawnPointMM6
+   {
+    int            sPosX;       // dword @ 000000
+    int            sPosY;       // dword @ 000004
+    int            sPosZ;       // dword @ 000008
+    unsigned short uRadius;     // word  @ 00000C
+    unsigned short uKind;       // word  @ 00000E
+    unsigned short uIndex;      // word  @ 000010  Index: monster (1-3: M1-M3,  4-6: M1a-M1c,  7-9: M2a-M2c,  10-12: M3a-M3c) or item (1-6)
+    unsigned short uAttributes; // word  @ 000012
+   };
+   // sizeof == 14
+
+   struct SpawnPointMM7: public SpawnPointMM6
+   {
+    unsigned int uGroup; // dword @ 000014
+   };
+   // sizeof == 18
+
+   struct TileType
+   {
+    unsigned short uTileGroup; // word @ 000000   Terrain::Tileset
+    unsigned short uTileID;    // word @ 000002
+   };
+
 
  public:
  unsigned char  string_000000[32];
@@ -144,7 +188,7 @@ class OutdoorLocation: public Location
  unsigned char  pSkyTextureName[32];   // byte[32] @ 000060
  unsigned char  pGroundTileset[32];    // byte[32] @ 000080
 
- short array_0000A0[8];
+ TileType       pTileTypes[4]; // struct[4] @ 0000A0
 
  unsigned int       uNumBModels;  // dword  @ 0000B0
  struct TerrainData cTerrainData; // struct @ 0000B4
@@ -157,8 +201,12 @@ class OutdoorLocation: public Location
  unsigned int           uSkyTextureID; // dword @ 0000E8
  int                    dword_0000EC;  // id in bitmaps.lod; main tile texture id?
 
- int            dword_0004C0;
- unsigned char *ptr_0004C4;
+ unsigned int   uNumSpawnPoints; // dword @ 0004C0
+#if 0
+ SpawnPointMM6 *pSpawnPoints;
+#else
+ SpawnPointMM7 *pSpawnPoints;   // dword @ 0004C4
+#endif
 
  int array_0004C8[10];
  int array_0004F0[14];

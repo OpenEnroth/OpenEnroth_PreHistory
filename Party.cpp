@@ -168,7 +168,7 @@ int Party_Reset(struct Party *_this)
   Player_Reset(&_this->pPlayers[0], Character::Class::Knight);
 
   _this->pPlayers[0].uFace = 17;
-  _this->pPlayers[0].dword_001920 = 17;
+  _this->pPlayers[0].uVoiceID = 17;
   _this->pPlayers[0].dword_001924 = 17;
   Player_SetInitialStats(&_this->pPlayers[0]);
 
@@ -182,7 +182,7 @@ int Party_Reset(struct Party *_this)
   Player_Reset(&_this->pPlayers[1], Character::Class::Thief);
 
   _this->pPlayers[1].uFace = 3;
-  _this->pPlayers[1].dword_001920 = 3;
+  _this->pPlayers[1].uVoiceID = 3;
   _this->pPlayers[1].dword_001924 = 3;
   Player_SetInitialStats(&_this->pPlayers[1]);
  
@@ -196,7 +196,7 @@ int Party_Reset(struct Party *_this)
   Player_Reset(&_this->pPlayers[2], Character::Class::Cleric);
  
   _this->pPlayers[2].uFace = 14;
-  _this->pPlayers[2].dword_001920 = 14;
+  _this->pPlayers[2].uVoiceID = 14;
   _this->pPlayers[2].dword_001924 = 14;
   Player_SetInitialStats(&_this->pPlayers[2]);
  
@@ -210,7 +210,7 @@ int Party_Reset(struct Party *_this)
   Player_Reset(&_this->pPlayers[3], Character::Class::Sorcerer);
 
   _this->pPlayers[3].uFace = 10;
-  _this->pPlayers[3].dword_001920 = 10;
+  _this->pPlayers[3].uVoiceID = 10;
   _this->pPlayers[3].dword_001924 = 10;
   Player_SetInitialStats(&_this->pPlayers[3]);
  
@@ -245,9 +245,9 @@ int Party_Reset(struct Party *_this)
 
  for (i = 0; i < 4; ++i)
  {
-  pPlayers[i]->uDefaultFaceID = 1;
-  pPlayers[i]->word_001A9E = 0;
-  pPlayers[i]->word_001AA0 = rand() % 256 + 128;
+  pPlayers[i]->uExpressionID = 1;
+  pPlayers[i]->uExpressionTimePassed = 0;
+  pPlayers[i]->uExpressionTimeLength = rand() % 256 + 128;
  }
 
  memcpy(pNPCStats->pNPCData2, pNPCStats->pNPCData, 501 * sizeof(struct NPCData));
@@ -390,7 +390,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
  lstrcpyA((char *)_this->pPlayers[0].sName, (char *)pGlobalTXT_LocalizationStrings[509]);
  _this->pPlayers[0].uFace = 17;
- _this->pPlayers[0].dword_001920 = 17;
+ _this->pPlayers[0].uVoiceID = 17;
  _this->pPlayers[0].dword_001924 = 17;
  _this->pPlayers[0].dword_001928 = 17;
 
@@ -412,7 +412,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
  lstrcpyA((char *)_this->pPlayers[1].sName, (char *)pGlobalTXT_LocalizationStrings[506]);
  _this->pPlayers[1].uFace = 3;
- _this->pPlayers[1].dword_001920 = 3;
+ _this->pPlayers[1].uVoiceID = 3;
  _this->pPlayers[1].dword_001924 = 3;
  _this->pPlayers[1].dword_001928 = 3;
 
@@ -433,7 +433,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
  lstrcpyA((char *)_this->pPlayers[2].sName, (char *)pGlobalTXT_LocalizationStrings[508]);
  _this->pPlayers[2].uFace = 14;
- _this->pPlayers[2].dword_001920 = 14;
+ _this->pPlayers[2].uVoiceID = 14;
  _this->pPlayers[2].dword_001924 = 14;
  _this->pPlayers[2].dword_001928 = 14;
 
@@ -454,7 +454,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
  lstrcpyA((char *)_this->pPlayers[3].sName, (char *)pGlobalTXT_LocalizationStrings[507]);
  _this->pPlayers[3].uFace = 10;
- _this->pPlayers[3].dword_001920 = 10;
+ _this->pPlayers[3].uVoiceID = 10;
  _this->pPlayers[3].dword_001924 = 10;
  _this->pPlayers[3].dword_001928 = 10;
 
@@ -495,7 +495,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
     _this->pPlayers[i].byte_001A4E = v7;
 
 LABEL_10:
-    _this->pPlayers[i].word_001A9E = 0;
+    _this->pPlayers[i].uExpressionTimePassed = 0;
     ItemGen_Reset(&local_1C);
     if ( a2 )
     {

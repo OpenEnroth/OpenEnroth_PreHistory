@@ -134,16 +134,22 @@ struct abc	 {
  int           dword_000730;
  unsigned int  uNumGold;       // dword @ 000734
  unsigned int  uNumGoldInBank; // dword @ 000738
- int           dword_00073C; // num deaths? looks very like it
-
+ unsigned int  uNumDeaths;     // dword @ 00073C
  int           dword_000740;
  int           dword_000744;
- int           dword_000748;
+ unsigned int  uNumBountiesCollected; // dword @ 000748   bounties at city hall
  int           dword_00074C;
- short         array_000750[5];
- short         array_00075A[5];
-
- char          unk_000764[240]; // quests?
+ short         array_000750[5];   // related to bounty hunt
+ short         array_00075A[5];   // related to bounty hunt
+ char          unk_000764[65];    // quests?
+ char          pArcomageWins[16]; // byte[16] @ 0007A5
+ char          unk_0007B5[13];
+ unsigned char uNumArenaPageWins;   // byte     @ 0007C2
+ unsigned char uNumArenaSquireWins; // byte     @ 0007C3
+ unsigned char uNumArenaKnightWins; // byte     @ 0007C4
+ unsigned char uNumArenaLordWins;   // byte     @ 0007C5
+ unsigned char pArtifactsFound[68]; // byte[68] @ 0007C6
+ char          unk_00080A[74];
 
  unsigned char byte_000854[32];
 

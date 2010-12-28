@@ -241,7 +241,7 @@ LABEL_85:
       }
 
       SaveGame(0, 0);
-      ++pParty_global->dword_00073C;
+      ++pParty_global->uNumDeaths;
 
       for (i = 0; i < 4; ++i)
         Player_sub_44A5CB((char *)&pParty_global->pPlayers[i], 12, 85);

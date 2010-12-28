@@ -214,8 +214,8 @@ __int16 Player_SetInitialStats(struct Player *_this)
 //----- (0048E9B7) --------------------------------------------------------
 void Player_RandomizeName(struct Player *_this)
 {
- if (!_this->word_001A9E)
-   lstrcpyA((char *)_this->sName, (char *)pNPCStats->pNPCNames[rand() % pNPCStats->uNumNPCNames[_this->uSex]][_this->uSex]);
+ lstrcpyA((char *)_this->sName,
+          (char *)pNPCStats->pNPCNames[rand() % pNPCStats->uNumNPCNames[_this->uSex]][_this->uSex]);
 }
 
 //----- (00490109) --------------------------------------------------------
@@ -1899,7 +1899,7 @@ LABEL_82:
         do
         {
           //if ( Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + v22)) )
-          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v22]))
+          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v22 -1]))
           {
             ++v31;
             v21 = v22;
@@ -2257,7 +2257,7 @@ LABEL_5:
 //----- (00490141) --------------------------------------------------------
 Character::Sex::Type Player_GetSexByVoice(Player *_this)
 {
- switch (_this->dword_001920)
+ switch (_this->uVoiceID)
  {
   case 0:
   case 1:

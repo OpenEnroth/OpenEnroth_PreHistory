@@ -3115,7 +3115,7 @@ void __cdecl sub_435748_PlayerCreationUI_MessageProc()
 
           do
           {
-           pPlayer->dword_001920 = (pPlayer->dword_001920 + 1) % 20;
+           pPlayer->uVoiceID = (pPlayer->uVoiceID + 1) % 20;
            Player_GetSexByVoice(pPlayer);
           }
           while (Player_GetSexByVoice(pPlayer) != eOriginalSex);
@@ -3133,9 +3133,9 @@ void __cdecl sub_435748_PlayerCreationUI_MessageProc()
             v50 = Player_GetSexByVoice(pPlayer);
             do
             {
-              pPlayer->dword_001920--;
-              if ( pPlayer->dword_001920 < 0 )
-                pPlayer->dword_001920 = 19;
+              pPlayer->uVoiceID--;
+              if ( pPlayer->uVoiceID  == -1)
+                pPlayer->uVoiceID = 19;
               v14 = Player_GetSexByVoice(pPlayer);
             }
             while ( v14 != v50 );
@@ -3219,7 +3219,7 @@ LABEL_134:
             v26->uFace--;
             if ( v27 )
               v26->uFace = 19;
-            v26->dword_001920 = v26->uFace; //face to voice? strange, but double-checked
+            v26->uVoiceID = v26->uFace; //face to voice? strange, but double-checked
             Player_SetInitialStats(v26);
             sub_4901FC((int)v26);
             Player_RandomizeName(v26);
@@ -3239,7 +3239,7 @@ LABEL_134:
             v22 = &pParty_global->pPlayers[v48];
             v23 = (v22->uFace + 1) % 20;
             v22->uFace = v23;
-            v22->dword_001920 = v23;
+            v22->uVoiceID = v23;
             Player_SetInitialStats(v22);
             sub_4901FC((int)v22);
             Player_RandomizeName(v22);

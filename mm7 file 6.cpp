@@ -2829,7 +2829,7 @@ __int16 __thiscall Player_sub_494A25_LooksLikePlayEmotion(Player *_this, int a2,
   int v6; // esi@17
   int v7; // eax@20
 
-  LOWORD(v3) = _this->uDefaultFaceID;
+  LOWORD(v3) = _this->uExpressionID;
   v4 = a2;
   if ( (_WORD)v3 != 4 && (_WORD)v3 != 12 || a2 != 58 )
   {
@@ -2856,8 +2856,8 @@ LABEL_12:
 LABEL_15:
   LOWORD(v3) = a3;
   v5 = 0;
-  _this->word_001AA0 = a3;
-  _this->word_001A9E = 0;
+  _this->uExpressionTimeLength = a3;
+  _this->uExpressionTimePassed = 0;
   if ( !a3 )
   {
     if ( pPlayerFrameTable->uNumFrames <= 0 )
@@ -2879,9 +2879,9 @@ LABEL_20:
     }
     v4 = a2;
     LOWORD(v3) = 8 * pPlayerFrameTable->pFrames[v3].word_000006;
-    _this->word_001AA0 = v3;
+    _this->uExpressionTimeLength = v3;
   }
-  _this->uDefaultFaceID = v4;
+  _this->uExpressionID = v4;
   struct_576FE8.dword_000044 = 1;
   return v3;
 }
@@ -13666,29 +13666,6 @@ int __fastcall sub_4AB66C(int a1, int a2)
   return (v2 >> 3) - (v2 >> 10);
 }
 
-//----- (004AB6B1) --------------------------------------------------------
-int __fastcall sub_4AB6B1(int a1, int a2, int a3)
-{
-  int v3; // esi@1
-  int v4; // edi@1
-  int v5; // ST08_4@1
-  int v6; // esi@1
-  int v7; // eax@1
-  int result; // eax@2
-  int v9; // [sp+10h] [bp+8h]@1
-
-  v3 = a2;
-  v4 = a1;
-  v5 = abs(a3 - pParty_global->sPartyPosZ);
-  v6 = abs(v3 - pParty_global->sPartyPosY);
-  v7 = abs(v4 - pParty_global->sPartyPosX);
-  v9 = sub_4621DA(v7, v6, v5);
-  if ( v9 <= 8192 )
-    result = 114 - (signed __int64)((double)v9 * (1.0 / 8192.0) * 100.0);
-  else
-    result = 0;
-  return result;
-}
 
 
 //----- (004AC277) --------------------------------------------------------
