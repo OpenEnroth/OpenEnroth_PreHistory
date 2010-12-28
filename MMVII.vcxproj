@@ -159,6 +159,7 @@
     <ClCompile Include="mm7 file 8.cpp" />
     <ClCompile Include="mm7 file 9 junk stuff.cpp" />
     <ClCompile Include="mm7_unparsed_data.cpp" />
+    <ClCompile Include="OSWindow.cpp" />
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="PartyActions.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -173,7 +174,6 @@
     <ClCompile Include="tiles.cpp" />
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
-    <ClCompile Include="Window.cpp" />
     <ClCompile Include="_lod.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +255,7 @@
     <ClInclude Include="mm7_unparsed_data.h" />
     <ClInclude Include="mm7_unparsed_functions.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="OSWindow.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderD3D3.h" />
@@ -273,7 +274,6 @@
     <ClInclude Include="tiles.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="VideoPlayer.h" />
-    <ClInclude Include="Window.h" />
     <ClInclude Include="_lod.h" />
   </ItemGroup>
   <ItemGroup>

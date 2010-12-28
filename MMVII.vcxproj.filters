@@ -75,7 +75,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RenderD3D3.cpp" />
     <ClCompile Include="RenderOpenGL.cpp" />
-    <ClCompile Include="Window.cpp" />
     <ClCompile Include="libs\zlib\adler32.c">
       <Filter>libs\zlib</Filter>
     </ClCompile>
@@ -216,6 +215,7 @@
     <ClCompile Include="GUI\WindowOverlapped.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="OSWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -251,7 +251,6 @@
     <ClInclude Include="Render\TextureOGL.h">
       <Filter>Render</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h" />
     <ClInclude Include="_lod.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="c18.h" />
@@ -449,6 +448,7 @@
     <ClInclude Include="GUI\Window.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="OSWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">
