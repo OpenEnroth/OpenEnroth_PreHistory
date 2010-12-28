@@ -1546,7 +1546,7 @@ void AudioPlayer::sub_4AAFCF()
   if ( !v3 )
   {
     v4 = v2 + 720;
-    *(_DWORD *)v4 -= cClock1.int_00001C;
+    *(_DWORD *)v4 -= cEventTimer.int_00001C;
     if ( *(_DWORD *)(v2 + 720) <= 0 )
     {
       v5 = *(_DWORD *)(v2 + 4) == 0;

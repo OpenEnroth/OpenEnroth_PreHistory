@@ -328,7 +328,7 @@ LABEL_17:
     v11 = LODFile_New_LOD.Find_Container( "clock.bin", 1);
     if ( v11 )
     {
-      locked_fread(&cClock1, 40, 1, v11);
+      locked_fread(&cEventTimer, 40, 1, v11);
     }
     else
     {
@@ -441,8 +441,8 @@ LABEL_17:
       v22 = 0;
     }
     MenuUI_LoadTextures(v22);
-    cClock1.clock_sub_426363();
-    cClock1.clock_sub_4263A0();
+    cEventTimer.Resume();
+    cEventTimer.clock_sub_4263A0();
     v23 = (int)pAudioPlayer;
   }
 //load level
@@ -917,7 +917,7 @@ int __fastcall sub_460078(int a1)
   else
     sub_44C175((char *)pGlobalTXT_LocalizationStrings[LOCSTR_NO_SAVING], 2);
   LODFile_Icons_LOD.sub_4355F7();
-  cClock1.clock_sub_426363();
+  cEventTimer.Resume();
   result = sub_44C175((char *)pGlobalTXT_LocalizationStrings[LOCSTR_GAME_SAVED], 2);
   struct_576FE8.dword_000044 = 1;
   return result;
@@ -1103,7 +1103,7 @@ int __fastcall SaveGame(int a1, int a2)
 
     strcpy(&St2.pFilename[0], "clock.bin");
     St2.size_data = 40;
-    if (LODFile_New_LOD.Add_Container_to_File( &St2, &cClock1, 0) )
+    if (LODFile_New_LOD.Add_Container_to_File( &St2, &cEventTimer, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 203);
       v76 = (unsigned int)&v38;

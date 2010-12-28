@@ -130,7 +130,7 @@ unsigned int Game_OnOpenQuickRef(int, int)
 
  GUIWindowCreate(560, 450, 0, 0, 90, pBtn_Game_QuickRef, 0);
  struct_576FE8.dword_000044 = 1;
- cClock1.clock_fn1();
+ cEventTimer.Pause();
  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
  dword_4E28F8_PartyCantJumpIfTrue = 104;
  pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 12, (GUIButton *)5, 0);
@@ -166,7 +166,7 @@ unsigned int Game_OnOpenSpellbook(int, int)
 
   GUIWindowCreate(476, 450, 0, 0, 90, pBtn_Game_CastSpell, 0);
   dword_4E28F8_PartyCantJumpIfTrue = 8;
-  cClock1.clock_fn1();
+  cEventTimer.Pause();
   pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 18, 0, 0);
   pAudioPlayer->sub_4AA306(48, 0, 0, -1, 0, 0, 0, 0);
   struct_576FE8.dword_000048 = 1;
@@ -180,7 +180,7 @@ unsigned int Game_OnOpenCalendar(int, unsigned int uTriggeredContorlID)
  if (dword_4E28F8_PartyCantJumpIfTrue)
    GUIWindowDelete(pGUIWindow_CurrentMenu);
 
- cClock1.clock_fn1();
+ cEventTimer.Pause();
  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
 
  pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, (GUIButton *)uTriggeredContorlID, 0);
@@ -195,7 +195,7 @@ unsigned int Game_OnOpenMap(int, unsigned int uTriggeredContorlID)
  if (dword_4E28F8_PartyCantJumpIfTrue)
    GUIWindowDelete(pGUIWindow_CurrentMenu);
 
- cClock1.clock_fn1();
+ cEventTimer.Pause();
  struct_576FE8.sPartyPosX = pParty_global->sPartyPosX;
  struct_576FE8.sPartyPosY = pParty_global->sPartyPosY;
  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
@@ -213,7 +213,7 @@ unsigned int Game_OnOpenAutonotes(int, unsigned int uTriggeredContorlID)
  if (dword_4E28F8_PartyCantJumpIfTrue)
    GUIWindowDelete(pGUIWindow_CurrentMenu);
 
- cClock1.clock_fn1();
+ cEventTimer.Pause();
  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
  pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, (GUIButton *)uTriggeredContorlID, 0);
  ptr_507BE0 = GUIWindowCreate(527, 353, 0, 0, 99, pBtn_Game_Autonotes, 0);
@@ -228,7 +228,7 @@ unsigned int Game_OnOpenQuestbook(int, unsigned int uTriggeredContorlID)
  if (dword_4E28F8_PartyCantJumpIfTrue)
    GUIWindowDelete(pGUIWindow_CurrentMenu);
 
- cClock1.clock_fn1();
+ cEventTimer.Pause();
  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
  pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, (GUIButton *)uTriggeredContorlID, 0);
  ptr_507BE0 = GUIWindowCreate(493, 355, 0, 0, 99, pBtn_Game_Quests, 0);

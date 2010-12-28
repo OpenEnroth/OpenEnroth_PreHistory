@@ -5151,12 +5151,12 @@ int class02_sub_48AC65(struct class02 *_this)
   int v22; // [sp+44h] [bp-8h]@12
  int i;
 
-  v3 = cClock2.dword_000004 == 0 ? cClock1.int_00001C : 0;
+  v3 = cMiscTimer.bPaused == false ? cEventTimer.int_00001C : 0;
 
   v20 = 0;
   v19 = 500;
 
-  v21 = cClock2.dword_000004 == 0 ? cClock1.int_00001C : 0;
+  v21 = cMiscTimer.bPaused == false ? cEventTimer.int_00001C : 0;
   
  for (i = _this->dword_00E424; i <= _this->dword_00E428; ++i)
  {
@@ -7384,7 +7384,7 @@ void sub_440F07(struct struct5 *pArray)
     pArray[i].word_000006 += rand() % 5 - 2;
     pArray[i].word_000008 += rand() % 5 - 2;
     pArray[i].word_00000A += rand() % 5 + 4;
-    pArray[i].word_00000C -= cClock1.int_00001C;
+    pArray[i].word_00000C -= cEventTimer.int_00001C;
    }
 }
 
@@ -7483,8 +7483,8 @@ int class06_sub_4A8C27(struct class06 *_this)
       v5 = 1.0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
     v7 = v5;
     Render_sub_4A52F1((int)pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
-    result = cClock1.int_00001C;
-    *(_DWORD *)(v1 + 1496) -= cClock1.int_00001C;
+    result = cEventTimer.int_00001C;
+    *(_DWORD *)(v1 + 1496) -= cEventTimer.int_00001C;
   }
 
 
@@ -7500,7 +7500,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     v11 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, v10, v9);
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;
-    *(_DWORD *)(v1 + 1492) -= cClock1.int_00001C;
+    *(_DWORD *)(v1 + 1492) -= cEventTimer.int_00001C;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       v12 = (double)pOldViewport->uGameX;
@@ -7731,7 +7731,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
  {
   if (_this->array_000208[i].word_000000)
   {
-   _this->array_000208[i].dword_000004 += cClock1.int_00001C;
+   _this->array_000208[i].dword_000004 += cEventTimer.int_00001C;
    if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
    {
     pIcon = pIconFrameTable->GetImage(_this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);

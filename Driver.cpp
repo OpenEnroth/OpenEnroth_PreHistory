@@ -351,7 +351,13 @@ Result::Code PrimaryInitialization()
 
  SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  
- cClock1.Clock_In();
+
+ cEventTimer.Initialize();
+ cEventTimer.Pause();
+
+ cMiscTimer.Initialize();
+ cMiscTimer.Pause();
+
  sub_448B67(true);
  sub_448B45_LooksLikeResetSomeTimer(true);
  pGame = Game_Initialize();
@@ -559,8 +565,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
  hInstance = hInst;
  if (!PrimaryInitialization())
  {
-  cClock1.clock_fn1();
-
   ShowIntroVideo();
   if (!bNoSound)
     pAudioPlayer->PlayMusicTrack(14, 64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);

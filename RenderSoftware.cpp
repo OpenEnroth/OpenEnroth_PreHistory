@@ -912,8 +912,8 @@ LABEL_74:
  array_77EC08[1999].dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
  array_77EC08[1999].dword_000024 = 0x2000000;
 
- array_77EC08[1999].dword_000028 = 224 * cClock2.dword_000024;
- array_77EC08[1999].dword_00002C = 224 * cClock2.dword_000024;
+ array_77EC08[1999].dword_000028 = 224 * cMiscTimer.dword_000024;
+ array_77EC08[1999].dword_00002C = 224 * cMiscTimer.dword_000024;
  
  v9 = pStruct9_global->uNumSpans;
  if (!v9)
@@ -1816,7 +1816,7 @@ LABEL_12:
   v33 = (signed int)*(_WORD *)(v31 + 26) >> v62;
   v34 = v62 - *(_WORD *)(v31 + 28);
   v45 = (v33 << 16) - 65536;
-  X = 2 * cClock2.dword_000024;
+  X = 2 * cMiscTimer.dword_000024;
   v58 = pStruct9_global->dword_000018;
   v47 = v34 + 16;
   v46 = v32 - 1;
@@ -3637,7 +3637,7 @@ void sub_4789DE_RenderBuildingsSoftware()
            p14->byte_000058 = 31;
 
         if (v3->byte_000010[13] & 0x40)
-          v18 = TextureFrameTable_GetFrame(pTextureFrameTable, v3->uTextureID, cClock1.dword_000024);
+          v18 = TextureFrameTable_GetFrame(pTextureFrameTable, v3->uTextureID, cEventTimer.dword_000024);
         else v18 = v3->uTextureID;
 
         if (v18 == -1)
@@ -4990,7 +4990,7 @@ LABEL_12:
     v33 = (signed int)*(_WORD *)(v31 + 26) >> v87;
     v34 = v87 - *(_WORD *)(v31 + 28);
     v66 = (v33 << 16) - 65536;
-    v93 = 2 * cClock2.dword_000024;
+    v93 = 2 * cMiscTimer.dword_000024;
     v68 = v34 + 16;
     v67 = v92 - 1;
     if ( v78 > 0 )

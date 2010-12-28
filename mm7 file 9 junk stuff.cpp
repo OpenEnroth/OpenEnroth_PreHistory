@@ -3308,7 +3308,7 @@ LABEL_24:
       *(_BYTE *)v5 = 31;
     if ( *(_BYTE *)((char *)array_77EC08[i].ptr_000048 + 29) & 0x40 )
     {
-      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cClock1.dword_000024);
+      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cEventTimer.dword_000024);
       *((_DWORD *)v2 - 6) = v8 != -1 ? 72 * v8 + 7278780 : 0;
     }
 LABEL_23:

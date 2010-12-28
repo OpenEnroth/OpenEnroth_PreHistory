@@ -100,7 +100,7 @@ void PartyAction_OnStrafeLeft()
 
 void PartyAction_OnLand()
 {
- if (dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004)
+ if (dword_4E28F8_PartyCantJumpIfTrue || cEventTimer.bPaused)
    return;
 
  pPartyActionQueue->Add(Action::Land);
@@ -109,7 +109,7 @@ void PartyAction_OnLand()
 
 void PartyAction_OnFlyDown()
 {
- if (dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004)
+ if (dword_4E28F8_PartyCantJumpIfTrue || cEventTimer.bPaused)
    return;
 
  pPartyActionQueue->Add(Action::FlyDown);
@@ -121,7 +121,7 @@ void PartyAction_OnFlyDown()
 
 void PartyAction_OnFlyUp()
 {
- if (dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004)
+ if (dword_4E28F8_PartyCantJumpIfTrue || cEventTimer.bPaused)
    return;
 
  pPartyActionQueue->Add(Action::FlyUp);
@@ -146,7 +146,7 @@ void PartyAction_OnZoomOut()
 
 void PartyAction_OnCenterView()
 {
- if (cClock1.dword_000004)
+ if (cEventTimer.bPaused)
    return;
 
  pPartyActionQueue->Add(Action::CenterView);
@@ -154,7 +154,7 @@ void PartyAction_OnCenterView()
 
 void PartyAction_OnLookDown()
 {
- if (cClock1.dword_000004)
+ if (cEventTimer.bPaused)
    return;
 
  pPartyActionQueue->Add(Action::LookDown);
@@ -163,7 +163,7 @@ void PartyAction_OnLookDown()
 
 void PartyAction_OnLookUp()
 {
- if (cClock1.dword_000004)
+ if (cEventTimer.bPaused)
    return;
 
  pPartyActionQueue->Add(Action::LookUp);

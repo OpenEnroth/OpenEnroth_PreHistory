@@ -74,7 +74,7 @@ Result::Code Game::Loop(const char *pLevelName)
     }
 
     PrepareWorld(pLevelName, v17, 1);
-    cClock1.clock_sub_426363();
+    cEventTimer.Resume();
     dword_6BE364 |= 0x80;
     dword_6BE340 = 2;
     dword_4E28F8_PartyCantJumpIfTrue = 0;
@@ -150,25 +150,25 @@ LABEL_89:
        }
       }
 
-    cClock1.clock_sub_4263B7();
-    cClock2.clock_sub_4263B7();
+    cEventTimer.clock_sub_4263B7();
+    cMiscTimer.clock_sub_4263B7();
       sub_448B67(false);
       sub_448B45_LooksLikeResetSomeTimer(false);
-      if (cClock2.dword_000004)
+      if (cMiscTimer.bPaused)
       {
-        if ( !cClock1.dword_000004 )
-          cClock2.clock_sub_426363();
+        if ( !cEventTimer.bPaused )
+          cMiscTimer.Resume();
       }
-      if ( cClock1.dword_000008 )
+      if ( cEventTimer.dword_000008 )
       {
         if (!pParty_global->bTurnBasedModeOn)
-          cClock1.dword_000008 = 0;
+          cEventTimer.dword_000008 = 0;
       }
-      if ( !cClock1.dword_000004 )
+      if ( !cEventTimer.bPaused )
       {
         if ( !dword_6A0D48 )
         {
-          if ( !cClock1.dword_000008 )
+          if ( !cEventTimer.dword_000008 )
             sub_494035();
           if ( dword_6BE364 & 1 )
           {
@@ -333,7 +333,7 @@ LABEL_85:
     while ( !v18 );
 
     dword_6BE340 = 0;
-    cClock1.clock_fn1();
+    cEventTimer.Pause();
     sub_464479_ResetCursorAndOther();
     if ( dword_6A0D48 == 3 )
     {
@@ -409,10 +409,10 @@ void Game_ctor(Game *_this)
  _this->dword_000E10 = 0;
  _this->dword_000E14 = 0;
  _this->dword_000E18 = 0;
- _this->dword_000E1C = 0;
+ _this->bGammaControlInitialized = false;
  _this->uSomeFlags = 0x0800;
  _this->dword_000E24 = 0x24;
- _this->qword_000E2C = 0;
+ _this->uGammaControlInitializationTime = 0;
  _this->dword_000E34 = 0;
  _this->dword_000E38 = 0;
 
@@ -863,8 +863,8 @@ bool Game_InitializeGammaController(struct Game *_this)
  if (dword_F79D70 != 4)
    CGammaController_InitializeFromSurface(_this->pGammaController, pD3DRenderer->pdds4_FrontBuffer);
 
- _this->dword_000E1C = 1;
- _this->qword_000E2C = cClock1.clock_fn2();
+ _this->bGammaControlInitialized = true;
+ _this->uGammaControlInitializationTime = cEventTimer.Time();
  return true;
 }
 

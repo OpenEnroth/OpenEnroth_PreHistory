@@ -167,8 +167,6 @@ Result::Code VideoPlayer::Initialize(OSWindow *pTargetWindow, BaseRender *pTarge
  ReadFile(hMagicVid, pMagicVideoHeaders, uNumMagicVideoHeaders * sizeof(VideoPlayer::MovieHeader), &w, 0);
 
 
- cClock1.clock_fn1();
-
  pAudioPlayer = pExternalAudioPlayer;
  if (pAudioPlayer)
  {
@@ -362,7 +360,7 @@ void VideoPlayer::UnloadAll()
     AIL_redbook_resume(pAudioPlayer->hAILRedbook);
  }
 
- cClock1.clock_sub_426363();
+ cEventTimer.Resume();
 }
 
 //----- (004BED4F) --------------------------------------------------------

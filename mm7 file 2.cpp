@@ -6474,7 +6474,7 @@ int __fastcall sub_4141CA(int a1, int a2)
 
   v3 = a1;
   v4 = a2;
-  cClock1.clock_fn1();
+  cEventTimer.Pause();
   dword_506F0C = dword_4E28F8_PartyCantJumpIfTrue;
 
   ptr_507BDC = GUIWindowCreate(0, 0, 640, 480, 70, (GUIButton*)v4, v3);
@@ -6520,7 +6520,7 @@ void __cdecl sub_41426F()
   GUIWindowDelete(ptr_507BDC);
   ptr_507BDC = NULL;
   dword_4E28F8_PartyCantJumpIfTrue = dword_506F0C;
-  cClock1.clock_sub_426363();
+  cEventTimer.Resume();
 }
 
 //----- (004142D3) --------------------------------------------------------
@@ -7586,7 +7586,7 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
     }
     while ( v1 < 4 );
   }
-  cClock1.clock_fn1();
+  cEventTimer.Pause();
   if ( dword_4E28F8_PartyCantJumpIfTrue <= 10 )
   {
     if ( dword_4E28F8_PartyCantJumpIfTrue == 10 )
@@ -9933,12 +9933,12 @@ void GUIWindow_sub_41D3B7(GUI::Window *_this)	  //show quick info
         v44 = 1;
       if (pPlayer->uExpressionID == 21)
       {
-       v14 = pPlayerFrameTable->PlayerFrameTable_sub_494B5E( (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, cClock2.int_00001C);
+       v14 = pPlayerFrameTable->PlayerFrameTable_sub_494B5E( (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, cMiscTimer.int_00001C);
       }
       else
       {
-        v15 = cClock2.clock_fn2();
-        v14 = pPlayerFrameTable->GetFrameFromFrameset( v44, v15);
+        v15 = cMiscTimer.Time();
+        v14 = pPlayerFrameTable->GetFrameFromFrameset(v44, v15);
       }
       pPlayer->word_001AA2 = v14->uTextureID - 1;
      // v13 = dword_A74CEC[ + 56 * ];
@@ -11005,7 +11005,7 @@ LABEL_59:
   GUIWindow_DrawText((GUI::Window *)v145, pFontComic, 0, 12, v38, (char *)TmpBuf, 3);
   sub_41AF52(v143, v145);
   v141 = 0;
-  stru_506580_MonsterInfoUI_Doll.dword_0000B8 += cClock2.int_00001C;
+  stru_506580_MonsterInfoUI_Doll.dword_0000B8 += cMiscTimer.int_00001C;
   v137 = 0;
   v138 = 0;
   i = 0;
@@ -11494,7 +11494,7 @@ void __cdecl sub_41F5BE()
     if ( dword_506F14 == 2 )
     {
       GUIWindowDelete(pGUIWindow_CurrentMenu);
-      cClock1.clock_sub_426363();
+      cEventTimer.Resume();
       if ( dword_507BAC )
         cTexture_Free((cTexture *)dword_507BAC);
       if ( dword_507BB0 )
@@ -11539,7 +11539,7 @@ int __cdecl sub_41F6C1()
     dword_4E28F8_PartyCantJumpIfTrue = 0;
     struct_576FE8.dword_000044 = 1;
   }
-  cClock1.clock_fn1();
+  cEventTimer.Pause();
   if ( dword_506F14 != 2 )
     GUIWindowCreate(518, 450, 0, 0, 90, pBtn_Game_Rest, 0);
   dword_506F18 = 0;
@@ -11721,9 +11721,9 @@ void __cdecl sub_41FA01()
       cTexture_Free((cTexture *)dword_507BB0);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
-    v3 = cClock1.int_00001C + dword_507CD4;
-    v4 = (unsigned int)(cClock1.int_00001C + dword_507CD4) < 0x200;
-    dword_507CD4 += cClock1.int_00001C;
+    v3 = cEventTimer.int_00001C + dword_507CD4;
+    v4 = (unsigned int)(cEventTimer.int_00001C + dword_507CD4) < 0x200;
+    dword_507CD4 += cEventTimer.int_00001C;
     if ( !v4 )
     {
       v3 = 0;
@@ -12513,7 +12513,7 @@ LABEL_12:
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
   GUIButtonCreate((GUI::Window *)dword_507BB8, 7, 8, 460, 343, 1, 0, 12, 0, 0, NULL, 0);
   dword_4E28F8_PartyCantJumpIfTrue = 10;
-  cClock1.clock_fn1();
+  cEventTimer.Pause();
   return 1;
 }
 

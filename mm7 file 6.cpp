@@ -1336,7 +1336,7 @@ void __thiscall sub_4909F4(void *_this)
       v2 = Player_GetConditionIdx((Player *)(v1 - 6812));
       if ( v2 == 18 || v2 == 17 )
       {
-        *(_WORD *)(v1 + 2) += cClock2.int_00001C;
+        *(_WORD *)(v1 + 2) += cMiscTimer.int_00001C;
         if ( *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
         {
           if ( *(_WORD *)v1 != 1 || rand() % 5 )
@@ -1454,7 +1454,7 @@ LABEL_56:
       else
       {
         v3 = *(_WORD *)v1;
-        if ( *(_WORD *)v1 != 34 && v3 != 35 && v3 != 36 || cClock2.int_00001C + *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
+        if ( *(_WORD *)v1 != 34 && v3 != 35 && v3 != 36 || cMiscTimer.int_00001C + *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
         {
           *(_WORD *)(v1 + 4) = 0;
           *(_WORD *)(v1 + 2) = 0;
@@ -1509,7 +1509,7 @@ LABEL_56:
         }
         else
         {
-          *(_WORD *)(v1 + 2) += cClock2.int_00001C;
+          *(_WORD *)(v1 + 2) += cMiscTimer.int_00001C;
         }
       }
       v1 += 6972;
@@ -1524,7 +1524,7 @@ LABEL_56:
       if ( v9 )
       {
         v10 = pParty_global->pHiredNPCs[i].dword_000028;
-        v11 = cClock2.int_00001C + pParty_global->pHiredNPCs[i].dword_00002C;
+        v11 = cMiscTimer.int_00001C + pParty_global->pHiredNPCs[i].dword_00002C;
         if ( v11 >= v9 )
         {
           v10 = 0;
@@ -6909,7 +6909,7 @@ LABEL_13:
                         {
                           LOBYTE(v14) = v14 | 1;
                           *((_DWORD *)v9 + 5) = v14;
-                          *((_QWORD *)v9 + 3) = cClock1.clock_fn2();
+                          *((_QWORD *)v9 + 3) = cEventTimer.Time();
                         }
                       }
                       v15 = v34;
@@ -13237,7 +13237,7 @@ int __stdcall sub_4A806F(int a1)
   double v2; // st7@2
   float v4; // ST00_4@6
 
-  v1 = *(_DWORD *)(a1 + 372) - cClock2.dword_000024;
+  v1 = *(_DWORD *)(a1 + 372) - cMiscTimer.dword_000024;
   if ( v1 <= 64 )
   {
     if ( v1 < 0 )

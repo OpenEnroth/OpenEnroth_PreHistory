@@ -948,7 +948,7 @@ extern int dword_50BAF4; // weak
 extern int dword_50BAF8; // weak
 
 
-//extern struct class24 *cClock1;  //struct @ MM7.exe::0050BBE0
+//extern struct class24 *cEventTimer;  //struct @ MM7.exe::0050BBE0
 //int dword_50BBE0; // weak
 //int dword_50BBE4; // weak
 //int dword_50BBE8; // weak

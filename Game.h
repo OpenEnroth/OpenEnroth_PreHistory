@@ -59,12 +59,12 @@ struct Game
  int      dword_000E10;
  int      dword_000E14;
  int      dword_000E18;
- int      dword_000E1C;
+ bool     bGammaControlInitialized; // dword @ 000E1C
  int      uSomeFlags;              // dword @ 000E20   & 0x01 == lighing on?
  int      dword_000E24;            // 0x08: alter gravity strength
                                    // 0x20: bloodsplats
  float    flt_000E28;
- __int64  qword_000E2C;
+ unsigned __int64  uGammaControlInitializationTime; // qword @ 000E2C
  int      dword_000E34;
  int      dword_000E38;
  struct class01          *class01_obj;      // dword @ 000E3C

@@ -6407,7 +6407,7 @@ void __cdecl sub_46F228()
         *(_DWORD *)v3 &= 0xFFFFFFFDu;
         goto LABEL_62;
       }
-      *((_DWORD *)v3 + 2) += cClock1.int_00001C;
+      *((_DWORD *)v3 + 2) += cEventTimer.int_00001C;
       v4 = *((_DWORD *)v3 + 2);
       if ( *((_WORD *)v3 + 38) == 1 )
       {
@@ -6900,7 +6900,7 @@ void __cdecl sub_46F90C()
         else
         {
           if ( *(_DWORD *)(v21 + 24) < 45000 )
-            *(_WORD *)(v1 + 152) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+            *(_WORD *)(v1 + 152) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
         }
       }
       else
@@ -6908,7 +6908,7 @@ void __cdecl sub_46F90C()
         if ( v61 )
         {
           if ( !v64 )
-            *(_WORD *)(v1 + 152) += -8 * cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+            *(_WORD *)(v1 + 152) += -8 * cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
         }
       }
       if ( *(_WORD *)(v1 + 148) * (signed int)*(_WORD *)(v1 + 148)
@@ -7249,7 +7249,7 @@ signed int __thiscall sub_47050A(struct unnamed_721530 *_this, int a2)
   v2 = a2;
   _this->dword_000060 = v7;
   if ( !a2 )
-    v2 = cClock1.dword_000020;
+    v2 = cEventTimer.dword_000020;
   v8 = (((unsigned __int64)(v2) * v3) >> 16) - _this->dword_000070;
   _this->dword_00006C = v8;
   if ( v8 > 0 )
@@ -7524,7 +7524,7 @@ LABEL_121:
             v21 = v62.v63;
             v22 = v62.v64;
             v23 = v62.v63 * *(_WORD *)(v1 + 150);
-            *(_WORD *)(v1 + 152) += -8 * cClock1.int_00001C * v20;
+            *(_WORD *)(v1 + 152) += -8 * cEventTimer.int_00001C * v20;
             v75 = abs(v62.v62 * *(_WORD *)(v1 + 148) + v22 * *(_WORD *)(v1 + 152) + v23) >> 16;
             v74 = v21;
             *(_WORD *)(v1 + 148) += (unsigned int)(v75 * v62.v62) >> 16;
@@ -7541,7 +7541,7 @@ LABEL_121:
     }
     else
     {
-      *(_WORD *)(v1 + 152) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+      *(_WORD *)(v1 + 152) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
     }
     if ( pParty_global->dword_01613C != v16 )
     {
@@ -8127,7 +8127,7 @@ LABEL_64:
   }
   if ( v50 <= *((_DWORD *)v2 + 3) - 3 )
   {
-    *((_WORD *)v2 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+    *((_WORD *)v2 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
     goto LABEL_24;
   }
   if ( !(v5 & 0x40) || sub_46BFFA(v44, 0) )
@@ -8143,7 +8143,7 @@ LABEL_64:
     else
     {
       if ( *(_DWORD *)(v6 + 24) < 45000 )
-        *((_WORD *)v2 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+        *((_WORD *)v2 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
       v8 = 0;
     }
     v50 = *((_WORD *)v2 + 8);
@@ -8322,7 +8322,7 @@ void __fastcall sub_471C03(int a1)
   {
     if ( v70 )
     {
-      *((_WORD *)v5 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+      *((_WORD *)v5 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
       goto LABEL_13;
     }
     if ( v69 )
@@ -8331,7 +8331,7 @@ void __fastcall sub_471C03(int a1)
       v12 = *((_DWORD *)v5 + 1);
       *((_DWORD *)v5 + 3) = v4;
       sub_46DCC8(v12, v11, (int)&v51);
-      *((_WORD *)v5 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+      *((_WORD *)v5 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
       v68 = abs(v52 * *((_WORD *)v5 + 9) + v53 * *((_WORD *)v5 + 10) + v51 * *((_WORD *)v5 + 8)) >> 16;
       v72 = (unsigned __int64)(v68 * v51) >> 16;
       *((_WORD *)v5 + 8) += (unsigned int)(v68 * v51) >> 16;
@@ -8903,7 +8903,7 @@ LABEL_20:
   if ( dword_6BE374_WalkSoundFlag )
   {
     if (pParty_global->dword_0006F8 > 0)
-      pParty_global->dword_0006F8 -= cClock1.int_00001C;
+      pParty_global->dword_0006F8 -= cEventTimer.int_00001C;
   }
   if ( v87 > i + 1 )
   {
@@ -8934,7 +8934,7 @@ LABEL_45:
   v81 = pParty_global->uWalkSpeed;
   v90 = pParty_global->sRotationY;
   v83 = pParty_global->sRotationX;
-  v82 = ((unsigned __int64)(cClock1.dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
+  v82 = ((unsigned __int64)(cEventTimer.dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
 LABEL_87:
 
  Action::Type eAction;
@@ -9085,13 +9085,13 @@ LABEL_76:
   pParty_global->sRotationX = v83;
   if ( v84 )
   {
-    v89 += -2 * cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+    v89 += -2 * cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
   }
   else
   {
     if ( *(_DWORD *)(v68 + dword_6BE644 + 24) < 32768 )
     {
-      v89 -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+      v89 -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
       goto LABEL_92;
     }
     if ( BYTE1(pParty_global->dword_007778) & 1 )
@@ -11290,8 +11290,8 @@ char __cdecl RenderBuildings()
     fprintf(f, "\nSubmodel[%u]\n{\n", j);
     if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x40)
     {
-     fprintf(f, " TextureFrame \"%s\" frame %u\n", pTextureFrameTable->pTextures[pClass51_global->pBModels[i].ptr_000054[j].uTextureID].sTextureName, cClock1->dword_000024);
-     pTex = TextureFrameTable_GetFrame(pTextureFrameTable, pClass51_global->pBModels[i].ptr_000054[j].uTextureID, cClock1->dword_000024);
+     fprintf(f, " TextureFrame \"%s\" frame %u\n", pTextureFrameTable->pTextures[pClass51_global->pBModels[i].ptr_000054[j].uTextureID].sTextureName, cEventTimer->dword_000024);
+     pTex = TextureFrameTable_GetFrame(pTextureFrameTable, pClass51_global->pBModels[i].ptr_000054[j].uTextureID, cEventTimer->dword_000024);
     }
     else
     {
@@ -11340,7 +11340,7 @@ char __cdecl RenderBuildings()
    v11 = (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x40) == 0;
    v6 = pClass51_global->pBModels[i].ptr_000054[j].uTextureID;
    if (!v11)
-     v6 = TextureFrameTable_GetFrame(pTextureFrameTable, v6, cClock1.dword_000024);
+     v6 = TextureFrameTable_GetFrame(pTextureFrameTable, v6, cEventTimer.dword_000024);
    v8->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v6];
 
 
@@ -11693,7 +11693,7 @@ LABEL_24:
       *(_BYTE *)v5 = 31;
     if ( *(_BYTE *)((char *)array_77EC08[i].ptr_000048 + 29) & 0x40 )
     {
-      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cClock1.dword_000024);
+      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cEventTimer.dword_000024);
       *((_DWORD *)v2 - 6) = v8 != -1 ? 72 * v8 + 7278780 : 0;
     }
 LABEL_23:
@@ -11871,8 +11871,8 @@ void __fastcall sub_479A53(int a1, int a2)
   v13 = *(_WORD *)(v74 + 32);
   v14 = *(_WORD *)(v74 + 34);
   v81 = v12;
-  v77 = 224 * cClock2.dword_000024 & v14;
-  v80 = 224 * cClock2.dword_000024 & v13;
+  v77 = 224 * cMiscTimer.dword_000024 & v14;
+  v80 = 224 * cMiscTimer.dword_000024 & v13;
   v92 = 0;
   v95 = 0;
   *((float *)&v82 + 1) = 1.0 / (double)SLODWORD(v94);
@@ -12245,7 +12245,7 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
             v7 = pLevelDecorations[i].sPosX;
             v44 = pLevelDecorations[i].sPosY;
             v8 = pLevelDecorations[i].sPosZ;
-            v9 = cClock2.dword_000024;
+            v9 = cMiscTimer.dword_000024;
             v43 = v7;
             v46 = v8;
             v10 = abs(v7 + v44);
@@ -15552,7 +15552,7 @@ void __thiscall class02_sub_48AB23(int _this, int a2)
   int v5; // ecx@10
   char v6; // zf@10
 
-  if ( !cClock2.dword_000004)
+  if ( !cMiscTimer.bPaused)
   {
     v2 = 0;
     v3 = _this;

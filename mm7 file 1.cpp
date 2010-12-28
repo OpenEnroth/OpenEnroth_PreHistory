@@ -76,8 +76,8 @@ void RtlCallCtors()
  pClass59_global = NamedMemAlloc(class59, 1, "class59");
  class59_ctor(pClass59_global);
 
- //cClock2 = new class24;
-// class24_ctor(cClock2);
+ //cMiscTimer = new class24;
+// class24_ctor(cMiscTimer);
 
  struct_50C0C8_ctor(&struct_50C0C8);
 
@@ -541,7 +541,7 @@ void __fastcall sub_47253E(unsigned int a1)
           pLayingItemsList[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
           if ( !v4 )
             continue;
-          v6 = cClock1.int_00001C + *(_WORD *)v2;
+          v6 = cEventTimer.int_00001C + *(_WORD *)v2;
           *(_WORD *)v2 = v6;
           if ( !(*(_BYTE *)(v3 + 38) & 4) )
             continue;
@@ -557,7 +557,7 @@ void __fastcall sub_47253E(unsigned int a1)
         }
         if ( v4 )
         {
-          v9 = cClock1.int_00001C + *(_WORD *)v2;
+          v9 = cEventTimer.int_00001C + *(_WORD *)v2;
           *(_WORD *)v2 = v9;
           v8 = *(_WORD *)(v3 + 38);
           if ( !(v8 & 4) )
@@ -1501,7 +1501,7 @@ void __cdecl sub_47A815_DrawClass02Lines()
   int v0; // ecx@1
 
   v0 = (int)pGame->class02_obj;
-  pGame->class02_obj->dword_00E42C += cClock1.int_00001C;
+  pGame->class02_obj->dword_00E42C += cEventTimer.int_00001C;
   pGame->class02_obj->lineList.uNumLines = 0;
   if (uCurrentlyLoadedLevelType == 1)
     class02_sub_48BBA6(pGame->class02_obj);
@@ -2100,11 +2100,11 @@ LABEL_179:
           if ( BYTE1(dword_6BE364) & 2 )
             BYTE1(dword_6BE364) &= 0xFDu;
           else
-            cClock1.clock_sub_426363();
+            cEventTimer.Resume();
           if ( BYTE1(dword_6BE364) & 4 )
             BYTE1(dword_6BE364) &= 0xFBu;
           else
-            cClock2.clock_sub_426363();
+            cMiscTimer.Resume();
     runtime_warning(async input);
           /*if ( *(_BYTE *)(&pGame->Win32Keyboard_obj->dword_000004) )
           {
@@ -2147,14 +2147,14 @@ LABEL_179:
         }
         ClipCursor(0);
         dword_6BE364 |= 0x100u;
-        if ( cClock1.dword_000004 )
+        if (cEventTimer.bPaused)
           BYTE1(dword_6BE364) |= 2;
         else
-          cClock1.clock_fn1();
-        if (cClock2.dword_000004)
+          cEventTimer.Pause();
+        if (cMiscTimer.bPaused)
           BYTE1(dword_6BE364) |= 4u;
         else
-          cClock2.clock_fn1();
+          cMiscTimer.Pause();
         if (pGame)
         {
     runtime_warning(async input);
@@ -2358,13 +2358,13 @@ LABEL_17:
           v12 = pActors[i].dword_0000B8;
           goto LABEL_18;
         }
-        v11 = cClock2.dword_000024;
+        v11 = cMiscTimer.dword_000024;
       }
       else
       {
         if ( v8 != 1 )
           goto LABEL_17;
-        v11 = cClock1.dword_000024;
+        v11 = cEventTimer.dword_000024;
       }
       v12 = v54 + v11;
 LABEL_18:
@@ -2560,7 +2560,7 @@ void sub_44103C()
   {
    if (pD3DRenderer->pRenderD3D3)
    {
-    v2 = (double)((cClock2.dword_000024 >> 2) & 0x1F) * 0.03225806355476379 * 6.0;
+    v2 = (double)((cMiscTimer.dword_000024 >> 2) & 0x1F) * 0.03225806355476379 * 6.0;
     v3 = v2 + 6.755399441055744e15;
     dword_EF5290 = LODWORD(v3);
    }
@@ -3207,7 +3207,7 @@ void __cdecl sub_401A91()
         if ( v1 > 128 || (v2 = -128, v1 < -128) )
           pParty_global->sRotationX = v2;
         pParty_global->dword_007778 |= 2;
-        pParty_global->dword_01613C -= cClock2.int_00001C;
+        pParty_global->dword_01613C -= cMiscTimer.int_00001C;
         v4 = dword_AE30F8[0] + 50;
         if ( pParty_global->dword_01613C <= 0 )
         {
@@ -3328,9 +3328,9 @@ void __cdecl sub_401A91()
         continue;
       if ( *(_DWORD *)(v11 + 312) >= 0 && *(_DWORD *)(v11 + 308) )
         continue;
-      v19 = cClock2.int_00001C;
+      v19 = cMiscTimer.int_00001C;
       v16 = v11 + 124;
-      *(_DWORD *)(v11 + 184) += cClock2.int_00001C;
+      *(_DWORD *)(v11 + 184) += cMiscTimer.int_00001C;
       v17 = *(_DWORD *)(v11 + 184);
       v18 = pActors[i].uRecoveryTime;
       if ( v18 > 0 )
@@ -3442,9 +3442,9 @@ void __cdecl sub_401A91()
       }
       if ( *(_QWORD *)(v21 + 292) || *(_QWORD *)(v21 + 308) )
         goto LABEL_255;
-      v29 = cClock2.int_00001C;
+      v29 = cMiscTimer.int_00001C;
       v28 = *(_DWORD *)(v21 + 124);
-      *(_DWORD *)(v21 + 184) += cClock2.int_00001C;
+      *(_DWORD *)(v21 + 184) += cMiscTimer.int_00001C;
       if ( v28 > 0 )
         *(_DWORD *)(v21 + 124) = v28 - v29;
       if ( *(_DWORD *)(v21 + 124) < 0 )
@@ -4207,7 +4207,7 @@ LABEL_9:
   if (dword_6BE374_WalkSoundFlag)
   {
     if (pParty_global->dword_0006F8 > 0)
-      pParty_global->dword_0006F8 -= cClock1.int_00001C;
+      pParty_global->dword_0006F8 -= cEventTimer.int_00001C;
   }
   v93 = v115 - v103 <= 32;
   if ( !byte_6BE3C4_MaybeDrowningFlag )
@@ -4241,7 +4241,7 @@ LABEL_9:
   v107 = pParty_global->uWalkSpeed;
   v117 = pParty_global->sRotationY;
   v112 = pParty_global->sRotationX;
-  v111 = ((unsigned __int64)(cClock1.dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
+  v111 = ((unsigned __int64)(cEventTimer.dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
 
 
  Action::Type eAction;
@@ -4566,7 +4566,7 @@ LABEL_141:
   //gravity pull effect
   if (v104_looks_like_bPartyInAir && !pParty_global->bFlying)
   {
-    v26 = -(cClock1.int_00001C * sub_46BDA8_GetGravityStrength());
+    v26 = -(cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength());
     v25 = v113 += 2 * v26;
     goto LABEL_149;
   }
@@ -4585,7 +4585,7 @@ LABEL_149:
       goto LABEL_150;
     v115 = v103;
     sub_46DCC8(v108, v109, (int)&local_10);
-    v27 = v113 + -8 * cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
+    v27 = v113 + -8 * cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
     v121 = abs((int)(v0 * local_10.v90 + v1 * local_10.v91 + v27 * local_10.v92)) >> 16;
     v119 = (unsigned __int64)(v121 * local_10.v90) >> 16;
     v0 += v119;
@@ -7297,8 +7297,8 @@ LABEL_69:
         if ( !sub_427662((int)((char *)pActors + LODWORD(v712)), 3) )
           goto LABEL_1056;
         SpellBuf_sub_4584E0(&pActors[n >> 3].pActorBuffs[10],
-          cClock2.dword_000024 + 128,
-          (unsigned __int64)(cClock2.dword_000024 + 128) >> 32,
+          cMiscTimer.dword_000024 + 128,
+          (unsigned __int64)(cMiscTimer.dword_000024 + 128) >> 32,
           SWORD2(v1),
           SWORD2(v1),
           SHIDWORD(v1),
@@ -9250,7 +9250,7 @@ LABEL_616:
         LODWORD(v1) = LODWORD(v706);
         if ( *(_DWORD *)(v707 + 6464) >= LODWORD(v706) )
         {
-          cClock1.clock_fn1();
+          cEventTimer.Pause();
           dword_50CBD0.PutMessageToQueue(177, SHIDWORD(v1), SHIDWORD(v1));
           qword_506350 = v711;
           dword_506348 = *(_WORD *)(v2 + 2);

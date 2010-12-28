@@ -2928,7 +2928,7 @@ LABEL_3:
   pParty_global->dword_000884 |= 2;
 
 LABEL_6:
- if (cClock1.dword_000004)
+ if (cEventTimer.bPaused)
  {
   if (pUserInput->IsKeyToggled(Keyboard::Key::Interact))
   {
@@ -3040,7 +3040,7 @@ void __cdecl sub_4356FF()
   if ( !dword_4E28F8_PartyCantJumpIfTrue )
   {
     if ( !ptr_507BD4 )
-      cClock1.clock_sub_426363();
+      cEventTimer.Resume();
   }
   struct_576FE8.dword_000044 = 1;
 }
@@ -3299,7 +3299,7 @@ LABEL_99:
           if ( dword_4E28F8_PartyCantJumpIfTrue )
           {
             GUIWindowDelete(pGUIWindow_CurrentMenu);
-            cClock1.clock_sub_426363();
+            cEventTimer.Resume();
             dword_4E28F8_PartyCantJumpIfTrue = 0;
             struct_576FE8.dword_000044 = 1;
           }
@@ -3382,7 +3382,7 @@ LABEL_81:
             GUIWindowDelete(pGUIWindow_CurrentMenu);
             GUIWindowDelete(pGUIWindow2);
             pGUIWindow2 = 0;
-            cClock1.clock_sub_426363();
+            cEventTimer.Resume();
             dword_4E28F8_PartyCantJumpIfTrue = 0;
             struct_576FE8.dword_000044 = v16;
             continue;
@@ -10300,15 +10300,15 @@ void __thiscall sub_4646F0(int _this)
   v1 = _this;
   if ( pD3DRenderer->pRenderD3D3 )
     Vis_sub_4C1A02(pGame->pVis);
-  cClock1.clock_fn1();
-  cClock2.clock_fn1();
+  cEventTimer.Pause();
+  cMiscTimer.Pause();
   pParty_global->dword_007778 = 2;
   sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, 1);
   sub_464479_ResetCursorAndOther();
   compile_error(level name should not be globally-defined);
   //PrepareWorld(0, (v1 == 0) + 1);
-  cClock2.clock_sub_426363();
-  cClock1.clock_sub_426363();
+  cMiscTimer.Resume();
+  cEventTimer.Resume();
 }
 
 //----- (00464761) --------------------------------------------------------
@@ -10469,14 +10469,14 @@ void __cdecl sub_4667E9()
   if ( !pD3DRenderer->pRenderD3D3 || **(_DWORD **)(pD3DRenderer->pRenderD3D3 + 28) )
   {
 LABEL_52:
-    if ( cClock1.dword_000004 )
+    if (cEventTimer.bPaused)
       BYTE1(dword_6BE364) |= 8u;
     else
-      cClock1.clock_fn1();
-    if (cClock2.dword_000004)
+      cEventTimer.Pause();
+    if (cMiscTimer.bPaused)
       BYTE1(dword_6BE364) |= 0x10u;
     else
-      cClock2.clock_fn1();
+      cMiscTimer.Pause();
     pGame->pGUICursor->dword_000004 = 0;
     if ( pD3DRenderer->pRenderD3D3 )
     {
@@ -10601,11 +10601,11 @@ LABEL_38:
     if ( BYTE1(dword_6BE364) & 8 )
       BYTE1(dword_6BE364) &= 0xF7u;
     else
-      cClock1.clock_sub_426363();
+      cEventTimer.Resume();
     if ( BYTE1(dword_6BE364) & 0x10 )
       BYTE1(dword_6BE364) &= 0xEFu;
     else
-      cClock2.clock_sub_426363();
+      cMiscTimer.Resume();
     CAsyncMouse_Clear();
     sub_465F5A_InitializeAsyncMouseAndSomething();
     if (pAsyncMouse)

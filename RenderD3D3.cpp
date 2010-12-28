@@ -1235,8 +1235,8 @@ void RenderSky()
     local_14.dword_00001C = 0;
     local_14.dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
     local_14.dword_000024 = 0x2000000;
-    local_14.dword_000028 = 224 * cClock2.dword_000024;
-    local_14.dword_00002C = 224 * cClock2.dword_000024;
+    local_14.dword_000028 = 224 * cMiscTimer.dword_000024;
+    local_14.dword_00002C = 224 * cMiscTimer.dword_000024;
 
     array_50AC10[0].flt_000018 = pOldViewport->uGameX;
     array_50AC10[0].flt_00001C = pOldViewport->uGameY;
@@ -1309,8 +1309,8 @@ LABEL_12:
 
       v46 += ((unsigned __int64)(pClass57_global->dword_000010 * v12) >> 16);
       v47 += ((unsigned __int64)(pClass57_global->dword_00001C * v12) >> 16);
-      v46 = 224 * cClock2.dword_000024 + (signed int)((unsigned __int64)(v46 * v17) >> 16) / 8;
-      v47 = 224 * cClock2.dword_000024 + (signed int)((unsigned __int64)(v47 * v17) >> 16) / 8;
+      v46 = 224 * cMiscTimer.dword_000024 + (signed int)((unsigned __int64)(v46 * v17) >> 16) / 8;
+      v47 = 224 * cMiscTimer.dword_000024 + (signed int)((unsigned __int64)(v47 * v17) >> 16) / 8;
       
       array_50AC10[i].flt_00000C = pStruct9_global->shading_dist_mist;
       array_50AC10[i].flt_000020 = 1.0 / (double)(v17 / 65536);

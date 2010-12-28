@@ -2932,7 +2932,7 @@ signed int __thiscall sub_4059DB_ProbablyStartTurn(void *_this)
 
   dword_4F8870 &= 0xFFFFFFFDu;
   v1 = (int)_this;
-  cClock1.clock_sub_426386();
+  cEventTimer.clock_sub_426386();
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   v2 = 0;
   pAudioPlayer->sub_4AA306(207, 0, 0, -1, 0, 0, 0, 0);
@@ -3188,7 +3188,7 @@ void __thiscall sub_405CFF(int _this, int a2)
   if ( a2 != v2 )
     pAudioPlayer->sub_4AA306(206, v2, v2, -1, v2, v2, v2, v2);
   dword_4F8870 &= 0xFFFFFFFDu;
-  cClock1.clock_sub_4263A0();
+  cEventTimer.clock_sub_4263A0();
   dword_50C994 = v2;
   dword_50C998 = v2;
 }
@@ -3673,7 +3673,7 @@ void __thiscall sub_405E14(void *_this)
           if ( !*(_QWORD *)(v4 + 308) )
           {
             v5 = *(_WORD *)(v4 + 160);
-            *(_DWORD *)(v4 + 184) += cClock2.int_00001C;
+            *(_DWORD *)(v4 + 184) += cMiscTimer.int_00001C;
             if ( *(_DWORD *)(v4 + 184) >= v5 )
             {
               v17 = dword_4F6E08[v20];
@@ -3769,7 +3769,7 @@ LABEL_39:
       *(_DWORD *)(v2 + 16) = 100;
     }
   }
-  *(_DWORD *)(v2 + 8) -= cClock1.int_00001C;
+  *(_DWORD *)(v2 + 8) -= cEventTimer.int_00001C;
 }
 
 //----- (00456D17) --------------------------------------------------------
@@ -4028,8 +4028,8 @@ signed int __thiscall sub_4061CA(int _this)
         || (_WORD)v6 == 17 )
       {
         v7 = *(_WORD *)(result + 160);
-        //*(_DWORD *)(result + 184) += cClock1->int_00001C;
-        *(_DWORD *)(result + 184) += cClock1.int_00001C;        
+        //*(_DWORD *)(result + 184) += cEventTimer->int_00001C;
+        *(_DWORD *)(result + 184) += cEventTimer.int_00001C;        
         if ( *(_DWORD *)(result + 184) < v7 )
         {
           v14 = 1;
@@ -4654,7 +4654,7 @@ void sub_406648(void *_this, int a2)
         if ( (_WORD)v2 != 11 )
         {
           v6 = *((_WORD *)v5 + 80);
-          *((_DWORD *)v5 + 46) += cClock1.int_00001C;
+          *((_DWORD *)v5 + 46) += cEventTimer.int_00001C;
           if ( *((_DWORD *)v5 + 46) >= v6 )
           {
             v8 = (signed __int16)v2;
@@ -5240,8 +5240,8 @@ int __cdecl sub_494035()
 
   v60 = pParty_global->uCurrentHour;
   v58 = pParty_global->uDaysPlayed;
-  v57 = cClock1.int_00001C;
-  pParty_global->qword_00002C += cClock1.int_00001C;
+  v57 = cEventTimer.int_00001C;
+  pParty_global->qword_00002C += cEventTimer.int_00001C;
   v0 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60;
   v1 = (unsigned int)(v0 / 60) / 0x18 / 0x1C;
   pParty_global->uCurrentMonthWeek = (unsigned int)(v0 / 60) / 0x18 / 7 & 3;
@@ -5724,7 +5724,7 @@ signed int __thiscall sub_406B9F(int _this)
           v7 = *(_WORD *)(v5 + 176);
           if ( (v7 == 6 || v7 == 1) && (double)v9.uDistance < 307.19999999999999 )
             goto LABEL_26;
-          *(_DWORD *)(v5 + 184) += cClock1.int_00001C;
+          *(_DWORD *)(v5 + 184) += cEventTimer.int_00001C;
           if ( *(_DWORD *)(v5 + 184) > (signed int)*(_WORD *)(v5 + 160) )
           {
             if ( v7 == 4 )
@@ -6046,7 +6046,7 @@ void __thiscall sub_406FA8(int _this)
                 sub_401221(v4, 4 * v4 + 5205512, 1);
                 memcpy(&v11, GetDirectionInfo(*(_DWORD *)(v18 + v3), v7, (DirectionInfo *)&v10, 0), 0x1Cu);
                 memcpy(&v12, &v11, 0x1Cu);
-                *(_DWORD *)(v6 + 184) += cClock2.int_00001C;
+                *(_DWORD *)(v6 + 184) += cMiscTimer.int_00001C;
                 if ( *(_DWORD *)(v6 + 184) >= (signed int)*(_WORD *)(v6 + 160) )
                 {
                   if ( *(_WORD *)(v6 + 176) == 4 )
@@ -7660,7 +7660,7 @@ void sub_448B67(bool a1)
   unsigned int v14; // [sp+10h] [bp-Ch]@4
 
   v1 = 0;
-  if (cClock1.dword_000004)
+  if (cEventTimer.bPaused)
     return;
 
   if ( a1 )
@@ -9584,7 +9584,7 @@ char __thiscall sub_40A560(void *_this)
     {
       do
       {
-        v1 = cClock1.clock_fn2();
+        v1 = cEventTimer.Time();
         v12 = (unsigned __int64)(v1 - struct_505898.dword_505940) >> 32;
       }
       while ( v12 < 0 );
@@ -9592,7 +9592,7 @@ char __thiscall sub_40A560(void *_this)
     while ( HIDWORD(v1) <= (signed int)(((_DWORD)v1 < (unsigned int)struct_505898.dword_505940)
                                       + ((unsigned __int64)struct_505898.dword_505940 >> 32))
          && (unsigned int)(v1 - struct_505898.dword_505940) < 6 );
-    struct_505898.dword_505940 = cClock1.clock_fn2();
+    struct_505898.dword_505940 = cEventTimer.Time();
     if ( struct_505898.byte_50598C )
       v29 = 1;
     sub_40DC2D(0, &v23);

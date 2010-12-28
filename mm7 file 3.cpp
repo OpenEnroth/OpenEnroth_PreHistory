@@ -2156,7 +2156,7 @@ double __thiscall sub_43B570(int _this)
   v1 = _this;
   if ( *(_BYTE *)(_this + 28) & 1 )
   {
-    v2 = cClock1.clock_fn2();
+    v2 = cEventTimer.Time();
     v3 = *(_DWORD *)(v1 + 32);
     v4 = v3 < (_DWORD)v2;
     v5 = v3 - v2;
@@ -2164,7 +2164,7 @@ double __thiscall sub_43B570(int _this)
     HIDWORD(v6) = (v5 >= 0xFFFFFE80) + *(_DWORD *)(v1 + 36) - (v4 + HIDWORD(v2));
     if ( (double)v6 * 0.002604166744276881 >= 0.0 )
     {
-      v8 = cClock1.clock_fn2();
+      v8 = cEventTimer.Time();
       v9 = *(_DWORD *)(v1 + 32);
       v10 = v9 < (_DWORD)v8;
       v11 = v9 - v8;
@@ -3555,7 +3555,7 @@ void __fastcall sub_43FA33(int a1, int a2)
         v47 = dword_51B6E0;
         v6 = ((pClass59_global->uIntegerPi + v9) >> 8) & 7;
         if (pParty_global->bTurnBasedModeOn)
-          v47 = cClock2.dword_000024;
+          v47 = cMiscTimer.dword_000024;
         v12 = abs(*((_DWORD *)v2 + 1) + *((_DWORD *)v2 + 2));
         v13 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v4 + 72), v47 + v12);
         v40 = 0;
@@ -3731,7 +3731,7 @@ int __fastcall sub_43FDED(int a1)
       {
         if ( v4 == 1 )
         {
-          v7 = cClock2.dword_000024;
+          v7 = cMiscTimer.dword_000024;
           goto LABEL_10;
         }
       }
@@ -4571,7 +4571,7 @@ int __thiscall sub_441964(void *_this, int a2)
   {
     if ( dword_4F885C == 3 )
     {
-      v6 = cClock1.int_00000C;
+      v6 = cEventTimer.uStartTime;
       v5 = dword_50C96C[5 - dword_4F886C / 26];
     }
     else
@@ -4591,7 +4591,7 @@ int __thiscall sub_441964(void *_this, int a2)
         v4 = (int)_this;
         goto LABEL_14;
       }
-      v6 = cClock1.int_00000C;
+      v6 = cEventTimer.uStartTime;
       v5 = dword_50C980;
     }
     v3 = (int)pIconFrameTable;
@@ -4606,7 +4606,7 @@ LABEL_14:
     result = dword_50C994;
     if ( dword_50C994 < dword_50C998 )
     {
-      result = cClock1.int_00001C + dword_50C994;
+      result = cEventTimer.int_00001C + dword_50C994;
       dword_50C994 = result;
       if ( result >= dword_50C998 )
         dword_50C998 = 0;
@@ -4644,7 +4644,7 @@ void __cdecl sub_441BD4()
     v0 = 1;
   if ( struct_576FE8.dword_000054 )
     LOBYTE(v0) = v0 | 2;
-  v1 = cClock1.dword_000024;
+  v1 = cEventTimer.dword_000024;
   v2 = v0;
   v3 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY) * pParty_global->dword_000018) >> 16);
   v18 = class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uIntegerHalfPi);
@@ -5838,7 +5838,7 @@ int __fastcall sub_444839(int a1, int a2, int a3, int a4, int a5, int a6, int a7
   dword_591168 = a8;
   dword_591164 = (char *)Str2;
   dword_591160 = v9;
-  cClock1.clock_fn1();
+  cEventTimer.Pause();
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   v11 = sub_44C28B();
   wsprintfA(Str1, "evt%02d", v11);
@@ -5999,7 +5999,7 @@ int __cdecl sub_444C8F()
   const char *v3; // [sp-4h] [bp-2Ch]@2
   char Str1[40]; // [sp+0h] [bp-28h]@1
 
-  cClock1.clock_fn1();
+  cEventTimer.Pause();
   v0 = sub_44C28B();
   wsprintfA(Str1, "evt%02d", v0);
   if ( pParty_global->uAlignment )
@@ -6203,8 +6203,8 @@ void __fastcall sub_4451A8(int a1, int a2, int a3)
       sub_44103C();
     if ( !dword_597F18 )
       pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
-    cClock2.clock_fn1();
-    cClock1.clock_fn1();
+    cMiscTimer.Pause();
+    cEventTimer.Pause();
     dword_5C3418 = v3;
     dword_5C341C = v4;
     dword_591094 = dword_5C3420;
@@ -6226,7 +6226,7 @@ void __cdecl sub_4452BB()
   sub_44684A_LooksLikeEventProcessor(dword_5C3418, 0, 1);
   dword_597F18 = 0;
   dword_5C3420 = 0;
-  cClock1.clock_sub_426363();
+  cEventTimer.Resume();
 }
 
 //----- (00445308) --------------------------------------------------------
@@ -6906,8 +6906,8 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
   v4 = (int)pActor;
   dword_A74CDC = -1;
   dword_AE336C = -1;
-  cClock1.clock_fn1();
-  cClock2.clock_fn1();
+  cEventTimer.Pause();
+  cMiscTimer.Pause();
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
  
   pDialogue_SpeakingActor = pActor;
@@ -7049,8 +7049,8 @@ void __cdecl sub_44603D()
   uDialogue_SpeakingActorID = 0;
   GUIWindowDelete(pDialogueWindow);
   pDialogueWindow = 0;
-  cClock2.clock_sub_426363();
-  cClock1.clock_sub_426363();
+  cMiscTimer.Resume();
+  cEventTimer.Resume();
 }
 
 //----- (0044606A) --------------------------------------------------------
@@ -12437,7 +12437,7 @@ void __thiscall sub_44E904(Game *_this)
   signed __int64 v11; // [sp+Ch] [bp-8h]@1
 
   v4 = _this;
-  v1 = cClock1.clock_fn2();
+  v1 = cEventTimer.Time();
   v2 = v1 - *((_DWORD *)v4 + 907);
   v3 = (unsigned __int64)(v1 - *(_QWORD *)((char *)v4 + 3628)) >> 32;
   v11 = v1 - *(_QWORD *)((char *)v4 + 3628);

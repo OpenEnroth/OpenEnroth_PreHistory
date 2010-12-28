@@ -255,7 +255,7 @@ int Party_Reset(struct Party *_this)
  dword_72D778 |= 0x80u;
  sub_494035();
  //class24_fn1();
- cClock1.clock_fn1();
+ cEventTimer.Pause();
  return 0;
 }
 

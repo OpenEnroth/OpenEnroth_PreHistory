@@ -227,8 +227,8 @@ extern struct GUIButton *pPlayerCreationUI_BtnMinus;
 extern class cTexture *pPlayerCreationUI_Sky;
 extern class cTexture *pPlayerCreationUI_Top;
 
-extern class Clock cClock2;  //struct class24 *cClock2
-extern class Clock cClock1;
+extern class Clock cMiscTimer;  // misc timer for water damage, etc
+extern class Clock cEventTimer; // timer used for events
 
 extern unsigned int uPlayerCreationUI_SelectedCharacter;
 
