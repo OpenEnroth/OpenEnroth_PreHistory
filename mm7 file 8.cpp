@@ -12898,7 +12898,14 @@ int __fastcall PrepareWorld(const char *pLevelFilename, int a1, int uLoadingUITy
   pGameLoadingUI_Window->Initialize(&Rect<float>(0, 640, 0, 480));
 
   GUI::Image *pGameLoadingUI_WindowBackground = pMainGUI->CreateControl<GUI::Image>(pGameLoadingUI_Window);
+#ifndef OLD_CODE
   pGameLoadingUI_WindowBackground->Initialize(&Rect<float>(0, 640, 0, 480), L"loading1", GUI::Align::Center, GUI::Align::Center);
+#else
+  wchar_t pFilename[256];
+  wsprintfW(pFilename, L"loading%d.pcx", rand() % 5 + 1);
+
+  pGameLoadingUI_WindowBackground->Initialize(&Rect<float>(0, 640, 0, 480), pFilename, GUI::Align::Center, GUI::Align::Center);
+#endif
   pGameLoadingUI_Window->SetBackgroundImage(pGameLoadingUI_WindowBackground);
 
   pGameLoadingUI_ProgressBar = pMainGUI->CreateControl<GUI::ProgressBar_LevelLoading>(pGameLoadingUI_Window);

@@ -191,7 +191,21 @@ Result::Code Image::Initialize(const Rect<float> *pImageRect, const wchar_t *pTe
  char pFilenameA[256];
  wsprintfA(pFilenameA, "%S", pTexture);
 
- pImageTexture = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture(pFilenameA, 2)];
+ runtime_warning(oh my GOD textures are uncompatible);
+ if (strstr(pFilenameA, ".pcx")) // hacks
+ {
+  cPCXTexture cPCX;
+  cPCX.PCXTexture_Zero();
+  cPCX.LODPCXLoad(pFilenameA, 0);
+
+  pImageTexture = MemAlloc(cTexture, 1);
+  pImageTexture->cTexture_Zero();
+  pImageTexture->uTextureWidth = cPCX.uWidth;
+  pImageTexture->uTextureHeight = cPCX.uHeight;
+  pImageTexture->pTruecolorPixels = cPCX.pPixels;
+ }
+ else
+   pImageTexture = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture(pFilenameA, 2)];
 #endif
 
  eXAlign = eHorizontalMode;
