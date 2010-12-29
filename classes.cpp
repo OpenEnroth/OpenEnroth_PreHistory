@@ -212,59 +212,6 @@ void class04_ctor(struct class04 *_this)
  _this->dword_000000 = 0x4D86E0;
 }
 
-//----- (MM7.exe::004C05A2) --------------------------------------------------------
-void Vis_detor(Vis *_this, unsigned int a2)
-{
- Vis_SetupCtorDetor(_this);
- if (a2 & 1)
-   operator_delete(_this);
-}
-
-//----- (MM7.exe::004C04AF) --------------------------------------------------------
-void Vis_ctor(struct Vis *_this)
-{
- struct Vis_stru0 local_0C;
- //float v3; // [sp+Ch] [bp-60h]@1
- //float v4; // [sp+10h] [bp-5Ch]@1
- //float v5; // [sp+14h] [bp-58h]@1
- //float v6; // [sp+38h] [bp-34h]@1
-
- struct Vis_stru0 local_3C;
- //float v7; // [sp+3Ch] [bp-30h]@1
- //float v8; // [sp+40h] [bp-2Ch]@1
- //float v9; // [sp+44h] [bp-28h]@1
- //float v10; // [sp+68h] [bp-4h]@1
- 
- _this->detor_ptr = Vis_detor;
-
- class25_fn0(&_this->class25_obj);
-
- local_3C.flt_000000 = 65536.0;
- local_3C.flt_000004 = 0.0;
- local_3C.flt_000008 = 0.0;
- local_3C.flt_00002C = 0.0;
- memcpy(&_this->struct_00200C, &local_3C, sizeof(struct Vis_stru0));
- 
- local_0C.flt_000000 = 0.0;
- local_0C.flt_000004 = 65536.0;
- local_0C.flt_000008 = 0.0;
- local_0C.flt_00002C = 0.0;
- memcpy(&_this->struct_00203C, &local_0C, sizeof(struct Vis_stru0));
- 
- local_0C.flt_000000 = 65536.0;
- local_0C.flt_000004 = 0.0;
- local_0C.flt_000008 = 0.0;
- local_0C.flt_00002C = 0.0;
- memcpy(&_this->struct_00206C, &local_0C, sizeof(struct Vis_stru0));
- 
- local_3C.flt_000000 = 0.0;
- local_3C.flt_000004 = 65536.0;
- local_3C.flt_000008 = 0.0;
- local_3C.flt_00002C = 0.0;
- memcpy(&_this->struct_00209C, &local_3C, sizeof(struct Vis_stru0));
-
- _this->dword_0020CC = 512;
-}
 
 //----- (MM7.exe::004A7155) --------------------------------------------------------
 void *class06_ctor(struct class06 *_this)
@@ -582,35 +529,6 @@ struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize)
 
 
 
-//----- (MM7.exe::004C0585) --------------------------------------------------------
-void class25_detor(struct class25 *_this , unsigned int a2)
-{
- _this->detor_ptr = class25_detor;
- if (a2 & 1)
-   operator_delete(_this);
-}
-
-
-//----- (MM7.exe::004C055C) --------------------------------------------------------
-__int64 class25_fn0(struct class25 *_this)
-{
-  __int64 result; // qax@1
-  signed int v2; // ecx@1
-
-  LODWORD(result) = (int)_this;
-  v2 = 512;
-  HIDWORD(result) = (int)(char *)(_this) + 4;
-  do
-  {
-    *(DWORD *)(HIDWORD(result)) = 0;
-    *(_QWORD *)(HIDWORD(result) + 4) = 4294967295i64;
-    result += 51539607552i64;
-  }
-  while ( --v2 );
-  _this->detor_ptr = class25_detor;
-  _this->dword_002004 = 0;
-  return result;
-}
 
 //----- (MM7.exe::004D89FC) --------------------------------------------------------
 void class26_detor(struct class26 *_this, unsigned int a2)
@@ -5355,9 +5273,9 @@ void class08_sub_437607(struct class08 *_this, struct class26 *a2, struct class2
  class08_Vec3Transform(_this, a2, &a3->objClass26);
   
  class26_ctor(&local_08);
- local_08.array_000004[0] = (double)pOldCamera->dword_000000;
- local_08.array_000004[1] = (double)pOldCamera->dword_000004;
- local_08.array_000004[2] = (double)pOldCamera->dword_000008;
+ local_08.array_000004[0] = (float)pOldCamera->sPosX;
+ local_08.array_000004[1] = (float)pOldCamera->sPosY;
+ local_08.array_000004[2] = (float)pOldCamera->sPosZ;
 
  a3->flt_000014 = class26_DotProduct(&local_08, &a3->objClass26) + 0.00009999999747378752;
 
@@ -5769,18 +5687,18 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   v25 = pStruct9_global->camera_rotation_x_int_cosine;
   v9 = pStruct9_global->camera_rotation_y_int_sine;
   v27 = pStruct9_global->camera_rotation_x_int_sine;
-  v11 = -pOldCamera->dword_000004;
+  v11 = -pOldCamera->sPosY;
   v10 = pStruct9_global->camera_rotation_y_int_cosine;
-  v26 = -pOldCamera->dword_000008;
-  v24 = -pOldCamera->dword_000000;
-  v7 = pStruct9_global->camera_rotation_y_int_cosine * -pOldCamera->dword_000000;
-  v8 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->dword_000004;
+  v26 = -pOldCamera->sPosZ;
+  v24 = -pOldCamera->sPosX;
+  v7 = pStruct9_global->camera_rotation_y_int_cosine * -pOldCamera->sPosX;
+  v8 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->sPosY;
   if (pOldCamera->sRotationX)
   {
-    v14 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->dword_000004;
+    v14 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->sPosY;
     v15 = pStruct9_global->camera_rotation_y_int_cosine * v11 - pStruct9_global->camera_rotation_y_int_sine * v24;
     _this->dword_000000 = ((unsigned __int64)(v8 * pStruct9_global->camera_rotation_x_int_cosine) >> 16)
-                    + ((unsigned __int64)(-65536 * pOldCamera->dword_000008 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+                    + ((unsigned __int64)(-65536 * pOldCamera->sPosZ * pStruct9_global->camera_rotation_x_int_sine) >> 16);
     _this->dword_000004 = v15;
     v13 = v25;
     v12 = ((unsigned __int64)((v26 << 16) * v25) >> 16) - ((unsigned __int64)(v14 * v27) >> 16);

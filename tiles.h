@@ -1,7 +1,7 @@
 #pragma once
 
 
-
+#pragma pack(push, 1)
 struct TileDesc
 {
  unsigned char sTileName[12];
@@ -13,6 +13,7 @@ struct TileDesc
  short         word_000018;
 };
 //sizeof == 1A
+#pragma pack(pop)
 
 struct CTileTable
 {

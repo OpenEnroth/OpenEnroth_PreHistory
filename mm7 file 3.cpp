@@ -1544,27 +1544,6 @@ void __fastcall sub_43A97E(int a1, signed int a2)
   }
 }
 
-//----- (0043AA99) --------------------------------------------------------
-int __fastcall sub_43AA99(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9)
-{
-  int result; // eax@1
-  int v10; // ebx@1
-  int v11; // ST14_4@1
-  int v12; // edi@1
-  int v13; // [sp+20h] [bp+8h]@1
-  int v14; // [sp+20h] [bp+8h]@1
-
-  v10 = a3;
-  v11 = a1;
-  v12 = a2;
-  v13 = (unsigned __int64)(class59_SinCos(pClass59_global, a3) * a1) >> 16;
-  *(_DWORD *)a7 = a4 + ((unsigned __int64)(class59_SinCos(pClass59_global, v12) * v13) >> 16);
-  *(_DWORD *)a8 = a5 + ((unsigned __int64)(class59_SinCos(pClass59_global, v12 - pClass59_global->uIntegerHalfPi) * v13) >> 16);
-  v14 = (unsigned __int64)(class59_SinCos(pClass59_global, v10 - pClass59_global->uIntegerHalfPi) * v11) >> 16;
-  result = a9;
-  *(_DWORD *)a9 = a6 + v14;
-  return result;
-}
 
 //----- (0043AB61) --------------------------------------------------------
 int __fastcall sub_43AB61(int a1, int a2, int a3)
@@ -4097,7 +4076,7 @@ char __fastcall sub_4406BC(signed int a1, int a2)
   {
     v5 = dword_6BE654 + 116 * *v13;
     v4 = dword_6BE66C + 8 * a2;
-    v2 = dword_6BE644 + 96 * *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * *(_WORD *)(v4 + 4));
+    v2 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * *(_WORD *)(v4 + 4)));
     v3 = *(_DWORD *)(v2 + 28)
        + dword_51B6E8 * *(_DWORD *)(v2 + 16)
        + dword_51B6EC * *(_DWORD *)(v2 + 20)
@@ -4995,9 +4974,9 @@ LABEL_8:
 		do
 		{
 			v10 = i + v7 + 4;
-			v99 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 8) + dword_6BE644 + 44);
+			v99 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 8) + ptr_6BE644 + 44);
 
-			if ( BYTE1(v99) & 0x20 || (v11 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 10) + dword_6BE644 + 44), BYTE1(v11) & 0x20) ) goto LABEL_17;
+			if ( BYTE1(v99) & 0x20 || (v11 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 10) + ptr_6BE644 + 44), BYTE1(v11) & 0x20) ) goto LABEL_17;
 
 			v12 = *(_WORD *)(i + v7 + 14);
 			if ( !(v12 & 1) )
@@ -9009,11 +8988,11 @@ void __fastcall sub_44861E(int a1, const char *a2)
           {
             if ( *(_WORD *)(v4 + dword_6BE64C + 24) == v14 )
             {
-              v5 = dword_6BE644 + 96 * *(_WORD *)(v4 + dword_6BE64C + 12);
+              v5 = (int)(ptr_6BE644 + *(_WORD *)(v4 + dword_6BE64C + 12));
               if ( *(_BYTE *)(v5 + 45) & 0x40 )
               {
-                *(_WORD *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + dword_6BE644 + 74) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
-                v6 = (int *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + dword_6BE644 + 74);
+                *(_WORD *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + ptr_6BE644 + 74) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
+                v6 = (int *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + ptr_6BE644 + 74);
                 if ( *(_WORD *)v6 )
                 {
                   TextureFrameTable_sub_44E0ED(pTextureFrameTable, *(_WORD *)v6);
@@ -9021,7 +9000,7 @@ void __fastcall sub_44861E(int a1, const char *a2)
                 else
                 {
                   *(_WORD *)v6 = v3;
-                  v7 = 96 * *(_WORD *)(v4 + dword_6BE64C + 12) + dword_6BE644 + 44;
+                  v7 = (int)(*(_WORD *)(v4 + dword_6BE64C + 12) + ptr_6BE644) + 44;
                   *(_BYTE *)(v7 + 1) &= 0xBFu;
                 }
               }
@@ -9182,7 +9161,7 @@ int __fastcall sub_44892E(int a1, int a2, int a3)
           result = v5 + dword_6BE64C;
           if ( *(_WORD *)(v5 + dword_6BE64C + 24) == v10 )
           {
-            result = 96 * *(_WORD *)(result + 12) + dword_6BE644 + 44;
+            result = (int)(*(_WORD *)(result + 12) + ptr_6BE644) + 44;
             if ( a3 )
               *(_DWORD *)result |= a2;
             else
@@ -12522,11 +12501,11 @@ LABEL_12:
 }
 
 //----- (0044EB12) --------------------------------------------------------
-bool Game_sub_44EB12(struct Game *_this, bool bOutline, int a3, int a4)
+bool Game_sub_44EB12(struct Game *_this, bool bOutline, struct unnamed_F93E6C *a3, struct unnamed_F93E6C *a4)
 {
  if (!dword_4E28F8_PartyCantJumpIfTrue && _this->pVis && pD3DRenderer->pRenderD3D3)
  {
-  Vis_sub_4C05CC(_this->pVis, &_this->pVis->class25_obj, a3, a4);
+  Vis_sub_4C05CC_DoSomeOtherPicking(_this->pVis, &_this->pVis->class25_obj, a3, a4);
   if (bOutline)
     Game_outline_selection((int)_this);
   return true;
@@ -13957,7 +13936,7 @@ signed int __fastcall sub_450B0A(int a1)
     v11 = *(_WORD *)(v4 + 2);
     v12 = *(_WORD *)v4;
     v13 = *(_WORD *)(v4 + 4);
-    sub_43AA99(200, pParty_global->sRotationY, 0, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ, (int)&v21, (int)&v23, (int)&v22);
+    RotateVector(200, pParty_global->sRotationY, 0, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ, &v21, &v23, &v22);
     v17 = v21;
     v14 = v21;
     v20 = 256;

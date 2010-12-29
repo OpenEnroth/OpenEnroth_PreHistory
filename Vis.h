@@ -1,0 +1,163 @@
+#pragma once
+#include "CoreDefinitions.h"
+
+
+
+
+struct struct12
+{
+ float  flt_000000;
+ float  flt_000004;
+ float  flt_000008;
+ float  flt_00000C;
+ int    dword_000010;  // class51_stru2::dword_000000
+ int    dword_000014;  // class51_stru2::dword_000004
+ int    dword_000018;  // class51_stru2::dword_000008
+ int    dword_00001C;  // class51_stru2::dword_00000C
+ int    dword_000020;
+ int    dword_000024;
+ int    dword_000028;
+ int    dword_00002C;
+ short *ptr_000030;
+ short *ptr_000034;
+ short *ptr_000038;
+ char  *ptr_00003C;
+ char   unk_000040[8];
+ short  word_000048;
+ unsigned short uTextureID; // word @ 00004A
+ char           unk_00004C[4];
+ short  sSomeX1;
+ short  sSomeX2;
+ short  sSomeY1;
+ short  sSomeY2;
+ short  sSomeZ1;
+ short  sSomeZ2;
+ char   byte_00005C;
+ unsigned char uNumVertices; // byte @ 00005D
+ char   byte_00005E;
+ char   byte_00005F;
+};
+//sizeof == 60
+void sub_46ED02(struct12 *_this);
+void sub_4C0EF2(struct12 *_this, struct class51_stru2 *a2);
+char __stdcall sub_436455(struct12 *a1);
+char __stdcall sub_438258(struct12 *a1, int a2);
+
+
+
+
+
+struct class25_stru0
+{
+ unsigned int uBillboardID; // dword @ 000000  Billboard ID for indoor,  class51_stru2 * for outdoor
+ int dword_000004; // RenderBillboard::000010, zbuf_val returned by sub_4C1BAA_Vis_get_object_zbuf_val
+ int dword_000008; // object type for sub_4C1BAA_Vis_get_object_zbuf_val
+};
+//sizeof = 0C
+
+//class25
+struct class25
+{
+         class25();
+ inline ~class25() {}
+
+ void                 (*detor_ptr)(struct class25 *, unsigned int); // dword @ 000000
+ struct class25_stru0  array_000004[512];
+ struct class25_stru0 *array_001804[512];
+ int                   dword_002004;
+};
+//sizeof = 2008
+//void class25_detor(struct class25 *_this , unsigned int a2)                  class25::_dtor
+//__int64 __thiscall sub_4C055C(void *_this)                         004C055C  class25::_ctor
+//void *__thiscall sub_4C2591(int _this, int a2);
+void class25_create_object_pointers(struct class25 *_this, int a2);
+//void sub_4C264A(int a2, int a3, int a4);
+/*private*/ void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, int sRight);
+
+
+
+struct Vis_stru0 // LOOKS LIKE RenderVertex
+{
+ float flt_000000;
+ float flt_000004;
+ float flt_000008;
+ float flt_00000C;
+ int   unk_000010[2];
+ float flt_000018;
+ float flt_00001C;
+ int   unk_000020[3];
+ float flt_00002C;
+};
+//sizeof == 30
+
+//Vis
+struct Vis
+{
+         Vis();
+ inline ~Vis() {}
+
+ void              (*detor_ptr)(struct Vis *, unsigned int); // dword  @ 000000
+ struct class25     class25_obj;                             // struct @ 000004
+ struct Vis_stru0   struct_00200C;
+ struct Vis_stru0   struct_00203C;
+ struct Vis_stru0   struct_00206C;
+ struct Vis_stru0   struct_00209C;
+ int                dword_0020CC;
+
+ 
+ Result::Code Pick(float fDepth, float fMouseX, float fMouseY, struct unnamed_F93E6C *a5, struct unnamed_F93E6C *a6);
+
+ /*protected*/ Result::Code CastRayAtMousePosition(struct Vis_stru0 *a1, struct OldCamera *pCamera, float fMouseX, float fMouseY, float fDepth);
+};
+//sizeof = 0020D0
+//int __thiscall sub_4C04AF(int _this)                            004C04AF  Vis::_ctor
+//void Vis_detor(struct Vis *_this, unsigned int a2)                        Vis::_dtor
+//int __stdcall sub_4C248E(int a1, float a2, float a3, float a4)  004C248E  Vis::CastRayAtMousePosition
+
+//int __thiscall sub_4C1A02(int _this);
+void Vis_sub_4C1A02(struct Vis *_this);
+//char __thiscall sub_4C0646(int _this, float a2, float a3, float a4, int a5, int a6)    004C0646  Vis::Pick
+//char __thiscall sub_4C05CC(int _this, int a2, int a3, int a4);
+bool Vis_sub_4C05CC_DoSomeOtherPicking(struct Vis *_this, struct class25 *a2, struct unnamed_F93E6C *a3, struct unnamed_F93E6C *a4);
+//void __thiscall sub_4C06F8(void *_this, float a2, int a3, int a4);
+void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unnamed_F93E6C *a4);
+//char __stdcall sub_4C0791(int a1, int a2);
+bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6C *a2);
+//char __thiscall sub_4C091D(void *_this, float a2, int a3);
+bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3);
+//int __thiscall ub_4C0D32(void *_this, float a2, int a3, int a4);
+int Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(struct Vis *_this, float a2, class25 *a3, struct unnamed_F93E6C *a4);
+//int __thiscall sub_4C0DEA(void *_this, float a2, int a3, int a4);
+void Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, float a2, class25 *a3, struct unnamed_F93E6C *a4);
+//void __thiscall sub_4C1542(void *_this, float a2, float a3, float a4, int a5, int a6);
+void Vis_sub_4C1542(struct Vis *_this, float a2, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6);
+//int __thiscall sub_4C1026(void *_this, int a2, int a3, float a4);
+int Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4);
+//char __thiscall sub_4C1ABA(void *_this, int a2, int a3, int a4);
+bool Vis_sort_some_objects(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
+//int __thiscall sub_4C1495(void *_this, const void *Src, int a3, int a4, int a5);
+void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4, float *a5);
+//char __thiscall sub_4C288E(void *_this, int a2, int a3, int a4);
+bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
+//char __thiscall sub_4C297E(void *_this, int a2, int a3, int a4);
+bool Vis_sort_some_objects_3(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
+//int __thiscall sub_4C1417(void *_this, const void *Src, int a3, int a4, int a5);
+void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY);
+//char __thiscall sub_4C26D0(void *_this, int a2, int a3, int a4);
+/*template*/ bool Vis_Sort_template_D3DXVECTOR_x(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
+//char __thiscall sub_4C27AD(void *_this, int a2, int a3, int a4);
+/*template*/ bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
+
+int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *a3, class25 *a4, struct unnamed_F93E6C *a5);
+char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *a3, class25 *a4, struct unnamed_F93E6C *a5, bool a6);
+
+struct class25_stru0 *Vis_sub_4C1944(Vis *_this, int a2, unsigned int a3, int a4, int a5, int a6);
+signed int sub_4C1BAA_Vis_get_object_zbuf_val(void *_this, int a2);
+signed int Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(struct Vis *_this);
+
+char Vis_sub_4C1930(Vis *_this, float a2, int a3);
+
+char __stdcall sub_4C1C0C(Vis_stru0 *a1, Vis_stru0 *a2, float *a3, struct RenderVertex *a4, struct12 *a5, int a6);
+
+
+void RotateVector(int sDepth, int sRotationY, int sRotationX, int sPosX, int sPosY, int sPosZ, int *pOutX, int *pOutY, int *pOutZ);

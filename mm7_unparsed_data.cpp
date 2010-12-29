@@ -2,6 +2,7 @@
 #include  "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "Events.h"
+#include "Vis.h"
 
 
 
@@ -330,7 +331,7 @@ unsigned char data_4E7168[116] =
  char byte_4E94D2; // weak
  char byte_4E94D3; // weak
 
- int dword_4E98BC; // weak
+ int dword_4E98BC_bApplicationActive; // weak
  _UNKNOWN unk_4E98D4; // weak
  char *off_4EB080; // idb
 const unsigned char   *pTransitionStrings[464]; // dword[464]  @ MM7.exe::004EB084
@@ -1488,11 +1489,7 @@ unsigned char TmpBuf[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5
 
  char byte_5C6D50[100]; // weak
 
- int dword_5C6DD8; // weak
- int dword_5C6DDC; // weak
- int dword_5C6DE0; // weak
- int dword_5C6DE4; // weak
- int dword_5C6DE8; // weak
+struct unnamed_F93E6C stru_5C6DD8; // struct @ MM7.exe::005C6DD8
  char byte_5C6DEC; // weak
  __int64 qword_5C6DF0; // weak
  int dword_5C6DF8; // weak
@@ -1633,7 +1630,7 @@ struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
 
 
  int global_dword_6A0CA8; // weak
- HWND dword_6A0CFC; // idb
+ HWND dword_6A0CFC_hInsertCDWindow; // idb
  int dword_6A0D00; // weak
 
 struct unnamed_6A0D14 array_6A0D14[4]; // struct[4] @ MM7.exe::006A0D14
@@ -1733,7 +1730,7 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  int dword_6BE340; // weak
 unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
  int dword_6BE35C; // weak
-unsigned int uCurrentlyLoadedLevelType; // dword @ MM7.exe::006BE360
+unsigned int uCurrentlyLoadedLevelType = -1; // dword @ MM7.exe::006BE360    1 indoor  2 outdoor
  int dword_6BE364; // game settings
                    // 0x0001: ?
                    // 0x0002: desktop color depth != 16, unable to start in window
@@ -1743,8 +1740,10 @@ unsigned int uCurrentlyLoadedLevelType; // dword @ MM7.exe::006BE360
                    // 0x0020: no walk sound
                    // 0x0040: no anim
                    // 0x0100: application is minimized to tray/not active right now
+                   // 0x0200: cEventTimer is paused
+                   // 0x0400: cMiscTimer is paused
                    // 0x2000: ?
-                   // 0x4000: ?
+                   // 0x4000: apllication initialized and ready
 
  int dword_6BE368; // debug flags
                    // 0x0001: windowed mode
@@ -1774,7 +1773,7 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
  size_t Size; // idb
  int dword_6BE63C; // weak
  int dword_6BE640; // weak
- int dword_6BE644; // weak
+struct struct12 *ptr_6BE644; // weak
  int dword_6BE648; // weak
  int dword_6BE64C; // weak
  int dword_6BE654; // weak
@@ -2417,22 +2416,20 @@ struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
 
  __int16 word_F8BC48[104]; // weak
  __int16 word_F8BD18[104]; // weak
-struct class25 class25_F8BDE8;                      // struct @ MM7.exe::00F8BDE8
-unsigned char  bIs_class25_F8BDE8_sub4C055C_Called; // byte   @ MM7.exe::00F8DDF0
+struct class25   class25_F8BDE8;   // struct @ MM7.exe::00F8BDE8
 struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
  char byte_F8E9F8; // weak
 struct RenderVertexD3D3 array_F8EA00[64]; // struct[64] @ MM7.exe::00F8EA00
 struct Vis_stru0        array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
 struct class25 class25_F8FE00;     // struct     @ MM7.exe::00F8FE00
- char byte_F91E08; // weak
-struct class25 class25_F91E10;  // struct @ MM7.exe::00F91E10
- char byte_F93E18; // weak
- int dword_F93E1C; // weak
- int dword_F93E30; // weak
- int dword_F93E44; // weak
- int dword_F93E58; // weak
+ char byte_F91E08_Is_class25_F8FE00_ctor_called_and_other_dirty_hacks; // weak
+struct class25        class25_F91E10;  // struct @ MM7.exe::00F91E10
+struct unnamed_F93E6C stru_F93E1C;     // struct @ MM7.exe::00F93E1C
+struct unnamed_F93E6C stru_F93E30;     // struct @ MM7.exe::00F93E30
+struct unnamed_F93E6C stru_F93E44;     // struct @ MM7.exe::00F93E44
+struct unnamed_F93E6C stru_F93E58;     // struct @ MM7.exe::00F93E58
+struct unnamed_F93E6C stru_F93E6C;     // struct @ MM7.exe::00F93E6C
 
- struct unnamed_F93E6C stru_F93E6C; // struct @ MM7.exe::00F93E6C
  int dword_F94004; // weak
  int dword_F9400C; // weak
  char byte_F94298; // weak

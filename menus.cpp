@@ -9,6 +9,7 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+#include "Vis.h"
 
 #include "GUI\GUI.h"
 
@@ -1213,7 +1214,7 @@ int __fastcall SaveGame(int a1, int a2)
           v73 = 0;
           do
           {
-            v42 = (int)((char *)v73 + dword_6BE644 + 44);
+            v42 = (int)((int)v73/96 + ptr_6BE644) + 44;
             memcpy(v12, (const void *)v42, 4);
             v73 = (char *)v73 + 96;
             v12 = (char *)v12 + 4;

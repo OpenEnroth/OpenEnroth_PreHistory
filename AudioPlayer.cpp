@@ -859,6 +859,28 @@ Result::Code AudioPlayer::StopMusic()
  return Result::Generic;
 }
 
+Result::Code AudioPlayer::PauseMusic()
+{
+ if (bPlayerReady && hAILRedbook)
+ {
+  AIL_redbook_pause(pAudioPlayer->hAILRedbook);
+
+  return Result::Success;
+ }
+ return Result::Generic;
+}
+
+Result::Code AudioPlayer::ResumeMusic()
+{
+ if (bPlayerReady && hAILRedbook)
+ {
+  AIL_redbook_resume(pAudioPlayer->hAILRedbook);
+
+  return Result::Success;
+ }
+ return Result::Generic;
+}
+
 //----- (MM7.exe::004AA214) --------------------------------------------------------
 Result::Code AudioPlayer::SetMasterVolume(float fVolume)
 {

@@ -1066,6 +1066,10 @@ unsigned int LODFile_IB::LODFile_LoadTexture_New(const wchar_t *pFilename)
    {
     if (LoadHWL(pFilename, &uCBMWdith, &uCBMHeight, &aLODHeaders[uNumLoadedFiles].pTruecolorPixels))
     {
+     unsigned int uOldLODTextureID = LODFile_LoadTexture(pAnsiFilename, 2);
+     if (lstrcmpiA(aLODHeaders[uOldLODTextureID].sContainerName, "pending"))
+       return uOldLODTextureID;
+
      if (!hStdHandle)
        hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
      wsprintfW(pFileNotFound, L"Texture not found: %s\n", pFilename);

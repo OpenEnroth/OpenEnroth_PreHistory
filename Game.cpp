@@ -87,8 +87,7 @@ Result::Code Game::Loop(const char *pLevelName)
       if (pAsyncKeyboard)
         CAsyncKeyboard_Resume(pAsyncKeyboard);
     }*/
-    if (pD3DRenderer->pRenderD3D3)
-      Vis_sub_4C1A02(pGame->pVis);
+    Vis_sub_4C1A02(pGame->pVis);
     v18 = 0;
 
 
@@ -433,8 +432,6 @@ void Game_ctor(Game *_this)
    class04_ctor(_this->class04_obj);
 
  _this->pVis = MemAlloc(Vis, 1);
- if (_this->pVis)
-   Vis_ctor(_this->pVis);
 
  _this->class06_obj = MemAlloc(class06, 1);
  if (_this->class06_obj)
@@ -578,8 +575,8 @@ char Game_sub_44EEA7(struct Game *_this)
   int v6; // eax@21
   int v7; // [sp+4h] [bp-24h]@2
   int v8; // [sp+8h] [bp-20h]@2
-  int *v10; // [sp+10h] [bp-18h]@2
-  int v11; // [sp+14h] [bp-14h]@2
+  struct unnamed_F93E6C *v10; // [sp+10h] [bp-18h]@2
+  struct unnamed_F93E6C *v11; // [sp+14h] [bp-14h]@2
   POINT pt;
 
   v1 = (int)_this;
@@ -588,8 +585,8 @@ char Game_sub_44EEA7(struct Game *_this)
   GUICursor_GetMousePos(_this->class03_obj, &pt);
   if ( sub_4637E0() )
   {
-    v11 = (int)&dword_F93E44;
-    v10 = &dword_F93E30;
+    v11 = &stru_F93E44;
+    v10 = &stru_F93E30;
     v8 = pt.y;
     v7 = pt.x;
     v2 = sub_43643E();
@@ -598,23 +595,23 @@ char Game_sub_44EEA7(struct Game *_this)
   {
     if (_this->dword_000E24 & 0x10)
     {
-      v11 = (int)&dword_F93E44;
-      v10 = &dword_F93E1C;
+      v11 = &stru_F93E44;
+      v10 = &stru_F93E1C;
     }
     else
     {
       if ( !(byte_5C6DEC & 1) )
       {
         byte_5C6DEC |= 1u;
-        dword_5C6DE0 = -1;
-        dword_5C6DD8 = 0;
-        dword_5C6DDC = 2;
-        dword_5C6DE4 = 0;
-        dword_5C6DE8 = 0;
+        stru_5C6DD8.dword_000000 = 0;
+        stru_5C6DD8.dword_000004 = 2;
+        stru_5C6DD8.dword_000008 = -1;
+        stru_5C6DD8.dword_00000C = 0;
+        stru_5C6DD8.dword_000010 = 0;
         atexit(0);
       }
-      v11 = (int)&dword_F93E44;
-      v10 = &dword_5C6DD8;
+      v11 = &stru_F93E44;
+      v10 = &stru_5C6DD8;
     }
     v2 = 5120.0;
     v8 = pt.y;
@@ -622,7 +619,7 @@ char Game_sub_44EEA7(struct Game *_this)
   }
 
  v4 = v2;
- Game_Pick(pGame, v4, v7, v8, false, (int)v10, v11);
+ pGame->Pick(v4, v7, v8, false, v10, v11);
  _this->class04_obj->std__vector_000004_size = 0;
  _this->class04_obj->std__vector_183808_size = 0;
 
@@ -894,29 +891,23 @@ void Game_stru0_sub_40E2F6(struct Game_stru0 *_this, char a2)
 }
 
 //----- (0044EA5E) --------------------------------------------------------
-bool Game_Pick(struct Game *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, int a6, int a7)
+Result::Code Game::Pick(float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, struct unnamed_F93E6C *a6, struct unnamed_F93E6C *a7)
 {
   char v10; // [sp-4h] [bp-24h]@5
   int v11; // [sp+0h] [bp-20h]@5
   char *v16; // [sp+18h] [bp-8h]@5
   int v17; // [sp+1Fh] [bp-1h]@5
 
-  if (!dword_4E28F8_PartyCantJumpIfTrue && pD3DRenderer->pRenderD3D3)
+  if (!dword_4E28F8_PartyCantJumpIfTrue)
   {
-    if ( !_this->pVis)
-    {
-      v16 = &v10;
-      Game_sub_40E2C8(&v10, "The 'Vis' object pointer has not been instatiated, but Game::Pick() is trying to call through it.",(int)&v17);
-      sub_466D09(&v16, *(int *)&v10, v11, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp", __LINE__);
-    }
     if (uMouseX >= pOldViewport->uScreenX && uMouseX <= pOldViewport->uScreenZ &&
         uMouseY >= pOldViewport->uScreenY && uMouseY <= pOldViewport->uScreenW)
     {
-            Vis_sub_4C0646(_this->pVis, a2, uMouseX, uMouseY, a6, a7);
+            pVis->Pick(a2, uMouseX, uMouseY, a6, a7);
             if (bOutline)
-              Game_outline_selection((int)_this);
+              Game_outline_selection((int)this);
     }
-    return true;
+    return Result::Success;
   }
-  else return false;
+  else return Result::Generic;
 }

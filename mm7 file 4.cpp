@@ -2424,7 +2424,7 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
 LABEL_14:
     v14 = 8;
 LABEL_17:
-    sub_43AA99(v14, v10, v15, v16, v17, v18, v19, v20, v21);
+    RotateVector(v14, v10, v15, v16, v17, v18, (int *)v19, (int *)v20, (int *)v21);
     goto LABEL_18;
   }
   if ( a5 == 4 )
@@ -3623,14 +3623,6 @@ double __cdecl sub_43643E()
   return result;
 }
 
-//----- (00436455) --------------------------------------------------------
-char __stdcall sub_436455(int a1)
-{
-  char v2; // [sp+8h] [bp-30h]@1
-
-  sub_43648F((int)&v2, dword_6BE63C + 6 * **(_WORD **)(a1 + 48));
-  return sub_438258(a1, (int)&v2);
-}
 
 //----- (0043648F) --------------------------------------------------------
 int __thiscall sub_43648F(int _this, int a2)
@@ -3705,13 +3697,13 @@ void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs)
           __asm
           {
            int 3
-            //fild    pOldCamera->dword_000000
+            //fild    pOldCamera->sPosX
             fsubr   dword ptr [eax]
             //fstp    [ebp+arg_0]
-            //fild    pOldCamera->dword_000004
+            //fild    pOldCamera->sPosY
             fsubr   dword ptr [eax+4]
             //fstp    [ebp+arg_4]
-            //fild    pOldCamera->dword_000008
+            //fild    pOldCamera->sPosZ
             fsubr   dword ptr [eax+8]
           }
           if ( pD3DRenderer->pRenderD3D3 )
@@ -3787,13 +3779,13 @@ void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs)
           __asm
           {
            int 3
-            //fild    pOldCamera->dword_000000
+            //fild    pOldCamera->sPosX
             fsubr   dword ptr [eax]
             //fstp    [ebp+arg_0]
-            //fild    pOldCamera->dword_000004
+            //fild    pOldCamera->sPosY
             fsubr   dword ptr [eax+4]
             //fstp    [ebp+arg_4]
-            //fild    pOldCamera->dword_000008
+            //fild    pOldCamera->sPosZ
             fsubr   dword ptr [eax+8]
           }
           if ( pD3DRenderer->pRenderD3D3 )
@@ -5106,18 +5098,6 @@ void class08_sub_438250(struct class08 *_this)
  _this->dword_0E037C = 0;
 }
 
-//----- (00438258) --------------------------------------------------------
-char __stdcall sub_438258(int a1, int a2)
-{
-  char result; // al@2
-
-  if ( (*(float *)(a2 + 8) - (double)pOldCamera->dword_000008) * (double)*(signed int *)(a1 + 24)
-     + (*(float *)(a2 + 4) - (double)pOldCamera->dword_000004) * (double)*(signed int *)(a1 + 20)
-     + (*(float *)a2 - (double)pOldCamera->dword_000000) * (double)*(signed int *)(a1 + 16) < 0.0
-    || (result = 1, *(_BYTE *)(a1 + 44) & 1) )
-    result = 0;
-  return result;
-}
 
 //----- (004382BC) --------------------------------------------------------
 //depricated
@@ -8730,7 +8710,7 @@ char __stdcall sub_45C7F6(signed int a1)
   int v13; // [sp+14h] [bp-4h]@1
   int v14; // [sp+14h] [bp-4h]@5
 
-  v3 = dword_6BE644 + 96 * a1;
+  v3 = (int)(ptr_6BE644 + a1);
   v1 = dword_51B6DC;
   v13 = 0;
   v2 = 116 * *(_WORD *)(v3 + 76);
@@ -9928,8 +9908,8 @@ LABEL_43:
     v12 = 0;
     do
     {
-      if ( *(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 : 0 )
-        *(_WORD *)(*(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, *(_WORD *)(*(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 + 0x24 : 36));
+      if ( *(_WORD *)(ptr_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(ptr_6BE644 + v12 + 74) + 7278780 : 0 )
+        *(_WORD *)(*(_WORD *)(ptr_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(ptr_6BE644 + v12 + 74) + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, *(_WORD *)(*(_WORD *)(ptr_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(ptr_6BE644 + v12 + 74) + 7278780 + 0x24 : 36));
       ++i;
       v12 += 96;
     }
@@ -10364,7 +10344,7 @@ signed int __stdcall DialogFunc(HWND hDlg, int a2, __int16 a3, int a4)
 
   if ( a2 == 272 )
   {
-    dword_6A0CFC = hDlg;
+    dword_6A0CFC_hInsertCDWindow = hDlg;
     v6 = (GetUserDefaultLangID() & 0x3FF) - 7;
     if ( v6 )
     {

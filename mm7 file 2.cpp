@@ -7348,7 +7348,7 @@ LABEL_74:
         v40 = (int)&v56;
         v39 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
       }
-      sub_43AA99(64, pParty_global->sRotationY, pParty_global->sRotationX, pParty_global->sPartyPosX, pParty_global->sPartyPosY, v39, v40, v41, v42);
+      RotateVector(64, pParty_global->sRotationY, pParty_global->sRotationX, pParty_global->sPartyPosX, pParty_global->sPartyPosY, v39, (int *)v40, (int *)v41, (int *)v42);
       sub_42F7EB_DropItemAt(1051, v56, v53, v55, 0, 1, 0, 0, 0);
       if ( dword_4E455C )
       {
@@ -7741,7 +7741,7 @@ LABEL_42:
       local_04.uFrameX = v4;
       local_04.uFrameY = 40;
       if ( pD3DRenderer->pRenderD3D3 )
-        LOWORD(v5) = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+        LOWORD(v5) = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
       else
         v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v38 + dword_5059A8[v39]));
       v6 = (unsigned __int16)v5;
@@ -7972,7 +7972,7 @@ void __thiscall OnMouseLeftClick(void *_this)
         if ( v13 >= pOldViewport->uGameY && v13 <= pOldViewport->uGameW )
         {
           if ( pD3DRenderer->pRenderD3D3 )
-            v5 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+            v5 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
           else
             v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v12 + dword_5059A8[v13]));
           v6 = (unsigned __int16)v5;
@@ -12401,7 +12401,7 @@ signed int __fastcall sub_42041E(int a1)
       }
       else
       {
-        v13 = dword_6BE644 + 96 * v5;
+        v13 = (int)(ptr_6BE644 + v5);
         v8 = *(_WORD *)(v13 + 84);
         v11 = *(_WORD *)(v13 + 90);
         v10 = *(_WORD *)(v13 + 80) + *(_WORD *)(v13 + 82);
@@ -12435,7 +12435,7 @@ signed int __fastcall sub_42041E(int a1)
     v21 = 256;
     if ( v57 < 256.0 )
       v21 = (signed __int64)v57 / 4;
-    sub_43AA99(v21, v56, X, v14, v55, v15, (int)&v51, (int)&v53, (int)&v52);
+    RotateVector(v21, v56, X, v14, v55, v15, &v51, &v53, &v52);
     v24 = &v44 + v50;
     sub_42F7EB_DropItemAt(*v24, v51, v53, v52, 0, 1, 0, 48, 0);
     sub_404828(&v27);
@@ -13256,7 +13256,7 @@ void __cdecl sub_42213C()
   sub_404828(&v24);
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    v0 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+    v0 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
   }
   else
   {
@@ -13324,7 +13324,7 @@ void __cdecl sub_42213C()
       v2 = (signed int)(unsigned __int16)v0 >> 3;
       if ( uCurrentlyLoadedLevelType == 1 )
       {
-        v3 = dword_6BE644 + 96 * v2;
+        v3 = (int)(ptr_6BE644 + v2);
         if ( !(*(_DWORD *)(v3 + 44) & 0x2000000) )
         {
 LABEL_11:
@@ -13579,7 +13579,7 @@ int __fastcall sub_423B5D(int a1)
   signed int v93; // [sp+24h] [bp-4h]@51
   signed int v94; // [sp+24h] [bp-4h]@61
 
-  v1 = dword_6BE644 + 96 * a1;
+  v1 = (int)(ptr_6BE644 + a1);
   v3 = dword_6BE63C + 6 * **(_WORD **)(v1 + 48);
   v4 = *(_DWORD *)v3;
   v5 = *(_WORD *)(v3 + 4);
@@ -14015,7 +14015,7 @@ signed int __fastcall sub_424579(int a1, int a2)
   int v28; // [sp+20h] [bp-8h]@3
   int v29; // [sp+24h] [bp-4h]@3
 
-  v2 = dword_6BE644 + 96 * a1;
+  v2 = (int)(ptr_6BE644 + a1);
   v3 = dword_6BE63C;
   v4 = dword_6BE63C + 6 * **(_WORD **)(v2 + 48);
   if ( *(_DWORD *)(v2 + 16) * ((signed __int16)*(_DWORD *)v4 - dword_51B6E8)

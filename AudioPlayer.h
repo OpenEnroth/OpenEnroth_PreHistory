@@ -132,6 +132,8 @@ class AudioPlayer
 
  Result::Code PlayMusicTrack(unsigned int uTrackID);
  Result::Code PlayMusicTrack(unsigned int uTrackID, float fVolume);
+ Result::Code PauseMusic();
+ Result::Code ResumeMusic();
  Result::Code StopMusic();
 
  

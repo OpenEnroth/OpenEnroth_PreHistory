@@ -64,7 +64,7 @@ Result::Code Win32Window::SetClientArea(const Rect<float> *pArea)
 
  SetWindowPos(hWindow, HWND_TOP, pArea->x.min, pArea->y.min,
               pArea->x.Length() + (uWindowWidth - uClientWidth),
-              pArea->y.Length() + (uWindowHeight - uClientHeight), 0);
+              pArea->y.Length() + (uWindowHeight - uClientHeight), SWP_NOACTIVATE | SWP_NOZORDER);
 
  return Result::Success;
 }

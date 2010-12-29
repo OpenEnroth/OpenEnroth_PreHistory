@@ -341,7 +341,6 @@ int loc_4363A2(); // weak
 void __thiscall sub_4363C6(void *_this);
 double __cdecl sub_436427();
 double __cdecl sub_43643E();
-char __stdcall sub_436455(int a1);
 int __thiscall sub_43648F(int _this, int a2);
 void __stdcall sub_4364C5(int a1, int a2, int a3, int a4);
 void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs);
@@ -364,7 +363,6 @@ void *__stdcall sub_437A55(const void *a1, int a2, int a3, float a4);
 char __thiscall sub_437AB5(void *_this, int a2, int a3, int a4, int a5, signed int a6, float a7);
 void *__stdcall sub_437C96(const void *a1, int a2, const void *a3, int a4, float a5);
 void __thiscall sub_437D4A(void *_this, int a2, int a3, int a4, int a5, char a6, float a7);
-char __stdcall sub_438258(int a1, int a2);
 int __thiscall sub_438821(void *_this);
 void __thiscall sub_438B54(int _this);
 char __thiscall sub_438B9B(int _this);
@@ -375,7 +373,6 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3);
 int __fastcall sub_439DF3(int a1, int a2, int a3);
 void __fastcall sub_439FCB(signed int a1, int a2, int a3, int a4);
 void __fastcall sub_43A97E(int a1, signed int a2);
-int __fastcall sub_43AA99(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9);
 int __fastcall sub_43AB61(int a1, int a2, int a3);
 bool __fastcall sub_43ABB0(int a1, int a2);
 void __fastcall sub_43AC45(int a1, int a2);
@@ -716,7 +713,6 @@ void __cdecl sub_46E0B2();
 void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, signed int a2);
 int __thiscall sub_46E44E(void *_this);
 int __thiscall sub_46E889(int a1);
-int __thiscall sub_46ED02(int _this);
 int __fastcall sub_46ED1B(signed int a1, signed int a2, int a3, int *a4, int a5);
 void __thiscall sub_46ED8A(void *_this);
 int __thiscall sub_46EF01(void *_this);
@@ -1072,13 +1068,8 @@ void *__thiscall sub_4BE6D1(void *_this);
 int __thiscall sub_4BF91E_GameOverMenu(void *_this);
 int __thiscall sub_4C0312(int _this, int a2, int a3, int a4, int a5);
 void __cdecl loc_4C0D27(); // idb
-int __thiscall sub_4C0EF2(int _this, int a2);
-void __cdecl sub_4C12B8_ResetClass25_F8FE00DtorPtr(); // idb
 bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float fX, float fY);
-int __thiscall sub_4C16B4(void *_this, char a2, int a3, int a4, int a5);
-char __thiscall sub_4C17CF_ProbablyIfMouseOverBModel(void *_this, char a2, int a3, int a4, int a5, char a6);
 void __cdecl loc_4C19F7(); // idb
-char __stdcall sub_4C1C0C(int a1, int a2, int a3, int a4, int a5, int a6);
 signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4);
 char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, int a6);
 char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7);

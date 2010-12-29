@@ -889,9 +889,9 @@ LABEL_74:
  array_77EC08[1999].dword_000018 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
  array_77EC08[1999].dword_00001C = 0;
  array_77EC08[1999].dword_000020 = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
- array_77EC08[1999].dword_000024 = 2048 - pOldCamera->dword_000008 * 65536;
+ array_77EC08[1999].dword_000024 = 2048 - pOldCamera->sPosZ * 65536;
 
- v41 = (signed __int64)((double)(pOldCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)pOldViewport->dword_00002C);
+ v41 = (signed __int64)((double)(pOldCamera->sPosZ * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)pOldViewport->dword_00002C);
 
   cos((double)pOldCamera->sRotationX * 0.003066406352445483);
   sin((double)pOldCamera->sRotationX * 0.003066406352445483);

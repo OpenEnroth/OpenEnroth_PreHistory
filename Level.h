@@ -275,3 +275,4 @@ int __thiscall class51_CreateDefaultMap(int Dest);
 bool sub_44C1E8(struct class51_stru2 *_this);
 bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct struct8 *a3);
 bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *);
+

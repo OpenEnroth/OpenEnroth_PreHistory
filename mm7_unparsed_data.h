@@ -231,7 +231,7 @@ extern char byte_4E94D2; // weak
 extern char byte_4E94D3; // weak
 
 
-extern int dword_4E98BC; // weak
+extern int dword_4E98BC_bApplicationActive; // weak
 extern _UNKNOWN unk_4E98D4; // weak
 extern char *off_4EB080; // idb
 extern const unsigned char *pTransitionStrings[]; // dword[464] @ MM7.exe::004EB084
@@ -1407,11 +1407,11 @@ extern char byte_5C657F[array_size_unknown]; // weak
 extern char         byte_5C6D50[100]; // weak
 //extern unsigned int sub_44D1E7_DrawTextLine_DefaultTextColor; // dword @ MM7.exe::005CDB4    OBSOLETE
 
-extern int dword_5C6DD8; // weak
-extern int dword_5C6DDC; // weak
-extern int dword_5C6DE0; // weak
-extern int dword_5C6DE4; // weak
-extern int dword_5C6DE8; // weak
+extern struct unnamed_F93E6C stru_5C6DD8; // struct @ MM7.exe::005C6DD8
+//int dword_5C6DDC; // 000004
+//int dword_5C6DE0; // 000008
+//int dword_5C6DE4; // 00000C
+//int dword_5C6DE8; // 000010
 extern char byte_5C6DEC; // weak
 extern __int64 qword_5C6DF0; // weak
 extern int dword_5C6DF8; // weak
@@ -1672,7 +1672,7 @@ extern _UNKNOWN unk_69FBB4; // weak
 
 extern int dword_6A0CA4;
 extern int global_dword_6A0CA8;
-extern HWND dword_6A0CFC; // idb
+extern HWND dword_6A0CFC_hInsertCDWindow; // idb
 extern int dword_6A0D00; // weak
 
 //extern unsigned char *dword_6A0D08_pLevelLod; // loading level.odm -> levels\level.lod but never used
@@ -1867,7 +1867,7 @@ extern char byte_6BE3C8[604]; // idb
 extern size_t Size; // idb
 extern int dword_6BE63C; // weak
 extern int dword_6BE640; // weak
-extern int dword_6BE644; // weak
+extern struct struct12 *ptr_6BE644; // weak
 extern int dword_6BE648; // weak
 extern int dword_6BE64C; // weak
 extern int dword_6BE654; // array of some structs
@@ -2930,7 +2930,7 @@ extern struct class25 class25_F8BDE8; // struct @ MM7.exe::00F8BDE8
 //_UNKNOWN unk_F8DDE0; // array_F8DDF8[-1].flt_000004
 //_UNKNOWN unk_F8DDE4; // array_F8DDF8[-1].flt_000008
 //int dword_F8DDEC; // 002004
-extern unsigned char  bIs_class25_F8BDE8_sub4C055C_Called; // byte      @ MM7.exe::00F8DDF0
+//extern unsigned char  byte_F8DDF0_Is_class25_F8BDE8_ctor_called; // byte      @ MM7.exe::00F8DDF0
 extern struct         Vis_stru0 array_F8DDF8[64];          // struc[64] @ MM7.exe::00F8DDF8
 //_UNKNOWN unk_F8DDF8; // weak
 //float flt_F8DE10; // 000018
@@ -2949,31 +2949,21 @@ extern struct Vis_stru0        array_F8F200[64]; // struct[64] @ MM7.exe::00F8F2
 //extern _UNKNOWN unk_F8F22C; // weak
 
 extern struct class25 class25_F8FE00; // struct @ MM7.exe::00F8FE00
-//extern int dword_F8FE00; // 000000
-//extern int dword_F91604; // 001804
-//extern int dword_F91E04; // 002004
-extern char byte_F91E08; // weak
+//int dword_F8FE00; // 000000
+//int dword_F91604; // 001804
+//int dword_F91E04; // 002004
+extern char byte_F91E08_Is_class25_F8FE00_ctor_called_and_other_dirty_hacks; // weak
 extern struct class25 class25_F91E10;  //struct @ MM7.exe::00F91E10
 //extern int dword_F91E10; // 000000
 //extern int dword_F93614; // 001804
 //extern int class25_F91E10.dword_002004; // 002004
-extern char byte_F93E18; // weak
-extern int dword_F93E1C; // weak
-extern int dword_F93E30; // weak
-extern int dword_F93E44; // weak
-extern int dword_F93E58; // weak
+//char byte_F93E18_Is_class25_F91E10_ctor_called; // weak
+extern struct unnamed_F93E6C stru_F93E1C; // struct @ MM7.exe::00F93E1C
+extern struct unnamed_F93E6C stru_F93E30; // struct @ MM7.exe::00F93E30
+extern struct unnamed_F93E6C stru_F93E44; // struct @ MM7.exe::00F93E44
+extern struct unnamed_F93E6C stru_F93E58; // struct @ MM7.exe::00F93E58
+extern struct unnamed_F93E6C stru_F93E6C; // struct @ MM7.exe::00F93E6C
 
-extern struct unnamed_F93E6C
-{
- int     dword_000000;
- int     dword_000004;
- int     dword_000008;
- int     dword_00000C;
- int     dword_000010;
- __int64 qword_000014;
-} stru_F93E6C; // struct @ MM7.exe::00F93E6C
-// 14 <= sizeof <= 1C
-//int dword_F93E6C; // 000000
 extern int dword_F94004; // weak7
 extern int dword_F9400C; // weak
 extern char byte_F94298; // weak

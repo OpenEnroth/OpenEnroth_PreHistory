@@ -1686,7 +1686,7 @@ int __thiscall sub_46A0A1(int a1)
   if ( uCurrentlyLoadedLevelType == 1 )
   {
     if ( pD3DRenderer->pRenderD3D3 )
-      v3 = *(float *)(pGame->class08_obj + 196);
+      v3 = pGame->class08_obj->flt_0000C4;
     else
       v3 = pOldCamera->flt_00001C;
   }
@@ -1705,7 +1705,7 @@ int __thiscall sub_46A0F6(int _this)
   if ( uCurrentlyLoadedLevelType == 1 )
   {
     if ( pD3DRenderer->pRenderD3D3 )
-      v1 = *(float *)(pGame->class08_obj + 196);
+     v1 = pGame->class08_obj->flt_0000C4;
     else
       v1 = pOldCamera->flt_00001C;
     v3 = (signed __int64)v1;
@@ -1714,7 +1714,7 @@ int __thiscall sub_46A0F6(int _this)
   {
     v3 = pStruct9_global->dword_000014;
   }
-  return class59_Atan2(pClass59_global, (int)((char *)_this - pOldViewport->dword_00002C), v3) - pClass59_global->uIntegerHalfPi;
+  return class59_Atan2(pClass59_global, _this - pOldViewport->dword_00002C, v3) - pClass59_global->uIntegerHalfPi;
 }
 
 //----- (0046A14B) --------------------------------------------------------
@@ -1744,8 +1744,8 @@ char __cdecl sub_46A14B_ProbablyDoInteraction()
 
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    Game_sub_44EB12(pGame, GetAsyncKeyState(VK_CONTROL) & 0x8001, (int)&stru_F93E6C, (int)&dword_F93E58);
-    v0 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+    Game_sub_44EB12(pGame, GetAsyncKeyState(VK_CONTROL) & 0x8001, &stru_F93E6C, &stru_F93E58);
+    v0 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
     if ( v0 != -1 )
       LOBYTE(v0) = sub_46A334_LooksLikeInteractWithTopmostZObject((unsigned __int16)v0, (signed int)(unsigned __int16)v0 >> 3);
     return v0;
@@ -2011,7 +2011,7 @@ LABEL_13:
         sub_44684A_LooksLikeEventProcessor(v6, v2, 1);
         return 0;
       }
-      v4 = dword_6BE644 + 96 * (a1 >> 3);
+      v4 = (int)(ptr_6BE644 + (a1 >> 3));
       v5 = *(_DWORD *)(v4 + 44);
       if ( !(v5 & 0x2000000) )
       {
@@ -2433,7 +2433,7 @@ LABEL_36:
     {
       if ( uCurrentlyLoadedLevelType == 1 )
       {
-        v21 = dword_6BE644 + 96 * v19;
+        v21 = (int)(ptr_6BE644 + v19);
         if ( !(*(_BYTE *)(v21 + 47) & 2) )
           goto LABEL_41;
         v22 = (void *)*(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v21 + 72) + 26);
@@ -4655,7 +4655,7 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
     do
     {
       v42 = v44 + 2 * v6;
-      v8 = dword_6BE644 + 96 * *(_WORD *)v42;
+      v8 = (int)(ptr_6BE644 + *(_WORD *)v42);
       if ( !(*(_BYTE *)(v8 + 47) & 0x20) )
       {
         if ( v58 <= *(_WORD *)(v8 + 82) )
@@ -4769,7 +4769,7 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
   {
     for ( i = 0; i < *(_WORD *)(v7 + 36); ++i )
     {
-      v25 = dword_6BE644 + 96 * *(_WORD *)(*(_DWORD *)(v7 + 40) + 2 * i);
+      v25 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v7 + 40) + 2 * i));
       if ( *(_BYTE *)(v25 + 92) == 3 )
       {
         if ( v58 <= *(_WORD *)(v25 + 82) )
@@ -5572,7 +5572,7 @@ int __thiscall sub_46E44E(void *_this)
   v37[0] = stru_721530.dword_000074;
   for ( i = 1; v1 < *(_WORD *)(v2 + 36); ++v1 )
   {
-    v3 = dword_6BE644 + 96 * *(_WORD *)(*(_DWORD *)(v2 + 40) + 2 * v1);
+    v3 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v2 + 40) + 2 * v1));
     if ( stru_721530.dword_00008C <= *(_WORD *)(v3 + 82) )
     {
       if ( stru_721530.dword_000090 >= *(_WORD *)(v3 + 80) )
@@ -5627,7 +5627,7 @@ LABEL_46:
     while ( 1 )
     {
       v11 = *(_WORD *)(*(_DWORD *)(v10 + 8) + 2 * v9);
-      v12 = dword_6BE644 + 96 * v11;
+      v12 = (int)(ptr_6BE644 + v11);
       if ( *(_BYTE *)(v12 + 44) & 1
         || stru_721530.dword_00008C > *(_WORD *)(v12 + 82)
         || stru_721530.dword_000090 < *(_WORD *)(v12 + 80)
@@ -5763,7 +5763,8 @@ int __thiscall sub_46E889(int a1)
   int v21; // eax@42
   int v24; // eax@43
 
-  struct unnamed_local_0C
+  struct struct12 local_0C;
+  /*struct unnamed_local_0C
   {
    //char v25; // [sp+Ch] [bp-7Ch]@1
    //char unk_0D[3];
@@ -5800,14 +5801,14 @@ int __thiscall sub_46E889(int a1)
    char unk_70[0x14];
 
    // about 78 bytes
-  } local_0C;
+  } local_0C;*/
 
-  struct unnamed_local_0C local_84;
-  //int v53; // [sp+84h] [bp-4h]@23
+  //struct unnamed_local_0C local_84;
+  int v53; // [sp+84h] [bp-4h]@23
  int i, j;
  struct class51_BModel *pBModel;
 
-  sub_46ED02((int)&local_0C);
+  sub_46ED02(&local_0C);
   result = 0;
 
  for (i = 0; i < pClass51_global->uNumBModels; ++i)
@@ -5848,49 +5849,49 @@ _proceed:
           stru_721530.dword_0000A0 < v4->sSomeZ1)
         continue;
 
-      local_0C.v26 = v4->dword_000000;
-      local_0C.v27 = v4->dword_000004;
+      local_0C.dword_000010 = v4->dword_000000;
+      local_0C.dword_000014 = v4->dword_000004;
       v6 = v4->dword_000008;
-      local_0C.v28 = v4->dword_000008;
+      local_0C.dword_000018 = v4->dword_000008;
       v7 = v4->dword_00000C;
-      local_0C.v29 = v4->dword_00000C;
+      local_0C.dword_00001C = v4->dword_00000C;
       v5 = *(_DWORD *)((char *)v4 + 0x1C);
-      local_0C.v33 = v5;
-      local_0C.v39 = v4->sSomeX1;
-      local_0C.v41 = v4->sSomeY1;
-      local_0C.v43 = v4->sSomeZ1;
-      local_0C.v40 = v4->sSomeX2;
-      local_0C.v42 = v4->sSomeY2;
-      local_0C.v44 = v4->sSomeZ2;
-      local_0C.v30 = *(_DWORD *)((char *)v4 + 0x10);
-      local_0C.v31 = *(_DWORD *)((char *)v4 + 0x14);
-      local_0C.v32 = *(_DWORD *)((char *)v4 + 0x18);
-      local_0C.v33 = *(_DWORD *)((char *)v4 + 0x1C);
-      local_0C.v35 = (int)v4->array_000098;
-      local_0C.v36 = (int)v4->array_0000C0;
-      local_0C.v37 = (int)v4->byte_0000E8;
-      local_0C.v45 = v4->byte_00012F;
-      local_0C.v46 = v4->uNumVertices;
-      local_0C.v38 = v4->uTextureID;
-      local_0C.v34 = (int)v4 + 32;
+      local_0C.dword_00002C = v4->dword_00001C;
+      local_0C.sSomeX1 = v4->sSomeX1;
+      local_0C.sSomeY1 = v4->sSomeY1;
+      local_0C.sSomeZ1 = v4->sSomeZ1;
+      local_0C.sSomeX2 = v4->sSomeX2;
+      local_0C.sSomeY2 = v4->sSomeY2;
+      local_0C.sSomeZ2 = v4->sSomeZ2;
+      local_0C.dword_000020 = *(_DWORD *)(v4->byte_000010 + 0);
+      local_0C.dword_000024 = *(_DWORD *)(v4->byte_000010 + 4);
+      local_0C.dword_000028 = *(_DWORD *)(v4->byte_000010 + 8);
+      local_0C.dword_00002C = v4->dword_00001C;
+      local_0C.ptr_000034 = v4->array_000098;
+      local_0C.ptr_000038 = v4->array_0000C0;
+      local_0C.ptr_00003C = v4->byte_0000E8;
+      local_0C.byte_00005C = v4->byte_00012F;
+      local_0C.uNumVertices = v4->uNumVertices;
+      local_0C.uTextureID = v4->uTextureID;
+      local_0C.ptr_000030 = v4->array_000020;
       if ( v5 & 0x20000000 || v5 & 1 )
         continue;
 
       v8 = (v6 * stru_721530.dword_000030 + v7 +
-            local_0C.v27 * stru_721530.dword_00002C +
-            local_0C.v26 * stru_721530.dword_000028) >> 16;
+            local_0C.dword_000014 * stru_721530.dword_00002C +
+            local_0C.dword_000010 * stru_721530.dword_000028) >> 16;
       if ( v8 > 0 )
       {
         v9 = (v6 * stru_721530.dword_000048 + v7 +
-              local_0C.v27 * stru_721530.dword_000044 +
-              local_0C.v26 * stru_721530.dword_000040) >> 16;
+              local_0C.dword_000014 * stru_721530.dword_000044 +
+              local_0C.dword_000010 * stru_721530.dword_000040) >> 16;
         if ( v8 <= stru_721530.dword_000004 || v9 <= stru_721530.dword_000004 )
         {
           if ( v9 <= v8 )
           {
-           local_84.dword_000000 = stru_721530.dword_00006C;
+           v53 = stru_721530.dword_00006C;
             if (sub_4754BF(stru_721530.dword_000004,
-                   (int)&local_84,
+                   (int)&v53,
                    stru_721530.dword_000028,
                    stru_721530.dword_00002C,
                    stru_721530.dword_000030,
@@ -5901,15 +5902,15 @@ _proceed:
                    i,
                    a1) )
             {
-             v10 = local_84.dword_000000;
+             v10 = v53;
             }
             else
             {
               v11 = stru_721530.dword_00005C;
               v12 = stru_721530.dword_000060;
               v13 = stru_721530.dword_00002C;
-              local_84.dword_000000 = stru_721530.dword_000004 + stru_721530.dword_00006C;
-              if ( !sub_475F30((int)&local_84,
+              v53 = stru_721530.dword_000004 + stru_721530.dword_00006C;
+              if ( !sub_475F30((int)&v53,
                       (int)&local_0C,
                       stru_721530.dword_000028,
                       stru_721530.dword_00002C,
@@ -5919,8 +5920,8 @@ _proceed:
                       stru_721530.dword_000060,
                       i) )
                 goto LABEL_29;
-              v10 = local_84.dword_000000 - stru_721530.dword_000004;
-              local_84.dword_000000 -= stru_721530.dword_000004;
+              v10 = v53 - stru_721530.dword_000004;
+              v53 -= stru_721530.dword_000004;
             }
             if ( v10 < stru_721530.dword_00007C )
             {
@@ -5935,21 +5936,21 @@ _proceed:
 LABEL_29:
       if ( stru_721530.dword_000000 & 1 )
       {
-        v15 = (local_0C.v28 * stru_721530.dword_00003C + local_0C.v29 +
-               local_0C.v27 * stru_721530.dword_000038 +
-               local_0C.v26 * stru_721530.dword_000034) >> 16;
+        v15 = (local_0C.dword_000018 * stru_721530.dword_00003C + local_0C.dword_00001C +
+               local_0C.dword_000014 * stru_721530.dword_000038 +
+               local_0C.dword_000010 * stru_721530.dword_000034) >> 16;
         if ( v15 > 0 )
         {
-          v16 = (local_0C.v28 * stru_721530.dword_000054 + local_0C.v29 +
-                 local_0C.v27 * stru_721530.dword_000050 +
-                 local_0C.v26 * stru_721530.dword_00004C) >> 16;
+          v16 = (local_0C.dword_000018 * stru_721530.dword_000054 + local_0C.dword_00001C +
+                 local_0C.dword_000014 * stru_721530.dword_000050 +
+                 local_0C.dword_000010 * stru_721530.dword_00004C) >> 16;
           if ( v15 <= stru_721530.dword_000004 || v16 <= stru_721530.dword_000004 )
           {
             if ( v16 <= v15 )
             {
-             local_84.dword_000000 = stru_721530.dword_00006C;
+             v53 = stru_721530.dword_00006C;
               if ( sub_4754BF(stru_721530.dword_000008,
-                     (int)&local_84,
+                     (int)&v53,
                      stru_721530.dword_000034,
                      stru_721530.dword_000038,
                      stru_721530.dword_00003C,
@@ -5960,9 +5961,9 @@ LABEL_29:
                      i,
                      a1) )
               {
-               if (local_84.dword_000000 < stru_721530.dword_00007C )
+               if (v53 < stru_721530.dword_00007C )
                 {
-                 stru_721530.dword_00007C = local_84.dword_000000;
+                 stru_721530.dword_00007C = v53;
                   v17 = 8 * (j | (i << 6));
                   LOBYTE(v17) = v17 | 6;
                   stru_721530.dword_000078 = v17;
@@ -5973,8 +5974,8 @@ LABEL_29:
                 v18 = stru_721530.dword_00005C;
                 v19 = stru_721530.dword_000060;
                 v20 = stru_721530.dword_000038;
-                local_84.dword_000000 = stru_721530.dword_00006C + stru_721530.dword_000008;
-                if ( sub_475F30((int)&local_84,
+                v53 = stru_721530.dword_00006C + stru_721530.dword_000008;
+                if ( sub_475F30((int)&v53,
                        (int)&local_0C,
                        stru_721530.dword_000034,
                        stru_721530.dword_000038,
@@ -5984,12 +5985,12 @@ LABEL_29:
                        stru_721530.dword_000060,
                        i) )
                 {
-                 v21 = local_84.dword_000000 - stru_721530.dword_000004;
+                 v21 = v53 - stru_721530.dword_000004;
                   //v23 = __SETO__(local_84.dword_000000 - stru_721530.dword_000004, stru_721530.dword_00007C);
                   //v22 = local_84.dword_000000 - stru_721530.dword_000004 - stru_721530.dword_00007C < 0;
-                  local_84.dword_000000 -= stru_721530.dword_000004;
+                  v53 -= stru_721530.dword_000004;
                   //if ( v22 ^ v23 )
-                  if (local_84.dword_000000 - stru_721530.dword_000004 < stru_721530.dword_00007C)
+                  if (v53 - stru_721530.dword_000004 < stru_721530.dword_00007C)
                   {
                     stru_721530.dword_00007C = v21;
                     v24 = 8 * (j | (i << 6));
@@ -6007,21 +6008,6 @@ LABEL_29:
   return result;
 }
 
-//----- (0046ED02) --------------------------------------------------------
-int __thiscall sub_46ED02(int _this)
-{
-  int result; // eax@1
-
-  result = 0;
-  *(_BYTE *)(_this + 93) = 0;
-  *(_DWORD *)(_this + 44) = 0;
-  *(_WORD *)(_this + 72) = 0;
-  *(_DWORD *)(_this + 48) = 0;
-  *(_DWORD *)(_this + 60) = 0;
-  *(_DWORD *)(_this + 56) = 0;
-  *(_DWORD *)(_this + 52) = 0;
-  return result;
-}
 
 //----- (0046ED1B) --------------------------------------------------------
 int __fastcall sub_46ED1B(signed int a1, signed int a2, int a3, int *a4, int a5)
@@ -6229,7 +6215,7 @@ signed int __cdecl sub_46F04E()
       v2 = *(_WORD *)(*(_DWORD *)(v1 + 40) + 2 * v8);
       if ( v2 != stru_721530.dword_000080 )
       {
-        v3 = dword_6BE644 + 96 * v2;
+        v3 = (int)(ptr_6BE644 + v2);
         if ( stru_721530.dword_00008C <= *(_WORD *)(v3 + 82) )
         {
           if ( stru_721530.dword_000090 >= *(_WORD *)(v3 + 80) )
@@ -6278,7 +6264,7 @@ signed int __cdecl sub_46F04E()
   if ( stru_721530.dword_00007C >= v0 && v0 <= stru_721530.dword_00006C )
   {
     stru_721530.dword_000080 = v12;
-    v7 = dword_6BE644 + 96 * v12;
+    v7 = (int)(ptr_6BE644 + v12);
     if ( *(_WORD *)(v7 + 76) == stru_721530.dword_000074 )
       stru_721530.dword_000074 = *(_WORD *)(v7 + 78);
     else
@@ -6502,7 +6488,7 @@ LABEL_18:
       {
         while ( 1 )
         {
-          v19 = dword_6BE644 + 96 * *(_WORD *)(*((_DWORD *)v3 + 10) + 2 * v91);
+          v19 = (int)(ptr_6BE644 + *(_WORD *)(*((_DWORD *)v3 + 10) + 2 * v91));
           v20 = *(_DWORD *)(v19 + 48);
           v21 = dword_6BE63C + 6 * *(_WORD *)v20;
           v22 = *(_DWORD *)(v19 + 20);
@@ -6884,7 +6870,7 @@ void __cdecl sub_46F90C()
         }
       }
       v18 = *(_WORD *)(v1 + 146);
-      v16 = dword_6BE644;
+      v16 = (int)ptr_6BE644;
       compile_error();//v20 = __SETO__(v18, v58);
       v19 = v18 - v58 < 0;
       v17 = v62;
@@ -7014,7 +7000,7 @@ LABEL_123:
           v34 = v60 + *(_WORD *)(v1 + 146);
         }
         v37 = sub_46ED1B(v35, v36, v34, &stru_721530.dword_000074, (int)&v62);
-        v39 = *(_DWORD *)(96 * v62 + dword_6BE644 + 44);
+        v39 = *(_DWORD *)(96 * v62 + ptr_6BE644 + 44);
         v38 = v39 & 0x400000;
         if ( v38 && *(_WORD *)(v1 + 176) == 5 )
         {
@@ -7069,7 +7055,7 @@ LABEL_123:
                 if ( (v40 & 7) == 6 )
                 {
                   stru_721530.dword_000084 = v40 >> 3;
-                  v42 = dword_6BE644 + 96 * v41;
+                  v42 = (int)(ptr_6BE644 + v41);
                   if ( *(_BYTE *)(v42 + 92) == 3 )
                   {
                     v43 = *(_WORD *)(v1 + 148);
@@ -8051,7 +8037,7 @@ LABEL_25:
         if ( (stru_721530.dword_000078 & 7) != 6 )
           goto LABEL_64;
         stru_721530.dword_000084 = stru_721530.dword_000078 >> 3;
-        v16 = dword_6BE644 + 96 * v15;
+        v16 = (int)(ptr_6BE644 + v15);
         if ( *(_BYTE *)(v16 + 92) != 3 )
         {
           v50 = abs(*(_DWORD *)(v16 + 16) * *((_WORD *)v2 + 8) + *(_DWORD *)(v16 + 24) * *((_WORD *)v2 + 10)
@@ -8132,7 +8118,7 @@ LABEL_64:
   }
   if ( !(v5 & 0x40) || sub_46BFFA(v44, 0) )
   {
-    v7 = dword_6BE644;
+    v7 = (int)ptr_6BE644;
     *((_DWORD *)v2 + 3) = v50 + 1;
     v6 = v7 + 96 * v46;
     if ( *(_BYTE *)(v6 + 92) == 3 )
@@ -8918,7 +8904,7 @@ LABEL_43:
     goto LABEL_45;
   if (pParty_global->dword_0006F4 != v79)
   {
-    v11 = dword_6BE644 + 96 * v79;
+    v11 = (int)(ptr_6BE644 + v79);
     if ( *(_BYTE *)(v11 + 47) & 4 )
     {
       v70 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v11 + 72) + 26);
@@ -8929,7 +8915,7 @@ LABEL_44:
   pParty_global->dword_0006F4 = v79;
 LABEL_45:
   v68 = 96 * v79;
-  if ( *(_BYTE *)(96 * v79 + dword_6BE644 + 44) & 0x10 )
+  if ( *(_BYTE *)(96 * v79 + ptr_6BE644 + 44) & 0x10 )
     v71 = 1;
   v81 = pParty_global->uWalkSpeed;
   v90 = pParty_global->sRotationY;
@@ -9089,7 +9075,7 @@ LABEL_76:
   }
   else
   {
-    if ( *(_DWORD *)(v68 + dword_6BE644 + 24) < 32768 )
+    if ( *(_DWORD *)(v68 + ptr_6BE644 + 24) < 32768 )
     {
       v89 -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
       goto LABEL_92;
@@ -9221,7 +9207,7 @@ LABEL_93:
     {
       if ( (stru_721530.dword_000078 & 7) == 6 )
       {
-        v45 = dword_6BE644 + 96 * (stru_721530.dword_000078 >> 3);
+        v45 = (int)(ptr_6BE644 + (stru_721530.dword_000078 >> 3));
         v44 = *(_BYTE *)(v45 + 92);
         if ( v44 == 3 )
         {
@@ -9320,7 +9306,7 @@ LABEL_152:
       if ( !v71 )
       {
         v56 = (int)pAudioPlayer;
-        if ( *(_BYTE *)(96 * v79 + dword_6BE644 + 46) & 0x20 )
+        if ( *(_BYTE *)(96 * v79 + ptr_6BE644 + 46) & 0x20 )
           v57 = 50;
         else
           v57 = 64;
@@ -9346,7 +9332,7 @@ LABEL_174:
         goto LABEL_174;
       }
       v56 = (int)pAudioPlayer;
-      if ( *(_BYTE *)(96 * v79 + dword_6BE644 + 46) & 0x20 )
+      if ( *(_BYTE *)(96 * v79 + ptr_6BE644 + 46) & 0x20 )
         v57 = 89;
       else
         v57 = 103;
@@ -9371,7 +9357,7 @@ LABEL_188:
   pParty_global->dword_0006E8 = v89;
   if ( !v84 )
   {
-    if ( *(_BYTE *)(96 * v79 + dword_6BE644 + 47) & 0x40 )
+    if ( *(_BYTE *)(96 * v79 + ptr_6BE644 + 47) & 0x40 )
       BYTE1(pParty_global->dword_007778) |= 2;
   }
   if ( v70 )
@@ -10929,21 +10915,21 @@ signed int __thiscall sub_477C61(void *_this)
       LODWORD(v37) = *(_DWORD *)(v15 + 4);
       v33 = (double)class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi) * (1.0 / 65536.0);
       UNDEF(v17);
-      v16 = *(float *)(v15 - 4) - (double)pOldCamera->dword_000000;
+      v16 = *(float *)(v15 - 4) - (double)pOldCamera->sPosX;
       if ( v19 | v18 )
       {
         v26 = v16;
         v35 = v37;
-        v27 = v39 - (double)pOldCamera->dword_000004;
+        v27 = v39 - (double)pOldCamera->sPosY;
         v21 = v33 * v27 + v34 * v26;
         v20 = v34 * v27 - v33 * v26;
       }
       else
       {
         v22 = v16;
-        v23 = v39 - (double)pOldCamera->dword_000004;
+        v23 = v39 - (double)pOldCamera->sPosY;
         v24 = v33 * v23 + v34 * v22;
-        v25 = v37 - (double)pOldCamera->dword_000008;
+        v25 = v37 - (double)pOldCamera->sPosZ;
         v21 = v32 * v25 + v41 * v24;
         v20 = v34 * v23 - v33 * v22;
         v35 = v41 * v25 - v32 * v24;
@@ -11798,7 +11784,7 @@ void __fastcall sub_479A53(int a1, int a2)
   float v94; // [sp+16Ch] [bp-8h]@3
   int v95; // [sp+170h] [bp-4h]@7
 
-  v4 = dword_6BE644 + 96 * a2;
+  v4 = (int)(ptr_6BE644 + a2);
   v79 = a2;
   v3 = a1;
   v2 = *(_BYTE *)(v4 + 92);
@@ -11830,7 +11816,7 @@ void __fastcall sub_479A53(int a1, int a2)
     return;
   }
   HIDWORD(v83) = pOldCamera->sRotationX;
-  HIDWORD(v82) = pOldCamera->dword_000008;
+  HIDWORD(v82) = pOldCamera->sPosZ;
   *(float *)&v88 = (double)dword_51B758;
   v84 = (signed __int64)((double)(unk_51B720 * dword_51B6F0) / (((double)unk_51B720 + 16192.0) * 65536.0)
                        + *(float *)&v88);
@@ -12253,7 +12239,7 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
 
             v52 = pSprite->dword_00002C;
             v53 = pSprite->word_000030;
-            v12 = class59_Atan2(pClass59_global, pLevelDecorations[i].sPosX - pOldCamera->dword_000000, pLevelDecorations[i].sPosY - pOldCamera->dword_000004);
+            v12 = class59_Atan2(pClass59_global, pLevelDecorations[i].sPosX - pOldCamera->sPosX, pLevelDecorations[i].sPosY - pOldCamera->sPosY);
             v13 = pLevelDecorations[i].dword_000010;
             v47 = v12;
             v4 = v52;
@@ -12285,15 +12271,15 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
               v54 = v14;
               StationaryLightsStack_AddLight(pStationaryLightsStack, v43, v44, v46 + v2->uDecorationHeight / 2, v53, v16, v15, v14, byte_4E94D0);
             }
-            v17 = (v43 - pOldCamera->dword_000000) << 16;
+            v17 = (v43 - pOldCamera->sPosX) << 16;
             if (pOldCamera->sRotationX)
             {
-              v50 = (v44 - pOldCamera->dword_000004) << 16;
+              v50 = (v44 - pOldCamera->sPosY) << 16;
               v19 = (((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
               v52 = v19;
               v54 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v53 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-              v50 = (v46 - pOldCamera->dword_000008) << 16;
+              v50 = (v46 - pOldCamera->sPosZ) << 16;
               v51 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
               v20 = ((unsigned __int64)(v19) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
               v18 = v20 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16);
@@ -12367,8 +12353,8 @@ LABEL_30:
             }
             else
             {
-              v52 = (v43 - pOldCamera->dword_000000) << 16;
-              v50 = (v44 - pOldCamera->dword_000004) << 16;
+              v52 = (v43 - pOldCamera->sPosX) << 16;
+              v50 = (v44 - pOldCamera->sPosY) << 16;
               v54 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
               v53 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v18 = v54 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
@@ -12379,7 +12365,7 @@ LABEL_30:
                 v54 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
                 v22 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
                 v51 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
-                v21 = (v46 - pOldCamera->dword_000008) << 16;
+                v21 = (v46 - pOldCamera->sPosZ) << 16;
                 goto LABEL_30;
               }
             }
@@ -13977,9 +13963,9 @@ void sub_481CCE(struct RenderVertex *a1)
 
   v8 = pOldCamera->fRotationXCosine;
   LODWORD(v7) = *(int *)&pOldCamera->fRotationXSine;
-  v9 = a1->x - (double)pOldCamera->dword_000000;
-  v10 = a1->z - (double)pOldCamera->dword_000004;
-  v5 = a1->y - (double)pOldCamera->dword_000008;
+  v9 = a1->x - (double)pOldCamera->sPosX;
+  v10 = a1->z - (double)pOldCamera->sPosY;
+  v5 = a1->y - (double)pOldCamera->sPosZ;
 
   v2 = v10 * pOldCamera->fRotationYSine + pOldCamera->fRotationYCosine * v9;
   if (pOldCamera->sRotationX)
@@ -14108,18 +14094,18 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
     fld     [ebp+arg_4]                   //(a3->y - a2->y)													(a3->z - a2->z)*(a1->y - a2->y)												(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
     fmul    st, st(5)                     //(a3->y - a2->y)*(a1->z - a2->z)											(a3->z - a2->z)*(a1->y - a2->y)												(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
     fsubp   st(1), st                     //(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)							(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fild    pOldCamera->dword_000000 //pOldCamera->dword_000000    											(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)								(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fsub    dword ptr [esi]               //(pOldCamera->dword_000000 - a2->x)										(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)								(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fmulp   st(1), st                     //((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fld     [ebp+arg_4]                   //(a3->y - a2->y)													((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fmul    st, st(6)                     //(a3->y - a2->y)*(a1->x - a2->x)											((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fld     st(3)                         //(a3->x - a2->x)													(a3->y - a2->y)*(a1->x - a2->x)												((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fmul    st, st(5)                     //(a3->x - a2->x)*(a1->y - a2->y)											(a3->y - a2->y)*(a1->x - a2->x)												((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fsubp   st(1), st                     //(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)							((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fild    pOldCamera->dword_000004 //pOldCamera->dword_000004											(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)								((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fsub    dword ptr [esi+4]             //(pOldCamera->dword_000004 - a2->z)										(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)								((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fmulp   st(1), st                     //((a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y))*(pOldCamera->dword_000004 - a2->z)		((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-//@1 = ((a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y))*(pOldCamera->dword_000004 - a2->z) + ((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->dword_000000 - a2->x)
+    fild    pOldCamera->sPosX //pOldCamera->sPosX    											(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)								(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi]               //(pOldCamera->sPosX - a2->x)										(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)								(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmulp   st(1), st                     //((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fld     [ebp+arg_4]                   //(a3->y - a2->y)													((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(6)                     //(a3->y - a2->y)*(a1->x - a2->x)											((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fld     st(3)                         //(a3->x - a2->x)													(a3->y - a2->y)*(a1->x - a2->x)												((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(5)                     //(a3->x - a2->x)*(a1->y - a2->y)											(a3->y - a2->y)*(a1->x - a2->x)												((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsubp   st(1), st                     //(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)							((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fild    pOldCamera->sPosY //pOldCamera->sPosY											(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)								((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi+4]             //(pOldCamera->sPosY - a2->z)										(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)								((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmulp   st(1), st                     //((a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y))*(pOldCamera->sPosY - a2->z)		((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+//@1 = ((a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y))*(pOldCamera->sPosY - a2->z) + ((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pOldCamera->sPosX - a2->x)
 
     faddp   st(1), st                     //@1															(a3->z - a2->z)								(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
     fld     st(2)                         //(a3->x - a2->x)													@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
@@ -14127,10 +14113,10 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
     fld     st(2)                         //(a3->z - a2->z)													(a3->x - a2->x)*(a1->z - a2->z)						@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
     fmul    st, st(7)                     //(a3->z - a2->z)*(a1->x - a2->x)											(a3->x - a2->x)*(a1->z - a2->z)						@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
     fsubp   st(1), st                     //(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)							@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fild    pOldCamera->dword_000008 //pOldCamera->dword_000008											(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)		@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fsub    dword ptr [esi+8]             //(pOldCamera->dword_000008 - a2->y)										(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)		@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-    fmulp   st(1), st                     //((a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x))*(pOldCamera->dword_000008 - a2->y)		@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
-//@2 = @1 + ((a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x))*(pOldCamera->dword_000008 - a2->y)
+    fild    pOldCamera->sPosZ //pOldCamera->sPosZ											(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)		@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi+8]             //(pOldCamera->sPosZ - a2->y)										(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)		@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmulp   st(1), st                     //((a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x))*(pOldCamera->sPosZ - a2->y)		@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+//@2 = @1 + ((a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x))*(pOldCamera->sPosZ - a2->y)
 
     faddp   st(1), st                     //@2			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
     fcomp   0.0f                          //(a3->z - a2->z)	(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
@@ -14141,9 +14127,9 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
     fstp    st                            //(a1->x - a2->x)
     fstp    st                            //empty
     */
-  if (((a3->y - a2->y) * (a1->x - a2->x) - (a3->x - a2->x) * (a1->y - a2->y)) * (pOldCamera->dword_000004 - a2->z) +
-      ((a3->z - a2->z) * (a1->y - a2->y) - (a3->y - a2->y) * (a1->z - a2->z)) * (pOldCamera->dword_000000 - a2->x) +
-      ((a3->x - a2->x) * (a1->z - a2->z) - (a3->z - a2->z) * (a1->x - a2->x)) * (pOldCamera->dword_000008 - a2->y) < 0)
+  if (((a3->y - a2->y) * (a1->x - a2->x) - (a3->x - a2->x) * (a1->y - a2->y)) * (pOldCamera->sPosY - a2->z) +
+      ((a3->z - a2->z) * (a1->y - a2->y) - (a3->y - a2->y) * (a1->z - a2->z)) * (pOldCamera->sPosX - a2->x) +
+      ((a3->x - a2->x) * (a1->z - a2->z) - (a3->z - a2->z) * (a1->x - a2->x)) * (pOldCamera->sPosZ - a2->y) < 0)
   {
    /*
       fld     [ebp+var_4]                    //var_4
@@ -15215,9 +15201,9 @@ int __thiscall sub_4898E6(int _this)
     v14 = **(_DWORD **)(_this + 136) - v2;
     do
     {
-      v26 = *(float *)(v2 + v25 + v24) - (double)pOldCamera->dword_000000;
-      v27 = *(float *)(v2 + v25) - (double)pOldCamera->dword_000004;
-      v10 = *(float *)(v2 + v25 + v23) - (double)pOldCamera->dword_000008;
+      v26 = *(float *)(v2 + v25 + v24) - (double)pOldCamera->sPosX;
+      v27 = *(float *)(v2 + v25) - (double)pOldCamera->sPosY;
+      v10 = *(float *)(v2 + v25 + v23) - (double)pOldCamera->sPosZ;
       v9 = pOldCamera->fRotationYCosine;
       v8 = pOldCamera->fRotationYSine;
       v20 = pOldCamera->fRotationXCosine;
@@ -15897,13 +15883,13 @@ signed int __thiscall sub_48B5B3(void *_this, int a2)
     if ( *(_BYTE *)(v5 + 1) & 2 )
     {
       v8 = *(float *)(v5 + 44) + 6.755399441055744e15;
-      v47 = (LODWORD(v8) - pOldCamera->dword_000000) << 16;
+      v47 = (LODWORD(v8) - pOldCamera->sPosX) << 16;
       v9 = *(float *)(v5 + 48) + 6.755399441055744e15;
-      v10 = (LODWORD(v9) - pOldCamera->dword_000004) << 16;
+      v10 = (LODWORD(v9) - pOldCamera->sPosY) << 16;
       v11 = ((unsigned __int64)(v47 * v4) >> 16) + ((unsigned __int64)(v10 * v2) >> 16);
       HIDWORD(v8) = (unsigned __int64)(v47 * v2) >> 16;
       v12 = *(float *)(v5 + 52) + 6.755399441055744e15;
-      v48 = (LODWORD(v12) - pOldCamera->dword_000008) << 16;
+      v48 = (LODWORD(v12) - pOldCamera->sPosZ) << 16;
       HIDWORD(v12) = ((unsigned __int64)(v11 * v3) >> 16) + ((unsigned __int64)(v48 * v42) >> 16);
       LODWORD(v13) = 0;
       HIDWORD(v13) = pStruct9_global->dword_000014 << 16 >> 16;
@@ -15920,11 +15906,11 @@ signed int __thiscall sub_48B5B3(void *_this, int a2)
                                                                          - ((unsigned __int64)(v11 * v42) >> 16))) >> 16) >> 16);
       *(_DWORD *)(v5 + 80) = HIDWORD(v12);
     }
-    v50 = (v39 - pOldCamera->dword_000000) << 16;
-    v45 = (LODWORD(v37) - pOldCamera->dword_000004) << 16;
+    v50 = (v39 - pOldCamera->sPosX) << 16;
+    v45 = (LODWORD(v37) - pOldCamera->sPosY) << 16;
     v43 = ((unsigned __int64)(v50 * v4) >> 16) + ((unsigned __int64)(v45 * v2) >> 16);
     HIDWORD(v40) = (unsigned __int64)(v50 * v2) >> 16;
-    v49 = (LODWORD(v40) - pOldCamera->dword_000008) << 16;
+    v49 = (LODWORD(v40) - pOldCamera->sPosZ) << 16;
     v44 = ((unsigned __int64)(v49 * v42) >> 16) + ((unsigned __int64)(v43 * v3) >> 16);
     if ( v44 < 262144 )
       return 0;
@@ -15936,9 +15922,9 @@ signed int __thiscall sub_48B5B3(void *_this, int a2)
     if ( *(_BYTE *)(v5 + 1) & 2 )
     {
       v18 = *(float *)(v5 + 44) + 6.755399441055744e15;
-      v51 = (LODWORD(v18) - pOldCamera->dword_000000) << 16;
+      v51 = (LODWORD(v18) - pOldCamera->sPosX) << 16;
       v19 = *(float *)(v5 + 48) + 6.755399441055744e15;
-      v20 = (LODWORD(v19) - pOldCamera->dword_000004) << 16;
+      v20 = (LODWORD(v19) - pOldCamera->sPosY) << 16;
       v21 = *(float *)(v5 + 52) + 6.755399441055744e15;
       LODWORD(v22) = 0;
       HIDWORD(v22) = pStruct9_global->dword_000014 << 16 >> 16;
@@ -15953,8 +15939,8 @@ signed int __thiscall sub_48B5B3(void *_this, int a2)
       *(_DWORD *)(v5 + 80) = ((unsigned __int64)(v20 * v2) >> 16) + ((unsigned __int64)(v51 * v4) >> 16);
       *(_DWORD *)(v5 + 68) = v25;
     }
-    v52 = (v39 - pOldCamera->dword_000000) << 16;
-    v46 = (LODWORD(v37) - pOldCamera->dword_000004) << 16;
+    v52 = (v39 - pOldCamera->sPosX) << 16;
+    v46 = (LODWORD(v37) - pOldCamera->sPosY) << 16;
     v27 = (unsigned __int64)(v46 * v2) >> 16;
     v26 = v27 + ((unsigned __int64)(v52 * v4) >> 16);
     v44 = v27 + ((unsigned __int64)(v52 * v4) >> 16);

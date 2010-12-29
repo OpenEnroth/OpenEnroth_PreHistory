@@ -1280,7 +1280,7 @@ void sub_47AF11_PrepareItemsRenderList()
 
             v36 = pSprite->dword_00002C;
             v38 = pSprite->word_000030 * pLayingItemsList[i].word_000022;
-            v9 = class59_Atan2(pClass59_global, pLayingItemsList[i].sItemPosX - pOldCamera->dword_000000, pLayingItemsList[i].sItemPosY - pOldCamera->dword_000004);
+            v9 = class59_Atan2(pClass59_global, pLayingItemsList[i].sItemPosX - pOldCamera->sPosX, pLayingItemsList[i].sItemPosY - pOldCamera->sPosY);
             LOWORD(v10) = pLayingItemsList[i].word_000016;
             v4 = v36;
 
@@ -1307,14 +1307,14 @@ void sub_47AF11_PrepareItemsRenderList()
               LOBYTE(v11) = byte_4E94D3;
               sub_467D88((int)&unk_519AB8, v44, v43, v45, v29, v38, -1, -1, -1, v11);
             }
-            v12 = (v44 - pOldCamera->dword_000000) << 16;
+            v12 = (v44 - pOldCamera->sPosX) << 16;
             if (pOldCamera->sRotationX)
             {
-              v14 = (v43 - pOldCamera->dword_000004) << 16;
+              v14 = (v43 - pOldCamera->sPosY) << 16;
               v30 = (((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + (((unsigned __int64)(v14) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
               v37 = ((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v39 = ((unsigned __int64)(v14) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-              v33 = (v45 - pOldCamera->dword_000008) << 16;
+              v33 = (v45 - pOldCamera->sPosZ) << 16;
               v15 = ((unsigned __int64)(v30) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
               v16 = ((unsigned __int64)(v33) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
               v13 = v16 + v15;
@@ -1329,17 +1329,17 @@ void sub_47AF11_PrepareItemsRenderList()
             }
             else
             {
-              v34 = (v43 - pOldCamera->dword_000004) << 16;
+              v34 = (v43 - pOldCamera->sPosY) << 16;
               v19 = ((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
               v20 = ((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v13 = v20 + v19;
               v42 = v20 + v19;
               if ( v20 + v19 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v21 = ((unsigned __int64)((v44 - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+                v21 = ((unsigned __int64)((v44 - pOldCamera->sPosX) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
                 v18 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
                 v40 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
-                v17 = (v45 - pOldCamera->dword_000008) << 16;
+                v17 = (v45 - pOldCamera->sPosZ) << 16;
 LABEL_29:
                 v31 = v17;
                 v22 = abs(v18);
@@ -1509,8 +1509,8 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
 
   v5 = (int)&pClass51_global->pBModels[uModelIdx];
 
-  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pOldCamera->dword_000000;
-  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pOldCamera->dword_000004;
+  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pOldCamera->sPosX;
+  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pOldCamera->sPosY;
 
   v6 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
   v21 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
@@ -2880,7 +2880,6 @@ void __cdecl sub_464479_ResetCursorAndOther()
 
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   SoundList_sub_4A9D79(pSoundList, 0);
-  uCurrentlyLoadedLevelType = 0;
   SpriteFrameTable_fn3(pSpriteFrameTable);
   v0 = sLastGUIWindowIdx;
   pParty_global->dword_01613C = sLastGUIWindowIdx;
@@ -6282,7 +6281,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       break;
     while ( 1 )
     {
-      v30 = dword_6BE644 + 96 * *(_WORD *)(*(_DWORD *)(v28 + v27 + 40) + 2 * v61);
+      v30 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v28 + v27 + 40) + 2 * v61));
       v31 = dword_6BE63C + 6 * **(_WORD **)(v30 + 48);
       v45 = *(_DWORD *)v31;
       v46 = *(_WORD *)(v31 + 4);
@@ -7096,8 +7095,8 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
   v115 = v6;
   if ( uCurrentlyLoadedLevelType != 2 )
   {
-    sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-    sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+    RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, &v166, &v167, &v165);
+    RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, &v163, &v164, &v162);
     v48 = v164 - v167;
     v47 = v162 - v165;
     v49 = v163 - v166;
@@ -7167,7 +7166,7 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
       v154 = 0;
       for ( i = 116 * v60; v154 < *(_WORD *)(v59 + dword_6BE654 + 12) + 2 * *(_WORD *)(v59 + dword_6BE654 + 4); ++v154 )
       {
-        v61 = dword_6BE644 + 96 * *(_WORD *)(*(_DWORD *)(v59 + v58 + 16) + 2 * v154);
+        v61 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v59 + v58 + 16) + 2 * v154));
         if ( *(_BYTE *)(v61 + 44) & 1
           || v118 > *(_WORD *)(v61 + 82)
           || v122 < *(_WORD *)(v61 + 80)
@@ -7229,8 +7228,8 @@ LABEL_107:
       v55 = v167;
       v51 = v166;
     }
-    sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-    sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+    RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v166, &v167, &v165);
+    RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v163, &v164, &v162);
     v75 = v164 - v167;
     v74 = v162 - v165;
     v76 = v163 - v166;
@@ -7316,7 +7315,7 @@ LABEL_148:
     }
     while ( 1 )
     {
-      v88 = dword_6BE644 + 96 * *(_WORD *)(*(_DWORD *)(v86 + v85 + 16) + 2 * v161);
+      v88 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v86 + v85 + 16) + 2 * v161));
       if ( *(_BYTE *)(v88 + 44) & 1
         || v119 > *(_WORD *)(v88 + 82)
         || v123 < *(_WORD *)(v88 + 80)
@@ -7372,8 +7371,8 @@ LABEL_145:
         goto LABEL_148;
     }
   }
-  sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-  sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+  RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, &v166, &v167, &v165);
+  RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, &v163, &v164, &v162);
   v10 = v164 - v167;
   v9 = v162 - v165;
   v11 = v163 - v166;
@@ -7505,8 +7504,8 @@ LABEL_33:
     }
   }
 LABEL_37:
-  sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-  sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+  RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v166, &v167, &v165);
+  RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v163, &v164, &v162);
   v31 = v164 - v167;
   v30 = v162 - v165;
   v32 = v163 - v166;

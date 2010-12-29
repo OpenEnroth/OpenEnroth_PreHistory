@@ -1217,12 +1217,12 @@ void RenderSky()
   int v51; // [sp+160h] [bp-4h]@7
  int i;
 
- v41 = ((double)pStruct9_global->dword_000014 * pOldCamera->dword_000008) /
+ v41 = ((double)pStruct9_global->dword_000014 * pOldCamera->sPosZ) /
        ((double)pStruct9_global->dword_000014 + 8192.0) + pOldViewport->dword_00002C;
 
  v39 =  pOldViewport->dword_00002C -
         pStruct9_global->dword_000014 / (pStruct9_global->shading_dist_mist * cos(pOldCamera->sRotationX * 0.003066406352445483) + 0.0000001000000011686097) *
-        (pStruct9_global->shading_dist_mist * -sin(pOldCamera->sRotationX * 0.003066406352445483) - pOldCamera->dword_000008);
+        (pStruct9_global->shading_dist_mist * -sin(pOldCamera->sRotationX * 0.003066406352445483) - pOldCamera->sPosZ);
   sub_48607B_MessWithStruct8(&local_14, pClass57_global);
   class57_sub_48694B(local_14.ptr_000038);
 

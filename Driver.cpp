@@ -349,7 +349,29 @@ Result::Code PrimaryInitialization()
 {
  srand(GetTickCount());
 
- SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
+ pAppWindow = MemAlloc(Win32Window, 1);
+ if (pAppWindow->Initialize(L"MM7cls", L"Might and Magic® VII", WindowCreationParams::Framed | ::WindowCreationParams::Unique))
+ {
+  MemFree(pAppWindow);
+  return Result::Generic;
+ }
+
+ unsigned int uWindowPosX = ReadWindowsRegistry("window X", 0),
+              uWindowPosY = ReadWindowsRegistry("window Y", 0);
+ if (uWindowPosX >= GetSystemMetrics(SM_CXSCREEN))
+   uWindowPosX = 0;
+ if (uWindowPosY >= GetSystemMetrics(SM_CYSCREEN))
+   uWindowPosY = 0;
+
+
+ Rect<float> wndArea = Rect<float>(uWindowPosX, uWindowPosX + 640,
+                                   uWindowPosY, uWindowPosY + 480);
+ pAppWindow->SetClientArea(&wndArea);
+
+ RtlCallCtors();
+
+
+
  
 
  cEventTimer.Initialize();
@@ -470,7 +492,7 @@ Result::Code PrimaryInitialization()
    GUIWindow_List[i].uWindowType = 0;
 
 
- return Result::Success;
+ return pAppWindow->Show();
 }
 
 
@@ -488,6 +510,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 
  HWND hPreviouslyActiveWindow = GetActiveWindow();
 
+ SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  if (lpCmdLine)
  {
   if (lpCmdLine[0])
@@ -529,31 +552,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
   }
  }
 
- 
- AllocConsole();
 
- pAppWindow = MemAlloc(Win32Window, 1);
- if (pAppWindow->Initialize(L"MM7cls", L"Might and Magic® VII", WindowCreationParams::Framed | ::WindowCreationParams::Unique))
- {
-  MemFree(pAppWindow);
-  return 0;
- }
-
- unsigned int uWindowPosX = ReadWindowsRegistry("window X", 0),
-              uWindowPosY = ReadWindowsRegistry("window Y", 0);
- if (uWindowPosX >= GetSystemMetrics(SM_CXSCREEN))
-   uWindowPosX = 0;
- if (uWindowPosY >= GetSystemMetrics(SM_CYSCREEN))
-   uWindowPosY = 0;
-
-
- Rect<float> wndArea = Rect<float>(uWindowPosX, uWindowPosX + 640,
-                                   uWindowPosY, uWindowPosY + 480);
- pAppWindow->SetClientArea(&wndArea);
- pAppWindow->Show();
-
- RtlCallCtors();
-
+ hInstance = hInst;
  //ACHTUNG    4AC1C9 needs refactoring
  sub_4AC1C9(0, pWindowDims);
  _Rect.left = pWindowDims[0];
@@ -562,7 +562,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
  _Rect.bottom = pWindowDims[3];
  dword_6A0D00 = _Rect.bottom;
 
- hInstance = hInst;
+ AllocConsole();
  if (!PrimaryInitialization())
  {
   ShowIntroVideo();

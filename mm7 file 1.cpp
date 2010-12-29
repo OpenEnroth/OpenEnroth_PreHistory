@@ -379,9 +379,9 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
  pOldCamera->sRotationX = pParty_global->sRotationX;
  pOldCamera->sRotationY = pParty_global->sRotationY;
 
- pOldCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- pOldCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- pOldCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+ pOldCamera->sPosX = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosY = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosZ = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
 
  pOldCamera->dword_00004C = v2;
 
@@ -1618,7 +1618,7 @@ LABEL_208:
 
       case WM_DEVICECHANGE:
         if ( wParam == 32768 )
-          PostMessageA(dword_6A0CFC, WM_USER + 1, 0, 0);
+          PostMessageA(dword_6A0CFC_hInsertCDWindow, WM_USER + 1, 0, 0);
         return 0;
       case WM_SIZING:
         return (long *)1;
@@ -1693,13 +1693,12 @@ LABEL_228:
         {
           if ( pAsyncMouse)
             goto LABEL_184;
-          Game_Pick(pGame,
-            512.0,
+          pGame->Pick(512.0,
             (unsigned __int16)lParam,
             (LPARAM)lParam >> 16,
             v29,
-            (int)&stru_F93E6C,
-            (int)&dword_F93E58);
+            &stru_F93E6C,
+            &stru_F93E58);
         }
         if (!pAsyncMouse)
         {
@@ -1723,14 +1722,12 @@ LABEL_238:
             if ( pAsyncMouse != v31 )
               goto LABEL_184;
             v33 = sub_43643E();
-            Game_Pick(
-              pGame,
-              v33,
+            pGame->Pick(v33,
               (unsigned __int16)lParam,
               (LPARAM)lParam >> 16,
               v31,
-              (int)&dword_F93E30,
-              (int)&dword_F93E58);
+              &stru_F93E30,
+              &stru_F93E58);
           }
           if ( pAsyncMouse == v31 )
           {
@@ -1749,13 +1746,12 @@ LABEL_238:
           if (pGame && !pAsyncMouse)
           {
             v34 = sub_43643E();
-            Game_Pick(pGame,
-              v34,
+            pGame->Pick(v34,
               (unsigned __int16)lParam,
               (LPARAM)lParam >> 16,
               1,
-              (int)&stru_F93E6C,
-              (int)&dword_F93E44);
+              &stru_F93E6C,
+              &stru_F93E44);
             return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
           }
           goto LABEL_184;
@@ -2073,11 +2069,11 @@ LABEL_179:
   }
   if (uMsg == WM_ACTIVATEAPP)
   {
-    if ( wParam && (GetForegroundWindow() == hWnd || GetForegroundWindow() == dword_6A0CFC) )
+    if ( wParam && (GetForegroundWindow() == hWnd || GetForegroundWindow() == dword_6A0CFC_hInsertCDWindow) )
     {
-      if ( BYTE1(dword_6BE364) & 1 )
+      if (dword_6BE364 & 0x0100)
       {
-        dword_4E98BC = 1;
+        dword_4E98BC_bApplicationActive = true;
         /* check for 16-bit screen 
         if ( pD3DRenderer->dword_040058 )
         {
@@ -2088,29 +2084,32 @@ LABEL_179:
           if ( v43 != 16 || v11 != 1 )
             erroneous_printf(pGlobalTXT_LocalizationStrings[62]);
         } */
-        BYTE1(dword_6BE364) &= 0xFEu;
-        if (pAsyncMouse)
-          CAsyncMouse_sub_46B105((void *)pAsyncMouse);
+        dword_6BE364 &= ~0x0100;
+        //if (pAsyncMouse)
+        //  CAsyncMouse_sub_46B105((void *)pAsyncMouse);
         if ( struct_505898.byte_505992 )
         {
           struct_505898.byte_505991 = 1;
         }
         else
         {
-          if ( BYTE1(dword_6BE364) & 2 )
-            BYTE1(dword_6BE364) &= 0xFDu;
+          if (dword_6BE364 & 0x0200)
+            dword_6BE364 &= ~0x0200;
           else
             cEventTimer.Resume();
-          if ( BYTE1(dword_6BE364) & 4 )
-            BYTE1(dword_6BE364) &= 0xFBu;
+
+          if ( dword_6BE364 & 0x0400)
+            dword_6BE364 &= ~0x0400;
           else
             cMiscTimer.Resume();
-    runtime_warning(async input);
+
+          runtime_warning(async input);
           /*if ( *(_BYTE *)(&pGame->Win32Keyboard_obj->dword_000004) )
           {
             if (pAsyncKeyboard)
               CAsyncKeyboard_Resume(pAsyncKeyboard);
           }*/
+
           struct_576FE8.dword_000044 = 1;
           if (pVideoPlayer && pVideoPlayer->pSmackerMovie )
           {
@@ -2119,59 +2118,39 @@ LABEL_179:
             pVideoPlayer->sub_4BF5B2();
           }
         }
-        if ( pAudioPlayer->hAILRedbook )
-        {
-          if ( !dword_F8BC10 )
-          {
-            if ( !pVideoPlayer->pSmackerMovie )
-              AIL_redbook_resume(pAudioPlayer->hAILRedbook);
-          }
-        }
+        if (!bNoSound && !dword_F8BC10)
+          pAudioPlayer->ResumeMusic();
       }
     }
     else
     {
-      if ( !(dword_6BE364 & 0x100) )
+      if (~dword_6BE364 & 0x0100)
       {
-        dword_4E98BC = 0;
+        dword_4E98BC_bApplicationActive = false;
 
-        if (!bNoVideo)
-          pVideoPlayer->StopMovie();
-
-        if (pAsyncMouse)
-          CAsyncMouse_suspend(pAsyncMouse);
-        if ( pD3DRenderer->bUseDirect3D )
+        if (dword_6BE364 & 0x4000)
         {
-          if ( pD3DRenderer->uAcquiredDirect3DDevice == 1 )
-            SetWindowPos(hWnd, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
+         if (!bNoVideo)
+           pVideoPlayer->StopMovie();
+
+         if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
+           SetWindowPos(hWnd, (HWND)0xFFFFFFFE, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOREDRAW);
+
+         pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
+         pAudioPlayer->PauseMusic();
         }
+
         ClipCursor(0);
-        dword_6BE364 |= 0x100u;
+        dword_6BE364 |= 0x0100;
         if (cEventTimer.bPaused)
-          BYTE1(dword_6BE364) |= 2;
+          dword_6BE364 |= 0x0200;
         else
           cEventTimer.Pause();
+
         if (cMiscTimer.bPaused)
-          BYTE1(dword_6BE364) |= 4u;
+          dword_6BE364 |= 0x0400;
         else
           cMiscTimer.Pause();
-        if (pGame)
-        {
-    runtime_warning(async input);
-          /*if (pGame->Win32Keyboard_obj->dword_000004 & 0xFF)
-          {
-            if (pAsyncKeyboard)
-              CAsyncKeyboard_suspend(pAsyncKeyboard);
-          }*/
-        }
-
-        runtime_warning();
-        //keeps get here during initialization after ShowWindow call
-        //getting here is incorrect since AudioPlayer class is created after window
-        /*
-        pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
-        if ( pAudioPlayer->hAILRedbook )
-          AIL_redbook_pause(pAudioPlayer->hAILRedbook);*/
       }
     }
     return 0;
@@ -2204,7 +2183,7 @@ LABEL_179:
   {
     if ( hWnd == (HWND)wParam )
     {
-      dword_4E98BC = 0;
+      dword_4E98BC_bApplicationActive = 0;
       if ( pD3DRenderer->bUseDirect3D )
       {
         if ( pD3DRenderer->uAcquiredDirect3DDevice == 1 )
@@ -2226,7 +2205,7 @@ LABEL_184:
   {
     if (uMsg == WM_PAINT)
     {
-      if ( !GetUpdateRect(hWnd, 0, 0) || !dword_4E98BC && !pD3DRenderer->bWindowMode)
+      if ( !GetUpdateRect(hWnd, 0, 0) || !dword_4E98BC_bApplicationActive && !pD3DRenderer->bWindowMode)
         return 0;
       BeginPaint(hWnd, &Paint);
       if ( struct_505898.byte_505992 )
@@ -2246,7 +2225,7 @@ LABEL_20:
     goto LABEL_184;
   }
 
-  if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->bWindowMode) || !pAsyncMouse )
+  if ( hWnd != (HWND)wParam || (dword_4E98BC_bApplicationActive = 1, pD3DRenderer->bWindowMode) || !pAsyncMouse )
     return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
   CAsyncMouse_sub_46B105((void *)pAsyncMouse);
   if ( !pAsyncMouse )
@@ -2346,7 +2325,7 @@ void __cdecl sub_47B42C_ClipActorsAgainstFrustrum()
           }
         }
       }
-      v9 = class59_Atan2(pClass59_global, pActors[i].sActorPosX - pOldCamera->dword_000000, pActors[i].sActorPosY - pOldCamera->dword_000004);
+      v9 = class59_Atan2(pClass59_global, pActors[i].sActorPosX - pOldCamera->sPosX, pActors[i].sActorPosY - pOldCamera->sPosY);
       LOWORD(v10) = pActors[i].uYawAngle;
       v41 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
       v8 = pActors[i].word_0000B2_looks_like_current_sprite_frame;
@@ -2396,14 +2375,14 @@ LABEL_25:
       if (pSpriteFrame->word_000030)
         sub_467D88((int)&unk_519AB8, v56, v55, v3, 0, pSpriteFrame->word_000030, -1, -1, -1, (char *)&byte_4E94D3);
 
-      v17 = (v56 - pOldCamera->dword_000000) << 16;
+      v17 = (v56 - pOldCamera->sPosX) << 16;
       if (pOldCamera->sRotationX)
       {
-        v19 = (v55 - pOldCamera->dword_000004) << 16;
+        v19 = (v55 - pOldCamera->sPosY) << 16;
         v47 = (((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + (((unsigned __int64)(v19) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
         v50 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
         v53 = ((unsigned __int64)(v19) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-        v44 = (v3 - pOldCamera->dword_000008) << 16;
+        v44 = (v3 - pOldCamera->sPosZ) << 16;
         v18 = (((unsigned __int64)(v44) * pStruct9_global->camera_rotation_x_int_sine) >> 16) + (((unsigned __int64)(v47) * pStruct9_global->camera_rotation_x_int_cosine) >> 16);
         v60 = (((unsigned __int64)(v44) * pStruct9_global->camera_rotation_x_int_sine) >> 16) + (((unsigned __int64)(v47) * pStruct9_global->camera_rotation_x_int_cosine) >> 16);
         if ( v18 < 262144 || v18 > pStruct9_global->shading_dist_mist << 16 )
@@ -2414,16 +2393,16 @@ LABEL_25:
       }
       else
       {
-        v48 = (v55 - pOldCamera->dword_000004) << 16;
+        v48 = (v55 - pOldCamera->sPosY) << 16;
         v51 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
         v22 = ((unsigned __int64)(v48) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
         v60 = v22 + v51;
         if ( v22 + v51 < 262144 || v22 + v51 > pStruct9_global->shading_dist_mist << 16 )
           goto LABEL_58;
-        v23 = ((unsigned __int64)((v56 - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+        v23 = ((unsigned __int64)((v56 - pOldCamera->sPosX) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
         v21 = (((unsigned __int64)(v48) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v23;
         v42 = (((unsigned __int64)(v48) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v23;
-        v20 = (v3 - pOldCamera->dword_000008) << 16;
+        v20 = (v3 - pOldCamera->sPosZ) << 16;
       }
       v45 = v20;
       v24 = abs(v21);
@@ -2518,10 +2497,10 @@ void sub_44103C()
  pOldCamera->sRotationX = pParty_global->sRotationX;
  pOldCamera->sRotationY = pParty_global->sRotationY;
 
- pOldCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- pOldCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosX = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosY = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
 
- pOldCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+ pOldCamera->sPosZ = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
 
  OldCamera_CalculateSinCos(pOldCamera);
  class08_CreateWorldMatrixAndSomeStuff(pGame->class08_obj);
@@ -10141,7 +10120,7 @@ LABEL_855:
               dword_507CD8 = 1;
               v634 = 1;
               if ( uCurrentlyLoadedLevelType == 1 )
-                v419 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(96 * v1 + dword_6BE644 + 72) + 26);
+                v419 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(96 * v1 + ptr_6BE644 + 72) + 26);
               else
                 v419 = *(_WORD *)(*(_DWORD *)(188 * (n >> 9) + pClass51_global->pBModels + 84) + 308 * (v1 & 0x3F) + 292);
               goto LABEL_866;
@@ -11711,9 +11690,9 @@ LABEL_12:
 
 
 
-  pOldCamera->dword_000000 = 0;
-  pOldCamera->dword_000004 = 0;
-  pOldCamera->dword_000008 = 100;
+  pOldCamera->sPosX = 0;
+  pOldCamera->sPosY = 0;
+  pOldCamera->sPosZ = 100;
   pOldCamera->sRotationX = 0;
   pOldCamera->sRotationY = 0;
 

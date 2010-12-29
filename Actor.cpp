@@ -6,6 +6,7 @@
 
 #include "FrameTables.h"
 #include "AudioPlayer.h"
+#include "Vis.h"
 
 #include "GUI\GUI.h"
 
@@ -173,38 +174,38 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
     }
     else if (idx1 < 5)
     {
-      int sub_43AA99_p0;
-      int sub_43AA99_p1;
+      int RotateVector_p0;
+      int RotateVector_p1;
 
       switch (idx1)
       {
       case 1:
-        sub_43AA99_p0 = 24;
-        sub_43AA99_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY; 
+        RotateVector_p0 = 24;
+        RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY; 
         break;
       case 2:
-        sub_43AA99_p0 = 8;
-        sub_43AA99_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY;  
+        RotateVector_p0 = 8;
+        RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY;  
         break;
       case 3:
-        sub_43AA99_p0 = 24;
-        sub_43AA99_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
+        RotateVector_p0 = 24;
+        RotateVector_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
         break;
       case 4:
-        sub_43AA99_p0 = 8;
-        sub_43AA99_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
+        RotateVector_p0 = 8;
+        RotateVector_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
         break;
       }
 
-      sub_43AA99(sub_43AA99_p0, 
-                 sub_43AA99_p1,         
+      RotateVector(RotateVector_p0, 
+                 RotateVector_p1,         
                  0, 
                  pParty_global->sPartyPosX, 
                  pParty_global->sPartyPosY, 
                  pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3, 
-                 (int)&x0, 
-                 (int)&y0, 
-                 (int)&z0);
+                 &x0, 
+                 &y0, 
+                 &z0);
     }   
   }
   else if ( type1 == 5 )
@@ -217,7 +218,7 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   {
     if ( uCurrentlyLoadedLevelType == 1 )
     {
-      char *ptr = (char *)dword_6BE644 + 96 * idx1;
+      char *ptr = (char *)ptr_6BE644 + 96 * idx1;
       x0 = (*(_WORD *)(ptr + 80) + (signed int)*(_WORD *)(ptr + 82)) >> 1;
       y0 = (*(_WORD *)(ptr + 84) + (signed int)*(_WORD *)(ptr + 86)) >> 1;
       z0 = (*(_WORD *)(ptr + 88) + (signed int)*(_WORD *)(ptr + 90)) >> 1;
@@ -263,7 +264,7 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   }
   else if ( type2 == 6 )
   {
-    char *ptr = (char *)dword_6BE644 + 96 * idx2;
+    char *ptr = (char *)ptr_6BE644 + 96 * idx2;
     x1 = (*(_WORD *)(ptr + 80) + *(_WORD *)(ptr + 82)) >> 1;
     y1 = (*(_WORD *)(ptr + 84) + *(_WORD *)(ptr + 86)) >> 1;
     z1 = (*(_WORD *)(ptr + 88) + *(_WORD *)(ptr + 90)) >> 1;     
@@ -621,8 +622,8 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct DirectionInfo
   pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
 
   v7 = class59_Atan2(pClass59_global, 
-                  pActor->sActorPosX - pOldCamera->dword_000000, 
-                  pActor->sActorPosY - pOldCamera->dword_000004);
+                  pActor->sActorPosX - pOldCamera->sPosX, 
+                  pActor->sActorPosY - pOldCamera->sPosY);
     
   v9 = pClass59_global->uIntegerPi + pActor->uYawAngle + (pClass59_global->uIntegerPi >> 3) - v7;
   

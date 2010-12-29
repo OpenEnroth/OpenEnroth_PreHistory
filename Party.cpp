@@ -690,6 +690,8 @@ void Party_ctor(struct Party *_this)
 
  pPartyActionQueue = NamedMemAlloc(ActionQueue, 1, "Party Action Queue");
 
+ _this->bFlying = false;
+
 }
 
 

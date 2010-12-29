@@ -322,9 +322,8 @@ void GameUI_LoadIcons()
 
 
   v22 = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-td4-A");
-#endif
-#ifdef OLD_CODE
- 
+#else
+
   uTextureIdx_MapDirs[0] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR8", 2);
   uTextureIdx_MapDirs[1] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR1", 2);
   uTextureIdx_MapDirs[2] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR2", 2);
@@ -798,7 +797,7 @@ void GameUI_Update()
 
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      v18 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+      v18 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
       if (x < pOldViewport->uScreenX || x > pOldViewport->uScreenZ ||
           y < pOldViewport->uScreenY || y > pOldViewport->uScreenW)
         v18 = -1;
@@ -859,7 +858,7 @@ LABEL_93:
                              + 292);
               goto LABEL_71;
             }
-            v20 = dword_6BE644 + 96 * v19;
+            v20 = (int)(ptr_6BE644 + v19);
             if ( *(_BYTE *)(v20 + 47) & 6 )
             {
               v21 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v20 + 72) + 26);
@@ -2938,7 +2937,7 @@ LABEL_317:
         case 0xBE:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            LOWORD(v54) = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+            LOWORD(v54) = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
           }
           else
           {
@@ -2979,7 +2978,7 @@ LABEL_400:
               v56 = v212;
               goto LABEL_415;
             }
-            v61 = dword_6BE644 + 96 * v58;
+            v61 = (int)(ptr_6BE644 + v58);
             if ( !(*(_BYTE *)(v61 + 47) & 2) )
               goto LABEL_92;
             v60 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v61 + 72) + 26) == 0;
@@ -3469,7 +3468,7 @@ LABEL_544:
         case 0x8C:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            v93 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+            v93 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
           }
           else
           {
@@ -4147,7 +4146,7 @@ LABEL_772:
         case 0xF:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            LOWORD(v131) = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
+            LOWORD(v131) = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
           }
           else
           {
@@ -4407,7 +4406,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
   if ( *(_DWORD *)dword_6BE670 > 0 )
   {
     v86 = 0;
-    v8 = dword_6BE644;
+    v8 = (int)ptr_6BE644;
     do
     {
       v10 = v86 + dword_6BE670 + 4;
@@ -4422,7 +4421,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
           goto LABEL_26;
         *(_WORD *)(v86 + dword_6BE670 + 14) = v12 | 1;
         byte_6BE6EC[v93 >> 3] |= 1 << (7 - v93 % 8);
-        v8 = dword_6BE644;
+        v8 = (int)ptr_6BE644;
       }
       if ( v84
         && v79 >= 3
@@ -4455,7 +4454,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
           v15 = 100;
         //Render_FillRect(pD3DRenderer, v73, v71, v100, v16, *((_WORD *)&unk_5771E4 - v15));
         Render_FillRect(pD3DRenderer, v73, v71, v100, v16, struct_576FE8.pSomeColorTable[200 - v15]);
-        v8 = dword_6BE644;
+        v8 = (int)ptr_6BE644;
       }
 LABEL_26:
       ++v93;

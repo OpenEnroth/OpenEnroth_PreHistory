@@ -6710,7 +6710,7 @@ char __thiscall sub_49BBBD(int _this, int a2)
   v2 = class36_global0.std__vector_000004_size;
   if ( class36_global0.std__vector_000004_size )
   {
-    v5 = dword_6BE644 + 96 * a2;
+    v5 = (int)(ptr_6BE644 + a2);
     v4 = *(_DWORD *)(v5 + 44);
     if ( !(v4 & 0x400000) )
     {

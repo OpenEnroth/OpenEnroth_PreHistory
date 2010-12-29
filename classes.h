@@ -63,104 +63,6 @@ void class04_ctor(struct class04 *_this);
 bool class04_sub_45D698(struct class04 *_this, char a2);
 
 
-struct class25_stru0
-{
- unsigned int uBillboardID; // dword @ 000000
- int dword_000004; // RenderBillboard::000010, zbuf_val returned by sub_4C1BAA_Vis_get_object_zbuf_val
- int dword_000008; // object type for sub_4C1BAA_Vis_get_object_zbuf_val
-};
-//sizeof = 0C
-
-//class25
-struct class25
-{
- void                 (*detor_ptr)(struct class25 *, unsigned int); // dword @ 000000
- struct class25_stru0  array_000004[512];
- struct class25_stru0 *array_001804[512];
- int                   dword_002004;
-};
-//sizeof = 2008
-void class25_detor(struct class25 *_this , unsigned int a2);
-//__int64 __thiscall sub_4C055C(void *_this);
-__int64 class25_fn0(struct class25 *_this);
-//void *__thiscall sub_4C2591(int _this, int a2);
-void class25_create_object_pointers(struct class25 *_this, int a2);
-//void sub_4C264A(int a2, int a3, int a4);
-/*private*/ void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, int sRight);
-
-
-
-struct Vis_stru0
-{
- float flt_000000;
- float flt_000004;
- float flt_000008;
- float flt_00000C;
- int   unk_000010[2];
- float flt_000018;
- float flt_00001C;
- int   unk_000020[3];
- float flt_00002C;
-};
-//sizeof == 30
-
-//Vis
-struct Vis
-{
- void              (*detor_ptr)(struct Vis *, unsigned int); // dword  @ 000000
- struct class25     class25_obj;                             // struct @ 000004
- struct Vis_stru0   struct_00200C;
- struct Vis_stru0   struct_00203C;
- struct Vis_stru0   struct_00206C;
- struct Vis_stru0   struct_00209C;
- int                dword_0020CC;
-};
-//sizeof = 0020D0
-//int __thiscall sub_4C04AF(int _this);
-void Vis_ctor(struct Vis *_this);
-void Vis_detor(struct Vis *_this, unsigned int a2);
-//int __thiscall sub_4C1A02(int _this);
-void Vis_sub_4C1A02(struct Vis *_this);
-//char __thiscall sub_4C0646(int _this, float a2, float a3, float a4, int a5, int a6);
-bool Vis_sub_4C0646(struct Vis *_this, float a2, float fMouseX, float fMouseY, int a5, int a6);
-//char __thiscall sub_4C05CC(int _this, int a2, int a3, int a4);
-bool Vis_sub_4C05CC(struct Vis *_this, struct class25 *a2, int a3, int a4);
-//void __thiscall sub_4C06F8(void *_this, float a2, int a3, int a4);
-void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unnamed_F93E6C *a4);
-//char __stdcall sub_4C0791(int a1, int a2);
-bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6C *a2);
-//char __thiscall sub_4C091D(void *_this, float a2, int a3);
-bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3);
-//int __thiscall ub_4C0D32(void *_this, float a2, int a3, int a4);
-int Vis_sub_4C0D32(struct Vis *_this, float a2, int a3, int a4);
-//int __thiscall sub_4C0DEA(void *_this, float a2, int a3, int a4);
-void Vis_sub_4C0DEA(struct Vis *_this, float a2, int a3, int a4);
-//void __thiscall sub_4C1542(void *_this, float a2, float a3, float a4, int a5, int a6);
-void Vis_sub_4C1542(struct Vis *_this, float a2, float fX, float fY, struct class25 *pClass25, int a6);
-//int __thiscall sub_4C1026(void *_this, int a2, int a3, float a4);
-int Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4);
-//char __thiscall sub_4C1ABA(void *_this, int a2, int a3, int a4);
-bool Vis_sort_some_objects(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
-//int __thiscall sub_4C1495(void *_this, const void *Src, int a3, int a4, int a5);
-void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4, float *a5);
-//char __thiscall sub_4C288E(void *_this, int a2, int a3, int a4);
-bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
-//char __thiscall sub_4C297E(void *_this, int a2, int a3, int a4);
-bool Vis_sort_some_objects_3(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
-//int __thiscall sub_4C1417(void *_this, const void *Src, int a3, int a4, int a5);
-void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY);
-//char __thiscall sub_4C26D0(void *_this, int a2, int a3, int a4);
-/*template*/ bool Vis_Sort_template_D3DXVECTOR_x(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
-//char __thiscall sub_4C27AD(void *_this, int a2, int a3, int a4);
-/*template*/ bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
-
-struct class25_stru0 *Vis_sub_4C1944(Vis *_this, int a2, unsigned int a3, int a4, int a5, int a6);
-signed int sub_4C1BAA_Vis_get_object_zbuf_val(void *_this, int a2);
-signed int sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(struct Vis *_this);
-int __stdcall Vis_sub_4C248E(struct Vis_stru0 *a1, float fMouseX, float fMouseY, float a4);
-
-char __thiscall Vis_sub_4C1930(Vis *_this, float a2, int a3);
-void __thiscall Vis_SetupCtorDetor(Vis *_this);
 
 struct class06_stru0
 {
@@ -957,9 +859,9 @@ bool struct8_sub_479295(struct struct8 *_this);
 //struct class55
 struct OldCamera
 {
- signed int   dword_000000;
- signed int   dword_000004;
- signed int   dword_000008;
+ int          sPosX;            // dword @ 000000
+ int          sPosY;            // dword @ 000004
+ int          sPosZ;            // dword @ 000008
  unsigned int uMapGridCellX;    // dword @ 00000C  coordinates on map grid (height and tile maps etc)
  int          uMapGridCellZ;    // dword @ 000010
  signed int   sRotationX;       // dword @ 000014    dword @ 0006C4 in Player    OldCamera euler angles
@@ -1239,6 +1141,21 @@ struct unnamed_505898
 };
 //sizeof ~ FB
 //loc_40D707
+
+
+
+
+
+struct unnamed_F93E6C
+{
+ int  dword_000000;
+ int  dword_000004;
+ int  dword_000008;
+ int  dword_00000C;
+ int  dword_000010;
+};
+//sizeof == 14
+
 
 
 
