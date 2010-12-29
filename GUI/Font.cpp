@@ -289,14 +289,10 @@ void FontDrawText(GUI::Window *_this, struct Font *pFont, unsigned int uX, unsig
   int v9; // ebx@1
   int v10; // edi@1
   int v12; // edx@9
-  int v15; // eax@25
-  int v16; // ecx@25
   int v17; // eax@27
-  int v18; // edi@32
   int v19; // esi@38
   unsigned __int8 v20; // sf@39
   unsigned __int8 v21; // of@39
-  char v23; // [sp-18h] [bp-50h]@2
   int v24; // [sp-14h] [bp-4Ch]@2
   int v25; // [sp-10h] [bp-48h]@2
   int v26; // [sp-Ch] [bp-44h]@2
@@ -304,10 +300,7 @@ void FontDrawText(GUI::Window *_this, struct Font *pFont, unsigned int uX, unsig
   char v30; // [sp+Fh] [bp-29h]@32
   char v31; // [sp+11h] [bp-27h]@34
   char *v32; // [sp+20h] [bp-18h]@25
-  int v33; // [sp+24h] [bp-14h]@25
   int v34; // [sp+28h] [bp-10h]@1
-  size_t v35; // [sp+2Ch] [bp-Ch]@4
-  char *v37; // [sp+34h] [bp-4h]@7
   int v38; // [sp+4Ch] [bp+14h]@11
  unsigned char c,b;
  unsigned int uOutX,

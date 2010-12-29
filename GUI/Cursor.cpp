@@ -33,8 +33,6 @@ int GUICursor_fn1(struct GUICursor *_this, int a2)
 POINT *GUICursor_GetMousePos(struct GUICursor *_this, POINT *pOut)
 {
  int *v3; // edx@1
- int v4; // ecx@2
- int v5; // edx@3
 
  v3 = (int *)pAsyncMouse;
  if (pAsyncMouse)

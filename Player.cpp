@@ -117,7 +117,6 @@ void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
 bool Player_sub_48D6D0(struct Player *_this, int a2)
 {
   int v2; // esi@1
-  int v3; // edx@2
 
   v2 = 0;
   while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->pEquippedItemIndices[v2]) != a2)
@@ -1163,33 +1162,8 @@ LABEL_117:
 //----- (004927A8) --------------------------------------------------------
 unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID)
 {
-  signed int v3; // ebx@2
-  signed int v4; // edi@3
-  signed int v5; // esi@3
-
   if (uInventorySlot == -1) // need to find appropriate place for item
   {
-   /*
-    v3 = 0;
-    while ( 2 )
-    {
-      v4 = 0;
-      v5 = v3;
-      do
-      {
-        if ( CanPlaceItemInInventory(_this, v5, itemid) )
-          return CreateItemInInventory(_this, v5, itemid);
-        
-        ++v4;
-        v5 += 14;
-      }
-      while ( v4 < 9 );
-      ++v3;
-      if ( v3 < 14 )
-        continue;
-      break;
-    }
-    return 0;*/
    uInventorySlot = FindPlaceForItemInInventory(_this, uItemID);
    if (uInventorySlot == -1)
    {
@@ -1910,7 +1884,7 @@ LABEL_82:
         if ( v30 == 2 )
         {
           if ( v31 == 1 )
-            Player_PlaySound(pPlayers[v21], 107, 0);
+            Player_PlaySound(pPlayers[v21 - 1], 107, 0);
         }
         result = 1;
         break;
@@ -3356,9 +3330,7 @@ unsigned int FindPlaceForItemInInventory(struct Player *_this, ItemGen *pItem)
 unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, struct ItemGen *pItem)
 {
   int v3; // ebx@1
-  signed int v4; // edi@3
   signed int v5; // esi@3
-  signed int v10; // [sp+18h] [bp+8h]@2
 
  v3 = pItem->uItemID;
  class40_sub_456D17(pClass40, pItem);
@@ -3482,21 +3454,8 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
 //----- (00492600) --------.text:00494156  ------------------------------------------------
 unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID)
 {
-  //int v3;
-  //int i, x; // eax@1
-  //signed int v4; // edx@1
-  //int result; // eax@8
  cTexture *v7; // esi@10
   int v8; // eax@10
-  void *v9; // esi@13
-  //int slotsW; // [sp+0h] [bp-Ch]@10
-  //void *v12; // [sp+4h] [bp-8h]@1
-  //signed int v13; // [sp+8h] [bp-4h]@4
-  //int slotsH; // [sp+18h] [bp+Ch]@10
-
-  //v12 = _this;
-  //v4 = 0;
-  //v3 = (int)((char *)_this + 532);  //pInventorySlots
 
 
  unsigned int uItemsPoolSlotID = -1;
@@ -3509,27 +3468,7 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
 
  if (uItemsPoolSlotID == -1)
    return -1;
-  /*
-  v3 = _this->pInventorySlots[v4].uItemID;
-  while (v3 )
-  {
-    ++v4;
-    v3 = _this->pInventorySlots[v4].uItemID;
-    if ( v4 >= 126 )
-    {
-      v13 = -1;
-      break;
-    }
-  }
-  v13 = v4;
-  if ( v13 == -1 )
-  {
-    if ( uActiveCharacter )
-      Player_PlaySound(pPlayers[uActiveCharacter - 1], Character::Voice::NoRoom, 0);
-    result = 0;
-  }
-  else
-  {*/
+
 #ifndef OLD_CODE
  wchar_t pItemIconNameW[64];
 
@@ -3550,15 +3489,6 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
       cTexture_Free(v7);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
-
-    /*if ( uNumSlotsY > 0 ) // reserving space for large items in inventory
-    {
-      for(x = uInventorySlot; uNumSlotsY-- != 0; x+=14) // 14 is the columns count, so getting to next row
-      {
-        for(i = 0; i < uNumSlotsX; i++) // filling number of columns horizontally
-         _this->pInventoryIndices[x + i] = -1 - uInventorySlot;
-      }
-    }*/
 
  // fill X x Y area of pInvIndices with index, item form pool with ID
  unsigned int uInventorySlotX = uInventorySlot % 14,

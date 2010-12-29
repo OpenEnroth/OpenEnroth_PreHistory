@@ -305,7 +305,6 @@ signed int Player_sub_48D709(struct Player *_this, int a2, int a3)
   int v3; // edx@2
   int v4; // ecx@2
   int v6; // esi@5
-  int v7; // edx@6
 
   if ( a3 >= 16 )
   {
@@ -2090,12 +2089,8 @@ int __cdecl sub_491E3A()
   int v3; // eax@7
   int v4; // edx@8
   int v5; // ecx@9
-  int v6; // edi@17
   int v7; // ebx@18
-  int v8; // eax@19
   int v9; // eax@20
-  int v10; // eax@22
-  int v11; // eax@23
   int result; // eax@26
  int i;
 
@@ -2394,7 +2389,6 @@ bool __thiscall Player_sub_492C40(Player *_this)
 bool Player_CanEquip_RacialAndAlignmentCheck(Player *_this, unsigned int uItemID)
 {
   char v2; // zf@9
-  __int16 v4; // dx@13
   char v5; // zf@15
 
  if (uItemID == 514 ||                       // item233  Посох Этрика              артефакт, зло
@@ -3407,21 +3401,17 @@ int CreditsMenuLoop()
 {
   FILE *v0; // eax@5
   char *v1; // edi@5
-  int v2; // eax@5
   int v3; // esi@7
   Font *v4; // dl@9
   Font *v5; // ecx@9
   __int16 v6; // ax@9
   unsigned int v8; // ST2C_4@9
   int v9; // eax@9
-  int v10; // eax@9
   unsigned int v11; // ST2C_4@19
   int v12; // eax@19
-  int v14; // eax@24
   int v15; // eax@24
   cTexture cTexture_obj;//[128]; // [sp+Ch] [bp-130h]@5
   int v17; // [sp+20h] [bp-11Ch]@8
-  size_t Count; // [sp+34h] [bp-108h]@7
   class cPCXTexture cBackGround;
   //char v19; // [sp+54h] [bp-E8h]@1
   double v20; // [sp+7Ch] [bp-C0h]@9
@@ -5763,12 +5753,9 @@ LABEL_179:
 }
 
 //----- (0049AC17) --------------------------------------------------------
-int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
+int __thiscall sub_49AC17(int _this, int sPosX, int sPosY, int sPosZ)
 {
   int v4; // esi@1
-  unsigned __int8 v5; // zf@1
-  char v6; // sf@1
-  unsigned __int8 v7; // of@1
   int v8; // eax@3
   int v9; // edx@9
   int v10; // edi@9
@@ -5825,29 +5812,29 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
   int v62; // [sp+110h] [bp-4h]@16
 
   v4 = 0;
-  compile_error();//v7 = __SETO__(*(_DWORD *)(_this + 648), 1);
-  v5 = *(_DWORD *)(_this + 648) == 1;
-  v6 = *(_DWORD *)(_this + 648) - 1 < 0;
+  //v7 = __SETO__(*(_DWORD *)(_this + 648), 1);
+  //v5 = *(_DWORD *)(_this + 648) == 1;
+  //v6 = *(_DWORD *)(_this + 648) - 1 < 0;
   v58 = 0;
   v46[0] = 0;
   v59 = 1;
-  if ( (unsigned __int8)(v6 ^ v7) | v5 )
+  if (*(_DWORD *)(_this + 648) <= 1 )
     return 0;
   v55 = 116;
   do
   {
     v8 = v55 + *(_DWORD *)(_this + 652);
-    if ( *(_WORD *)(v8 + 104) <= a2 )
+    if ( *(_WORD *)(v8 + 104) <= sPosX )
     {
-      if ( *(_WORD *)(v8 + 106) >= a2 )
+      if ( *(_WORD *)(v8 + 106) >= sPosX )
       {
-        if ( *(_WORD *)(v8 + 108) <= a3 )
+        if ( *(_WORD *)(v8 + 108) <= sPosY )
         {
-          if ( *(_WORD *)(v8 + 110) >= a3 )
+          if ( *(_WORD *)(v8 + 110) >= sPosY )
           {
-            if ( *(_WORD *)(v8 + 112) - 64 <= a4 )
+            if ( *(_WORD *)(v8 + 112) - 64 <= sPosZ )
             {
-              if ( *(_WORD *)(v8 + 114) + 64 >= a4 )
+              if ( *(_WORD *)(v8 + 114) + 64 >= sPosZ)
               {
                 v10 = *(_WORD *)(v8 + 4);
                 v11 = v10 + *(_WORD *)(v8 + 36);
@@ -5880,7 +5867,7 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
                       v57 = 0;
                       v60 = 0;
                       v21 = *(_BYTE *)(v15 + 93) == 0;
-                      v62 = v20 >= a3;
+                      v62 = v20 >= sPosY;
                       if ( !v21 )
                       {
                         v22 = v19 + 2;
@@ -5891,7 +5878,7 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
                           v52 = v18 + 6 * *(_WORD *)v22;
                           v23 = *(_WORD *)(v52 + 2);
                           v50 = *(_WORD *)(v52 + 2);
-                          v53 = v23 >= a3;
+                          v53 = v23 >= sPosY;
                           if ( v62 ^ v53 )
                           {
                             v61 = v18 + 6 * *(_WORD *)(v22 - 2);
@@ -5900,11 +5887,11 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
                             LOWORD(v25) = *(_WORD *)v52;
                             v52 = v25;
                             v62 = (signed __int16)v25;
-                            if ( (signed __int16)v25 >= a2 )
+                            if ( (signed __int16)v25 >= sPosX )
                               v26 = 0;
                             else
                               v26 = 2;
-                            v27 = v26 | v24 < a2;
+                            v27 = v26 | v24 < sPosX;
                             if ( v27 != 3 )
                             {
                               if ( !v27
@@ -5915,7 +5902,7 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
                                                                    v62 = v34 / v61,
                                                                    v35 = *(_DWORD *)(_this + 628),
                                                                    v61 = v34 / v61,
-                                                                   v62 = a3 - *(_WORD *)(v35 + 6 * *(_WORD *)v22 + 2),
+                                                                   v62 = sPosY - *(_WORD *)(v35 + 6 * *(_WORD *)v22 + 2),
                                                                    v62 = (unsigned __int64)(v61 * v62) >> 16,
                                                                    v28 = *(_WORD *)v22) : (v29 = *(_WORD *)(v61 + 2),
                                                                                            v62 -= v24,
@@ -5926,12 +5913,12 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
                                                                                            v31 = v30 / (v50 - v29),
                                                                                            v32 = *(_DWORD *)(_this + 628),
                                                                                            v61 = v31,
-                                                                                           v62 = a3
+                                                                                           v62 = sPosY
                                                                                                - *(_WORD *)(v32 + 6 * *(_WORD *)(v22 - 2) + 2),
                                                                                            v62 = (unsigned __int64)(v31 * v62) >> 16,
                                                                                            v28 = *(_WORD *)(v22 - 2)),
                                     v18 = *(_DWORD *)(_this + 628),
-                                    v62 + *(_WORD *)(v18 + 6 * v28) > a2) )
+                                    v62 + *(_WORD *)(v18 + 6 * v28) > sPosX) )
                                 ++v57;
                             }
                           }
@@ -5975,7 +5962,7 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
   v56 = 16777215;
   if ( v58 > 0 )
   {
-    v42 = a3;
+    v42 = sPosY;
     while ( 1 )
     {
       v44 = *(_DWORD *)(_this + 636) + 96 * v46[v40];
@@ -5985,10 +5972,10 @@ int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4)
       if ( v43 == 4 )
       {
         v54 = *(_DWORD *)(v44 + 32);
-        v60 = (unsigned __int64)(v54 * (a2 << 16)) >> 16;
-        v59 = a3 << 16;
+        v60 = (unsigned __int64)(v54 * (sPosX << 16)) >> 16;
+        v59 = sPosY << 16;
         v54 = *(_DWORD *)(v44 + 36);
-        v59 = (unsigned __int64)(v54 * (a3 << 16)) >> 16;
+        v59 = (unsigned __int64)(v54 * (sPosY << 16)) >> 16;
         v45 = (v59 + *(_DWORD *)(v44 + 40) + v60 + 32768) >> 16;
         goto LABEL_46;
       }
@@ -6007,7 +5994,7 @@ LABEL_47:
     }
     v45 = *(_WORD *)(*(_DWORD *)(_this + 628) + 6 * **(_WORD **)(v44 + 48) + 4);
 LABEL_46:
-    v42 = a4 - v45;
+    v42 = sPosZ - v45;
     goto LABEL_47;
   }
   return v41;
@@ -6817,8 +6804,6 @@ bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, struct Vec3 *p
   int v19; // [sp-14h] [bp-50h]@12
   int v20; // [sp-10h] [bp-4Ch]@12
   int v21; // [sp-Ch] [bp-48h]@12
-  const char *v22; // [sp-8h] [bp-44h]@12
-  int v23; // [sp-4h] [bp-40h]@12
   double v24; // [sp+Ch] [bp-30h]@19
   int v25; // [sp+14h] [bp-28h]@1
   int v26; // [sp+18h] [bp-24h]@1

@@ -892,7 +892,7 @@ char __thiscall sub_498A41(int _this, int a2, int a3);
 int __thiscall sub_498B15(int _this);
 signed int __thiscall sub_498C45(int _this);
 signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, int a5);
-int __thiscall sub_49AC17(int _this, int a2, signed int a3, int a4);
+int __thiscall sub_49AC17(int _this, int sPosX, int sPosY, int sPosZ);
 void *__thiscall sub_49B001(void *_this);
 int __fastcall sub_49B02E(int a1, int a2, int a3);
 signed int __thiscall sub_49B04D(void *_this, int a2, int a3);

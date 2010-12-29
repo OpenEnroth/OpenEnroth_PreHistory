@@ -10,7 +10,7 @@ namespace Result
  enum Code
  {
   Success = 0,
-  
+
   Generic = 1,        // Generic error without description
   InvalidParams = 2,  // Invalid parameters passed to function
   NotFound = 3,       // Some data cannot be found
