@@ -246,7 +246,6 @@ loc_41ADA6:                             ; CODE XREF: sub_41AD6E+24j
 
  __asm
  {
-  {
    //restore asm state
    xor ebx, ebx
      mov edx, dword ptr [pParty_global]
@@ -258,14 +257,11 @@ loc_41ADA6:                             ; CODE XREF: sub_41AD6E+24j
    mov     ecx, esi
    sub     eax, dword ptr [qword_507CC8]
    sbb     ecx, dword ptr [qword_507CC8+4]
-  }
 
   js      loc_41AE97
   jg      short loc_41ADCD
 
-  {
    add esp, 16
-  }
  }
 
  if (LODWORD(ecx_eax) <= 128)

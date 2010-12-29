@@ -1349,7 +1349,7 @@ void SoundList_sub_4A9D79(SoundList *_this, bool a2)
   void *v7; // eax@5
 
   if (bNoSound)
-    return 0;
+    return;
 
   v4 = _this;
   v3 = 0;
