@@ -255,7 +255,6 @@ void __thiscall sub_41C0B8_SetStatusBarString(const char *Str1);
 signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key);
 void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this);
 void sub_41D20D(int a1, int a2, __int64 a3, int a4);
-void __thiscall sub_41D895(void *_this);
 void __fastcall sub_41E360(int a1, int a2);
 char *__fastcall sub_41F50D(int a1, int a2, char a3);
 int __cdecl sub_41F54A();

@@ -10764,6 +10764,480 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
         sub_4179BC(v26, (const char *)v7);
 }
 
+//----- (0041D895) --------------------------------------------------------
+void GameUI_DrawItemInfo(ItemGen *_this)
+{
+  int v2; // eax@3
+  signed int v3; // eax@5
+  int *v4; // edi@5
+  int v5; // esi@5
+  int v6; // eax@5
+  int v7; // edx@5
+  int v8; // ecx@10
+  int v9; // eax@12
+  int v10; // eax@16
+  char v11; // zf@16
+  char v12; // zf@18
+  int v13; // eax@25
+  char v14; // zf@25
+  char v15; // zf@27
+  int v16; // eax@32
+  int v17; // ecx@32
+  int v18; // edi@33
+  int v19; // eax@34
+  int v20; // eax@36
+  int v21; // esi@37
+  unsigned __int16 v22; // ax@37
+  unsigned __int8 v23; // al@40
+  unsigned __int8 v24; // al@44
+  unsigned __int8 v25; // al@48
+  char v26; // al@51
+  int v27; // eax@52
+  int v28; // eax@57
+  int v29; // eax@60
+  int v30; // eax@67
+  const char *v32; // edi@69
+  int v33; // eax@70
+  signed int v34; // edi@78
+  int v35; // eax@78
+  int v36; // esi@81
+  int v37; // ecx@81
+  int v38; // eax@81
+  const char *v40; // eax@85
+  int v41; // eax@87
+  int v42; // eax@109
+  int v43; // eax@109
+  int v44; // edx@113
+  int v45; // eax@113
+  signed int v46; // [sp-20h] [bp-298h]@113
+  int v47; // [sp-1Ch] [bp-294h]@113
+  char *v48; // [sp-18h] [bp-290h]@46
+  __int16 v49; // [sp-18h] [bp-290h]@113
+  int v50; // [sp-14h] [bp-28Ch]@46
+  const char *v51; // [sp-14h] [bp-28Ch]@58
+  const char *v52; // [sp-14h] [bp-28Ch]@110
+  int v53; // [sp-10h] [bp-288h]@46
+  const char *v54; // [sp-10h] [bp-288h]@56
+  int v55; // [sp-10h] [bp-288h]@58
+  int v56; // [sp-10h] [bp-288h]@110
+  const char *v57; // [sp-Ch] [bp-284h]@36
+  int v58; // [sp-Ch] [bp-284h]@46
+  int v59; // [sp-Ch] [bp-284h]@56
+  int v60; // [sp-Ch] [bp-284h]@58
+  signed int v61; // [sp-Ch] [bp-284h]@110
+  int v62; // [sp-8h] [bp-280h]@36
+  int v63; // [sp-8h] [bp-280h]@46
+  int v64; // [sp-8h] [bp-280h]@56
+  int v65; // [sp-8h] [bp-280h]@58
+  char *v66; // [sp-8h] [bp-280h]@110
+  char v67[100]; // [sp+8h] [bp-270h]@40
+  char Dest[100]; // [sp+6Ch] [bp-20Ch]@40
+  char v69[100]; // [sp+D0h] [bp-1A8h]@40
+  char v70; // [sp+134h] [bp-144h]@92
+  char Source[40]; // [sp+1ACh] [bp-CCh]@49
+  char v72; // [sp+1D4h] [bp-A4h]@91
+  int v73; // [sp+1D8h] [bp-A0h]@106
+  int v74; // [sp+1DCh] [bp-9Ch]@101
+  int v75; // [sp+1E0h] [bp-98h]@97
+  int v76; // [sp+1E8h] [bp-90h]@93
+  int v77; // [sp+1ECh] [bp-8Ch]@91
+  __int16 v78[2]; // [sp+1F0h] [bp-88h]@1
+  cTexture *v79; // [sp+1F4h] [bp-84h]@5
+  int v80; // [sp+1F8h] [bp-80h]@5
+  int *v81; // [sp+1FCh] [bp-7Ch]@5
+  int v82; // [sp+200h] [bp-78h]@12
+  int v83; // [sp+204h] [bp-74h]@5
+
+  GUI::Window local_208;
+  //int v84; // [sp+208h] [bp-70h]@5
+  //int v85; // [sp+20Ch] [bp-6Ch]@2
+  //int v86; // [sp+210h] [bp-68h]@2
+  //int v87; // [sp+214h] [bp-64h]@2
+  //int v88; // [sp+218h] [bp-60h]@33
+  //int v89; // [sp+21Ch] [bp-5Ch]@33
+  //int v90; // [sp+250h] [bp-28h]@2
+
+  POINT v91; // [sp+25Ch] [bp-1Ch]@2
+  int v93; // [sp+264h] [bp-14h]@5
+  int v94; // [sp+268h] [bp-10h]@1
+  int v95; // [sp+26Ch] [bp-Ch]@18
+  char *Str1; // [sp+270h] [bp-8h]@65
+  int v97; // [sp+274h] [bp-4h]@1
+
+  v97 = (int)_this;
+  *(_DWORD *)v78 = 0xFFFF9B;
+  v94 = (int)pFontComic;
+  if ( _this->uItemID )
+  {
+    local_208.ptr_000048 = 0;
+    local_208.uFrameWidth = 384;
+    local_208.uFrameHeight = 180;
+    local_208.uFrameY = 40;
+    if ( GUICursor_GetMousePos(pGame->pGUICursor, &v91)->x <= 320 )
+      v2 = GUICursor_GetMousePos(pGame->pGUICursor, &v91)->x + 30;
+    else
+      v2 = GUICursor_GetMousePos(pGame->pGUICursor, &v91)->x - local_208.uFrameWidth - 30;
+    local_208.uFrameX = v2;
+    v4 = (int *)&pClass40->pItems[_this->uItemID].pIconName;
+    v81 = v4;
+    v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char *)*v4, 2);
+    v5 = v6;
+   // v6 *= 72;
+  //  v80 = v6;
+	v79 = &LODFile_Icons_LOD.aLODHeaders[v6];
+    //v3 = 100 - *(_WORD *)LODFile_Icons_LOD.array_000032C[v6 + 24];
+	v3= 100-v79->uTextureWidth;
+    v7 = v79->uTextureHeight;
+    v83 = v3;
+    v93 = 144 - v7;
+    if ( v3 > 0 )
+      v83 = v3 >> 1;
+    if ( v93 <= 0 )
+      v93 = 0;
+    else
+      v93 >>= 1;
+    v8 = v97;
+    if ( !*((_BYTE *)v4 + 46) )
+      _this->dword_000014 |= 1u;
+    v9 = _this->dword_000014;
+    v82 = 0;
+    v91.y = v9 & 2;
+    if (pClass40->pItems[*(_DWORD *)v8 - 1].uEquipType == 18 )
+      v82 = *(_DWORD *)(v8 + 12);
+    if ( uActiveCharacter )
+    {
+      if ( !(v9 & 1) )
+      {
+        v11 = sub_4910D3(v97) == 1;
+        v10 = v97;
+        if ( v11 )
+          _this->dword_000014 |= 1u;
+        v12 = (*(_BYTE *)(v10 + 20) & 1) == 0;
+        v95 = 9;
+        if ( v12 )
+        {
+          sub_44C175((char *)pGlobalTXT_LocalizationStrings[446], 2);
+        }
+        else
+        {
+          v95 = 8;
+          if ( ItemGen_sub_456442((ItemGen *)v97) < (unsigned int)(100 * (*((_WORD *)pPlayers[uActiveCharacter - 1] + 109) + 5)) )
+            v95 = 7;
+        }
+        if ( dword_4E455C )
+        {
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], v95, 0);
+          dword_4E455C = 0;
+        }
+      }
+      sub_458260(v97, pParty_global->qword_00002C);
+      if ( v91.y )
+      {
+        v14 = Player_sub_491151(pPlayers[uActiveCharacter - 1], v97) == 1;
+        v13 = v97;
+        if ( v14 )
+          _this->dword_000014 = _this->dword_000014 & 0xFFFFFFFD | 1;
+        v15 = (*(_BYTE *)(v13 + 20) & 2) == 0;
+        v95 = 11;
+        if ( v15 )
+          v95 = 10;
+        else
+          sub_44C175((char *)pGlobalTXT_LocalizationStrings[448], 2);
+        if ( dword_4E455C )
+        {
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], v95, 0);
+          dword_4E455C = 0;
+        }
+      }
+    }
+    v17 = _this->dword_000014;
+    v16 = _this->dword_000014 & 1;
+    v91.y = _this->dword_000014 & 1;
+    if ( v17 & 2 )
+    {
+      GUIWindow_sub_415551(&local_208, 0);
+      v18 = (int)pD3DRenderer;
+      Render_Set2DClippingRect(pD3DRenderer, local_208.uFrameX + 12, local_208.uFrameY + 12, local_208.uFrameX + local_208.uFrameWidth - 12, local_208.uFrameY + local_208.uFrameHeight - 12);
+      local_208.uFrameWidth -= 24;
+      local_208.uFrameHeight -= 12;
+      local_208.uFrameZ = local_208.uFrameX + local_208.uFrameWidth - 1;
+      local_208.uFrameW = local_208.uFrameY + local_208.uFrameHeight - 1;
+      Render_sub_4A6776(pD3DRenderer, local_208.uFrameX + v83, v93 + local_208.uFrameY + 30, (cTexture *)(v5 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v5] : 0));
+      if ( v91.y )
+        v19 = ItemGen_sub_4564B3(_this);
+      else
+        v19 = v81[2];
+      GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v19, 3);
+      v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[32], &local_208, 0, 0);
+      v62 = 3;
+      v57 = (char *)pGlobalTXT_LocalizationStrings[32];
+      goto LABEL_37;
+    }
+    if ( !v16 )
+    {
+      GUIWindow_sub_415551(&local_208, 0);
+      v18 = (int)pD3DRenderer;
+      Render_Set2DClippingRect(pD3DRenderer, local_208.uFrameX + 12, local_208.uFrameY + 12, local_208.uFrameX + local_208.uFrameWidth - 12, local_208.uFrameY + local_208.uFrameHeight - 12);
+      local_208.uFrameWidth -= 24;
+      local_208.uFrameHeight -= 12;
+      local_208.uFrameZ = local_208.uFrameX + local_208.uFrameWidth - 1;
+      local_208.uFrameW = local_208.uFrameY + local_208.uFrameHeight - 1;
+      Render_DrawTransparentTexture(pD3DRenderer, local_208.uFrameX + v83, v93 + local_208.uFrameY + 30, (cTexture *)(v5 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v5]: 0));
+      GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v81[2], 3);
+      v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[232], &local_208, 0, 0);
+      v62 = 3;
+      v57 = (char *)pGlobalTXT_LocalizationStrings[232];
+LABEL_37:
+      v21 = v20 >> 1;
+      v22 = 0xFF1919;
+      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, v22, v57, v62);
+      goto LABEL_116;
+    }
+    wsprintfA(v67, (char *)pGlobalTXT_LocalizationStrings[463], v4[2]);
+    strcpy(Dest, "");
+    strcpy(v69, "");
+    v23 = *((_BYTE *)v4 + 28);
+    if ( v23 <= 1u )
+    {
+      v63 = *((_BYTE *)v4 + 31);
+      v58 = *((_BYTE *)v4 + 30);
+      v53 = (int)pGlobalTXT_LocalizationStrings[53];
+      v50 = *((_BYTE *)v4 + 32);
+      v48 = (char *)pGlobalTXT_LocalizationStrings[18];
+    }
+    else
+    {
+      if ( v23 != 2 )
+      {
+        if ( v23 > 2 )
+        {
+          if ( v23 <= 0xBu )
+          {
+            v24 = *((_BYTE *)v4 + 30);
+            if ( v24 )
+              wsprintfA(Dest, "%s: +%d", pGlobalTXT_LocalizationStrings[11], v24 + *((_BYTE *)v4 + 32));
+          }
+        }
+        goto LABEL_50;
+      }
+      v63 = *((_BYTE *)v4 + 31);
+      v58 = *((_BYTE *)v4 + 30);
+      v53 = (int)pGlobalTXT_LocalizationStrings[53];
+      v50 = *((_BYTE *)v4 + 32);
+      v48 = (char *)pGlobalTXT_LocalizationStrings[203];
+    }
+    wsprintfA(Dest, "%s: +%d   %s: %dd%d", v48, v50, v53, v58, v63);
+    v25 = *((_BYTE *)v4 + 32);
+    if ( v25 )
+    {
+      wsprintfA(Source, " +%d", v25);
+      strcat(Dest, Source);
+    }
+LABEL_50:
+    if ( v82 )
+      goto LABEL_65;
+    v26 = *((_BYTE *)v4 + 28);
+    if ( v26 == 14 )
+    {
+      v27 = *(_DWORD *)(v97 + 4);
+      if ( v27 )
+        goto LABEL_56;
+LABEL_65:
+      local_208.uFrameWidth -= 12;
+      v91.y = 3;
+      local_208.uFrameZ = local_208.uFrameX + local_208.uFrameWidth - 1;
+      local_208.uFrameW = local_208.uFrameY + local_208.uFrameHeight - 1;
+      Str1 = 0;//(3 * pFontArrus->uFontHeight + 8);
+      v95 = (int)v67;
+      do
+      {
+        if ( *(_BYTE *)v95 )
+        {
+          v30 = GUIFont_CalculateTextHeight((Font *)v94, (unsigned char *)v95, &local_208, 100, 0);
+          Str1 += v30 + 3;
+        }
+        v95 += 100;
+      }
+      while ( v91.y-- != 1 );
+      v32 = (const char *)v4[3];
+      if ( *v32 )
+      {
+        v33 = GUIFont_CalculateTextHeight(pFontSmallnum, (unsigned char *)v32, &local_208, 100, 0);
+        Str1 += v33;
+      }
+      local_208.uFrameHeight = *(_WORD *)(v79 + 26) + v93 + 54;
+      if ( (signed int)Str1 > local_208.uFrameHeight)
+        local_208.uFrameHeight = (int)Str1;
+      if ( *(_BYTE *)(v97 + 20) & 8 )
+      {
+        if ( *(_DWORD *)(v97 + 12) || *(_DWORD *)(v97 + 4) )
+          local_208.uFrameHeight += *(_BYTE *)(v94 + 5);
+      }
+      v95 = 0;
+      if ( pFontArrus->uFontHeight )
+      {
+        local_208.uFrameWidth -= 24;
+        v34 = pFontArrus->uFontHeight;
+        v35 = ItemGen_sub_4564B3((ItemGen *)v97);
+        if ( GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v35, &local_208, 0, 0) / v34 )
+          v95 = v34;
+        local_208.uFrameWidth += 24;
+      }
+      local_208.uFrameWidth += 12;
+      local_208.uFrameHeight += v95;
+      local_208.uFrameW = local_208.uFrameY + local_208.uFrameHeight - 1;
+      local_208.uFrameZ = local_208.uFrameX + local_208.uFrameWidth - 1;
+      GUIWindow_sub_415551(&local_208, 0);
+      v18 = (int)pD3DRenderer;
+      Render_Set2DClippingRect(pD3DRenderer, local_208.uFrameX + 12, local_208.uFrameY + 12, local_208.uFrameX + local_208.uFrameWidth - 12, local_208.uFrameY + local_208.uFrameHeight - 12);
+      local_208.uFrameWidth -= 12;
+      v37 = *(_WORD *)(v79 + 26);
+      v38 = local_208.uFrameHeight;
+      local_208.uFrameHeight -= 12;
+      local_208.uFrameZ = local_208.uFrameX + local_208.uFrameWidth - 1;
+      local_208.uFrameW = local_208.uFrameX + local_208.uFrameHeight - 1;
+      Render_DrawTransparentTexture(pD3DRenderer, local_208.uFrameX + v83, local_208.uFrameY + (v38 - v37) / 2, v5 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v5] : 0);
+      v91.y = 3;
+      v36 = v95 + 35;
+      Str1 = v67;
+      do
+      {
+        if ( *Str1 )
+        {
+          FontDrawText(&local_208, (Font *)v94, 100, v36, Str1, 0, 0, 0);
+          v36 += GUIFont_CalculateTextHeight((Font *)v94, (unsigned char *)Str1, &local_208, 100, 0) + 3;
+        }
+        Str1 += 100;
+      }
+      while ( v91.y-- != 1 );
+      v40 = (const char *)v81[3];
+      if ( *v40 )
+        FontDrawText(&local_208, pFontSmallnum, 100, v36, v40, 0, 0, 0);
+      local_208.uFrameX += 12;
+      local_208.uFrameWidth -= 24;
+      v41 = ItemGen_sub_4564B3((ItemGen *)v97);
+      GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v41, 3);
+      local_208.uFrameWidth += 24;
+      local_208.uFrameX -= 12;
+      if ( v82 )
+      {
+        wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[465], v82);
+        v44 = v94;
+        v66 = 0;
+        v61 = 0;
+        v56 = 0;
+        v52 = (char *)TmpBuf;
+        v49 = 0;
+        v47 = local_208.uFrameHeight - *(_BYTE *)(v94 + 5);
+        v46 = 100;
+      }
+      else
+      {
+        if ( *(_BYTE *)(v97 + 20) & 8 )
+        {
+          if ( *(_DWORD *)(v97 + 12) || *(_DWORD *)(v97 + 4) )
+          {
+            sub_493F79((int)&v72, *(_QWORD *)(v97 + 28) - pParty_global->qword_00002C);
+            strcpy((char *)TmpBuf, "Duration:");
+            Str1 = (char *)(v77 - 1168);
+            if ( v77 != 1168 )
+            {
+              wsprintfA(&v70, " %d:yr", v77 - 1168);
+              strcat((char *)(char *)TmpBuf, &v70);
+            }
+            if ( (((v76 || Str1)
+                && ((wsprintfA(&v70, " %d:mo", v76), strcat((char *)TmpBuf, &v70), v76) || Str1)
+                || v75)
+               && ((wsprintfA(&v70, " %d:dy", v75), strcat((char *)TmpBuf, &v70), v76) || Str1 || v75)
+               || v74)
+              && ((wsprintfA(&v70, " %d:hr", v74), strcat((char *)TmpBuf, &v70), v76) || Str1 || v75 || v74)
+              || v73 )
+            {
+              wsprintfA(&v70, " %d:mn", v73);
+              strcat((char *)(char *)TmpBuf, &v70);
+            }
+            FontDrawText(&local_208, (Font *)v94, 100, local_208.uFrameHeight - 2 * *(_BYTE *)(v94 + 5), (char *)TmpBuf, 0, 0, 0);
+          }
+        }
+        v43 = ItemGen_sub_456442((ItemGen *)v97);
+        wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[465], v43);
+        FontDrawText(&local_208, (Font *)v94, 100, local_208.uFrameHeight - *(_BYTE *)(v94 + 5), (char *)TmpBuf, 0, 0, 0);
+        v42 = *(_DWORD *)(v97 + 20);
+        if ( BYTE1(v42) & 1 )
+        {
+          v66 = 0;
+          v61 = 0;
+          v56 = 0;
+          v52 = (char *)pGlobalTXT_LocalizationStrings[187];
+        }
+        else
+        {
+          if ( !(BYTE1(v42) & 2) )
+            goto LABEL_116;
+          v66 = 0;
+          v61 = 0;
+          v56 = 0;
+          v52 = (char *)pGlobalTXT_LocalizationStrings[651];
+        }
+        v49 = pD3DRenderer->uTargetRMask;
+        v47 = local_208.uFrameHeight - *(_BYTE *)(v94 + 5);
+        v45 = GUIFont_GetLineWidth((Font *)v94, TmpBuf);
+        v44 = v94;
+        v46 = v45 + 132;
+      }
+      FontDrawText(&local_208, (Font *)v44, v46, v47, v52, v56, v61, (unsigned int)v66);
+LABEL_116:
+      Render_Reset2DClippingRect((BaseRender *)v18);
+      if ( !bTextureLoading )
+      {
+        cTexture_Free((cTexture *)v79);
+        LODFile_Icons_LOD.LODFile_sub_40F9C5();
+      }
+      return;
+    }
+    if ( v26 == 13 )
+    {
+     v27 = pClass40->pItems[*(_DWORD *)v97 - 1].uDamageDice;
+LABEL_56:
+      v64 = v27;
+      v59 = (int)pGlobalTXT_LocalizationStrings[449];
+      v54 = "%s: %d";
+LABEL_64:
+      wsprintfA(v69, v54, v59, v64);
+      goto LABEL_65;
+    }
+    v28 = *(_DWORD *)(v97 + 4);
+    if ( v28 )
+    {
+      v65 = *(_DWORD *)(v97 + 8);
+      v60 = dword_5DBFD0[5 * v28 + 1];
+      v55 = (int)pGlobalTXT_LocalizationStrings[210];
+      v51 = "%s: %s +%d";
+    }
+    else
+    {
+      v29 = *(_DWORD *)(v97 + 12);
+      if ( !v29 )
+      {
+        if ( *(_DWORD *)(v97 + 16) )
+        {
+          v64 = *(_DWORD *)(v97 + 16);
+          v59 = (int)pGlobalTXT_LocalizationStrings[464];
+          v54 = "%s: %lu";
+          goto LABEL_64;
+        }
+        goto LABEL_65;
+      }
+      v65 = *(_DWORD *)(v97 + 8);
+      v60 = dword_5DC1A8[7 * v29 + 1];
+      v55 = (int)pGlobalTXT_LocalizationStrings[210];
+      v51 = "%s: %s";
+    }
+    wsprintfA(v69, v51, v55, v60, v65);
+    goto LABEL_65;
+  }
+}
+
 //----- (00495B39) --------------------------------------------------------
 void PlayerCreationUI_Draw()
 {

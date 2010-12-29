@@ -3293,7 +3293,7 @@ LABEL_12:
         {
           v8 = (int)((char *)v0 + 36 * v10 + 496);
 LABEL_15:
-          sub_41D895((void *)v8);
+          GameUI_DrawItemInfo((ItemGen *)v8);
           return;
         }
       }

@@ -205,6 +205,7 @@ extern unsigned int uTextureID_PartyCreationUI_ClassIcons;
 extern unsigned int uTextureID_PartyCreationUI_Arrows;
 
 
+void GameUI_DrawItemInfo(struct ItemGen *_this);
 void __cdecl GameUI_DrawStatusBar();
 void GameUI_DrawFrames();
 void __cdecl GameUI_DrawFoodAndGold();
