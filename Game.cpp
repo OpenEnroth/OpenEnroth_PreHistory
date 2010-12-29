@@ -644,17 +644,7 @@ char Game_sub_44EEA7(struct Game *_this)
     }
     if ( *(_BYTE *)(v1 + 0xE21) & 4 )
       _this->dword_000E24 |= 0x01;
-    if ( !pD3DRenderer->pRenderD3D3 )
-    {
-      if ( uCurrentlyLoadedLevelType == 2 )
-      {
-        if ( dword_51B6DC )
-        {
-          *(_DWORD *)(v1 + 3620) |= 1u;
-          *(_QWORD *)(v1 + 3600) = qword_5C6DF0;
-        }
-      }
-    }
+
     v6 = qword_5C6DF0 - _this->dword_000E10;
     if ( v6 == 1 )
     {

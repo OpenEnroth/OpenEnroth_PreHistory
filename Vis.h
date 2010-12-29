@@ -50,8 +50,9 @@ char __stdcall sub_438258(struct12 *a1, int a2);
 struct class25_stru0
 {
  unsigned int uBillboardID; // dword @ 000000  Billboard ID for indoor,  class51_stru2 * for outdoor
- int dword_000004; // RenderBillboard::000010, zbuf_val returned by sub_4C1BAA_Vis_get_object_zbuf_val
+ int          sZValue;      // dword @ 000004  RenderBillboard::sZValue, zbuf_val returned by sub_4C1BAA_Vis_get_object_zbuf_val
  int dword_000008; // object type for sub_4C1BAA_Vis_get_object_zbuf_val
+                   // 1: sprite
 };
 //sizeof = 0C
 
@@ -78,9 +79,9 @@ void class25_create_object_pointers(struct class25 *_this, int a2);
 
 struct Vis_stru0 // LOOKS LIKE RenderVertex
 {
- float flt_000000;
- float flt_000004;
- float flt_000008;
+ float x; // float @ 000000
+ float y; // float @ 000004
+ float z; // float @ 000008
  float flt_00000C;
  int   unk_000010[2];
  float flt_000018;
@@ -124,13 +125,13 @@ void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unna
 //char __stdcall sub_4C0791(int a1, int a2);
 bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6C *a2);
 //char __thiscall sub_4C091D(void *_this, float a2, int a3);
-bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3);
+bool Vis_IsRayHitsSprite(struct Vis *_this, float fDepth, int a3);
 //int __thiscall ub_4C0D32(void *_this, float a2, int a3, int a4);
 int Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(struct Vis *_this, float a2, class25 *a3, struct unnamed_F93E6C *a4);
 //int __thiscall sub_4C0DEA(void *_this, float a2, int a3, int a4);
 void Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, float a2, class25 *a3, struct unnamed_F93E6C *a4);
 //void __thiscall sub_4C1542(void *_this, float a2, float a3, float a4, int a5, int a6);
-void Vis_sub_4C1542(struct Vis *_this, float a2, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6);
+void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6);
 //int __thiscall sub_4C1026(void *_this, int a2, int a3, float a4);
 int Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4);
 //char __thiscall sub_4C1ABA(void *_this, int a2, int a3, int a4);

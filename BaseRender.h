@@ -88,7 +88,7 @@ struct RenderBillboard
  int                 dword_000000;
  int                 dword_000004;
  char                byte_000008[8];
- int                 dword_000010;  // zbuffer value for the sprite
+ int                 sZValue;      // dword @ 000010   zbuffer value for the sprite;  depth = LOWORD(sZValue) / 65536 + HIWORD(sZValue)
  int                 dword_000014;
  unsigned short      uHardwareSpriteID; // word @ 000018
  short               word_00001A;

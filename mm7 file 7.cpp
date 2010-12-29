@@ -13921,13 +13921,13 @@ void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, i
       v12 = pPointers[v5];
       for ( i = v5; ; pPointers[i] = (class25_stru0 *)v11 )
       {
-        v8 = v12->dword_000004;
+        v8 = v12->sZValue;
         LOWORD(v8) = 0;
 
         do
         {
           ++v7;
-          v9 = pPointers[v7]->dword_000004;
+          v9 = pPointers[v7]->sZValue;
           LOWORD(v9) = 0;
         }
         while ( v9 < v8 );
@@ -13937,7 +13937,7 @@ void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, i
           if ( i < 1 )
             break;
           --i;
-          v10 = pPointers[i]->dword_000004;
+          v10 = pPointers[i]->sZValue;
           LOWORD(v10) = 0;
         }
         while ( v10 > v8 );

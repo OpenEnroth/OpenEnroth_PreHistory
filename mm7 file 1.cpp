@@ -2462,7 +2462,7 @@ LABEL_53:
         HIWORD(v36) = HIWORD(v60);
         LOWORD(v36) = 0;
         v26->word_00002A = 0;
-        v26->dword_000010 = v36 + (8 * i | 3);
+        v26->sZValue = v36 + (8 * i | 3);
         v26->dword_000014 = i;
 
         v34 = *(_DWORD *)(v1 + 150) == 0;
@@ -5427,13 +5427,13 @@ void __cdecl sub_47BACF_PrepareActorRenderList()
       local_04.dword_00004C = v6;
       local_04.dword_000014 = v7;
 
-      local_04.dword_000028 = pBillboard->dword_000010;
+      local_04.dword_000028 = pBillboard->sZValue;
       local_04.dword_00002C = v3;
       if (pBillboard->uHardwareSpriteID != -1)
       {
         v8 = pBillboard->word_00002A;
 
-          local_04.dword_000028 = pBillboard->dword_000010;
+          local_04.dword_000028 = pBillboard->sZValue;
           local_04.dword_00002C = v3;
           Render_BillboardTransform(pD3DRenderer, &local_04, &LODFile_Sprites_LOD.pHardwareSprites[pBillboard->uHardwareSpriteID], v8, pBillboard);
       }

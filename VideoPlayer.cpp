@@ -525,6 +525,7 @@ void VideoPlayer::SmackDrawFrame(unsigned int uOutX, unsigned int uOutY)
  //}
 
 
+
  POINT ptWindowOffset = {0, 0};
  if (pD3DRenderer->bWindowMode)
    ClientToScreen(pWindow->GetAPIHandle(), &ptWindowOffset);

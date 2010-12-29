@@ -1373,13 +1373,13 @@ LABEL_29:
                   HIWORD(v26) = HIWORD(v42);
                   LOWORD(v26) = 0;
                   v27 = (*((_BYTE *)v0 - 2) & 0x20) == 0;
-                  v7->dword_000010 = v26 + (8 * i | 2);
+                  v7->sZValue = v26 + (8 * i | 2);
                   v7->word_00002A = 0;
                   v7->dword_00002C = 0;
                   if ( !v27 )
                   {
                     if ( !pD3DRenderer->pRenderD3D3 )
-                     v7->dword_000010 = 0;
+                     v7->sZValue = 0;
                   }
                 }
                 goto LABEL_34;

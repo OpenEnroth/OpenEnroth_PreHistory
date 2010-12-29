@@ -9370,7 +9370,7 @@ void __cdecl sub_41C047()
 }
 
 //----- (0041C0B8) --------------------------------------------------------
-void __thiscall sub_41C0B8(const char *Str1)
+void __thiscall sub_41C0B8_SetStatusBarString(const char *Str1)
 {
   const char *v1; // esi@1
   int i; // eax@7
@@ -12283,7 +12283,7 @@ void __cdecl sub_42038D()
                       //36 * word_5E6502[v0 + 2662 * *(_DWORD *)(dword_507BB8 + 28)]);
               //        36 * ((short *)((char *)&array_5E5150[*(_DWORD *)(dword_507BB8 + 28)] + 0x13B2))[v0]);
 
-      sub_41C0B8((const char *)v2);
+      sub_41C0B8_SetStatusBarString((const char *)v2);
     }
   }
 }

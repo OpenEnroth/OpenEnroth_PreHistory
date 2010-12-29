@@ -819,7 +819,8 @@ void GameUI_Update()
         v22 = (char *)ItemGen_sub_456499(&pLayingItemsList[v30/112].stru_000024);
 LABEL_93:
         v26 = (int)v22;
-        goto LABEL_87;
+        sub_41C0B8_SetStatusBarString((const char *)v26);
+        goto LABEL_123;
       }
       v31 = ItemGen_sub_456499(&pLayingItemsList[v30/112].stru_000024);
       v29 = (char *)TmpBuf;
@@ -837,10 +838,12 @@ LABEL_93:
           if ( !v23 )
           {
             if ( sub_44C2F4_SomeDecorationTypeCheck((LevelDecoration *)v24) )
-             v26 = (int)dword_722240[2 * (unsigned __int8)global_5E4C90.byte_000000[v25[14]]];
+              v26 = (int)dword_722240[2 * (unsigned __int8)global_5E4C90.byte_000000[v25[14]]];
             else
-              v26 = (int)(84 * *v25 + pDecorationDescriptionList->pDescriptions + 32);
-            goto LABEL_87;
+              v26 = (int)(pDecorationDescriptionList->pDescriptions[*v25].array_000020);
+
+            sub_41C0B8_SetStatusBarString((const char *)v26);
+            goto LABEL_123;
           }
           v22 = sub_444732((void *)v23);
           if ( !v22 )
@@ -889,8 +892,8 @@ LABEL_61:
       strncpy((char *)(char *)TmpBuf, (const char *)v40, 0x7D0u);
     }
     v26 = (int)v29;
-LABEL_87:
-    sub_41C0B8((const char *)v26);
+
+    sub_41C0B8_SetStatusBarString((const char *)v26);
     goto LABEL_123;
   }
   v1 = sLastGUIWindowIdx;
@@ -912,7 +915,7 @@ LABEL_38:
       v15 = (void *)(36 * (v16 + 12 * (int)ptr_507BC0->dword_00001C) + 11355920);
 LABEL_49:
       v17 = ItemGen_sub_456499((ItemGen *)v15);
-      sub_41C0B8((const char *)v17);
+      sub_41C0B8_SetStatusBarString((const char *)v17);
 LABEL_50:
       dword_506578 = 1;
 LABEL_123:
@@ -950,7 +953,7 @@ _mouse_is_on_UI:
             v37 = pControl->dword_00001C;
             if (!v37)
             {
-             sub_41C0B8((char *)pControl->pButtonName);
+             sub_41C0B8_SetStatusBarString((char *)pControl->pButtonName);
              dword_506578 = 1;
              return;
             }
@@ -991,7 +994,7 @@ _mouse_is_on_UI:
 						}	*/
 				   dword_50CBD0.PutMessageToQueue(pControl->dword_00001C, pControl->uControlParam, 0);
                   }
-              sub_41C0B8((char *)pControl->pButtonName);
+              sub_41C0B8_SetStatusBarString((char *)pControl->pButtonName);
               dword_506578 = 1;
               return;
             }
@@ -1033,7 +1036,7 @@ LABEL_24:
 			  dword_50CBD0.PutMessageToQueue(pControl->dword_00001C, pControl->uControlParam, 0);
             }
 
-            sub_41C0B8((char *)pControl->pButtonName);
+            sub_41C0B8_SetStatusBarString((char *)pControl->pButtonName);
             dword_506578 = 1;
             return;
           }
@@ -1085,7 +1088,7 @@ LABEL_19:
               }
               wsprintfA(Str1, (const char *)v39, v41);
 
-              sub_41C0B8(Str1);
+              sub_41C0B8_SetStatusBarString(Str1);
               dword_506578 = 1;
               return;
             }
@@ -3677,7 +3680,7 @@ LABEL_520:
             strcpy((char *)(char *)TmpBuf, v194);
           }
 LABEL_521:
-          sub_41C0B8((char *)TmpBuf);
+          sub_41C0B8_SetStatusBarString((char *)TmpBuf);
           goto LABEL_92;
         case 0x4F:
           if ( !uActiveCharacter
@@ -3700,7 +3703,7 @@ LABEL_521:
             v178 = (int)pGlobalTXT_LocalizationStrings[486];
           }
           wsprintfA((char *)TmpBuf, (const char *)v178, v195);
-          sub_41C0B8((char *)TmpBuf);
+          sub_41C0B8_SetStatusBarString((char *)TmpBuf);
           goto LABEL_91;
         case 0x58:
           GUIWindowCreate(dword_5064F8->uX, dword_5064F8->uY, 0, 0, 90, dword_5064F8, 0);
@@ -4077,7 +4080,7 @@ LABEL_731:
           v122 = Player_GetConditionIdx(pPlayers[v209 - 1]);
           strcat((char *)TmpBuf, (char *)aCharacterConditionNames[v122]);
 
-          sub_41C0B8((char *)TmpBuf);
+          sub_41C0B8_SetStatusBarString((char *)TmpBuf);
           v123 = 8 * (v209 - 1);
           LOBYTE(v123) = v123 | 4;
           pGame->pGUICursor->dword_000000 = v123;

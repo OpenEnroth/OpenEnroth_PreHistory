@@ -23,28 +23,28 @@ Vis::Vis()
  //float v9; // [sp+44h] [bp-28h]@1
  //float v10; // [sp+68h] [bp-4h]@1
 
- local_3C.flt_000000 = 65536.0;
- local_3C.flt_000004 = 0.0;
- local_3C.flt_000008 = 0.0;
- local_3C.flt_00002C = 0.0;
+ local_3C.x = 65536.0f;
+ local_3C.y = 0.0f;
+ local_3C.z = 0.0f;
+ local_3C.flt_00002C = 0.0f;
  memcpy(&struct_00200C, &local_3C, sizeof(struct Vis_stru0));
  
- local_0C.flt_000000 = 0.0;
- local_0C.flt_000004 = 65536.0;
- local_0C.flt_000008 = 0.0;
- local_0C.flt_00002C = 0.0;
+ local_0C.x = 0.0f;
+ local_0C.y = 65536.0f;
+ local_0C.z = 0.0f;
+ local_0C.flt_00002C = 0.0f;
  memcpy(&struct_00203C, &local_0C, sizeof(struct Vis_stru0));
  
- local_0C.flt_000000 = 65536.0;
- local_0C.flt_000004 = 0.0;
- local_0C.flt_000008 = 0.0;
- local_0C.flt_00002C = 0.0;
+ local_0C.x = 65536.0f;
+ local_0C.y = 0.0f;
+ local_0C.z = 0.0f;
+ local_0C.flt_00002C = 0.0f;
  memcpy(&struct_00206C, &local_0C, sizeof(struct Vis_stru0));
  
- local_3C.flt_000000 = 0.0;
- local_3C.flt_000004 = 65536.0;
- local_3C.flt_000008 = 0.0;
- local_3C.flt_00002C = 0.0;
+ local_3C.x = 0.0f;
+ local_3C.y = 65536.0f;
+ local_3C.z = 0.0f;
+ local_3C.flt_00002C = 0.0f;
  memcpy(&struct_00209C, &local_3C, sizeof(struct Vis_stru0));
 
  dword_0020CC = 512;
@@ -109,13 +109,13 @@ void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unna
 
   if (Vis_is_part_of_selection(i, a4))
   {
-   if (Vis_sub_4C091D(_this, a2, i))
+   if (Vis_IsRayHitsSprite(_this, a2, i))
    {
-    v4 = pBillboardRenderList[v7->uParentBillboardID].dword_000010;
+    v4 = pBillboardRenderList[v7->uParentBillboardID].sZValue;
 
     v5 = &a3->array_000004[a3->dword_002004++];
     v5->uBillboardID = v7->uParentBillboardID;
-    v5->dword_000004 = v4;
+    v5->sZValue = v4;
     v5->dword_000008 = 1;
    }
   }
@@ -177,7 +177,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
     if ( v7 > 0 )
     {
       v8 = dword_6BE63C;
-      v9 = (char *)&array_F8F200[0].flt_000004;
+      v9 = (char *)&array_F8F200[0].y;
       do
       {
         v10 = v25++;
@@ -197,7 +197,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
     if ( v7 > 0 )
     {
       v12 = (int)&pClass51_global->pBModels[((unsigned int)a3 >> 9)] + 72;
-      v11 = (char *)&array_F8F200[0].flt_000004;
+      v11 = (char *)&array_F8F200[0].y;
       do
       {
         *((float *)v11 - 1) = (double)*(signed int *)(*(_DWORD *)v12 + 12 * *(_WORD *)(*(_DWORD *)(v6 + 48) + 2 * v25));
@@ -268,7 +268,7 @@ bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float 
    if ( IsPointInsideD3DBillboard(&pBillboardRenderListD3D3[i], fX, fY) )
    {
     if (v11 == -1 ||
-        pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].dword_000010 < (unsigned int)pBillboardRenderList[pBillboardRenderListD3D3[v11].uParentBillboardID].dword_000010 )
+        pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].sZValue < (unsigned int)pBillboardRenderList[pBillboardRenderListD3D3[v11].uParentBillboardID].sZValue)
       v11 = i;
    }
 
@@ -305,7 +305,7 @@ bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float 
 }
 
 //----- (004C1417) --------------------------------------------------------
-void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY)
+void Vis_ProbablyGetD3DBillboardCenter(Vis *_this, RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY)
 {
  memcpy(array_F8EA00, Src, uNumVertices * sizeof(struct RenderVertexD3D3));
 
@@ -333,33 +333,32 @@ void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4,
  memcpy(array_F8DDF8, Src, a3 * sizeof(struct Vis_stru0));
 
  Vis_sort_some_objects_2(_this, array_F8DDF8, 0, a3 - 1);
- *a4 = (array_F8DDF8[a3 - 1].flt_000004 - array_F8DDF8[0].flt_000018) * 0.5 + array_F8DDF8[0].flt_000018;
+ *a4 = (array_F8DDF8[a3 - 1].y - array_F8DDF8[0].flt_000018) * 0.5 + array_F8DDF8[0].flt_000018;
 
  Vis_sort_some_objects_3(_this, array_F8DDF8, 0, a3 - 1);
- *a5 = (array_F8DDF8[a3 - 1].flt_000008 - array_F8DDF8[0].flt_00001C) * 0.5 + array_F8DDF8[0].flt_00001C;
+ *a5 = (array_F8DDF8[a3 - 1].z - array_F8DDF8[0].flt_00001C) * 0.5 + array_F8DDF8[0].flt_00001C;
 }
 
 //----- (004C1542) --------------------------------------------------------
-void Vis_sub_4C1542(struct Vis *_this, float a2, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6)
+void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6)
 {
   int v6; // ST1C_4@6
  struct class25_stru0 *v7; // edi@6
   int v9; // [sp+24h] [bp-8h]@2
- int i;
 
- for (i = 0; i < pD3DRenderer->uNumBillboardsToDraw; ++i)
+ for (unsigned int i = 0; i < pD3DRenderer->uNumBillboardsToDraw; ++i)
  {
   v9 = (int)&pBillboardRenderListD3D3[i];
 
   if (Vis_is_part_of_selection(i, a6))
     if (IsPointInsideD3DBillboard(&pBillboardRenderListD3D3[i], fX, fY))
-      if (Vis_sub_4C091D(_this, a2, i))
+      if (Vis_IsRayHitsSprite(_this, fDepth, i))
       {
-           v6 = pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].dword_000010;
+           v6 = pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].sZValue;
 
            v7 = &pClass25->array_000004[pClass25->dword_002004++];
            v7->uBillboardID = pBillboardRenderListD3D3[i].uParentBillboardID;
-           v7->dword_000004 = v6;
+           v7->sZValue = v6;
            v7->dword_000008 = 1;
       }
  }
@@ -369,7 +368,7 @@ void Vis_sub_4C1542(struct Vis *_this, float a2, float fX, float fY, struct clas
 //----- (004C1930) --------------------------------------------------------
 char __thiscall Vis_sub_4C1930(Vis *_this, float a2, int a3)
 {
-  return Vis_sub_4C091D(_this, a2, a3);
+  return Vis_IsRayHitsSprite(_this, a2, a3);
 }
 
 void loc_4C19F7()
@@ -443,16 +442,16 @@ void Vis_sub_4C1A02(struct Vis *_this)
   //int _14[8];
   //float v7; // [sp+C4h] [bp-4h]@1
 
- local_68.flt_000000 = 65536.0;
- local_68.flt_000004 = 0.0;
- local_68.flt_000008 = 0.0;
- local_68.flt_00002C = 0.0;
+ local_68.x = 65536.0f;
+ local_68.y = 0.0f;
+ local_68.z = 0.0f;
+ local_68.flt_00002C = 0.0f;
  //memcpy(&local0_08[0], &local0_68, 0x30u);
   
- local_98.flt_000000 = 0.0;
- local_98.flt_000004 = 65536.0;
- local_98.flt_000008 = 0.0;
- local_98.flt_00002C = 0.0;
+ local_98.x = 0.0f;
+ local_98.y = 65536.0f;
+ local_98.z = 0.0f;
+ local_98.flt_00002C = 0.0f;
  //memcpy(&local0_08[1], &local0_98, 0x30u);
 
  //memcpy(_this->flt_00200C, &local0_08, 0x60u);
@@ -461,16 +460,16 @@ void Vis_sub_4C1A02(struct Vis *_this)
 
 
 
- local_98.flt_000000 = 65536.0;
- local_98.flt_000004 = 0.0;
- local_98.flt_000008 = 0.0;
- local_98.flt_00002C = 0.0;
+ local_98.x = 65536.0f;
+ local_98.y = 0.0f;
+ local_98.z = 0.0f;
+ local_98.flt_00002C = 0.0f;
  //memcpy(&local0_08[0], &local0_98, 0x30u);
 
- local_68.flt_000000 = 0.0;
- local_68.flt_000004 = 65536.0;
- local_68.flt_000008 = 0.0;
- local_68.flt_00002C = 0.0;
+ local_68.x = 0.0f;
+ local_68.y = 65536.0f;
+ local_68.z = 0.0f;
+ local_68.flt_00002C = 0.0f;
  //memcpy(&local0_08[1], &local0_68, 0x30u);
 
  //memcpy(_this->flt_00206C, &local0_08, 0x60u);
@@ -565,7 +564,7 @@ signed int __thiscall sub_4C1BAA_Vis_get_object_zbuf_val(struct Vis *_this, stru
     result = -1;
   }
   else
-    result = a2->dword_000004;
+    result = a2->sZValue;
 
   return result;
 }
@@ -611,14 +610,14 @@ Result::Code Vis::CastRayAtMousePosition(struct Vis_stru0 *a1, OldCamera *pCamer
               pOldCamera->sPosX, pOldCamera->sPosY, pOldCamera->sPosZ,
               &v24, &v22, &v21);
 
- local_2C.flt_000000 = (float)v24;
- local_2C.flt_000004 = (float)v22;
- local_2C.flt_000008 = (float)v21;
+ local_2C.x = (float)v24;
+ local_2C.y = (float)v22;
+ local_2C.z = (float)v21;
  local_2C.flt_00002C = 0.0;
 
- local_5C.flt_000000 = (float)pOldCamera->sPosX;
- local_5C.flt_000004 = (float)pOldCamera->sPosY;
- local_5C.flt_000008 = (float)pOldCamera->sPosZ;
+ local_5C.x = (float)pOldCamera->sPosX;
+ local_5C.y = (float)pOldCamera->sPosY;
+ local_5C.z = (float)pOldCamera->sPosZ;
  local_5C.flt_00002C = 0.0;
 
  memcpy(&a1[0], &local_5C, sizeof(struct Vis_stru0));
@@ -944,8 +943,8 @@ bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6
   }
 
   v4 = a2->dword_000010;
-  v3 = (pBillboardRenderList[pBillboardRenderListD3D3[uD3DBillboardID].uParentBillboardID].dword_000010 & 0xFFFF) >> 3;
-  v5 = pBillboardRenderList[pBillboardRenderListD3D3[uD3DBillboardID].uParentBillboardID].dword_000010 & 7;
+  v3 = (pBillboardRenderList[pBillboardRenderListD3D3[uD3DBillboardID].uParentBillboardID].sZValue & 0xFFFF) >> 3;
+  v5 = pBillboardRenderList[pBillboardRenderListD3D3[uD3DBillboardID].uParentBillboardID].sZValue & 7;
   if ( v4 & 2 )
   {
     if (v5 == a2->dword_000004)
@@ -1011,13 +1010,12 @@ void loc_4C0D27()
 {
 }
 //----- (004C091D) --------------------------------------------------------
-bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3)
+bool Vis_IsRayHitsSprite(struct Vis *_this, float fDepth, int a3)
 {
   int v3; // eax@3
-  int v4; // esi@3
   signed int v5; // ecx@4
-  float v6; // ST04_4@6
-  float v7; // ST00_4@7
+  //float v6; // ST04_4@6
+  //float v7; // ST00_4@7
   int v8; // eax@10
   unsigned int v9; // eax@12
   int v10; // eax@17
@@ -1026,18 +1024,18 @@ bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3)
   double v13; // st4@18
   float v14; // ST0C_4@22
   float v15; // ST08_4@22
-  float v16; // ST04_4@23
-  float v17; // ST00_4@24
+  //float v16; // ST04_4@23
+  //float v17; // ST00_4@24
   signed int v18; // eax@27
   unsigned int v19; // eax@29
   double v20; // st6@32
   double v21; // st7@32
   int v22; // eax@32
   double v23; // st7@36
-  void *v24; // esi@40
+  //void *v24; // esi@40
   float v25; // ST08_4@40
-  float v26; // ST04_4@41
-  float v27; // ST00_4@42
+  //float v26; // ST04_4@41
+  //float v27; // ST00_4@42
   int v28; // eax@45
   unsigned int v29; // eax@47
   char result; // al@48
@@ -1054,18 +1052,19 @@ bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3)
   int v36; // [sp+ECh] [bp-10h]@5
   unsigned int v37; // [sp+F0h] [bp-Ch]@5
   float v38; // [sp+F4h] [bp-8h]@17
-  void *v39; // [sp+F8h] [bp-4h]@1
+  //void *v39; // [sp+F8h] [bp-4h]@1
   signed int v40; // [sp+108h] [bp+Ch]@17
   float v41; // [sp+108h] [bp+Ch]@32
 
-  v39 = _this;
 
   class25_F91E10.dword_002004 = 0;
-  v4 = 156 * a3;
+
   v3 = pBillboardRenderListD3D3[a3].uParentBillboardID;
-  if ( v3 == -1
-    || (v5 = pBillboardRenderList[v3].dword_000010,
-        (double)(unsigned __int16)pBillboardRenderList[v3].dword_000010 * 0.00001525902189314365 + (double)(v5 >> 16) > a2) )
+  if ( v3 == -1)
+    return false;
+
+  v5 = pBillboardRenderList[v3].sZValue;
+  if (LOWORD(v5) / 65535.0f + (float)HIWORD(v5) > fDepth)
   {
 LABEL_49:
     return false;
@@ -1074,18 +1073,14 @@ LABEL_49:
   {
     LOWORD(v5) = 0;
     v37 = v5;
-    Vis_ProbablyGetD3DBillboardCenter(_this, pBillboardRenderListD3D3[v4/156].pQuad, 4, (float *)&v35, (float *)&v36);
-    _this->CastRayAtMousePosition(local_20, pOldCamera, *(float *)&v35, *(float *)&v36, a2);
+    Vis_ProbablyGetD3DBillboardCenter(_this, pBillboardRenderListD3D3[a3].pQuad, 4, (float *)&v35, (float *)&v36);
+    _this->CastRayAtMousePosition(local_20, pOldCamera, *(float *)&v35, *(float *)&v36, fDepth);
+
     if ( uCurrentlyLoadedLevelType == 1 )
-    {
-      v6 = a2;
-      Vis_sub_4C16B4_DoPicking_Indoor((Vis *)v39, SLOBYTE(v6), local_20, &class25_F91E10, &stru_F93E44);
-    }
+      Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, local_20, &class25_F91E10, &stru_F93E44);
     else
-    {
-      v7 = a2;
-      Vis_sub_4C17CF_DoPicking_Outdoor((Vis *)v39, SLOBYTE(v7), local_20, &class25_F91E10, &stru_F93E44, 0);
-    }
+      Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_20, &class25_F91E10, &stru_F93E44, 0);
+
     class25_create_object_pointers(&class25_F91E10, 0);
     class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1);
 
@@ -1109,8 +1104,8 @@ LABEL_49:
       return 1;
 
       v40 = 0;
-      v10 = (int)&pBillboardRenderListD3D3[v4/156].pQuad[0].y;
-      LODWORD(v38) = (int)&pBillboardRenderListD3D3[v4/156].pQuad[0].y;
+      v10 = (int)&pBillboardRenderListD3D3[a3].pQuad[0].y;
+      LODWORD(v38) = (int)&pBillboardRenderListD3D3[a3].pQuad[0].y;
       while ( 1 )
       {
         v12 = *(float *)(v10 - 4);
@@ -1127,17 +1122,13 @@ LABEL_49:
               {
                 v14 = v11;
                 v15 = v12;
-                _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v15), v14, a2);
+                _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v15), v14, fDepth);
+
                 if ( uCurrentlyLoadedLevelType == 1 )
-                {
-                  v16 = a2;
-                  Vis_sub_4C16B4_DoPicking_Indoor((Vis *)v39, SLOBYTE(v16), local_80, &class25_F91E10, &stru_F93E44);
-                }
+                  Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44);
                 else
-                {
-                  v17 = a2;
-                  Vis_sub_4C17CF_DoPicking_Outdoor((Vis *)v39, SLOBYTE(v17), local_80, &class25_F91E10, &stru_F93E44, 0);
-                }
+                  Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0);
+
                 class25_create_object_pointers(&class25_F91E10, 0);
                 class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1);
                 if ( !class25_F91E10.dword_002004 )
@@ -1158,12 +1149,12 @@ LABEL_49:
         {
           if ( uCurrentlyLoadedLevelType != 2 )
             return false;
-          v21 = pBillboardRenderListD3D3[v4/156].pQuad[0].x;
-          v20 = pBillboardRenderListD3D3[v4/156].pQuad[3].x;
-          v22 = *(int *)(&pBillboardRenderListD3D3[v4/156].pQuad[0].y);
-          v34 = pBillboardRenderListD3D3[v4/156].pQuad[3].x;
+          v21 = pBillboardRenderListD3D3[a3].pQuad[0].x;
+          v20 = pBillboardRenderListD3D3[a3].pQuad[3].x;
+          v22 = *(int *)(&pBillboardRenderListD3D3[a3].pQuad[0].y);
+          v34 = pBillboardRenderListD3D3[a3].pQuad[3].x;
           LODWORD(v38) = v22;
-          v41 = pBillboardRenderListD3D3[v4/156].pQuad[1].y;
+          v41 = pBillboardRenderListD3D3[a3].pQuad[1].y;
           if ( v21 > v20 )
           {
             v33 = v21;
@@ -1178,7 +1169,7 @@ LABEL_49:
             || v23 > (double)pOldViewport->uScreenZ
             || (double)pOldViewport->uScreenY > v41
             || (double)pOldViewport->uScreenW < v41
-            || ((v24 = v39, v25 = v23, _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v25), v41, a2), uCurrentlyLoadedLevelType != 1) ? (v27 = a2, Vis_sub_4C17CF_DoPicking_Outdoor((Vis *)v24, SLOBYTE(v27), local_80, &class25_F91E10, &stru_F93E44, 0)) : (v26 = a2, Vis_sub_4C16B4_DoPicking_Indoor((Vis *)v24, SLOBYTE(v26), local_80, &class25_F91E10, &stru_F93E44)),
+            || ((v25 = v23, _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v25), v41, fDepth), uCurrentlyLoadedLevelType != 1) ? (Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0)) : (Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44)),
                 (class25_create_object_pointers(&class25_F91E10, 0),
                  class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1),
                  class25_F91E10.dword_002004)
@@ -1373,15 +1364,15 @@ char __stdcall sub_4C1C0C(Vis_stru0 *a1, Vis_stru0 *a2, float *a3, struct Render
   v6 = a5->dword_00002C;
   if (v6 & 1 ||
       v6 & 0x2000 ||
-      (v8 = a2->flt_000008 * a5->flt_000008 +
-            a5->flt_000004 * a2->flt_000004 +
-            a2->flt_000000 * a5->flt_000000,
+      (v8 = a2->z * a5->flt_000008 +
+            a2->y * a5->flt_000004 +
+            a2->x * a5->flt_000000,
         fabsf(v8) <= 1e-8) ||
      v8 > 0.0 )
     return 0;
-  v9 = -(a5->flt_000004 * a1->flt_000004 +
-         a1->flt_000000 * a5->flt_000000 +
-         a1->flt_000008 * a5->flt_000008 +
+  v9 = -(a1->y * a5->flt_000004 +
+         a1->x * a5->flt_000000 +
+         a1->z * a5->flt_000008 +
          a5->flt_00000C);
   v14 = v9;
   if ( v8 <= 0.0 )
@@ -1398,10 +1389,10 @@ char __stdcall sub_4C1C0C(Vis_stru0 *a1, Vis_stru0 *a2, float *a3, struct Render
   v15 = v10;
   if (v10 > *a3 ||
 
-      (v11 = v10 * a2->flt_000008 + a1->flt_000008,
+      (v11 = v10 * a2->z + a1->z,
 
-       a4->x = v10 * a2->flt_000000 + a1->flt_000000,
-       a4->y = v10 * a2->flt_000004 + a1->flt_000004,
+       a4->x = v10 * a2->x + a1->x,
+       a4->y = v10 * a2->y + a1->y,
        a4->z = v11,
 
         LOWORD(v12) = (signed __int64)a4->x,
@@ -1481,7 +1472,7 @@ int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class
                 v17 = (int)(ptr_6BE644 + v7/96);
 
                 a4->array_000004[a4->dword_002004].uBillboardID = (unsigned int)(ptr_6BE644 + v7/96);
-                a4->array_000004[a4->dword_002004].dword_000004 = v18;
+                a4->array_000004[a4->dword_002004].sZValue = v18;
                 a4->array_000004[a4->dword_002004++].dword_000008 = 2;
               }
             }
@@ -1585,7 +1576,7 @@ LABEL_8:
             v22 = (8 * (v30 | (v29 << 6)) | 6) + v11;
 
             a4->array_000004[a4->dword_002004].uBillboardID = (unsigned int)pStru2;
-            a4->array_000004[a4->dword_002004].dword_000004 = v22;
+            a4->array_000004[a4->dword_002004].sZValue = v22;
             a4->array_000004[a4->dword_002004++].dword_000008 = 2;
           }
         }

@@ -251,7 +251,7 @@ void __cdecl sub_41B3B6();
 int __fastcall sub_41B438(unsigned __int8 a1);
 int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3);
 void __cdecl sub_41C047();
-void __thiscall sub_41C0B8(const char *Str1);
+void __thiscall sub_41C0B8_SetStatusBarString(const char *Str1);
 signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key);
 void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this);
 void sub_41D20D(int a1, int a2, __int64 a3, int a4);

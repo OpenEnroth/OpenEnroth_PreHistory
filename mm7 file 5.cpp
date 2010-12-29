@@ -2146,8 +2146,8 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
     do
     {
       v5 = sub_4A1EA3(v16);
-      v4 = pBillboardRenderList[v5].dword_000010;
-      v3 = (unsigned __int16)pBillboardRenderList[v5].dword_000010;
+      v4 = pBillboardRenderList[v5].sZValue;
+      v3 = (unsigned __int16)pBillboardRenderList[v5].sZValue;
       if ( (v3 & 7) == 3 )
       {
         if ( v4 <= (unsigned int)(a3 << 16) )
@@ -2475,7 +2475,7 @@ LABEL_41:
   else
     v24 = (const char *)(84 * *v27 + pDecorationDescriptionList->pDescriptions + 32);
 LABEL_51:
-  sub_41C0B8(v24);
+  sub_41C0B8_SetStatusBarString(v24);
   return v20;
 }
 
