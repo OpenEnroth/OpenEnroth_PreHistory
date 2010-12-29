@@ -5609,7 +5609,7 @@ char __cdecl LoadPlayerPortraintsAndVoices()
  uTextureIdx_PlayerFaceDead = LODFile_Icons_LOD.LODFile_LoadTexture("DEAD",2);
 #endif
  
-
+ if(!bNoSound)
  for (i = 0; i < 4; ++i)
  {
     result = byte_4ED498;

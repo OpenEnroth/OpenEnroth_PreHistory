@@ -235,7 +235,7 @@ void AudioPlayer::sub_4AA306(int a2, signed int a3, unsigned int uNumRepeats, si
 
  if (!bPlayerReady ||
      !hDigDriver ||
-     !a2)
+     !a2 || bNoSound)
    return;
 
  //if (!uSoundVolumeMultiplier)
@@ -330,7 +330,7 @@ LABEL_150:
 
         if (!pSoundList->pSounds[uSoundIdx].pSoundData[a7])
           pSoundList->pSounds[uSoundIdx].pSoundData[a7] = LoadSound(pSoundList->pSounds[uSoundIdx].pSoundName, nullptr, pSoundList->pSounds[uSoundIdx].uSoundID);
-        if (!pSoundList->pSounds[uSoundIdx].pSoundData[a7][0]) // file size == 0
+        if (!pSoundList->pSounds[uSoundIdx].pSoundData[a7]) // file size == 0
           return;
 
         AIL_init_sample(pFreeChannel->hSample);
@@ -916,7 +916,7 @@ Result::Code AudioPlayer::SetMusicVolume(float fVolume)
 //----- (004AB71F) --------------------------------------------------------
 Result::Code AudioPlayer::MessWithChannels(Range<unsigned int> *pChannels)
 {
- if (!bPlayerReady)
+ if (!bPlayerReady || bNoSound)
    return Result::Generic;
 
  if (b3DSoundInitialized)
@@ -1348,6 +1348,9 @@ void SoundList_sub_4A9D79(SoundList *_this, bool a2)
   int v6; // ecx@2
   void *v7; // eax@5
 
+  if (bNoSound)
+    return 0;
+
   v4 = _this;
   v3 = 0;
   for ( i = 0; i < _this->uNumSounds; ++i, v3 += 120 )
@@ -1414,8 +1417,10 @@ int sub_4A9A67(SoundList *_this, int a2, int a3)
   char v24; // [sp+84h] [bp-28h]@23
   int v25; // [sp+98h] [bp-14h]@24
   int v26; // [sp+A8h] [bp-4h]@2
- int i;
+  int i;
 
+  if (bNoSound)
+    return 0;
   v3 = (int)_this;
   v4 = _this->uNumSounds;
   v26 = 1;
@@ -2107,6 +2112,8 @@ int AudioPlayer_sub_4ABF23(AudioPlayer *_this, int a2)
   int v16; // [sp+4Ch] [bp-8h]@5
   int v17; // [sp+50h] [bp-4h]@5
 
+  if (bNoSound || !pSoundList)
+    return 0;
   result = (int)pSoundList->pSounds;
   v3 = 0;
   v4 = (int)_this;
@@ -2179,6 +2186,9 @@ LSTATUS __stdcall CheckA3DSupport(char a1)
   DWORD cbData; // [sp+8h] [bp-Ch]@1
   BYTE Data[4]; // [sp+Ch] [bp-8h]@1
   HKEY hKey; // [sp+10h] [bp-4h]@1
+
+  if (bNoSound)
+    return 0;
 
   hKey = 0;
   cbData = 4;
@@ -2288,7 +2298,7 @@ int AudioPlayer::sub_4ABE55(AudioPlayer::MixerChannel *pChannel)
   int v15; // [sp+4Ch] [bp-8h]@5
   int v16; // [sp+50h] [bp-4h]@5
 
- if (!pSoundList->pSounds)
+ if (bNoSound || !pSoundList || !pSoundList->pSounds)
    return 0;
 
  SoundDesc *pDesc = &pSoundList->pSounds[pChannel->uSourceTrackIdx];

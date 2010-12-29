@@ -429,12 +429,10 @@ Result::Code PrimaryInitialization()
  pD3DRenderer->Initialize(pAppWindow);
 
 
- pAudioPlayer = nullptr;
+ pAudioPlayer = MemAlloc(AudioPlayer, 1);
  if (!bNoSound)
  {
-  pAudioPlayer = MemAlloc(AudioPlayer, 1);
   pAudioPlayer->Initialize(pAppWindow, cGameCDDriveLetter);
-
 
   dword_6BE374_WalkSoundFlag = ReadWindowsRegistry("WalkSound", true) != 0;
 

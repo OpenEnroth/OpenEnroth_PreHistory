@@ -11984,8 +11984,8 @@ void __fastcall PrepareToLoadODM(const char *pLevelName, int a1)
   int v2; // edi@1
 
   v2 = a1;
-
-  SoundList_sub_4A9D79(pSoundList, false);
+  if(!bNoSound)
+    SoundList_sub_4A9D79(pSoundList, false);
   uCurrentlyLoadedLevelType = 2;
   sub_47A384_LoadAndInitializeLevel(pLevelName);
   if ( !v2 )

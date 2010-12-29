@@ -2878,8 +2878,11 @@ void __cdecl sub_464479_ResetCursorAndOther()
   else if ( uCurrentlyLoadedLevelType == 2 )
     pClass51_global->Clear();
 
-  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
-  SoundList_sub_4A9D79(pSoundList, 0);
+  if(!bNoSound)
+  {
+    pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
+    SoundList_sub_4A9D79(pSoundList, 0);
+  }
   SpriteFrameTable_fn3(pSpriteFrameTable);
   v0 = sLastGUIWindowIdx;
   pParty_global->dword_01613C = sLastGUIWindowIdx;
