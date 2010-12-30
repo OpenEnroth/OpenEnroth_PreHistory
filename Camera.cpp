@@ -14,7 +14,7 @@ unsigned int Camera::GetViewOrientation(Matrix4x4 *pOutMatrix)
 }
 
 
-unsigned int Camera::Initialize(const Vec3 *pPosition, const Quaternion *pOrientation)
+unsigned int Camera::Initialize(const Vec3<float> *pPosition, const Quaternion *pOrientation)
 {
  vPosition = *pPosition;
  pOrientation->ToMatrix(&mOrientation);
@@ -74,9 +74,9 @@ void Camera::RotateX(float angle)
  rx.RotateX(angle);
  mOrientation =  mOrientation * rx;
 
- vDirection = mOrientation.Transofrm(&Vec3(0, 0, 1));
- vUp = mOrientation.Transofrm(&Vec3(0, 1, 0));
- vRight = mOrientation.Transofrm(&Vec3(1, 0, 0));
+ vDirection = mOrientation.Transofrm(&Vec3<float>(0, 0, 1));
+ vUp = mOrientation.Transofrm(&Vec3<float>(0, 1, 0));
+ vRight = mOrientation.Transofrm(&Vec3<float>(1, 0, 0));
 }
 
 void Camera::RotateY(float angle)
@@ -85,12 +85,12 @@ void Camera::RotateY(float angle)
  ry.RotateY(angle);
  mOrientation = mOrientation * ry;
 
- vDirection = mOrientation.Transofrm(&Vec3(0, 0, 1));
- vUp = mOrientation.Transofrm(&Vec3(0, 1, 0));
- vRight = mOrientation.Transofrm(&Vec3(1, 0, 0));
+ vDirection = mOrientation.Transofrm(&Vec3<float>(0, 0, 1));
+ vUp = mOrientation.Transofrm(&Vec3<float>(0, 1, 0));
+ vRight = mOrientation.Transofrm(&Vec3<float>(1, 0, 0));
 }
 
-void Camera::Rotate(const Vec3 *pAxis, float angle)
+void Camera::Rotate(const Vec3<float> *pAxis, float angle)
 {
  Quaternion qRotation;
  qRotation.Rotate(pAxis, angle);
@@ -103,12 +103,12 @@ void Camera::Rotate(const Vec3 *pAxis, float angle)
  //SetOrientation(&qRotation);
 }
 
-void Camera::SetDirection(const Vec3 *pNewDirection)
+void Camera::SetDirection(const Vec3<float> *pNewDirection)
 {
  vDirection = *pNewDirection;
  vDirection.Normalize();
 
- qOrientation.Rotate(&Cross(Vec3(0, 0, 1), vDirection), vDirection.z); // (1 0 0) cross dir, (1 0 0) dot dir
+ qOrientation.Rotate(&Cross(Vec3<float>(0, 0, 1), vDirection), vDirection.z); // (1 0 0) cross dir, (1 0 0) dot dir
  qOrientation.ToMatrix(&mOrientation);
  //SetOrientation(&qOrientation);
 }
@@ -157,20 +157,20 @@ unsigned int Camera::GetViewProjection(Matrix4x4 *pOut)
  return 0;
 }
 
-const Vec3 *Camera::GetDirection()
+const Vec3<float> *Camera::GetDirection()
 {
  return &vDirection;
 }
 
 
-void Camera::SetPosition(const Vec3 *pNewPosition)
+void Camera::SetPosition(const Vec3<float> *pNewPosition)
 {
  vPosition = *pNewPosition;
  
  mView[3][0] = -Dot(vRight, vPosition); mView[3][1] = -Dot(vUp, vPosition); mView[3][2] = -Dot(vDirection, vPosition);
 }
 
-const Vec3 *Camera::GetPosition()
+const Vec3<float> *Camera::GetPosition()
 {
  return &vPosition;
 }

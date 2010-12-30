@@ -1096,9 +1096,7 @@ int Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(Vis *_this, float a2, class25 *a3, 
 //----- (004C0DEA) --------------------------------------------------------
 void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, float a2, class25 *a3, struct unnamed_F93E6C *a4)
 {
-  int v6; // ebx@3
   int v7; // eax@3
-  int v11; // esi@7
   int v12; // eax@8
   int v13; // eax@8
   int v14; // ecx@9
@@ -1118,26 +1116,22 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
   v7 = 0;
  for (unsigned int i = 0; i < pClass51_global->uNumBModels; ++i)
  {
-      v6 = (int)&pClass51_global->pBModels[i];
+  BSPModel *pModel = &pClass51_global->pBModels[i];
       LOBYTE(v7) = sub_479089(i, &v19);
       if (v7)
       {
         if (v19)
         {
-          //v10 = __SETO__(*(_DWORD *)(v6 + 76), v5);
-          //v8 = *(_DWORD *)(v6 + 76) == v5;
-          //v9 = *(_DWORD *)(v6 + 76) - v5 < 0;
           v23 = 0;
-          //if ( !((unsigned __int8)(v9 ^ v10) | v8) )
           if (pClass51_global->pBModels[i].uNumFaces > 0)
           {
             v21 = 0;
             do
             {
-              v11 = v21 + *(_DWORD *)(v6 + 84);
-              if ( Vis_is_part_of_selection(v11, a4) )
+             BSPModel::Face *pFace = pModel->pFaces + (v21 / 308);
+              if ( Vis_is_part_of_selection((unsigned int)pFace, a4) )
               {
-                sub_4C0EF2_BSPModel_Face_To_struct12(&local_10, (BSPModel::Face *)v11);
+                sub_4C0EF2_BSPModel_Face_To_struct12(&local_10, pFace);
                 v13 = 8 * (v23 | (i << 6));
                 LOBYTE(v13) = v13 | 6;
                 v12 = Vis_sub_4C1026(_this, &local_10, v13, a2);
@@ -1157,7 +1151,7 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
               ++v23;
               v21 += 308;
             }
-            while ( v23 < *(_DWORD *)(v6 + 76) );
+            while ( v23 < pModel->uNumFaces);
           }
         }
       }
@@ -1235,7 +1229,7 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
  LOWORD(v12) = (signed __int64)pRay_SomePoint->x;
  HIWORD(v12) = (signed __int64)pRay_SomePoint->y;
  //if (!sub_4C1D2B(a5, v12, pRay_SomePoint->z, a6))
- if (!sub_4C1D2B(a5, vec3<short>(pRay_SomePoint->x, pRay_SomePoint->y, pRay_SomePoint->z), a6))
+ if (!sub_4C1D2B(a5, Vec3<short>(pRay_SomePoint->x, pRay_SomePoint->y, pRay_SomePoint->z), a6))
    return 0;
 
  *pDepth = v15;
@@ -1422,7 +1416,7 @@ LABEL_8:
     }
     goto LABEL_15;
   }
-  return v6;
+  return 0;
 }
 
 
@@ -1495,7 +1489,7 @@ char __stdcall sub_438258(struct12 *a1, int a2)
 
 
 //----- (004C1EE5) --------------------------------------------------------
-char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, vec3<short> *a5, struct struct12 *a6)
+char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct struct12 *a6)
 {
   int v6; // ecx@1
   int v7; // ecx@2
@@ -1607,71 +1601,50 @@ char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4
 }
 
 //----- (004C2186) --------------------------------------------------------
-char __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, vec3<short> *a5, struct struct12 *a6, unsigned int uModelID)
+Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct struct12 *a6, unsigned int uModelID)
 {
-  int v14; // ecx@9
-  __int16 v15; // si@9
-  int v16; // ecx@9
-  int v24; // [sp+18h] [bp+Ch]@8
-  int v25; // [sp+18h] [bp+Ch]@12
-  int v27; // [sp+24h] [bp+18h]@8
+ if (a6->uFaceAttributes & 0x0100) // xy plane polygon
+ {
+  *a1 = a5->x;
+  *a2 = a5->y;
 
-
-  if (a6->uFaceAttributes & 0x0100) // xy plane polygon
+  for (unsigned int i = 0; i < a6->uNumVertices; ++i)
   {
-    *a1 = a5->x;
-    *a2 = a5->y;
+   a3[i * 2] = a6->pXInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].x;
+   a4[i * 2] = a6->pYInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
 
-    for (unsigned int i = 0; i < a6->uNumVertices; ++i)
-    {
-     a3[i * 2] = a6->pXInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].x;
-     a4[i * 2] = a6->pYInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
-
-     a3[i * 2 + 1] = a6->pXInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].x;
-     a4[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
-    }
+   a3[i * 2 + 1] = a6->pXInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].x;
+   a4[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
   }
-  else if (a6->uFaceAttributes & 0x0200) // xz plane polygon
+ }
+ else if (a6->uFaceAttributes & 0x0200) // xz plane polygon
+ {
+  *a1 = a5->x;
+  *a2 = a5->z;
+
+  for (unsigned int i = 0; i < a6->uNumVertices; ++i)
   {
-      *a1 = a5->x;
-      *a2 = a5->z;
+   a3[i * 2] = a6->pXInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].x;
+   a4[i * 2] = a6->pZInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].z;
 
-        v27 = (int)a4 + 2;
-        v24 = a3 - a4;
-
-    compile_error(parse this stuff too);
-    for (unsigned int i = 0; i < a6->uNumVertices; ++i)
-      {
-          v14 = 2 * i;
-          *(_WORD *)(a3 + 4 * i) = *(_WORD *)(2 * i + *(_DWORD *)(a6 + 52))
-                                   + *(_WORD *)(&pClass51_global->pBModels[uModelID].pVertices[*(_WORD *)(2 * i + *(_DWORD *)(a6 + 48))].x);
-          *(_WORD *)(v27 - 2) = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60))
-                              + *(_WORD *)(&pClass51_global->pBModels[uModelID].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48))].z);
-          *(_WORD *)(v24 + v27) = *(_WORD *)(*(_DWORD *)(a6 + 52) + v14 + 2)
-                                + *(_WORD *)(&pClass51_global->pBModels[uModelID].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].x);
-          v15 = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60) + 2)
-              + *(_WORD *)(&pClass51_global->pBModels[uModelID].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].z);
-          v16 = v27;
-
-          v27 += 4;
-          *(_WORD *)v16 = v15;
- 
-      }
+   a3[i * 2 + 1] = a6->pXInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].x;
+   a4[i * 2 + 1] = a6->pZInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].z;
   }
-  else  // yz plane polygon
+ }
+ else  // yz plane polygon
+ {
+  *a1 = a5->y;
+  *a2 = a5->z;
+
+  for (unsigned int i = 0; i < a6->uNumVertices; ++i)
   {
-      *a1 = a5->y;
-      *a2 = a5->z;
+   a3[i * 2] = a6->pYInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
+   a4[i * 2] = a6->pZInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].z;
 
-      for (unsigned int i = 0; i < a6->uNumVertices; ++i)
-      {
-       a3[i * 2] = a6->pYInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
-       a4[i * 2] = a6->pZInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].z;
-
-       a3[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
-       a4[i * 2 + 1] = a6->pZInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].z;
-      }
-
+   a3[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
+   a4[i * 2 + 1] = a6->pZInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].z;
   }
-  return 1;
+ }
+
+ return Result::Success;
 }

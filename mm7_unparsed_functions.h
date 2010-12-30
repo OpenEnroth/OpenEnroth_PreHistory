@@ -5,6 +5,7 @@
 
 #include "defs.h"
 #include "CoreDefinitions.h"
+#include "Math\Math.h"
 
 
 
@@ -585,8 +586,8 @@ int __thiscall sub_45CA88(void *_this, int a2, int a3, int a4, int a5);
 void __stdcall sub_45CB89(struct RenderVertex * a1, int a2);
 int __stdcall sub_45CBD4(int a1, int a2, int a3, int a4);
 double __stdcall sub_45CC0C(float a1, float a2, float a3, float a4, float a5, int a6, float a7, float a8);
-bool __stdcall sub_45D036(struct Vec3 *pNormal, int a2, struct RenderVertex *a3, int a4, signed int X);
-char __stdcall sub_45D0D5(struct struct6 *a1, struct Vec3 *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7);
+bool __stdcall sub_45D036(Vec3<float> *pNormal, int a2, struct RenderVertex *a3, int a4, signed int X);
+char __stdcall sub_45D0D5(struct struct6 *a1, Vec3<float> *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7);
 char __stdcall sub_45D426(int a1, struct Edge *a2, signed int a3, struct Edge *a4, signed int a5);
 double __stdcall sub_45D643(int a1, float a2);
 void __stdcall class04_sub_45D73F(struct class04 *_this, long a1); // weak

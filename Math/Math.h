@@ -4,68 +4,87 @@
 
 
 template<typename type>
-  struct vec1
+  struct Vec1
 {
- inline vec1() {}
- inline vec1(type a): x(a) {}
- inline vec1(const vec1<type> &other): x(other.x) {}
+ inline Vec1() {}
+ inline Vec1(type a): x(a) {}
+ inline Vec1(const Vec1<type> &other): x(other.x) {}
 
  type x;
 };
 
 template<typename type>
-  struct vec2: public vec1<type>
+  struct Vec2: public Vec1<type>
 {
- inline vec2() {}
- inline vec2(type a, type b): vec1(a), y(b) {}
- inline vec2(const vec2<type> &other): x(other.x), y(other.y) {}
+ inline Vec2() {}
+ inline Vec2(type a, type b): Vec1(a), y(b) {}
+ inline Vec2(const Vec2<type> &other): x(other.x), y(other.y) {}
 
  type y;
 };
 
 template<typename type>
-  struct vec3: public vec2<type>
+  struct Vec3
 {
- inline vec3() {}
- inline vec3(type a, type b, type c): vec2(a, b), z(c) {}
- inline vec3(const vec3<type> &other): x(other.x), y(other.y), z(other.z) {}
+ inline Vec3() {}
+ inline Vec3(type a, type b, type c): x(a), y(b), z(c) {}
+ inline Vec3(const Vec3<type> &other): x(other.x), y(other.y), z(other.z) {}
 
- type z;
+ inline void Normalize()
+ {
+  type dot = x * x + y * y + z * z;
+  if (dot < 0 || dot > 0)
+  {
+   type invm = (type)1 / sqrt(dot);
+   x *= invm;
+   y *= invm;
+   z *= invm;
+  }
+  else
+  {
+   x = (type)1;
+   y = z = (type)0;
+  }
+ }
+
+ template<typename T>
+   friend T Dot(const Vec3<T> &lh, const Vec3<T> &rh);
+ template<typename T>
+   friend Vec3<T> Cross(const Vec3<T> &lh, const Vec3<T> &rh);
+
+ template<typename T>
+   friend Vec3<T> operator +(const Vec3<T> &lh, const Vec3<T> &rh);
+ template<typename T>
+   friend Vec3<T> operator *(const Vec3<T> &lh, const T scale);
+
+
+ inline Vec3<type> &operator =(const Vec3<type> &v)
+ {
+  x = v.x, y = v.y, z = v.z;
+  return *this;
+ }
+
+ inline Vec3<type> &operator +=(const Vec3<type> &v)
+ {
+  x += v.x, y += v.y, z += v.z;
+  return *this;
+ }
+
+ inline Vec3<type> &operator *=(type scale)
+ {
+  x *= scale, y *= scale, z *= scale;
+  return *this;
+ }
+
+
+ type x, y, z;
 };
-
-
-
-
-
-
 
   
 
-struct Vec3
-{
- inline Vec3() {}
- inline Vec3(float a, float b, float c): x(a), y(b), z(c) {}
 
- inline void  Normalize();
- friend float Dot(const Vec3 &lh, const Vec3 &rh);
- friend Vec3  Cross(const Vec3 &lh, const Vec3 &rh);
 
- inline Vec3  &operator =(const Vec3 &v);
- inline Vec3  &operator +=(const Vec3 &v);
- friend Vec3   operator +(const Vec3 &lh, const Vec3 &rh);
- inline Vec3  &operator *=(float);
- friend Vec3   operator *(const Vec3 &lh, float scale);
- inline float &operator [](unsigned int uCol);
 
- union
- {
-  float v[3];
-  struct
-  {
-   float x, y, z;
-  };
- };
-};
 
 struct Vec4
 {
@@ -96,12 +115,12 @@ struct Quaternion
  inline Quaternion(float a, float b, float c, float d): s(a), x(b), y(c), z(d) {}
 
  inline void        Identity();
- inline Quaternion &Rotate(const Vec3 *pAxis, float angle);
+ inline Quaternion &Rotate(const Vec3<float> *pAxis, float angle);
  inline void        Rotate(float lattitude, float longitude);
  inline Matrix4x4  &ToMatrix(Matrix4x4 *pOut) const;
 
- inline Quaternion Conjugate();
- inline Vec3       Transform(const Vec3 &v);
+ inline Quaternion  Conjugate();
+ inline Vec3<float> Transform(const Vec3<float> &v);
 
  inline Quaternion  operator *(const Quaternion &q) const; 
  inline Quaternion &operator =(const Quaternion &q);
@@ -119,7 +138,7 @@ struct Matrix4x4
  inline Matrix4x4  operator *(Matrix4x4 &rv);
  inline Matrix4x4 &operator =(Matrix4x4 &rv);
 
- inline Vec3 Transofrm(Vec3 *);
+ inline Vec3<float> Transofrm(Vec3<float> *);
  
  inline Matrix4x4 &Identity();
  inline Matrix4x4 &RotateX(float angle);

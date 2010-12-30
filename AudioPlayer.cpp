@@ -1946,7 +1946,7 @@ void __thiscall AudioPlayer_sub_4AA258(AudioPlayer *_this, int a2)
   int v6; // edi@12
 
   v2 = (int)_this;
-  if ( *(_DWORD *)(_this + 668) )
+  if (_this->bPlayerReady)
   {
     if ( *(_DWORD *)(_this + 4) && a2 && (v3 = 0, *(_DWORD *)(_this + 16) > 0) )
     {

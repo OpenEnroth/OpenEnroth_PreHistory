@@ -13521,82 +13521,74 @@ bool IsPointInsideD3DBillboard(struct RenderBillboardD3D3 *pBillboard, float fX,
 
 
 //----- (004C1D2B) --------------------------------------------------------
-int __stdcall sub_4C1D2B(struct12 *a1, vec3<short> a2, unsigned int uModelID)
+int __stdcall sub_4C1D2B(struct12 *a1, Vec3<short> a2, unsigned int uModelID)
 {
   int v4; // esi@1
   bool v5; // edi@9
   int v7; // edx@11
-  int v8; // ecx@11
   int v9; // eax@12
   signed int v10; // ebx@13
   int v11; // edi@15
   signed int v12; // ST28_4@17
   signed __int64 v13; // qtt@17
   signed int result; // eax@20
-  int v15; // [sp+10h] [bp-Ch]@9
   signed int v16; // [sp+18h] [bp-4h]@9
 
   v4 = (int)a1;
 
- if (a2.z < a1->cBoundingBoxZ.min ||
-     a2.z > a1->cBoundingBoxZ.max)
-   return false;
-
- if (a2.x < a1->cBoundingBoxX.min ||
-     a2.x > a1->cBoundingBoxX.max)
-   return false;
-
- if (a2.y < a1->cBoundingBoxY.min ||
-     a2.y > a1->cBoundingBoxY.max)
+ if (a2.x < a1->cBoundingBoxX.min || a2.x > a1->cBoundingBoxX.max ||
+     a2.y < a1->cBoundingBoxY.min || a2.y > a1->cBoundingBoxY.max ||
+     a2.z < a1->cBoundingBoxZ.min || a2.z > a1->cBoundingBoxZ.max)
    return false;
 
  if (!a1->uNumVertices)
    return false;
 
  int intersect_a, intersect_b;
-  if (uModelID == -1)
-    sub_4C1EE5_IntersectBModel(&intersect_a, &intersect_b, word_F8BC48_displaced_face_intersect_plane_coords, word_F8BD18_displaced_face_intersect_plane_coords, &a2, a1);
-  else
-    sub_4C2186_IntersectBModel(&intersect_a, &intersect_b, word_F8BC48_displaced_face_intersect_plane_coords, word_F8BD18_displaced_face_intersect_plane_coords, &a2, a1, uModelID);
+ if (uModelID == -1)
+   sub_4C1EE5_IntersectBModel(&intersect_a, &intersect_b,
+                              word_F8BC48_displaced_face_intersect_plane_coords_a, word_F8BD18_displaced_face_intersect_plane_coords_b, &a2, a1);
+ else
+   sub_4C2186_IntersectBModel(&intersect_a, &intersect_b,
+                              word_F8BC48_displaced_face_intersect_plane_coords_a, word_F8BD18_displaced_face_intersect_plane_coords_b, &a2, a1, uModelID);
 
   v16 = 0;
-  word_F8BC48_displaced_face_intersect_plane_coords[a1->uNumVertices] = word_F8BC48_displaced_face_intersect_plane_coords[0];
-  word_F8BD18_displaced_face_intersect_plane_coords[a1->uNumVertices] = word_F8BD18_displaced_face_intersect_plane_coords[0];
-  v5 = word_F8BD18_displaced_face_intersect_plane_coords[0] >= intersect_b;
+  word_F8BC48_displaced_face_intersect_plane_coords_a[a1->uNumVertices] = word_F8BC48_displaced_face_intersect_plane_coords_a[0];
+  word_F8BD18_displaced_face_intersect_plane_coords_b[a1->uNumVertices] = word_F8BD18_displaced_face_intersect_plane_coords_b[0];
+  v5 = word_F8BD18_displaced_face_intersect_plane_coords_b[0] >= intersect_b;
 
-  v15 = 0;
-  do
-  {
+ for (unsigned int i = 0; i < a1->uNumVertices; ++i)
+ {
     if ( v16 >= 2 )
       break;
-    v8 = 2 * v15;
-    v7 = word_F8BD18_displaced_face_intersect_plane_coords[v15 + 1];
+
+    v7 = word_F8BD18_displaced_face_intersect_plane_coords_b[i + 1];
     if ( v5 ^ v7 >= intersect_b )
     {
-      v9 = *(__int16 *)((char *)&word_F8BC48_displaced_face_intersect_plane_coords + 2 + v8);
+      v9 = word_F8BC48_displaced_face_intersect_plane_coords_a[i + 2];
       if ( v9 >= intersect_a )
         v10 = 0;
       else
         v10 = 2;
-      v11 = v10 | *(__int16 *)((char *)word_F8BC48_displaced_face_intersect_plane_coords + v8) < intersect_a;
+      v11 = v10 | word_F8BC48_displaced_face_intersect_plane_coords_a[i] < intersect_a;
       if ( v11 != 3 )
       {
-        if ( !v11
-          || (v12 = v9 - *(__int16 *)((char *)word_F8BC48_displaced_face_intersect_plane_coords + v8),
-              LODWORD(v13) = v12 << 16,
-              HIDWORD(v13) = v12 >> 16,
-              *(__int16 *)((char *)word_F8BC48_displaced_face_intersect_plane_coords + v8)
-            + ((signed int)(((unsigned __int64)(v13
-                                              / (v7 - *(__int16 *)((char *)word_F8BD18_displaced_face_intersect_plane_coords + v8))
-                                              * ((intersect_b - (signed int)*(__int16 *)((char *)word_F8BD18_displaced_face_intersect_plane_coords + v8)) << 16)) >> 16)
-                          + 32768) >> 16) >= intersect_a) )
+       v12 = v9 - word_F8BC48_displaced_face_intersect_plane_coords_a[i];
+       LODWORD(v13) = v12 << 16;
+       HIDWORD(v13) = v12 >> 16;
+
+       int local_1 = ((intersect_b - (signed int)word_F8BD18_displaced_face_intersect_plane_coords_b[i]) << 16);
+       int local_2 = (v7 - word_F8BD18_displaced_face_intersect_plane_coords_b[i]);
+
+       int local_3 = word_F8BC48_displaced_face_intersect_plane_coords_a[i] + ((signed int)(((unsigned __int64)(v13 / local_2 * local_1) >> 16) + 0x8000) >> 16);
+
+        if (!v11 || local_3 >= intersect_a)
           ++v16;
       }
     }
-    ++v15;
     v5 = v7 >= intersect_b;
   }
-  while ( v15 < a1->uNumVertices);
+
   result = 1;
   if ( v16 != 1 )
 LABEL_24:

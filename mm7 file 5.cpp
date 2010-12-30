@@ -13349,7 +13349,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v19; // ecx@13
   int v20; // eax@13
   int v21; // eax@13
- struct Vec3 *pNormal; // eax@15
+ struct Vec3<float> *pNormal; // eax@15
   double v23; // st6@17
   double v27; // st5@19
   double v28; // st5@19

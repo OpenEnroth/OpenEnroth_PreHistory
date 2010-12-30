@@ -428,9 +428,9 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  memcpy(pTerrainNormalIndices, Src, 128 * 128 * 2 * sizeof(unsigned short));
  Src += 0x10000;
 
- pTerrainNormals = NamedMemAlloc(Vec3, uNumTerrainNormals, "ODM Terrain Normals");
- memcpy(pTerrainNormals, Src, uNumTerrainNormals * sizeof(struct Vec3));
- Src += uNumTerrainNormals * sizeof(struct Vec3);
+ pTerrainNormals = NamedMemAlloc(Vec3<float>, uNumTerrainNormals, "ODM Terrain Normals");
+ memcpy(pTerrainNormals, Src, uNumTerrainNormals * sizeof(struct Vec3<float>));
+ Src += uNumTerrainNormals * sizeof(struct Vec3<float>);
 
  memcpy(&uNumBModels, Src, 4);
  Src += 4;

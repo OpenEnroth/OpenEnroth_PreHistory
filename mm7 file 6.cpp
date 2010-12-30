@@ -6787,7 +6787,7 @@ bool sub_49BCEB(struct class58 *_this, struct BSPModel::Face *a2)
 }
 
 //----- (0049BE8A) --------------------------------------------------------
-bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, struct Vec3 *pNormal, int a4, int a5, int a6, char a7)
+bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, struct Vec3<float> *pNormal, int a4, int a5, int a6, char a7)
 {
   int v7; // ebx@3
   int v8; // edi@3

@@ -262,7 +262,7 @@ class OutdoorLocation: public Location
  virtual Result::Code Load(const char *pFilename, int File, int a5);
 
  unsigned int    uNumTerrainNormals;
- Vec3           *pTerrainNormals;
+ Vec3<float>    *pTerrainNormals;
  unsigned short  pTerrainNormalIndices[128 * 128 * 2];
  unsigned int    pTerrainSomeOtherData[128 * 128 * 2];
 };

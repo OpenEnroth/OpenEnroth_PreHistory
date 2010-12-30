@@ -2414,8 +2414,8 @@ int dword_F8BC10; // weak
 
 struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
 
- __int16 word_F8BC48_displaced_face_intersect_plane_coords[104]; // weak
- __int16 word_F8BD18_displaced_face_intersect_plane_coords[104]; // weak
+ __int16 word_F8BC48_displaced_face_intersect_plane_coords_a[104]; // weak
+ __int16 word_F8BD18_displaced_face_intersect_plane_coords_b[104]; // weak
 struct class25   class25_F8BDE8;   // struct @ MM7.exe::00F8BDE8
 struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
  char byte_F8E9F8; // weak

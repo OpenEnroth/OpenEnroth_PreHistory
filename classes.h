@@ -917,7 +917,7 @@ struct class58
 //int __thiscall sub_49B525(int _this, int a2);
 void class58_sub_49B525(struct class58 *_this, int a2);
 bool __thiscall sub_49BCEB(struct class58 *_this, BSPModel::Face *a2);
-bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, struct Vec3 *pNormal, int a4, int a5, int a6, char a7);
+bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, Vec3<float> *pNormal, int a4, int a5, int a6, char a7);
 
 //math predefines
 struct class59

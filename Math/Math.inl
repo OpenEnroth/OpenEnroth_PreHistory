@@ -1,34 +1,37 @@
 #include "Math.h"
 
 
-inline void Vec3::Normalize()
-{
- float dot = x * x + y * y + z * z;
- if (dot > 1e-6f)
- {
-  float invm = 1.0f / sqrtf(dot);
-  x *= invm;
-  y *= invm;
-  z *= invm;
- }
- else
- {
-  x = 1.0f; 
-  y = z = 0.0f;
- }
-}
-
-inline float Dot(const Vec3 &v1, const Vec3 &v2)
+template<typename type>
+  inline type Dot(const Vec3<type> &v1, const Vec3<type> &v2)
 {
  return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
-inline Vec3 Cross(const Vec3 &v1, const Vec3 &v2)
+template<typename type>
+  inline Vec3<type> Cross(const Vec3<type> &v1, const Vec3<type> &v2)
 {
- return Vec3(v1.y * v2.z - v1.z * v2.y,
-             v1.z * v2.x - v1.x * v2.z,
-             v1.x * v2.y - v1.y * v2.x);
+ return Vec3<type>(v1.y * v2.z - v1.z * v2.y,
+                   v1.z * v2.x - v1.x * v2.z,
+                   v1.x * v2.y - v1.y * v2.x);
 }
+
+
+
+template<typename type>
+  inline Vec3<type> operator +(const Vec3<type> &lh, const Vec3<type> &rh)
+{
+ return Vec3<type>(lh.x * rh.x, lh.y * rh.y, lh.z * rh.z);
+}
+
+template<typename type>
+  inline Vec3<type> operator *(const Vec3<type> &lh, const type scale)
+{
+ return Vec3<type>(lh.x * scale, lh.y * scale, lh.z * scale);
+}
+
+
+
+
 
 
 inline float Dot(const Vec4 &v1, const Vec4 &v2)
@@ -37,7 +40,7 @@ inline float Dot(const Vec4 &v1, const Vec4 &v2)
 }
 
 
-inline Quaternion &Quaternion::Rotate(const Vec3 *vAxis, float angle)
+inline Quaternion &Quaternion::Rotate(const Vec3<float> *vAxis, float angle)
 {
  s = cosf(angle * 0.5f);
  x = vAxis->x * sinf(angle * 0.5f);
@@ -78,9 +81,9 @@ inline void Quaternion::Rotate(float lattitude, float longitude)
 
  //next we need to find roation axis and angle between v and (1 0 0)
  float angle = acosf(cosf(lattitude) * cosf(longitude));
- struct Vec3 vAxis(0,
-                   -sinf(lattitude) * cosf(longitude),
-                   sinf(longitude));
+ struct Vec3<float> vAxis(0,
+                          -sinf(lattitude) * cosf(longitude),
+                          sinf(longitude));
  vAxis.Normalize();
  Rotate(&vAxis, angle);
 }
@@ -102,7 +105,7 @@ inline Quaternion Quaternion::Conjugate()
 }
 
 
-inline Vec3 Quaternion::Transform(const Vec3 &v)
+inline Vec3<float> Quaternion::Transform(const Vec3<float> &v)
 {
  //]p = [0, v]:
  // v' = q * p * q^-1  , where v' is v roatated by q
@@ -110,60 +113,16 @@ inline Vec3 Quaternion::Transform(const Vec3 &v)
 
  qVec = *this * qVec * Conjugate();
 
- return Vec3(qVec.x, qVec.y, qVec.z);
+ return Vec3<float>(qVec.x, qVec.y, qVec.z);
 }
 
 
 
 
-inline Vec3 &Vec3::operator =(const Vec3 &v)
-{
- x = v.x;
- y = v.y;
- z = v.z;
- return *this;
-}
-
-
-inline Vec3 operator +(const Vec3 &lh, const Vec3 &rh)
-{
- return Vec3(lh.x + rh.x, lh.y + rh.y, lh.z + rh.z);
-}
-
-inline Vec3 &Vec3::operator +=(const Vec3 &v)
-{
- x += v.x;
- y += v.y;
- z += v.z;
- return *this;
-}
-
-
-inline Vec3 operator *(const Vec3 &lh, float scale)
-{
- return Vec3(lh.x * scale, lh.y * scale, lh.z * scale);
-}
-
-inline Vec3 &Vec3::operator *=(const float scale)
-{
- x *= scale;
- y *= scale;
- z *= scale;
- return *this;
-}
-
-
-inline float &Vec3::operator [](unsigned int uCol)
-{
- return v[uCol];
-}
 
 inline Vec4 &Vec4::operator =(const Vec4 &v)
 {
- x = v.x;
- y = v.y;
- z = v.z;
- w = v.w;
+ x = v.x, y = v.y, z = v.z, w = v.w;
  return *this;
 }
 
@@ -271,11 +230,11 @@ inline Matrix4x4 Matrix4x4::operator *(Matrix4x4 &rv)
 }
 
 
-inline Vec3 Matrix4x4::Transofrm(Vec3 *vVec)
+inline Vec3<float> Matrix4x4::Transofrm(Vec3<float> *vVec)
 {
  Vec4 v(vVec->x * m[0][0] + vVec->y * m[1][0] + vVec->z * m[2][0] + m[3][0],
         vVec->x * m[0][1] + vVec->y * m[1][1] + vVec->z * m[2][1] + m[3][1],
         vVec->x * m[0][2] + vVec->y * m[1][2] + vVec->z * m[2][2] + m[3][2],
         vVec->x * m[0][3] + vVec->y * m[1][3] + vVec->z * m[2][3] + m[3][3]);
- return Vec3(v.x / v.w, v.y / v.w, v.z / v.w);
+ return Vec3<float>(v.x / v.w, v.y / v.w, v.z / v.w);
 }

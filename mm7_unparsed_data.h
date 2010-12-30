@@ -2921,9 +2921,9 @@ extern struct OldViewport *pOldViewport;  // struct @ MM7.exe::00F8BC14
 // int dword_F8BC40; // 00002C
 // int dword_F8BC44; // 000030
 
-extern __int16 word_F8BC48_displaced_face_intersect_plane_coords[]; // weak
+extern __int16 word_F8BC48_displaced_face_intersect_plane_coords_a[]; // weak
 //__int16 word_F8BC4A; // weak
-extern __int16 word_F8BD18_displaced_face_intersect_plane_coords[]; // weak
+extern __int16 word_F8BD18_displaced_face_intersect_plane_coords_b[]; // weak
 //__int16 word_F8BD1A[array_size_unknown]; // weak
 extern struct class25 class25_F8BDE8; // struct @ MM7.exe::00F8BDE8
 //int dword_F8BDE8; // begin of class25

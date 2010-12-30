@@ -49,7 +49,7 @@ struct struct12
 void sub_4C0EF2_BSPModel_Face_To_struct12(struct12 *_this, BSPModel::Face *a2);
 char __stdcall sub_436455(struct12 *a1);
 char __stdcall sub_438258(struct12 *a1, int a2);
-int __stdcall sub_4C1D2B(struct12 *a1, vec3<short>, unsigned int uModelID);
+int __stdcall sub_4C1D2B(struct12 *a1, Vec3<short>, unsigned int uModelID);
 
 
 
@@ -166,8 +166,8 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayDirection, float
 
 
 
-char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, vec3<short> *a5, struct struct12 *a6);
-char __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, vec3<short> *a5, struct struct12 *a6, unsigned int uModelID);
+char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct struct12 *a6);
+Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct struct12 *a6, unsigned int uModelID);
 
 
 

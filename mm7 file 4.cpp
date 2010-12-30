@@ -8965,7 +8965,7 @@ double __stdcall sub_45CC0C(float a1, float a2, float a3, float a4, float a5, in
 }
 
 //----- (0045D036) --------------------------------------------------------
-bool __stdcall sub_45D036(struct Vec3 *pNormal, int a2, struct RenderVertex *a3, int a4, signed int X)
+bool __stdcall sub_45D036(struct Vec3<float> *pNormal, int a2, struct RenderVertex *a3, int a4, signed int X)
 {
   float v6; // ebx@2
   int v10; // [sp+Ch] [bp-4h]@1
@@ -8992,7 +8992,7 @@ bool __stdcall sub_45D036(struct Vec3 *pNormal, int a2, struct RenderVertex *a3,
 }
 
 //----- (0045D0D5) --------------------------------------------------------
-char __stdcall sub_45D0D5(struct struct6 *a1, struct Vec3 *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7)
+char __stdcall sub_45D0D5(struct struct6 *a1, struct Vec3<float> *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7)
 {
   float v7; // edi@1
   int v8; // eax@1
