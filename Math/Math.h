@@ -1,6 +1,46 @@
 #pragma once
 #include <math.h>
 
+
+
+template<typename type>
+  struct vec1
+{
+ inline vec1() {}
+ inline vec1(type a): x(a) {}
+ inline vec1(const vec1<type> &other): x(other.x) {}
+
+ type x;
+};
+
+template<typename type>
+  struct vec2: public vec1<type>
+{
+ inline vec2() {}
+ inline vec2(type a, type b): vec1(a), y(b) {}
+ inline vec2(const vec2<type> &other): x(other.x), y(other.y) {}
+
+ type y;
+};
+
+template<typename type>
+  struct vec3: public vec2<type>
+{
+ inline vec3() {}
+ inline vec3(type a, type b, type c): vec2(a, b), z(c) {}
+ inline vec3(const vec3<type> &other): x(other.x), y(other.y), z(other.z) {}
+
+ type z;
+};
+
+
+
+
+
+
+
+  
+
 struct Vec3
 {
  inline Vec3() {}
