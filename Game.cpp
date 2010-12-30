@@ -619,7 +619,7 @@ char Game_sub_44EEA7(struct Game *_this)
   }
 
  v4 = v2;
- pGame->Pick(v4, v7, v8, false, v10, v11);
+ pGame->PickMouse(v4, v7, v8, false, v10, v11);
  _this->class04_obj->std__vector_000004_size = 0;
  _this->class04_obj->std__vector_183808_size = 0;
 
@@ -674,7 +674,7 @@ signed int Game_sub_44EC23(struct Game *_this, struct struct8 *a2, int *a3, sign
   float v14; // [sp+1Ch] [bp+10h]@9
   float v15; // [sp+1Ch] [bp+10h]@11
 
- if (_this->dword_000E24 & 0x00000002 && a2->byte_000059 == 5 && a2->ptr_000054->byte_000010[12] & 0x02)
+ if (_this->dword_000E24 & 0x00000002 && a2->byte_000059 == 5 && a2->ptr_000054->uFaceAttributes & 0x02)
  {
     v4 = (double)a4;
     v11 = v4;
@@ -881,23 +881,17 @@ void Game_stru0_sub_40E2F6(struct Game_stru0 *_this, char a2)
 }
 
 //----- (0044EA5E) --------------------------------------------------------
-Result::Code Game::Pick(float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, struct unnamed_F93E6C *a6, struct unnamed_F93E6C *a7)
+Result::Code Game::PickMouse(float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, struct unnamed_F93E6C *a6, struct unnamed_F93E6C *a7)
 {
-  char v10; // [sp-4h] [bp-24h]@5
-  int v11; // [sp+0h] [bp-20h]@5
-  char *v16; // [sp+18h] [bp-8h]@5
-  int v17; // [sp+1Fh] [bp-1h]@5
+ if (dword_4E28F8_PartyCantJumpIfTrue)
+   return Result::Generic;
 
-  if (!dword_4E28F8_PartyCantJumpIfTrue)
-  {
-    if (uMouseX >= pOldViewport->uScreenX && uMouseX <= pOldViewport->uScreenZ &&
-        uMouseY >= pOldViewport->uScreenY && uMouseY <= pOldViewport->uScreenW)
-    {
-            pVis->Pick(a2, uMouseX, uMouseY, a6, a7);
-            if (bOutline)
-              Game_outline_selection((int)this);
-    }
-    return Result::Success;
-  }
-  else return Result::Generic;
+ if (uMouseX >= pOldViewport->uScreenX && uMouseX <= pOldViewport->uScreenZ &&
+     uMouseY >= pOldViewport->uScreenY && uMouseY <= pOldViewport->uScreenW)
+ {
+  pVis->PickMouse(a2, uMouseX, uMouseY, a6, a7);
+  if (bOutline)
+    Game_outline_selection((int)this);
+ }
+ return Result::Success;
 }

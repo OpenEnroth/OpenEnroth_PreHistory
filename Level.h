@@ -14,26 +14,64 @@
 
 #pragma pack(push, 1)
 
-struct class51_stru3
+
+struct BSPModel
 {
- signed int x; // dword @ 000000
- signed int z; // dword @ 000004
- signed int y; // dword @ 000008
-};
-//sizeof == 0C
+ struct Vertex
+ {
+  int x; // dword @ 000000
+  int z; // dword @ 000004
+  int y; // dword @ 000008
+ };
+ //sizeof == 0C
 
-struct class51_BModel
-{
- unsigned char pModelName[16 + array_size_unknown];
+ struct Face
+ {
+  int            pFaceNormal[3];               // dword[3] @ 000000
+  int            sNormalDistance;              // dword    @ 00000C
+  int            zCalc1;                       // dword    @ 000010
+  int            zCalc2;                       // dword    @ 000014
+  int            zCalc3;                       // dword    @ 000018
+  unsigned int   uFaceAttributes;              // dword    @ 00001C    & 0x40: word_000110 == TextureFrameTable ID  ?  plain Texture ID
+  unsigned short pVertexIDs[20];               // word[20] @ 000020     list of face vertices, pVertexIDs[0] == pVertexIDs[uNumVertices]
+  unsigned short pTextureUIDs[20];             // word[20] @ 000048    list of face texcoord u's
+  unsigned short pTextureVIDs[20];             // word[20] @ 000070    list of face texcoord v's
+  unsigned short pXInterceptDisplacements[20]; // word[20] @ 000098
+  unsigned short pYInterceptDisplacements[20]; // word[20] @ 0000C0
+  unsigned short pZInterceptDisplacements[20]; // word[20] @ 0000E8
+  unsigned short uTextureID;                   // word     @ 000110
+  short          sTextureDeltaU;               // word     @ 000112
+  short          sTextureDeltaV;               // word     @ 000114
+  Range<short>   cBoundingBoxX;                // word[2]  @ 000016
+  Range<short>   cBoundingBoxY;                // word[2]  @ 00001A
+  Range<short>   cBoundingBoxZ;                // word[2]  @ 00001E
+  short          sCogNumber;                   // word @ 000122
+  short          sCogTriggeredID;              // word @ 000124     Event::dword_000000
+  short          sCogTriggerType;              // word @ 000126
+  char           unk_000128[2];
+  unsigned char  uGradientVertex1;             // byte @ 000012A
+  unsigned char  uGradientVertex2;             // byte @ 000012B
+  unsigned char  uGradientVertex3;             // byte @ 000012C
+  unsigned char  uGradientVertex4;             // byte @ 000012D
+  unsigned char  uNumVertices;                 // byte @ 000012E
+  unsigned char  uPolygonType;                 // byte @ 000012F
+#if 1  // mm7/8 stuff
+  unsigned char  uShadeType;                   // byte @ 000130
+  unsigned char  bVisible;                     // byte @ 000131
+  char           unk_000132[2];
+#endif
+ };
+//sizeof == 134
 
- char byte_a[0x40 - 16 - array_size_unknown];
 
+ unsigned char         pModelName[32];   // byte[32] @ 000000
+ unsigned char         pModelName2[32];  // byte[32] @ 000020
  int                   dword_000040;
- unsigned int          dword_000044;
- struct class51_stru3 *ptr_000048;
- unsigned int          dword_00004C; // num elements in 000054
+ unsigned int          uNumVertices;     // dword @ 000044
+ Vertex               *pVertices;        // dword @ 000048
+ unsigned int          uNumFaces;        // dword @ 00004C
  int                   dword_000050;
- struct class51_stru2 *ptr_000054;
+ Face                 *pFaces;           // ptr @ 000054
  unsigned short       *ptr_000058;
  unsigned int          dword_00005C;
  unsigned char        *ptr_000060;
@@ -52,44 +90,6 @@ struct class51_BModel
  int dword_0000B8;
 };
 //sizeof == BC
-
-struct class51_stru2
-{
- int    dword_000000;
- int    dword_000004;
- int    dword_000008;
- int    dword_00000C;
- char   byte_000010[12]; //if (byte_000010[13] & 0x40) then word_000110 == TextureFrameTable ID  else  plain Texture ID
- int    dword_00001C;
- short  array_000020[20];
- short  array_000048[20];
- short  array_000070[20];
- short  array_000098[20];
- short  array_0000C0[20];
- char   byte_0000E8[40];
- short  uTextureID;      // word @ 000110
- short  word_000112;
- short  word_000114;
- short  sSomeX1;        // word @ 000116    x1..
- short  sSomeX2;        // word @ 000118     ..x2
- short  sSomeY1;        // word @ 00011A    y1..
- short  sSomeY2;        // word @ 00011C     ..y2
- short  sSomeZ1;        // word @ 00011E    z1..
- short  sSomeZ2;        // word @ 000120     ..z2  some boundaries
- char   byte_000122[2];
- short  word_000124;     //related to Event::dword_000000
- char   byte_000126[4];
- char   byte_00012A;
- char   byte_00012B;
- char   byte_00012C;
- char   byte_00012D;
- unsigned char uNumVertices; // byte @ 00012E
- char  byte_00012F;
- char  byte_000130;
- char  byte_000131;
- char  byte_000132[2];
-};
-//sizeof == 134
 
 #pragma pack(pop)
 
@@ -194,7 +194,7 @@ class OutdoorLocation: public Location
  struct TerrainData cTerrainData; // struct @ 0000B4
 
  unsigned char         *ptr_0000D4;
- struct class51_BModel *pBModels;      // ptr @ 0000D8
+ struct BSPModel       *pBModels;      // ptr @ 0000D8
  int                    dword_0000DC;
  unsigned short        *ptr_0000E0;   // IDLIST
  unsigned int          *ptr_0000E4;   // OMAP
@@ -272,7 +272,75 @@ int __thiscall class51_CreateDefaultMap(int Dest);
 
 
 
-bool sub_44C1E8(struct class51_stru2 *_this);
-bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct struct8 *a3);
-bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *);
+bool sub_44C1E8(BSPModel::Face *_this);
+bool sub_482170(BSPModel::Face *_this, struct RenderVertex *a2, struct struct8 *a3);
+bool __stdcall sub_45CDB7_Face_ApplyLight(BSPModel::Face *_this, struct class04 *);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct struct8
+{
+ float                flt_000000;
+ float                flt_000004;
+ float                flt_000008;
+ float                flt_00000C;
+ float                flt_000010;
+ unsigned int         uNumVertices; // dword @ 000014
+ int                   dword_000018;
+ int                  dword_00001C;
+ int                  dword_000020;
+ int                  dword_000024;
+ int                  sTextureDeltaU; // dword @ 000028  BSPModel::Face::sTextureDeltaU
+ int                  sTextureDeltaV; // dword @ 00002C
+ short                word_000030;  // word_000018 in struct TileDesc  0x4000 flag -> TextureFrameTable unsupported  0x0002 -> water tile
+ short                word_000032;
+ int                  dword_000034;
+ struct class57      *ptr_000038;
+ struct cTexture     *ptr_00003C;
+ struct Span         *ptr_000040; // head  ?
+ struct Span         *ptr_000044;  // and tail ?
+ int                **ptr_000048;
+ short                uTextureID; // word @ 00004C    word_000012 in struct TileDesc, texture id in bitmaps.lod
+ short                word_00004E;
+ short                 word_000050;
+ short                word_000052;
+ BSPModel::Face      *ptr_000054;
+ char                 byte_000058;    //0..31 steps (step = ï/32) of some rotation
+ char                 byte_000059;
+ char                 byte_00005A;
+ char                 byte_00005B;
+ char                 byte_00005C;
+ char                 byte_00005D;
+ char                 byte_00005E;     //bmodel id
+ char                 byte_00005F;     //bmodel's class51_stru2 id
+ struct Edge         *array_000060[20];
+ int                  dword_0000B0;        //num ptrs in 000060
+ struct Edge         *array_0000B4[20];
+ int                  dword_000104;        //num ptrs in 0000B4
+ char                 byte_000108;
+ char                 byte_000109[3];
+};
+//sizeof == 10C
+//void __thiscall sub_486089_NormalizeVector(int _this);
+void sub_486089_NormalizeVector(struct struct8 *_this);
+//char __stdcall sub_45D3C7(int a1);
+bool __stdcall sub_45D3C7(struct struct8 *_this);
+//int __thiscall sub_48607B(int _this, int a2);
+void sub_48607B_MessWithStruct8(struct struct8 *_this, struct class57 *pClass57);
+//signed int __thiscall sub_479295(int _this);
+bool struct8_sub_479295(struct struct8 *_this);

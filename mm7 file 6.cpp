@@ -6747,31 +6747,30 @@ char __thiscall sub_49BBBD(int _this, int a2)
 }
 
 //----- (0049BCEB) --------------------------------------------------------
-bool __thiscall sub_49BCEB(struct class58 *_this, struct class51_stru2 *a2)
+bool sub_49BCEB(struct class58 *_this, struct BSPModel::Face *a2)
 {
   double v5; // st7@12
- int i;
 
  _this->std__vector_30B00C_size = 0; // ::clear();
- if (~a2->byte_000010[14] & 0x40 ||
-     ~a2->byte_000010[12] & 0x10)
+ if (~a2->uFaceAttributes & 0x400000 ||
+     ~a2->uFaceAttributes & 0x000010)
    return true;
  
- for (i = 0; i < class36_global0.std__vector_000004_size; ++i)
+ for (unsigned int i = 0; i < class36_global0.std__vector_000004_size; ++i)
  {
-  if (a2->sSomeX1 - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000000 &&
-      a2->sSomeX2 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000000)
+  if (a2->cBoundingBoxX.min - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000000 &&
+      a2->cBoundingBoxX.max + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000000)
   {
-   if (a2->sSomeY1 - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000004 &&
-       a2->sSomeY2 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000004)
+   if (a2->cBoundingBoxY.min - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000004 &&
+       a2->cBoundingBoxY.max + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000004)
    {
-    if (a2->sSomeZ1 - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000008 &&
-        a2->sSomeZ2 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000008)
+    if (a2->cBoundingBoxZ.min - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000008 &&
+        a2->cBoundingBoxZ.max + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000008)
     {
-     __int64 v0 = a2->dword_00000C +
-                  a2->dword_000000 * floorf(class36_global0.std__vector_000004[i].flt_000000 + 0.5f) +
-                  a2->dword_000004 * floorf(class36_global0.std__vector_000004[i].flt_000004 + 0.5f) +
-                  a2->dword_000008 * floorf(class36_global0.std__vector_000004[i].flt_000008 + 0.5f);
+     __int64 v0 = a2->sNormalDistance +
+                  a2->pFaceNormal[0] * floorf(class36_global0.std__vector_000004[i].flt_000000 + 0.5f) +
+                  a2->pFaceNormal[1] * floorf(class36_global0.std__vector_000004[i].flt_000004 + 0.5f) +
+                  a2->pFaceNormal[2] * floorf(class36_global0.std__vector_000004[i].flt_000008 + 0.5f);
 
      v5 = (double)(v0 / 65536);
      if (v5 <= class36_global0.std__vector_000004[i].flt_00000C)

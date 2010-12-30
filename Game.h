@@ -5,6 +5,7 @@
 #include "defs.h"
 
 #include "classes.h"
+#include "Level.h"
 #include "Vis.h"
 
 #include "GUI\GUI.h"
@@ -89,11 +90,13 @@ struct Game
  Result::Code Loop(const char *pLevelName);
 
 
- Result::Code Pick(float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, struct unnamed_F93E6C *a6, struct unnamed_F93E6C *a7);
+ Result::Code PickMouse(float fDepth, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, struct unnamed_F93E6C *a6, struct unnamed_F93E6C *a7);
+ Result::Code PickKeyboard(bool bOutline, struct unnamed_F93E6C *a3, struct unnamed_F93E6C *a4);
 };
 //sizeof = 0E78
 //int __cdecl sub_463149()                                                                     00463149  Game::Loop
-//char sub_44EA5E(int this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)   0044EA5E  Game::Pick
+//char sub_44EA5E(int this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)   0044EA5E  Game::PickMouse
+//char __thiscall sub_44EB12(int _this, char a2, int a3, int a4)                               0044EB12  Game::PickKeyboard
 
 //int __thiscall sub_44E4B7(int _this);
 void Game_ctor(Game *_this);
@@ -120,9 +123,7 @@ signed int Game_sub_44EC23(Game *_this, struct struct8 *a2, int *a3, signed int 
 //void __thiscall sub_40E2F6(int _this, char a2);
 void Game_stru0_sub_40E2F6(Game_stru0 *_this, char a2);
 //char __thiscall sub_44EE30(int _this, int a2, void **a3);
-bool Game_sub_44EE30(Game *_this, struct class51_stru2 *a2, void **a3);
-//char __thiscall sub_44EB12(int _this, char a2, int a3, int a4);
-bool Game_sub_44EB12(Game *_this, bool bOutline, struct unnamed_F93E6C *a3, struct unnamed_F93E6C *a4);
+bool Game_sub_44EE30(Game *_this, BSPModel::Face *a2, void **a3);
 
 void Game_dtor(Game *_this);
 

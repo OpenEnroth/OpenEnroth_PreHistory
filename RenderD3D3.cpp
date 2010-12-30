@@ -1235,8 +1235,8 @@ void RenderSky()
     local_14.dword_00001C = 0;
     local_14.dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
     local_14.dword_000024 = 0x2000000;
-    local_14.dword_000028 = 224 * cMiscTimer.dword_000024;
-    local_14.dword_00002C = 224 * cMiscTimer.dword_000024;
+    local_14.sTextureDeltaU = 224 * cMiscTimer.dword_000024;
+    local_14.sTextureDeltaV = 224 * cMiscTimer.dword_000024;
 
     array_50AC10[0].flt_000018 = pOldViewport->uGameX;
     array_50AC10[0].flt_00001C = pOldViewport->uGameY;

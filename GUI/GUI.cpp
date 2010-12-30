@@ -2975,7 +2975,7 @@ LABEL_400:
               goto LABEL_92;
             if ( uCurrentlyLoadedLevelType != 1 )
             {
-             v62 = (int)&pClass51_global->pBModels[(v56 >> 9)].ptr_000054[(v58 & 0x3F)];
+             v62 = (int)&pClass51_global->pBModels[(v56 >> 9)].pFaces[(v58 & 0x3F)];
               if ( !(*(_BYTE *)(v62 + 31) & 2) || !*(_WORD *)(v62 + 292) )
                 goto LABEL_92;
               v56 = v212;

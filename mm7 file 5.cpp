@@ -1744,7 +1744,7 @@ char __cdecl sub_46A14B_ProbablyDoInteraction()
 
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    Game_sub_44EB12(pGame, GetAsyncKeyState(VK_CONTROL) & 0x8001, &stru_F93E6C, &stru_F93E58);
+    pGame->PickKeyboard(GetAsyncKeyState(VK_CONTROL) & 0x8001, &stru_F93E6C, &stru_F93E58);
     v0 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
     if ( v0 != -1 )
       LOBYTE(v0) = sub_46A334_LooksLikeInteractWithTopmostZObject((unsigned __int16)v0, (signed int)(unsigned __int16)v0 >> 3);
@@ -2003,7 +2003,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
       if ( uCurrentlyLoadedLevelType != 1 )
       {
         if ( a1 >> 9 >= pClass51_global->uNumBModels
-         || (v7 = (int)&pClass51_global->pBModels[(a1 >> 9)].ptr_000054[((a1 >> 3) & 0x3F)],
+         || (v7 = (int)&pClass51_global->pBModels[(a1 >> 9)].pFaces[((a1 >> 3) & 0x3F)],
               *(_BYTE *)(v7 + 30) & 0x10)
           || (v6 = *(_WORD *)(v7 + 292), !v6) )
           return 1;
@@ -5743,7 +5743,7 @@ LABEL_45:
 int __thiscall sub_46E889(int a1)
 {
   int result; // eax@1
-  struct class51_stru2 *v4; // eax@11
+  struct BSPModel::Face *v4; // eax@11
   int v5; // ecx@17
   int v6; // edi@17
   int v7; // esi@17
@@ -5805,13 +5805,12 @@ int __thiscall sub_46E889(int a1)
 
   //struct unnamed_local_0C local_84;
   int v53; // [sp+84h] [bp-4h]@23
- int i, j;
- struct class51_BModel *pBModel;
+ int j;
+ struct BSPModel *pBModel;
 
-  sub_46ED02(&local_0C);
   result = 0;
 
- for (i = 0; i < pClass51_global->uNumBModels; ++i)
+ for (unsigned int i = 0; i < pClass51_global->uNumBModels; ++i)
  {
   pBModel = &pClass51_global->pBModels[i];
 
@@ -5824,7 +5823,7 @@ int __thiscall sub_46E889(int a1)
               if (stru_721530.dword_00009C <= pBModel->dword_000090 &&
                   stru_721530.dword_0000A0 >= pBModel->dword_000084)
               {
-                  if (pBModel->dword_00004C > 0)
+                  if (pBModel->uNumFaces > 0)
                     goto _proceed;
               }
           }
@@ -5837,54 +5836,50 @@ LABEL_39://continue
 _proceed:
 
     j = 0;
-    for (j = 0; j < pBModel->dword_00004C; ++j)
+    for (j = 0; j < pBModel->uNumFaces; ++j)
     {
-     v4 = &pBModel->ptr_000054[j];
+     v4 = &pBModel->pFaces[j];
 
-      if (stru_721530.dword_00008C > v4->sSomeX2 ||
-          stru_721530.dword_000090 < v4->sSomeX1 ||
-          stru_721530.dword_000094 > v4->sSomeY2 ||
-          stru_721530.dword_000098 < v4->sSomeY1 ||
-          stru_721530.dword_00009C > v4->sSomeZ2 ||
-          stru_721530.dword_0000A0 < v4->sSomeZ1)
+      if (stru_721530.dword_00008C > v4->cBoundingBoxX.max ||
+          stru_721530.dword_000090 < v4->cBoundingBoxX.min ||
+          stru_721530.dword_000094 > v4->cBoundingBoxY.max ||
+          stru_721530.dword_000098 < v4->cBoundingBoxY.min ||
+          stru_721530.dword_00009C > v4->cBoundingBoxZ.max ||
+          stru_721530.dword_0000A0 < v4->cBoundingBoxZ.min)
         continue;
 
-      local_0C.dword_000010 = v4->dword_000000;
-      local_0C.dword_000014 = v4->dword_000004;
-      v6 = v4->dword_000008;
-      local_0C.dword_000018 = v4->dword_000008;
-      v7 = v4->dword_00000C;
-      local_0C.dword_00001C = v4->dword_00000C;
+      local_0C.pFaceNormal[0] = v4->pFaceNormal[0];
+      local_0C.pFaceNormal[1] = v4->pFaceNormal[1];
+      v6 = v4->pFaceNormal[2];
+      local_0C.pFaceNormal[2] = v4->pFaceNormal[2];
+      v7 = v4->sNormalDistance;
+      local_0C.sNormalDistance = v4->sNormalDistance;
       v5 = *(_DWORD *)((char *)v4 + 0x1C);
-      local_0C.dword_00002C = v4->dword_00001C;
-      local_0C.sSomeX1 = v4->sSomeX1;
-      local_0C.sSomeY1 = v4->sSomeY1;
-      local_0C.sSomeZ1 = v4->sSomeZ1;
-      local_0C.sSomeX2 = v4->sSomeX2;
-      local_0C.sSomeY2 = v4->sSomeY2;
-      local_0C.sSomeZ2 = v4->sSomeZ2;
-      local_0C.dword_000020 = *(_DWORD *)(v4->byte_000010 + 0);
-      local_0C.dword_000024 = *(_DWORD *)(v4->byte_000010 + 4);
-      local_0C.dword_000028 = *(_DWORD *)(v4->byte_000010 + 8);
-      local_0C.dword_00002C = v4->dword_00001C;
-      local_0C.ptr_000034 = v4->array_000098;
-      local_0C.ptr_000038 = v4->array_0000C0;
-      local_0C.ptr_00003C = v4->byte_0000E8;
-      local_0C.byte_00005C = v4->byte_00012F;
+      local_0C.uFaceAttributes = v4->uFaceAttributes;
+      local_0C.cBoundingBoxX = v4->cBoundingBoxX;
+      local_0C.cBoundingBoxY = v4->cBoundingBoxY;
+      local_0C.cBoundingBoxZ = v4->cBoundingBoxZ;
+      local_0C.zCalc1 = v4->zCalc1;
+      local_0C.zCalc2 = v4->zCalc2;
+      local_0C.zCalc3 = v4->zCalc3;
+      local_0C.pXInterceptDisplacements = v4->pXInterceptDisplacements;
+      local_0C.pYInterceptDisplacements = v4->pYInterceptDisplacements;
+      local_0C.pZInterceptDisplacements = v4->pZInterceptDisplacements;
+      local_0C.uPolygonType = v4->uPolygonType;
       local_0C.uNumVertices = v4->uNumVertices;
       local_0C.uTextureID = v4->uTextureID;
-      local_0C.ptr_000030 = v4->array_000020;
+      local_0C.pVertexIDs = v4->pVertexIDs;
       if ( v5 & 0x20000000 || v5 & 1 )
         continue;
 
       v8 = (v6 * stru_721530.dword_000030 + v7 +
-            local_0C.dword_000014 * stru_721530.dword_00002C +
-            local_0C.dword_000010 * stru_721530.dword_000028) >> 16;
+            local_0C.pFaceNormal[1] * stru_721530.dword_00002C +
+            local_0C.pFaceNormal[0] * stru_721530.dword_000028) >> 16;
       if ( v8 > 0 )
       {
         v9 = (v6 * stru_721530.dword_000048 + v7 +
-              local_0C.dword_000014 * stru_721530.dword_000044 +
-              local_0C.dword_000010 * stru_721530.dword_000040) >> 16;
+              local_0C.pFaceNormal[1] * stru_721530.dword_000044 +
+              local_0C.pFaceNormal[0] * stru_721530.dword_000040) >> 16;
         if ( v8 <= stru_721530.dword_000004 || v9 <= stru_721530.dword_000004 )
         {
           if ( v9 <= v8 )
@@ -5936,14 +5931,14 @@ _proceed:
 LABEL_29:
       if ( stru_721530.dword_000000 & 1 )
       {
-        v15 = (local_0C.dword_000018 * stru_721530.dword_00003C + local_0C.dword_00001C +
-               local_0C.dword_000014 * stru_721530.dword_000038 +
-               local_0C.dword_000010 * stru_721530.dword_000034) >> 16;
+        v15 = (local_0C.pFaceNormal[2] * stru_721530.dword_00003C + local_0C.sNormalDistance +
+               local_0C.pFaceNormal[1] * stru_721530.dword_000038 +
+               local_0C.pFaceNormal[0] * stru_721530.dword_000034) >> 16;
         if ( v15 > 0 )
         {
-          v16 = (local_0C.dword_000018 * stru_721530.dword_000054 + local_0C.dword_00001C +
-                 local_0C.dword_000014 * stru_721530.dword_000050 +
-                 local_0C.dword_000010 * stru_721530.dword_00004C) >> 16;
+          v16 = (local_0C.pFaceNormal[2] * stru_721530.dword_000054 + local_0C.sNormalDistance +
+                 local_0C.pFaceNormal[1] * stru_721530.dword_000050 +
+                 local_0C.pFaceNormal[0] * stru_721530.dword_00004C) >> 16;
           if ( v15 <= stru_721530.dword_000004 || v16 <= stru_721530.dword_000004 )
           {
             if ( v16 <= v15 )
@@ -11202,7 +11197,7 @@ char __cdecl RenderBuildings()
   char result; // al@3
   int v1; // eax@3
   int v2; // ebx@4
- struct class51_stru2 *v4; // esi@6
+  struct BSPModel::Face *v4; // esi@6
   int v6; // ecx@8
   int v7; // ecx@8
  struct struct8 *v8; // ebx@8
@@ -11303,53 +11298,53 @@ char __cdecl RenderBuildings()
 
  for (i = 0; i < pClass51_global->uNumBModels; ++i)
  {
-  v2 = (int)&pClass51_global->pBModels[i].dword_00004C;
+  v2 = (int)&pClass51_global->pBModels[i].uNumFaces;
 
   if (!sub_479089(i, &v63))
     continue;
 
   pClass51_global->pBModels[i].dword_000040 |= 1;
-  for (j = 0; j < pClass51_global->pBModels[i].dword_00004C; ++j)
+  for (j = 0; j < pClass51_global->pBModels[i].uNumFaces; ++j)
   {
-   v4 = &pClass51_global->pBModels[i].ptr_000054[j];
+   v4 = &pClass51_global->pBModels[i].pFaces[j];
 
-   if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x20)
+   if (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x2000)
      continue;
 
-   v7 = (int)pClass51_global->pBModels[i].ptr_000048;
+   v7 = (int)pClass51_global->pBModels[i].pVertices;
    v58 = 0;
    v8 = &array_77EC08[pStruct9_global->dword_00002C];
 
    v8->word_000030 = 0;
    v8->word_000032 = 0;
 
-   v11 = (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x40) == 0;
-   v6 = pClass51_global->pBModels[i].ptr_000054[j].uTextureID;
+   v11 = (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x4000) == 0;
+   v6 = pClass51_global->pBModels[i].pFaces[j].uTextureID;
    if (!v11)
      v6 = TextureFrameTable_GetFrame(pTextureFrameTable, v6, cEventTimer.dword_000024);
    v8->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v6];
 
 
-   v11 = (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[12] & 0x10) == 0;
+   v11 = (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x10) == 0;
    if (!v11)
      v8->word_000030 |= 0x0002;
-   if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[14] & 0x40)
+   if (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x400000)
      v8->word_000030 |= 0x0400;
 
-   if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[12] & 0x04)
+   if (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x04)
      v8->word_000030 |= 0x0400;
-   else if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[12] & 0x20)
+   else if (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x20)
      v8->word_000030 |= 0x0800;
 
-   if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x08)
+   if (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x0800)
      v8->word_000030 |= 0x2000;
-   else if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[12] & 0x40)
+   else if (pClass51_global->pBModels[i].pFaces[j].uFaceAttributes & 0x40)
      v8->word_000030 |= 0x1000;
 
-   v8->dword_000028 = pClass51_global->pBModels[i].ptr_000054[j].word_000112;
-   v8->dword_00002C = pClass51_global->pBModels[i].ptr_000054[j].word_000114;
+   v8->sTextureDeltaU = pClass51_global->pBModels[i].pFaces[j].sTextureDeltaU;
+   v8->sTextureDeltaV = pClass51_global->pBModels[i].pFaces[j].sTextureDeltaV;
    v18 = GetTickCount() / 16;
-   v45 = pClass51_global->pBModels[i].ptr_000054[j].dword_000008;
+   v45 = pClass51_global->pBModels[i].pFaces[j].pFaceNormal[2];
    if (v45 && abs(v45) >= 59082)
    {
         if (v8->word_000030 & 0x0400)
@@ -11357,7 +11352,7 @@ char __cdecl RenderBuildings()
         if (v8->word_000030 & 0x0800)
         {
 LABEL_26:
-         v8->dword_00002C -= v18 & v8->ptr_00003C->word_000022;
+         v8->sTextureDeltaV -= v18 & v8->ptr_00003C->word_000022;
           goto LABEL_30;
         }
       }
@@ -11368,31 +11363,31 @@ LABEL_26:
         if (v8->word_000030 & 0x0800)
         {
 LABEL_29:
-         v8->dword_00002C += v18 & v8->ptr_00003C->word_000022;
+         v8->sTextureDeltaV += v18 & v8->ptr_00003C->word_000022;
           goto LABEL_30;
         }
       }
 LABEL_30:
       if (v8->word_000030 & 0x1000)
-        v8->dword_000028 -= v18 & v8->ptr_00003C->word_000020;
+        v8->sTextureDeltaU -= v18 & v8->ptr_00003C->word_000020;
       else if (v8->word_000030 & 0x2000)
-        v8->dword_000028 += v18 & v8->ptr_00003C->word_000020;
+        v8->sTextureDeltaU += v18 & v8->ptr_00003C->word_000020;
 
-      v20 = pClass51_global->pBModels[i].ptr_000054[j].uNumVertices;
+      v20 = pClass51_global->pBModels[i].pFaces[j].uNumVertices;
       v55 = 0;
       v54 = false;
 
       for (k = 0; k < v20; ++k)
       {
-        array_73D150[k].x = pClass51_global->pBModels[i].ptr_000048[v4->array_000020[k]].x;
-        array_73D150[k].z = pClass51_global->pBModels[i].ptr_000048[v4->array_000020[k]].z;
-        array_73D150[k].y = pClass51_global->pBModels[i].ptr_000048[v4->array_000020[k]].y;
+        array_73D150[k].x = pClass51_global->pBModels[i].pVertices[v4->pVertexIDs[k]].x;
+        array_73D150[k].z = pClass51_global->pBModels[i].pVertices[v4->pVertexIDs[k]].z;
+        array_73D150[k].y = pClass51_global->pBModels[i].pVertices[v4->pVertexIDs[k]].y;
 
-        array_73D150[k].u = (double)(v8->dword_000028 + v4->array_000048[k]) / (double)(v8->ptr_00003C->uTextureWidth);
-        array_73D150[k].v = (double)(v8->dword_00002C + v4->array_000070[k]) / (double)(v8->ptr_00003C->uTextureHeight);
+        array_73D150[k].u = (double)(v8->sTextureDeltaU + v4->pTextureUIDs[k]) / (double)(v8->ptr_00003C->uTextureWidth);
+        array_73D150[k].v = (double)(v8->sTextureDeltaV + v4->pTextureVIDs[k]) / (double)(v8->ptr_00003C->uTextureHeight);
       }
       
-   v48 = pClass51_global->pBModels[i].ptr_000048[v4->array_000020[0]].y;
+      v48 = pClass51_global->pBModels[i].pVertices[v4->pVertexIDs[0]].y;
       for (k = 0; k < v20; ++k)
       {
        if (v48 == array_73D150[k].y)
@@ -11418,12 +11413,12 @@ LABEL_30:
       v8->uNumVertices = v20;
       v8->byte_000059 = 5;
       LODWORD(v48) = -v28;
-      v56 = v4->dword_000000;
+      v56 = v4->pFaceNormal[0];
       v56 = (unsigned __int64)(-v28 * v56) / 65536;
-      v58 = v4->dword_000004;
+      v58 = v4->pFaceNormal[1];
       LODWORD(v48) = -pClass51_global->dword_000D34;
       v58 = (unsigned __int64)(-pClass51_global->dword_000D34 * v58) / 65536;
-      v57 = v4->dword_000008;
+      v57 = v4->pFaceNormal[2];
       v57 = (unsigned __int64)(-pClass51_global->dword_000D38 * v57) / 65536;
       LODWORD(v48) = v56 + v58 + v57;
       v56 = (unsigned __int64)(1310720i64 * SLODWORD(v48)) / 65536;
@@ -11442,7 +11437,7 @@ LABEL_30:
       {
         LOBYTE(v29) = j;
         v30 = i;
-        v4->byte_000131 = 1;
+        v4->bVisible = true;
         v8->byte_00005F = v29;
         LOWORD(v29) = (unsigned __int8)v29;
         v8->byte_00005E = v30;
@@ -11465,7 +11460,7 @@ LABEL_30:
         }
         v45 = (int)v4;
 
-        sub_45CDB7(v4, pGame->class04_obj);
+        sub_45CDB7_Face_ApplyLight(v4, pGame->class04_obj);
         sub_49BCEB(pClass58_global, v4);
         pGame->class04_obj->std__vector_000004_size = 0; //class04->std__vector_000004.clear()
         v35 = 0;
@@ -11543,7 +11538,7 @@ LABEL_85:
 bool struct8_sub_479295(struct struct8 *_this)
 {
   int v1; // edi@1
- struct class51_stru2 *v2; // esi@1
+ struct BSPModel::Face *v2; // esi@1
   int v3; // eax@4
   int v4; // edx@4
   int v5; // ecx@4
@@ -11557,18 +11552,18 @@ bool struct8_sub_479295(struct struct8 *_this)
 
   v1 = (int)_this;
   v2 = _this->ptr_000054;
- if (!v2->dword_000008)
+ if (!v2->pFaceNormal[2])
  {
-  v5 = v2->dword_000000;
-  v3 = -v2->dword_000004;
+  v5 = v2->pFaceNormal[0];
+  v3 = -v2->pFaceNormal[1];
 
     v4 = 0;
     v13 = 65536;
  }
- else if ((v2->dword_000000 || v2->dword_000004) && abs(v2->dword_000008) < 59082)
+ else if ((v2->pFaceNormal[0] || v2->pFaceNormal[1]) && abs(v2->pFaceNormal[2]) < 59082)
  {
-    v10.v10 = -v2->dword_000004;
-    v10.v11 = v2->dword_000000;
+    v10.v10 = -v2->pFaceNormal[1];
+    v10.v11 = v2->pFaceNormal[0];
     v10.v12 = 0;
     sub_44C362_NormalizeIntVector((int *)&v10);
 
@@ -11587,8 +11582,8 @@ bool struct8_sub_479295(struct struct8 *_this)
   v4 = -65536;
  }
 
- _this->dword_000028 = v2->word_000112;
- _this->dword_00002C = v2->word_000114;
+ _this->sTextureDeltaU = v2->sTextureDeltaU;
+ _this->sTextureDeltaV = v2->sTextureDeltaV;
 
  class57_sub_48616B(_this->ptr_000038, v3, v5, 0, 0, v4, v13);
  return true;

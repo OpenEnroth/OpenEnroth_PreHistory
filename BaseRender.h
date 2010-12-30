@@ -1,6 +1,7 @@
 #pragma once
 #include "defs.h"
 #include "CoreDefinitions.h"
+#include "Level.h"
 
 #include <stdio.h>
 #include <windows.h>
@@ -81,6 +82,12 @@ struct RenderVertex
  float flt_00002C;
 };
 //sizeof == 30
+//int sub_4C1417(void *_this, const void *Src, int a3, int a4, int a5)
+/*protected*/ Result::Code GetD3DBillboardCenter(struct RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY);
+//char __thiscall sub_4C26D0(void *_this, int a2, int a3, int a4);
+/*template*/  Result::Code Sort_template_D3DXVECTOR_x(struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
+//char __thiscall sub_4C27AD(void *_this, int a2, int a3, int a4);
+/*template*/  Result::Code Sort_template_D3DXVECTOR_y(struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
 
 
 struct RenderBillboard
@@ -102,6 +109,11 @@ struct RenderBillboard
  short               word_00002A;
  int                 dword_00002C; // MonsterDescription::dword_000008   tint color?
  struct SpriteFrame *pSpriteFrame;  // dword  @ 000030
+
+ inline float GetFloatZ() const
+ {
+  return LOWORD(sZValue) / 65535.0f + (float)HIWORD(sZValue);
+ }
 };
 //sizeof = 34
 
@@ -282,7 +294,7 @@ void Render_FillRect2(struct BaseRender *_this, unsigned int uX, unsigned int uY
 //int sub_49FE05(int, void *_this)
 void sub_49FE05(struct BaseRender *pD3DRenderer);
 //void __thiscall sub_4A2050(int _this, signed int a2, int a3, int a4, int a5);
-void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, struct IDirect3DTexture2 *pTexture);
+void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, BSPModel::Face *a4, struct IDirect3DTexture2 *pTexture);
 //void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2, unsigned int uNumVertices, struct struct8 *a4, struct IDirect3DTexture2 *pTexture, bool a6, bool a7);
 //void __thiscall sub_4A4023(int _this, int a2, int a3, int a4, int a5);

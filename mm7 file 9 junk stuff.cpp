@@ -2013,7 +2013,7 @@ void __cdecl sub_46B76F()
       v4 = (signed int *)(v1 + 12);
       if ( v3 & 1 )
       {
-        pGame->Pick(512.0, *v4, *(_DWORD *)(v1 + 16), 0, &stru_F93E6C, &stru_F93E58);
+        pGame->PickMouse(512.0, *v4, *(_DWORD *)(v1 + 16), 0, &stru_F93E6C, &stru_F93E58);
         if ( sub_466CA0() == MENU_CREATEPARTY )
           sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
         OnMouseLeftClick((void *)(v1 + 12));
@@ -2025,7 +2025,7 @@ void __cdecl sub_46B76F()
           v5 = *(_DWORD *)(v1 + 16);
           v6 = *v4;
           v7 = sub_43643E();
-          pGame->Pick(v7, v6, v5, 0, &stru_F93E30, &stru_F93E44);
+          pGame->PickMouse(v7, v6, v5, 0, &stru_F93E30, &stru_F93E44);
           sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(v1 + 12);
         }
         else
@@ -2035,7 +2035,7 @@ void __cdecl sub_46B76F()
             v8 = *(_DWORD *)(v1 + 16);
             v9 = *v4;
             v10 = sub_43643E();
-            pGame->Pick(v10, v9, v8, 1, &stru_F93E6C, &stru_F93E44);
+            pGame->PickMouse(v10, v9, v8, 1, &stru_F93E6C, &stru_F93E44);
           }
         }
       }
@@ -2070,7 +2070,7 @@ void __cdecl sub_46B879()
       v4 = (signed int *)(v1 + 12);
       if ( v3 & 1 )
       {
-        pGame->Pick(512.0, *v4, *(_DWORD *)(v1 + 16), 0, &stru_F93E6C, &stru_F93E58);
+        pGame->PickMouse(512.0, *v4, *(_DWORD *)(v1 + 16), 0, &stru_F93E6C, &stru_F93E58);
         sub_4178C4();
       }
       else
@@ -2080,7 +2080,7 @@ void __cdecl sub_46B879()
           v5 = *(_DWORD *)(v1 + 16);
           v6 = *v4;
           v7 = sub_43643E();
-          pGame->Pick(v7, v6, v5, 0, &stru_F93E30, &stru_F93E58);
+          pGame->PickMouse(v7, v6, v5, 0, &stru_F93E30, &stru_F93E58);
           sub_4178E1();
         }
         else

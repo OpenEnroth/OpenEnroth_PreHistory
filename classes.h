@@ -4,6 +4,7 @@
 #include "c18.h"
 #include "Party.h"
 #include "Items.h"
+#include "Level.h"
 
 #include "GUI\GUI.h"
 
@@ -801,59 +802,6 @@ struct RenderVertex
  float flt_00002C;
 };	*/
 
-struct struct8
-{
- float                  flt_000000;
- float                  flt_000004;
- float                  flt_000008;
- float                  flt_00000C;
- float                  flt_000010;
- unsigned int           uNumVertices; // dword @ 000014
- int                    dword_000018;
- int                    dword_00001C;
- int                    dword_000020;
- int                    dword_000024;
- int                    dword_000028;
- int                    dword_00002C;
-
- short                  word_000030;  // word_000018 in struct TileDesc  0x4000 flag -> TextureFrameTable unsupported  0x0002 -> water tile
- short                  word_000032;
- int                    dword_000034;
- struct class57        *ptr_000038;
- cTexture              *ptr_00003C;
- struct Span           *ptr_000040; // head  ?
- struct Span           *ptr_000044;  // and tail ?
- int                  **ptr_000048;
- short                  uTextureID; // word @ 00004C    word_000012 in struct TileDesc, texture id in bitmaps.lod
- short                  word_00004E;
- short                  word_000050;
- short                  word_000052;
- struct class51_stru2  *ptr_000054;
- char                   byte_000058;    //0..31 steps (step = ï/32) of some rotation
- char                   byte_000059;
- char                   byte_00005A;
- char                   byte_00005B;
- char                   byte_00005C;
- char                   byte_00005D;
- char                   byte_00005E;     //bmodel id
- char                   byte_00005F;     //bmodel's class51_stru2 id
- struct Edge           *array_000060[20];
- int                    dword_0000B0;        //num ptrs in 000060
- struct Edge           *array_0000B4[20];
- int                    dword_000104;        //num ptrs in 0000B4
- char                   byte_000108;
- char                   byte_000109[3];
-};
-//sizeof == 10C
-//void __thiscall sub_486089_NormalizeVector(int _this);
-void sub_486089_NormalizeVector(struct struct8 *_this);
-//char __stdcall sub_45D3C7(int a1);
-bool __stdcall sub_45D3C7(struct struct8 *_this);
-//int __thiscall sub_48607B(int _this, int a2);
-void sub_48607B_MessWithStruct8(struct struct8 *_this, struct class57 *pClass57);
-//signed int __thiscall sub_479295(int _this);
-bool struct8_sub_479295(struct struct8 *_this);
-
 
 
 //struct class55
@@ -968,7 +916,8 @@ struct class58
 //sizeof == ?
 //int __thiscall sub_49B525(int _this, int a2);
 void class58_sub_49B525(struct class58 *_this, int a2);
-
+bool __thiscall sub_49BCEB(struct class58 *_this, BSPModel::Face *a2);
+bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, struct Vec3 *pNormal, int a4, int a5, int a6, char a7);
 
 //math predefines
 struct class59
@@ -1066,7 +1015,7 @@ struct StationaryLight
 };
 //sizeof  = 0C
 //char __stdcall sub_45CE50(int _this, int a2, int *a3, char a4);
-bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, struct class51_stru2 *a2, int *a3, char a4);
+bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, BSPModel::Face *a2, int *a3, char a4);
 
 struct StationaryLightsStack
 {

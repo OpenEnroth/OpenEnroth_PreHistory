@@ -2715,7 +2715,7 @@ void sub_49FE05(struct BaseRender *pD3DRenderer)
 
 
 //----- (004A2050) --------------------------------------------------------
-void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, IDirect3DTexture2 *pTexture)
+void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, BSPModel::Face *a4, IDirect3DTexture2 *pTexture)
 {
   int v5; // ebx@1
   int v6; // edi@1
@@ -2828,7 +2828,7 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
           {
             LODWORD(v9) = (int)&pVertices->y;
             v10 = &array_50AC10[0].flt_00000C;
-            a4 = (class51_stru2 *)&pVertices->y;
+            a4 = (BSPModel::Face *)&pVertices->y;
             v59 = uNumVertices;
             while ( 1 )
             {
@@ -2857,7 +2857,7 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
               *(_DWORD *)(LODWORD(v11) + 24) = *((_DWORD *)v10 + 7);
               v10 += 12;
               v18 = v59-- == 1;
-              a4 = (class51_stru2 *)(LODWORD(v11) + 32);
+              a4 = (BSPModel::Face *)(LODWORD(v11) + 32);
               if ( v18 )
                 break;
               LODWORD(v9) = (int)a4;

@@ -3713,7 +3713,7 @@ LABEL_71:
           sub_49B001(&unk_73C818);
           atexit(loc_47907F);
         }
-        sub_45CDB7(v3, pGame->class04_obj);
+        sub_45CDB7_Face_ApplyLight(v3, pGame->class04_obj);
         if ( dword_F8ADD4 <= 0 )
            p14->byte_000108 = 0;
         else

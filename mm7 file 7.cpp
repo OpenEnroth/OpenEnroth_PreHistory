@@ -13521,7 +13521,7 @@ bool IsPointInsideD3DBillboard(struct RenderBillboardD3D3 *pBillboard, float fX,
 
 
 //----- (004C1D2B) --------------------------------------------------------
-signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4)
+int __stdcall sub_4C1D2B(struct12 *a1, signed int a2, __int16 a3, int a4)
 {
   int v4; // esi@1
   bool v5; // edi@9
@@ -13537,18 +13537,20 @@ signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4)
   int v15; // [sp+10h] [bp-Ch]@9
   signed int v16; // [sp+18h] [bp-4h]@9
 
-  v4 = a1;
-  if ( a3 < *(_WORD *)(a1 + 88) )
+  v4 = (int)a1;
+
+  if ( a3 < a1->cBoundingBoxZ.min)
     goto LABEL_24;
-  if ( a3 > *(_WORD *)(a1 + 90) )
+  if ( a3 > a1->cBoundingBoxZ.max)
     goto LABEL_24;
-  if ( (_WORD)a2 < *(_WORD *)(a1 + 80) )
+  if ( (_WORD)a2 < *(_WORD *)(a1 + 0x50) )
     goto LABEL_24;
-  if ( (_WORD)a2 > *(_WORD *)(a1 + 82) )
-  if ( HIWORD(a2) < *(_WORD *)(a1 + 84) )
+  if ( (_WORD)a2 > *(_WORD *)(a1 + 0x52) )
+  if ( HIWORD(a2) < *(_WORD *)(a1 + 0x54) )
     goto LABEL_24;
-  if ( HIWORD(a2) > *(_WORD *)(a1 + 86) )
+  if ( HIWORD(a2) > *(_WORD *)(a1 + 0x56) )
     goto LABEL_24;
+
   if ( a4 == -1 )
     sub_4C1EE5((int)&a1, (int)&a4, (int)word_F8BC48, (int)word_F8BD18, (int)&a2, a1);
   else
@@ -13570,11 +13572,11 @@ signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4)
     if ( v5 ^ v7 >= a4 )
     {
       v9 = *(__int16 *)((char *)&word_F8BC48 + 2 + v8);
-      if ( v9 >= a1 )
+      if ( v9 >= (int)a1 )
         v10 = 0;
       else
         v10 = 2;
-      v11 = v10 | *(__int16 *)((char *)word_F8BC48 + v8) < a1;
+      v11 = v10 | *(__int16 *)((char *)word_F8BC48 + v8) < (int)a1;
       if ( v11 != 3 )
       {
         if ( !v11
@@ -13585,7 +13587,7 @@ signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4)
             + ((signed int)(((unsigned __int64)(v13
                                               / (v7 - *(__int16 *)((char *)word_F8BD18 + v8))
                                               * ((a4 - (signed int)*(__int16 *)((char *)word_F8BD18 + v8)) << 16)) >> 16)
-                          + 32768) >> 16) >= a1) )
+                          + 32768) >> 16) >= (int)a1) )
           ++v16;
       }
     }
@@ -13601,7 +13603,7 @@ LABEL_24:
 }
 
 //----- (004C1EE5) --------------------------------------------------------
-char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, int a6)
+char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, struct struct12 *a6)
 {
   int v6; // ecx@1
   int v7; // ecx@2
@@ -13713,7 +13715,7 @@ char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, int a6)
 }
 
 //----- (004C2186) --------------------------------------------------------
-char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
+char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, struct struct12 *a6, int a7)
 {
   int v7; // ecx@1
   int v8; // esi@1
@@ -13749,13 +13751,13 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
       {
         v10 = 2 * v22;
         *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(*(_DWORD *)(a6 + 52) + 2 * v22)
-                                 + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
         *(_WORD *)(v26 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v10)
-                                 + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48))].y);
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48))].y);
         *(_WORD *)(v23 + v26) = *(_WORD *)(v10 + *(_DWORD *)(a6 + 52) + 2)
-                                 + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].x);
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].x);
         v11 = *(_WORD *)(v10 + *(_DWORD *)(a6 + 56) + 2)
-            + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].y);
+            + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].y);
         v12 = v26;
         ++v22;
         v26 += 4;
@@ -13778,13 +13780,13 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
         {
           v14 = 2 * v22;
           *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 52))
-                                   + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
+                                   + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
           *(_WORD *)(v27 - 2) = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60))
-                              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48))].z);
+                              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48))].z);
           *(_WORD *)(v24 + v27) = *(_WORD *)(*(_DWORD *)(a6 + 52) + v14 + 2)
-                                + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].x);
+                                + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].x);
           v15 = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60) + 2)
-              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].z);
+              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].z);
           v16 = v27;
           ++v22;
           v27 += 4;
@@ -13805,13 +13807,13 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
         {
           v18 = 2 * v22;
           *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(*(_DWORD *)(a6 + 56) + 2 * v22)
-                                   + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].y);
+                                   + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].y);
           *(_WORD *)(v28 - 2) = *(_WORD *)(v18 + *(_DWORD *)(a6 + 60))
-                              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48))].z);
+                              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48))].z);
           *(_WORD *)(v25 + v28) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v18 + 2)
-                                + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].y);
+                                + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].y);
           v19 = *(_WORD *)(v18 + *(_DWORD *)(a6 + 60) + 2)
-              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].z);
+              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].z);
           v20 = v28;
           ++v22;
           v28 += 4;
@@ -13869,14 +13871,14 @@ void class25_create_object_pointers(struct class25 *_this, int a2)
 
   if (!a2)
   {
-   for (i = 0; i < _this->dword_002004; ++i)
+   for (i = 0; i < _this->uNumPointers; ++i)
      _this->array_001804[i] = &_this->array_000004[i];
   }
   else if (a2 == 1)
   {
    v0 = 1;
       
-   for (i = 0; i < _this->dword_002004; ++i)
+   for (i = 0; i < _this->uNumPointers; ++i)
    {
        for (j = 0; j < i; ++j)
          if (_this->array_001804[j] == &_this->array_000004[i])

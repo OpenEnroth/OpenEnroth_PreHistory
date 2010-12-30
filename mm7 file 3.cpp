@@ -12501,17 +12501,15 @@ LABEL_12:
 }
 
 //----- (0044EB12) --------------------------------------------------------
-bool Game_sub_44EB12(struct Game *_this, bool bOutline, struct unnamed_F93E6C *a3, struct unnamed_F93E6C *a4)
+Result::Code Game::PickKeyboard(bool bOutline, struct unnamed_F93E6C *a3, struct unnamed_F93E6C *a4)
 {
- if (!dword_4E28F8_PartyCantJumpIfTrue && _this->pVis && pD3DRenderer->pRenderD3D3)
- {
-  Vis_sub_4C05CC_DoSomeOtherPicking(_this->pVis, &_this->pVis->class25_obj, a3, a4);
-  if (bOutline)
-    Game_outline_selection((int)_this);
-  return true;
- }
- else
-   return false;
+ if (dword_4E28F8_PartyCantJumpIfTrue)
+   return Result::Generic;
+
+ pVis->PickKeyboard(a3, a4);
+ if (bOutline)
+   Game_outline_selection((int)this);
+ return Result::Success;
 }
 
 //----- (0044EB5A) --------------------------------------------------------
@@ -12610,9 +12608,9 @@ char __thiscall Game_sub_44EDE4(int _this, int a2, void **a3)
 }
 
 //----- (0044EE30) --------------------------------------------------------
-bool Game_sub_44EE30(struct Game *_this, struct class51_stru2 *a2, void **a3)
+bool Game_sub_44EE30(struct Game *_this, struct BSPModel::Face *a2, void **a3)
 {
- if (_this->dword_000E24 & 2 && a2->byte_000010[12] & 2)
+ if (_this->dword_000E24 & 2 && a2->uFaceAttributes & 0x02)
  {
   *a3 = (void *)sub_48A959(*a3, 1.0, _this->flt_000E28, -1.0);
   return true;

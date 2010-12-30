@@ -908,8 +908,6 @@ char __thiscall sub_49B540(void *_this, signed int a2, char a3, int a4, signed i
 void __cdecl loc_49B785(); // idb
 char __thiscall sub_49B790(int _this, int a2, char a3, int a4, int a5, int a6, int a7, int a8, int a9, signed int a10, int a11, char a12);
 char __thiscall sub_49BBBD(int _this, int a2);
-bool __thiscall sub_49BCEB(struct class58 *_this, struct class51_stru2 *a2);
-bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, struct Vec3 *pNormal, int a4, int a5, int a6, char a7);
 void __stdcall sub_49C095(int a1, float a2);
 void __thiscall sub_49C2CD(int _this, float a2);
 char __thiscall sub_49C550(int _this);
@@ -1069,9 +1067,8 @@ int __thiscall sub_4C0312(int _this, int a2, int a3, int a4, int a5);
 void __cdecl loc_4C0D27(); // idb
 bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float fX, float fY);
 void __cdecl loc_4C19F7(); // idb
-signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4);
-char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, int a6);
-char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
+char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, struct struct12 *a6);
+char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, struct struct12 *a6, int a7);
 int __thiscall sub_4C2551(int _this, int a2, int a3);
 int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this);
 int sub_4C2EA0(struct unnamed_6BD080 *_this);

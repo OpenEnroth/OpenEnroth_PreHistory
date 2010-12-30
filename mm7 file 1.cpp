@@ -1693,7 +1693,7 @@ LABEL_228:
         {
           if ( pAsyncMouse)
             goto LABEL_184;
-          pGame->Pick(512.0,
+          pGame->PickMouse(512.0,
             (unsigned __int16)lParam,
             (LPARAM)lParam >> 16,
             v29,
@@ -1722,7 +1722,7 @@ LABEL_238:
             if ( pAsyncMouse != v31 )
               goto LABEL_184;
             v33 = sub_43643E();
-            pGame->Pick(v33,
+            pGame->PickMouse(v33,
               (unsigned __int16)lParam,
               (LPARAM)lParam >> 16,
               v31,
@@ -1746,7 +1746,7 @@ LABEL_238:
           if (pGame && !pAsyncMouse)
           {
             v34 = sub_43643E();
-            pGame->Pick(v34,
+            pGame->PickMouse(v34,
               (unsigned __int16)lParam,
               (LPARAM)lParam >> 16,
               1,
@@ -4878,7 +4878,7 @@ LABEL_234:
     if ( v106 && (!v104_looks_like_bPartyInAir || v93) )
     {
       if (!v99
-       && !(*(_BYTE *)((char *)&pClass51_global->pBModels[(pParty_global->dword_0006F4 >> 9)].ptr_000054[((pParty_global->dword_0006F4 >> 3) & 0x3F)]
+       && !(*(_BYTE *)((char *)&pClass51_global->pBModels[(pParty_global->dword_0006F4 >> 9)].pFaces[((pParty_global->dword_0006F4 >> 3) & 0x3F)]
                       + 29) & 0x20) )
       {
         v88 = 0;

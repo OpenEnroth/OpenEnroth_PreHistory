@@ -4348,9 +4348,9 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
   signed int v7; // ebx@1
   signed int v8; // edi@1
   int v9; // eax@1
-  struct class51_BModel *v10; // esi@4
+  struct BSPModel *v10; // esi@4
   char v11; // al@11
-  struct class51_stru2 *v12; // ecx@11
+  struct BSPModel::Face *v12; // ecx@11
   int v15; // edx@22
   int v17; // edi@24
   signed int v18; // edx@26
@@ -4405,28 +4405,28 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
         if (v8 <= v10->dword_00008C && v8 >= v10->dword_000080)
           {
             v44 = 0;
-            v36 = v10->dword_00004C;
-            if (v10->dword_00004C > 0)
+            v36 = v10->uNumFaces;
+            if (v10->uNumFaces > 0)
             {
               while ( 1 )
               {
-                v12 = &v10->ptr_000054[v44];
-                v11 = v12->byte_00012F;
+                v12 = &v10->pFaces[v44];
+                v11 = v12->uPolygonType;
                 if ( v11 == 3 || v11 == 4 )
                 {
-                  if ( !(v12->byte_000010[15] & 0x20) )
+                  if (~v12->uFaceAttributes & 0x20000000)
                   {
-                    if (v7 <= v12->sSomeX2 && v7 >= v12->sSomeX1)
+                   if (v7 <= v12->cBoundingBoxX.max && v7 >= v12->cBoundingBoxX.min)
                     {
-                        if (v8 <= v12->sSomeY2 && v8 >= v12->sSomeY1)
+                     if (v8 <= v12->cBoundingBoxY.max && v8 >= v12->cBoundingBoxY.min)
                           {
                             for (j = 0; j < v12->uNumVertices; ++j)
                             {
-                                word_721040[2 * j + 0] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j]);
-                                word_721040[2 * j + 1] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1]);
+                                word_721040[2 * j + 0] = v12->pXInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j]);
+                                word_721040[2 * j + 1] = v12->pXInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j + 1]);
 
-                                word_720F70[2 * j + 0] = v12->array_0000C0[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j] + 4);
-                                word_720F70[2 * j + 1] = v12->array_0000C0[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1] + 4);
+                                word_720F70[2 * j + 0] = v12->pYInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j] + 4);
+                                word_720F70[2 * j + 1] = v12->pYInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j + 1] + 4);
                               v7 = v42;
                             }
                             word_721040[2 * v12->uNumVertices] = word_721040[0];
@@ -4481,8 +4481,8 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
                               {
                                 if ( v48 >= 20 )
                                   break;
-                                if ( v12->byte_00012F == 3 )
-                                  v26 = *(_DWORD *)(v10->ptr_000048 + 12 * v12->array_000020[0] + 8);
+                                if ( v12->uPolygonType == 3 )
+                                  v26 = *(_DWORD *)((int)v10->pVertices + 12 * v12->pVertexIDs[0] + 8);
                                 else
                                   v26 = ((unsigned __int64)(*(_DWORD *)((char*)v12 + 16) * v7) >> 16)
                                       + ((unsigned __int64)(*(_DWORD *)((char*)v12 + 20) * v47) >> 16)
@@ -9286,7 +9286,7 @@ bool IsMM7CD(wchar_t *pRootDir)
 
  wchar_t pVolumeName[256],
          pVolumeFileSystem[256];
- if (!GetVolumeInformation(pRootDir, pVolumeName, 255, 0, 0, 0, pVolumeFileSystem, 255))
+ if (!GetVolumeInformationW(pRootDir, pVolumeName, 255, 0, 0, 0, pVolumeFileSystem, 255))
    return false;
 
 

@@ -142,7 +142,7 @@ Result::Code OutdoorLocation::Clear()
  lstrcpyA((char *)pGroundTileset, "hm005");
  
  for (unsigned int i = 0; i < uNumBModels; ++i)
-   BModel_Clear((int)&pBModels[i].dword_000044);
+   BModel_Clear((int)&pBModels[i].pVertices);
  uNumBModels = 0;
  
  
@@ -228,7 +228,7 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
   int v52; // eax@61
   __int16 v64; // ax@64
   __int16 v65; // ax@65
-  struct class51_stru2 *v66; // ecx@65
+  struct BSPModel::Face *v66; // ecx@65
   __int16 v67; // ax@80
   int v76; // eax@81
   int v78;  int v80; // eax@92
@@ -436,9 +436,9 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  Src += 4;
 
 
- pBModels = NamedMemAlloc(class51_BModel, uNumBModels, "ODM BModel data");
- memcpy(pBModels, Src, uNumBModels * sizeof(struct class51_BModel));
- Src += uNumBModels * sizeof(struct class51_BModel);
+ pBModels = NamedMemAlloc(BSPModel, uNumBModels, "ODM BSP Models");
+ memcpy(pBModels, Src, uNumBModels * sizeof(struct BSPModel));
+ Src += uNumBModels * sizeof(struct BSPModel);
 
 
  pGameLoadingUI_ProgressBar->SetProgress(0.25f);
@@ -452,33 +452,32 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
   
   while (true)
   {
-   pBModels[i].ptr_000048 = 0;
-   pBModels[i].ptr_000054 = 0;
    pBModels[i].ptr_000058 = 0;
    pBModels[i].ptr_000060 = 0;
 
-   pBModels[i].ptr_000048 = NamedMemAlloc(class51_stru3, pBModels[i].dword_000044, (char *)pBModels[i].pModelName);
-   memcpy(pBModels[i].ptr_000048, Src, pBModels[i].dword_000044 * sizeof(class51_stru3));
-   Src += pBModels[i].dword_000044 * sizeof(class51_stru3);
+   pBModels[i].pVertices = NamedMemAlloc(BSPModel::Vertex, pBModels[i].uNumVertices, (char *)pBModels[i].pModelName);
+   memcpy(pBModels[i].pVertices, Src, pBModels[i].uNumVertices * sizeof(BSPModel::Vertex));
+   Src += pBModels[i].uNumVertices * sizeof(BSPModel::Vertex);
 
-   pBModels[i].ptr_000054 = NamedMemAlloc(class51_stru2, pBModels[i].dword_00004C, (char *)pBModels[i].pModelName);
-   memcpy(pBModels[i].ptr_000054, Src, pBModels[i].dword_00004C * sizeof(struct class51_stru2));
-   Src += pBModels[i].dword_00004C * sizeof(struct class51_stru2);
+   pBModels[i].pFaces = NamedMemAlloc(BSPModel::Face, pBModels[i].uNumFaces, (char *)pBModels[i].pModelName);
+   memcpy(pBModels[i].pFaces, Src, pBModels[i].uNumFaces * sizeof(BSPModel::Face));
+   Src += pBModels[i].uNumFaces * sizeof(BSPModel::Face);
 
-   pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, pBModels[i].dword_00004C, (char *)pBModels[i].pModelName);
-   memcpy(pBModels[i].ptr_000058, Src, pBModels[i].dword_00004C * 2);
-   Src += pBModels[i].dword_00004C * 2;
+   pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, pBModels[i].uNumFaces, (char *)pBModels[i].pModelName);
+   memcpy(pBModels[i].ptr_000058, Src, pBModels[i].uNumFaces * 2);
+   Src += pBModels[i].uNumFaces * 2;
 
    pBModels[i].ptr_000060 = NamedMemAlloc(unsigned char, 8 * pBModels[i].dword_00005C, (char *)pBModels[i].pModelName);
-   memcpy(pBModels[i].ptr_000060, Src, 8 * pBModels[i].dword_00005C);      Src += 8 * pBModels[i].dword_00005C;
-   pTexturesNames = NamedMemAlloc(unsigned char, 10 * pBModels[i].dword_00004C, "ODM Loading tmp texture names");
-   
-   memcpy(pTexturesNames, Src, 10 * pBModels[i].dword_00004C);
-   Src += 10 * pBModels[i].dword_00004C;
+   memcpy(pBModels[i].ptr_000060, Src, 8 * pBModels[i].dword_00005C);
+   Src += 8 * pBModels[i].dword_00005C;
+
+   pTexturesNames = NamedMemAlloc(unsigned char, 10 * pBModels[i].uNumFaces, "ODM Loading tmp texture names");
+   memcpy(pTexturesNames, Src, 10 * pBModels[i].uNumFaces);
+   Src += 10 * pBModels[i].uNumFaces;
 
    v157 = 0;
    v52 = (int)pBModels;
-   if (pBModels[i].dword_00004C > 0)
+   if (pBModels[i].uNumFaces > 0)
      break;
 
 LABEL_74:
@@ -495,8 +494,8 @@ LABEL_74:
   unsigned int j = 0;
   while ( 1 )
   {
-   v66 = &this->pBModels[i].ptr_000054[j];
-   if ( !(v66->byte_000010[13] & 0x40) )
+   v66 = &this->pBModels[i].pFaces[j];
+   if (~v66->uFaceAttributes & 0x4000)
      break;
    
    v64 = TextureFrameTable_sub_44E163(pTextureFrameTable, Str2);
@@ -512,13 +511,13 @@ LABEL_74:
     goto LABEL_69;
    }
    
-   v120 = this->pBModels[v51 / 188].ptr_000054[v168 / 308].uTextureID;
+   v120 = this->pBModels[v51 / 188].pFaces[v168 / 308].uTextureID;
    TextureFrameTable_sub_44E0ED(pTextureFrameTable, v120);
 
 LABEL_69:
    if ( *(_WORD *)(wtf + 292) )
    {
-    if ( sub_44C1E8((class51_stru2 *)wtf) )
+    if ( sub_44C1E8((BSPModel::Face *)wtf) )
       *(_BYTE *)(wtf + 30) |= 0x10u;
     else
       *(_BYTE *)(wtf + 30) &= 0xEFu;
@@ -529,7 +528,7 @@ LABEL_69:
    v168 += 308;
    ++j;
    Str2 += 10;
-   if ( v157 >= this->pBModels[i].dword_00004C)
+   if ( v157 >= this->pBModels[i].uNumFaces)
       goto LABEL_74;
   }
 
@@ -644,11 +643,10 @@ LABEL_75:
 
  memcpy(array_0004C8, pRawDDMFile, 0x28);
  Src = pRawDDMFile + 40;
+
  v82 = 0;
-
-
  for (unsigned int i = 0; i < uNumBModels; ++i)
-   v82 += pBModels[i].dword_00004C;
+   v82 += pBModels[i].uNumFaces;
 
  
  v84 = array_0004C8[4];
@@ -749,21 +747,21 @@ LABEL_120:
 
   for (unsigned i = 0; i < this->uNumBModels; ++i)
   {
-      for (unsigned j = 0; j < this->pBModels[i].dword_00004C; ++j)
+      for (unsigned j = 0; j < this->pBModels[i].uNumFaces; ++j)
       {
-        v118 = (void *)(this->pBModels[i].ptr_000054[j].byte_000010 + 12);
+        v118 = (void *)&this->pBModels[i].pFaces[j].uFaceAttributes;
         memcpy(v118, (char *)v78, 4);
         v78 = (int)((char *)v78 + 4);
       }
 
-      for (unsigned j = 0; j < this->pBModels[i].dword_00004C; ++j)
+      for (unsigned j = 0; j < this->pBModels[i].uNumFaces; ++j)
       {
-          if (this->pBModels[i].ptr_000054[j].word_000124)
+          if (this->pBModels[i].pFaces[j].sCogTriggeredID)
           {
-            if ( sub_44C1E8(&this->pBModels[i].ptr_000054[j]) )
-              this->pBModels[i].ptr_000054[j].byte_000010[14] |= 0x10u;
+            if ( sub_44C1E8(&this->pBModels[i].pFaces[j]) )
+              this->pBModels[i].pFaces[j].uFaceAttributes |= 0x00100000;
             else
-              this->pBModels[i].ptr_000054[j].byte_000010[14] &= 0xEFu;
+              this->pBModels[i].pFaces[j].uFaceAttributes &= 0xFFEFFFFF;
           }
 
       }
@@ -1181,10 +1179,10 @@ void OutdoorLocation::TerrainData::sub_47C80A(int sX, int sY, int sZ, int sW)
 
 
 //----- (0044C1E8) --------------------------------------------------------
-bool sub_44C1E8(struct class51_stru2 *_this)
+bool sub_44C1E8(BSPModel::Face *_this)
 {
  for (unsigned i = 0; i < uLevelEVT_NumEvents; ++i)
-   if (pLevelEVT_Events[i].dword_000000 == _this->word_000124)
+   if (pLevelEVT_Events[i].dword_000000 == _this->sCogTriggeredID)
    {
     if (pLevelEVT[pLevelEVT_Events[i].uEventOffsetInEVT + 4] != 4 ||
         pLevelEVT[pLevelEVT_Events[i + 1].uEventOffsetInEVT + 4] != 1)
@@ -1279,7 +1277,7 @@ int __thiscall class51_sub_4892E6(OutdoorLocation *_this)
 
 
 //----- (00482170) --------------------------------------------------------
-bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct struct8 *a3)
+bool sub_482170(BSPModel::Face *_this, struct RenderVertex *a2, struct struct8 *a3)
 {
   signed int v3; // edx@1
   struct RenderVertex *v6; // ecx@2
@@ -1382,14 +1380,14 @@ bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct str
 
 
 //----- (0045CDB7) --------------------------------------------------------
-bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *pClass04)
+bool __stdcall sub_45CDB7_Face_ApplyLight(BSPModel::Face *_this, struct class04 *pClass04)
 {
   int v2; // eax@1
   int v7; // [sp+10h] [bp-4h]@1
  int i;
 
 
- v2 = dword_F8B120 + _this->byte_000126[10];
+ v2 = dword_F8B120 + _this->uShadeType;
  dword_F8AD54 = v2 << 16;
 
  v7 = 0;
@@ -1414,7 +1412,7 @@ bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *pClass04)
 
 
 //----- (0045CE50) --------------------------------------------------------
-bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, struct class51_stru2 *a2, int *a3, char a4)
+bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, BSPModel::Face *a2, int *a3, char a4)
 {
   signed int v4; // ebx@1
   int v5; // ecx@2
@@ -1431,9 +1429,9 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
   v5 = _this->sLightPosX;
   v6 = _this->sLightPosY;
   v7 = _this->sLightPosZ;
-  v8 = ((int)_this->sLightPosX * a2->dword_000000 +
-        (int)_this->sLightPosY * a2->dword_000004 +
-        (int)_this->sLightPosZ * a2->dword_000008 + a2->dword_00000C) >> 16;
+  v8 = ((int)_this->sLightPosX * a2->pFaceNormal[0] +
+        (int)_this->sLightPosY * a2->pFaceNormal[1] +
+        (int)_this->sLightPosZ * a2->pFaceNormal[2] + a2->sNormalDistance) >> 16;
 
  if (_this->word_000006 > 0 &&
      _this->sLightPosX > *(_WORD *)(a2 + 278) - _this->word_000006 &&

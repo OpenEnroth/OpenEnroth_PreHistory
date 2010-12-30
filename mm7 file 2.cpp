@@ -3122,6 +3122,152 @@ void CreateRegistryKey(const char *pName, const char *pValue)
  }
 }
 
+
+//----- (004C1417) --------------------------------------------------------
+Result::Code GetD3DBillboardCenter(RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY)
+{
+ memcpy(array_F8EA00, Src, uNumVertices * sizeof(struct RenderVertexD3D3));
+
+ Sort_template_D3DXVECTOR_x(array_F8EA00, 0, uNumVertices - 1);
+ *fCenterX = (array_F8EA00[uNumVertices - 1].x - array_F8EA00[0].x) * 0.5 + array_F8EA00[0].x;
+
+ Sort_template_D3DXVECTOR_y(array_F8EA00, 0, uNumVertices - 1);
+ *fCenterY = (array_F8EA00[uNumVertices - 1].y - array_F8EA00[0].y) * 0.5 + array_F8EA00[0].y;
+
+ return Result::Success;
+}
+
+//----- (004C26D0) --------------------------------------------------------
+Result::Code Sort_template_D3DXVECTOR_x(struct RenderVertexD3D3 *pVertices, int sLeft, int sRight)
+{
+ struct RenderVertexD3D3 *v4;
+  int v5; // ebx@2
+  const void *v7; // esi@2
+  int v8; // ecx@3
+  int v9; // ecx@5
+  const void *v10; // eax@8
+
+  struct RenderVertexD3D3 local_04;
+  //char v12; // [sp+4h] [bp-4Ch]@8
+
+  struct RenderVertexD3D3 local_24;
+  //float v13; // [sp+24h] [bp-2Ch]@2
+
+  const void *v15; // [sp+48h] [bp-8h]@2
+  int v16; // [sp+4Ch] [bp-4h]@2
+
+  if (sRight <= sLeft)
+    return Result::Generic;
+
+    v4 = pVertices;
+    v7 = &pVertices[sRight];
+    v15 = &pVertices[sRight];
+    v5 = sLeft - 1;
+    v16 = sRight;
+    while ( 1 )
+    {
+      memcpy(&local_24, v7, sizeof(struct RenderVertexD3D3));
+
+      v8 = (int)&v4[v5].x;
+      do
+      {
+        v8 += 32;
+        ++v5;
+      }
+      while ( *(float *)v8 < local_24.x);
+
+      v9 = (int)&v4[v16].x;
+      do
+      {
+        v9 -= 32;
+        --v16;
+      }
+      while ( *(float *)v9 > local_24.x);
+
+      if ( v5 >= v16 )
+        break;
+
+      v10 = &v4[v16];
+      memcpy(&local_04, &pVertices[v5], sizeof(struct RenderVertexD3D3));
+      v4 = pVertices;
+      memcpy(&pVertices[v5], v10, sizeof(struct RenderVertexD3D3));
+      v7 = &local_04;
+    }
+    memcpy(&local_04, &v4[v5], sizeof(struct RenderVertexD3D3));
+    memcpy(&v4[v5], v15, sizeof(struct RenderVertexD3D3));
+    memcpy((void *)v15, &local_04, sizeof(struct RenderVertexD3D3));
+    Sort_template_D3DXVECTOR_x(v4, sLeft, v5 - 1);
+    Sort_template_D3DXVECTOR_x(pVertices, v5 + 1, sRight);
+
+ return Result::Success;
+}
+
+//----- (004C27AD) --------------------------------------------------------
+Result::Code Sort_template_D3DXVECTOR_y(struct RenderVertexD3D3 *pVertices, int sLeft, int sRight)
+{
+ struct RenderVertexD3D3 *v4;
+  int v5; // ebx@2
+  const void *v7; // esi@2
+  int v8; // ecx@3
+  int v9; // ecx@5
+  const void *v10; // eax@8
+
+  struct RenderVertexD3D3 local_04;
+  //char v12; // [sp+4h] [bp-4Ch]@8
+
+  struct RenderVertexD3D3 local_24;
+  //float v13; // [sp+28h] [bp-30h]@2
+
+  const void *v15; // [sp+48h] [bp-8h]@2
+  int v16; // [sp+4Ch] [bp-4h]@2
+
+  if (sRight <= sLeft)
+    return Result::Generic;
+
+    v4 = pVertices;
+    v7 = &pVertices[sRight];
+    v15 = &pVertices[sRight];
+    v5 = sLeft - 1;
+    v16 = sRight;
+    while ( 1 )
+    {
+      memcpy(&local_24, v7, sizeof(struct RenderVertexD3D3));
+
+      v8 = (int)&v4[v5].y;
+      do
+      {
+        v8 += 32;
+        ++v5;
+      }
+      while ( *(float *)v8 < local_24.y);
+
+      v9 = (int)&v4[v16].y;
+      do
+      {
+        v9 -= 32;
+        --v16;
+      }
+      while ( *(float *)v9 > local_24.y);
+
+      if ( v5 >= v16 )
+        break;
+
+      v10 = &v4[v16];
+      memcpy(&local_04, &pVertices[v5], sizeof(struct RenderVertexD3D3));
+      v4 = pVertices;
+      memcpy(&pVertices[v5], v10, sizeof(struct RenderVertexD3D3));
+      v7 = &local_04;
+    }
+    memcpy(&local_04, &v4[v5], sizeof(struct RenderVertexD3D3));
+    memcpy(&v4[v5], v15, sizeof(struct RenderVertexD3D3));
+    memcpy((void *)v15, &local_04, sizeof(struct RenderVertexD3D3));
+    Sort_template_D3DXVECTOR_x(v4, sLeft, v5 - 1);
+    Sort_template_D3DXVECTOR_x(pVertices, v5 + 1, sRight);
+
+ return Result::Success;
+}
+
+
 //----- (0040D2B4) --------------------------------------------------------
 int __fastcall sub_40D2B4(int a1, int a2)
 {

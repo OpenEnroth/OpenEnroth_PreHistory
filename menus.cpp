@@ -1263,13 +1263,11 @@ int __fastcall SaveGame(int a1, int a2)
       {
         
         dword_6A12C8 = 0;
-        if ( pClass51_global->uNumBModels > 0 )
-        {
-		  for (v20 = 0;v20 < pClass51_global->uNumBModels; v20++) 	 //	 count models
+		  for (v20 = 0;v20 < pClass51_global->uNumBModels; ++v20)
           {
-		      dword_6A12C8+=pClass51_global->pBModels[v20].dword_00004C;
+		      dword_6A12C8 += pClass51_global->pBModels[v20].uNumFaces;
           }
-        }
+
         v24 = DstBuf;
         dword_6A12D0 = pClass51_global->uNumBModels;
         dword_6A12CC = uNumLevelDecorations;
@@ -1282,17 +1280,14 @@ int __fastcall SaveGame(int a1, int a2)
         if ( pClass51_global->uNumBModels > 0 )
         {
         
-           for (v75 = 0;v75 < pClass51_global->uNumBModels; v75++) 	 //	 count models
+           for (v75 = 0;v75 < pClass51_global->uNumBModels; v75++)
           {
-
-            if ( pClass51_global->pBModels[v75].dword_00004C>0 )
-            {
-             for (v71 = 0;v71 < pClass51_global->pBModels->dword_00004C; v71++)	//count	sub models
+             for (v71 = 0;v71 < pClass51_global->pBModels->uNumFaces; v71++)
               {		
-                memcpy(v23, &pClass51_global->pBModels[v75].ptr_000054[v71].dword_00001C, 4);
+                memcpy(v23, &pClass51_global->pBModels[v75].pFaces[v71].uFaceAttributes, 4);
                 v23 = (char *)v23 + 4;
               }
-            }
+
           }
          	 
         }

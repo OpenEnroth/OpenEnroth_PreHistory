@@ -54,34 +54,29 @@ Vis::Vis()
 
 
 //----- (004C05CC) --------------------------------------------------------
-bool Vis_sub_4C05CC_DoSomeOtherPicking(struct Vis *_this, struct class25 *a2, struct unnamed_F93E6C *a3, struct unnamed_F93E6C *a4)
+Result::Code Vis::PickKeyboard(unnamed_F93E6C *a3, unnamed_F93E6C *a4)
 {
- struct class25 *v5;
+ class25_obj.uNumPointers = 0;
+ Vis_sub_4C06F8(this, dword_0020CC, &class25_obj, a3);
 
- v5 = a2;
- if (!a2)
-   v5 = &_this->class25_obj;
-
- v5->dword_002004 = 0;
- Vis_sub_4C06F8(_this, _this->dword_0020CC, v5, a3);
  if (uCurrentlyLoadedLevelType == 1)
-   Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(_this, _this->dword_0020CC, v5, a4);
+   Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(this, dword_0020CC, &class25_obj, a4);
  else
-   Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(_this, _this->dword_0020CC, v5, a4);
+   Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(this, dword_0020CC, &class25_obj, a4);
 
- class25_create_object_pointers(v5, 1);
- class25_sort_object_pointers(v5->array_001804, 0, v5->dword_002004 - 1);
- return true;
+ class25_create_object_pointers(&class25_obj, 1);
+ class25_sort_object_pointers(class25_obj.array_001804, 0, class25_obj.uNumPointers - 1);
+
+ return Result::Success;
 }
 
 //----- (004C0646) --------------------------------------------------------
-Result::Code Vis::Pick(float fDepth, float fMouseX, float fMouseY, struct unnamed_F93E6C *a5, struct unnamed_F93E6C *a6)
+Result::Code Vis::PickMouse(float fDepth, float fMouseX, float fMouseY, unnamed_F93E6C *a5, unnamed_F93E6C *a6)
 {
- class25_obj.dword_002004 = 0;
-
  struct Vis_stru0 pMouseRay[2];
  CastRayAtMousePosition(pMouseRay, pOldCamera, fMouseX, fMouseY, fDepth);
 
+ class25_obj.uNumPointers = 0;
  Vis_sub_4C1542(this, fDepth, fMouseX, fMouseY, &class25_obj, a5);
 
  if (uCurrentlyLoadedLevelType == 1)
@@ -90,7 +85,7 @@ Result::Code Vis::Pick(float fDepth, float fMouseX, float fMouseY, struct unname
    Vis_sub_4C17CF_DoPicking_Outdoor(this, fDepth, pMouseRay, &class25_obj, a6, 0);
 
  class25_create_object_pointers(&class25_obj, 0);
- class25_sort_object_pointers(class25_obj.array_001804, 0, class25_obj.dword_002004 - 1);
+ class25_sort_object_pointers(class25_obj.array_001804, 0, class25_obj.uNumPointers - 1);
   
  return Result::Success;
 }
@@ -99,27 +94,21 @@ Result::Code Vis::Pick(float fDepth, float fMouseX, float fMouseY, struct unname
 void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unnamed_F93E6C *a4)
 {
   int v4; // ST18_4@5
- struct class25_stru0       *v5; // edi@5
  struct RenderBillboardD3D3 *v7; // [sp+24h] [bp-8h]@2
- int i;
 
- for (i = 0; i < pD3DRenderer->uNumBillboardsToDraw; ++i)
- {
-  v7 = &pBillboardRenderListD3D3[i];
-
-  if (Vis_is_part_of_selection(i, a4))
-  {
-   if (Vis_IsRayHitsSprite(_this, a2, i))
+ for (unsigned int i = 0; i < pD3DRenderer->uNumBillboardsToDraw; ++i)
+   if (Vis_is_part_of_selection(i, a4))
    {
-    v4 = pBillboardRenderList[v7->uParentBillboardID].sZValue;
+    if (Vis_IsRayIntersectsSprite(_this, a2, i))
+    {
+     v7 = &pBillboardRenderListD3D3[i];
+     v4 = pBillboardRenderList[v7->uParentBillboardID].sZValue;
 
-    v5 = &a3->array_000004[a3->dword_002004++];
-    v5->uBillboardID = v7->uParentBillboardID;
-    v5->sZValue = v4;
-    v5->dword_000008 = 1;
+     a3->array_000004[a3->uNumPointers].uBillboardID = v7->uParentBillboardID;
+     a3->array_000004[a3->uNumPointers].sZValue = v4;
+     a3->array_000004[a3->uNumPointers++].dword_000008 = 1;
+    }
    }
-  }
- }
 }
 
 
@@ -154,7 +143,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
 
   v21 = _this;
 
-  class25_F8FE00.dword_002004 = 0;
+  class25_F8FE00.uNumPointers = 0;
   if (~byte_F91E08_Is_class25_F8FE00_ctor_called_and_other_dirty_hacks & 2)
   {
     byte_F91E08_Is_class25_F8FE00_ctor_called_and_other_dirty_hacks |= 2;
@@ -234,15 +223,15 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
    Vis_sub_4C16B4_DoPicking_Indoor((Vis *)v15, SLOBYTE(v16), local_20, &class25_F8FE00, &stru_F93E44);
   }
   class25_create_object_pointers(&class25_F8FE00, 0);
-  class25_sort_object_pointers(class25_F8FE00.array_001804, 0, class25_F8FE00.dword_002004 - 1);
-  if (!class25_F8FE00.dword_002004)
+  class25_sort_object_pointers(class25_F8FE00.array_001804, 0, class25_F8FE00.uNumPointers - 1);
+  if (!class25_F8FE00.uNumPointers)
     return result = 0;
 
   result = sub_4C2551((int)&class25_F8FE00, 2, a3);
   if (!result)
     return result = 0;
 
-  if (class25_F8FE00.dword_002004 > 1 && (class25_F8FE00.dword_002004 <= 0 ? (v19 = 0) : (v19 = (int)class25_F8FE00.array_001804), result != v19))
+  if (class25_F8FE00.uNumPointers > 1 && (class25_F8FE00.uNumPointers <= 0 ? (v19 = 0) : (v19 = (int)class25_F8FE00.array_001804), result != v19))
     return result = 0;
 
   return result;
@@ -304,17 +293,6 @@ bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float 
  else return true;
 }
 
-//----- (004C1417) --------------------------------------------------------
-void Vis_ProbablyGetD3DBillboardCenter(Vis *_this, RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY)
-{
- memcpy(array_F8EA00, Src, uNumVertices * sizeof(struct RenderVertexD3D3));
-
- Vis_Sort_template_D3DXVECTOR_x(_this, array_F8EA00, 0, uNumVertices - 1);
- *fCenterX = (array_F8EA00[uNumVertices - 1].x - array_F8EA00[0].x) * 0.5 + array_F8EA00[0].x;
-
- Vis_Sort_template_D3DXVECTOR_y(_this, array_F8EA00, 0, uNumVertices - 1);
- *fCenterY = (array_F8EA00[uNumVertices - 1].y - array_F8EA00[0].y) * 0.5 + array_F8EA00[0].y;
-}
 
 //----- (004C1495) --------------------------------------------------------
 void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4, float *a5)
@@ -343,7 +321,6 @@ void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4,
 void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6)
 {
   int v6; // ST1C_4@6
- struct class25_stru0 *v7; // edi@6
   int v9; // [sp+24h] [bp-8h]@2
 
  for (unsigned int i = 0; i < pD3DRenderer->uNumBillboardsToDraw; ++i)
@@ -352,14 +329,14 @@ void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct 
 
   if (Vis_is_part_of_selection(i, a6))
     if (IsPointInsideD3DBillboard(&pBillboardRenderListD3D3[i], fX, fY))
-      if (Vis_IsRayHitsSprite(_this, fDepth, i))
+      if (Vis_IsRayIntersectsSprite(_this, fDepth, i))
       {
-           v6 = pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].sZValue;
+       v6 = pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].sZValue;
 
-           v7 = &pClass25->array_000004[pClass25->dword_002004++];
-           v7->uBillboardID = pBillboardRenderListD3D3[i].uParentBillboardID;
-           v7->sZValue = v6;
-           v7->dword_000008 = 1;
+
+       pClass25->array_000004[pClass25->uNumPointers].uBillboardID = pBillboardRenderListD3D3[i].uParentBillboardID;
+       pClass25->array_000004[pClass25->uNumPointers].sZValue = v6;
+       pClass25->array_000004[pClass25->uNumPointers++].dword_000008 = 1;
       }
  }
 }
@@ -368,7 +345,7 @@ void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct 
 //----- (004C1930) --------------------------------------------------------
 char __thiscall Vis_sub_4C1930(Vis *_this, float a2, int a3)
 {
-  return Vis_IsRayHitsSprite(_this, a2, a3);
+  return Vis_IsRayIntersectsSprite(_this, a2, a3);
 }
 
 void loc_4C19F7()
@@ -398,14 +375,13 @@ struct class25_stru0 *Vis_sub_4C1944(Vis *_this, int a2, unsigned int a3, int a4
  local_18.dword_000010 = a4;
  v13 = a3;
   
- class25_F8BDE8.dword_002004 = 0;
-
+ class25_F8BDE8.uNumPointers = 0;
  Vis_sub_4C06F8(_this, a3, &class25_F8BDE8, &local_18);
 
  class25_create_object_pointers(&class25_F8BDE8, 1);
- class25_sort_object_pointers(class25_F8BDE8.array_001804, 0, class25_F8BDE8.dword_002004 - 1);
+ class25_sort_object_pointers(class25_F8BDE8.array_001804, 0, class25_F8BDE8.uNumPointers - 1);
 
- if (class25_F8BDE8.dword_002004 <= 0 )
+ if (!class25_F8BDE8.uNumPointers)
    return 0;
  else
    return class25_F8BDE8.array_001804[1];
@@ -572,7 +548,7 @@ signed int __thiscall sub_4C1BAA_Vis_get_object_zbuf_val(struct Vis *_this, stru
 //----- (004C1BF1) --------------------------------------------------------
 signed int __thiscall Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(struct Vis *_this)
 {
- if (_this->class25_obj.dword_002004 <= 0)
+ if (!_this->class25_obj.uNumPointers)
    return -1;
  else
    return sub_4C1BAA_Vis_get_object_zbuf_val(_this, _this->class25_obj.array_001804[0]);
@@ -627,135 +603,6 @@ Result::Code Vis::CastRayAtMousePosition(struct Vis_stru0 *a1, OldCamera *pCamer
 }
 
 
-//----- (004C26D0) --------------------------------------------------------
-bool Vis_Sort_template_D3DXVECTOR_x(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight)
-{
- struct RenderVertexD3D3 *v4;
-  int v5; // ebx@2
-  const void *v7; // esi@2
-  int v8; // ecx@3
-  int v9; // ecx@5
-  const void *v10; // eax@8
-
-  struct RenderVertexD3D3 local_04;
-  //char v12; // [sp+4h] [bp-4Ch]@8
-
-  struct RenderVertexD3D3 local_24;
-  //float v13; // [sp+24h] [bp-2Ch]@2
-
-  const void *v15; // [sp+48h] [bp-8h]@2
-  int v16; // [sp+4Ch] [bp-4h]@2
-
-  if (sRight <= sLeft)
-    return true;
-
-    v4 = pVertices;
-    v7 = &pVertices[sRight];
-    v15 = &pVertices[sRight];
-    v5 = sLeft - 1;
-    v16 = sRight;
-    while ( 1 )
-    {
-      memcpy(&local_24, v7, sizeof(struct RenderVertexD3D3));
-
-      v8 = (int)&v4[v5].x;
-      do
-      {
-        v8 += 32;
-        ++v5;
-      }
-      while ( *(float *)v8 < local_24.x);
-
-      v9 = (int)&v4[v16].x;
-      do
-      {
-        v9 -= 32;
-        --v16;
-      }
-      while ( *(float *)v9 > local_24.x);
-
-      if ( v5 >= v16 )
-        break;
-
-      v10 = &v4[v16];
-      memcpy(&local_04, &pVertices[v5], sizeof(struct RenderVertexD3D3));
-      v4 = pVertices;
-      memcpy(&pVertices[v5], v10, sizeof(struct RenderVertexD3D3));
-      v7 = &local_04;
-    }
-    memcpy(&local_04, &v4[v5], sizeof(struct RenderVertexD3D3));
-    memcpy(&v4[v5], v15, sizeof(struct RenderVertexD3D3));
-    memcpy((void *)v15, &local_04, sizeof(struct RenderVertexD3D3));
-    Vis_Sort_template_D3DXVECTOR_x(_this, v4, sLeft, v5 - 1);
-    Vis_Sort_template_D3DXVECTOR_x(_this, pVertices, v5 + 1, sRight);
-
-  return true;
-}
-
-//----- (004C27AD) --------------------------------------------------------
-bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight)
-{
- struct RenderVertexD3D3 *v4;
-  int v5; // ebx@2
-  const void *v7; // esi@2
-  int v8; // ecx@3
-  int v9; // ecx@5
-  const void *v10; // eax@8
-
-  struct RenderVertexD3D3 local_04;
-  //char v12; // [sp+4h] [bp-4Ch]@8
-
-  struct RenderVertexD3D3 local_24;
-  //float v13; // [sp+28h] [bp-30h]@2
-
-  const void *v15; // [sp+48h] [bp-8h]@2
-  int v16; // [sp+4Ch] [bp-4h]@2
-
-  if (sRight <= sLeft)
-    return true;
-
-    v4 = pVertices;
-    v7 = &pVertices[sRight];
-    v15 = &pVertices[sRight];
-    v5 = sLeft - 1;
-    v16 = sRight;
-    while ( 1 )
-    {
-      memcpy(&local_24, v7, sizeof(struct RenderVertexD3D3));
-
-      v8 = (int)&v4[v5].y;
-      do
-      {
-        v8 += 32;
-        ++v5;
-      }
-      while ( *(float *)v8 < local_24.y);
-
-      v9 = (int)&v4[v16].y;
-      do
-      {
-        v9 -= 32;
-        --v16;
-      }
-      while ( *(float *)v9 > local_24.y);
-
-      if ( v5 >= v16 )
-        break;
-
-      v10 = &v4[v16];
-      memcpy(&local_04, &pVertices[v5], sizeof(struct RenderVertexD3D3));
-      v4 = pVertices;
-      memcpy(&pVertices[v5], v10, sizeof(struct RenderVertexD3D3));
-      v7 = &local_04;
-    }
-    memcpy(&local_04, &v4[v5], sizeof(struct RenderVertexD3D3));
-    memcpy(&v4[v5], v15, sizeof(struct RenderVertexD3D3));
-    memcpy((void *)v15, &local_04, sizeof(struct RenderVertexD3D3));
-    Vis_Sort_template_D3DXVECTOR_x(_this, v4, sLeft, v5 - 1);
-    Vis_Sort_template_D3DXVECTOR_x(_this, pVertices, v5 + 1, sRight);
-
-  return true;
-}
 
 //----- (004C288E) --------------------------------------------------------
 bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight)
@@ -1010,10 +857,10 @@ void loc_4C0D27()
 {
 }
 //----- (004C091D) --------------------------------------------------------
-bool Vis_IsRayHitsSprite(struct Vis *_this, float fDepth, int a3)
+bool Vis_IsRayIntersectsSprite(struct Vis *_this, float fDepth, int a3)
 {
   int v3; // eax@3
-  signed int v5; // ecx@4
+  //signed int v5; // ecx@4
   //float v6; // ST04_4@6
   //float v7; // ST00_4@7
   int v8; // eax@10
@@ -1040,7 +887,7 @@ bool Vis_IsRayHitsSprite(struct Vis *_this, float fDepth, int a3)
   unsigned int v29; // eax@47
   char result; // al@48
 
-  struct Vis_stru0 local_20[2];
+  struct Vis_stru0 pPickingRay[2];
   //int v31; // [sp+20h] [bp-DCh]@5
 
   struct Vis_stru0 local_80[2];
@@ -1057,36 +904,34 @@ bool Vis_IsRayHitsSprite(struct Vis *_this, float fDepth, int a3)
   float v41; // [sp+108h] [bp+Ch]@32
 
 
-  class25_F91E10.dword_002004 = 0;
+  class25_F91E10.uNumPointers = 0;
 
   v3 = pBillboardRenderListD3D3[a3].uParentBillboardID;
-  if ( v3 == -1)
+  if (v3 == -1)
     return false;
 
-  v5 = pBillboardRenderList[v3].sZValue;
-  if (LOWORD(v5) / 65535.0f + (float)HIWORD(v5) > fDepth)
+  if (pBillboardRenderList[v3].GetFloatZ() > fDepth)
   {
 LABEL_49:
     return false;
   }
   else
   {
-    LOWORD(v5) = 0;
-    v37 = v5;
-    Vis_ProbablyGetD3DBillboardCenter(_this, pBillboardRenderListD3D3[a3].pQuad, 4, (float *)&v35, (float *)&v36);
-    _this->CastRayAtMousePosition(local_20, pOldCamera, *(float *)&v35, *(float *)&v36, fDepth);
+    v37 = pBillboardRenderList[v3].sZValue & 0xFFFF0000;
+    GetD3DBillboardCenter(pBillboardRenderListD3D3[a3].pQuad, 4, (float *)&v35, (float *)&v36);
+    _this->CastRayAtMousePosition(pPickingRay, pOldCamera, *(float *)&v35, *(float *)&v36, fDepth);
 
-    if ( uCurrentlyLoadedLevelType == 1 )
-      Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, local_20, &class25_F91E10, &stru_F93E44);
+    if (uCurrentlyLoadedLevelType == 1)
+      Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, pPickingRay, &class25_F91E10, &stru_F93E44);
     else
-      Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_20, &class25_F91E10, &stru_F93E44, 0);
+      Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, pPickingRay, &class25_F91E10, &stru_F93E44, 0);
 
     class25_create_object_pointers(&class25_F91E10, 0);
-    class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1);
+    class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.uNumPointers - 1);
 
-    if (class25_F91E10.dword_002004)
+    if (class25_F91E10.uNumPointers)
     {
-     if (class25_F91E10.dword_002004 <= 0)
+     if (class25_F91E10.uNumPointers <= 0)
        v8 = 0;
      else v8 = (int)class25_F91E10.array_001804;
 
@@ -1111,7 +956,8 @@ LABEL_49:
         v12 = *(float *)(v10 - 4);
         v11 = *(float *)v10;
         v13 = *(float *)(v10 - 4);
-        class25_F91E10.dword_002004 = 0;
+
+        class25_F91E10.uNumPointers = 0;
         if ( v13 >= (double)(pOldViewport->uScreenX))
         {
           if ( v12 <= (double)pOldViewport->uScreenZ )
@@ -1130,10 +976,10 @@ LABEL_49:
                   Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0);
 
                 class25_create_object_pointers(&class25_F91E10, 0);
-                class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1);
-                if ( !class25_F91E10.dword_002004 )
+                class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.uNumPointers - 1);
+                if ( !class25_F91E10.uNumPointers )
                   break;
-                v18 = class25_F91E10.dword_002004 <= 0 ? 0 : (int)class25_F91E10.array_001804;
+                v18 = class25_F91E10.uNumPointers <= 0 ? 0 : (int)class25_F91E10.array_001804;
                 v19 = *(_DWORD *)(v18 + 4);
                 LOWORD(v19) = 0;
                 if ( v19 > v37 )
@@ -1163,7 +1009,8 @@ LABEL_49:
           }
           if ( v38 > (double)v41 )
             v41 = v38;
-          class25_F91E10.dword_002004 = 0;
+
+          class25_F91E10.uNumPointers = 0;
           v23 = (v20 - v21) * 0.5;
           if ( v23 < (double)(pOldViewport->uScreenX)
             || v23 > (double)pOldViewport->uScreenZ
@@ -1171,9 +1018,9 @@ LABEL_49:
             || (double)pOldViewport->uScreenW < v41
             || ((v25 = v23, _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v25), v41, fDepth), uCurrentlyLoadedLevelType != 1) ? (Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0)) : (Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44)),
                 (class25_create_object_pointers(&class25_F91E10, 0),
-                 class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1),
-                 class25_F91E10.dword_002004)
-             && (class25_F91E10.dword_002004 <= 0 ? (v28 = 0) : (v28 = (int)class25_F91E10.array_001804),
+                 class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.uNumPointers - 1),
+                 class25_F91E10.uNumPointers)
+             && (class25_F91E10.uNumPointers <= 0 ? (v28 = 0) : (v28 = (int)class25_F91E10.array_001804),
                  v29 = *(_DWORD *)(v28 + 4),
                  LOWORD(v29) = 0,
                  v29 <= v37)) )
@@ -1265,13 +1112,11 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
   int v19; // [sp+7Ch] [bp-18h]@1
   int v21; // [sp+84h] [bp-10h]@6
   int v23; // [sp+8Ch] [bp-8h]@5
- int i;
 
-  sub_46ED02(&local_10);
   v19 = 0;
 
   v7 = 0;
- for (i = 0; i < pClass51_global->uNumBModels; ++i)
+ for (unsigned int i = 0; i < pClass51_global->uNumBModels; ++i)
  {
       v6 = (int)&pClass51_global->pBModels[i];
       LOBYTE(v7) = sub_479089(i, &v19);
@@ -1284,7 +1129,7 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
           //v9 = *(_DWORD *)(v6 + 76) - v5 < 0;
           v23 = 0;
           //if ( !((unsigned __int8)(v9 ^ v10) | v8) )
-          if (pClass51_global->pBModels[i].dword_00004C > 0)
+          if (pClass51_global->pBModels[i].uNumFaces > 0)
           {
             v21 = 0;
             do
@@ -1292,7 +1137,7 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
               v11 = v21 + *(_DWORD *)(v6 + 84);
               if ( Vis_is_part_of_selection(v11, a4) )
               {
-                sub_4C0EF2(&local_10, (class51_stru2 *)v11);
+                sub_4C0EF2_BSPModel_Face_To_struct12(&local_10, (BSPModel::Face *)v11);
                 v13 = 8 * (v23 | (i << 6));
                 LOBYTE(v13) = v13 | 6;
                 v12 = Vis_sub_4C1026(_this, &local_10, v13, a2);
@@ -1328,53 +1173,46 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
 //----- (MM7.exe::004C055C) --------------------------------------------------------
 class25::class25()
 {
-  __int64 result; // qax@1
-  signed int v2; // ecx@1
+ for (unsigned int i = 0; i < 512; ++i)
+ {
+  array_000004[i].uBillboardID = -1;
+  array_000004[i].sZValue = -1;
+  array_000004[i].dword_000008 = 0;
 
-  LODWORD(result) = (int)array_000004 - 4;
-  v2 = 512;
-  HIDWORD(result) = (int)array_000004;
-  do
-  {
-    *(DWORD *)(HIDWORD(result)) = 0;
-    *(_QWORD *)(HIDWORD(result) + 4) = 4294967295i64;
-    result += 51539607552i64;
-  }
-  while ( --v2 );
-  detor_ptr = nullptr;
-  dword_002004 = 0;
+  array_001804[i] = nullptr;
+ }
+
+ uNumPointers = 0;
 }
 
 
 
 //----- (004C1C0C) --------------------------------------------------------
-char __stdcall sub_4C1C0C(Vis_stru0 *a1, Vis_stru0 *a2, float *a3, struct RenderVertex *a4, struct12 *a5, int a6)
+char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pRay_SomePoint, struct12 *a5, int a6)
 {
   int v6; // eax@1
-  int v7; // ebx@1
   double v8; // st7@3
   double v9; // st5@6
   double v10; // st6@10
-  double v11; // st7@11
   signed int v12; // ST1E_4@11
-  float v14; // [sp+30h] [bp+18h]@6
   float v15; // [sp+30h] [bp+18h]@10
 
-  v7 = (int)a5;
-  v6 = a5->dword_00002C;
-  if (v6 & 1 ||
-      v6 & 0x2000 ||
-      (v8 = a2->z * a5->flt_000008 +
-            a2->y * a5->flt_000004 +
-            a2->x * a5->flt_000000,
-        fabsf(v8) <= 1e-8) ||
-     v8 > 0.0 )
+  v6 = a5->uFaceAttributes;
+  if (v6 & 0x0001 ||
+      v6 & 0x2000)
     return 0;
-  v9 = -(a1->y * a5->flt_000004 +
-         a1->x * a5->flt_000000 +
-         a1->z * a5->flt_000008 +
-         a5->flt_00000C);
-  v14 = v9;
+
+  v8 = pRayEnd->x * a5->pFaceNormalf[0] +
+       pRayEnd->y * a5->pFaceNormalf[1] +
+       pRayEnd->z * a5->pFaceNormalf[2];
+  if (v8 >= 0.0)
+    return 0;
+
+  v9 = -(pRayOrigin->x * a5->pFaceNormalf[0] +
+         pRayOrigin->y * a5->pFaceNormalf[1] +
+         pRayOrigin->z * a5->pFaceNormalf[2] +
+         a5->fNormalDistance);
+
   if ( v8 <= 0.0 )
   {
     if ( v9 > 0.0 )
@@ -1385,22 +1223,22 @@ char __stdcall sub_4C1C0C(Vis_stru0 *a1, Vis_stru0 *a2, float *a3, struct Render
     if ( v9 < 0.0 )
       return 0;
   }
-  v10 = v14 / v8;
+  v10 = v9 / v8;
   v15 = v10;
-  if (v10 > *a3 ||
-
-      (v11 = v10 * a2->z + a1->z,
-
-       a4->x = v10 * a2->x + a1->x,
-       a4->y = v10 * a2->y + a1->y,
-       a4->z = v11,
-
-        LOWORD(v12) = (signed __int64)a4->x,
-        HIWORD(v12) = (signed __int64)a4->y,
-        !sub_4C1D2B(v7, v12, (signed __int64)v11, a6)) )
+  if (v10 > *pDepth)
     return 0;
-  *a3 = v15;
-  return 1;
+
+ pRay_SomePoint->x = v10 * pRayEnd->x + pRayOrigin->x;
+ pRay_SomePoint->y = v10 * pRayEnd->y + pRayOrigin->y;
+ pRay_SomePoint->z = v10 * pRayEnd->z + pRayOrigin->z;
+ 
+ LOWORD(v12) = (signed __int64)pRay_SomePoint->x;
+ HIWORD(v12) = (signed __int64)pRay_SomePoint->y;
+ if (!sub_4C1D2B(a5, v12, pRay_SomePoint->z, a6))
+   return 0;
+
+ *pDepth = v15;
+ return 1;
 }
 
 
@@ -1471,9 +1309,9 @@ int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class
                 v18 = (8 * v6 | 6) + v8;
                 v17 = (int)(ptr_6BE644 + v7/96);
 
-                a4->array_000004[a4->dword_002004].uBillboardID = (unsigned int)(ptr_6BE644 + v7/96);
-                a4->array_000004[a4->dword_002004].sZValue = v18;
-                a4->array_000004[a4->dword_002004++].dword_000008 = 2;
+                a4->array_000004[a4->uNumPointers].uBillboardID = (unsigned int)(ptr_6BE644 + v7/96);
+                a4->array_000004[a4->uNumPointers].sZValue = v18;
+                a4->array_000004[a4->uNumPointers++].dword_000008 = 2;
               }
             }
           }
@@ -1505,7 +1343,7 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
   struct struct12 local_10;
   //char v17[0x60]; // [sp+10h] [bp-B8h]@1
 
-  RenderVertex local_70;
+  RenderVertex cRay_SomePoint;
   //char v18; // [sp+70h] [bp-58h]@11
   //float v19; // [sp+7Ch] [bp-4Ch]@12
   //float v20; // [sp+9Ch] [bp-2Ch]@1
@@ -1523,18 +1361,17 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
  int i;
 
   v25 = _this;
-  sub_46ED02(&local_10);
   v7 = 0;
   v27 = 0;
   v29 = 0;
 
-  local_70.flt_00002C = 0.0;
+  cRay_SomePoint.flt_00002C = 0.0;
 
   i = 0;
   if ( pClass51_global->uNumBModels > 0 )
   {
     v28 = 0;
-    class51_BModel *pBModel;
+    BSPModel *pBModel;
     while ( 1 )
     {
       pBModel = &pClass51_global->pBModels[i];
@@ -1558,26 +1395,26 @@ LABEL_15:
 
 LABEL_8:
     v30 = 0;
-    v24 = v6 = pBModel->dword_00004C;
+    v24 = v6 = pBModel->uNumFaces;
 
-    for (unsigned int j = 0; j < pBModel->dword_00004C; ++j)
+    for (unsigned int j = 0; j < pBModel->uNumFaces; ++j)
     {
-     class51_stru2 *pStru2 = pBModel->ptr_000054 + j;
+     BSPModel::Face *pStru2 = pBModel->pFaces + j;
 
      if (Vis_is_part_of_selection((unsigned int)pStru2, a5))
      {
-          sub_4C0EF2(&local_10, pStru2);
-          if ( sub_4C1C0C(pRay, pRay + 1, &a2, &local_70, &local_10, v29) )
+          sub_4C0EF2_BSPModel_Face_To_struct12(&local_10, pStru2);
+          if ( sub_4C1C0C(pRay, pRay + 1, &a2, &cRay_SomePoint, &local_10, v29) )
           {
-            sub_436523(&local_70, 1);
-            v11 = sub_48B561(local_70.flt_00000C);
+            sub_436523(&cRay_SomePoint, 1);
+            v11 = sub_48B561(cRay_SomePoint.flt_00000C);
 
             LOWORD(v11) = 0;
             v22 = (8 * (v30 | (v29 << 6)) | 6) + v11;
 
-            a4->array_000004[a4->dword_002004].uBillboardID = (unsigned int)pStru2;
-            a4->array_000004[a4->dword_002004].sZValue = v22;
-            a4->array_000004[a4->dword_002004++].dword_000008 = 2;
+            a4->array_000004[a4->uNumPointers].uBillboardID = (unsigned int)pStru2;
+            a4->array_000004[a4->uNumPointers].sZValue = v22;
+            a4->array_000004[a4->uNumPointers++].dword_000008 = 2;
           }
         }
 
@@ -1590,55 +1427,40 @@ LABEL_8:
 
 
 
-//----- (0046ED02) --------------------------------------------------------
-void sub_46ED02(struct12 * _this)
-{
- _this->uNumVertices = 0;
 
- _this->dword_00002C = 0;
- _this->ptr_000030 = nullptr;
- _this->ptr_000034 = nullptr;
- _this->ptr_000038 = nullptr;
- _this->ptr_00003C = nullptr;
-
- _this->word_000048 = 0;
-}
 
 
 
 //----- (004C0EF2) --------------------------------------------------------
-void sub_4C0EF2(struct12 *_this, class51_stru2 *a2)
+void sub_4C0EF2_BSPModel_Face_To_struct12(struct12 *_this, BSPModel::Face *a2)
 {
- _this->dword_000010 = a2->dword_000000;
- _this->dword_000014 = a2->dword_000004;
- _this->dword_000018 = a2->dword_000008;
- _this->dword_00001C = a2->dword_00000C;
+ _this->pFaceNormal[0] = a2->pFaceNormal[0];
+ _this->pFaceNormal[1] = a2->pFaceNormal[1];
+ _this->pFaceNormal[2] = a2->pFaceNormal[2];
+ _this->sNormalDistance = a2->sNormalDistance;
 
- _this->flt_000000 = (float)(a2->dword_000000 & 0xFFFF) / 65535.0f + (float)(a2->dword_000000 >> 16);
- _this->flt_000004 = (float)(a2->dword_000004 & 0xFFFF) / 65535.0f + (float)(a2->dword_000004 >> 16);
- _this->flt_000008 = (float)(a2->dword_000008 & 0xFFFF) / 65535.0f + (float)(a2->dword_000008 >> 16);
- _this->flt_00000C = (float)(a2->dword_00000C & 0xFFFF) / 65535.0f + (float)(a2->dword_00000C >> 16);
+ _this->pFaceNormalf[0] = (float)(a2->pFaceNormal[0] & 0xFFFF) / 65535.0f + (float)(a2->pFaceNormal[0] >> 16);
+ _this->pFaceNormalf[1] = (float)(a2->pFaceNormal[1] & 0xFFFF) / 65535.0f + (float)(a2->pFaceNormal[1] >> 16);
+ _this->pFaceNormalf[2] = (float)(a2->pFaceNormal[2] & 0xFFFF) / 65535.0f + (float)(a2->pFaceNormal[2] >> 16);
+ _this->fNormalDistance = (float)(a2->sNormalDistance & 0xFFFF) / 65535.0f + (float)(a2->sNormalDistance >> 16);
 
- _this->dword_000020 = *(_DWORD *)(a2->byte_000010 + 0);
- _this->dword_000024 = *(_DWORD *)(a2->byte_000010 + 4);
- _this->dword_000028 = *(_DWORD *)(a2->byte_000010 + 8);
- _this->dword_00002C = a2->dword_00001C;
+ _this->zCalc1 = a2->zCalc1;
+ _this->zCalc2 = a2->zCalc2;
+ _this->zCalc3 = a2->zCalc3;
+ _this->uFaceAttributes = a2->uFaceAttributes;
 
  _this->uTextureID = a2->uTextureID;
 
- _this->sSomeX1 = a2->sSomeX1;
- _this->sSomeX2 = a2->sSomeX1;
- _this->sSomeY1 = a2->sSomeY1;
- _this->sSomeY2 = a2->sSomeY2;
- _this->sSomeZ1 = a2->sSomeZ1;
- _this->sSomeZ2 = a2->sSomeZ2;
+ _this->cBoundingBoxX = a2->cBoundingBoxX;
+ _this->cBoundingBoxY = a2->cBoundingBoxY;
+ _this->cBoundingBoxZ = a2->cBoundingBoxZ;
 
- _this->ptr_000030 = a2->array_000020;
- _this->ptr_000034 = a2->array_000098;
- _this->ptr_000038 = a2->array_0000C0;
- _this->ptr_00003C = a2->byte_0000E8;
+ _this->pVertexIDs = a2->pVertexIDs;
+ _this->pXInterceptDisplacements = a2->pXInterceptDisplacements;
+ _this->pYInterceptDisplacements = a2->pYInterceptDisplacements;
+ _this->pZInterceptDisplacements = a2->pZInterceptDisplacements;
 
- _this->byte_00005C = a2->byte_00012F;
+ _this->uPolygonType = a2->uPolygonType;
  _this->uNumVertices = a2->uNumVertices;
 }
 
@@ -1649,7 +1471,7 @@ char __stdcall sub_436455(struct12 *a1)
 {
   char v2; // [sp+8h] [bp-30h]@1
 
-  sub_43648F((int)&v2, dword_6BE63C + 6 * *a1->ptr_000030);
+  sub_43648F((int)&v2, dword_6BE63C + 6 * *a1->pVertexIDs);
   return sub_438258(a1, (int)&v2);
 }
 
@@ -1658,10 +1480,10 @@ char __stdcall sub_438258(struct12 *a1, int a2)
 {
   char result; // al@2
 
-  if ( (*(float *)(a2 + 8) - (double)pOldCamera->sPosZ) * (double)a1->dword_000018
-     + (*(float *)(a2 + 4) - (double)pOldCamera->sPosY) * (double)a1->dword_000014
-     + (*(float *)(a2 + 0) - (double)pOldCamera->sPosX) * (double)a1->dword_000010 < 0.0
-    || (result = 1, a1->dword_00002C & 1) )
+  if ( (*(float *)(a2 + 8) - (double)pOldCamera->sPosZ) * (double)a1->pFaceNormal[2]
+     + (*(float *)(a2 + 4) - (double)pOldCamera->sPosY) * (double)a1->pFaceNormal[1]
+     + (*(float *)(a2 + 0) - (double)pOldCamera->sPosX) * (double)a1->pFaceNormal[0] < 0.0
+    || (result = 1, a1->uFaceAttributes & 1) )
     result = 0;
   return result;
 }
