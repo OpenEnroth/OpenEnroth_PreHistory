@@ -33,6 +33,9 @@ struct BSPModel
   int            zCalc2;                       // dword    @ 000014
   int            zCalc3;                       // dword    @ 000018
   unsigned int   uFaceAttributes;              // dword    @ 00001C    & 0x40: word_000110 == TextureFrameTable ID  ?  plain Texture ID
+                                               //                    & 0x0100  intersection in xy plane 
+                                               //                    & 0x0200  intersection in xz plane
+                                               //                    else      intersection in yz plane
   unsigned short pVertexIDs[20];               // word[20] @ 000020     list of face vertices, pVertexIDs[0] == pVertexIDs[uNumVertices]
   unsigned short pTextureUIDs[20];             // word[20] @ 000048    list of face texcoord u's
   unsigned short pTextureVIDs[20];             // word[20] @ 000070    list of face texcoord v's

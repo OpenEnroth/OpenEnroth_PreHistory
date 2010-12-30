@@ -12999,7 +12999,7 @@ void __cdecl sub_42213C()
         {
 LABEL_11:
           v4 = pParty_global->pickedItem.uItemID;
-          if (pParty_global->pickedItem.uItemID)
+          if (pParty_global->pickedItem.uItemID != -1)
           {
 LABEL_14:
             v6 = word_5D29F8[24 * v4];
