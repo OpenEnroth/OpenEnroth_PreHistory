@@ -163,4 +163,13 @@ char Vis_sub_4C1930(Vis *_this, float a2, int a3);
 char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayDirection, float *pDepth, struct RenderVertex *pRay_SomePoint, struct12 *a5, int a6);
 
 
+
+
+char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, int *a5, struct struct12 *a6);
+char __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, int *a5, struct struct12 *a6, int a7);
+
+
+
+
+
 void RotateVector(int sDepth, int sRotationY, int sRotationX, int sPosX, int sPosY, int sPosZ, int *pOutX, int *pOutY, int *pOutZ);

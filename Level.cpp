@@ -452,9 +452,6 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
   
   while (true)
   {
-   pBModels[i].ptr_000058 = 0;
-   pBModels[i].ptr_000060 = 0;
-
    pBModels[i].pVertices = NamedMemAlloc(BSPModel::Vertex, pBModels[i].uNumVertices, (char *)pBModels[i].pModelName);
    memcpy(pBModels[i].pVertices, Src, pBModels[i].uNumVertices * sizeof(BSPModel::Vertex));
    Src += pBModels[i].uNumVertices * sizeof(BSPModel::Vertex);
@@ -463,13 +460,13 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
    memcpy(pBModels[i].pFaces, Src, pBModels[i].uNumFaces * sizeof(BSPModel::Face));
    Src += pBModels[i].uNumFaces * sizeof(BSPModel::Face);
 
-   pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, pBModels[i].uNumFaces, (char *)pBModels[i].pModelName);
-   memcpy(pBModels[i].ptr_000058, Src, pBModels[i].uNumFaces * 2);
+   pBModels[i].pFacesOrdering = NamedMemAlloc(unsigned short, pBModels[i].uNumFaces, (char *)pBModels[i].pModelName);
+   memcpy(pBModels[i].pFacesOrdering, Src, pBModels[i].uNumFaces * sizeof(short));
    Src += pBModels[i].uNumFaces * 2;
 
-   pBModels[i].ptr_000060 = NamedMemAlloc(unsigned char, 8 * pBModels[i].dword_00005C, (char *)pBModels[i].pModelName);
-   memcpy(pBModels[i].ptr_000060, Src, 8 * pBModels[i].dword_00005C);
-   Src += 8 * pBModels[i].dword_00005C;
+   pBModels[i].pNodes = NamedMemAlloc(BSPModel::BSPNode, pBModels[i].uNumNodes, (char *)pBModels[i].pModelName);
+   memcpy(pBModels[i].pNodes, Src, pBModels[i].uNumNodes * sizeof(BSPModel::BSPNode));
+   Src += pBModels[i].uNumNodes * sizeof(BSPModel::BSPNode);
 
    pTexturesNames = NamedMemAlloc(unsigned char, 10 * pBModels[i].uNumFaces, "ODM Loading tmp texture names");
    memcpy(pTexturesNames, Src, 10 * pBModels[i].uNumFaces);

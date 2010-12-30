@@ -5814,14 +5814,14 @@ int __thiscall sub_46E889(int a1)
  {
   pBModel = &pClass51_global->pBModels[i];
 
-  if (stru_721530.dword_00008C <= pBModel->dword_000088 &&
-      stru_721530.dword_000090 >= pBModel->dword_00007C)
+  if (stru_721530.dword_00008C <= pBModel->sMaxX &&
+      stru_721530.dword_000090 >= pBModel->sMinX)
   {
-          if (stru_721530.dword_000094 <= pBModel->dword_00008C &&
-              stru_721530.dword_000098 >= pBModel->dword_000080)
+          if (stru_721530.dword_000094 <= pBModel->sMaxY &&
+              stru_721530.dword_000098 >= pBModel->sMinY)
           {
-              if (stru_721530.dword_00009C <= pBModel->dword_000090 &&
-                  stru_721530.dword_0000A0 >= pBModel->dword_000084)
+              if (stru_721530.dword_00009C <= pBModel->sMaxZ &&
+                  stru_721530.dword_0000A0 >= pBModel->sMinZ)
               {
                   if (pBModel->uNumFaces > 0)
                     goto _proceed;

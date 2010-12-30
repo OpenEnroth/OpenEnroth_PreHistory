@@ -1067,8 +1067,6 @@ int __thiscall sub_4C0312(int _this, int a2, int a3, int a4, int a5);
 void __cdecl loc_4C0D27(); // idb
 bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float fX, float fY);
 void __cdecl loc_4C19F7(); // idb
-char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, struct struct12 *a6);
-char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, struct struct12 *a6, int a7);
 int __thiscall sub_4C2551(int _this, int a2, int a3);
 int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this);
 int sub_4C2EA0(struct unnamed_6BD080 *_this);

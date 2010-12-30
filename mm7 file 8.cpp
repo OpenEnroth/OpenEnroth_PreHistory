@@ -1509,8 +1509,8 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
 
   v5 = (int)&pClass51_global->pBModels[uModelIdx];
 
-  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pOldCamera->sPosX;
-  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pOldCamera->sPosY;
+  v4 = pClass51_global->pBModels[uModelIdx].sBoundingCenterX - pOldCamera->sPosX;
+  v3 = pClass51_global->pBModels[uModelIdx].sBoundingCenterY - pOldCamera->sPosY;
 
   v6 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
   v21 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
@@ -1527,7 +1527,7 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   v10 = sub_4621DA(v9, v8, 0);
 
   *a2 = 0;
-  if (v10 < pClass51_global->pBModels[uModelIdx].dword_0000B8 + 256)
+  if (v10 < pClass51_global->pBModels[uModelIdx].sBoundingRadius + 256)
     *a2 = 1;
 
   v15 = class59_SinCos(pClass59_global, v20 - pClass59_global->uIntegerHalfPi);
@@ -1538,7 +1538,7 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   v12 = v11 >> 16;
   if (v10 <= pStruct9_global->shading_dist_mist + 2048 )
   {
-   if ( abs(v12) > pClass51_global->pBModels[uModelIdx].dword_0000B8 + 512 )
+   if ( abs(v12) > pClass51_global->pBModels[uModelIdx].sBoundingRadius + 512 )
       return v12 >= 0;
     else
       return true;
@@ -4400,9 +4400,9 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
   for (i = 0; i < pClass51_global->uNumBModels; ++i)
   {
     v10 = &pClass51_global->pBModels[i];
-    if (v7 <= v10->dword_000088 && v7 >= v10->dword_00007C)
+    if (v7 <= v10->sMaxX && v7 >= v10->sMinX)
       {
-        if (v8 <= v10->dword_00008C && v8 >= v10->dword_000080)
+        if (v8 <= v10->sMaxY && v8 >= v10->sMinY)
           {
             v44 = 0;
             v36 = v10->uNumFaces;

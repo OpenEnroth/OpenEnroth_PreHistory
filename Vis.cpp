@@ -1487,3 +1487,232 @@ char __stdcall sub_438258(struct12 *a1, int a2)
     result = 0;
   return result;
 }
+
+
+
+
+
+
+//----- (004C1EE5) --------------------------------------------------------
+char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, int *a5, struct struct12 *a6)
+{
+  int v6; // ecx@1
+  int v7; // ecx@2
+  int v8; // edx@3
+  int v9; // ecx@4
+  char v10; // zf@6
+  int v11; // ecx@6
+  int v12; // edx@7
+  int v13; // edx@8
+  int v14; // ecx@9
+  int v15; // edx@11
+  int v16; // edx@12
+  int v17; // ecx@13
+  int v19; // [sp+14h] [bp+8h]@3
+  int v20; // [sp+14h] [bp+8h]@8
+  int v21; // [sp+14h] [bp+8h]@12
+  signed int v22; // [sp+24h] [bp+18h]@2
+  signed int v23; // [sp+24h] [bp+18h]@7
+  signed int v24; // [sp+24h] [bp+18h]@11
+
+  v6 = *(_DWORD *)(a6 + 44);
+  if ( BYTE1(v6) & 1 )
+  {
+    v7 = (int)a5;
+    v22 = 0;
+    *(_DWORD *)a1 = *(_WORD *)v7;
+    *(_DWORD *)a2 = *(_WORD *)(v7 + 2);
+    if ( *(_BYTE *)(a6 + 93) )
+    {
+      v8 = (int)a4 + 2;
+      v19 = a3 - a4;
+      do
+      {
+        v9 = 2 * v22;
+        *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 52))
+                                 + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48)));
+        *(_WORD *)(v8 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v9)
+                           + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48)) + 2);
+        *(_WORD *)(v19 + v8) = *(_WORD *)(v9 + *(_DWORD *)(a6 + 52) + 2)
+                             + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48) + 2));
+        ++v22;
+        *(_WORD *)v8 = *(_WORD *)(v9 + *(_DWORD *)(a6 + 56) + 2)
+                     + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48) + 2) + 2);
+        v8 += 4;
+      }
+      while ( v22 < *(_BYTE *)(a6 + 93) );
+    }
+  }
+  else
+  {
+    v10 = (BYTE1(v6) & 2) == 0;
+    v11 = (int)a5;
+    if ( v10 )
+    {
+      v15 = *(_WORD *)(a5 + 2);
+      v24 = 0;
+      *(_DWORD *)a1 = v15;
+      *(_DWORD *)a2 = *(_WORD *)(v11 + 4);
+      if ( *(_BYTE *)(a6 + 93) )
+      {
+        v16 = (int)a4 + 2;
+        v21 = a3 - a4;
+        do
+        {
+          v17 = 2 * v24;
+          *(_WORD *)(a3 + 4 * v24) = *(_WORD *)(2 * v24 + *(_DWORD *)(a6 + 56))
+                                   + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(2 * v24 + *(_DWORD *)(a6 + 48)) + 2);
+          *(_WORD *)(v16 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 60) + v17)
+                              + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48)) + 4);
+          *(_WORD *)(v21 + v16) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v17 + 2)
+                                + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48) + 2) + 2);
+          ++v24;
+          *(_WORD *)v16 = *(_WORD *)(*(_DWORD *)(a6 + 60) + v17 + 2)
+                        + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48) + 2) + 4);
+          v16 += 4;
+        }
+        while ( v24 < *(_BYTE *)(a6 + 93) );
+      }
+    }
+    else
+    {
+      v12 = *(_WORD *)a5;
+      v23 = 0;
+      *(_DWORD *)a1 = v12;
+      *(_DWORD *)a2 = *(_WORD *)(v11 + 4);
+      if ( *(_BYTE *)(a6 + 93) )
+      {
+        v13 = (int)a4 + 2;
+        v20 = a3 - a4;
+        do
+        {
+          v14 = 2 * v23;
+          *(_WORD *)(a3 + 4 * v23) = *(_WORD *)(2 * v23 + *(_DWORD *)(a6 + 52))
+                                   + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(2 * v23 + *(_DWORD *)(a6 + 48)));
+          *(_WORD *)(v13 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 60) + v14)
+                              + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48)) + 4);
+          *(_WORD *)(v20 + v13) = *(_WORD *)(*(_DWORD *)(a6 + 52) + v14 + 2)
+                                + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2));
+          ++v23;
+          *(_WORD *)v13 = *(_WORD *)(*(_DWORD *)(a6 + 60) + v14 + 2)
+                        + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2) + 4);
+          v13 += 4;
+        }
+        while ( v23 < *(_BYTE *)(a6 + 93) );
+      }
+    }
+  }
+  return 1;
+}
+
+//----- (004C2186) --------------------------------------------------------
+char __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, int *a5, struct struct12 *a6, int a7)
+{
+  int v7; // ecx@1
+  int v8; // esi@1
+  int v10; // ecx@4
+  __int16 v11; // si@4
+  int v12; // ecx@4
+  int v14; // ecx@9
+  __int16 v15; // si@9
+  int v16; // ecx@9
+  int v18; // ecx@13
+  __int16 v19; // si@13
+  int v20; // ecx@13
+  signed int v22; // [sp+14h] [bp+8h]@1
+  int v23; // [sp+18h] [bp+Ch]@3
+  int v24; // [sp+18h] [bp+Ch]@8
+  int v25; // [sp+18h] [bp+Ch]@12
+  int v26; // [sp+24h] [bp+18h]@3
+  int v27; // [sp+24h] [bp+18h]@8
+  int v28; // [sp+24h] [bp+18h]@12
+
+  v8 = (int)a1;
+  v7 = *(_DWORD *)(a6 + 44);
+  v22 = 0;
+  if ( BYTE1(v7) & 1 )
+  {
+    *(_DWORD *)v8 = *(_WORD *)a5;
+    *(_DWORD *)a2 = *(_WORD *)(a5 + 2);
+    if ( *(_BYTE *)(a6 + 93) )
+    {
+      v26 = (int)a4 + 2;
+      v23 = a3 - a4;
+      do
+      {
+        v10 = 2 * v22;
+        *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(*(_DWORD *)(a6 + 52) + 2 * v22)
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
+        *(_WORD *)(v26 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v10)
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48))].y);
+        *(_WORD *)(v23 + v26) = *(_WORD *)(v10 + *(_DWORD *)(a6 + 52) + 2)
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].x);
+        v11 = *(_WORD *)(v10 + *(_DWORD *)(a6 + 56) + 2)
+            + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].y);
+        v12 = v26;
+        ++v22;
+        v26 += 4;
+        *(_WORD *)v12 = v11;
+      }
+      while ( v22 < *(_BYTE *)(a6 + 93) );
+    }
+  }
+  else
+  {
+    if ( BYTE1(v7) & 2 )
+    {
+      *(_DWORD *)v8 = *(_WORD *)a5;
+      *(_DWORD *)a2 = *(_WORD *)(a5 + 4);
+      if ( *(_BYTE *)(a6 + 93) )
+      {
+        v27 = (int)a4 + 2;
+        v24 = a3 - a4;
+        do
+        {
+          v14 = 2 * v22;
+          *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 52))
+                                   + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
+          *(_WORD *)(v27 - 2) = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60))
+                              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48))].z);
+          *(_WORD *)(v24 + v27) = *(_WORD *)(*(_DWORD *)(a6 + 52) + v14 + 2)
+                                + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].x);
+          v15 = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60) + 2)
+              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].z);
+          v16 = v27;
+          ++v22;
+          v27 += 4;
+          *(_WORD *)v16 = v15;
+        }
+        while ( v22 < *(_BYTE *)(a6 + 93) );
+      }
+    }
+    else
+    {
+      *(_DWORD *)v8 = *(_WORD *)(a5 + 2);
+      *(_DWORD *)a2 = *(_WORD *)(a5 + 4);
+      if ( *(_BYTE *)(a6 + 93) )
+      {
+        v28 = (int)a4 + 2;
+        v25 = a3 - a4;
+        do
+        {
+          v18 = 2 * v22;
+          *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(*(_DWORD *)(a6 + 56) + 2 * v22)
+                                   + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].y);
+          *(_WORD *)(v28 - 2) = *(_WORD *)(v18 + *(_DWORD *)(a6 + 60))
+                              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48))].z);
+          *(_WORD *)(v25 + v28) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v18 + 2)
+                                + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].y);
+          v19 = *(_WORD *)(v18 + *(_DWORD *)(a6 + 60) + 2)
+              + *(_WORD *)(&pClass51_global->pBModels[a7].pVertices[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].z);
+          v20 = v28;
+          ++v22;
+          v28 += 4;
+          *(_WORD *)v20 = v19;
+        }
+        while ( v22 < *(_BYTE *)(a6 + 93) );
+      }
+    }
+  }
+  return 1;
+}
