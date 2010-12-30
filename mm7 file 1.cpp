@@ -1518,7 +1518,7 @@ void __cdecl sub_47A815_DrawClass02Lines()
 }
 
 //----- (004637EB) --------------------------------------------------------
-long *__stdcall wDefaultWinProc(HWND hWnd, unsigned int uMsg, unsigned int wParam, long *lParam)
+long *__stdcall wMM7DefaultWinProc(HWND hWnd, unsigned int uMsg, unsigned int wParam, long *lParam)
 {
   LPARAM v5; // esi@1
   HANDLE v7; // eax@32
@@ -1570,7 +1570,7 @@ long *__stdcall wDefaultWinProc(HWND hWnd, unsigned int uMsg, unsigned int wPara
  }
 
  Win32Window *pTarget = (Win32Window *)(GetWindowLongPtrW(hWnd, GWLP_USERDATA));
- if (!pTarget->SystemMessageHandler(uMsg, wParam, lParam))
+ if (pTarget && !pTarget->SystemMessageHandler(uMsg, wParam, lParam))
    return 0;
 
 

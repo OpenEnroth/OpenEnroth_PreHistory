@@ -215,8 +215,9 @@
     <ClCompile Include="GUI\WindowOverlapped.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="OSWindow.cpp" />
     <ClCompile Include="Vis.cpp" />
+    <ClCompile Include="Win32Window.cpp" />
+    <ClCompile Include="OSWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -449,8 +450,8 @@
     <ClInclude Include="GUI\Window.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="OSWindow.h" />
     <ClInclude Include="Vis.h" />
+    <ClInclude Include="OSWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

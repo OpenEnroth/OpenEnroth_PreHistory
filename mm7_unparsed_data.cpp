@@ -1807,12 +1807,12 @@ struct struct12 *ptr_6BE644; // weak
 //MemoryMng mem_mng;  // struct @ MM7.exe::00702B28
  int dword_71FFF4; // weak
  int dword_71FFF8; // weak
-unsigned int bUseOverrideData;   // dword @ MM7.exe::00720008
 unsigned int bNoVideo = false;   // dword @ MM7.exe::0072000C
 unsigned int bNoCredits = false; // new
 unsigned int bNoIntro = false;   // new
 unsigned int bNoSound = false;   // new
 unsigned int bNo3DSound = false; // new
+unsigned int bWindowMode = true; // new
 int pAsyncMouse; // dword @ MM7.exe::00720010
 
 struct Game *pGame = 0; //struct @ MM7.exe::00720014

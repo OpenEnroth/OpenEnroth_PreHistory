@@ -1152,4 +1152,4 @@ int __fastcall sub_46BDF1(unsigned int a1);
 void class58_sub_49C304(struct class58 *_this, int a2, unsigned int a3);
 long *sub_4AC1C9(int a5, long *pWindowDims);
 int __fastcall sub_4383ED();
-long *__stdcall wDefaultWinProc(HWND hWnd, unsigned int uMsg, unsigned int wParam, long *lParam);
+long *__stdcall wMM7DefaultWinProc(HWND hWnd, unsigned int uMsg, unsigned int wParam, long *lParam);

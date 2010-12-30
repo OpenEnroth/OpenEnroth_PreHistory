@@ -2,6 +2,7 @@
 #include <windows.h>
 
 #include "libs\libpng143\png.h"
+#include "memory_mng.h"
 
 #pragma pack(push, 1)
 struct TGAHeader
@@ -179,7 +180,7 @@ unsigned int LoadPNG(const wchar_t *pFile, unsigned int *pWidth, unsigned int *p
  *pWidth = info_ptr->width;
  *pHeight = info_ptr->height;
 
- *pPixels = new unsigned int[info_ptr->width * info_ptr->height];
+ *pPixels = MemAlloc(unsigned int, info_ptr->width * info_ptr->height);
  for (unsigned int i = 0; i < info_ptr->height; ++i)
  {
   unsigned int *pRow = *pPixels + i * info_ptr->width;

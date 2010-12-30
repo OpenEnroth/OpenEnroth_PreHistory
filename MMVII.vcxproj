@@ -175,6 +175,7 @@
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
     <ClCompile Include="Vis.cpp" />
+    <ClCompile Include="Win32Window.cpp" />
     <ClCompile Include="_lod.cpp" />
   </ItemGroup>
   <ItemGroup>

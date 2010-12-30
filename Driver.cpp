@@ -349,8 +349,12 @@ Result::Code PrimaryInitialization()
 {
  srand(GetTickCount());
 
+ unsigned int uCreationParams = WindowCreationParams::Unique;
+ if (bWindowMode)
+   uCreationParams |= WindowCreationParams::Framed;
+
  pAppWindow = MemAlloc(Win32Window, 1);
- if (pAppWindow->Initialize(L"MM7cls", L"Might and Magic® VII", WindowCreationParams::Framed | ::WindowCreationParams::Unique))
+ if (pAppWindow->Initialize(L"MM7cls", L"Might and Magic® VII", uCreationParams))
  {
   MemFree(pAppWindow);
   return Result::Generic;
@@ -490,7 +494,7 @@ Result::Code PrimaryInitialization()
    GUIWindow_List[i].uWindowType = 0;
 
 
- return pAppWindow->Show();
+ return pAppWindow->Show(true);
 }
 
 
@@ -513,10 +517,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
  {
   if (lpCmdLine[0])
   {
-   if (strstr(lpCmdLine, "-usedefs"))
-     bUseOverrideData = true;
    if (strstr(lpCmdLine, "-window"))
-     dword_6BE368 |= 0x01;
+     bWindowMode = true;
 
    if (strstr(lpCmdLine, "-nosound"))
    {

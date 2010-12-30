@@ -117,7 +117,7 @@ LOD_file::LOD_file()
 LOD_file::~LOD_file()
 {
   
-  if ( sLODFileHeader.Signature )
+  if ( sLODFileHeader.Signature[0] )
   {
     fclose(pLODFile);
     MemFree(pLODSubIndexNamedBuffer);

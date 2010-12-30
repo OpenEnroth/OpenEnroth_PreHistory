@@ -1894,12 +1894,13 @@ extern char byte_6BE6EC[875]; // weak
 //extern MemoryMng mem_mng;  // struct @ MM7.exe::00702B28;  // struct @ MM7.exe::00702B28
 extern int dword_71FFF4; // weak
 extern int dword_71FFF8; // weak
-extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
+//unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
 extern unsigned int bNoVideo;         // dword @ MM7.exe::0072000C
 extern unsigned int bNoCredits;       // new
 extern unsigned int bNoIntro;         // new
 extern unsigned int bNoSound;         // new
 extern unsigned int bNo3DSound;       // new
+extern unsigned int bWindowMode;      // new
 extern int pAsyncMouse; // dword @ MM7.exe::00720010
 
 extern struct Game *pGame; //struct @ MM7.exe::00720014

@@ -8815,12 +8815,19 @@ void ShowLastError(void)
  LocalFree(lpMsgBuf);
 }
 
+
+
+
+
+
+
+
+
 //----- (MM7.exe::00465061) --------------------------------------------------------
 bool CheckForMM7CD(wchar_t *pcGameCDDriveLetter)
 {
   char result; // al@19
   char cDriveLetter; // al@21
-  DWORD cbData; // [sp+Ch] [bp-28h]@1
   char RootPathName[4]; // [sp+10h] [bp-24h]@15
   //char *v8; // [sp+14h] [bp-20h]@1
   char v14; // [sp+29h] [bp-Bh]@21
@@ -8828,15 +8835,13 @@ bool CheckForMM7CD(wchar_t *pcGameCDDriveLetter)
   int v16; // [sp+2Ch] [bp-8h]@13
   int ret;
 
- cbData = 8;
-
  HKEY hSoftware,
       hNewWorldComputing,
       hMightAndMagic7,
       hDrvL;
 
  wchar_t pRoot[4];
- lstrcpyW(pRoot, L"X:");
+ lstrcpyW(pRoot, L"X:\\");
 
  if (!RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, KEY_ALL_ACCESS, &hSoftware))
  {
@@ -8846,14 +8851,25 @@ bool CheckForMM7CD(wchar_t *pcGameCDDriveLetter)
     {
       if (!RegOpenKeyExW(hMightAndMagic7, L"1.0", 0, KEY_ALL_ACCESS, &hDrvL))
       {
-        if (!RegQueryValueExW(hDrvL, L"CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
-        {
-         *pcGameCDDriveLetter = pRoot[0];
+       runtime_warning(hack to ensure everyones registry initialized);
+       RegSetValueExW(hDrvL, L"CDDrive", 0, REG_DWORD, (BYTE *)L"E:", 4);
 
-         if (IsMM7CD(pRoot))
-           return true;
+       DWORD cbData = 4;
+       if (!RegQueryValueExW(hDrvL, L"CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
+       {
+        *pcGameCDDriveLetter = pRoot[0];
+
+        if (IsMM7CD(pRoot))
+        {
+         RegCloseKey(hDrvL);
+         RegCloseKey(hMightAndMagic7);
+         RegCloseKey(hNewWorldComputing);
+         RegCloseKey(hSoftware);
+
+         return true;
         }
-        RegCloseKey(hDrvL);
+       }
+       RegCloseKey(hDrvL);
       }
       RegCloseKey(hMightAndMagic7);
     }
@@ -8862,43 +8878,64 @@ bool CheckForMM7CD(wchar_t *pcGameCDDriveLetter)
   RegCloseKey(hSoftware);
  }
 
- OSWindow *pInsertCDDialog = 0;
+ for (unsigned int i = L'A'; i <= L'Z'; ++i)
+ {
+  pRoot[0] = i;
+
+  if (IsMM7CD(pRoot))
+  {
+   CreateRegistryWString(L"CDDrive", pRoot, 2);
+   return true;
+  }
+ }
+ 
+
+ Win32Window *pInsertCDDialog = MemAlloc(Win32InsertCDWindow, 1);
+ pInsertCDDialog->Initialize(L"MM7icdd", L"Insert Might and Magic VII CD", WindowCreationParams::Unique);
+
+ unsigned int uWindowPosX = GetSystemMetrics(SM_CXSCREEN),
+              uWindowPosY = GetSystemMetrics(SM_CYSCREEN);
+ unsigned int uWindowSizeX = 415,
+              uWindowSizeY = 160;
+ Rect<float> wndArea = Rect<float>(uWindowPosX / 2 - uWindowSizeX / 2,
+                                   uWindowPosX / 2 + uWindowSizeX / 2,
+                                   uWindowPosY / 2 - uWindowSizeY / 2,
+                                   uWindowPosY / 2 + uWindowSizeY / 2);
+ pInsertCDDialog->SetWindowArea(&wndArea);
+ pInsertCDDialog->Show(true);
+
  while (true)
  {
+  DWORD uTimeToCheckCD = GetTickCount() + 2000;
+  do
+  {
+   pInsertCDDialog->HandleEvents();
+   
+   if (!pInsertCDDialog->Visible())
+     break;
+   Sleep(25);
+  } while (GetTickCount() < uTimeToCheckCD);
+
+  if (!pInsertCDDialog->Visible())
+    break;
+
   for (unsigned int i = L'A'; i <= L'Z'; ++i)
   {
    pRoot[0] = i;
-   if (GetDriveTypeW(pRoot) != DRIVE_CDROM)
-     continue;
 
    if (IsMM7CD(pRoot))
    {
-	CreateRegistryWString(L"CDDrive", pRoot, 4);
+    CreateRegistryWString(L"CDDrive", pRoot, 2);
 
-	if (pInsertCDDialog)
-	  MemFree(pInsertCDDialog);
-
-	return true;
+    pInsertCDDialog->Close();
+    MemFree(pInsertCDDialog);
+    return true;
    }
   }
-  /*
-  pInsertCDDialog = new Win32Window;
-  pInsertCDDialog->Initialize(L"MM7icdd", L"Insert Might and Magic CD", WindowCreationParams::Framed | WindowCreationParams::Unique);
-
-  unsigned int uWindowPosX = GetSystemMetrics(SM_CXSCREEN),
-               uWindowPosY = GetSystemMetrics(SM_CYSCREEN);
-  struct Viewport wndArea =
-  {
-   uWindowPosX - 128 / 2, uWindowPosY - 64 / 2,
-   uWindowPosX + 128 / 2, uWindowPosY + 64 / 2,
-   0,                     0
-  };
-  pInsertCDDialog->SetClientArea(&wndArea);
-  pInsertCDDialog->Show();*/
-  Sleep(1000);
  }
 
- //delete pInsertCDDialog;
+ pInsertCDDialog->Close();
+ MemFree(pInsertCDDialog);
  return false;
 }
 
@@ -9244,8 +9281,17 @@ char __cdecl sub_409FE9()
 //----- (MM7::00464E17) --------------------------------------------------------
 bool IsMM7CD(wchar_t *pRootDir)
 {
+ if (GetDriveTypeW(pRootDir) != DRIVE_CDROM)
+   return false;
+
+ wchar_t pVolumeName[256],
+         pVolumeFileSystem[256];
+ if (!GetVolumeInformation(pRootDir, pVolumeName, 255, 0, 0, 0, pVolumeFileSystem, 255))
+   return false;
+
+
  wchar_t pMagic7Vid[256];
- wsprintfW(pMagic7Vid, L"%s\\Anims\\Magic7.vid", pRootDir);
+ wsprintfW(pMagic7Vid, L"%sAnims\\Magic7.vid", pRootDir);
 
  HANDLE hFile = CreateFileW(pMagic7Vid, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
  if (hFile == INVALID_HANDLE_VALUE)

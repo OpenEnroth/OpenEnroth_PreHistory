@@ -4,19 +4,20 @@
 
 
 
-unsigned int Win32Window::Update(float dt)
+Result::Code Win32Window::HandleEvents()
 {
- MSG  msg;
- unsigned int uMessagesLeft = PeekMessageW(&msg, hWindow, 0, 0, PM_REMOVE);
-
- if (msg.message == WM_QUIT)
+ MSG msg;
+ while (PeekMessageW(&msg, hWindow, 0, 0, PM_REMOVE))
  {
- }
+  if (msg.message == WM_QUIT)
+    return Result::Generic;
 
- TranslateMessage(&msg);
- DispatchMessageW(&msg);
- return uMessagesLeft;
+  TranslateMessage(&msg);
+  DispatchMessageW(&msg);
+ }
+ return Result::Success;
 }
+
 
 
 Result::Code Win32Window::GetClientArea(Rect<float> *pOutArea)
@@ -46,10 +47,6 @@ HWND Win32Window::GetAPIHandle()
  return hWindow;
 }
 
-Result::Code Win32Window::OnClose()
-{
- return Result::Generic;
-}
 
 Result::Code Win32Window::SetClientArea(const Rect<float> *pArea)
 {
@@ -71,20 +68,29 @@ Result::Code Win32Window::SetClientArea(const Rect<float> *pArea)
 
 Result::Code Win32Window::SetWindowArea(const Rect<float> *pArea)
 {
- SetWindowPos(hWindow, HWND_TOP, pArea->x.min, pArea->y.min, pArea->x.Length(), pArea->y.Length(), 0);
+ SetWindowPos(hWindow, HWND_TOP, pArea->x.min, pArea->y.min, pArea->x.Length(), pArea->y.Length(), SWP_NOACTIVATE | SWP_NOZORDER);
 
  return Result::Success;
 }
 
 
-Result::Code Win32Window::Show()
+Result::Code Win32Window::Show(bool bShow)
 {
- ShowWindow(hWindow, SW_SHOWNORMAL);
-
+ if (bShow && !bVisible)
+ {
+  ShowWindow(hWindow, SW_SHOWNORMAL);
+  UpdateWindow(hWindow);
+  bVisible = true;
+ }
+ else if (!bShow && bVisible)
+ {
+  ShowWindow(hWindow, SW_HIDE);
+  bVisible = false;
+ }
  return Result::Success;
 }
 
-long *__stdcall wDefaultWinProc(HWND, unsigned int, unsigned int, long *);
+long *__stdcall wMM7DefaultWinProc(HWND, unsigned int, unsigned int, long *);
 Result::Code Win32Window::Initialize(const wchar_t *pWindowClassName, const wchar_t *pWindowCaptionName, unsigned int uCreationParams)
 {
  lstrcpyW(pClassName, pWindowClassName);
@@ -109,10 +115,10 @@ Result::Code Win32Window::Initialize(const wchar_t *pWindowClassName, const wcha
  wcxw.cbSize = sizeof(WNDCLASSEXW);
  wcxw.cbWndExtra = 0;
  wcxw.hbrBackground = 0;
- wcxw.hCursor = LoadCursorW(0, (const wchar_t *)(IDC_ARROW));
- wcxw.hIcon = wcxw.hIconSm = LoadIconW(0, (const wchar_t *)(IDI_APPLICATION));
- wcxw.hInstance = GetModuleHandleW(0);
- wcxw.lpfnWndProc = (WNDPROC)(wDefaultWinProc);
+ wcxw.hCursor = LoadCursorW(nullptr, (const wchar_t *)(IDC_ARROW));
+ wcxw.hIcon = wcxw.hIconSm = LoadIconW(nullptr, (const wchar_t *)(IDI_APPLICATION));
+ wcxw.hInstance = GetModuleHandleW(nullptr);
+ wcxw.lpfnWndProc = (WNDPROC)(wMM7DefaultWinProc);
  wcxw.lpszClassName = pClassName;
  wcxw.lpszMenuName = 0;
  wcxw.style = CS_OWNDC;
@@ -131,24 +137,15 @@ Result::Code Win32Window::SystemMessageHandler(unsigned int msg, unsigned int wp
 }
 
 
-
-
-
-/*
-long *__stdcall wDefaultWinProc(HWND hwnd, unsigned int msg, unsigned int wparam, long *lparam)
+Result::Code Win32Window::OnClose()
 {
- if (msg == WM_NCCREATE || msg == WM_NCCALCSIZE)
-   return (long *)DefWindowProcW(hwnd, msg, wparam, (LPARAM)(lparam));
- if (msg == WM_CREATE)
- {
-  CREATESTRUCTW *pCS = (CREATESTRUCTW *)(lparam);
-  SetWindowLongPtrW(hwnd, GWLP_USERDATA, (LONG_PTR)(pCS->lpCreateParams));
-  return (long *)DefWindowProcW(hwnd, msg, wparam, (LPARAM)(lparam));
- }
+ return Result::NotImplemented;
+}
 
- Window *pTarget = (Window *)(GetWindowLongPtrW(hwnd, GWLP_USERDATA));
- if (!pTarget->SystemMessageHandler(msg, wparam, lparam))
-   return 0;
- else return (long *)DefWindowProcW(hwnd, msg, wparam, (LPARAM)(lparam));
-}*/
+
+Result::Code Win32Window::Close()
+{
+ return Result::NotImplemented;
+}
+
 
