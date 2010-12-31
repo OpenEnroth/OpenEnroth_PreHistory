@@ -1829,7 +1829,7 @@ bool sub_42ECB5_PlayerAttack()
  if (v33 != -1)
  {
   //if ( *(_BYTE *)(v2 + 36 * v33 + 516) & 2 )
-  if (pPlayer->pInventorySlots[v33].dword_000014 & 0x02)
+  if (pPlayer->pInventorySlots[v33].uAttributes & 0x02)
     v33 = -1;
  }
 
@@ -1841,7 +1841,7 @@ bool sub_42ECB5_PlayerAttack()
     if ( v4 )
     {
       //v5 = (int)pPlayer + 36 * v4;
-      if (~pPlayer->pInventorySlots[v4].dword_000014 & 0x02)
+      if (~pPlayer->pInventorySlots[v4].uAttributes & 0x02)
       {
         //v30 = v5 + 496;
         v6 = pPlayer->pInventorySlots[v4].uItemID;
@@ -2291,7 +2291,7 @@ LABEL_20:
   }
   else
   {
-    v1 = (int)&pActors[0].word_0000B0_state;
+    v1 = (int)&pActors[0].uAIState;
     while ( 1 )
     {
       v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->sPartyPosX);
@@ -10021,7 +10021,7 @@ LABEL_43:
   i = v13;
   if ( (signed int)uNumActors > v13 )
   {
-   v26 = (char *)&pActors->dword_000024;
+   v26 = (char *)&pActors->uAttributes;
     do
     {
       v27 = *(_DWORD *)v26;
@@ -10047,7 +10047,7 @@ LABEL_43:
             if ( !*((_WORD *)v26 + 2) || !*((_DWORD *)v26 + 18) )
             {
               *((_WORD *)v26 + 70) = 5;
-              Actor_sub_45976D((Actor *)((char *)v26 - 36));
+              Actor_UpdateAnimation((Actor *)((char *)v26 - 36));
             }
           }
         }

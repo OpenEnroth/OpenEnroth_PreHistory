@@ -247,7 +247,7 @@ int __fastcall sub_438F8F(int result)
                 *(_DWORD *)v46 = v47;
                 *(_DWORD *)(v20 + 4) = v48;
                 *(_DWORD *)(v20 + 8) = v44;
-                LOWORD(result) = sub_43B1B0(*((_WORD *)v2 - 300), v21, v20, (unsigned __int8)byte_510258[v43]);
+                /*LOWORD(result) = */sub_43B1B0(*((_WORD *)v2 - 300), v21, v20, (unsigned __int8)byte_510258[v43]);
               }
             }
           }
@@ -297,7 +297,7 @@ int __fastcall sub_438F8F(int result)
         v45 = 0;
         if ( (signed int)uNumActors > 0 )
         {
-          v27 = (int *)&pActors[0].sActorPosZ;
+          v27 = (int *)&pActors[0].vPosition.z;
           do
           {
             if ( Actor_sub_40894B((Actor *)((char *)v27 - 146)) )
@@ -523,22 +523,22 @@ void __fastcall sub_47253E(unsigned int a1)
   {
    v2 = (char *)&pLayingItemsList[i].uSpriteFrameID;
 
-   LOWORD(a1) = pLayingItemsList[i].word_00001C;
+   LOWORD(a1) = pLayingItemsList[i].sRoom;
       if ( a1 & 0x40 )
       {
         a1 &= 0xFFFFFFBF;
-        pLayingItemsList[i].word_00001C = a1;
+        pLayingItemsList[i].sRoom = a1;
       }
       else
       {
-        v4 = pLayingItemsList[i].uObjectDescriptionID2;
-        v3 = (int)&pObjectDescriptionList->pDescriptions[pLayingItemsList[i].uObjectDescriptionID2];
+       v4 = pLayingItemsList[i].sVelocityX;
+        v3 = (int)&pObjectDescriptionList->pDescriptions[pLayingItemsList[i].uObjectDescriptionID];
         if ( (_BYTE)a1 < 0 )
         {
           v5 = 836 * (*(_DWORD *)((char *)v2 + 62) >> 3);
-          pLayingItemsList[i].sItemPosX = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosX;
-          pLayingItemsList[i].sItemPosY = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosY;
-          pLayingItemsList[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
+          pLayingItemsList[i].sItemPosX = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.x;
+          pLayingItemsList[i].sItemPosY = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.y;
+          pLayingItemsList[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.z + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
           if ( !v4 )
             continue;
           v6 = cEventTimer.int_00001C + *(_WORD *)v2;
@@ -2294,19 +2294,19 @@ void __cdecl sub_47B42C_ClipActorsAgainstFrustrum()
     v54 = 0;
  for (i = 0; i < uNumActors; ++i)
   {
-    v1 = (int)&pActors[i].sActorPosZ;
+    v1 = (int)&pActors[i].vPosition.z;
 
-    pActors[i].dword_000024 &= 0xFFFFFFF7;
-      if (pActors[i].word_0000B0_state == 11 || pActors[i].word_0000B0_state == 19)
+    pActors[i].uAttributes &= 0xFFFFFFF7;
+      if (pActors[i].uAIState == AI::State::Removed || pActors[i].uAIState == AI::State::Disabled)
         goto LABEL_58;
-      v3 = pActors[i].sActorPosZ;
+      v3 = pActors[i].vPosition.z;
       v49 = 0;
-      v56 = pActors[i].sActorPosX;
-      v55 = pActors[i].sActorPosY;
-      v61 = pActors[i].sActorPosZ;
-      if (pActors[i].word_0000B0_state == 17 )
+      v56 = pActors[i].vPosition.x;
+      v55 = pActors[i].vPosition.y;
+      v61 = pActors[i].vPosition.z;
+      if (pActors[i].uAIState == AI::State::Summoned)
       {
-       if ( (*(_BYTE *)(v1 + 666) & 7) != 3 || pActors[(*(_DWORD *)(v1 + 666) >> 3)].byte_00003E[30] != 1 )
+       if ( (*(_BYTE *)(v1 + 666) & 7) != 3 || pActors[(*(_DWORD *)(v1 + 666) >> 3)].uSpecialAttackDamageDiceSides != 1 )
         {
           v3 += floorf(pActors[i].uActorHeight / 2.0 + 0.5f);
           v61 = v3;
@@ -2314,27 +2314,27 @@ void __cdecl sub_47B42C_ClipActorsAgainstFrustrum()
         else
         {
           v49 = 1;
-          sub_4A7F74(pGame->class06_obj, pActors[i].sActorPosX, pActors[i].sActorPosY, pActors[i].sActorPosZ);
-          v4 = (1.0 - (double)pActors[i].dword_0000B8 / (double)pActors[i].word_0000A0) * (double)(2 * pActors[i].uActorHeight);
+          sub_4A7F74(pGame->class06_obj, pActors[i].vPosition.x, pActors[i].vPosition.y, pActors[i].vPosition.z);
+          v4 = (1.0 - (double)pActors[i].uCurrentActionTime / (double)pActors[i].uCurrentActionLength) * (double)(2 * pActors[i].uActorHeight);
           v3 -= floorf(v4 + 0.5f);
           v61 = v3;
-          if ( v3 > pActors[i].sActorPosZ)
+          if ( v3 > pActors[i].vPosition.z)
           {
-            v61 = pActors[i].sActorPosZ;
-            v3 = pActors[i].sActorPosZ;
+            v61 = pActors[i].vPosition.z;
+            v3 = pActors[i].vPosition.z;
           }
         }
       }
-      v9 = class59_Atan2(pClass59_global, pActors[i].sActorPosX - pOldCamera->sPosX, pActors[i].sActorPosY - pOldCamera->sPosY);
+      v9 = class59_Atan2(pClass59_global, pActors[i].vPosition.x - pOldCamera->sPosX, pActors[i].vPosition.y - pOldCamera->sPosY);
       LOWORD(v10) = pActors[i].uYawAngle;
       v41 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
-      v8 = pActors[i].word_0000B2_looks_like_current_sprite_frame;
+      v8 = pActors[i].uCurrentActionAnimation;
       if (pParty_global->bTurnBasedModeOn)
       {
         if ( v8 != 1 )
         {
 LABEL_17:
-          v12 = pActors[i].dword_0000B8;
+          v12 = pActors[i].uCurrentActionTime;
           goto LABEL_18;
         }
         v11 = cMiscTimer.dword_000024;
@@ -2349,7 +2349,7 @@ LABEL_17:
 LABEL_18:
       if ( *(_QWORD *)(v1 + 146) > 0i64 || *(_QWORD *)(v1 + 162) > 0i64 )
         v12 = 0;
-      v13 = pActors[i].word_0000B0_state;
+      v13 = pActors[i].uAIState;
       if ( v13 == 17 && !v49 )
       {
         v39 = dword_50C99C;
@@ -2424,7 +2424,7 @@ LABEL_25:
           return;
         ++uNumBillboardsToDraw;
         ++dword_5187E4;
-        pActors[i].dword_000024 |= 0x08;
+        pActors[i].uAttributes |= 0x08;
         v26->uHardwareSpriteID = pSpriteFrame->pSpriteIDs[v41];
         v31 = pSpriteFrame->word_000034;
         v26->word_00001C = 0;
@@ -2678,7 +2678,7 @@ int __cdecl sub_4014E6()
 
   for (i = 0; i < uNumActors; ++i)
   {
-    v0 = (char *)&pActors[i].dword_000024;
+    v0 = (char *)&pActors[i].uAttributes;
 
       *((_BYTE *)v0 + 1) &= 0xFBu;
       if ( !Actor_sub_40894B((Actor *)((char *)v0 - 36)) )
@@ -2786,7 +2786,7 @@ LABEL_37:
 
   for ( i = 0; i < v28; ++i )
   {
-   pActors[dword_4F7DB0[i]].dword_000024 |= 0x0400;
+   pActors[dword_4F7DB0[i]].uAttributes |= 0x0400;
   }
   return v28;
 }
@@ -2847,7 +2847,7 @@ int __cdecl sub_4016FA()
   v44 = 0;
   if ( (signed int)uNumActors > 0 )
   {
-   v0 = (char *)&pActors->dword_000024;
+   v0 = (char *)&pActors->uAttributes;
     do
     {
       *((_BYTE *)v0 + 1) &= 0xFBu;
@@ -2970,7 +2970,7 @@ LABEL_60:
   dword_4F75D8 = v20;
   if ( (signed int)uNumActors > 0 )
   {
-   v25 = (char *)&pActors->dword_000024;
+   v25 = (char *)&pActors->uAttributes;
     do
     {
       if ( Actor_sub_40894B((Actor *)((char *)v25 - 36)) && *((_WORD *)v25 + 61) == v38 )
@@ -3003,7 +3003,7 @@ LABEL_43:
   for ( j = 0; j < v46; ++j )
   {
     v30 = 836 * dword_4F7DB0[j];
-    if ( pActors[dword_4F7DB0[j]].dword_000024 & 0xC000 && Actor_sub_40894B(&pActors[dword_4F7DB0[j]]) )
+    if ( pActors[dword_4F7DB0[j]].uAttributes & 0xC000 && Actor_sub_40894B(&pActors[dword_4F7DB0[j]]) )
     {
       v31 = 0;
       if ( v28 <= 0 )
@@ -3038,7 +3038,7 @@ LABEL_51:
   {
     do
     {
-     v36 = (char *)&pActors[dword_4F7DB0[HIDWORD(v35)]].dword_000024;
+     v36 = (char *)&pActors[dword_4F7DB0[HIDWORD(v35)]].uAttributes;
       v36[1] |= 4u;
       v35 += 4294967296i64;
     }
@@ -3253,22 +3253,20 @@ void __cdecl sub_401A91()
 
   for (i = 0; i < uNumActors; ++i)
   {
-    LODWORD(v83) = (int)&pActors[i].word_0000B0_state;
+    LODWORD(v83) = (int)&pActors[i].uAIState;
 
       v11 = (int)&pActors[i];
 
       dword_4F6E08[i] = 4;
-      if ( pActors[i].word_0000B0_state == 5 )
-        continue;
-      if ( pActors[i].word_0000B0_state == 11 )
-        continue;
-      if ( pActors[i].word_0000B0_state == 19 )
+      if (pActors[i].uAIState == AI::State::Dead ||
+          pActors[i].uAIState == AI::State::Removed ||
+          pActors[i].uAIState == AI::State::Disabled)
         continue;
       if ( *(_BYTE *)(LODWORD(v83) - 139) & 4 )
         continue;
       if ( !*(_WORD *)(LODWORD(v83) - 136) )
       {
-        if ( pActors[i].word_0000B0_state != 4 )
+        if ( pActors[i].uAIState != AI::State::Dying)
           Actor_Die(i);
       }
       v87 = *(_QWORD *)(LODWORD(v83) + 84) <= 0i64 ? 0 : 1;
@@ -3334,7 +3332,7 @@ void __cdecl sub_401A91()
       }
       *(_DWORD *)(v11 + 184) = 0;
       *(_WORD *)(v11 + 160) = 0;
-      Actor_sub_45976D(&pActors[i]);
+      Actor_UpdateAnimation(&pActors[i]);
   }
 
 
@@ -3358,7 +3356,7 @@ void __cdecl sub_401A91()
         v83 = 0.5f;
       else
         v83 = 1.0;
-      v23 = pActors[v86].word_0000B0_state;
+      v23 = pActors[v86].uAIState;
       if ( v23 == 4 || v23 == 5 || v23 == 11 || v23 == 19 || v23 == 17 )
         goto LABEL_255;
       if ( !*(_WORD *)(v21 + 40) )
@@ -3591,7 +3589,7 @@ LABEL_182:
 LABEL_185:
       v84 = v38 - *(_WORD *)(v21 + 136);
       if ( v79 == 3 )
-       v84 -= pActors[(v88 >> 3)].word_000088;
+       v84 -= pActors[(v88 >> 3)].uActorRadius;
       if ( v84 < 0 )
         v84 = 0;
       rand();
@@ -3874,7 +3872,7 @@ __int16 __thiscall sub_441A4E(void *_this)
           {
             v8 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable,
                    //pOverlayDescriptionList->pDescriptions[*(_WORD *)(v3 - 10)].word_000004,
-                   pOverlayDescriptionList->pDescriptions[array_5E4D58[v3][1]].word_000004,
+                   pOverlayDescriptionList->pOverlays[array_5E4D58[v3][1]].uSpriteFramesetID,
                    //*(_WORD *)(v3 - 8));
                    array_5E4D58[v3][2]);
             v7 = v8;
@@ -3893,7 +3891,7 @@ __int16 __thiscall sub_441A4E(void *_this)
             v9 = array_5E4D58[v3][1];
             v18 = 0;
             v19 = 0;
-            v6 = pOverlayDescriptionList->pDescriptions[v9].word_000002;
+            v6 = pOverlayDescriptionList->pOverlays[v9].uOverlayType;
             if ( !v6 || v6 == 2 )
                  v14 += LODFile_Sprites_LOD.aSpriteHeaders[v7].uTextureWidth >> 1;	  //array_00024C   1 + 20 * *(_WORD *)(v7 + 24)
             LOWORD(v1) = sub_4AD2D1(LODFile_Sprites_LOD.aSpriteHeaders[v7].uTextureWidth, (int)&v11, 0);	//40 * *(_WORD *)(v7 + 24) + 7218180
@@ -5322,7 +5320,7 @@ void *__thiscall sub_4BE3BF(const unsigned char *pString, struct StringSplitter 
 }
 
 //----- (00402F27) --------------------------------------------------------
-int __fastcall sub_402F27(int _this)
+void __fastcall sub_402F27(int _this)
 {
   int v2; // esi@1
   int v3; // edx@1
@@ -5338,7 +5336,7 @@ int __fastcall sub_402F27(int _this)
   *(_WORD *)(v2 + 160) = 8 * *(_WORD *)(v4 + v3 + 56);
   *(_WORD *)(v2 + 40) = *(_WORD *)(v2 + 108);
   Actor_PlaySound(_this, 1);
-  return Actor_sub_45976D((Actor *)v2);
+  Actor_UpdateAnimation((Actor *)v2);
 }
 
 //----- (00492C0B) --------------------------------------------------------
@@ -5443,7 +5441,7 @@ void __cdecl sub_47BACF_PrepareActorRenderList()
 }
 
 //----- (004030AD) --------------------------------------------------------
-__int16 __fastcall sub_4030AD(int a1, int a2, int a3)
+void __fastcall sub_4030AD(int a1, int a2, int a3)
 {
   int v3; // ebx@1
   int v4; // edi@1
@@ -5491,9 +5489,8 @@ __int16 __fastcall sub_4030AD(int a1, int a2, int a3)
     *(_WORD *)(v3 + 176) = 8;
     *(_WORD *)(v3 + 160) = 8 * v7;
     Actor_PlaySound(v8, 2);
-    result = Actor_sub_45976D((Actor *)v3);
+    Actor_UpdateAnimation((Actor *)v3);
   }
-  return result;
 }
 
 //----- (004031C1) --------------------------------------------------------
@@ -5725,9 +5722,9 @@ LABEL_19:
           v15 = (int *)&v42[4 * v11];
           v16 = *v15;
           v17 = 836 * *v15;
-          v45 = pActors[*v15].sActorPosX;
-          v18 = pActors[*v15].sActorPosY;
-          v47 = pActors[*v15].sActorPosZ;
+          v45 = pActors[*v15].vPosition.x;
+          v18 = pActors[*v15].vPosition.y;
+          v47 = pActors[*v15].vPosition.z;
           v19 = 8 * v16;
           LOBYTE(v19) = 8 * v16 | 3;
           v46 = v18;
@@ -7258,9 +7255,9 @@ LABEL_69:
         LODWORD(v1) = n >> 3;
         v686.v690 = *(_WORD *)(v2 + 16);
         v40 = 836 * (n >> 3);
-        v686.v687 = pActors[n >> 3].sActorPosX;
-        v41 = pActors[n >> 3].sActorPosY;
-        HIDWORD(v686.v688) = pActors[n >> 3].sActorPosZ;
+        v686.v687 = pActors[n >> 3].vPosition.x;
+        v41 = pActors[n >> 3].vPosition.y;
+        HIDWORD(v686.v688) = pActors[n >> 3].vPosition.z;
         v42 = 8 * (n >> 3);
         LODWORD(v686.v688) = v41;
         LOBYTE(v42) = v42 | 3;
@@ -7301,9 +7298,9 @@ LABEL_69:
         LODWORD(v1) = LODWORD(v704);
         v686.v698 = v43;
         v686.v690 = *(_WORD *)(v2 + 16);
-        v686.v687 = pActors[LODWORD(v712) / sizeof(struct Actor)].sActorPosX;
-        v44 = pActors[LODWORD(v712) / sizeof(struct Actor)].sActorPosY;
-        HIDWORD(v686.v688) = pActors[LODWORD(v712) / sizeof(struct Actor)].sActorPosZ;
+        v686.v687 = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.x;
+        v44 = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.y;
+        HIDWORD(v686.v688) = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.z;
         v45 = 8 * LODWORD(v704);
         LODWORD(v686.v688) = v44;
         LOBYTE(v45) = 8 * LOBYTE(v704) | 3;
@@ -7478,7 +7475,7 @@ LABEL_174:
           v714,
           SHIDWORD(v1),
           SBYTE4(v1));
-        pActors[v1 / sizeof(struct Actor)].dword_000024 |= 0x08000000;
+        pActors[v1 / sizeof(struct Actor)].uAttributes |= 0x08000000;
         //byte_5FF17E[(_DWORD)v1] |= 8u;
         v620[1] = (const char *)HIDWORD(v1);
         v620[0] = (const char *)LODWORD(v682);
@@ -8088,9 +8085,9 @@ LABEL_304:
         if ( (n & 7) == 3 )
         {
           v149 = 836 * (n >> 3);
-          LODWORD(v706) = pActors[n >> 3].sActorPosX;
-          v150 = pActors[n >> 3].sActorPosY;
-          v148 = pActors[n >> 3].sActorPosZ;
+          LODWORD(v706) = pActors[n >> 3].vPosition.x;
+          v150 = pActors[n >> 3].vPosition.y;
+          v148 = pActors[n >> 3].vPosition.z;
           LODWORD(v705) = v150;
         }
         else
@@ -8203,10 +8200,10 @@ LABEL_304:
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
+            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
+            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
+            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v159 = 8 * dword_50BF30[n];
             LOBYTE(v159) = v159 | 3;
@@ -8507,9 +8504,9 @@ LABEL_104:
         if ( v200 == 3 )
         {
           v202 = 836 * (n >> 3);
-          LODWORD(v682) = pActors[n >> 3].sActorPosX;
-          v203 = pActors[n >> 3].sActorPosY;
-          v201 = pActors[n >> 3].sActorPosZ;
+          LODWORD(v682) = pActors[n >> 3].vPosition.x;
+          v203 = pActors[n >> 3].vPosition.y;
+          v201 = pActors[n >> 3].vPosition.z;
           v674 = v203;
         }
         else
@@ -9423,7 +9420,7 @@ LABEL_667:
             v714,
             SHIDWORD(v1),
             SBYTE4(v1));
-          pActors[v1 / sizeof(struct Actor)].dword_000024 |= 0x08000000;
+          pActors[v1 / sizeof(struct Actor)].uAttributes |= 0x08000000;
           //byte_5FF17E[(_DWORD)v1] |= 8u;
           v620[1] = (const char *)HIDWORD(v1);
           v620[0] = (char *)pActors + v1;
@@ -9935,7 +9932,7 @@ LABEL_813:
             SWORD2(v1),
             SHIDWORD(v1),
             SBYTE4(v1));
-          pActors[v401].byte_00003E[1] = 4;
+          pActors[v401].uSpecialAbility = 4;
         }
         ItemGen_Reset(&v686.v694);
         v686.v695 = *(_WORD *)v2;
@@ -10485,10 +10482,10 @@ LABEL_641:
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
+            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
+            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
+            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v476 = 8 * dword_50BF30[n];
             LOBYTE(v476) = v476 | 3;
@@ -10552,7 +10549,7 @@ LABEL_955:
         LODWORD(v712) = HIDWORD(v1);
         if ( (signed int)uNumActors > HIDWORD(v1) )
         {
-          v486 = (int)&pActors[0].word_0000B0_state;
+          v486 = (int)&pActors[0].uAIState;
           LODWORD(v704) = uNumActors;
           do
           {
@@ -10665,10 +10662,10 @@ LABEL_973:
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
+            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
+            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
+            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v502 = 8 * dword_50BF30[n];
             LOBYTE(v502) = v502 | 3;
@@ -11148,12 +11145,12 @@ LABEL_1082:
         v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
         v57 = v708;
 LABEL_1086:
-        v564 = pActors[v57 / sizeof(struct Actor)].sActorPosY;
-        v565 = pActors[v57 / sizeof(struct Actor)].sActorPosX;
+        v564 = pActors[v57 / sizeof(struct Actor)].vPosition.y;
+        v565 = pActors[v57 / sizeof(struct Actor)].vPosition.x;
         HIWORD(v686) = v56;
         v686.v687 = v565;
         v566 = pActors[v57 / sizeof(struct Actor)].uActorHeight;
-        v567 = pActors[v57 / sizeof(struct Actor)].sActorPosZ;
+        v567 = pActors[v57 / sizeof(struct Actor)].vPosition.z;
         LODWORD(v686.v688) = v564;
         v633 = v567 + v566;
         v624 = v564;
@@ -11334,10 +11331,10 @@ LABEL_1119:
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
+            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
+            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
+            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v586 = 8 * dword_50BF30[n];
             LOBYTE(v586) = v586 | 3;
@@ -11591,19 +11588,19 @@ void __cdecl sub_461103(const char *pLevelFilename)
       v4 = (v3 - 1) % 3;
       if (v4 == 2)
       {
-        if (pActors[i].word_000020 && pActors[i].word_000020 < 5000)
+        if (pActors[i].uNPCID && pActors[i].uNPCID < 5000)
           continue;
       }
       else
       {
         if ( v4 != 1 )
         {
-          if ( v4 != 0 || pActors[i].word_000020)
+          if ( v4 != 0 || pActors[i].uNPCID)
             continue;
           else goto LABEL_12;
         }
       }
-      if (pActors[i].word_000020 > 0 && pActors[i].word_000020 < 5000)
+      if (pActors[i].uNPCID > 0 && pActors[i].uNPCID < 5000)
         continue;
       if ( v18 )
       {
@@ -11614,11 +11611,11 @@ void __cdecl sub_461103(const char *pLevelFilename)
 
         NPCStats_InitializeAdditionalNPCs(pNPCStats, 0, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, aC);
         v15 = pNPCStats->dword_017FC0++ + 5000;
-        pActors[i].word_000020 = v15;
+        pActors[i].uNPCID = v15;
         continue;
       }
 LABEL_12:
-      pActors[i].word_000020 = 0;
+      pActors[i].uNPCID = 0;
   }
   runtime_warning();
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);

@@ -11108,7 +11108,7 @@ void __cdecl sub_4BBCDD()
       v0 = 0;
       if ( (signed int)uNumActors <= 0 )
         goto LABEL_23;
-      v1 = (int)&pActors[0].word_0000B0_state;
+      v1 = (int)&pActors[0].uAIState;
       v8 = uNumActors;
       do
       {
@@ -11632,7 +11632,7 @@ LABEL_64:
     }  */
 	dword_50CBD0.PutMessageToQueue(113,1,0);
     if (uDialogue_SpeakingActorID >= 0)
-      pDialogue_SpeakingActor->word_0000B0_state = 11;
+      pDialogue_SpeakingActor->uAIState = AI::State::Removed;
     if (uActiveCharacter)
       Player_PlaySound(pPlayers[uActiveCharacter - 1], 61, 0);
     goto LABEL_87;

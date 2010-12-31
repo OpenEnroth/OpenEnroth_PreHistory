@@ -475,9 +475,9 @@ LABEL_149:
       {
         cChannelsToUse = Range<unsigned int>(0, 3);
         v60 = &pActors[a3 >> 3];
-        v58 = v60->sActorPosY;
-        v86 = v60->sActorPosZ;
-        v59 = v60->sActorPosX;
+        v58 = v60->vPosition.x;
+        v86 = v60->vPosition.y;
+        v59 = v60->vPosition.z;
 LABEL_116:
         uDefaultVolume = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(v59, v58, v86);
         if ( !uDefaultVolume)

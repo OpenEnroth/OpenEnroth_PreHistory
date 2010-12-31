@@ -50,7 +50,7 @@ bool Player_sub_48D6AA(struct Player *_this, unsigned int uSlotID)
  if (v2 == -1)
    return false;
 
- return !(_this->pInventorySlots[v2].dword_000014 & 0x02);
+ return !(_this->pInventorySlots[v2].uAttributes & 0x02);
  //return !(*((_BYTE *)_this + 36 * v2 + 0x204) & 2);
 }
 

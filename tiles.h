@@ -4,13 +4,13 @@
 #pragma pack(push, 1)
 struct TileDesc
 {
- unsigned char sTileName[12];
- int           dword_00000C;
- short         word_000010;
- unsigned short uBitmapID; // word @ 000012
- short         word_000014;
- short         word_000016;
- short         word_000018;
+ unsigned char  sTileName[16];
+ //int            dword_00000C;
+ unsigned short uTileID;      // word @ 000010
+ unsigned short uBitmapID;    // word @ 000012
+ unsigned short uTerrainType; // word @ 000014
+ unsigned short uSection;     // word @ 000016
+ unsigned short uAttributes;  // word @ 000018
 };
 //sizeof == 1A
 #pragma pack(pop)

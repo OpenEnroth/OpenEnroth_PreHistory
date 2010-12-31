@@ -2527,7 +2527,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 13:
-            pMonsterInfo->uSpeed = atoi(test_str);
+            pMonsterInfo->uMovementSpeed = atoi(test_str);
           break;
 
           case 15:
@@ -4594,7 +4594,7 @@ void ItemGen_Reset(struct ItemGen *_this)
  _this->dword_000008 = 0;
  _this->dword_00000C = 0;
  _this->dword_000010 = 0;
- _this->dword_000014 = 0;
+ _this->uAttributes = 0;
  _this->byte_000018 = 0;
  _this->byte_00001A = 0;
  _this->word_00001C = 0;

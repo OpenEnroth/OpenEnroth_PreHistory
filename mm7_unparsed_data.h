@@ -1531,11 +1531,11 @@ extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150   //14
 //__int16 word_5E6504[array_size_unknown]; // 13B4
 extern unsigned int dword_5FF140; // idb
 
-extern int chest_descriptor[2];   //struct @ MM7.exe::005FF144
+extern struct ChestDescriptionList *pChestDescriptionList; // struct @ MM7.exe::005FF144
 //int dword_5FF144; // weak
 //int dword_5FF148; // weak
 
-extern struct MonsterDescriptionList *pMonsterDescriptionList; // struct @ MM7.exe::05FF14C
+extern struct MonsterDescriptionList *pMonsterDescriptionList; // struct @ MM7.exe::005FF14C
 //int dword_5FF14C; // weak
 //int dword_5FF150; // weak
 

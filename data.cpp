@@ -1265,20 +1265,17 @@ struct GUIButton *pPlayerCreationUI_BtnMinus = 0;        // ptr     @ MM7.exe::0
 
 
 
- //
+
 class Clock cMiscTimer;  // struct @ MM7.exe::0050BBB8	 misc timer for water damage, etc
-class Clock cEventTimer;  // struct @ MM7.exe::0050BBE0	   event timer
- //clock data end
+class Clock cEventTimer; // struct @ MM7.exe::0050BBE0   event timer
 
-class MapStats *pMapStats = nullptr;     // struct @ MM7.exe::005CABB8
 
-struct CSpellStats   *pSpellStats = 0;   // struct @ MM7.exe::005CC030
-
-struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
-
-struct COverlayDescriptionList    *pOverlayDescriptionList = 0;    // struct @ MM7.exe::005E5148
-struct CObjectDescriptionList     *pObjectDescriptionList = 0;     // struct @ MM7.exe::006807B0
-struct DecorationDescriptionList *pDecorationDescriptionList = 0; // struct @ MM7.exe::0069ADD4
+class  MapStats                  *pMapStats = nullptr;                  // struct @ MM7.exe::005CABB8
+struct CSpellStats               *pSpellStats = nullptr;                // struct @ MM7.exe::005CC030
+struct CMonsterStats             *pMonsterStats = nullptr;              //struct @ MM7.exe::005CCE40
+struct OverlayDescriptionList    *pOverlayDescriptionList = nullptr;    // struct @ MM7.exe::005E5148
+struct CObjectDescriptionList    *pObjectDescriptionList = nullptr;     // struct @ MM7.exe::006807B0
+struct DecorationDescriptionList *pDecorationDescriptionList = nullptr; // struct @ MM7.exe::0069ADD4
 
 unsigned int uPlayerCreationUI_SelectedCharacter = 0; // dword @ MM7.exe::00A74CD8
 

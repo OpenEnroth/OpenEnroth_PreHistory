@@ -681,10 +681,10 @@ struct MonsterInfo
  unsigned short       uSpell1Power;  // word @ 000038
  unsigned short       uSpell2Power;  // word @ 00003A
  unsigned short       word_00003C;
- unsigned int         uHP;           // dword @ 000040
- unsigned int         uAC;           // dword @ 000044
- unsigned int         uExp;          // dword @ 000048
- unsigned int         uSpeed;        // dword @ 00004C
+ unsigned int         uHP;            // dword @ 000040
+ unsigned int         uAC;            // dword @ 000044
+ unsigned int         uExp;           // dword @ 000048
+ unsigned int         uMovementSpeed; // dword @ 00004C
  unsigned int         uRecoveryTime;  // dword @ 000050
 
  unsigned char        byte_000054;
@@ -1104,6 +1104,11 @@ struct unnamed_F93E6C
  int  dword_000010;
 };
 //sizeof == 14
+
+
+
+
+
 
 
 

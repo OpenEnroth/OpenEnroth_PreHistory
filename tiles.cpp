@@ -63,7 +63,7 @@ int sub_487F84(struct CTileTable *_this, int a2, int a3)
    return 0;
 
  i = 0;
- while (_this->pTiles[i].word_000014 != a2 || _this->pTiles[i].word_000016 != a3 )
+ while (_this->pTiles[i].uTerrainType != a2 || _this->pTiles[i].uSection != a3 )
  {
   ++i;
   if (i >= _this->uNumTiles)
@@ -77,7 +77,7 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
 {
  for (unsigned int i = 0; i < _this->uNumTiles; ++i)
  {
-  if (_this->pTiles[i].word_000014 == a2)
+  if (_this->pTiles[i].uTerrainType == a2)
   {
    if (_this->pTiles[i].sTileName[0])
    {

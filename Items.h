@@ -53,7 +53,7 @@ struct ItemGen
  int          dword_000008;
  int          dword_00000C;
  int          dword_000010;
- int          dword_000014; // draw mode flags, maybe more
+ unsigned int uAttributes; //dword @ 000014   draw mode flags, maybe more
                             // & 0 - draw some way
                             // & 1 - DrawTransparentTexture
                             // & 2 - draw some other way
@@ -76,19 +76,19 @@ int __thiscall ItemGen_sub_4564B3(ItemGen *_this);
 //Item laying on the ground, pickable and rendered as a sprite billboard
 struct LayingItem
 {
- short          word_000000;
+ unsigned short uItemType;             // word  @ 000000
  short          uObjectDescriptionID;  // word  @ 000002
  int            sItemPosX;             // dword @ 000004
  int            sItemPosY;             // dword @ 000008
  int            sItemPosZ;             // dword @ 00000C
- short          uObjectDescriptionID2; // word  @ 000010
- short          word_000012;
- short          word_000014;
- short          word_000016;
- short          word_000018;
- short          word_00001A;
- short          word_00001C;
- unsigned short uSpriteFrameID; // word @ 00001E
+ short          sVelocityX;            // word  @ 000010
+ short          sVelocityY;            // word  @ 000012
+ short          sVelocityZ;            // word  @ 000014
+ unsigned short uFacing;               // word  @ 000016
+ unsigned short uSoundID;              // word  @ 000018
+ unsigned short uAttributes;           // word  @ 00001A
+ short          sRoom;                 // word  @ 00001C
+ unsigned short uSpriteFrameID;        // word @ 00001E
  short          word_000020;
  short          word_000022;
  struct ItemGen stru_000024;

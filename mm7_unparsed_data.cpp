@@ -1573,12 +1573,9 @@ unsigned short array_5E4D58[50][10];  // [42][12];
 struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
 unsigned int   dword_5FF140; // idb
 
-int                            chest_descriptor[2];   //struct @ MM7.exe::005FF144
-struct MonsterDescriptionList *pMonsterDescriptionList = 0; // struct @ MM7.exe::05FF14C
-//int dword_5FF14C; // weak
-//int dword_5FF150; // weak
-
-struct Actor pActors[500]; // struct[500] @ MM7.exe::005FF158
+struct ChestDescriptionList   *pChestDescriptionList = nullptr;   // struct      @ MM7.exe::005FF144
+struct MonsterDescriptionList *pMonsterDescriptionList = nullptr; // struct      @ MM7.exe::005FF14C
+struct Actor                   pActors[500];                      // struct[500] @ MM7.exe::005FF158
  _UNKNOWN unk_64640F; // weak
 
 unsigned int      uNumActors;             // dword        @ MM7.exe::00665228

@@ -15,7 +15,7 @@ unsigned int Game_OnStartNPCDialogue(unsigned int uSpekerActorID, int)
   struct_576FE8.dword_000048 = 1;
 
   dword_50CBD0.CutQueueTail();
-  dword_5B65D0 = pActors[uSpekerActorID].word_000020;
+  dword_5B65D0 = pActors[uSpekerActorID].uNPCID;
 
   Actor_InitializeDialogue(&pActors[uSpekerActorID], 1);
  }

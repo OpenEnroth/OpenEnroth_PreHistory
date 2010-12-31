@@ -170,16 +170,10 @@ Result::Code SecondaryInitialization()
   MemFree(v22);
 
   pPlayerFrameTable = MemAlloc(CPlayerFrameTable, 1);
-  //CPlayerFrameTable_ctor(pPlayerFrameTable);
   v22 = LODFile_Events_LOD.LODFile_LoadRaw("dpft.bin", 1);
   pPlayerFrameTable->pft_Initialize((unsigned char *)v22);
   MemFree(v22);
 
-  //pIconFrameTable = new CIconFrameTable;
-  //CIconFrameTable_ctor(pIconFrameTable);
-  //v34 = LODFile_LoadRaw(pLODFile_Events_LOD, "dift.bin", 1);
-  //CIconFrameTable_Initialize(pIconFrameTable, v34);
-  //call_delete(v34);
 #ifndef OLD_CODE  
   ImageTableLoader<IconFrame>().LoadFromFile(L"dift.bin", &pIconFrameTable);
 #else
@@ -204,16 +198,11 @@ Result::Code SecondaryInitialization()
   MonsterDescriptionList_Initialize(pMonsterDescriptionList, (unsigned int *)v22);
   MemFree(v22);
 
-  //chest descriptor
-  v22 = LODFile_Events_LOD.LODFile_LoadRaw("dchest.bin", 1);
-  sub_458B4F(chest_descriptor, v22);
-  MemFree(v22);
+  pChestDescriptionList = MemAlloc(ChestDescriptionList, 1);
+  pChestDescriptionList->Initialize("dchest.bin");
 
-  pOverlayDescriptionList = MemAlloc(COverlayDescriptionList, 1);
-  COverlayDescriptionList_ctor(pOverlayDescriptionList);
-  v22 = LODFile_Events_LOD.LODFile_LoadRaw("doverlay.bin", 1);
-  COverlayDescriptionList_Initialize(pOverlayDescriptionList, (unsigned char *)v22);
-  MemFree(v22);
+  pOverlayDescriptionList = MemAlloc(OverlayDescriptionList, 1);
+  pOverlayDescriptionList->Initialize("doverlay.bin");
  }
 
 

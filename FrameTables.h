@@ -1,6 +1,7 @@
 #pragma once
-
 #include <windows.h>
+
+#include "CoreDefinitions.h"
 
 #pragma pack(push, 1)
 
@@ -112,14 +113,13 @@ template <typename Image>
     return 0;
    }
 
-  
-   
+
+
    inline ImageTable()
    {
     uNumImages = 0;
     pImages = 0;
    }
-
 
  protected:
    unsigned int  uNumImages;
@@ -280,8 +280,8 @@ struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, unsign
 
 struct MonsterDescription
 {
- short          uMonsterHeight;
- short          word_000002;
+ unsigned short uMonsterHeight; // word @ 000000
+ unsigned short uMonsterRadius; // word @ 000002
  char           byte_000004[4];
  int            dword_000008;      // hw tint color?
  unsigned short pSoundSampleIDs[4];  // word[4] @ 00000C
@@ -492,29 +492,68 @@ void sub_459064(struct CObjectDescriptionList *_this);
 
 
 
-struct OverlayDescription
+struct OverlayDescriptionList
 {
- short word_000000;
- short word_000002;
- short word_000004;
- short word_000006;
+ struct OverlayDesc
+ {
+  unsigned short uOverlayID;        // word @ 000000
+  unsigned short uOverlayType;      // word @ 000002
+  unsigned short uSpriteFramesetID; // word @ 000004
+  short          word_000006;
+ };
+ //sizeof == 8
+
+ inline OverlayDescriptionList():
+   uNumOverlays(0), pOverlays(nullptr)
+ {}
+
+ unsigned int  uNumOverlays;  // dword @ 000000
+ OverlayDesc  *pOverlays;     // dword @ 000004
+
+
+ Result::Code Initialize(const char *pSourceFile);
 };
 //sizeof == 8
+//void *__thiscall sub_458E08(void *Dst, void *Src)     00458E08  OverlayDescriptionList::Initialize
 
-struct COverlayDescriptionList
-{
- unsigned int               uNumOverlays;  // dword @ 000000
- struct OverlayDescription *pDescriptions; // ptr @ 000004
-};
-//sizeof == 8
-
-void COverlayDescriptionList_ctor(struct COverlayDescriptionList *_this);
 //int __thiscall sub_458DBC(void *Str)
-int COverlayDescriptionList_SaveToBIN(struct COverlayDescriptionList *_this);
-//void *__thiscall sub_458E08(void *Dst, void *Src)
-void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, unsigned char *pSrc);
+int COverlayDescriptionList_SaveToBIN(OverlayDescriptionList *_this);
 //void __thiscall sub_458D97(void *_this)
-void sub_458D97(struct COverlayDescriptionList *_this);
+void sub_458D97(OverlayDescriptionList *_this);
+
+
+
+
+
+
+
+
+
+struct ChestDescriptionList
+{
+ struct ChestDesc
+ {
+  char  unk_000000[32];
+  short word_000020;
+  short word_000022;
+ };
+ //sizeof == 24
+
+
+ inline ChestDescriptionList():
+   uNumElements(0), pElements(nullptr)
+ {}
+
+ unsigned int  uNumElements;
+ ChestDesc    *pElements;
+
+ Result::Code Initialize(const char *pSourceFile);
+};
+//sizeof == 08
+//void *__thiscall sub_458B4F(void *Dst, void *Src)    00458B4F  ChestDescriptionList::Initialize
+
+
+
 
 
 

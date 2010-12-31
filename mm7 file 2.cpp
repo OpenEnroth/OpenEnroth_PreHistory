@@ -729,7 +729,7 @@ void __fastcall sub_42F933(int a1)
   pLayingItemsList[a1].uObjectDescriptionID = 0;
   if (pParty_global->bTurnBasedModeOn)
   {
-   v3 = (char *)&pLayingItemsList[a1].word_00001A;
+   v3 = (char *)&pLayingItemsList[a1].uAttributes;
     v2 = *(_WORD *)v3;
     if ( *(_WORD *)v3 & 4 )
     {
@@ -7254,11 +7254,11 @@ LABEL_116:
           if (pParty_global->pickedItem.uItemID == 236)
           {
            // v35 = *(_DWORD *)(v29 + 20);
-			 v35 =v0->pInventorySlots[v58].dword_000014;
+			 v35 =v0->pInventorySlots[v58].uAttributes;
             if ( v35 & 2 || v59 < 0 || v59 > 12 || v27 >= 500 )
               goto LABEL_92;
             LOWORD(v35) = v35 | 0x210;
-            v0->pInventorySlots[v58].dword_000014 = v35;
+            v0->pInventorySlots[v58].uAttributes = v35;
           }
           else
           {
@@ -10421,44 +10421,44 @@ void __fastcall sub_41E360(int a1, int a2)
   v137 = byte_4E2B70[(v7 - 1) / 3] - 40;
   if (v7 == stru_506580_MonsterInfoUI_Doll.uMonsterID)
   {
-    LOWORD(v8) = stru_506580_MonsterInfoUI_Doll.word_0000A0;
+    LOWORD(v8) = stru_506580_MonsterInfoUI_Doll.uCurrentActionLength;
   }
   else
   {
     memcpy(&stru_506580_MonsterInfoUI_Doll, (const void *)v3, sizeof(Actor));
-    stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame = 7;
-    stru_506580_MonsterInfoUI_Doll.dword_0000B8 = 0;
+    stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation = AI::Animation::Bored;
+    stru_506580_MonsterInfoUI_Doll.uCurrentActionTime = 0;
     v9 = rand();
     v3 = v143;
     v8 = v9 % 256 + 128;
-    stru_506580_MonsterInfoUI_Doll.word_0000A0 = v9 % 256 + 128;
+    stru_506580_MonsterInfoUI_Doll.uCurrentActionLength = v9 % 256 + 128;
   }
-  if (stru_506580_MonsterInfoUI_Doll.dword_0000B8 > (signed __int16)v8 )
+  if (stru_506580_MonsterInfoUI_Doll.uCurrentActionTime > (signed __int16)v8 )
   {
-    stru_506580_MonsterInfoUI_Doll.dword_0000B8 = 0;
-    if (stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame == 7 ||
-        stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame == 2)
+    stru_506580_MonsterInfoUI_Doll.uCurrentActionTime = 0;
+    if (stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation == AI::Animation::Bored ||
+        stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation == AI::Animation::AttackingMelee)
     {
-      stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame = 0;
-      stru_506580_MonsterInfoUI_Doll.word_0000A0 = rand() % 128 + 128;
+      stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation = AI::Animation::Standing;
+      stru_506580_MonsterInfoUI_Doll.uCurrentActionLength = rand() % 128 + 128;
     }
     else
     {
       rand();
-      stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame = 7;
+      stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation = AI::Animation::Bored;
       if (stru_506580_MonsterInfoUI_Doll.uMonsterID < 115 || stru_506580_MonsterInfoUI_Doll.uMonsterID > 186)
       {
         if (stru_506580_MonsterInfoUI_Doll.uMonsterID < 232 || stru_506580_MonsterInfoUI_Doll.uMonsterID > 249)
         {
           if ( rand() % 30 < 100 )
-            stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame = 2;
+            stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation = AI::Animation::AttackingMelee;
         }
       }
       //word_506620 = 8 * *(_WORD *)(60 * *(_WORD *)(v3 + 2 * word_506632 + 188) + dword_5C6DCC + 56);
-      stru_506580_MonsterInfoUI_Doll.word_0000A0 = 8 * *(_WORD *)(60 * *(_WORD *)(v3 + 2 * stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame + 188) + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56);
+      stru_506580_MonsterInfoUI_Doll.uCurrentActionLength = 8 * *(_WORD *)(60 * *(_WORD *)(v3 + 2 * stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation + 188) + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56);
     }
   }
-  v10 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v3 + 2 * stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame + 188), stru_506580_MonsterInfoUI_Doll.dword_0000B8);
+  v10 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v3 + 2 * stru_506580_MonsterInfoUI_Doll.uCurrentActionAnimation + 188), stru_506580_MonsterInfoUI_Doll.uCurrentActionTime);
 
   //v11 = 40 * *(_WORD *)(v10 + 24) + (int)LODFile_Sprites_LOD.aLODHeaders;
   v11 = (int)&LODFile_Sprites_LOD.pHardwareSprites[*(_WORD *)(v10 + 24)];
@@ -10675,7 +10675,7 @@ LABEL_59:
   GUIWindow_DrawText((GUI::Window *)v145, pFontComic, 0, 12, v38, (char *)TmpBuf, 3);
   sub_41AF52(v143, v145);
   v141 = 0;
-  stru_506580_MonsterInfoUI_Doll.dword_0000B8 += cMiscTimer.int_00001C;
+  stru_506580_MonsterInfoUI_Doll.uCurrentActionTime += cMiscTimer.int_00001C;
   v137 = 0;
   v138 = 0;
   i = 0;
@@ -11905,7 +11905,7 @@ char *__fastcall sub_420284(int a1)
   v11 = 0;
   if ( v2 > 0 )
   {
-   v12 = array_5E5150[v4].array_000004[0].dword_000014;//(int)((char *)&unk_5E5168 + v3);
+   v12 = array_5E5150[v4].array_000004[0].uAttributes;//(int)((char *)&unk_5E5168 + v3);
     do
     {
       v9 = *(_DWORD *)(v12 - 20);
@@ -12223,7 +12223,7 @@ void __fastcall sub_42092D(int a1)
   v17 = *(int *)((char *)&dword_4E2BEC + v4);
   v20 = *(int *)((char *)dword_4E2C0C + v4);
   v18 = *(int *)((char *)dword_4E2C2C + v4);
-  wsprintfA((char *)TmpBuf, "chest%02d", *(_WORD *)(chest_descriptor[1] + 36 * *(__int16 *)((char *)array_5E5150 + v1) + 34));
+  wsprintfA((char *)TmpBuf, "chest%02d", pChestDescriptionList->pElements[*(__int16 *)((char *)array_5E5150 + v1)].word_000022);
   v5 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(v5 != -1 ? 72 * v5 + 7145548 : 0));
   v22 = 0;

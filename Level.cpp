@@ -63,7 +63,7 @@ int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(OutdoorLocation *_this, unsi
   v3 = _this->cTerrainData.pTilemap[128 * uY + uX];
   if ( v3 >= 90 )
      v3 = v3 + _this->pTileTypes[(v3 - 90) / 18].uTileID - 36 * (v3 - 90) / 36 - 90;
-  return pTileTable->pTiles[v3].word_000018;
+  return pTileTable->pTiles[v3].uAttributes;
  }
 }
 
@@ -1206,7 +1206,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(OutdoorLocation *_this)
     if ( !pItem->uObjectDescriptionID )
      continue;
     
-    if ( !(pItem->word_00001A & 8) ) 
+    if (~pItem->uAttributes & 8)
     {
       if ( !(pObjectDescriptionList->pDescriptions[pItem->uObjectDescriptionID].byte_000026 & 0x10) )
         pItem->sItemPosZ = sub_48257A(pItem->sItemPosX, pItem->sItemPosY, (int)&v5, 0); // something strange goes here with v5

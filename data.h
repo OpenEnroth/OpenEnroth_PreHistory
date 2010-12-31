@@ -238,7 +238,7 @@ extern struct MapStats      *pMapStats;
 extern struct CSpellStats   *pSpellStats;
 extern struct CMonsterStats *pMonsterStats;
 
-extern struct COverlayDescriptionList    *pOverlayDescriptionList;
+extern struct OverlayDescriptionList     *pOverlayDescriptionList;
 extern struct CObjectDescriptionList     *pObjectDescriptionList;
 extern struct DecorationDescriptionList *pDecorationDescriptionList;
 

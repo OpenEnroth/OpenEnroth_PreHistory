@@ -693,27 +693,43 @@ void sub_459064(struct CObjectDescriptionList *_this)
 
 
 
-void COverlayDescriptionList_ctor(struct COverlayDescriptionList *_this)
-{
- memset(_this, 0, sizeof(struct COverlayDescriptionList));
-}
 
 //----- (00458E08) --------------------------------------------------------
-void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, unsigned char *pSrc)
+Result::Code OverlayDescriptionList::Initialize(const char *pSourceFile)
 {
- _this->uNumOverlays = *(int *)(pSrc);
+ unsigned int *pRawData = (unsigned int *)LODFile_Events_LOD.LODFile_LoadRaw(pSourceFile, 1);
 
- //_this->pDescriptions = (OverlayDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumOverlays * sizeof(struct OverlayDescription), "Ovl Des.");
- _this->pDescriptions = NamedMemAlloc(OverlayDescription, _this->uNumOverlays, "Overlay Descrip");
- memcpy(_this->pDescriptions, pSrc + 4, _this->uNumOverlays * sizeof(struct OverlayDescription));
- return 0;
+ uNumOverlays = *pRawData;
+ pOverlays = NamedMemAlloc(OverlayDesc, uNumOverlays, "Overlay descriptions");
+ memcpy(pOverlays, pRawData + 1, uNumOverlays * sizeof(OverlayDesc));
+
+ MemFree(pRawData);
+ return Result::Success;
 }
 
 
 //----- (00458D97) --------------------------------------------------------
-void sub_458D97(struct COverlayDescriptionList *_this)
+void sub_458D97(OverlayDescriptionList *_this)
 {								 
  for (unsigned int i = 0; i < _this->uNumOverlays; ++i)
-   SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000004);
+   SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pOverlays[i].uSpriteFramesetID);
 }
 
+
+
+
+
+
+
+//----- (00458B4F) --------------------------------------------------------
+Result::Code ChestDescriptionList::Initialize(const char *pSourceFile)
+{
+ unsigned int *pRawData = (unsigned int *)LODFile_Events_LOD.LODFile_LoadRaw(pSourceFile, 1);
+
+ uNumElements = *pRawData;
+ pElements = NamedMemAlloc(ChestDesc, uNumElements, "Chest descriptions");
+ memcpy(pElements, pRawData + 1, uNumElements * sizeof(ChestDesc));
+
+ MemFree(pRawData);
+ return Result::Success;
+}

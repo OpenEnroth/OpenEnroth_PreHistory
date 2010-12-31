@@ -16,15 +16,18 @@
 bool Actor_sub_40894B(struct Actor *_this)
 {
   bool v1; // esi@1
-  __int16 v3; // ax@6
 
   v1 = false;
 
   if (_this->pActorBuffs[SPELLBUFF_FEATHERFALL].qword_000000 > 0i64 || _this->pActorBuffs[6].qword_000000 > 0i64 )  
     v1 = true;
 
-  v3 = _this->word_0000B0_state;
-  return (v1 || v3 == 4 || v3 == 5 || v3 == 11 || v3 == 17 || v3 == 19) == 0;
+  return !(v1 ||
+           _this->uAIState == AI::State::Dying ||
+           _this->uAIState == AI::State::Dead ||
+           _this->uAIState == AI::State::Removed ||
+           _this->uAIState == AI::State::Summoned ||
+           _this->uAIState == AI::State::Disabled);
 }
 
 //----- (00408768) --------------------------------------------------------
@@ -56,17 +59,15 @@ void __cdecl UpdateActors()
   {
     pActor = &pActors[i];
 
-    if ( Actor_sub_40894B(pActor) || pActor->word_0000B0_state == 19 )
+    if ( Actor_sub_40894B(pActor) || pActor->uAIState == AI::State::Disabled)
     {
-      pActor->sActorPosX = pActor->sInitialPosX;
-      pActor->sActorPosY = pActor->sInitialPosY;
-      pActor->sActorPosZ = pActor->sInitialPosZ;
+      pActor->vPosition = pActor->vInitialPosition;
       pActor->sCurrentHP = pActor->sTotalHP;
-      if (pActor->word_0000B0_state != 19)
+      if (pActor->uAIState != AI::State::Disabled)
         Actor_sub_403EB6(i, dword_4F6E08[i], pActor->uRecoveryTime, 0);
     }
 
-    pActor->byte_00002A[19] = 0;
+    pActor->uHostilityType = 0;
 
     v1 = 0;
     if ( !v8 || v7 )
@@ -74,11 +75,11 @@ void __cdecl UpdateActors()
       if ( !v6 || v5 )
       {
         if ( sub_438B9B((int)pActor) )
-          pActor->dword_000024 &= 0xFFF7FFFF;
+          pActor->uAttributes &= 0xFFF7FFFF;
       }
     }
-    pActor->dword_000024 &= 0xFF7FFFFF;
-    if (pActor->dword_000024 & 0x400000 )
+    pActor->uAttributes &= 0xFF7FFFFF;
+    if (pActor->uAttributes & 0x400000 )
       sub_4031C1(i, pParty_global->uCurrentHour, 1);
   }
 }
@@ -100,17 +101,15 @@ void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Direc
   pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
 
   if ( a3 == 0 )
-    pActor->word_0000A0 = rand() % 256 + 256;
+    pActor->uCurrentActionLength = rand() % 256 + 256;
   else
-    pActor->word_0000A0 = a3;
+    pActor->uCurrentActionLength = a3;
 
-  pActor->word_0000B0_state = 0;
-  pActor->word_000094 = 0;
-  pActor->word_000096 = 0;
-  pActor->word_000098 = 0;
-  pActor->dword_0000B8 = 0;
+  pActor->uAIState = AI::State::Standing;
+  pActor->vVelocity = Vec3<short>(0, 0, 0);
+  pActor->uCurrentActionTime = 0;
     
-  Actor_sub_45976D(pActor);
+  Actor_UpdateAnimation(pActor);
 }
 
 
@@ -160,9 +159,9 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   }  
   else if ( type1 == 3 )
   {
-    x0 = pActors[idx1].sActorPosX;
-    y0 = pActors[idx1].sActorPosY;    
-    z0 = pActors[idx1].sActorPosZ - (unsigned int)((double)pActors[idx1].uActorHeight * -0.75);
+    x0 = pActors[idx1].vPosition.x;
+    y0 = pActors[idx1].vPosition.y;    
+    z0 = pActors[idx1].vPosition.z - (unsigned int)((double)pActors[idx1].uActorHeight * -0.75);
   }
   else if ( type1 == 4 )
   {
@@ -242,9 +241,9 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   }
   else if ( type2 == 3 )
   {
-    x1 = pActors[idx2].sActorPosX;
-    y1 = pActors[idx2].sActorPosY;
-    z1 = pActors[idx2].sActorPosZ - (unsigned int)(signed __int64)((double)pActors[idx2].uActorHeight * -0.75);    
+    x1 = pActors[idx2].vPosition.x;
+    y1 = pActors[idx2].vPosition.y;
+    z1 = pActors[idx2].vPosition.z - (unsigned int)(signed __int64)((double)pActors[idx2].uActorHeight * -0.75);    
   }
   else if ( type2 == 4 )
   {
@@ -308,58 +307,56 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
 }
 
 //----- (0045976D) --------------------------------------------------------
-int Actor_sub_45976D(struct Actor *_this)
+void Actor_UpdateAnimation(struct Actor *_this)
 {
-  _this->dword_000024 &= 0xFFDFFFFF;
-  switch (_this->word_0000B0_state)
+  _this->uAttributes &= 0xFFDFFFFF;
+  switch (_this->uAIState)
   {
-    case 1:
-      _this->word_0000B2_looks_like_current_sprite_frame = 1;
+    case AI::State::Tethered:
+      _this->uCurrentActionAnimation = AI::Animation::Walking;
       break;
 
-    case 2:
-      _this->word_0000B2_looks_like_current_sprite_frame = 2;
-      _this->dword_000024 |= 0x200000; break;
+    case AI::State::AttackingMelee:
+      _this->uCurrentActionAnimation = AI::Animation::AttackingMelee;
+      _this->uAttributes |= 0x200000; break;
 
-    case 3:
-    case 12:
-    case 13:
-    case 18:
-      _this->word_0000B2_looks_like_current_sprite_frame = 3;
-      _this->dword_000024 |= 0x200000; break;
+    case AI::State::AttackingRanged1:
+    case AI::State::AttackingRanged2:
+    case AI::State::AttackingRanged3:
+    case AI::State::AttackingRanged4:
+      _this->uCurrentActionAnimation = AI::Animation::AttackingRanged;
+      _this->uAttributes |= 0x200000; break;
 
-    case 4:
-    case 16:
-      _this->word_0000B2_looks_like_current_sprite_frame = 5;
-      _this->dword_000024 |= 0x200000; break;
+    case AI::State::Dying:
+    case AI::State::Resurrected:
+      _this->uCurrentActionAnimation = AI::Animation::Dying;
+      _this->uAttributes |= 0x200000; break;
 
-    case 6:
-    case 7:
-      _this->word_0000B2_looks_like_current_sprite_frame = 1;
-      _this->dword_000024 |= 0x200000; break;
+    case AI::State::Pursuing:
+    case AI::State::Fleeing:
+      _this->uCurrentActionAnimation = AI::Animation::Walking;
+      _this->uAttributes |= 0x200000; break;
 
-    case 8:
-      _this->word_0000B2_looks_like_current_sprite_frame = 4;
-      _this->dword_000024 |= 0x200000; break;
+    case AI::State::Stunned:
+      _this->uCurrentActionAnimation = AI::Animation::GotHit;
+      _this->uAttributes |= 0x200000; break;
 
-    case 9:
-      _this->word_0000B2_looks_like_current_sprite_frame = 7;
-      _this->dword_000024 |= 0x200000; break;
+    case AI::State::Fidgeting:
+      _this->uCurrentActionAnimation = AI::Animation::Bored;
+      _this->uAttributes |= 0x200000; break;
 
-    case 0:
-    case 10:
-    case 17:
-      _this->word_0000B2_looks_like_current_sprite_frame = 0;
-      _this->dword_000024 |= 0x200000; break;
+    case AI::State::Standing:
+    case AI::State::Interacting:
+    case AI::State::Summoned:
+      _this->uCurrentActionAnimation = AI::Animation::Standing;
+      _this->uAttributes |= 0x200000; break;
 
-    case 5:
+    case AI::State::Dead:
       if (pSpriteFrameTable->pSpriteSFrames[_this->pSpriteIDs[6]].pSpriteIDs[0] <= 0)
-        _this->word_0000B0_state = 11;
+        _this->uAIState = AI::State::Removed;
       else
-        _this->word_0000B2_looks_like_current_sprite_frame = 6;
+        _this->uCurrentActionAnimation = AI::Animation::Dead;
   }
-  //probably void fucntion
- return _this->dword_000024;
 }
 
 
@@ -380,9 +377,9 @@ void Actor_LinkSprites(struct Actor *_this, char a2)
     SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pSpriteIDs[i]);
   }
 
-  _this->word_000088 = pActorDescription->word_000002;
+  _this->uActorRadius = pActorDescription->uMonsterRadius;
   _this->uActorHeight = pActorDescription->uMonsterHeight;
-  _this->uSpeed = pActorInfo->uSpeed;
+  _this->uMovementSpeed = pActorInfo->uMovementSpeed;
   if (~a2 & 1)
   {
     for (i = 0; i < 4; ++i)
@@ -428,8 +425,8 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
 
   if ( pActor2 && pActor1 )
   {
-    int v5 = pActor2->dword_0002C4;
-    int v6 = pActor1->dword_0002C4;
+    int v5 = pActor2->uGroup;
+    int v6 = pActor1->uGroup;
 
     if ( (v5 > 0) && (v6 > 0) && (v5 == v6) )
     {
@@ -449,9 +446,9 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
 
   if (pActor1)
   {    
-    if (( pActor1->dword_0002C8 > 0 ) && ( pActor1->dword_0002C8 != 9999 ))
+    if (( pActor1->uAlly > 0 ) && ( pActor1->uAlly != 9999 ))
     {
-      v7 = pActor1->dword_0002C8;
+      v7 = pActor1->uAlly;
     }
     else
     {
@@ -464,9 +461,9 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
 
   if ( pActor2 )
   {    
-    if (( pActor2->dword_0002C8 > 0 ) && ( pActor2->dword_0002C8 != 9999 ))   
+    if (( pActor2->uAlly > 0 ) && ( pActor2->uAlly != 9999 ))   
     {
-      v8 = pActor2->dword_0002C8;       
+      v8 = pActor2->uAlly;       
     }
     else    
     {
@@ -484,13 +481,13 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
   }
 
   if ( pActor1 && (pActor1->pActorBuffs[12].qword_000000 <= 0i64) && 
-       (pActor1->dword_000024 & 0x80000) && !v8 )
+       (pActor1->uAttributes & 0x80000) && !v8 )
   {
     return 4;
   }
 
   if ( pActor2 && pActor1 && (pActor1->pActorBuffs[12].qword_000000 <= 0i64) && 
-       (pActor2->dword_000024 & 0x80000))  
+       (pActor2->uAttributes & 0x80000))  
   {
     if ( v7 )
     {
@@ -505,7 +502,7 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
 
   if ( !v7 )
   {
-    if ( (!pActor2 || pActor2->pActorBuffs[12].qword_000000 > 0i64 || !(pActor2->dword_000024 & 0x80000)) && 
+    if ( (!pActor2 || pActor2->pActorBuffs[12].qword_000000 > 0i64 || !(pActor2->uAttributes & 0x80000)) && 
           !pClass48->array_000000[v8][0] )
     {
       if ( v8 < 89 )
@@ -532,7 +529,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
   short v16;
       
   pActor = &pActors[uActorID];
-  if ( (pActor->byte_00002A[17] == 5) && (pActor->byte_00002A[18] == 1) )
+  if ( (pActor->uMovementType == 5) && (pActor->uAIType == 1) )
   {
     Actor_sub_403EB6(uActorID, a2, 0, pDirectionInfo);
     return;
@@ -540,10 +537,9 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
  
   if ( (a2 & 7) == 3 )
   {      
-    x1 = pActors[a2 >> 3].sActorPosX;
-    y1 = pActors[a2 >> 3].sActorPosY;
-    z1 = (int)((double)pActors[a2 >> 3].uActorHeight * 0.75 + 
-               (double)pActors[a2 >> 3].sActorPosZ);
+    x1 = pActors[a2 >> 3].vPosition.x;
+    y1 = pActors[a2 >> 3].vPosition.y;
+    z1 = (int)((double)pActors[a2 >> 3].uActorHeight * 0.75 + (double)pActors[a2 >> 3].vPosition.z);
   }
   else
   {
@@ -561,8 +557,8 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
     }
   }
     
-  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY, 
-                 (int)((double)pActor->uActorHeight * 0.75 + (double)pActor->sActorPosZ)) )
+  if ( sub_407A1C(x1, y1, z1, pActor->vPosition.x, pActor->vPosition.y,
+                 (int)((double)pActor->uActorHeight * 0.75 + (double)pActor->vPosition.z)) )
   {
     if ( !pDirectionInfo )
     { 
@@ -575,9 +571,9 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
     v16 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[2]].word_000038;
 
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
-    pActor->word_0000A0 = 8 * v16;
-    pActor->dword_0000B8 = 0;
-    pActor->word_0000B0_state = 2;
+    pActor->uCurrentActionLength = 8 * v16;
+    pActor->uCurrentActionTime = 0;
+    pActor->uAIState = AI::State::AttackingMelee;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -591,10 +587,8 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
       recoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
 
     pActor->uRecoveryTime = recoveryTime;
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000094 = 0;
-    Actor_sub_45976D(pActor);
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
+    Actor_UpdateAnimation(pActor);
   }
   else
   {
@@ -619,32 +613,29 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct DirectionInfo
   }
 
   pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
-  pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
+  pActor->uCurrentActionLength = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
 
   v7 = class59_Atan2(pClass59_global, 
-                  pActor->sActorPosX - pOldCamera->sPosX, 
-                  pActor->sActorPosY - pOldCamera->sPosY);
+                  pActor->vPosition.x - pOldCamera->sPosX, 
+                  pActor->vPosition.y - pOldCamera->sPosY);
     
   v9 = pClass59_global->uIntegerPi + pActor->uYawAngle + (pClass59_global->uIntegerPi >> 3) - v7;
   
   //if ( BYTE1(v9) & 7 )
   if (v9 & 0x700)
   {
-    Actor_sub_403EB6(uActorID, a2, pActor->word_0000A0, pDirectionInfo);
+    Actor_sub_403EB6(uActorID, a2, pActor->uCurrentActionLength, pDirectionInfo);
   }
   else
   {
-    pActor->word_0000B0_state = 9;
-    pActor->dword_0000B8 = 0;
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000098 = 0;
-    pActor->word_000094 = 0;
+    pActor->uAIState = AI::State::Fidgeting;
+    pActor->uCurrentActionTime = 0;
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
     
     if ( rand() % 100 < 5 )
       Actor_PlaySound(uActorID, 3);
 
-    Actor_sub_45976D(pActor);
+    Actor_UpdateAnimation(pActor);
   }
 }
 
@@ -671,17 +662,15 @@ void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct DirectionInf
     pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
 
     if ( a3 == 0 )      
-      pActor->word_0000A0 = rand() % 256 + 256;
+      pActor->uCurrentActionLength = rand() % 256 + 256;
     else
-      pActor->word_0000A0 = a3;
+      pActor->uCurrentActionLength = a3;
       
-    pActor->dword_0000B8 = 0;
-    pActor->word_0000B0_state = 0;
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000094 = 0;
+    pActor->uCurrentActionTime = 0;
+    pActor->uAIState = AI::State::Standing;
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
 
-    Actor_sub_45976D(pActor);
+    Actor_UpdateAnimation(pActor);
   }
 }
 
@@ -701,14 +690,12 @@ void Actor_ProbablyForceToFaceParty(unsigned int uActorID, signed int a2, int a3
     }
 
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);   
-    pActor->dword_0000B8 = 0;
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000094 = 0;
+    pActor->uCurrentActionTime = 0;
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
     pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-    pActor->word_0000A0 = 256;
-    pActor->word_0000B0_state = 10;
-    Actor_sub_45976D(pActor);
+    pActor->uCurrentActionLength = 256;
+    pActor->uAIState = AI::State::Interacting;
+    Actor_UpdateAnimation(pActor);
   }
   else
   {
@@ -732,7 +719,7 @@ void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct DirectionInf
 
   if ( !pDirectionInfo )
   {
-    GetDirectionInfo(8 * uActorID | 3, a2, &v11, pActor->byte_00002A[16]);
+    GetDirectionInfo(8 * uActorID | 3, a2, &v11, pActor->bFlying);
     pDirectionInfo = &v11;    
   }
 
@@ -747,21 +734,21 @@ void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct DirectionInf
   }
   else
   {
-    if ( pActor->uSpeed )
-      pActor->word_0000A0 = (pDirectionInfo->uDistanceXY << 7) / (signed int)pActor->uSpeed;      
+    if (pActor->uMovementSpeed)
+      pActor->uCurrentActionLength = (pDirectionInfo->uDistanceXY << 7) / pActor->uMovementSpeed;      
     else
-      pActor->word_0000A0 = 0;
+      pActor->uCurrentActionLength = 0;
     
-    if ( pActor->word_0000A0 > 256 )
-      pActor->word_0000A0 = 256;
+    if (pActor->uCurrentActionLength > 256)
+      pActor->uCurrentActionLength = 256;
 
     pActor->uYawAngle = pClass59_global->uIntegerHalfPi + LOWORD(pDirectionInfo->uYawAngle);
     pActor->uYawAngle = pClass59_global->uDoublePiMask & (pActor->uYawAngle + rand() % pClass59_global->uIntegerPi);
 
-    pActor->dword_0000B8 = 0;
+    pActor->uCurrentActionTime = 0;
     pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-    pActor->word_0000B0_state = 7;
-    Actor_sub_45976D(pActor);
+    pActor->uAIState = AI::State::Fleeing;
+    Actor_UpdateAnimation(pActor);
   }
 }
 
@@ -775,10 +762,10 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
 
   v4 = 0;
   pActor = &pActors[uActorID];
-  if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
+  if (pActor->bFlying && !pParty_global->bFlying)
   {
-    if (pActor->byte_00003E[7] && (uCurrentlyLoadedLevelType == 2))
-      v4 = pActor->word_000088 + 512;      
+    if (pActor->uAttack1MissleType && (uCurrentlyLoadedLevelType == 2))
+      v4 = pActor->uActorRadius + 512;      
     else
       v4 = pParty_global->uPartyHeight;
   }
@@ -808,17 +795,17 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
 
   if ( a3 )
   {
-    pActor->word_0000A0 = a3 + rand() % a3;    
+    pActor->uCurrentActionLength = a3 + rand() % a3;    
   }
   else
   {    
-    if ( pActor->uSpeed )
-      pActor->word_0000A0 = (pDirectionInfo->uDistanceXY << 7) / (signed int)pActor->uSpeed;
+    if (pActor->uMovementSpeed)
+      pActor->uCurrentActionLength = (pDirectionInfo->uDistanceXY << 7) / pActor->uMovementSpeed;
     else
-      pActor->word_0000A0 = 0;
+      pActor->uCurrentActionLength = 0;
 
-    if ( pActor->word_0000A0 > 128 )
-      pActor->word_0000A0 = 128;
+    if (pActor->uCurrentActionLength > 128)
+      pActor->uCurrentActionLength = 128;
   }
   
   if ( rand() % 2 )
@@ -826,14 +813,14 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   else
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle) - 256;
   
-  pActor->dword_0000B8 = 0;
+  pActor->uCurrentActionTime = 0;
   pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-  pActor->word_0000B0_state = 6;
+  pActor->uAIState = AI::State::Pursuing;
   
   if ( rand() % 100 < 2 )
     Actor_PlaySound(uActorID, 2);
 
-  Actor_sub_45976D(pActor);
+  Actor_UpdateAnimation(pActor);
 }
 
 
@@ -846,10 +833,10 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
     
   v5 = 0;
   pActor = &pActors[uActorID];
-  if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
+  if (pActor->bFlying && !pParty_global->bFlying)
   {
-    if (pActor->byte_00003E[7] && (uCurrentlyLoadedLevelType == 2))
-      v5 = pActor->word_000088 + 512;      
+    if (pActor->uAttack1MissleType && (uCurrentlyLoadedLevelType == 2))
+      v5 = pActor->uActorRadius + 512;      
     else
       v5 = pParty_global->uPartyHeight;
   }
@@ -879,25 +866,25 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
 
   if ( a3 )
   {
-    pActor->word_0000A0 = a3;
+    pActor->uCurrentActionLength = a3;
   }
   else
   {
-    if ( pActor->uSpeed )
-      pActor->word_0000A0 = (pDirectionInfo->uDistanceXY << 7) / (signed int)pActor->uSpeed;
+    if (pActor->uMovementSpeed)
+      pActor->uCurrentActionLength = (pDirectionInfo->uDistanceXY << 7) / pActor->uMovementSpeed;
     else
-      pActor->word_0000A0 = 0;
+      pActor->uCurrentActionLength = 0;
 
-    if ( pActor->word_0000A0 > 32 )
-      pActor->word_0000A0 = 32;
+    if (pActor->uCurrentActionLength > 32)
+      pActor->uCurrentActionLength = 32;
   }
 
   pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);  
-  pActor->dword_0000B8 = 0;
+  pActor->uCurrentActionTime = 0;
   pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-  pActor->word_0000B0_state = 6;
+  pActor->uAIState = AI::State::Pursuing;
 
-  Actor_sub_45976D(pActor);
+  Actor_UpdateAnimation(pActor);
 }
 
 //----- (00402AD7) --------------------------------------------------------
@@ -910,10 +897,10 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
   pActor = &pActors[uActorID];
   v5 = 0;
 
-  if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
+  if (pActor->bFlying && !pParty_global->bFlying)
   {
-    if (pActor->byte_00003E[7])
-      v5 = pActor->word_000088 + 512;
+    if (pActor->uAttack1MissleType)
+      v5 = pActor->uActorRadius + 512;
     else
       v5 = pParty_global->uPartyHeight;
   }
@@ -940,7 +927,7 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
     Actor_sub_403EB6(uActorID, a2, a4, pDirectionInfo);
     return;
   }
-  else if ( !pActor->uSpeed)
+  else if (!pActor->uMovementSpeed)
   {
     Actor_sub_403EB6(uActorID, a2, a4, pDirectionInfo);
     return;
@@ -959,24 +946,24 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
     //-cos(pDirectionInfo->uYawAngle + v18)
     tmpCos = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerPi); 
     deltaX = ((unsigned __int64)(tmpCos * pDirectionInfo->uDistanceXY) >> 16);
-    tmpX = pParty_global->sPartyPosX + deltaX - pActor->sActorPosX;
+    tmpX = pParty_global->sPartyPosX + deltaX - pActor->vPosition.x;
   
     //-sin(pDirectionInfo->uYawAngle + v18)
     tmpSin = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerHalfPi);
     deltaY =  ((unsigned __int64)(tmpSin * pDirectionInfo->uDistanceXY) >> 16);
-    tmpY = pParty_global->sPartyPosY + deltaY - pActor->sActorPosY;
+    tmpY = pParty_global->sPartyPosY + deltaY - pActor->vPosition.y;
     
     pActor->uYawAngle = class59_Atan2(pClass59_global, tmpX, tmpY);
   }
 
-  if ( a4 )
-    pActor->word_0000A0 = a4;    
+  if (a4)
+    pActor->uCurrentActionLength = a4;    
   else
-    pActor->word_0000A0 = 128;
+    pActor->uCurrentActionLength = 128;
 
   pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-  pActor->word_0000B0_state = 6;
-  Actor_sub_45976D(pActor);
+  pActor->uAIState = AI::State::Pursuing;
+  Actor_UpdateAnimation(pActor);
 }
 
 //----- (00403854) --------------------------------------------------------
@@ -993,10 +980,10 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
   pActor = &pActors[uActorID];
   if ( (a2 & 7) == 3 )
   {
-    x1 = pActors[a2 >> 3].sActorPosX;
-    y1 = pActors[a2 >> 3].sActorPosY;
+    x1 = pActors[a2 >> 3].vPosition.x;
+    y1 = pActors[a2 >> 3].vPosition.y;
     z1 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
-                         + (double)pActors[a2 >> 3].sActorPosZ);
+                         + (double)pActors[a2 >> 3].vPosition.z);
   }
   else
   {
@@ -1014,8 +1001,8 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
     }
   }
 
-  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY,
-                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
+  if ( sub_407A1C(x1, y1, z1, pActor->vPosition.x, pActor->vPosition.y,
+                  pActor->vPosition.z - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pDirectionInfo )
     { 
@@ -1028,9 +1015,9 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);        
-    pActor->word_0000A0 = 8 * v13;
-    pActor->dword_0000B8 = 0;
-    pActor->word_0000B0_state = 13;
+    pActor->uCurrentActionLength = 8 * v13;
+    pActor->uCurrentActionTime = 0;
+    pActor->uAIState = AI::State::AttackingRanged3;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1043,22 +1030,23 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
     if (pParty_global->bTurnBasedModeOn)
       pActor->uRecoveryTime = recoveryTime;
     else
-      pActor->uRecoveryTime = pActor->word_0000A0 - 
-                             (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * -2.133333333333333);        
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000094 = 0;
-    if ( sub_42FB5C(pActor->byte_00003E[15]) )
+      pActor->uRecoveryTime = pActor->uCurrentActionLength - 
+                             (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * -2.133333333333333); 
+
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
+
+    if ( sub_42FB5C(pActor->uSpell1ID) )
     {
-      pActor->word_0000A0 = 64;
-      pActor->dword_0000B8 = 0;
-      pActor->word_0000B0_state = 9;
-      Actor_sub_45976D(pActor);
-      pActor->word_0000B0_state = 13;
+      pActor->uCurrentActionLength = 64;
+      pActor->uCurrentActionTime = 0;
+      pActor->uAIState = AI::State::Fidgeting;
+      Actor_UpdateAnimation(pActor);
+
+      pActor->uAIState = AI::State::AttackingRanged3;
     }
     else
     {
-      Actor_sub_45976D(pActor);
+      Actor_UpdateAnimation(pActor);
     }
   }
   else
@@ -1082,10 +1070,10 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
   pActor = &pActors[uActorID];  
   if ( (a2 & 7) == 3 )
   {    
-    x1 = pActors[a2 >> 3].sActorPosX;
-    y1 = pActors[a2 >> 3].sActorPosY;
+    x1 = pActors[a2 >> 3].vPosition.x;
+    y1 = pActors[a2 >> 3].vPosition.y;
     z1 = (int)((double)pActors[a2 >> 3].uActorHeight * 0.75
-      + (double)pActors[a2 >> 3].sActorPosZ);
+      + (double)pActors[a2 >> 3].vPosition.z);
   }
   else
   {
@@ -1103,8 +1091,8 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
     }
   }
 
-  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY,
-                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
+  if ( sub_407A1C(x1, y1, z1, pActor->vPosition.x, pActor->vPosition.y,
+                  pActor->vPosition.z - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pDirectionInfo )
     {
@@ -1117,9 +1105,9 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);    
-    pActor->word_0000A0 = 8 * v13;
-    pActor->dword_0000B8 = 0;
-    pActor->word_0000B0_state = 12;
+    pActor->uCurrentActionLength = 8 * v13;
+    pActor->uCurrentActionTime = 0;
+    pActor->uAIState = AI::State::AttackingRanged2;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1132,10 +1120,8 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
     if (!pParty_global->bTurnBasedModeOn)
       pActor->uRecoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
         
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000094 = 0;
-    Actor_sub_45976D(pActor);
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
+    Actor_UpdateAnimation(pActor);
   }
   else
   {
@@ -1157,10 +1143,10 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
   pActor = &pActors[uActorID];  
   if ( (a2 & 7) == 3 )
   {
-    x1 = pActors[a2 >> 3].sActorPosX;
-    y1 = pActors[a2 >> 3].sActorPosY;
+    x1 = pActors[a2 >> 3].vPosition.x;
+    y1 = pActors[a2 >> 3].vPosition.y;
     z1 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
-                         + (double)pActors[a2 >> 3].sActorPosZ);
+                         + (double)pActors[a2 >> 3].vPosition.z);
   }
   else
   {
@@ -1178,11 +1164,11 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
     }
   }
 
-  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY, 
-                 pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) 
+  if ( sub_407A1C(x1, y1, z1, pActor->vPosition.x, pActor->vPosition.y,
+                 pActor->vPosition.z - (int)((double)pActor->uActorHeight * -0.75)) 
        ||
-       sub_407A1C(pActor->sActorPosX, pActor->sActorPosY, 
-                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75),
+       sub_407A1C(pActor->vPosition.x, pActor->vPosition.y,
+                  pActor->vPosition.z - (int)((double)pActor->uActorHeight * -0.75),
                   x1, y1, z1) )
   {
     if ( !pDirectionInfo )
@@ -1196,9 +1182,9 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
-    pActor->word_0000A0 = 8 * v13;
-    pActor->dword_0000B8 = 0;
-    pActor->word_0000B0_state = 3;
+    pActor->uCurrentActionLength = 8 * v13;
+    pActor->uCurrentActionTime = 0;
+    pActor->uAIState = AI::State::AttackingRanged1;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1211,12 +1197,10 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
     if (pParty_global->bTurnBasedModeOn)
       pActor->uRecoveryTime = recoveryTime;
     else
-      pActor->uRecoveryTime = pActor->word_0000A0 - 
+      pActor->uRecoveryTime = pActor->uCurrentActionLength - 
                              (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * -2.133333333333333);
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000094 = 0;
-    Actor_sub_45976D(pActor);
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
+    Actor_UpdateAnimation(pActor);
   }
   else
     Actor_sub_402AD7(uActorID, a2, uActorID, 64, pDirectionInfo);
@@ -1236,10 +1220,10 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
   pActor = &pActors[uActorID];
   if ( (a2 & 7) == 3 )
   {
-    x1 = pActors[a2 >> 3].sActorPosX;
-    y1 = pActors[a2 >> 3].sActorPosY;
+    x1 = pActors[a2 >> 3].vPosition.x;
+    y1 = pActors[a2 >> 3].vPosition.y;
     z1 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
-                         + (double)pActors[a2 >> 3].sActorPosZ);
+                         + (double)pActors[a2 >> 3].vPosition.z);
   }
   else
   {
@@ -1257,8 +1241,8 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
     }
   }
 
-  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY, 
-                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
+  if ( sub_407A1C(x1, y1, z1, pActor->vPosition.x, pActor->vPosition.y,
+                  pActor->vPosition.z - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pDirectionInfo )
     {
@@ -1271,9 +1255,9 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
-    pActor->word_0000A0 = 8 * v13;
-    pActor->dword_0000B8 = 0;
-    pActor->word_0000B0_state = 18;
+    pActor->uCurrentActionLength = 8 * v13;
+    pActor->uCurrentActionTime = 0;
+    pActor->uAIState = AI::State::AttackingRanged4;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1286,23 +1270,22 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
     if (pParty_global->bTurnBasedModeOn)
       pActor->uRecoveryTime = recoveryTime;
     else
-      pActor->uRecoveryTime = pActor->word_0000A0 - 
+      pActor->uRecoveryTime = pActor->uCurrentActionLength - 
                              (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * -2.133333333333333);
-    pActor->word_000098 = 0;
-    pActor->word_000096 = 0;
-    pActor->word_000094 = 0;
+    pActor->vVelocity = Vec3<short>(0, 0, 0);
 
-    if ( sub_42FB5C(pActor->byte_00003E[17]) )
+    if ( sub_42FB5C(pActor->uSpell2ID) )
     {
-      pActor->word_0000A0 = 64;
-      pActor->dword_0000B8 = 0;
-      pActor->word_0000B0_state = 9;
-      Actor_sub_45976D(pActor);
-      pActor->word_0000B0_state = 18;
+      pActor->uCurrentActionLength = 64;
+      pActor->uCurrentActionTime = 0;
+      pActor->uAIState = AI::State::Fidgeting;
+      Actor_UpdateAnimation(pActor);
+
+      pActor->uAIState = AI::State::AttackingRanged4;
     }
     else
     {
-      Actor_sub_45976D(pActor);
+      Actor_UpdateAnimation(pActor);
     }
   }
   else
@@ -1325,8 +1308,8 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
 
   pActor = &pActors[uActorID];
 
-  deltaX = pActor->sInitialPosX - pActor->sActorPosX;
-  deltaY = pActor->sInitialPosY - pActor->sActorPosY;
+  deltaX = pActor->vInitialPosition.x - pActor->vPosition.x;
+  deltaY = pActor->vInitialPosition.y - pActor->vPosition.y;
   v20 = abs(deltaX);
   v4 = abs(deltaY);
 
@@ -1343,7 +1326,7 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
   }
 
   //if ( byte_5FF193[uActorID * 836] == 3 && v20 < 128 )
-  if ( pActor->byte_00002A[17] == 3 && v20 < 128 )
+  if ( pActor->uMovementType == 3 && v20 < 128 )
   {
     return Actor_sub_403EB6(uActorID, a2, 256, &v15);
   }
@@ -1358,7 +1341,7 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
   }
 
   v11 = v10 + rand() % 256 - 128;
-  if ( abs(v11 - pActor->uYawAngle) > 256 && !(pActor->dword_000024 & 0x00200000) )
+  if ( abs(v11 - pActor->uYawAngle) > 256 && !(pActor->uAttributes & 0x00200000) )
   {
     Actor_sub_403EB6(uActorID, a2, 256, &v15);
     return;
@@ -1366,18 +1349,18 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
 
   pActor->uYawAngle = v11;
 
-  if ( pActor->uSpeed )
-    pActor->word_0000A0 = 32 * v20 / pActor->uSpeed;
+  if (pActor->uMovementSpeed)
+    pActor->uCurrentActionLength = 32 * v20 / pActor->uMovementSpeed;
   else
-    pActor->word_0000A0 = 0;
+    pActor->uCurrentActionLength = 0;
 
-  pActor->dword_0000B8 = 0;
-  pActor->word_0000B0_state = 1;  
+  pActor->uCurrentActionTime = 0;
+  pActor->uAIState = AI::State::Tethered;  
   
   if ( rand() % 100 < 2 )
     Actor_PlaySound(uActorID, 3);
 
-  Actor_sub_45976D(pActor);
+  Actor_UpdateAnimation(pActor);
 }
 
 //----- (00402CED) --------------------------------------------------------
@@ -1436,17 +1419,17 @@ void Actor_Die(unsigned int uActorID)
 
   pActor = &pActors[uActorID];
       
-  pActor->word_0000B0_state = 4;
-  pActor->word_0000B2_looks_like_current_sprite_frame = 5;
-  pActor->dword_0000B8 = 0;  
+  pActor->uAIState = AI::State::Dying;
+  pActor->uCurrentActionAnimation = AI::Animation::Dying;
+  pActor->uCurrentActionTime = 0;  
   pActor->sCurrentHP = 0;
-  pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[5]].word_000038;
+  pActor->uCurrentActionLength = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[5]].word_000038;
   
   SpellBuff_sub_458585(&pActor->pActorBuffs[6]);
   SpellBuff_sub_458585(&pActor->pActorBuffs[SPELLBUFF_FEATHERFALL]);
 
   Actor_PlaySound(uActorID, 1);
-  Actor_sub_45976D(pActor);
+  Actor_UpdateAnimation(pActor);
 
   monsterID = pActor->uMonsterID - 1;  
   for (i = 0; i < 5; ++i)
@@ -1486,9 +1469,9 @@ void Actor_Die(unsigned int uActorID)
     if ( (rand() % 100) < 20 )
     {
       sub_42F7EB_DropItemAt((unsigned __int16)word_5D29F8[24 * itemGen.uItemID],
-        pActor->sActorPosX,
-        pActor->sActorPosY,
-        pActor->sActorPosZ + 16,
+        pActor->vPosition.x,
+        pActor->vPosition.y,
+        pActor->vPosition.z + 16,
         rand() % 200 + 200,
         1,
         1,
@@ -1497,7 +1480,7 @@ void Actor_Die(unsigned int uActorID)
     }
   }
 
-  if ( pActor->byte_00003E[28] == 3 )
+  if ( pActor->uSpecialAttackType == 3 )
     sub_404736(uActorID);
 }
 
@@ -1539,15 +1522,18 @@ __int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
 
   if (uNumActors > 0)
   {
-    v7 = (int)&pActors[0].word_0000B0_state;
+    v7 = (int)&pActors[0].uAIState;
     while ( 1 )
     {
-      v7 = (int)&pActors[v23].word_0000B0_state;
+      v7 = (int)&pActors[v23].uAIState;
 
-      LOWORD(v3) = pActors[v23].word_0000B0_state;
-      if (pActors[v23].word_0000B0_state == 5 || pActors[v23].word_0000B0_state == 4 ||
-        pActors[v23].word_0000B0_state == 11 || pActors[v23].word_0000B0_state == 17 ||
-        pActors[v23].word_0000B0_state == 19 || v19 == v4 )
+      LOWORD(v3) = pActors[v23].uAIState;
+      if (pActors[v23].uAIState == AI::State::Dying ||
+          pActors[v23].uAIState == AI::State::Dead ||
+          pActors[v23].uAIState == AI::State::Removed ||
+          pActors[v23].uAIState == AI::State::Summoned ||
+          pActors[v23].uAIState == AI::State::Disabled ||
+          v19 == v4 )
         goto LABEL_23;
 
       if ( v21 != v5 )
@@ -1566,9 +1552,9 @@ LABEL_14:
             if ( *(_BYTE *)(v6 + 61) )
               v3 = pMonsterStats->pMonsterInfos[pActors[uActorID].uMonsterID - 1].byte_000011;
             v9 = dword_4DF380[v3];
-            v20 = abs(pActors[uActorID].sActorPosX - pActors[v23].sActorPosX);
-            v24 = abs(pActors[uActorID].sActorPosY - pActors[v23].sActorPosY);
-            v3 = abs(pActors[uActorID].sActorPosZ - pActors[v23].sActorPosZ);
+            v20 = abs(pActors[uActorID].vPosition.x - pActors[v23].vPosition.x);
+            v24 = abs(pActors[uActorID].vPosition.y - pActors[v23].vPosition.y);
+            v3 = abs(pActors[uActorID].vPosition.z - pActors[v23].vPosition.z);
             v16 = v3;
             if ( v20 <= v9 )
             {
@@ -1703,45 +1689,37 @@ void Actor_Reset(struct Actor *_this)
 {
  _this->pActorName[0] = 0;
 
- _this->word_000020 = 0;
- _this->dword_000024 = 0;
+ _this->uNPCID = -1;
+ _this->uAttributes = 0;
  
- _this->word_000086 = 0;
- _this->word_000088 = 32;
+ _this->word_000086_some_monster_id = 0;
+ _this->uActorRadius = 32;
  _this->uActorHeight = 128;
- _this->uSpeed = 200;
+ _this->uMovementSpeed = 200;
 
- _this->sActorPosX = 0;
- _this->sActorPosY = 0;
- _this->sActorPosZ = 0;
+ _this->vPosition = Vec3<short>(0, 0, 0);
  
- _this->word_000094 = 0;
- _this->word_000096 = 0;
- _this->word_000098 = 0;
+ _this->vVelocity = Vec3<short>(0, 0, 0);
  _this->uYawAngle = 0;
  _this->uPitchAngle = 0;
- _this->word_00009E = 0;
- 
- _this->sInitialPosX = 0;
- _this->sInitialPosY = 0;
- _this->sInitialPosZ = 0;
- _this->word_0000A8 = 0;
- _this->word_0000AA = 0;
- _this->word_0000AC = 0;
- _this->word_0000AE = 256;
- _this->word_0000B0_state = 0;
- _this->word_0000B2_looks_like_current_sprite_frame = 0;
- _this->word_0000B4 = 0;
- _this->dword_0000B8 = 0;
+ _this->sRoom = 0;
+
+ _this->vInitialPosition = Vec3<short>(0, 0, 0); 
+ _this->vGuardingPosition = Vec3<short>(0, 0, 0);
+ _this->uTetherDistance = 256;
+ _this->uAIState = AI::State::Standing;
+ _this->uCurrentActionAnimation = AI::Animation::Standing;
+ _this->uCarriedItemID = -1;
+ _this->uCurrentActionTime = 0;
 
  memset(_this->pSpriteIDs, 0, 8 * sizeof(unsigned short));
 
- _this->dword_0002C4 = 0;
- _this->dword_0002C8 = 0;
+ _this->uGroup = 0;
+ _this->uAlly = 0;
 
- _this->dword_00032C = 0;
- _this->dword_000330 = 0;
- _this->dword_000334 = 0;
+ _this->uSummonerID = 0;
+ _this->uLastCharacterIDToHit = 0;
+ _this->dword_000334_unique_name = 0;
 
  memset(_this->pActorBuffs, 0, 22 * sizeof(struct SpellBuff));
 }
@@ -1756,31 +1734,29 @@ bool InitializeActors(struct MapInfo *pMapInfo)
   v8 = 0;
   for (i = 0; i < uNumActors; ++i)
   {
-    bool bIsSomeFlagSet = pActors[i].dword_000024 & 0x100000;
+    bool bIsSomeFlagSet = pActors[i].uAttributes & 0x100000;
     if ( (!bIsSomeFlagSet && v8 != 1) || v8 != 0 )
     {
-      pActors[i].dword_0000B8 = 0;
-      pActors[i].word_0000A0 = 0;
-      if ( pActors[i].dword_000024 & 0x10000 )
-        pActors[i].word_0000B0_state = 19;
+      pActors[i].uCurrentActionTime = 0;
+      pActors[i].uCurrentActionLength = 0;
+      if ( pActors[i].uAttributes & 0x10000 )
+        pActors[i].uAIState == AI::State::Disabled;
 
-      if (pActors[i].word_0000B0_state != 11 && pActors[i].word_0000B0_state != 19)
+      if (pActors[i].uAIState != AI::State::Removed && pActors[i].uAIState != AI::State::Disabled)
       {
         if (!pActors[i].sCurrentHP || !pActors[i].sTotalHP)
-          pActors[i].word_0000B0_state = 5;
+          pActors[i].uAIState = AI::State::Dead;
       }
-      pActors[i].word_000094 = 0;
-      pActors[i].word_000096 = 0;
-      pActors[i].word_000098 = 0;
-      Actor_sub_45976D(&pActors[i]);
-      pActors[i].byte_00003D = 0;
+      pActors[i].vVelocity = Vec3<short>(0, 0, 0);
+      Actor_UpdateAnimation(&pActors[i]);
+      pActors[i].uHostilityType = 0;
 
       Actor_LinkSprites(&pActors[i], 0);
     }
     else
     {
-      pActors[i].word_0000B0_state = 19;
-      pActors[i].dword_000024 |= 0x10000;
+      pActors[i].uAIState = AI::State::Disabled;
+      pActors[i].uAttributes |= 0x10000;
       if (bIsSomeFlagSet && !v8)
       {
         v8 = sub_450DA3();

@@ -1663,9 +1663,9 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
           while ( v9 < _this->dword_00004C);
         }*/
 
-        if (pParty_global->pickedItem.dword_000014 & 2)
+        if (pParty_global->pickedItem.uAttributes & 2)
           Render_sub_4A6776(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
-        else if (pParty_global->pickedItem.dword_000014 & 1)
+        else if (pParty_global->pickedItem.uAttributes & 1)
           Render_DrawTransparentTexture(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
         else Render_DrawTransparentGreenChannel(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
       }
@@ -1924,22 +1924,22 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
     case 3:
       pActor = &pActors[a1 >> 3];
 
-      if (pActor->word_0000B0_state == 4 ||
-          pActor->word_0000B0_state == 17)
+      if (pActor->uAIState == AI::State::Dying ||
+          pActor->uAIState == AI::State::Summoned)
         return 1;
 
-      if (pActor->word_0000B0_state == 5)
+      if (pActor->uAIState == AI::State::Dead)
         sub_426A5A((int)pActor);
       else
       {
         if ( !Actor_GetActorsRelation(pActor, 0) )
         {
-         if (~pActor->dword_000024 & 0x080000)
+         if (~pActor->uAttributes & 0x080000)
           {
             if ( Actor_sub_40894B(pActor) )
             {
               Actor_ProbablyForceToFaceParty(a1 >> 3, 4, 0, 0);
-              if (pActor->word_000020)
+              if (pActor->uNPCID)
               {
                /* if ( dword_50CBD0[0] < 40 )
                 {
@@ -1951,7 +1951,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
               }
               else
               {
-                v15 = pNPCStats->npc_group[pActor->dword_0002C4];
+                v15 = pNPCStats->npc_group[pActor->uGroup];
                 if ( v15 )
                 {
                   v16 = (char *)pNPCStats->pCatchPhrases[(unsigned __int16)v15];
@@ -2073,7 +2073,7 @@ int __fastcall sub_46A6AC(int a1, int a2, signed int a3)
               if ( *(_DWORD *)v6 <= a3 << 16 )
               {
                 v8 = (signed int)(unsigned __int16)*(_DWORD *)v6 >> 3;
-                v7 = pActors[v8].word_0000B0_state;
+                v7 = pActors[v8].uAIState;
                 if ( v7 != 5 )
                 {
                   if ( v7 != 4 )
@@ -2154,7 +2154,7 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
         {
           v7 = v3 >> 3;
           v8 = v7;
-          v6 = pActors[v7].word_0000B0_state;
+          v6 = pActors[v7].uAIState;
           if ( v6 != 5 )
           {
             if ( v6 != 4 )
@@ -2214,7 +2214,7 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
   v19 = 0;
   if ( (signed int)uNumActors > 0 )
   {
-    v4 = (int)&pActors[0].word_0000B0_state;
+    v4 = (int)&pActors[0].uAIState;
     do
     {
       v8 = abs(*(_WORD *)(v4 - 34) - pParty_global->sPartyPosX);
@@ -2411,7 +2411,7 @@ LABEL_18:
     {
       if ( v19 >= 0x3E8 )
         return 0;
-      if (~pLayingItemsList[v19].word_00001A & 0x0010)
+      if (~pLayingItemsList[v19].uAttributes & 0x0010)
       {
         v23 = (char *)ItemGen_sub_456499(&pLayingItemsList[v19].stru_000024);
 LABEL_36:
@@ -3311,7 +3311,7 @@ void __thiscall sub_46BEF1(void *_this)
   v1 = _this;
   if ( (signed int)uNumActors > 0 )
   {
-    v2 = (int)&pActors[0].sActorPosY;
+    v2 = (int)&pActors[0].vPosition.y;
     do
     {
       if ( Actor_sub_40894B((Actor *)(v2 - 144)) )
@@ -3543,7 +3543,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
     a1 = *(_DWORD *)(v3 + 88);
     if ( (*(_BYTE *)(v3 + 88) & 7) != 4 )
     {
-      a1 = (int)&pActors[a1 >> 3].dword_000024;
+      a1 = (int)&pActors[a1 >> 3].uAttributes;
       *(_BYTE *)(a1 + 2) |= 4u;
     }
   }
@@ -3676,7 +3676,7 @@ LABEL_246:
             if ( v169 >= 3 )
               v167 = 4;
           }
-          pActors[v156].dword_000024 |= 0x00080000;
+          pActors[v156].uAttributes |= 0x00080000;
         }
         if ( v5 == 6040 )
         {
@@ -3703,8 +3703,8 @@ LABEL_222:
                   if ( *(_WORD *)v3 == 8030 )
                   {
                     //*(__int16 *)((char *)word_5FF208 + v123) = 0;
-                   pActors[v156].word_0000B0_state = 0;
-                    Actor_sub_45976D(&pActors[v156]);
+                   pActors[v156].uAIState = AI::State::Standing;
+                    Actor_UpdateAnimation(&pActors[v156]);
                   }
                   SpellBuf_sub_4584E0(
                     //(int)((char *)&unk_5FF22C + 16 * v153 + v123),
@@ -4495,7 +4495,7 @@ int __cdecl sub_46CC4B()
         v39 = 0;
         if ( (signed int)uNumActors > 0 )
         {
-          v9 = (int)&pActors[0].sActorPosY;
+          v9 = (int)&pActors[0].vPosition.y;
           do
           {
             v13 = abs(v35 - *(_WORD *)(v9 - 2));
@@ -6957,10 +6957,10 @@ LABEL_123:
               if ( v56 != v65 )
               {
                 v28 = 836 * v56;
-                v29 = abs(pActors[v56].sActorPosZ - *(_WORD *)(v1 + 146));
-                v30 = abs(pActors[v56].sActorPosY - *(_WORD *)(v1 + 144));
-                v31 = abs(pActors[v56].sActorPosX - *(_WORD *)(v1 + 142));
-                if ( sub_4621DA(v31, v30, v29) >= *(_WORD *)(v1 + 136) + pActors[v56].word_000088)
+                v29 = abs(pActors[v56].vPosition.z - *(_WORD *)(v1 + 146));
+                v30 = abs(pActors[v56].vPosition.y - *(_WORD *)(v1 + 144));
+                v31 = abs(pActors[v56].vPosition.x - *(_WORD *)(v1 + 142));
+                if ( sub_4621DA(v31, v30, v29) >= *(_WORD *)(v1 + 136) + pActors[v56].uActorRadius)
                 {
                   if ( sub_46DF1A(v56, 40) )
                     ++v60;
@@ -7152,7 +7152,7 @@ LABEL_118:
             {
               if ( v58 == v23 )
               {
-               if ( !pActors[v41].byte_00003E[1])
+               if ( !pActors[v41].uSpecialAbility)
                   goto LABEL_118;
 LABEL_114:
                 Actor_sub_402968(v65, v40, v23, (DirectionInfo *)v23);
@@ -7534,7 +7534,7 @@ LABEL_121:
         v25 = rand();
         *(_WORD *)(v1 + 176) = 8;
         *(_WORD *)(v1 + 154) += v25 % 32 - 16;
-        Actor_sub_45976D((Actor *)v1);
+        Actor_UpdateAnimation((Actor *)v1);
       }
     }
     if ( *(_WORD *)(v1 + 148) * (signed int)*(_WORD *)(v1 + 148)
@@ -7704,7 +7704,7 @@ LABEL_101:
             }
             if ( v73 != v36 )
               goto LABEL_101;
-            if (pActors[v40].byte_00003E[1])
+            if (pActors[v40].uSpecialAbility)
             {
 LABEL_99:
               Actor_sub_402968(v77, v39, v36, (DirectionInfo *)v36);
@@ -7930,7 +7930,7 @@ LABEL_25:
         {
           if ( (signed int)uNumActors > v8 )
           {
-            v47 = (int)&pActors->word_000086;
+            v47 = (int)&pActors->word_000086_some_monster_id;
             do
             {
               v49 = pActors[*((_DWORD *)v2 + 22) >> 3].uMonsterID - 1;
@@ -7949,7 +7949,7 @@ LABEL_25:
         {
           if ( (signed int)uNumActors > v8 )
           {
-            v47 = (int)&pActors->word_000086;
+            v47 = (int)&pActors->word_000086_some_monster_id;
             do
             {
               sub_46DF1A(v50++, *(_WORD *)(152 * *(_WORD *)v47 + pMonsterDescriptionList->pDescriptions - 146));
