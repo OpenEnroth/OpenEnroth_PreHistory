@@ -2217,9 +2217,9 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
     v4 = (int)&pActors[0].uAIState;
     do
     {
-      v8 = abs(*(_WORD *)(v4 - 34) - pParty_global->sPartyPosX);
-      v17 = abs(*(_WORD *)(v4 - 32) - pParty_global->sPartyPosY);
-      v18 = abs(*(_WORD *)(v4 - 30) - pParty_global->sPartyPosZ);
+      v8 = abs(*(_WORD *)(v4 - 34) - pParty_global->vPosition.x);
+      v17 = abs(*(_WORD *)(v4 - 32) - pParty_global->vPosition.y);
+      v18 = abs(*(_WORD *)(v4 - 30) - pParty_global->vPosition.z);
       v5 = v8;
       v7 = v17;
       v6 = v18;
@@ -2500,64 +2500,6 @@ void __cdecl sub_46AC8C()
   }
 }
 
-//----- (0046ACA9) --------------------------------------------------------
-int __thiscall sub_46ACA9(int _this, int a2)
-{
-  int v2; // esi@1
-  int v3; // eax@1
-  int v4; // edi@1
-  double v6; // ST14_8@3
-  double v7; // ST14_8@3
-
-  v3 = a2;
-  v2 = _this;
-  *(_DWORD *)(_this + 64) = -1;
-  *(_DWORD *)(_this + 12) = v3;
-  LOBYTE(v3) = BYTE3(a2);
-  v4 = _this + 104;
-  *(_DWORD *)(_this + 4) = 0;
-  *(_BYTE *)(_this + 20) = 0;
-  *(_DWORD *)(_this + 68) = 0;
-  *(_DWORD *)(_this + 72) = 0;
-  *(_BYTE *)(_this + 88) = 1;
-  *(_BYTE *)(_this + 91) = 0;
-  *(_BYTE *)(_this + 93) = 0;
-  *(_BYTE *)(_this + 94) = 0;
-  *(_BYTE *)(_this + 95) = 0;
-  *(_BYTE *)(_this + 96) = 0;
-  *(_BYTE *)(_this + 97) = 0;
-  *(_BYTE *)(_this + 98) = 0;
-  *(_BYTE *)(_this + 99) = 0;
-  *(_BYTE *)(_this + 100) = 0;
-  *(_BYTE *)(_this + 101) = 0;
-  *(_BYTE *)(_this + 102) = 0;
-  *(_BYTE *)(_this + 104) = v3;
-  *(_DWORD *)(_this + 108) = (int)sub_46BD09(0, 0);
-  *(_DWORD *)(v4 + 8) = 0;
-  *(_BYTE *)(v2 + 116) = BYTE3(a2);
-  *(_DWORD *)(v2 + 120) = (int)sub_46BD09(0, 0);
-  *(_DWORD *)(v2 + 124) = 0;
-  *(_DWORD *)(v2 + 128) = 0;
-  *(_DWORD *)(v2 + 132) = 0;
-  *(_DWORD *)v2 = 5080880;
-  if ( !CAsyncMouse_Initialize((LPVOID)v2) )
-  {
-    a2 = (int)"Could not initialize CMouseAsync object";
-    _CxxThrowException((int)&a2, 5094804);
-  }
-  *(_DWORD *)(v2 + 48) = 0;
-  *(_DWORD *)(v2 + 52) = 0;
-  *(_DWORD *)(v2 + 56) = 0;
-  *(_DWORD *)(v2 + 60) = 0;
-  v6 = (float)0.0 + 6.755399441055744e15;
-  *(_DWORD *)(v2 + 40) = LODWORD(v6);
-  v7 = (float)0.0 + 6.755399441055744e15;
-  a2 = LODWORD(v7);
-  *(_DWORD *)(v2 + 128) |= 1u;
-  *(_DWORD *)(v2 + 44) = LODWORD(v7);
-  *(_BYTE *)(v2 + 103) = 1;
-  return v2;
-}
 
 //----- (0046ADE2) --------------------------------------------------------
 int __thiscall sub_46ADE2(int _this)
@@ -4464,9 +4406,9 @@ int __cdecl sub_46CC4B()
       v33 = v3[12];
       if ( *((_BYTE *)v3 + 2) & 1 )
       {
-        v38 = abs(*((_DWORD *)v3 + 1) - pParty_global->sPartyPosX);
-        v27 = abs(v1 - pParty_global->sPartyPosY);
-        v30 = abs(v37 - pParty_global->sPartyPosZ);
+        v38 = abs(*((_DWORD *)v3 + 1) - pParty_global->vPosition.x);
+        v27 = abs(v1 - pParty_global->vPosition.y);
+        v30 = abs(v37 - pParty_global->vPosition.z);
         v4 = v38;
         v6 = v27;
         v5 = v30;
@@ -4535,7 +4477,7 @@ int __cdecl sub_46CC4B()
         v40 = 0;
         if ( (signed int)uNumLayingItems > 0 )
         {
-          v17 = &pLayingItemsList[0].sItemPosY;
+          v17 = &pLayingItemsList[0].vPosition.y;
           do
           {
             v21 = abs(v35 - *(v17 - 1));
@@ -6127,25 +6069,25 @@ int __thiscall sub_46EF01(void *_this)
 
   v8 = _this;
   v2 = 2 * pParty_global->dword_000014;
-  result = pParty_global->sPartyPosX;
+  result = pParty_global->vPosition.x;
   v9 = pParty_global->uPartyHeight;
-  if ( stru_721530.dword_00008C <= pParty_global->sPartyPosX + 2 * pParty_global->dword_000014 )
+  if ( stru_721530.dword_00008C <= pParty_global->vPosition.x + 2 * pParty_global->dword_000014 )
   {
-    if ( stru_721530.dword_000090 >= pParty_global->sPartyPosX - v2 )
+    if ( stru_721530.dword_000090 >= pParty_global->vPosition.x - v2 )
     {
-      if ( stru_721530.dword_000094 <= pParty_global->sPartyPosY + v2 )
+      if ( stru_721530.dword_000094 <= pParty_global->vPosition.y + v2 )
       {
-        if ( stru_721530.dword_000098 >= pParty_global->sPartyPosY - v2 )
+        if ( stru_721530.dword_000098 >= pParty_global->vPosition.y - v2 )
         {
-          if ( stru_721530.dword_00009C <= pParty_global->sPartyPosZ + pParty_global->uPartyHeight )
+          if ( stru_721530.dword_00009C <= pParty_global->vPosition.z + pParty_global->uPartyHeight )
           {
-            if ( stru_721530.dword_0000A0 >= pParty_global->sPartyPosZ )
+            if ( stru_721530.dword_0000A0 >= pParty_global->vPosition.z )
             {
               v3 = stru_721530.dword_000004 + v2;
-              v11 = pParty_global->sPartyPosX - stru_721530.dword_000028;
-              v4 = ((pParty_global->sPartyPosX - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->sPartyPosY - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16;
-              v10 = pParty_global->sPartyPosY - stru_721530.dword_00002C;
-              result = abs(((pParty_global->sPartyPosX - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->sPartyPosY - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16);
+              v11 = pParty_global->vPosition.x - stru_721530.dword_000028;
+              v4 = ((pParty_global->vPosition.x - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->vPosition.y - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16;
+              v10 = pParty_global->vPosition.y - stru_721530.dword_00002C;
+              result = abs(((pParty_global->vPosition.x - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->vPosition.y - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16);
               if ( result <= v3 )
               {
                 result = v10 * stru_721530.dword_00005C;
@@ -6153,11 +6095,11 @@ int __thiscall sub_46EF01(void *_this)
                 if ( v5 > 0 )
                 {
                   v6 = ((unsigned __int64)(stru_721530.dword_000060 * v5) >> 16) + stru_721530.dword_000030;
-                  result = pParty_global->sPartyPosZ;
-                  if ( v6 >= pParty_global->sPartyPosZ )
+                  result = pParty_global->vPosition.z;
+                  if ( v6 >= pParty_global->vPosition.z )
                   {
-                    result = v9 + pParty_global->sPartyPosZ;
-                    if ( v6 <= v9 + pParty_global->sPartyPosZ || v8 )
+                    result = v9 + pParty_global->vPosition.z;
+                    if ( v6 <= v9 + pParty_global->vPosition.z || v8 )
                     {
                       result = sub_452A9E(v3 * v3 - v4 * v4);
                       v7 = v5 - result;
@@ -7034,10 +6976,9 @@ LABEL_123:
                 {
                   v59 = (void *)sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150)
                                                                                        * *(_WORD *)(v1 + 150));
-                  v49 = class59_Atan2(
-                          pClass59_global,
-                          *(_WORD *)(v1 + 142) - pLevelDecorations[v41].sPosX,
-                          *(_WORD *)(v1 + 144) - pLevelDecorations[v41].sPosY);
+                  v49 = class59_Atan2(pClass59_global,
+                          *(_WORD *)(v1 + 142) - pLevelDecorations[v41].vPosition.x,
+                          *(_WORD *)(v1 + 144) - pLevelDecorations[v41].vPosition.y);
                   v56 = class59_SinCos(pClass59_global, v49);
                   v58 = (unsigned __int64)(v56 * (signed int)v59) >> 16;
                   v50 = v49 - pClass59_global->uIntegerHalfPi;
@@ -7733,10 +7674,9 @@ LABEL_103:
           break;
         case 5:
           v48 = sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150) * *(_WORD *)(v1 + 150));
-          v49 = class59_Atan2(
-                  pClass59_global,
-                  *(_WORD *)(v1 + 142) - pLevelDecorations[v40].sPosX,
-                  *(_WORD *)(v1 + 144) - pLevelDecorations[v40].sPosY);
+          v49 = class59_Atan2(pClass59_global,
+                  *(_WORD *)(v1 + 142) - pLevelDecorations[v40].vPosition.x,
+                  *(_WORD *)(v1 + 144) - pLevelDecorations[v40].vPosition.y);
           v73 = class59_SinCos(pClass59_global, v49);
           v72 = (unsigned __int64)(v73 * v48) >> 16;
           v50 = v49 - pClass59_global->uIntegerHalfPi;
@@ -8015,10 +7955,9 @@ LABEL_25:
       if ( (stru_721530.dword_000078 & 7) == 5 )
       {
         v48 = sub_452A9E(*((_WORD *)v2 + 8) * *((_WORD *)v2 + 8) + *((_WORD *)v2 + 9) * *((_WORD *)v2 + 9));
-        v23 = class59_Atan2(
-                pClass59_global,
-                *((_DWORD *)v2 + 1) - pLevelDecorations[v15].sPosX,
-                *((_DWORD *)v2 + 2) - pLevelDecorations[v15].sPosY);
+        v23 = class59_Atan2(pClass59_global,
+                *((_DWORD *)v2 + 1) - pLevelDecorations[v15].vPosition.x,
+                *((_DWORD *)v2 + 2) - pLevelDecorations[v15].vPosition.y);
         v50 = class59_SinCos(pClass59_global, v23);
         v49 = (unsigned __int64)(v50 * v48) >> 16;
         v24 = v23 - pClass59_global->uIntegerHalfPi;
@@ -8618,10 +8557,9 @@ LABEL_74:
         return;
     }
     v69 = sub_452A9E(*((_WORD *)v5 + 9) * *((_WORD *)v5 + 9) + *((_WORD *)v5 + 8) * *((_WORD *)v5 + 8));
-    v38 = class59_Atan2(
-            pClass59_global,
-            *((_DWORD *)v5 + 1) - pLevelDecorations[v30].sPosX,
-            *((_DWORD *)v5 + 2) - pLevelDecorations[v30].sPosY);
+    v38 = class59_Atan2(pClass59_global,
+            *((_DWORD *)v5 + 1) - pLevelDecorations[v30].vPosition.x,
+            *((_DWORD *)v5 + 2) - pLevelDecorations[v30].vPosition.y);
     v68 = v38;
     v39 = class59_SinCos(pClass59_global, v38);
     v72 = v39;
@@ -8769,15 +8707,15 @@ void __cdecl sub_472866()
   int v89; // [sp+58h] [bp-8h]@1
   int v90; // [sp+5Ch] [bp-4h]@47
 
-  v3 = pParty_global->sPartyPosZ;
+  v3 = pParty_global->vPosition.z;
   v89 = pParty_global->dword_0006E8;
   v0 = 0;
-  v85 = pParty_global->sPartyPosY;
+  v85 = pParty_global->vPosition.y;
   v70 = 0;
   v1 = 0;
-  v86 = pParty_global->sPartyPosX;
-  v87 = pParty_global->sPartyPosZ;
-  v77 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
+  v86 = pParty_global->vPosition.x;
+  v87 = pParty_global->vPosition.z;
+  v77 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   v72 = 0;
   v78 = 0;
   v71 = 0;
@@ -8797,25 +8735,23 @@ void __cdecl sub_472866()
     i = sub_47272C(v86, v85, v2, &v77, (int)&v79);
     if ( i == -30000 )
     {
-      pParty_global->sPartyPosX = dword_721654;
-      pParty_global->sPartyPosY = dword_721658;
-      pParty_global->sPartyPosZ = dword_72165C;
+      pParty_global->vPosition = Vec3<int>(dword_721654, dword_721658, dword_72165C);
       pParty_global->dword_000700 = dword_72165C;
       return;
     }
   }
-  dword_721654 = pParty_global->sPartyPosX;
-  dword_721658 = pParty_global->sPartyPosY;
-  dword_72165C = pParty_global->sPartyPosZ;
+  dword_721654 = pParty_global->vPosition.x;
+  dword_721658 = pParty_global->vPosition.y;
+  dword_72165C = pParty_global->vPosition.z;
   if (!pParty_global->bTurnBasedModeOn)
   {
     v4 = (double)(GetTickCount() / 0x1F4);
     v67 = v4 + 6.755399441055744e15;
     if ( dword_720CDC != LODWORD(v67) )
     {
-      dword_4F8584[3 * dword_4F8580[0]] = pParty_global->sPartyPosX;
-      dword_4F8588[3 * dword_4F8580[0]] = pParty_global->sPartyPosY;
-      dword_4F8580[3 * dword_4F8580[0]++ + 3] = pParty_global->sPartyPosZ;
+      dword_4F8584[3 * dword_4F8580[0]] = pParty_global->vPosition.x;
+      dword_4F8588[3 * dword_4F8580[0]] = pParty_global->vPosition.y;
+      dword_4F8580[3 * dword_4F8580[0]++ + 3] = pParty_global->vPosition.z;
       if ( dword_4F8580[0] > 60 )
         dword_4F8580[0] = 1;
     }
@@ -9190,10 +9126,9 @@ LABEL_93:
     {
       v53 = sub_452A9E(v1 * v1 + v0 * v0);
       i = v53;
-      v54 = class59_Atan2(
-              pClass59_global,
-              v86 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosX,
-              v85 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosY);
+      v54 = class59_Atan2(pClass59_global,
+              v86 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].vPosition.x,
+              v85 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].vPosition.y);
       v1 = (unsigned __int64)(class59_SinCos(pClass59_global, v54) * v53) >> 16;
       v55 = class59_SinCos(pClass59_global, v54 - pClass59_global->uIntegerHalfPi);
       v0 = (unsigned __int64)(v55 * i) >> 16;
@@ -9286,8 +9221,8 @@ LABEL_152:
   }
   if ( dword_6BE374_WalkSoundFlag && pParty_global->dword_0006F8 <= 0)
   {
-    if ( sub_452A9E((pParty_global->sPartyPosX - v86) * (pParty_global->sPartyPosX - v86) + (pParty_global->sPartyPosY - v85) * (pParty_global->sPartyPosY - v85)
-                                                                + (pParty_global->sPartyPosZ - v38) * (pParty_global->sPartyPosZ - v38)) <= 16 )
+    if ( sub_452A9E((pParty_global->vPosition.x - v86) * (pParty_global->vPosition.x - v86) + (pParty_global->vPosition.y - v85) * (pParty_global->vPosition.y - v85)
+                                                                + (pParty_global->vPosition.z - v38) * (pParty_global->vPosition.z - v38)) <= 16 )
       goto LABEL_188;
     if ( v72 && (!v84 || v76) )
     {
@@ -9346,9 +9281,7 @@ LABEL_188:
   else
     pParty_global->dword_007778 |= 8u;
   BYTE1(pParty_global->dword_007778) &= 0xFDu;
-  pParty_global->sPartyPosX = v86;
-  pParty_global->sPartyPosZ = v38;
-  pParty_global->sPartyPosY = v85;
+  pParty_global->vPosition = Vec3<int>(v86, v85, v38);
   pParty_global->dword_0006E8 = v89;
   if ( !v84 )
   {
@@ -12213,7 +12146,7 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
   {
     do
     {
-     v0 = (int)&pLevelDecorations[++i].sPosY;
+     v0 = (int)&pLevelDecorations[++i].vPosition.y;
 
       if ( (~pLevelDecorations[i].word_000002 & 0x40 || sub_47A825(&pLevelDecorations[i])) && ~pLevelDecorations[i].word_000002)
       {
@@ -12223,9 +12156,9 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
         {
           if (~v1 & 0x22)
           {
-            v7 = pLevelDecorations[i].sPosX;
-            v44 = pLevelDecorations[i].sPosY;
-            v8 = pLevelDecorations[i].sPosZ;
+            v7 = pLevelDecorations[i].vPosition.x;
+            v44 = pLevelDecorations[i].vPosition.y;
+            v8 = pLevelDecorations[i].vPosition.z;
             v9 = cMiscTimer.dword_000024;
             v43 = v7;
             v46 = v8;
@@ -12234,7 +12167,7 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
 
             v52 = pSprite->dword_00002C;
             v53 = pSprite->word_000030;
-            v12 = class59_Atan2(pClass59_global, pLevelDecorations[i].sPosX - pOldCamera->sPosX, pLevelDecorations[i].sPosY - pOldCamera->sPosY);
+            v12 = class59_Atan2(pClass59_global, pLevelDecorations[i].vPosition.x - pOldCamera->sPosX, pLevelDecorations[i].vPosition.y - pOldCamera->sPosY);
             v13 = pLevelDecorations[i].dword_000010;
             v47 = v12;
             v4 = v52;
@@ -12264,7 +12197,9 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
                 v15 = 255;
               }
               v54 = v14;
-              StationaryLightsStack_AddLight(pStationaryLightsStack, v43, v44, v46 + v2->uDecorationHeight / 2, v53, v16, v15, v14, byte_4E94D0);
+              StationaryLightsStack_AddLight(pStationaryLightsStack,
+                                             &Vec3<float>(v43, v44, v46 + v2->uDecorationHeight / 2),
+                                             v53, v16, v15, v14, byte_4E94D0);
             }
             v17 = (v43 - pOldCamera->sPosX) << 16;
             if (pOldCamera->sRotationX)
@@ -14993,8 +14928,8 @@ signed int __thiscall sub_4893CF(void *_this, signed int a2, signed int a3, int 
   v4 = (int)_this;
   if ( pParty_global->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E_ProbablyCollidePartyWithBModels(a2, a3, a4, pParty_global->uDefaultPartyHeight, (int)&v15, (int)&v16, 0), v16) || v15 )
     return 2;
-  v6 = WorldPosToGridCellX(pParty_global->sPartyPosX);
-  v7 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
+  v6 = WorldPosToGridCellX(pParty_global->vPosition.x);
+  v7 = WorldPosToGridCellZ(pParty_global->vPosition.y);
   v8 = sub_47ED83(v4, v6, v7 - 1);
   v5 = *(_WORD *)(26 * sub_47ECC1(v4, v8) + pTileTable->pTiles + 20);
   if ( v5 )

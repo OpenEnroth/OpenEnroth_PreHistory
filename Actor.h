@@ -5,7 +5,7 @@
 #include "defs.h"
 #include "Items.h"
 #include "Spells.h"
-#include "Math\Math.h"
+#include "Math\Math.inl"
 
 
 bool InitializeActors(struct MapInfo *pMapInfo);
@@ -16,9 +16,10 @@ void __cdecl UpdateActors();
 struct DirectionInfo
 {
   //normalized vector of direction from first object to second object
-  int   sVecX;  // @ 000000  fixed-point format 16.16
-  int   sVecY;  // @ 000004  fixed-point format 16.16
-  int   sVecZ;  // @ 000008  fixed-point format 16.16
+ Vec3<int> vDirection; // dword[3] @ 000000  fixed-point format 16.16
+  //int   sVecX;  // @ 000000  
+  //int   sVecY;  // @ 000004  fixed-point format 16.16
+  //int   sVecZ;  // @ 000008  fixed-point format 16.16
 
   unsigned int uDistance;   // @ 00000C distance between the objects 
   unsigned int uDistanceXY; // @ 000010 projection of distance to the XY plane
@@ -342,7 +343,7 @@ void Actor_UpdateAnimation(struct Actor *_this);
 //signed int __fastcall sub_40104C(int a1, int a2);
 signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2);
 //int __fastcall sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4);
-void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo);
+void Actor_sub_403EB6(unsigned int uActorID, signed int a2, unsigned int uActorRecoveryTime, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403C6C(int a1, int a2, char *a3);
 void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_402F87(int a1, signed int a2, signed int a3);
@@ -375,11 +376,15 @@ void Actor_LinkSprites(struct Actor *_this, char a2);
 void Actor_Reset(struct Actor *_this);
 //int __thiscall sub_41F4C1(void *_this);
 void Actor_TotalReset(struct Actor *_this);
-//void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4);
-struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, struct DirectionInfo *pDirectionInfo, signed int a4);
 //void *__fastcall sub_402CED(signed int a1, int a2);
 void Actor_PlaySound(unsigned int uActorID, int soundId);
 //int __fastcall sub_402D6E(int a1);
 void Actor_Die(unsigned int uActorID);
+//char __thiscall sub_438B9B(int _this);
+char Actor_sub_438B9B(Actor *_this);
+
+//void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4);
+struct DirectionInfo* GetDirectionInfo(unsigned int uObject1, unsigned int uObject2, DirectionInfo *pDirectionInfo, signed int a4);
+
 
 signed int __stdcall Actor_sub_42756B(int a1, int a2, signed int a3);

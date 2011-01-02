@@ -40,17 +40,26 @@ struct Game_stru0
  int             dword_00000C;
 };
 
+struct Game_StationaryLight
+{
+ Vec3<float>  vPosition;  // float[3] @ 000000
+ Vec3<float>  vRGBColor;  // float[3] @ 00000C
+ float        flt_000018;
+};
+//sizeof == 1C
+
 //class00
 struct Game
 {
- void (*dtor_ptr)(Game *);  // dword @ 000000
- int    dword_000004;
- int    dword_000008[699];
- int    dword_000704;     //num stationary lights?
+  Game();
+ ~Game();
+
+ int                  depricated_000000;     // dword      @ 000000         destructor_ptr
+ Game_StationaryLight pStationaryLights[25]; // struct[25] @ 000004
+ unsigned int         uNumStationaryLights;  // dword      @ 000704
 
  float array_000718[array_size_unknown];
 
-                              // looks like ptr to current selected input device
  struct GUICursor *pGUICursor;    // dword @ 000974
  unsigned int    dword_000978;
                               // looks like start of a struct or a class, sub_40E2F6 is a member of which
@@ -69,21 +78,20 @@ struct Game
  unsigned __int64  uGammaControlInitializationTime; // qword @ 000E2C
  int      dword_000E34;
  int      dword_000E38;
- struct class01          *class01_obj;      // dword @ 000E3C
- struct class02          *class02_obj;      // dword @ 000E40
- GUICursor               *class03_obj;      // dword @ 000E44
- struct class04          *class04_obj;      // dword @ 000E48
- struct Vis              *pVis;             // dword @ 000E4C
- struct class06          *class06_obj;      // dword @ 000E50
- struct class08          *class08_obj;      // dword @ 000E54
- struct class09          *class09_obj;      // dword @ 000E58
- struct class10          *class10_obj;      // dword @ 000E5C
- struct class11          *class11_obj;      // dword @ 000E60
- struct class12          *class12_obj;      // dword @ 000E64
- struct class13          *class13_obj;      // dword @ 000E68
- //class Win32Keyboard *pWin32Keyboard; // dword @ 000E6Ñ
- int                      dummy_000E6C; //member moved to class UserInput
- struct CGammaController *pGammaController; // dword @ 000E70
+ struct class01          *class01_obj;       // dword @ 000E3C
+ struct class02          *class02_obj;       // dword @ 000E40
+ GUICursor               *class03_obj;       // dword @ 000E44
+ struct class04          *class04_obj;       // dword @ 000E48
+ struct Vis              *pVis;              // dword @ 000E4C
+ struct class06          *class06_obj;       // dword @ 000E50
+ struct class08          *class08_obj;       // dword @ 000E54
+ struct class09          *class09_obj;       // dword @ 000E58
+ struct class10          *class10_obj;       // dword @ 000E5C
+ struct class11          *class11_obj;       // dword @ 000E60
+ struct class12          *class12_obj;       // dword @ 000E64
+ struct class13          *class13_obj;       // dword @ 000E68
+ int                      depricated_000E6C; // class Win32Keyboard *pWin32Keyboard; dword @ 000E6Ñ    moved to class UserInput
+ struct CGammaController *pGammaController;  // dword @ 000E70
  int                      dword_000E74;
 
  Result::Code PrepareForLoop(const char *pLevelName);
@@ -97,9 +105,8 @@ struct Game
 //int __cdecl sub_463149()                                                                     00463149  Game::Loop
 //char sub_44EA5E(int this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)   0044EA5E  Game::PickMouse
 //char __thiscall sub_44EB12(int _this, char a2, int a3, int a4)                               0044EB12  Game::PickKeyboard
+//int __thiscall sub_44E4B7(int _this)                                                         0044E4B7  Game::Game
 
-//int __thiscall sub_44E4B7(int _this);
-void Game_ctor(Game *_this);
 //int __thiscall sub_44F0FD(int _this);
 int Game_fn0(Game *_this);
 //int __thiscall sub_44F0D8(int _this, int a2);
@@ -124,8 +131,6 @@ signed int Game_sub_44EC23(Game *_this, struct struct8 *a2, int *a3, signed int 
 void Game_stru0_sub_40E2F6(Game_stru0 *_this, char a2);
 //char __thiscall sub_44EE30(int _this, int a2, void **a3);
 bool Game_sub_44EE30(Game *_this, BSPModel::Face *a2, void **a3);
-
-void Game_dtor(Game *_this);
 
 
 

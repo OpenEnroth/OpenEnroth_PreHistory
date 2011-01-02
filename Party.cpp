@@ -698,9 +698,7 @@ void Party_ctor(struct Party *_this)
 //----- (00491BF9) --------------------------------------------------------
 void Party_sub_491BF9_ResetPosMiscAndSpellBuffs(struct Party *_this)
 {
- _this->sPartyPosX = 0;
- _this->sPartyPosY = 0;
- _this->sPartyPosZ = 0;
+ _this->vPosition = Vec3<int>(0, 0, 0);
 
  _this->dword_000700 = 0;
  _this->sRotationX = 0;

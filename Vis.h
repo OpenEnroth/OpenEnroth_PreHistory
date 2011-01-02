@@ -87,9 +87,10 @@ void class25_create_object_pointers(struct class25 *_this, int a2);
 
 struct Vis_stru0 // LOOKS LIKE RenderVertex
 {
- float x; // float @ 000000
- float y; // float @ 000004
- float z; // float @ 000008
+ Vec3<float> vPosition; // float[3] @ 000000
+ //float x; // float @ 000000
+ //float y; // float @ 000004
+ //float z; // float @ 000008
  float flt_00000C;
  int   unk_000010[2];
  float flt_000018;
@@ -173,4 +174,4 @@ Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, s
 
 
 
-void RotateVector(int sDepth, int sRotationY, int sRotationX, int sPosX, int sPosY, int sPosZ, int *pOutX, int *pOutY, int *pOutZ);
+void RotateVector(int sDepth, int sRotationY, int sRotationX, Vec3<int> vOriginalVector, Vec3<int> *pRotatedVector);

@@ -1881,7 +1881,7 @@ bool sub_42ECB5_PlayerAttack()
     {
       v28 = v36 >> 3;
       v8 = (char *)pActors + 836 * (v36 >> 3);
-      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) * (*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) + (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) * (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) + (*((_WORD *)v8 + 73) - pParty_global->sPartyPosZ) * (*((_WORD *)v8 + 73) - pParty_global->sPartyPosZ))
+      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->vPosition.x) * (*((_WORD *)v8 + 71) - pParty_global->vPosition.x) + (*((_WORD *)v8 + 72) - pParty_global->vPosition.y) * (*((_WORD *)v8 + 72) - pParty_global->vPosition.y) + (*((_WORD *)v8 + 73) - pParty_global->vPosition.z) * (*((_WORD *)v8 + 73) - pParty_global->vPosition.z))
           - *((_WORD *)v8 + 68);
       if ( v36 >= 0 )
       {
@@ -1925,9 +1925,9 @@ LABEL_28:
       }
       if ( (double)v36 <= 407.19999999999999 )
       {
-        v25 = *((_WORD *)v8 + 71) - pParty_global->sPartyPosX;
-        v26 = *((_WORD *)v8 + 72) - pParty_global->sPartyPosY;
-        v27 = *((_WORD *)v8 + 73) - pParty_global->sPartyPosZ;
+        v25 = *((_WORD *)v8 + 71) - pParty_global->vPosition.x;
+        v26 = *((_WORD *)v8 + 72) - pParty_global->vPosition.y;
+        v27 = *((_WORD *)v8 + 73) - pParty_global->vPosition.z;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
         DamageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
         if ( Player_sub_48D709(pPlayer, 506, 1) || Player_sub_48D709(pPlayer, 506, 0) )
@@ -2294,9 +2294,9 @@ LABEL_20:
     v1 = (int)&pActors[0].uAIState;
     while ( 1 )
     {
-      v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->sPartyPosX);
-      v11 = abs(*(_WORD *)(v1 - 32) - pParty_global->sPartyPosY);
-      v12 = abs(*(_WORD *)(v1 - 30) - pParty_global->sPartyPosZ);
+      v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->vPosition.x);
+      v11 = abs(*(_WORD *)(v1 - 32) - pParty_global->vPosition.y);
+      v12 = abs(*(_WORD *)(v1 - 30) - pParty_global->vPosition.z);
       v2 = v5;
       v4 = v11;
       v3 = v12;
@@ -2424,7 +2424,8 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
 LABEL_14:
     v14 = 8;
 LABEL_17:
-    RotateVector(v14, v10, v15, v16, v17, v18, (int *)v19, (int *)v20, (int *)v21);
+    //RotateVector(v14, v10, v15, v16, v17, v18, (int *)v19, (int *)v20, (int *)v21);
+    RotateVector(v14, v10, v15, Vec3<int>(v16, v17, v18), (Vec3<int> *)v19);
     goto LABEL_18;
   }
   if ( a5 == 4 )
@@ -9726,10 +9727,10 @@ int __thiscall sub_45E26C(char *Filename)
 
 
 //----- (00460A78) --------------------------------------------------------
-char __thiscall PrepareToLoadBLV(void *_this)
+char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
 {
   int v1; // ebx@1
-  signed int v2; // eax@8
+  MapInfo *v2; // eax@8
   int v3; // edi@9
   int v4; // eax@11
   int v5; // eax@12
@@ -9769,43 +9770,31 @@ char __thiscall PrepareToLoadBLV(void *_this)
   int v40; // [sp+3FCh] [bp-18h]@58
   int v41; // [sp+400h] [bp-14h]@1
   int v42; // [sp+404h] [bp-10h]@1
-  int v43; // [sp+408h] [bp-Ch]@8
   int v44; // [sp+40Ch] [bp-8h]@1
   int i; // [sp+410h] [bp-4h]@27
 
   v41 = (int)_this;
   v1 = 0;
   v39 = 0;
-  compile_error();
+
             //LevelLoadingUI_Reset(pGameLoadingUI_ProgressBar, 32);
-  byte_6BE3C4_MaybeDrowningFlag = 0;
-  byte_6BE3C5 = 0;
+
   v42 = 0;
   v44 = 1;
   uCurrentlyLoadedLevelType = 1;
-  *(_DWORD *)(LODWORD(pGame) + 3620) &= 0xFFFFFFF7u;
-  if ( sub_464839() )
-  {
-    byte_6BE3C4_MaybeDrowningFlag = 1;
-    *(_DWORD *)(LODWORD(pGame) + 3620) |= 8u;
-  }
   
-  compile_error(file name should not be global);
-    //
-  //if ( !_strcmpi(CurrentLevelName, "out15.odm") || !_strcmpi(CurrentLevelName, "d23.blv") )
-    byte_6BE3C5 = 1;
+
   class35_obj.byte_267AD3 = 0;
   class35_obj.byte_267AD4 = 0;
   class35_obj.byte_267AD5 = 0;
   class35_sub_48A614(&class35_obj);
   if ( qword_A750D8 )
     qword_A750D8 = 0i64;
-  compile_error(file name should not be global);
-    //v2 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
-  v43 = v2;
+
+  v2 = pMapStats->GetMapInfo(pLevelFilename);
   if ( v2 )
   {
-   v3 = (int)pMapStats->pMapInfos[v2].pLocationName;
+   v3 = (int)v2->pLocationName;
     v1 = *(_DWORD *)(v3 + 28);
     v42 = sub_450DA3();
   }
@@ -9813,30 +9802,29 @@ char __thiscall PrepareToLoadBLV(void *_this)
   {
     v3 = v41;
   }
-  dword_6BE13C_uCurrentlyLoadedLocationID = v43;
+  for (unsigned int i = 0; i < pMapStats->uNumMaps; ++i)
+    if (v2 == &pMapStats->pMapInfos[i])
+      dword_6BE13C_uCurrentlyLoadedLocationID = i;
 
 
   pStationaryLightsStack->uNumStationaryLightsActive = 0;
-  compile_error(file name should not be global);
-    //
-  /*v4 = sub_498E0A(
-         byte_6BE3C8,
-         CurrentLevelName,
+
+  v4 = sub_498E0A(byte_6BE3C8,
+         pLevelFilename,
          (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
          v1,
          (int)&v44)
-     - 1;*/
+     - 1;
   if ( !v4 )
   {
-    compile_error(file name should not be global);
-    //wsprintfA(Args, "Unable to open %s", CurrentLevelName);
+    wsprintfA(Args, "Unable to open %s", pLevelFilename);
     erroneous_printf(Args);
   }
   v5 = v4 - 1;
   if ( !v5 )
   {
     compile_error(file name should not be global);
-    //wsprintfA(Args, "File %s is not a BLV File", CurrentLevelName);
+    wsprintfA(Args, "File %s is not a BLV File", pLevelFilename);
     erroneous_printf(Args);
   }
   v6 = v5 - 1;
@@ -9850,7 +9838,7 @@ char __thiscall PrepareToLoadBLV(void *_this)
     sub_408896();
   }
   BYTE1(dword_6BE364) &= 0xDFu;
-  if ( !v43 )
+  if ( !v2 )
     v44 = 0;
   if ( v44 == 1 )
   {
@@ -9866,8 +9854,8 @@ char __thiscall PrepareToLoadBLV(void *_this)
     }
     sub_450AAA();
   }
-  sub_4A9A67(pSoundList, (unsigned __int16)word_4F0040[v43], 0);
-  sub_4A9A67(pSoundList, (unsigned __int16)word_4F0040[v43] + 1, 0);
+  sub_4A9A67(pSoundList, (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID], 0);
+  sub_4A9A67(pSoundList, (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID] + 1, 0);
   i = 0;
   v9 = 2;
   if ( dword_6BE660 > 0 )
@@ -9921,7 +9909,7 @@ LABEL_43:
   i = 0;
   if ( (signed int)uNumLevelDecorations > 0 )
   {
-   v14 = (int)&pLevelDecorations[0].sPosY;
+   v14 = (int)&pLevelDecorations[0].vPosition.y;
     do
     {
       sub_458693(pDecorationDescriptionList, *(_WORD *)(v14 - 8));
@@ -9956,9 +9944,9 @@ LABEL_43:
               v40 = *(_BYTE *)(v17 + 82);
             }
             StationaryLightsStack_AddLight(pStationaryLightsStack,
-              *(_DWORD *)(v14 - 4),
-              *(_DWORD *)v14,
-              *(_WORD *)(v14 + 4) + *(_WORD *)(v17 + 66) / 2,
+              &Vec3<float>(*(_DWORD *)(v14 - 4),
+                           *(_DWORD *)v14,
+                           *(_WORD *)(v14 + 4) + *(_WORD *)(v17 + 66) / 2),
               v18,
               v20,
               v19,
@@ -10027,7 +10015,7 @@ LABEL_43:
       v27 = *(_DWORD *)v26;
       if ( v27 & 0x100000 )
       {
-        if ( !v43 )
+        if ( !v2 )
           goto LABEL_84;
         v28 = v42 == 0;
       }
@@ -10071,9 +10059,7 @@ LABEL_90:
   {
     pParty_global->sRotationX = 0;
     pParty_global->sRotationY = 0;
-    pParty_global->sPartyPosZ = 0;
-    pParty_global->sPartyPosY = 0;
-    pParty_global->sPartyPosX = 0;
+    pParty_global->vPosition = Vec3<int>(0, 0, 0);
     pParty_global->dword_000700 = 0;
     pParty_global->dword_0006E8 = 0;
     sub_4498D5_TeleportToStartingPoint(dword_6BE35C);

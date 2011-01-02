@@ -30,6 +30,11 @@ template<typename type>
  inline Vec3(type a, type b, type c): x(a), y(b), z(c) {}
  inline Vec3(const Vec3<type> &other): x(other.x), y(other.y), z(other.z) {}
 
+ inline type Length()
+ {
+  return sqrt(x *x + y * y + z * z);
+ }
+
  inline void Normalize()
  {
   type dot = x * x + y * y + z * z;
@@ -55,10 +60,19 @@ template<typename type>
  template<typename T>
    friend Vec3<T> operator +(const Vec3<T> &lh, const Vec3<T> &rh);
  template<typename T>
+   friend Vec3<T> operator -(const Vec3<T> &lh, const Vec3<T> &rh);
+ template<typename T>
    friend Vec3<T> operator *(const Vec3<T> &lh, const T scale);
 
 
  inline Vec3<type> &operator =(const Vec3<type> &v)
+ {
+  x = v.x, y = v.y, z = v.z;
+  return *this;
+ }
+
+ template<typename vtype>
+   inline Vec3<type> &operator =(const Vec3<vtype> &v)
  {
   x = v.x, y = v.y, z = v.z;
   return *this;

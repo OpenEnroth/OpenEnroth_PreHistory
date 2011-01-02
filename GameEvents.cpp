@@ -196,8 +196,8 @@ unsigned int Game_OnOpenMap(int, unsigned int uTriggeredContorlID)
    GUIWindowDelete(pGUIWindow_CurrentMenu);
 
  cEventTimer.Pause();
- struct_576FE8.sPartyPosX = pParty_global->sPartyPosX;
- struct_576FE8.sPartyPosY = pParty_global->sPartyPosY;
+ struct_576FE8.sPartyPosX = pParty_global->vPosition.x;
+ struct_576FE8.sPartyPosY = pParty_global->vPosition.y;
  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
 
  pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, (GUIButton *)uTriggeredContorlID, 0);

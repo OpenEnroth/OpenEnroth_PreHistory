@@ -6512,7 +6512,7 @@ void sub_413980_DrawSpellbook_Map()
 
   local_84.uFrameX = 0;
 
-  wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[659], pParty_global->sPartyPosX, pParty_global->sPartyPosY);
+  wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[659], pParty_global->vPosition.x, pParty_global->vPosition.y);
   GUIWindow_DrawText(&local_84, pFontComic, 0, 320, 0, Str, 0);
 
 }
@@ -7119,6 +7119,7 @@ void __cdecl sub_416196()
   signed __int64 v37; // qax@135
   int v38; // eax@138
   int v39; // [sp-10h] [bp-A0h]@83
+  Vec3<int> v40_s;
   int v40; // [sp-Ch] [bp-9Ch]@83
   int v41; // [sp-8h] [bp-98h]@83
   int v42; // [sp-4h] [bp-94h]@83
@@ -7132,10 +7133,10 @@ void __cdecl sub_416196()
   POINT v50; // [sp+68h] [bp-28h]@2
   int v51; // [sp+6Ch] [bp-24h]@25
   char v52; // [sp+70h] [bp-20h]@2
-  int v53; // [sp+74h] [bp-1Ch]@25
+  //int v53; // [sp+74h] [bp-1Ch]@25
   POINT v54; // [sp+78h] [bp-18h]@2
-  int v55; // [sp+7Ch] [bp-14h]@23
-  int v56; // [sp+80h] [bp-10h]@54
+  //int v55; // [sp+7Ch] [bp-14h]@23
+  //int v56; // [sp+80h] [bp-10h]@54
   int v57; // [sp+84h] [bp-Ch]@10
   int v58; // [sp+88h] [bp-8h]@2
   int v59; // [sp+8Ch] [bp-4h]@23
@@ -7276,7 +7277,7 @@ LABEL_116:
                 || v33 >= 500 )
                 goto LABEL_92;
               v34 = dword_4E2544[pParty_global->pickedItem.uItemID];
-              v55 = v28 << 7;
+              v40_s.z = v28 << 7;
               v31 = (double)(v28 << 7);
               *(_DWORD *)(v29 + 12) = v34;
             }
@@ -7290,9 +7291,9 @@ LABEL_116:
                 || v59 && v59 != 1 && v59 != 2
                 || v30 >= 500 )
                 goto LABEL_92;
-              v55 = v28 << 7;
+              v40_s.z = v28 << 7;
               *(_DWORD *)(v29 + 12) = 40;
-              v31 = (double)v55;
+              v31 = (double)v40_s.z;
             }
             v32 = pParty_global->qword_00002C + (signed int)(signed __int64)(v31 * 0.03333333507180214);
             *(_DWORD *)(v29 + 28) = v32;
@@ -7312,8 +7313,8 @@ LABEL_116:
           pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
           return;
         }
-        v55 = *(_BYTE *)(v29 + 25);
-        v37 = (signed __int64)((double)v55 - v36 * (double)v55);
+        v40_s.z = *(_BYTE *)(v29 + 25);
+        v37 = (signed __int64)((double)v40_s.z - v36 * (double)v40_s.z);
         *(_BYTE *)(v29 + 25) = v37;
         *(_DWORD *)(v29 + 16) = (unsigned __int8)v37;
         goto LABEL_92;
@@ -7321,7 +7322,7 @@ LABEL_116:
       v14 = v12 - 222;
       v15 = pParty_global->pickedItem.uItemID - 222;
       v51 = v14;
-      v53 = 0;
+      v40_s.y = 0;
       if (pParty_global->pickedItem.uItemID == 221 || v59 == 221)
       {
         v16 = 5;
@@ -7384,15 +7385,15 @@ LABEL_35:
       }
 LABEL_54:
       v57 = 0;
-      v56 = v8 + 1;
+      v40_s.x = v8 + 1;
       v17 = v0->pInventoryIndices[0];//+ 5500;
-      while ( *(_DWORD *)v17 != v56 )
+      while ( *(_DWORD *)v17 != v40_s.x )
       {
         ++v57;
         v17 += 4;
         if ( v57 >= 126 )
         {
-          v18 = v53;
+          v18 = v40_s.y;
           goto LABEL_59;
         }
       }
@@ -7417,10 +7418,10 @@ LABEL_115:
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
         }*/
 		dword_50CBD0.PutMessageToQueue(113,0,0);
-        v42 = (int)&v55;
-        v41 = (int)&v53;
-        v40 = (int)&v56;
-        v39 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+        v42 = (int)&v40_s.z;
+        v41 = (int)&v40_s.y;
+        v40 = (int)&v40_s.x;
+        v39 = pParty_global->vPosition.z + pParty_global->uEyelevel;
       }
       else
       {
@@ -7464,10 +7465,10 @@ LABEL_74:
               }
               if ( v49 )
               {
-                if ( *(_DWORD *)(v55 + 532) == 221 )
-                  *(_DWORD *)(v55 + 532) = pParty_global->pickedItem.uItemID;
+                if ( *(_DWORD *)(v40_s.z + 532) == 221 )
+                  *(_DWORD *)(v40_s.z + 532) = pParty_global->pickedItem.uItemID;
                 else
-                  *(_DWORD *)(v55 + 536) = pParty_global->pickedItem.dword_000004;
+                  *(_DWORD *)(v40_s.z + 536) = pParty_global->pickedItem.dword_000004;
                 v21 = AddItem((Player *)v0, -1, 220);
                 if ( v21 )
                   *(_DWORD *)(v0 + 36 * v21 + 516) = 1;
@@ -7489,13 +7490,16 @@ LABEL_74:
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
         } */
 		dword_50CBD0.PutMessageToQueue(113,0,0);
-        v42 = (int)&v55;
-        v41 = (int)&v53;
-        v40 = (int)&v56;
-        v39 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+        v42 = (int)&v40_s.z;
+        v41 = (int)&v40_s.y;
+        v40 = (int)&v40_s.x;
+        v39 = pParty_global->vPosition.z + pParty_global->uEyelevel;
       }
-      RotateVector(64, pParty_global->sRotationY, pParty_global->sRotationX, pParty_global->sPartyPosX, pParty_global->sPartyPosY, v39, (int *)v40, (int *)v41, (int *)v42);
-      sub_42F7EB_DropItemAt(1051, v56, v53, v55, 0, 1, 0, 0, 0);
+      //RotateVector(64, pParty_global->sRotationY, pParty_global->sRotationX, pParty_global->vPosition.x, pParty_global->vPosition.y, v39, (int *)v40, (int *)v41, (int *)v42);
+      RotateVector(64, pParty_global->sRotationY, pParty_global->sRotationX,
+                   Vec3<int>(pParty_global->vPosition.x, pParty_global->vPosition.y, v39),
+                   &v40_s);//(int *)v40, (int *)v41, (int *)v42);
+      sub_42F7EB_DropItemAt(1051, v40_s.x, v40_s.y, v40_s.z, 0, 1, 0, 0, 0);
       if ( dword_4E455C )
       {
         if ( Player_sub_492C0B_MaybeIfPlayerConscious(v0) )
@@ -11216,7 +11220,7 @@ int __cdecl sub_41F6C1()
   dword_506F14 = 0;
   dword_506F10 = 2;
   if ( uCurrentlyLoadedLevelType == 2 )
-    dword_506F10 = sub_4893CF(pClass51_global, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
+    dword_506F10 = sub_4893CF(pClass51_global, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   if ( sub_476387() )
   {
     v0 = pParty_global->pPlayers[0].uClass;
@@ -11559,7 +11563,7 @@ signed int __fastcall sub_41FF64(int a1)
 }
 
 //----- (0047A384) --------------------------------------------------------
-void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename)
+void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
 {
   int v3; // ebx@3
   MapInfo *v4; // edi@4
@@ -12010,9 +12014,10 @@ signed int __fastcall sub_42041E(int a1)
   int v48; // [sp+94h] [bp-30h]@23
   char *v49; // [sp+98h] [bp-2Ch]@5
   int v50; // [sp+9Ch] [bp-28h]@16
-  int v51; // [sp+A0h] [bp-24h]@28
-  int v52; // [sp+A4h] [bp-20h]@28
-  int v53; // [sp+A8h] [bp-1Ch]@28
+  Vec3<int> v51;
+  //int v51; // [sp+A0h] [bp-24h]@28
+  //int v52; // [sp+A4h] [bp-20h]@28
+  //int v53; // [sp+A8h] [bp-1Ch]@28
  int v54; // [sp+ACh] [bp-18h]@1
   int v55; // [sp+B0h] [bp-14h]@21
   int v56; // [sp+B4h] [bp-10h]@23
@@ -12051,10 +12056,10 @@ signed int __fastcall sub_42041E(int a1)
     if ( (dword_5B5920 & 7) == 5 )
     {
       v16 = 32 * v5;
-      v14 = pLevelDecorations[v5].sPosX;
-      v55 = pLevelDecorations[v5].sPosY;
+      v14 = pLevelDecorations[v5].vPosition.x;
+      v55 = pLevelDecorations[v5].vPosition.y;
       v17 = *(_WORD *)((char *)&pDecorationDescriptionList->pDescriptions[pLevelDecorations[v5].uDecorationDescriptionID] + 66);
-      v15 = pLevelDecorations[v5].sPosZ + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
+      v15 = pLevelDecorations[v5].vPosition.z + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
     }
     else
     {
@@ -12082,11 +12087,11 @@ signed int __fastcall sub_42041E(int a1)
       v55 = (v8 + v9) >> 1;
       v15 = (v7 + v11) >> 1;
     }
-    v18 = (double)pParty_global->sPartyPosX - (double)v14;
+    v18 = (double)pParty_global->vPosition.x - (double)v14;
     v54 = v18;
-    v19 = (double)pParty_global->sPartyPosY - (double)v55;
+    v19 = (double)pParty_global->vPosition.y - (double)v55;
     v48 = v19;
-    v58 = (double)pParty_global->uEyelevel + (double)pParty_global->sPartyPosZ - (double)v15;
+    v58 = (double)pParty_global->uEyelevel + (double)pParty_global->vPosition.z - (double)v15;
     *(float *)&X = v19 * v19;
     *(float *)&v56 = v18 * v18;
     v20 = sqrt(v58 * v58 + *(float *)&v56 + *(float *)&X);
@@ -12105,9 +12110,12 @@ signed int __fastcall sub_42041E(int a1)
     v21 = 256;
     if ( v57 < 256.0 )
       v21 = (signed __int64)v57 / 4;
-    RotateVector(v21, v56, X, v14, v55, v15, &v51, &v53, &v52);
+
+    //RotateVector(v21, v56, X, v14, v55, v15, &v51, &v53, &v52);
+    RotateVector(v21, v56, X, Vec3<int>(v14, v55, v15), &v51);
+
     v24 = &v44 + v50;
-    sub_42F7EB_DropItemAt(*v24, v51, v53, v52, 0, 1, 0, 48, 0);
+    sub_42F7EB_DropItemAt(*v24, v51.x, v51.y, v51.z, 0, 1, 0, 48, 0);
     sub_404828(&v27);
     ItemGen_Reset((ItemGen *)&v37);
     v23 = *(_WORD *)v24;
@@ -12135,12 +12143,12 @@ LABEL_32:
       v26 = v22;
     }
     v28 = v26;
-    v30 = v53;
-    v29 = v51;
-    v31 = v52;
+    v30 = v51.y;
+    v29 = v51.x;
+    v31 = v51.z;
     v33 = 0;
     v34 = 48;
-    v35 = sub_49AC17((int)byte_6BE3C8, v51, v53, v52);
+    v35 = sub_49AC17((int)byte_6BE3C8, v51.x, v51.y, v51.z);
     v36 = 0;
     v42 = 0;
     v43 = 0;
@@ -12606,13 +12614,13 @@ LABEL_15:
       }
       v21 = 4;
       v11 = v5;
-      v13 = pParty_global->sPartyPosY;
-      v12 = pParty_global->sPartyPosX;
-      v14 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
+      v13 = pParty_global->vPosition.y;
+      v12 = pParty_global->vPosition.x;
+      v14 = pParty_global->uEyelevel + pParty_global->vPosition.z;
       v16 = 0;
       v15 = 0;
       v17 = 8;
-      v8 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->uEyelevel + pParty_global->sPartyPosZ);
+      v8 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
       v19 = 0;
       v18 = v8;
       memcpy(&local_28, &pParty_global->pickedItem, sizeof(struct ItemGen));
@@ -13022,13 +13030,13 @@ LABEL_18:
               }
             }
             v24.v25 = v5;
-            v24.v27 = pParty_global->sPartyPosY;
+            v24.v27 = pParty_global->vPosition.y;
             v24.v34 = 4;
-            v24.v26 = pParty_global->sPartyPosX;
-            v24.v28 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
+            v24.v26 = pParty_global->vPosition.x;
+            v24.v28 = pParty_global->uEyelevel + pParty_global->vPosition.z;
             v24.v29 = 0;
             v24.v30 = 8;
-            v24.v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->uEyelevel + pParty_global->sPartyPosZ);
+            v24.v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
             v24.v32 = 0;
             memcpy(&v24.local_30, &pParty_global->pickedItem, sizeof(struct ItemGen));
             v8 = (int)GUICursor_GetMousePos(pGame->pGUICursor, &v35);

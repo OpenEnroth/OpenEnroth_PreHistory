@@ -1,6 +1,7 @@
 #pragma once
 #pragma pack(push, 1)
 
+#include "Math\Math.h"
 
 namespace Items
 {
@@ -76,14 +77,16 @@ int __thiscall ItemGen_sub_4564B3(ItemGen *_this);
 //Item laying on the ground, pickable and rendered as a sprite billboard
 struct LayingItem
 {
- unsigned short uItemType;             // word  @ 000000
- short          uObjectDescriptionID;  // word  @ 000002
- int            sItemPosX;             // dword @ 000004
- int            sItemPosY;             // dword @ 000008
- int            sItemPosZ;             // dword @ 00000C
- short          sVelocityX;            // word  @ 000010
- short          sVelocityY;            // word  @ 000012
- short          sVelocityZ;            // word  @ 000014
+ unsigned short uItemType;             // word     @ 000000
+ short          uObjectDescriptionID;  // word     @ 000002
+ Vec3<int>      vPosition;             // dword[3] @ 000004
+ //int            sItemPosX;             // dword @ 000004
+ //int            sItemPosY;             // dword @ 000008
+ //int            sItemPosZ;             // dword @ 00000C
+ Vec3<short>    vVelocity;             // word[3] @ 000010
+ //short          sVelocityX;            // word  @ 000010
+ //short          sVelocityY;            // word  @ 000012
+ //short          sVelocityZ;            // word  @ 000014
  unsigned short uFacing;               // word  @ 000016
  unsigned short uSoundID;              // word  @ 000018
  unsigned short uAttributes;           // word  @ 00001A

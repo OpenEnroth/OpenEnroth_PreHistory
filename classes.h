@@ -8,6 +8,8 @@
 
 #include "GUI\GUI.h"
 
+#include "Math\Math.h"
+
 #include "BaseRender.h"
 
 #pragma pack(push, 1)
@@ -742,9 +744,10 @@ struct LevelDecoration
 {
  unsigned short uDecorationDescriptionID; // word  @ 000000
  short          word_000002;
- int            sPosX;                    // dword @ 000004
- int            sPosY;                    // dword @ 000008
- int            sPosZ;                    // dword @ 00000C
+ Vec3<int>      vPosition;                // dword @ 000004
+ //int            sPosX;                    // dword @ 000004
+ //int            sPosY;                    // dword @ 000008
+ //int            sPosZ;                    // dword @ 00000C
  int            dword_000010; // orientation: Y rotation
  short          word_000014;
  short          word_000016; // event associated with interaction/triggering
@@ -1004,9 +1007,10 @@ struct sub_485975_stru1
 
 struct StationaryLight
 {
- short         sLightPosX;       // word @ 000000
- short         sLightPosY;       // word @ 000002
- short         sLightPosZ;       // word @ 000004
+ //short         sLightPosX;       // word @ 000000
+ //short         sLightPosY;       // word @ 000002
+ //short         sLightPosZ;       // word @ 000004
+ Vec3<short>   vPosition;        // word[3] @ 000000
  short         word_000006; // light strength?
  unsigned char uLightColorRed;   // byte @ 000008
  unsigned char uLightColorGreen; // byte @ 000009
@@ -1025,7 +1029,7 @@ struct StationaryLightsStack
 };
 //siezof ~ ?
 //char __thiscall sub_4AD3C8(int _this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9);
-bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, int sLightPosX, int sLightPosY, int sLightPosZ, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9);
+bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, const Vec3<float> *pLightPosition, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9);
 
 
 

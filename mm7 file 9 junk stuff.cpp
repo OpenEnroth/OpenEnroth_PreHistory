@@ -1260,7 +1260,7 @@ void __cdecl sub_465F5A_InitializeAsyncMouseAndSomething()
         v3 = v0;
         LOBYTE(v5) = 1;
         if ( v0 )
-          v1 = sub_46ACA9(v0, (int)pD3DRenderer->pdd4);
+          v1 = CMouseAsync_ctor_or_initialization(v0, (int)pD3DRenderer->pdd4);
         else
           v1 = 0;
         LOBYTE(v5) = 0;
@@ -1854,6 +1854,65 @@ void __thiscall CAsyncMouse_sub_46B736(void *_this, char a2)
   }
 }
 
+
+//----- (0046ACA9) --------------------------------------------------------
+int __thiscall CMouseAsync_ctor_or_initialization(int _this, int a2)
+{
+  int v2; // esi@1
+  int v3; // eax@1
+  int v4; // edi@1
+  double v6; // ST14_8@3
+  double v7; // ST14_8@3
+
+  v3 = a2;
+  v2 = _this;
+  *(_DWORD *)(_this + 64) = -1;
+  *(_DWORD *)(_this + 12) = v3;
+  LOBYTE(v3) = BYTE3(a2);
+  v4 = _this + 104;
+  *(_DWORD *)(_this + 4) = 0;
+  *(_BYTE *)(_this + 20) = 0;
+  *(_DWORD *)(_this + 68) = 0;
+  *(_DWORD *)(_this + 72) = 0;
+  *(_BYTE *)(_this + 88) = 1;
+  *(_BYTE *)(_this + 91) = 0;
+  *(_BYTE *)(_this + 93) = 0;
+  *(_BYTE *)(_this + 94) = 0;
+  *(_BYTE *)(_this + 95) = 0;
+  *(_BYTE *)(_this + 96) = 0;
+  *(_BYTE *)(_this + 97) = 0;
+  *(_BYTE *)(_this + 98) = 0;
+  *(_BYTE *)(_this + 99) = 0;
+  *(_BYTE *)(_this + 100) = 0;
+  *(_BYTE *)(_this + 101) = 0;
+  *(_BYTE *)(_this + 102) = 0;
+  *(_BYTE *)(_this + 104) = v3;
+  *(_DWORD *)(_this + 108) = (int)sub_46BD09(0, 0);
+  *(_DWORD *)(v4 + 8) = 0;
+  *(_BYTE *)(v2 + 116) = BYTE3(a2);
+  *(_DWORD *)(v2 + 120) = (int)sub_46BD09(0, 0);
+  *(_DWORD *)(v2 + 124) = 0;
+  *(_DWORD *)(v2 + 128) = 0;
+  *(_DWORD *)(v2 + 132) = 0;
+  *(_DWORD *)v2 = 5080880;
+  if ( !CAsyncMouse_Initialize((LPVOID)v2) )
+  {
+    a2 = (int)"Could not initialize CMouseAsync object";
+    _CxxThrowException((int)&a2, 5094804);
+  }
+  *(_DWORD *)(v2 + 48) = 0;
+  *(_DWORD *)(v2 + 52) = 0;
+  *(_DWORD *)(v2 + 56) = 0;
+  *(_DWORD *)(v2 + 60) = 0;
+  v6 = (float)0.0 + 6.755399441055744e15;
+  *(_DWORD *)(v2 + 40) = LODWORD(v6);
+  v7 = (float)0.0 + 6.755399441055744e15;
+  a2 = LODWORD(v7);
+  *(_DWORD *)(v2 + 128) |= 1u;
+  *(_DWORD *)(v2 + 44) = LODWORD(v7);
+  *(_BYTE *)(v2 + 103) = 1;
+  return v2;
+}
 
 //----- (0046BB0A) --------------------------------------------------------
 void __thiscall CAsyncMouse_sub_46BB0A(int _this)

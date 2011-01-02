@@ -23,27 +23,19 @@ Vis::Vis()
  //float v9; // [sp+44h] [bp-28h]@1
  //float v10; // [sp+68h] [bp-4h]@1
 
- local_3C.x = 65536.0f;
- local_3C.y = 0.0f;
- local_3C.z = 0.0f;
+ local_3C.vPosition = Vec3<float>(65536.0f, 0.0f, 0.0f);
  local_3C.flt_00002C = 0.0f;
  memcpy(&struct_00200C, &local_3C, sizeof(struct Vis_stru0));
  
- local_0C.x = 0.0f;
- local_0C.y = 65536.0f;
- local_0C.z = 0.0f;
+ local_0C.vPosition = Vec3<float>(0.0f, 65536.0f, 0.0f);
  local_0C.flt_00002C = 0.0f;
  memcpy(&struct_00203C, &local_0C, sizeof(struct Vis_stru0));
  
- local_0C.x = 65536.0f;
- local_0C.y = 0.0f;
- local_0C.z = 0.0f;
+ local_0C.vPosition = Vec3<float>(65536.0f, 0.0f, 0.0f);
  local_0C.flt_00002C = 0.0f;
  memcpy(&struct_00206C, &local_0C, sizeof(struct Vis_stru0));
  
- local_3C.x = 0.0f;
- local_3C.y = 65536.0f;
- local_3C.z = 0.0f;
+ local_3C.vPosition = Vec3<float>(0.0f, 65536.0f, 0.0f);
  local_3C.flt_00002C = 0.0f;
  memcpy(&struct_00209C, &local_3C, sizeof(struct Vis_stru0));
 
@@ -166,7 +158,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
     if ( v7 > 0 )
     {
       v8 = dword_6BE63C;
-      v9 = (char *)&array_F8F200[0].y;
+      v9 = (char *)&array_F8F200[0].vPosition.y;
       do
       {
         v10 = v25++;
@@ -186,7 +178,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
     if ( v7 > 0 )
     {
       v12 = (int)&pClass51_global->pBModels[((unsigned int)a3 >> 9)] + 72;
-      v11 = (char *)&array_F8F200[0].y;
+      v11 = (char *)&array_F8F200[0].vPosition.y;
       do
       {
         *((float *)v11 - 1) = (double)*(signed int *)(*(_DWORD *)v12 + 12 * *(_WORD *)(*(_DWORD *)(v6 + 48) + 2 * v25));
@@ -311,10 +303,10 @@ void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4,
  memcpy(array_F8DDF8, Src, a3 * sizeof(struct Vis_stru0));
 
  Vis_sort_some_objects_2(_this, array_F8DDF8, 0, a3 - 1);
- *a4 = (array_F8DDF8[a3 - 1].y - array_F8DDF8[0].flt_000018) * 0.5 + array_F8DDF8[0].flt_000018;
+ *a4 = (array_F8DDF8[a3 - 1].vPosition.y - array_F8DDF8[0].flt_000018) * 0.5 + array_F8DDF8[0].flt_000018;
 
  Vis_sort_some_objects_3(_this, array_F8DDF8, 0, a3 - 1);
- *a5 = (array_F8DDF8[a3 - 1].z - array_F8DDF8[0].flt_00001C) * 0.5 + array_F8DDF8[0].flt_00001C;
+ *a5 = (array_F8DDF8[a3 - 1].vPosition.z - array_F8DDF8[0].flt_00001C) * 0.5 + array_F8DDF8[0].flt_00001C;
 }
 
 //----- (004C1542) --------------------------------------------------------
@@ -418,15 +410,11 @@ void Vis_sub_4C1A02(struct Vis *_this)
   //int _14[8];
   //float v7; // [sp+C4h] [bp-4h]@1
 
- local_68.x = 65536.0f;
- local_68.y = 0.0f;
- local_68.z = 0.0f;
+ local_68.vPosition = Vec3<float>(65536.0f, 0.0f, 0.0f);
  local_68.flt_00002C = 0.0f;
  //memcpy(&local0_08[0], &local0_68, 0x30u);
   
- local_98.x = 0.0f;
- local_98.y = 65536.0f;
- local_98.z = 0.0f;
+ local_98.vPosition = Vec3<float>(0.0f, 65536.0f, 0.0f);
  local_98.flt_00002C = 0.0f;
  //memcpy(&local0_08[1], &local0_98, 0x30u);
 
@@ -436,15 +424,11 @@ void Vis_sub_4C1A02(struct Vis *_this)
 
 
 
- local_98.x = 65536.0f;
- local_98.y = 0.0f;
- local_98.z = 0.0f;
+ local_98.vPosition = Vec3<float>(65536.0f, 0.0f, 0.0f);
  local_98.flt_00002C = 0.0f;
  //memcpy(&local0_08[0], &local0_98, 0x30u);
 
- local_68.x = 0.0f;
- local_68.y = 65536.0f;
- local_68.z = 0.0f;
+ local_68.vPosition = Vec3<float>(0.0f, 65536.0f, 0.0f);
  local_68.flt_00002C = 0.0f;
  //memcpy(&local0_08[1], &local0_68, 0x30u);
 
@@ -576,24 +560,22 @@ Result::Code Vis::CastRayAtMousePosition(struct Vis_stru0 *a1, OldCamera *pCamer
 
   //int v19; // [sp+8Ch] [bp-14h]@1
   //int v20; // [sp+90h] [bp-10h]@1
-  int v21; // [sp+94h] [bp-Ch]@1
-  int v22; // [sp+98h] [bp-8h]@1
+  //int v21; // [sp+94h] [bp-Ch]@1
+  //int v22; // [sp+98h] [bp-8h]@1
   //int v23; // [sp+9Ch] [bp-4h]@1
-  int v24;
+  //int v24;
+  Vec3<int> v24;
 
  RotateVector(sub_48B561(fDepth),
               pOldCamera->sRotationY + sub_46A0A1(fMouseX), pOldCamera->sRotationX + sub_46A0F6(fMouseY),
-              pOldCamera->sPosX, pOldCamera->sPosY, pOldCamera->sPosZ,
-              &v24, &v22, &v21);
-
- local_2C.x = (float)v24;
- local_2C.y = (float)v22;
- local_2C.z = (float)v21;
+              //pOldCamera->sPosX, pOldCamera->sPosY, pOldCamera->sPosZ,
+              Vec3<int>(pOldCamera->sPosX, pOldCamera->sPosY, pOldCamera->sPosZ),
+              &v24);//&v24, &v22, &v21);
+ 
+ local_2C.vPosition = v24;
  local_2C.flt_00002C = 0.0;
 
- local_5C.x = (float)pOldCamera->sPosX;
- local_5C.y = (float)pOldCamera->sPosY;
- local_5C.z = (float)pOldCamera->sPosZ;
+ local_5C.vPosition = Vec3<float>((float)pOldCamera->sPosX, (float)pOldCamera->sPosY, (float)pOldCamera->sPosZ);
  local_5C.flt_00002C = 0.0;
 
  memcpy(&a1[0], &local_5C, sizeof(struct Vis_stru0));
@@ -1196,15 +1178,15 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
       v6 & 0x2000)
     return 0;
 
-  v8 = pRayEnd->x * a5->pFaceNormalf[0] +
-       pRayEnd->y * a5->pFaceNormalf[1] +
-       pRayEnd->z * a5->pFaceNormalf[2];
+  v8 = pRayEnd->vPosition.x * a5->pFaceNormalf[0] +
+       pRayEnd->vPosition.y * a5->pFaceNormalf[1] +
+       pRayEnd->vPosition.z * a5->pFaceNormalf[2];
   if (v8 >= 0.0)
     return 0;
 
-  v9 = -(pRayOrigin->x * a5->pFaceNormalf[0] +
-         pRayOrigin->y * a5->pFaceNormalf[1] +
-         pRayOrigin->z * a5->pFaceNormalf[2] +
+  v9 = -(pRayOrigin->vPosition.x * a5->pFaceNormalf[0] +
+         pRayOrigin->vPosition.y * a5->pFaceNormalf[1] +
+         pRayOrigin->vPosition.z * a5->pFaceNormalf[2] +
          a5->fNormalDistance);
 
   if ( v8 <= 0.0 )
@@ -1222,9 +1204,9 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
   if (v10 > *pDepth)
     return 0;
 
- pRay_SomePoint->x = v10 * pRayEnd->x + pRayOrigin->x;
- pRay_SomePoint->y = v10 * pRayEnd->y + pRayOrigin->y;
- pRay_SomePoint->z = v10 * pRayEnd->z + pRayOrigin->z;
+ pRay_SomePoint->x = v10 * pRayEnd->vPosition.x + pRayOrigin->vPosition.x;
+ pRay_SomePoint->y = v10 * pRayEnd->vPosition.y + pRayOrigin->vPosition.y;
+ pRay_SomePoint->z = v10 * pRayEnd->vPosition.z + pRayOrigin->vPosition.z;
  
  LOWORD(v12) = (signed __int64)pRay_SomePoint->x;
  HIWORD(v12) = (signed __int64)pRay_SomePoint->y;
@@ -1239,7 +1221,7 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
 
 
 //----- (0043AA99) --------------------------------------------------------
-void RotateVector(int sDepth, int sRotationY, int sRotationX, int sPosX, int sPosY, int sPosZ, int *pOutX, int *pOutY, int *pOutZ)
+void RotateVector(int sDepth, int sRotationY, int sRotationX, Vec3<int> vPosition, Vec3<int> *pOut)
 {
  //int cos_z = class59_SinCos(pClass59_global, sRotationX),
  //    cos_y = class59_SinCos(pClass59_global, sRotationY),
@@ -1250,9 +1232,9 @@ void RotateVector(int sDepth, int sRotationY, int sRotationX, int sPosX, int sPo
        sinf_x = sinf(3.14159265f * sRotationX / 2048.0f),
        sinf_y = sinf(3.14159265f * sRotationY / 2048.0f);
 
- *pOutX = sPosX + ((unsigned __int64)((double)sDepth * cosf_y * cosf_x) >> 16);
- *pOutY = sPosY + ((unsigned __int64)((double)sDepth * sinf_y * cosf_x) >> 16);
- *pOutZ = sPosZ + ((unsigned __int64)((double)sDepth * sinf_x) >> 16);
+ pOut->x = vPosition.x + ((unsigned __int64)((double)sDepth * cosf_y * cosf_x) >> 16);
+ pOut->y = vPosition.y + ((unsigned __int64)((double)sDepth * sinf_y * cosf_x) >> 16);
+ pOut->z = vPosition.z + ((unsigned __int64)((double)sDepth * sinf_x) >> 16);
 }
 
 

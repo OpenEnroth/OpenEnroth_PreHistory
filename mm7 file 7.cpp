@@ -1378,7 +1378,7 @@ void __fastcall sub_4AE5F1(int a1)
   v80 = 0;
   if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
   {
-   v43 = (char *)&pStationaryLightsStack->pLights[0].sLightPosY;
+   v43 = (char *)&pStationaryLightsStack->pLights[0].vPosition.y;
     do
     {
       if ( v81 >= 20 )
@@ -11134,9 +11134,7 @@ LABEL_23:
       else
       {
         uDialogueType = 90;
-        pParty_global->sPartyPosX = 3849;
-        pParty_global->sPartyPosY = 5770;
-        pParty_global->sPartyPosZ = 1;
+        pParty_global->vPosition = Vec3<int>(3849, 5770, 1);
         pParty_global->dword_000700 = 1;
         pParty_global->sRotationY = 512;
         pParty_global->sRotationX = 0;
@@ -11338,9 +11336,7 @@ void __cdecl sub_4BC109()
   FontDrawText(pDialogueWindow, pFontArrus, 13, 354 - v0, v1, 0, 0, 0);
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
-  pParty_global->sPartyPosX = 3849;
-  pParty_global->sPartyPosY = 5770;
-  pParty_global->sPartyPosZ = 1;
+  pParty_global->vPosition = Vec3<int>(3849, 5770, 1);
   pParty_global->dword_000700 = 1;
   pParty_global->sRotationY = 512;
   pParty_global->sRotationX = 0;

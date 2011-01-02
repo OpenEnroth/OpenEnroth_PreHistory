@@ -5,6 +5,7 @@
 #include "NPC.h"
 #include "Items.h"
 #include "Spells.h"
+#include "Math\Math.h"
 
 
 #pragma pack(push, 1)
@@ -94,14 +95,16 @@ struct abc	 {
  struct Camera *pCamera;
  runtime_warning(deprication)
 	 
- int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
- int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
- int           sPartyPosZ;       // dword @ 0006BC
+ //int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
+ //int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
+ //int           sPartyPosZ;       // dword @ 0006BC
+ Vec3<int>     vPosition;        // dword[3] @ 00006B4
  int           sRotationY;       // dword @ 0006C0     rotation about Y, angle is 2ï*(sRotationY/2048) or ï*(sRotation/1024)    radians (0.. 2ï) -> (0.. 2048);  (0, ï/2, ï, 3ï/2, 2ï) -> (0, 512, 1024, 1536, 2048)
  int           sRotationX;       // dword @ 0006C4     about X, bend
- int           sOldPosX;         // dword @ 0006C8
- int           sOldPosY;         // dword @ 0006CC
- int           sOldPosZ;         // dword @ 0006D0
+ Vec3<int>     vOldPosition;     // dword[3] @ 00006C8
+ //int           sOldPosX;         // dword @ 0006C8
+ //int           sOldPosY;         // dword @ 0006CC
+ //int           sOldPosZ;         // dword @ 0006D0
  int           sOldRotationY;    // dword @ 0006D4
  int           sOldRotationX;    // dword @ 0006D8
  int           sOldEyelevel;     // dword @ 0006DC

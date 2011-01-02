@@ -20,7 +20,13 @@ template<typename type>
 template<typename type>
   inline Vec3<type> operator +(const Vec3<type> &lh, const Vec3<type> &rh)
 {
- return Vec3<type>(lh.x * rh.x, lh.y * rh.y, lh.z * rh.z);
+ return Vec3<type>(lh.x + rh.x, lh.y + rh.y, lh.z + rh.z);
+}
+
+template<typename type>
+  inline Vec3<type> operator -(const Vec3<type> &lh, const Vec3<type> &rh)
+{
+ return Vec3<type>(lh.x - rh.x, lh.y - rh.y, lh.z - rh.z);
 }
 
 template<typename type>

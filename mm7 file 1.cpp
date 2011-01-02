@@ -192,18 +192,18 @@ int __fastcall sub_438F8F(int result)
           if ( !result )
           {
             v10 = *(_WORD *)v2;
-            v11 = pParty_global->sPartyPosY - *((_WORD *)v2 - 100);
-            v47 = pParty_global->sPartyPosX - *((_WORD *)v2 - 200);
+            v11 = pParty_global->vPosition.y - *((_WORD *)v2 - 100);
+            v47 = pParty_global->vPosition.x - *((_WORD *)v2 - 200);
             v48 = v11;
             result = (*((_WORD *)v2 + 100) + 32) * (*((_WORD *)v2 + 100) + 32);
             if ( v47 * v47
                + v11 * v11
-               + ((pParty_global->sPartyPosZ + pParty_global->uPartyHeight) >> (1 - v10)) * ((pParty_global->sPartyPosZ + pParty_global->uPartyHeight) >> (1 - v10)) < (unsigned int)result )
+               + ((pParty_global->vPosition.z + pParty_global->uPartyHeight) >> (1 - v10)) * ((pParty_global->vPosition.z + pParty_global->uPartyHeight) >> (1 - v10)) < (unsigned int)result )
             {
               result = sub_407A1C(
-                         pParty_global->sPartyPosX,
-                         pParty_global->sPartyPosY,
-                         pParty_global->sPartyPosZ + pParty_global->uEyelevel,
+                         pParty_global->vPosition.x,
+                         pParty_global->vPosition.y,
+                         pParty_global->vPosition.z + pParty_global->uEyelevel,
                          *((_WORD *)v2 - 200),
                          *((_WORD *)v2 - 100),
                          *(_WORD *)v2);
@@ -255,18 +255,18 @@ int __fastcall sub_438F8F(int result)
       }
       else
       {
-        v22 = pParty_global->sPartyPosY - *((_WORD *)v2 - 100);
+        v22 = pParty_global->vPosition.y - *((_WORD *)v2 - 100);
         v23 = (pParty_global->uPartyHeight >> 1) - *(_WORD *)v2;
-        v47 = pParty_global->sPartyPosX - *((_WORD *)v2 - 200);
+        v47 = pParty_global->vPosition.x - *((_WORD *)v2 - 200);
         v48 = v22;
-        v24 = v47 * v47 + v22 * v22 + (pParty_global->sPartyPosZ + v23) * (pParty_global->sPartyPosZ + v23);
+        v24 = v47 * v47 + v22 * v22 + (pParty_global->vPosition.z + v23) * (pParty_global->vPosition.z + v23);
         result = (*((_WORD *)v2 + 100) + 32) * (*((_WORD *)v2 + 100) + 32);
         if ( v24 < (unsigned int)result )
         {
           result = sub_407A1C(
-                     pParty_global->sPartyPosX,
-                     pParty_global->sPartyPosY,
-                     pParty_global->sPartyPosZ + pParty_global->uEyelevel,
+                     pParty_global->vPosition.x,
+                     pParty_global->vPosition.y,
+                     pParty_global->vPosition.z + pParty_global->uEyelevel,
                      *((_WORD *)v2 - 200),
                      *((_WORD *)v2 - 100),
                      *(_WORD *)v2);
@@ -379,9 +379,9 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
  pOldCamera->sRotationX = pParty_global->sRotationX;
  pOldCamera->sRotationY = pParty_global->sRotationY;
 
- pOldCamera->sPosX = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- pOldCamera->sPosY = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- pOldCamera->sPosZ = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+ pOldCamera->sPosX = pParty_global->vPosition.x - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosY = pParty_global->vPosition.y - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosZ = pParty_global->vPosition.z + pParty_global->uEyelevel;
 
  pOldCamera->dword_00004C = v2;
 
@@ -389,8 +389,8 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
  struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
  sub_481ED9();
 
- pOldCamera->uMapGridCellX = WorldPosToGridCellX(pParty_global->sPartyPosX);
- pOldCamera->uMapGridCellZ = WorldPosToGridCellZ(pParty_global->sPartyPosY);
+ pOldCamera->uMapGridCellX = WorldPosToGridCellX(pParty_global->vPosition.x);
+ pOldCamera->uMapGridCellZ = WorldPosToGridCellZ(pParty_global->vPosition.y);
 
 
  if (pParty_global->uCurrentMinute != dword_6BD078)
@@ -416,8 +416,8 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
   Game_sub_44F120_MaybeStackStationaryLights(pGame, -1);
   Game_sub_44F192(pGame);
 
-    v4 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
-    v5 = WorldPosToGridCellX(pParty_global->sPartyPosX);
+    v4 = WorldPosToGridCellZ(pParty_global->vPosition.y);
+    v5 = WorldPosToGridCellX(pParty_global->vPosition.x);
     class51_sub_47EF60(pClass51_global, v5, v4, 1);
 
   pGame->dword_000E24 &= 0xFFFFFFFE;
@@ -531,14 +531,14 @@ void __fastcall sub_47253E(unsigned int a1)
       }
       else
       {
-       v4 = pLayingItemsList[i].sVelocityX;
+       v4 = pLayingItemsList[i].vVelocity.x;
         v3 = (int)&pObjectDescriptionList->pDescriptions[pLayingItemsList[i].uObjectDescriptionID];
         if ( (_BYTE)a1 < 0 )
         {
           v5 = 836 * (*(_DWORD *)((char *)v2 + 62) >> 3);
-          pLayingItemsList[i].sItemPosX = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.x;
-          pLayingItemsList[i].sItemPosY = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.y;
-          pLayingItemsList[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.z + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
+          pLayingItemsList[i].vPosition.x = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.x;
+          pLayingItemsList[i].vPosition.y = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.y;
+          pLayingItemsList[i].vPosition.z = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].vPosition.z + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
           if ( !v4 )
             continue;
           v6 = cEventTimer.int_00001C + *(_WORD *)v2;
@@ -583,9 +583,9 @@ LABEL_22:
               continue;
             if ( !(*((_BYTE *)v2 - 4) & 4) )
               continue;
-            v15 = abs(pParty_global->sPartyPosX - *(_DWORD *)((char *)v2 - 26));
-            v20 = abs(pParty_global->sPartyPosY - *(_DWORD *)((char *)v2 - 22));
-            v21 = abs(pParty_global->sPartyPosZ - *(_DWORD *)((char *)v2 - 18));
+            v15 = abs(pParty_global->vPosition.x - *(_DWORD *)((char *)v2 - 26));
+            v20 = abs(pParty_global->vPosition.y - *(_DWORD *)((char *)v2 - 22));
+            v21 = abs(pParty_global->vPosition.z - *(_DWORD *)((char *)v2 - 18));
             v12 = v15;
             v14 = v20;
             v13 = v21;
@@ -1465,24 +1465,25 @@ int __fastcall sub_46BE0A(unsigned int a1)
 
   sub_47253E(a1);
   sub_473893_SomeStuffIncludingPartyPosUpdate();
-  if ( pParty_global->sPartyPosX < -22528 || pParty_global->sPartyPosX > 22528 || pParty_global->sPartyPosY < -22528 || pParty_global->sPartyPosY > 22528 )
+  if (pParty_global->vPosition.x < -22528 || pParty_global->vPosition.x > 22528 ||
+      pParty_global->vPosition.y < -22528 || pParty_global->vPosition.y > 22528 )
   {
    // moving outside of map
 
    compile_error(level file name should not be global);
     //strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
 
-   v1 = sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, (char *)&v3, 32);
+   v1 = sub_48902E((char *)pClass51_global->string_000000, pParty_global->vPosition.x, pParty_global->vPosition.y, (char *)&v3, 32);
     if ( !byte_6BE3C4_MaybeDrowningFlag && (pParty_global->dword_007778 & 0x8C || pParty_global->dword_007778 & 0x0200 || pParty_global->bFlying) || !v1 )
     {
-      if (pParty_global->sPartyPosX < -22528)
-        pParty_global->sPartyPosX = -22528;
-      if (pParty_global->sPartyPosX > 22528)
-        pParty_global->sPartyPosX = 22528;
-      if (pParty_global->sPartyPosY < -22528)
-        pParty_global->sPartyPosY = -22528;
-      if (pParty_global->sPartyPosY > 22528)
-        pParty_global->sPartyPosY = 22528;
+      if (pParty_global->vPosition.x < -22528)
+        pParty_global->vPosition.x = -22528;
+      if (pParty_global->vPosition.x > 22528)
+        pParty_global->vPosition.x = 22528;
+      if (pParty_global->vPosition.y < -22528)
+        pParty_global->vPosition.y = -22528;
+      if (pParty_global->vPosition.y > 22528)
+        pParty_global->vPosition.y = 22528;
     }
     else
     {
@@ -2497,10 +2498,10 @@ void sub_44103C()
  pOldCamera->sRotationX = pParty_global->sRotationX;
  pOldCamera->sRotationY = pParty_global->sRotationY;
 
- pOldCamera->sPosX = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- pOldCamera->sPosY = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosX = pParty_global->vPosition.x - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->sPosY = pParty_global->vPosition.y - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
 
- pOldCamera->sPosZ = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+ pOldCamera->sPosZ = pParty_global->vPosition.z + pParty_global->uEyelevel;
 
  OldCamera_CalculateSinCos(pOldCamera);
  class08_CreateWorldMatrixAndSomeStuff(pGame->class08_obj);
@@ -2515,16 +2516,15 @@ void sub_44103C()
  }
  else
  {
-  if (pParty_global->sPartyPosX != pParty_global->sOldPosX ||
-      pParty_global->sPartyPosY != pParty_global->sOldPosY ||
-      pParty_global->sPartyPosZ != pParty_global->sOldPosZ ||
-      pParty_global->sRotationX != pParty_global->sOldRotationX || pParty_global->sRotationY != pParty_global->sOldRotationY ||
+  if (pParty_global->vPosition.x != pParty_global->vOldPosition.x ||
+      pParty_global->vPosition.y != pParty_global->vOldPosition.y ||
+      pParty_global->vPosition.z != pParty_global->vOldPosition.z ||
+      pParty_global->sRotationX != pParty_global->sOldRotationX ||
+      pParty_global->sRotationY != pParty_global->sOldRotationY ||
       pParty_global->uEyelevel != pParty_global->sOldEyelevel)
     pParty_global->dword_007778 |= 0x02;
 
-  pParty_global->sOldPosX = pParty_global->sPartyPosX;
-  pParty_global->sOldPosY = pParty_global->sPartyPosY;
-  pParty_global->sOldPosZ = pParty_global->sPartyPosZ;
+  pParty_global->vOldPosition = pParty_global->vPosition;
 
   pParty_global->sOldRotationY = pParty_global->sRotationY;
   pParty_global->sOldRotationX = pParty_global->sRotationX;
@@ -2683,9 +2683,9 @@ int __cdecl sub_4014E6()
       *((_BYTE *)v0 + 1) &= 0xFBu;
       if ( !Actor_sub_40894B((Actor *)((char *)v0 - 36)) )
         goto LABEL_37;
-      v23 = abs(pParty_global->sPartyPosZ - *((_WORD *)v0 + 55));
-      v22 = abs(pParty_global->sPartyPosY - *((_WORD *)v0 + 54));
-      v1 = abs(pParty_global->sPartyPosX - *((_WORD *)v0 + 53));
+      v23 = abs(pParty_global->vPosition.z - *((_WORD *)v0 + 55));
+      v22 = abs(pParty_global->vPosition.y - *((_WORD *)v0 + 54));
+      v1 = abs(pParty_global->vPosition.x - *((_WORD *)v0 + 53));
       v3 = v22;
       v2 = v23;
       if ( v1 < v22 )
@@ -2842,7 +2842,7 @@ int __cdecl sub_4016FA()
   int v46; // [sp+20h] [bp-4h]@1
 
   pParty_global->dword_007778 &= 0xFFFFFFCFu;
-  v38 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
+  v38 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   v46 = 0;
   v44 = 0;
   if ( (signed int)uNumActors > 0 )
@@ -2853,9 +2853,9 @@ int __cdecl sub_4016FA()
       *((_BYTE *)v0 + 1) &= 0xFBu;
       if ( !Actor_sub_40894B((Actor *)((char *)v0 - 36)) )
         goto LABEL_60;
-      v40 = abs(pParty_global->sPartyPosZ - *((_WORD *)v0 + 55));
-      v39 = abs(pParty_global->sPartyPosY - *((_WORD *)v0 + 54));
-      v1 = abs(pParty_global->sPartyPosX - *((_WORD *)v0 + 53));
+      v40 = abs(pParty_global->vPosition.z - *((_WORD *)v0 + 55));
+      v39 = abs(pParty_global->vPosition.y - *((_WORD *)v0 + 54));
+      v1 = abs(pParty_global->vPosition.x - *((_WORD *)v0 + 53));
       v3 = v39;
       v2 = v40;
       if ( v1 < v39 )
@@ -4082,15 +4082,15 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v122; // [sp+90h] [bp-4h]@14
 
   v113 = pParty_global->dword_0006E8;
-  v115 = pParty_global->sPartyPosZ;
+  v115 = pParty_global->vPosition.z;
   v1 = 0;
   v95 = 0;
   v0 = 0;
   LODWORD(v120) = 0;
-  v108 = pParty_global->sPartyPosX;
-  v109 = pParty_global->sPartyPosY;
+  v108 = pParty_global->vPosition.x;
+  v109 = pParty_global->vPosition.y;
   v105 = pParty_global->dword_0006F0;
-  v110 = sub_4823F4_GetTerrainHeightsAroundParty(pParty_global->sPartyPosX, pParty_global->sPartyPosY);
+  v110 = sub_4823F4_GetTerrainHeightsAroundParty(pParty_global->vPosition.x, pParty_global->vPosition.y);
   v106 = 0;
   v116 = 0;
   v100 = 0;
@@ -4123,7 +4123,7 @@ LABEL_9:
         v98 = 0;
     }
   }
-  v3 = sub_46D49E_ProbablyCollidePartyWithBModels(pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ, pParty_global->uPartyHeight, (int)&v122, (int)&v100, v98);
+  v3 = sub_46D49E_ProbablyCollidePartyWithBModels(pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z, pParty_global->uPartyHeight, (int)&v122, (int)&v100, v98);
   v103 = v3;
   if ( v96 )
     pParty_global->dword_000700 = v3;
@@ -4169,7 +4169,7 @@ LABEL_9:
   }
   v101 = -1;
   if (pParty_global->bFlying)
-    v101 = sub_46D8E3(pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight, (int)&v94);
+    v101 = sub_46D8E3(pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight, (int)&v94);
   v99 = v100 == 0;
   v97 = v103 + 1;
   if ( v115 <= v103 + 1 )
@@ -4232,7 +4232,7 @@ LABEL_9:
           pParty_global->bFlying = false;
           if ( byte_6BE3C4_MaybeDrowningFlag || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
           {
-            if ( pParty_global->sPartyPosZ < 4000 || v104_looks_like_bPartyInAir)
+            if ( pParty_global->vPosition.z < 4000 || v104_looks_like_bPartyInAir)
             {
               v115 += 30;
               v105 += 30;
@@ -4256,10 +4256,10 @@ LABEL_9:
                     pParty_global->dword_0006E4 = 0;
                     pPartyActionQueue->Clear();
                     BYTE1(pParty_global->dword_007778) |= 1u;
-                    pParty_global->sPartyPosZ = v101 - pParty_global->uPartyHeight - 31;
+                    pParty_global->vPosition.z = v101 - pParty_global->uPartyHeight - 31;
                     pParty_global->dword_0006F0 = v115;
                     pParty_global->bFlying = false;
-                    v115 = pParty_global->sPartyPosZ;
+                    v115 = pParty_global->vPosition.z;
                     v105 = pParty_global->dword_0006F0;
                   }
                 }
@@ -4583,7 +4583,7 @@ LABEL_164:
     {
       if (!pParty_global->bFlying)
       {
-        if ( pParty_global->sPartyPosZ - v103 > 1000 )
+        if ( pParty_global->vPosition.z - v103 > 1000 )
         {
           if (pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 <= 0 )
           {
@@ -4652,8 +4652,8 @@ LABEL_151:
     if ( sub_47050A(&stru_721530, v28) )
       break;
     sub_46E889(1);
-    v30 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
-    v31 = WorldPosToGridCellX(pParty_global->sPartyPosX);
+    v30 = WorldPosToGridCellZ(pParty_global->vPosition.y);
+    v31 = WorldPosToGridCellX(pParty_global->vPosition.x);
     sub_46E26D_ProbablyCollideAgainstDecorations(v31, v30);
     sub_46ED8A((void *)4);
     for ( i = 0; i < (signed int)uNumActors; ++i )
@@ -4748,10 +4748,9 @@ LABEL_199:
     {
       v48 = sub_452A9E(v0 * v0 + v120 * v120);
       v110 = v48;
-      v49 = class59_Atan2(
-              pClass59_global,
-              v112 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosX,
-              v117 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosY);
+      v49 = class59_Atan2(pClass59_global,
+              v112 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].vPosition.x,
+              v117 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].vPosition.y);
       v121 = v49;
       v50 = class59_SinCos(pClass59_global, v49);
       v119 = v50;
@@ -4868,9 +4867,9 @@ LABEL_234:
   while ( v118 < 100 );
   if (dword_6BE374_WalkSoundFlag && pParty_global->dword_0006F8 <= 0)
   {
-    v114 = abs(pParty_global->sPartyPosX - v108);
-    v118 = abs(pParty_global->sPartyPosY - v109);
-    v54 = abs(pParty_global->sPartyPosZ - v115);
+    v114 = abs(pParty_global->vPosition.x - v108);
+    v118 = abs(pParty_global->vPosition.y - v109);
+    v54 = abs(pParty_global->vPosition.z - v115);
     if ( sub_452A9E(v114 * v114 + v118 * v118 + v54 * v54) < 8 )
       goto LABEL_344;
     if ( v106 && (!v104_looks_like_bPartyInAir || v93) )
@@ -4898,8 +4897,8 @@ LABEL_234:
       v80 = 804;
       v78 = 1;
 LABEL_255:
-      v55 = WorldPosToGridCellZ(pParty_global->sPartyPosY) - 1;
-      v56 = WorldPosToGridCellX(pParty_global->sPartyPosX);
+      v55 = WorldPosToGridCellZ(pParty_global->vPosition.y) - 1;
+      v56 = WorldPosToGridCellX(pParty_global->vPosition.x);
       v79 = class51_sub_47EE49((int)pClass51_global, v56, v55, v78);
       goto LABEL_257;
     }
@@ -4942,8 +4941,8 @@ LABEL_344:
     pParty_global->dword_007778 &= 0xFFFFFFF7u;
   else
     pParty_global->dword_007778 |= 8u;
-  v118 = WorldPosToGridCellX(pParty_global->sPartyPosX);
-  v59 = WorldPosToGridCellZ(pParty_global->sPartyPosY) - 1;
+  v118 = WorldPosToGridCellX(pParty_global->vPosition.x);
+  v59 = WorldPosToGridCellZ(pParty_global->vPosition.y) - 1;
   v106 = WorldPosToGridCellX(v108);
   v60 = WorldPosToGridCellZ(v109) - 1;
   v119 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v118, v59) >> 1) & 1;
@@ -4971,26 +4970,24 @@ LABEL_344:
     v64 = v109;
     pParty_global->dword_0006E8 = v113;
     v62 = v115;
-    pParty_global->sPartyPosX = v108;
-    pParty_global->sPartyPosY = v109;
-    pParty_global->sPartyPosZ = v115;
+    pParty_global->vPosition = Vec3<int>(v108, v109, v115);
     pParty_global->dword_0006F0 = v105;
     if ( v115 > 8160 )
     {
       v62 = 8160;
       pParty_global->dword_000700 = 8160;
-      pParty_global->sPartyPosZ = 8160;
+      pParty_global->vPosition.z = 8160;
     }
     if ( !v95
-      || (sub_44684A_LooksLikeEventProcessor(v95, 0, 1), pParty_global->sPartyPosX == v65) // here Emeral Island instuctor event occurs
-      && pParty_global->sPartyPosY == v64
-      && (v62 = pParty_global->sPartyPosZ, pParty_global->sPartyPosZ == v63) )
+      || (sub_44684A_LooksLikeEventProcessor(v95, 0, 1), pParty_global->vPosition.x == v65) // here Emeral Island instuctor event occurs
+      && pParty_global->vPosition.y == v64
+      && (v62 = pParty_global->vPosition.z, pParty_global->vPosition.z == v63) )
     {
       if ( v62 < v103 )
       {
         pParty_global->dword_0006E8 = 0;
         v62 = v97;
-        pParty_global->sPartyPosZ = v97;
+        pParty_global->vPosition.z = v97;
         if ( pParty_global->dword_000700 - v63 > 512 )
         {
           if ( !v96 )
@@ -5021,7 +5018,7 @@ LABEL_344:
                     //++v66;
                   }
                 //  while ( (signed int)v66 <= (signed int)&dword_A750D4 );
-                  v62 = pParty_global->sPartyPosZ;
+                  v62 = pParty_global->vPosition.z;
                 }
               }
             }
@@ -5035,7 +5032,7 @@ LABEL_344:
         {
           if ( pParty_global->uPartyHeight + v62 >= v101 )
           {
-            pParty_global->sPartyPosZ = v101 - pParty_global->uPartyHeight - 1;
+            pParty_global->vPosition.z = v101 - pParty_global->uPartyHeight - 1;
             pParty_global->dword_0006F0 = v101 - pParty_global->uPartyHeight - 1;
           }
         }
@@ -5063,7 +5060,7 @@ LABEL_344:
 LABEL_306:
   if ( v69 )
   {
-    pParty_global->sPartyPosX = v108;
+    pParty_global->vPosition.x = v108;
     if ( !v70 )
       goto LABEL_313;
     goto LABEL_312;
@@ -5071,7 +5068,7 @@ LABEL_306:
   if ( v70 )
   {
 LABEL_312:
-    pParty_global->sPartyPosY = v109;
+    pParty_global->vPosition.y = v109;
 LABEL_313:
     if ( v98 )
     {
@@ -5102,33 +5099,33 @@ LABEL_313:
 LABEL_318:
   v74 = v115;
   v73 = v115;
-  pParty_global->sPartyPosZ = v115;
+  pParty_global->vPosition.z = v115;
   if ( v115 > 8160 )
   {
     v73 = 8160;
     pParty_global->dword_000700 = 8160;
-    pParty_global->sPartyPosZ = 8160;
+    pParty_global->vPosition.z = 8160;
   }
   LOWORD(pParty_global->dword_007778) = pParty_global->dword_007778 & 0xFDFB;
   pParty_global->dword_0006E8 = v113;
   pParty_global->dword_0006F0 = v105;
   if ( v106 )
   {
-    v75 = sub_48257A(pParty_global->sPartyPosX, pParty_global->sPartyPosY, (int)&v102, 1);
-    v73 = pParty_global->sPartyPosZ;
-    if ( pParty_global->sPartyPosZ <= v75 )
+    v75 = sub_48257A(pParty_global->vPosition.x, pParty_global->vPosition.y, (int)&v102, 1);
+    v73 = pParty_global->vPosition.z;
+    if ( pParty_global->vPosition.z <= v75 )
       pParty_global->dword_007778 |= 4u;
   }
   if ( !v95
-    || (sub_44684A_LooksLikeEventProcessor(v95, 0, 1), pParty_global->sPartyPosX == v108)
-    && pParty_global->sPartyPosY == v109
-    && (v73 = pParty_global->sPartyPosZ, pParty_global->sPartyPosZ == v74) )
+    || (sub_44684A_LooksLikeEventProcessor(v95, 0, 1), pParty_global->vPosition.x == v108)
+    && pParty_global->vPosition.y == v109
+    && (v73 = pParty_global->vPosition.z, pParty_global->vPosition.z == v74) )
   {
     if ( v73 < v103 )
     {
       v73 = v97;
       pParty_global->dword_0006E8 = 0;
-      pParty_global->sPartyPosZ = v97;
+      pParty_global->vPosition.z = v97;
       if ( pParty_global->dword_000700 - v74 > 512 )
       {
         if ( !v96 )
@@ -5157,7 +5154,7 @@ LABEL_318:
                 //  ++v76;
                 }
               //  while ( (signed int)v76 <= (signed int)&dword_A750D4 );
-                v73 = pParty_global->sPartyPosZ;
+                v73 = pParty_global->vPosition.z;
               }
             }
           }
@@ -5171,7 +5168,7 @@ LABEL_318:
       {
         if ( pParty_global->uPartyHeight + v73 >= v101 )
         {
-          pParty_global->sPartyPosZ = v73 + pParty_global->uPartyHeight - v101 + 1;
+          pParty_global->vPosition.z = v73 + pParty_global->uPartyHeight - v101 + 1;
           pParty_global->dword_0006F0 = v73 + pParty_global->uPartyHeight - v101 + 1;
         }
       }
@@ -6039,10 +6036,8 @@ void sub_4498D5_TeleportToStartingPoint(unsigned int uStartingPointType)
           goto LABEL_20;
       }
       v8 = 32 * v5;
-      pParty_global->sPartyPosX = pLevelDecorations[v5].sPosX;
-      pParty_global->sPartyPosY = pLevelDecorations[v5].sPosY;
-      pParty_global->sPartyPosZ = pLevelDecorations[v5].sPosZ;
-      pParty_global->dword_000700 = pParty_global->sPartyPosZ;
+      pParty_global->vPosition = pLevelDecorations[v5].vPosition;
+      pParty_global->dword_000700 = pParty_global->vPosition.z;
       v9 = pClass59_global->uIntegerHalfPi * pLevelDecorations[v5].word_00001A / 90;
       v7 = pLevelDecorations[v5].dword_000010;
       pParty_global->sRotationY = v9;
@@ -6055,12 +6050,12 @@ LABEL_20:
     if ( dword_5B65C0 )
     {
       if ( dword_5B65A8 )
-        pParty_global->sPartyPosX = dword_5B65A8;
+        pParty_global->vPosition.x = dword_5B65A8;
       if ( dword_5B65AC )
-        pParty_global->sPartyPosY = dword_5B65AC;
+        pParty_global->vPosition.y = dword_5B65AC;
       if ( dword_5B65B0 )
       {
-        pParty_global->sPartyPosZ = dword_5B65B0;
+        pParty_global->vPosition.z = dword_5B65B0;
         pParty_global->dword_000700 = dword_5B65B0;
       }
       if ( dword_5B65B4 )
@@ -7061,11 +7056,11 @@ LABEL_69:
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
         if ( Player_sub_48D709((Player *)HIDWORD(v1), 510, 2) )
           v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, 3030);
-        v686.v687 = pParty_global->sPartyPosX;
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
+        v686.v687 = pParty_global->vPosition.x;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
         v686.v691 = 0;
         v686.v693 = 0;
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
         v17 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v17) = v17 | 4;
         v686.v698 = v17;
@@ -7102,11 +7097,11 @@ LABEL_69:
         v686.v696 = v701;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->sPartyPosX;
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
+        v686.v687 = pParty_global->vPosition.x;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
         v686.v691 = 0;
         v686.v693 = 0;
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 2;
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
         v20 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v20) = v20 | 4;
         v686.v698 = v20;
@@ -7117,7 +7112,7 @@ LABEL_69:
         memcpy(&v686.v694, (void *)(
           ((char *)(&pParty_global->pPlayers[0]))[1743 * *(_WORD *)(v2 + 2) + 124] + 9 * ((char *)(&pParty_global->pPlayers))[1743 * *(_WORD *)(v2 + 2) + 1619]),
           sizeof(ItemGen));
-        v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, SHIDWORD(v686.v688));
+        v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, SHIDWORD(v686.v688));
         HIBYTE(v686.v691) |= 1u;
         v686.v692 = v21;
         if (pParty_global->bTurnBasedModeOn)
@@ -7209,11 +7204,11 @@ LABEL_69:
         v686.v696 = v1;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
-        v686.v687 = pParty_global->sPartyPosX;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
+        v686.v687 = pParty_global->vPosition.x;
         v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3);
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         v686.v693 = WORD2(v1);
         v33 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v33) = v33 | 4;
@@ -7369,11 +7364,11 @@ LABEL_139:
         v686.v696 = v1;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
-        v686.v687 = pParty_global->sPartyPosX;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
+        v686.v687 = pParty_global->vPosition.x;
         v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3);
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         v686.v693 = WORD2(v1);
         v49 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v49) = v49 | 4;
@@ -7398,10 +7393,10 @@ LABEL_139:
         v686.v696 = v1;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v50 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 2;
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
-        v629 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 2;
-        v619 = pParty_global->sPartyPosY;
+        v50 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
+        v629 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
+        v619 = pParty_global->vPosition.y;
         goto LABEL_153;
       case 87:
         if ( uCurrentlyLoadedLevelType == 1
@@ -7519,11 +7514,11 @@ LABEL_174:
           goto LABEL_83;
         ItemGen_Reset(&v686.v694);
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->sPartyPosX;
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
+        v686.v687 = pParty_global->vPosition.x;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
         v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3);
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         v686.v693 = WORD2(v1);
         v58 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v58) = v58 | 4;
@@ -7896,9 +7891,9 @@ LABEL_269:
             {
               v708 = n >> 3;
               v111 = (char *)pActors + 836 * (n >> 3);
-              LODWORD(v704) = abs(*((_WORD *)v111 + 73) - pParty_global->sPartyPosZ);
-              LODWORD(v685) = abs(*((_WORD *)v111 + 72) - pParty_global->sPartyPosY);
-              v108 = abs(*((_WORD *)v111 + 71) - pParty_global->sPartyPosX);
+              LODWORD(v704) = abs(*((_WORD *)v111 + 73) - pParty_global->vPosition.z);
+              LODWORD(v685) = abs(*((_WORD *)v111 + 72) - pParty_global->vPosition.y);
+              v108 = abs(*((_WORD *)v111 + 71) - pParty_global->vPosition.x);
               LODWORD(v702) = v108;
               v110 = LODWORD(v685);
               v109 = LODWORD(v704);
@@ -8093,10 +8088,10 @@ LABEL_304:
         else
         {
           v151 = class59_SinCos(pClass59_global, pParty_global->sRotationY);
-          LODWORD(v706) = pParty_global->sPartyPosX + sub_42EBBE(2048, v151);
+          LODWORD(v706) = pParty_global->vPosition.x + sub_42EBBE(2048, v151);
           v152 = class59_sub_42EBDB((int)pClass59_global, pParty_global->sRotationY);
-          LODWORD(v705) = pParty_global->sPartyPosY + sub_42EBBE(2048, v152);
-          v148 = pParty_global->sPartyPosZ;
+          LODWORD(v705) = pParty_global->vPosition.y + sub_42EBBE(2048, v152);
+          v148 = pParty_global->vPosition.z;
         }
         LODWORD(v712) = v148;
         v674 = v148 + 2500;
@@ -8325,11 +8320,11 @@ LABEL_353:
         v686.v696 = v1;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
-        v686.v687 = pParty_global->sPartyPosX;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
+        v686.v687 = pParty_global->vPosition.x;
         v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3);
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         v686.v693 = WORD2(v1);
         v181 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v181) = v181 | 4;
@@ -8512,11 +8507,11 @@ LABEL_104:
         else
         {
           v204 = class59_SinCos(pClass59_global, pParty_global->sRotationY);
-          LODWORD(v682) = pParty_global->sPartyPosX + sub_42EBBE(2048, v204);
+          LODWORD(v682) = pParty_global->vPosition.x + sub_42EBBE(2048, v204);
           v205 = class59_sub_42EBDB((int)pClass59_global, pParty_global->sRotationY);
           v206 = sub_42EBBE(2048, v205);
-          v201 = pParty_global->sPartyPosZ;
-          v674 = pParty_global->sPartyPosY + v206;
+          v201 = pParty_global->vPosition.z;
+          v674 = pParty_global->vPosition.y + v206;
           v200 = v703;
         }
         LODWORD(v704) = v201;
@@ -8646,15 +8641,15 @@ LABEL_152:
           v686.v697 = v709;
           v686.v696 = v1;
           v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-          LODWORD(v686.v688) = pParty_global->sPartyPosY;
-          v50 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-          v629 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-          v619 = pParty_global->sPartyPosY;
+          LODWORD(v686.v688) = pParty_global->vPosition.y;
+          v50 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+          v629 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+          v619 = pParty_global->vPosition.y;
 LABEL_153:
           v686.v691 = WORD2(v1);
-          v686.v687 = pParty_global->sPartyPosX;
+          v686.v687 = pParty_global->vPosition.x;
           HIDWORD(v686.v688) = v50;
-          v51 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, v619, v629);
+          v51 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, v619, v629);
           v686.v693 = WORD2(v1);
           v686.v692 = v51;
           v52 = 8 * *(_WORD *)(v2 + 2);
@@ -8687,11 +8682,11 @@ LABEL_157:
           v686.v696 = v1;
           v686.v697 = v709;
           v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-          LODWORD(v686.v688) = pParty_global->sPartyPosY;
-          v686.v687 = pParty_global->sPartyPosX;
+          LODWORD(v686.v688) = pParty_global->vPosition.y;
+          v686.v687 = pParty_global->vPosition.x;
           v686.v691 = WORD2(v1);
-          HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-          v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3);
+          HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+          v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
           v686.v693 = WORD2(v1);
           v218 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v218) = v218 | 4;
@@ -9275,11 +9270,11 @@ LABEL_634:
         v686.v696 = v1;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
-        v686.v687 = pParty_global->sPartyPosX;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
+        v686.v687 = pParty_global->vPosition.x;
         v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3);
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         v686.v693 = WORD2(v1);
         v309 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v309) = v309 | 4;
@@ -9305,12 +9300,12 @@ LABEL_634:
         v686.v696 = v1;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->sPartyPosX;
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
+        v686.v687 = pParty_global->vPosition.x;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
         v686.v691 = WORD2(v1);
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
         v310 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v310) = v310 | 4;
         v686.v700 = 0;
@@ -11065,11 +11060,11 @@ LABEL_1062:
         v686.v696 = v1;
         v686.v697 = v709;
         v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->sPartyPosX;
-        LODWORD(v686.v688) = pParty_global->sPartyPosY;
+        v686.v687 = pParty_global->vPosition.x;
+        LODWORD(v686.v688) = pParty_global->vPosition.y;
         v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 2;
-        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 2);
+        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
+        v686.v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 2);
         v686.v693 = WORD2(v1);
         v559 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v559) = v559 | 4;
@@ -11422,9 +11417,9 @@ LABEL_1119:
         {
           LODWORD(v1) = rand() % 4096 - 2048;
           v602 = rand();
-          LODWORD(v685) = v1 + pParty_global->sPartyPosX;
-          Source = (char *)(pParty_global->sPartyPosY + v602 % 4096 - 2048);
-          v710 = sub_48257A(v1 + pParty_global->sPartyPosX, (signed int)Source, (int)&v671, SHIDWORD(v1));
+          LODWORD(v685) = v1 + pParty_global->vPosition.x;
+          Source = (char *)(pParty_global->vPosition.y + v602 % 4096 - 2048);
+          v710 = sub_48257A(v1 + pParty_global->vPosition.x, (signed int)Source, (int)&v671, SHIDWORD(v1));
           v603 = rand();
           sub_42F7EB_DropItemAt(
             4070,
@@ -11984,7 +11979,7 @@ void __fastcall PrepareToLoadODM(const char *pLevelName, int a1)
   if(!bNoSound)
     SoundList_sub_4A9D79(pSoundList, false);
   uCurrentlyLoadedLevelType = 2;
-  sub_47A384_LoadAndInitializeLevel(pLevelName);
+  sub_47A384_LoadAndInitializeODMLevel(pLevelName);
   if ( !v2 )
     sub_4498D5_TeleportToStartingPoint(dword_6BE35C);
 

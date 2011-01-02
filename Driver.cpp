@@ -645,6 +645,8 @@ LABEL_21:
 
           runtime_warning(tries to save not yet loaded level; need to rethink this mechanism);
 
+          //pGame->PrepareForLoop("d01.blv");
+          //pGame->Loop("d01.blv");
           pGame->PrepareForLoop("out01.odm");
           pGame->Loop("out01.odm");
 

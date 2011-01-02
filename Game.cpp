@@ -277,22 +277,18 @@ LABEL_85:
       while ( v12 < (signed int)&unk_AD5FB0 );
       if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 136) )
       {
-        pParty_global->sPartyPosX = -17331;
-        pParty_global->sPartyPosY = 12547;
-        pParty_global->sPartyPosZ = 465;
+        pParty_global->vPosition = Vec3<int>(-17331, 12547, 465);
         pParty_global->sRotationY = 0;
         v16 = "out02.odm";
       }
       else
       {
-        pParty_global->sPartyPosX = 12552;
-        pParty_global->sPartyPosY = 1816;
-        pParty_global->sPartyPosZ = 0;
+        pParty_global->vPosition = Vec3<int>(12552, 1816, 0);
         pParty_global->sRotationY = 512;
         v16 = "out01.odm";
       }
       strcpy(&Source, v16);
-      pParty_global->dword_000700 = pParty_global->sPartyPosZ;
+      pParty_global->dword_000700 = pParty_global->vPosition.x;
       pParty_global->sRotationX = 0;
       pParty_global->dword_0006E8 = 0;
       pParty_global->dword_0006E4 = 0;
@@ -303,9 +299,9 @@ LABEL_85:
       {
         compile_error(level file name should not be global);
     //strcpy(CurrentLevelName, &Source);
-        dword_5B65A8 = pParty_global->sPartyPosX;
-        dword_5B65AC = pParty_global->sPartyPosY;
-        dword_5B65B0 = pParty_global->sPartyPosZ;
+        dword_5B65A8 = pParty_global->vPosition.x;
+        dword_5B65AC = pParty_global->vPosition.y;
+        dword_5B65B0 = pParty_global->vPosition.z;
         dword_5B65B4 = pParty_global->sRotationY;
         dword_5B65B8 = pParty_global->sRotationX;
         dword_5B65C0 = 1;
@@ -362,11 +358,7 @@ LABEL_85:
 //----- (00465C8B) --------------------------------------------------------
 Game *Game_Initialize()
 {
- Game *pGame = MemAlloc(Game, 1);
- if (pGame)
-   Game_ctor(pGame);
-
- return pGame;
+ return MemAlloc(Game, 1);
 }
 
 //----- (00465CF3) --------------------------------------------------------
@@ -374,8 +366,8 @@ void Game_Destroy()
 {
  if (pGame)
  {
-  (pGame->dtor_ptr)(pGame);
   MemFree(pGame);
+  pGame = nullptr;
  }
 }
 
@@ -395,81 +387,74 @@ bool Game_sub_44F07B(struct Game *_this)
 
 
 //----- (MM7.exe::0044E4B7) --------------------------------------------------------
-void Game_ctor(Game *_this)
+Game::Game()
 {
  void *v1, *v2;
 
- memset(_this, 0, sizeof(Game));
+ uNumStationaryLights = 0;
+ dword_000E08 = 0;
+ dword_000E0C = 0;
+ dword_000E10 = 0;
+ dword_000E14 = 0;
+ dword_000E18 = 0;
+ bGammaControlInitialized = false;
+ uGammaControlInitializationTime = 0;
+ uSomeFlags = 0x0800;
+ dword_000E24 = 0x24;
+ dword_000E34 = 0;
+ dword_000E38 = 0;
 
- _this->dtor_ptr = Game_dtor;
- _this->dword_000704 = 0;
- _this->dword_000E08 = 0;
- _this->dword_000E0C = 0;
- _this->dword_000E10 = 0;
- _this->dword_000E14 = 0;
- _this->dword_000E18 = 0;
- _this->bGammaControlInitialized = false;
- _this->uSomeFlags = 0x0800;
- _this->dword_000E24 = 0x24;
- _this->uGammaControlInitializationTime = 0;
- _this->dword_000E34 = 0;
- _this->dword_000E38 = 0;
+ class01_obj = MemAlloc(class01, 1);
+ if (class01_obj)
+   class01_ctor(class01_obj);
 
- _this->class01_obj = MemAlloc(class01, 1);
- if (_this->class01_obj)
-   class01_ctor(_this->class01_obj);
+ class02_obj = MemAlloc(class02, 1);
+ if (class02_obj)
+   class02_ctor(class02_obj);
 
- _this->class02_obj = MemAlloc(class02, 1);
- if (_this->class02_obj)
-   class02_ctor(_this->class02_obj);
+ class03_obj = MemAlloc(GUICursor, 1);
+ if (class03_obj)
+   GUICursor_ctor(class03_obj, class01_obj);
 
- _this->class03_obj = MemAlloc(GUICursor, 1);
- if (_this->class03_obj)
-   GUICursor_ctor(_this->class03_obj, _this->class01_obj);
+ class04_obj = MemAlloc(class04, 1);
+ if (class04_obj)
+   class04_ctor(class04_obj);
 
- _this->class04_obj = MemAlloc(class04, 1);
- if (_this->class04_obj)
-   class04_ctor(_this->class04_obj);
+ pVis = MemAlloc(Vis, 1);
 
- _this->pVis = MemAlloc(Vis, 1);
+ class06_obj = MemAlloc(class06, 1);
+ if (class06_obj)
+   class06_ctor(class06_obj);
 
- _this->class06_obj = MemAlloc(class06, 1);
- if (_this->class06_obj)
-   class06_ctor(_this->class06_obj);
+ class08_obj = MemAlloc(class08, 1);
+ if (class08_obj)
+   class08_ctor(class08_obj);
 
- _this->class08_obj = MemAlloc(class08, 1);
- if (_this->class08_obj)
-   class08_ctor(_this->class08_obj);
+ class09_obj = MemAlloc(class09, 1);
+ if (class09_obj)
+   class09_ctor(class09_obj);
 
- _this->class09_obj = MemAlloc(class09, 1);
- if (_this->class09_obj)
-   class09_ctor(_this->class09_obj);
+ class10_obj = MemAlloc(class10, 1);
+ if (class10_obj)
+   class10_ctor(class10_obj);
 
- _this->class10_obj = MemAlloc(class10, 1);
- if (_this->class10_obj)
-   class10_ctor(_this->class10_obj);
+ class11_obj = MemAlloc(class11, 1);
+ if (class11_obj)
+   class11_ctor(class11_obj, 0);
 
- _this->class11_obj = MemAlloc(class11, 1);
- if (_this->class11_obj)
-   class11_ctor(_this->class11_obj, 0);
+ class12_obj = MemAlloc(class12, 1);
+ if (class12_obj)
+   class12_ctor(class12_obj, class11_obj);
 
- _this->class12_obj = MemAlloc(class12, 1);
- if (_this->class12_obj)
-   class12_ctor(_this->class12_obj, _this->class11_obj);
+ class13_obj = MemAlloc(class13, 1);
+ if (class13_obj)
+   class13_ctor(class13_obj);
 
- _this->class13_obj = MemAlloc(class13, 1);
- if (_this->class13_obj)
-   class13_ctor(_this->class13_obj);
+ pGammaController = MemAlloc(CGammaController, 1);
+ if (pGammaController)
+   CGammaController_ctor(pGammaController);
 
- /*_this->Win32Keyboard_obj = MemAlloc(Win32Keyboard, 1);
- if (_this->Win32Keyboard_obj)
-   Win32Keyboard_ctor(_this->Win32Keyboard_obj);*/
-
- _this->pGammaController = MemAlloc(CGammaController, 1);
- if (_this->pGammaController)
-   CGammaController_ctor(_this->pGammaController);
-
- Game_fn0(_this);
+ Game_fn0(this);
  dword_4E800C = 0;
  if (dword_F79D70 != 4)
    dword_4E800C = 0;
@@ -479,7 +464,7 @@ void Game_ctor(Game *_this)
 //int Game_scalar_deleting_destructor(struct Game *_this, char flag);
 
 //----- (0044E7F3) --------------------------------------------------------
-void Game_dtor(Game *_this)
+Game::~Game()
 {
   int v1; // ecx@1
   unsigned int v2; // esi@1
@@ -502,8 +487,8 @@ void Game_dtor(Game *_this)
   int v20; // eax@26
   int v21; // ecx@27
 
-  v2 = (int)_this;
-  v1 = *(_DWORD *)((DWORD)_this + 3696);
+  v2 = (int)this;
+  v1 = *(_DWORD *)((DWORD)this + 3696);
   *(_DWORD *)v2 = 5080668;
   if ( v1 )
     (**(int (__stdcall ***)(_DWORD))v1)(1);
@@ -804,23 +789,14 @@ int Game_fn1(struct Game *_this, int flags)
 //----- (0044F120) --------------------------------------------------------
 void Game_sub_44F120_MaybeStackStationaryLights(struct Game *_this, int a2)
 {
-  int v4; // esi@2
- int i;
-
-    v4 = (int)_this + 20;
- for (i = 0; i < _this->dword_000704; ++i)
- {
-      StationaryLightsStack_AddLight(pStationaryLightsStack,
-        (signed)*(float *)(v4 - 16),
-        (signed)*(float *)(v4 - 12),
-        (signed)*(float *)(v4 - 8),
-        (signed)*(float *)(v4 + 8),
-        (signed)*(float *)(v4 - 4),
-        (signed)*(float *)v4,
-        (signed)*(float *)(v4 + 4),
-        byte_4E94D0);
-      v4 += 28;
- }
+ for (unsigned int i = 0; i < _this->uNumStationaryLights; ++i)
+   StationaryLightsStack_AddLight(pStationaryLightsStack,
+                                  &_this->pStationaryLights[i].vPosition,
+                                  _this->pStationaryLights[i].flt_000018,
+                                  _this->pStationaryLights[i].vRGBColor.x,
+                                  _this->pStationaryLights[i].vRGBColor.y,
+                                  _this->pStationaryLights[i].vRGBColor.z,
+                                  byte_4E94D0);
 }
 
 //----- (0044F192) --------------------------------------------------------

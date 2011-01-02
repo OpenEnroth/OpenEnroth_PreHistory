@@ -35,46 +35,44 @@ void __cdecl UpdateActors()
 {
   char v1;
   signed int v5; // [sp+Ch] [bp-10h]@1
-  signed int v6; // [sp+10h] [bp-Ch]@1
   signed int v7; // [sp+14h] [bp-8h]@1
-  signed int v8; // [sp+18h] [bp-4h]@1
 
-  struct Actor *pActor;
-
-  v8 = 0;
-  v6 = 0;
   v7 = 0;
   v5 = 0;
 
-  if ( !_strcmpi((char *)pClass51_global->pLocationFileName, "d25.blv") ) //Celeste
-    v8 = 1;
-  if ( !_strcmpi((char *)pClass51_global->pLocationFileName, "d26.blv") ) //The Pit
-    v6 = 1;
+ bool bCelesteLevel = false;
+ if (!strcmpi((char *)pClass51_global->pLocationFileName, "d25.blv"))
+   bCelesteLevel = true;
+
+ bool bPitLevel = false;
+ if (!strcmpi((char *)pClass51_global->pLocationFileName, "d26.blv"))
+   bPitLevel = true;
+
   if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )
-    v7 = 1;  
+    v7 = 1;
   if ( sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) )
     v5 = 1;
 
   for (unsigned int i = 0; i < uNumActors; ++i)
   {
-    pActor = &pActors[i];
+    Actor *pActor = &pActors[i];
 
     if ( Actor_sub_40894B(pActor) || pActor->uAIState == AI::State::Disabled)
     {
       pActor->vPosition = pActor->vInitialPosition;
       pActor->sCurrentHP = pActor->sTotalHP;
       if (pActor->uAIState != AI::State::Disabled)
-        Actor_sub_403EB6(i, dword_4F6E08[i], pActor->uRecoveryTime, 0);
+        Actor_sub_403EB6(i, dword_4F6E08[i], pActor->uRecoveryTime, nullptr);
     }
 
     pActor->uHostilityType = 0;
 
     v1 = 0;
-    if ( !v8 || v7 )
+    if ( !bCelesteLevel || v7 )
     {
-      if ( !v6 || v5 )
+      if ( !bPitLevel || v5 )
       {
-        if ( sub_438B9B((int)pActor) )
+        if ( Actor_sub_438B9B(pActor) )
           pActor->uAttributes &= 0xFFF7FFFF;
       }
     }
@@ -86,30 +84,28 @@ void __cdecl UpdateActors()
 
 
 //----- (00403EB6) --------------------------------------------------------
-void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo)
+void Actor_sub_403EB6(unsigned int uActorID, signed int a2, unsigned int uActorRecoveryTime, struct DirectionInfo *pDirectionInfo)
 {
-  struct DirectionInfo v9;
-  struct Actor *pActor;
+ struct DirectionInfo v9;
 
-  pActor = &pActors[uActorID];
-  if ( !pDirectionInfo )
-  {
-    GetDirectionInfo(8 * uActorID | 3, a2, &v9, 0);    
-    pDirectionInfo = &v9;
-  }
+ Actor *pActor = &pActors[uActorID];
+ if (!pDirectionInfo)
+ {
+  GetDirectionInfo((uActorID << 3) | 3, a2, &v9, 0);    
+  pDirectionInfo = &v9;
+ }
+ pActor->uYawAngle = pDirectionInfo->uYawAngle;
+
+ if (!uActorRecoveryTime)
+   pActor->uCurrentActionLength = rand() % 256 + 256;
+ else
+   pActor->uCurrentActionLength = uActorRecoveryTime;
+
+ pActor->uAIState = AI::State::Standing;
+ pActor->vVelocity = Vec3<short>(0, 0, 0);
+ pActor->uCurrentActionTime = 0;
     
-  pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
-
-  if ( a3 == 0 )
-    pActor->uCurrentActionLength = rand() % 256 + 256;
-  else
-    pActor->uCurrentActionLength = a3;
-
-  pActor->uAIState = AI::State::Standing;
-  pActor->vVelocity = Vec3<short>(0, 0, 0);
-  pActor->uCurrentActionTime = 0;
-    
-  Actor_UpdateAnimation(pActor);
+ Actor_UpdateAnimation(pActor);
 }
 
 
@@ -120,189 +116,146 @@ void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Direc
 //
 //
 // object1 & object2 format :  objectType | (objectID << 3)
+//    objectType == 2 - LayingItem
 //    objectType == 3 - Actor
 //    objectType == 4 - Party
+//    objectType == 5 - Decoration
 //
 // originally this function had following prototype:
 // struct DirectionInfo GetDirectionInfo(signed int object1, signed int object2, signed int a4)
 // but compiler converts functions returning structures by value in the such way
-
-struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, struct DirectionInfo *pDirectionInfo, signed int a4)
+struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObject2, DirectionInfo *pDirectionInfo, signed int a4)
 {
-  int type1;
-  int type2;  
-  int idx1;
-  int idx2;  
+ struct DirectionInfo di;
 
-  int x0;
-  int z0;
-  int y0;  
-  int x1;
-  int y1;
-  int z1;
+ unsigned int uObject1Type = uObject1 & 0x07,
+              uObject1ID = uObject1 >> 3;
+ Vec3<int> v0;
 
-  double deltaX;
-  double deltaY;
-  double deltaZ;
-  double distance;
-
-  struct DirectionInfo direction;
-
-  idx1 = object1 >> 3;
-  type1 = (object1 & 7);
-
-  if ( type1 == 2 )
-  {    
-    x0 = pLayingItemsList[idx1].sItemPosX;
-    y0 = pLayingItemsList[idx1].sItemPosY;
-    z0 = pLayingItemsList[idx1].sItemPosZ;
-  }  
-  else if ( type1 == 3 )
+ if (uObject1Type == 2)
+   v0 = pLayingItemsList[uObject1ID].vPosition;
+ else if (uObject1Type == 3)
+ {
+  v0 = pActors[uObject1ID].vPosition;
+  v0.z -= (unsigned int)((double)pActors[uObject1ID].uActorHeight * -0.75);
+ }
+ else if (uObject1Type == 4)
+ {
+  if (uObject1ID == 0)
   {
-    x0 = pActors[idx1].vPosition.x;
-    y0 = pActors[idx1].vPosition.y;    
-    z0 = pActors[idx1].vPosition.z - (unsigned int)((double)pActors[idx1].uActorHeight * -0.75);
+   v0 = Vec3<int>(pParty_global->vPosition.x,
+                  pParty_global->vPosition.y,
+                  pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
   }
-  else if ( type1 == 4 )
+  else if (uObject1ID < 5)
   {
-    if ( idx1 == 0 )
-    {
-      x0 = pParty_global->sPartyPosX;
-      y0 = pParty_global->sPartyPosY;
-      z0 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-    }
-    else if (idx1 < 5)
-    {
-      int RotateVector_p0;
-      int RotateVector_p1;
+   int RotateVector_p0;
+   int RotateVector_p1;
 
-      switch (idx1)
-      {
-      case 1:
+   switch (uObject1ID)
+   {
+    case 1:
         RotateVector_p0 = 24;
         RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY; 
         break;
-      case 2:
+    case 2:
         RotateVector_p0 = 8;
         RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY;  
         break;
-      case 3:
+    case 3:
         RotateVector_p0 = 24;
         RotateVector_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
         break;
-      case 4:
+    case 4:
         RotateVector_p0 = 8;
         RotateVector_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
         break;
-      }
+   }
 
-      RotateVector(RotateVector_p0, 
-                 RotateVector_p1,         
-                 0, 
-                 pParty_global->sPartyPosX, 
-                 pParty_global->sPartyPosY, 
-                 pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3, 
-                 &x0, 
-                 &y0, 
-                 &z0);
-    }   
+   Vec3<int> vToRotate = pParty_global->vPosition;
+   vToRotate.z += pParty_global->uPartyHeight / 3;
+   RotateVector(RotateVector_p0, RotateVector_p1, 0, vToRotate, &v0);
   }
-  else if ( type1 == 5 )
+ }
+ else if (uObject1Type == 5)
+   v0 = pLevelDecorations[uObject1ID].vPosition;
+ else if (uObject1Type == 6)
+ {
+  if ( uCurrentlyLoadedLevelType == 1 )
   {
-    x0 = pLevelDecorations[idx1].sPosX;
-    y0 = pLevelDecorations[idx1].sPosY;
-    z0 = pLevelDecorations[idx1].sPosZ;
+   char *ptr = (char *)ptr_6BE644 + 96 * uObject1ID;
+   v0 = Vec3<int>((*(_WORD *)(ptr + 80) + (signed int)*(_WORD *)(ptr + 82)) >> 1,
+                  (*(_WORD *)(ptr + 84) + (signed int)*(_WORD *)(ptr + 86)) >> 1,
+                  (*(_WORD *)(ptr + 88) + (signed int)*(_WORD *)(ptr + 90)) >> 1);
   }
-  else if ( type1 == 6 )
-  {
-    if ( uCurrentlyLoadedLevelType == 1 )
-    {
-      char *ptr = (char *)ptr_6BE644 + 96 * idx1;
-      x0 = (*(_WORD *)(ptr + 80) + (signed int)*(_WORD *)(ptr + 82)) >> 1;
-      y0 = (*(_WORD *)(ptr + 84) + (signed int)*(_WORD *)(ptr + 86)) >> 1;
-      z0 = (*(_WORD *)(ptr + 88) + (signed int)*(_WORD *)(ptr + 90)) >> 1;
-    }
-  }
-  else   
-  {
-    z0 = 0;
-    y0 = 0;
-    x0 = 0;
-  }
-    
-  type2 = object2 >> 3;
-  idx2 = object2 / 8;
+ }
+ else   
+   v0 = Vec3<int>(0, 0, 0);
 
-  if ( type2 == 2 )
-  {
-    x1 = pLayingItemsList[idx2].sItemPosX;
-    y1 = pLayingItemsList[idx2].sItemPosY;
-    z1 = pLayingItemsList[idx2].sItemPosZ;    
-  }
-  else if ( type2 == 3 )
-  {
-    x1 = pActors[idx2].vPosition.x;
-    y1 = pActors[idx2].vPosition.y;
-    z1 = pActors[idx2].vPosition.z - (unsigned int)(signed __int64)((double)pActors[idx2].uActorHeight * -0.75);    
-  }
-  else if ( type2 == 4 )
-  {
-    x1 = pParty_global->sPartyPosX;
-    y1 = pParty_global->sPartyPosY;   
-    z1 = a4;
-    if ( !z1 )
-      z1 = pParty_global->uEyelevel;
 
-    z1 += pParty_global->sPartyPosZ;
-  }
-  else if ( type2 == 5 )
-  {    
-    x1 = pLevelDecorations[idx2].sPosX;
-    y1 = pLevelDecorations[idx2].sPosY;
-    z1 = pLevelDecorations[idx2].sPosZ;
-  }
-  else if ( type2 == 6 )
-  {
-    char *ptr = (char *)ptr_6BE644 + 96 * idx2;
-    x1 = (*(_WORD *)(ptr + 80) + *(_WORD *)(ptr + 82)) >> 1;
-    y1 = (*(_WORD *)(ptr + 84) + *(_WORD *)(ptr + 86)) >> 1;
-    z1 = (*(_WORD *)(ptr + 88) + *(_WORD *)(ptr + 90)) >> 1;     
-  }
+
+ unsigned int uObject2Type = uObject2 & 0x07,
+              uObject2ID = uObject2 >> 3;
+  Vec3<int> v1;
+
+ if (uObject2Type == 2)
+    v1 = pLayingItemsList[uObject2ID].vPosition;
+ else if (uObject2Type == 3)
+ {
+  v1 = pActors[uObject2ID].vPosition;
+  v1.z -= (unsigned int)(signed __int64)((double)pActors[uObject2ID].uActorHeight * -0.75);    
+ }
+ else if (uObject2Type == 4)
+ {
+  v1 = pParty_global->vPosition;
+  if (a4)
+    v1.z += a4;
   else
-  {
-    x1 = 0;
-    y1 = 0;
-    z1 = 0;
-  }
-  
-  deltaX = (double)x1 - (double)x0;
-  deltaY = (double)y1 - (double)y0;
-  deltaZ = (double)z1 - (double)z0;
+    v1.z += pParty_global->uEyelevel;
+ }
+ else if (uObject2Type == 5)
+    v0 = pLevelDecorations[uObject2ID].vPosition;
+ else if (uObject2Type == 6)
+ {
+    char *ptr = (char *)ptr_6BE644 + 96 * uObject2ID;
+    v1 = Vec3<int>((*(_WORD *)(ptr + 80) + *(_WORD *)(ptr + 82)) >> 1,
+                   (*(_WORD *)(ptr + 84) + *(_WORD *)(ptr + 86)) >> 1,
+                   (*(_WORD *)(ptr + 88) + *(_WORD *)(ptr + 90)) >> 1);
+ }
+ else
+   v1 = Vec3<int>(0, 0, 0);
 
-  distance = sqrt(deltaZ * deltaZ + deltaY * deltaY + deltaX * deltaX);
+
+ Vec3<float> dv;
+  double distance;
+ dv = v1 - v0;
+  //deltaX = (double)x1 - (double)x0;
+  //deltaY = (double)y1 - (double)y0;
+  //deltaZ = (double)z1 - (double)z0;
+
+  //distance = sqrt(deltaZ * deltaZ + deltaY * deltaY + deltaX * deltaX);
+ distance = dv.Length();
 
   if (distance <= 1.0)
   {
-    direction.sVecX = 65536;
-    direction.sVecY = 0;
-    direction.sVecZ = 0;
-    direction.uDistance = 1;
-    direction.uDistanceXY = 1;
-    direction.uYawAngle = 0;
-    direction.uPitchAngle = 0;
+   di.vDirection = Vec3<int>(65536, 0, 0);
+    di.uDistance = 1;
+    di.uDistanceXY = 1;
+    di.uYawAngle = 0;
+    di.uPitchAngle = 0;
   }
   else
   {
-    direction.sVecX = (int)(1.0 / distance * deltaX * 65536.0);
-    direction.sVecY = (int)(1.0 / distance * deltaY * 65536.0);
-    direction.sVecZ = (int)(1.0 / distance * deltaZ * 65536.0);
-    direction.uDistance = (unsigned int)distance;
-    direction.uDistanceXY = (unsigned int)sqrt(deltaX * deltaX + deltaY * deltaY);
-    direction.uYawAngle = class59_Atan2(pClass59_global, (int)deltaX, (int)deltaY);
-    direction.uPitchAngle = class59_Atan2(pClass59_global, direction.uDistanceXY, (int)deltaZ);
+    di.vDirection.x = (int)(1.0 / distance * dv.x * 65536.0);
+    di.vDirection.y = (int)(1.0 / distance * dv.y * 65536.0);
+    di.vDirection.z = (int)(1.0 / distance * dv.z * 65536.0);
+    di.uDistance = (unsigned int)distance;
+    di.uDistanceXY = (unsigned int)sqrt(dv.x * dv.x + dv.y * dv.y);
+    di.uYawAngle = class59_Atan2(pClass59_global, (int)dv.x, (int)dv.y);
+    di.uPitchAngle = class59_Atan2(pClass59_global, di.uDistanceXY, (int)dv.z);
   }
 
-  memcpy(pDirectionInfo, &direction, sizeof(struct DirectionInfo));
+  memcpy(pDirectionInfo, &di, sizeof(struct DirectionInfo));
   return pDirectionInfo;
 }
 
@@ -545,9 +498,9 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->sPartyPosX;
-      y1 = pParty_global->sPartyPosY;
-      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->vPosition.x;
+      y1 = pParty_global->vPosition.y;
+      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
     }
     else
     {
@@ -946,12 +899,12 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
     //-cos(pDirectionInfo->uYawAngle + v18)
     tmpCos = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerPi); 
     deltaX = ((unsigned __int64)(tmpCos * pDirectionInfo->uDistanceXY) >> 16);
-    tmpX = pParty_global->sPartyPosX + deltaX - pActor->vPosition.x;
+    tmpX = pParty_global->vPosition.x + deltaX - pActor->vPosition.x;
   
     //-sin(pDirectionInfo->uYawAngle + v18)
     tmpSin = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerHalfPi);
     deltaY =  ((unsigned __int64)(tmpSin * pDirectionInfo->uDistanceXY) >> 16);
-    tmpY = pParty_global->sPartyPosY + deltaY - pActor->vPosition.y;
+    tmpY = pParty_global->vPosition.y + deltaY - pActor->vPosition.y;
     
     pActor->uYawAngle = class59_Atan2(pClass59_global, tmpX, tmpY);
   }
@@ -989,9 +942,9 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->sPartyPosX;
-      y1 = pParty_global->sPartyPosY;
-      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->vPosition.x;
+      y1 = pParty_global->vPosition.y;
+      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
     }
     else
     {
@@ -1079,9 +1032,9 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->sPartyPosX;
-      y1 = pParty_global->sPartyPosY;
-      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->vPosition.x;
+      y1 = pParty_global->vPosition.y;
+      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
     }
     else
     {
@@ -1152,9 +1105,9 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->sPartyPosX;
-      y1 = pParty_global->sPartyPosY;
-      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->vPosition.x;
+      y1 = pParty_global->vPosition.y;
+      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
     }
     else
     {
@@ -1229,9 +1182,9 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->sPartyPosX;
-      y1 = pParty_global->sPartyPosY;
-      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->vPosition.x;
+      y1 = pParty_global->vPosition.y;
+      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
     }
     else
     {
@@ -1639,9 +1592,9 @@ LABEL_23:
       v12 = dword_4DF390;
       if ( !*(_BYTE *)(v6 + 61) )
         v12 = dword_4DF380[v3];
-      v13 = abs(*(_WORD *)(v6 + 142) - pParty_global->sPartyPosX);
-      v25 = abs(*(_WORD *)(v6 + 144) - pParty_global->sPartyPosY);
-      v3 = abs(*(_WORD *)(v6 + 146) - pParty_global->sPartyPosZ);
+      v13 = abs(*(_WORD *)(v6 + 142) - pParty_global->vPosition.x);
+      v25 = abs(*(_WORD *)(v6 + 144) - pParty_global->vPosition.y);
+      v3 = abs(*(_WORD *)(v6 + 146) - pParty_global->vPosition.z);
       if ( v13 <= v12 )
       {
         if ( v25 <= v12 )
@@ -1775,4 +1728,16 @@ bool InitializeActors(struct MapInfo *pMapInfo)
   //[inviZ_khv] WTF? v6 is local variable and it's destroyed when function returns
   Actor_LinkSprites(&v6, 0);
   return true;
+}
+
+
+//----- (00438B9B) --------------------------------------------------------
+char Actor_sub_438B9B(Actor *_this)
+{
+  int v1; // eax@1
+
+  v1 = _this->uAlly;
+  if ( !v1 )
+    v1 = (_this->uMonsterID - 1) / 3 + 1;
+  return v1 >= 39 && v1 <= 44 || v1 >= 45 && v1 <= 50 || v1 >= 51 && v1 <= 62 || v1 >= 78 && v1 <= 83;
 }

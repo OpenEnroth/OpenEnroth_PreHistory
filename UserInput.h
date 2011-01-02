@@ -204,6 +204,7 @@ void CAsyncKeyboard_Clear();
 
 
 char CAsyncMouse_Initialize(LPVOID lpParameter);
+int CMouseAsync_ctor_or_initialization(int _this, int a2);
 void CAsyncMouse_suspend(int _this);
 int CAsyncMouse_update_mouse_data(int _this, int a2);
 void CAsyncMouse_sub_46B105(void *_this);

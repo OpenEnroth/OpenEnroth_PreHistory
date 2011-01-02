@@ -39,17 +39,6 @@ void __thiscall sub_438B54(int _this)
   DeleteCriticalSection((LPCRITICAL_SECTION)(v1 + 4));
 }
 
-//----- (00438B9B) --------------------------------------------------------
-char __thiscall sub_438B9B(int _this)
-{
-  int v1; // eax@1
-
-  v1 = *(_DWORD *)(_this + 712);
-  if ( !v1 )
-    v1 = (*(_WORD *)(_this + 96) - 1) / 3 + 1;
-  return v1 >= 39 && v1 <= 44 || v1 >= 45 && v1 <= 50 || v1 >= 51 && v1 <= 62 || v1 >= 78 && v1 <= 83;
-}
-
 //----- (00438BDF) --------------------------------------------------------
 signed int __fastcall sub_438BDF(signed int a1, int a2)
 {
@@ -150,7 +139,7 @@ void __fastcall sub_438CF3(int a1)
   if ( uLevelMapStatsID )
   {
     v2 = 836 * a1;
-    if ( sub_438B9B((int)((char *)pActors + 836 * a1)) )
+    if ( Actor_sub_438B9B(&pActors[a1]) )
     {
       v3 = 1;
       if ( v1 != 5 )
@@ -226,9 +215,9 @@ __int16 __thiscall sub_438E35(void *_this)
   v4 = _this;
   compile_error(level file name should not be global);
     //v5 = (int *)&pMapStats->pMapInfos[CMapStats_FindLocation(pMapStats, CurrentLevelName)];
-  v6 = abs(pParty_global->sPartyPosX - *((_DWORD *)v4 + 1));
-  v15 = abs(pParty_global->sPartyPosY - *((_DWORD *)v4 + 2));
-  v16 = abs((int)(pParty_global->sPartyPosZ + pParty_global->uEyelevel - *((_DWORD *)v4 + 3)));
+  v6 = abs(pParty_global->vPosition.x - *((_DWORD *)v4 + 1));
+  v15 = abs(pParty_global->vPosition.y - *((_DWORD *)v4 + 2));
+  v16 = abs((int)(pParty_global->vPosition.z + pParty_global->uEyelevel - *((_DWORD *)v4 + 3)));
   v1 = v6;
   v3 = v15;
   v2 = v16;
@@ -459,11 +448,11 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
   if ( !v9 )
   {
     v13 = v67;
-    v54 = pParty_global->sPartyPosX - *(_DWORD *)(v67 + 4);
+    v54 = pParty_global->vPosition.x - *(_DWORD *)(v67 + 4);
     v59 = abs(v54);
-    v53 = pParty_global->sPartyPosY - *(_DWORD *)(v13 + 8);
+    v53 = pParty_global->vPosition.y - *(_DWORD *)(v13 + 8);
     v55 = (int *)abs(v53);
-    v52 = pParty_global->sPartyPosZ - *(_DWORD *)(v13 + 12);
+    v52 = pParty_global->vPosition.z - *(_DWORD *)(v13 + 12);
     v56 = abs(v52);
     v65 = v59;
     v10 = v59;
@@ -1516,18 +1505,18 @@ void __fastcall sub_43A97E(int a1, signed int a2)
   {
     if ( v2 == 1 )
     {
-      dword_50FDFC = pLayingItemsList[a1].sVelocityX;
-      dword_50FE00 = pLayingItemsList[a1].sVelocityY;
-      dword_50FE04 = pLayingItemsList[a1].sVelocityZ;
+      dword_50FDFC = pLayingItemsList[a1].vVelocity.x;
+      dword_50FE00 = pLayingItemsList[a1].vVelocity.y;
+      dword_50FE04 = pLayingItemsList[a1].vVelocity.z;
       sub_43AB61((int)&dword_50FDFC, (int)&dword_50FE00, (int)&dword_50FE04);
       sub_439FCB(8 * v6 | 2, pLayingItemsList[a1].byte_000061, (int)&dword_50FDFC, -1);
     }
   }
   else
   {
-    dword_50FDFC = pLayingItemsList[a1].sVelocityX;
-    dword_50FE00 = pLayingItemsList[a1].sVelocityY;
-    dword_50FE04 = pLayingItemsList[a1].sVelocityZ;
+    dword_50FDFC = pLayingItemsList[a1].vVelocity.x;
+    dword_50FE00 = pLayingItemsList[a1].vVelocity.y;
+    dword_50FE04 = pLayingItemsList[a1].vVelocity.z;
     sub_43AB61((int)&dword_50FDFC, (int)&dword_50FE00, (int)&dword_50FE04);
     switch ( v4 )
     {
@@ -1658,9 +1647,9 @@ void __cdecl sub_43AD34()
           {
             if ( *(_BYTE *)v0 != 5 )
             {
-              v1 = abs(*(_WORD *)(v0 + 83) - pParty_global->sPartyPosX);
-              v2 = abs(*(_WORD *)(v0 + 85) - pParty_global->sPartyPosY);
-              v3 = abs(*(_WORD *)(v0 + 87) - pParty_global->sPartyPosZ);
+              v1 = abs(*(_WORD *)(v0 + 83) - pParty_global->vPosition.x);
+              v2 = abs(*(_WORD *)(v0 + 85) - pParty_global->vPosition.y);
+              v3 = abs(*(_WORD *)(v0 + 87) - pParty_global->vPosition.z);
               if ( (double)sub_4621DA(v1, v2, v3) < 512.0 )
                 Actor_sub_402968(v4, 4, 0, 0);
             }
@@ -3352,7 +3341,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
   v52 = 0;
   if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
   {
-   v27 = (char *)&pStationaryLightsStack->pLights[0].sLightPosZ;
+   v27 = (char *)&pStationaryLightsStack->pLights[0].vPosition.z;
     do
     {
       v28 = abs((signed)((double)*((_WORD *)v27 - 3) - a3));
@@ -4157,10 +4146,10 @@ int __thiscall sub_4407D9(int _this, int a2)
   if ( !v7 )
   {
     v8 = *(_DWORD *)(v3 + 16);
-    *(_DWORD *)(v3 + 8) = pParty_global->sPartyPosX;
-    v9 = pParty_global->sPartyPosY;
+    *(_DWORD *)(v3 + 8) = pParty_global->vPosition.x;
+    v9 = pParty_global->vPosition.y;
     v10 = *(_DWORD *)(v3 + 8);
-    *(_DWORD *)(v3 + 12) = pParty_global->sPartyPosY;
+    *(_DWORD *)(v3 + 12) = pParty_global->vPosition.y;
     *(_DWORD *)(v3 + 28) = sub_49AC17((int)byte_6BE3C8, v10, v9, v8);
   }
   if ( pD3DRenderer->pRenderD3D3 )
@@ -4252,7 +4241,7 @@ void __fastcall sub_440B44(char a1)
 
   if ( a1 )
   {
-    sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
+    sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     for ( i = 0; i < class37_global0.dword_000000; ++i )
     {
       v2 = 2252 * word_51B77C[2 * i + 1];
@@ -4623,11 +4612,11 @@ void __cdecl sub_441BD4()
     LOBYTE(v0) = v0 | 2;
   v1 = cEventTimer.dword_000024;
   v2 = v0;
-  v3 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY) * pParty_global->dword_000018) >> 16);
+  v3 = pParty_global->vPosition.x - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY) * pParty_global->dword_000018) >> 16);
   v18 = class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uIntegerHalfPi);
   v19 = (unsigned __int64)(v18 * pParty_global->dword_000018) >> 16;
   v8 = 65;
-  v4 = pParty_global->sPartyPosY - v19;
+  v4 = pParty_global->vPosition.y - v19;
   v6 = pParty_global->sRotationY;
   v7 = pParty_global->sRotationX;
   v9 = (int)pD3DRenderer->pTargetSurface;
@@ -4636,7 +4625,7 @@ void __cdecl sub_441BD4()
   v14 = pOldViewport->uScreenZ;
   v15 = pOldViewport->uScreenW;
   v16 = pOldViewport->dword_000030;
-  v5 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+  v5 = pParty_global->vPosition.z + pParty_global->uEyelevel;
   v10 = 640;
   v11 = 480;
   v17 = (int)pD3DRenderer->pActiveZBuffer;
@@ -5068,11 +5057,11 @@ LABEL_38:
 
 
 
-	v52 = ((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88 - 3;
-	v84 = pParty_global->sPartyPosY - v87;
+	v52 = ((unsigned __int64)((pParty_global->vPosition.x - v6) * v5) >> 16) + v88 - 3;
+	v84 = pParty_global->vPosition.y - v87;
 
 //	v100 = (const void *)((unsigned __int64)((pParty_global->sPartyPosY - v87) * v5) >> 16);
-	x100 = (unsigned __int64)((pParty_global->sPartyPosY - v87) * v5) >> 16;
+	x100 = (unsigned __int64)((pParty_global->vPosition.y - v87) * v5) >> 16;
 
 	v51 = 1;
 
@@ -5084,14 +5073,14 @@ LABEL_38:
 	{
 		if ( v52 > a3 )
 		{
-			if ( (signed int)(((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88 - 6) > a3 )
+			if ( (signed int)(((unsigned __int64)((pParty_global->vPosition.x - v6) * v5) >> 16) + v88 - 6) > a3 )
 			v51 = 0;
 			v52 = a3;
 		}
 	}
 	else
 	{
-		if ( (signed int)(((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88) < v85 )
+		if ( (signed int)(((unsigned __int64)((pParty_global->vPosition.x - v6) * v5) >> 16) + v88) < v85 )
 		v51 = 0;
 		v52 = v85;
 	}
@@ -5167,7 +5156,7 @@ LABEL_71:
 	v89 = result;
 	if ( (signed int)uNumLevelDecorations > 0 )
 	{
-		v97 = (int)&pLevelDecorations[0].sPosX;
+		v97 = (int)&pLevelDecorations[0].vPosition.x;
 		do
 		{
 			if ( *(_BYTE *)(v97 - 2) & 8 )
@@ -5411,8 +5400,8 @@ int __thiscall sub_443249(int _this)
   *(_DWORD *)(_this + 44) = v1;
   if ( v1 < 384 )
     *(_DWORD *)(_this + 44) = 384;
-  *(_DWORD *)(_this + 48) = pParty_global->sPartyPosX;
-  *(_DWORD *)(_this + 52) = pParty_global->sPartyPosY;
+  *(_DWORD *)(_this + 48) = pParty_global->vPosition.x;
+  *(_DWORD *)(_this + 52) = pParty_global->vPosition.y;
   return sub_4432E7(_this);
 }
 
@@ -5429,8 +5418,8 @@ int __thiscall sub_443291(int _this)
     v1 = 3072;
   if ( v2 > v1 )
     *(_DWORD *)(_this + 44) = v1;
-  *(_DWORD *)(_this + 48) = pParty_global->sPartyPosX;
-  *(_DWORD *)(_this + 52) = pParty_global->sPartyPosY;
+  *(_DWORD *)(_this + 48) = pParty_global->vPosition.x;
+  *(_DWORD *)(_this + 52) = pParty_global->vPosition.y;
   return sub_4432E7(_this);
 }
 
@@ -5524,8 +5513,8 @@ int __cdecl sub_4443D5_GetMinimapRightClickText()
   int v24; // [sp+24h] [bp-8h]@1
   int X; // [sp+28h] [bp-4h]@1
 
-  v24 = pParty_global->sPartyPosX;
-  v2 = pParty_global->sPartyPosY;
+  v24 = pParty_global->vPosition.x;
+  v2 = pParty_global->vPosition.y;
   v1 = pClass51_global->uNumBModels;
   v0 = 0;
   v21 = 0;
@@ -6075,7 +6064,7 @@ void __cdecl sub_444DCA()
   memcpy(&local_0C, pGUIWindow0, sizeof(GUI::Window));
   compile_error(file name should not be global);
     //v11 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
-  sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
+  sub_48902E((char *)pClass51_global->string_000000, pParty_global->vPosition.x, pParty_global->vPosition.y, &Str2, 20);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04_CurrentRightPanelType != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)(dword_59142C));
@@ -8699,9 +8688,7 @@ LABEL_248:
             {
               if ( v103 )
               {
-                pParty_global->sPartyPosX = v139;
-                pParty_global->sPartyPosY = v136;
-                pParty_global->sPartyPosZ = v130;
+                pParty_global->vPosition = Vec3<int>(v139, v136, v130);
                 pParty_global->dword_000700 = v130;
                 if ( dword_5B65B4 != -1 )
                   pParty_global->sRotationY = dword_5B65B4;
@@ -9498,11 +9485,11 @@ void __fastcall sub_448DF8(int a1, int a2, signed int a3, int a4, __int64 a5, si
   }
   else
   {
-    v11 = (double)pParty_global->sPartyPosX - (double)a4;
+    v11 = (double)pParty_global->vPosition.x - (double)a4;
     v52 = v11;
-    v10 = (double)pParty_global->sPartyPosY - (double)(signed int)a5;
+    v10 = (double)pParty_global->vPosition.y - (double)(signed int)a5;
     v53 = v10;
-    v9 = (double)(pParty_global->sPartyPosZ + pParty_global->uEyelevel);
+    v9 = (double)(pParty_global->vPosition.z + pParty_global->uEyelevel);
   }
   v78 = v9 - (double)SHIDWORD(a5);
   v85 = v10 * v10;
@@ -13084,9 +13071,9 @@ LABEL_12:
   if ( v20 != uNumActors || (result = uNumActors + 1, (signed int)(uNumActors + 1) < 500) )
   {
     v21 = 0;
-    v22 = pParty_global->sPartyPosZ;
+    v22 = pParty_global->vPosition.z;
     if ( uCurrentlyLoadedLevelType == 1 )
-      v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
+      v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     v8 = (int)((char *)pActors + 836 * v20);
     //v9 = (char *)&unk_5CCE98 + 88 * v23;
     v9 = (char *)&pMonsterStats->pMonsterInfos[v23 + 1];
@@ -13105,10 +13092,10 @@ LABEL_12:
     *(_DWORD *)(v8 + 116) = 0;
     *(_WORD *)(v8 + 140) = v11;
     v12 = rand() % 2048;
-    v7 = ((unsigned __int64)(class59_SinCos(pClass59_global, v12) * v19) >> 16) + pParty_global->sPartyPosX;
+    v7 = ((unsigned __int64)(class59_SinCos(pClass59_global, v12) * v19) >> 16) + pParty_global->vPosition.x;
     v18 = class59_SinCos(pClass59_global, v12 - pClass59_global->uIntegerHalfPi);
     v23 = (unsigned __int64)(v18 * v19) >> 16;
-    v13 = pParty_global->sPartyPosY;
+    v13 = pParty_global->vPosition.y;
     v14 = (unsigned __int64)(v18 * v19) >> 16;
     *(_WORD *)(v8 + 162) = v7;
     v6 = v14 + v13;
@@ -13130,7 +13117,7 @@ LABEL_12:
     *(_WORD *)(v8 + 160) = 256;
     Actor_UpdateAnimation((Actor *)v8);
     if ( uCurrentlyLoadedLevelType == 2
-      || (v22 = pParty_global->sPartyPosZ, result = sub_49AC17((int)byte_6BE3C8, v7, v6, pParty_global->sPartyPosZ), result == v21)
+      || (v22 = pParty_global->vPosition.z, result = sub_49AC17((int)byte_6BE3C8, v7, v6, pParty_global->vPosition.z), result == v21)
       && (result = sub_46CEC3(v7, v6, v22, result, (int)&v18), result != -30000)
       && (result = abs(result - v22), result <= 1024) )
     {
@@ -13637,16 +13624,16 @@ int __fastcall sub_45063B(int a1, int a2)
       v8 = rand() % pClass59_global->uIntegerDoublePi;
       v23 = class59_SinCos(pClass59_global, v8);
       v26 = (unsigned __int64)(v23 * v7) >> 16;
-      v19 = pParty_global->sPartyPosX + v26;
+      v19 = pParty_global->vPosition.x + v26;
       v23 = class59_SinCos(pClass59_global, v8 - pClass59_global->uIntegerHalfPi);
       v26 = (unsigned __int64)(v23 * v7) >> 16;
       v6 = 0;
       v22 = v27;
-      v20 = v26 + pParty_global->sPartyPosY;
-      v21 = pParty_global->sPartyPosZ;
+      v20 = v26 + pParty_global->vPosition.y;
+      v21 = pParty_global->vPosition.z;
       v29 = 0;
       v30 = 0;
-      v21 = sub_46D49E_ProbablyCollidePartyWithBModels(v19, v26 + pParty_global->sPartyPosY, pParty_global->sPartyPosZ, 0, (int)&v29, (int)&v30, 0);
+      v21 = sub_46D49E_ProbablyCollidePartyWithBModels(v19, v26 + pParty_global->vPosition.y, pParty_global->vPosition.z, 0, (int)&v29, (int)&v30, 0);
       v26 = 0;
       if ( pClass51_global->uNumBModels > 0 )
       {
@@ -13677,7 +13664,7 @@ LABEL_16:
   else
   {
     v29 = 0;
-    v25 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
+    v25 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     do
     {
       ++v29;
@@ -13687,21 +13674,21 @@ LABEL_16:
       v16 = class59_SinCos(pClass59_global, v14 % pClass59_global->uIntegerDoublePi);
       v23 = v16;
       v26 = (unsigned __int64)(v16 * v13) >> 16;
-      v19 = pParty_global->sPartyPosX + v26;
+      v19 = pParty_global->vPosition.x + v26;
       v17 = class59_SinCos(pClass59_global, v15 - pClass59_global->uIntegerHalfPi);
       v23 = v17;
       v26 = (unsigned __int64)(v17 * v13) >> 16;
-      v20 = v26 + pParty_global->sPartyPosY;
-      v21 = pParty_global->sPartyPosZ;
+      v20 = v26 + pParty_global->vPosition.y;
+      v21 = pParty_global->vPosition.z;
       v22 = v27;
-      v12 = sub_49AC17((int)byte_6BE3C8, v19, v26 + pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
+      v12 = sub_49AC17((int)byte_6BE3C8, v19, v26 + pParty_global->vPosition.y, pParty_global->vPosition.z);
       if ( v12 == v25 )
       {
         v18 = sub_46CEC3(v19, v20, v21, v12, (int)&v28);
         v21 = v18;
         if ( v18 != -30000 )
         {
-          if ( abs(v18 - pParty_global->sPartyPosZ) <= 1024 )
+          if ( abs(v18 - pParty_global->vPosition.z) <= 1024 )
             break;
         }
       }
@@ -13903,9 +13890,10 @@ signed int __fastcall sub_450B0A(int a1)
   __int16 v18; // [sp+A8h] [bp-2ACh]@5
   __int16 v19; // [sp+AAh] [bp-2AAh]@5
   __int16 v20; // [sp+B2h] [bp-2A2h]@5
-  int v21; // [sp+348h] [bp-Ch]@5
-  int v22; // [sp+34Ch] [bp-8h]@5
-  int v23; // [sp+350h] [bp-4h]@5
+  //int v21; // [sp+348h] [bp-Ch]@5
+  //int v22; // [sp+34Ch] [bp-8h]@5
+  //int v23; // [sp+350h] [bp-4h]@5
+  Vec3<int> v21;
 
   v1 = a1;
   if ( uNumActors == 499 )
@@ -13929,14 +13917,15 @@ signed int __fastcall sub_450B0A(int a1)
     v11 = *(_WORD *)(v4 + 2);
     v12 = *(_WORD *)v4;
     v13 = *(_WORD *)(v4 + 4);
-    RotateVector(200, pParty_global->sRotationY, 0, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ, &v21, &v23, &v22);
-    v17 = v21;
-    v14 = v21;
+    //RotateVector(200, pParty_global->sRotationY, 0, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z, &v21, &v23, &v22);
+    RotateVector(200, pParty_global->sRotationY, 0, pParty_global->vPosition, &v21);
+    v17 = v21.x;
+    v14 = v21.x;
     v20 = 256;
-    v18 = v23;
-    v15 = v23;
-    v19 = v22;
-    v16 = v22;
+    v18 = v21.y;
+    v15 = v21.y;
+    v19 = v21.z;
+    v16 = v21.z;
     LODFile_Sprites_LOD.LODFile_sub_450C8B();
     class35_sub_48A379(&class35_obj);
     v3 = uNumActors - 1;

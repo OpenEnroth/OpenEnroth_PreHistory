@@ -365,7 +365,6 @@ void *__stdcall sub_437C96(const void *a1, int a2, const void *a3, int a4, float
 void __thiscall sub_437D4A(void *_this, int a2, int a3, int a4, int a5, char a6, float a7);
 int __thiscall sub_438821(void *_this);
 void __thiscall sub_438B54(int _this);
-char __thiscall sub_438B9B(int _this);
 signed int __fastcall sub_438BDF(signed int a1, int a2);
 void __fastcall sub_438CF3(int a1);
 __int16 __thiscall sub_438E35(void *_this);
@@ -606,7 +605,7 @@ int __thiscall sub_45E26C(char *Filename);
 
 
 signed int __cdecl sub_46082C();
-char __thiscall PrepareToLoadBLV(void *_this);
+char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this);
 void __fastcall PrepareToLoadODM(const char *pLevelFilename, int a1);
 void __cdecl sub_461103(const char *pLevelFilename);
 //int __thiscall LODFile_sub_461397(int _this);
@@ -677,7 +676,6 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3);
 int __cdecl sub_46A99B();
 int __fastcall sub_46AC59(int a1);
 void __cdecl sub_46AC8C();
-int __thiscall sub_46ACA9(int _this, int a2);
 int __thiscall sub_46ADE2(int _this);
 char __thiscall sub_46AF50(void *_this);
 char __thiscall sub_46B072(DWORD lpParameter);
@@ -750,7 +748,7 @@ void __cdecl loc_4789D4(); // idb
 void __cdecl sub_4789DE_RenderBuildingsSoftware();
 bool __fastcall sub_479089(unsigned int a1, int *a2);
 void __fastcall sub_479A53(int a1, int a2);
-void sub_47A384_LoadAndInitializeLevel(const char *pLevelFilename);
+void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename);
 void __thiscall sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw();
 void __cdecl sub_47A815_DrawClass02Lines();
 signed int __thiscall sub_47A825(void *_this);

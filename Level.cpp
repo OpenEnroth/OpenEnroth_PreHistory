@@ -1209,7 +1209,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(OutdoorLocation *_this)
     if (~pItem->uAttributes & 8)
     {
       if ( !(pObjectDescriptionList->pDescriptions[pItem->uObjectDescriptionID].byte_000026 & 0x10) )
-        pItem->sItemPosZ = sub_48257A(pItem->sItemPosX, pItem->sItemPosY, (int)&v5, 0); // something strange goes here with v5
+        pItem->vPosition.z = sub_48257A(pItem->vPosition.x, pItem->vPosition.y, (int)&v5, 0); // something strange goes here with v5
     }
     pItGen = &pItem->stru_000024;
     if ( pItGen->uItemID )
@@ -1423,27 +1423,28 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
 
   //apply light to scene
   v4 = _this->word_000006;
-  v5 = _this->sLightPosX;
-  v6 = _this->sLightPosY;
-  v7 = _this->sLightPosZ;
-  v8 = ((int)_this->sLightPosX * a2->pFaceNormal[0] +
-        (int)_this->sLightPosY * a2->pFaceNormal[1] +
-        (int)_this->sLightPosZ * a2->pFaceNormal[2] + a2->sNormalDistance) >> 16;
+  v5 = _this->vPosition.x;
+  v6 = _this->vPosition.y;
+  v7 = _this->vPosition.z;
+  v8 = ((int)_this->vPosition.x * a2->pFaceNormal[0] +
+        (int)_this->vPosition.y * a2->pFaceNormal[1] +
+        (int)_this->vPosition.z * a2->pFaceNormal[2] + a2->sNormalDistance) >> 16;
 
  if (_this->word_000006 > 0 &&
-     _this->sLightPosX > a2->cBoundingBoxX.min - _this->word_000006 &&
-     _this->sLightPosX < a2->cBoundingBoxX.max + _this->word_000006 &&
-     _this->sLightPosY > a2->cBoundingBoxY.min - _this->word_000006 &&
-     _this->sLightPosY < a2->cBoundingBoxY.max + _this->word_000006 &&
-     _this->sLightPosZ > a2->cBoundingBoxZ.min - _this->word_000006 &&
-     _this->sLightPosZ < a2->cBoundingBoxZ.max + _this->word_000006 &&
+
+     _this->vPosition.x > a2->cBoundingBoxX.min - _this->word_000006 &&
+     _this->vPosition.x < a2->cBoundingBoxX.max + _this->word_000006 &&
+     _this->vPosition.y > a2->cBoundingBoxY.min - _this->word_000006 &&
+     _this->vPosition.y < a2->cBoundingBoxY.max + _this->word_000006 &&
+     _this->vPosition.z > a2->cBoundingBoxZ.min - _this->word_000006 &&
+     _this->vPosition.z < a2->cBoundingBoxZ.max + _this->word_000006 &&
      a4 || v8 >= 0 && v8 <= _this->word_000006)
   {
     dword_F8ADD8[*(_DWORD *)a3] = _this->word_000006;
     dword_F8AE28[*(_DWORD *)a3] = 65536 / _this->word_000006;
-    dword_F8AE78[*(_DWORD *)a3] = _this->sLightPosX;
-    dword_F8AEC8[*(_DWORD *)a3] = _this->sLightPosY;
-    dword_F8AFB8[*(_DWORD *)a3] = _this->sLightPosZ;
+    dword_F8AE78[*(_DWORD *)a3] = _this->vPosition.x;
+    dword_F8AEC8[*(_DWORD *)a3] = _this->vPosition.y;
+    dword_F8AFB8[*(_DWORD *)a3] = _this->vPosition.z;
     flt_F8B008[*(_DWORD *)a3] = (double)_this->uLightColorRed / 255.0;
     flt_F8B058[*(_DWORD *)a3] = (double)_this->uLightColorGreen / 255.0;
     flt_F8B0A8[*(_DWORD *)a3] = (double)_this->uLightColorBlue / 255.0;

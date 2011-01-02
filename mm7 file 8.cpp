@@ -1257,15 +1257,15 @@ void sub_47AF11_PrepareItemsRenderList()
      if ( (v2 < 1000 || v2 >= 10000) && (v2 < 500 || v2 >= 600) || class06_sub_4A81CA(pGame->class06_obj, (int)&pLayingItemsList[i]))
      {
       v29 = pLayingItemsList[i].sRoom;
-      v44 = pLayingItemsList[i].sItemPosX;
-      v43 = pLayingItemsList[i].sItemPosY;
-      v45 = pLayingItemsList[i].sItemPosZ;
+      v44 = pLayingItemsList[i].vPosition.x;
+      v43 = pLayingItemsList[i].vPosition.y;
+      v45 = pLayingItemsList[i].vPosition.z;
       v7 = &pBillboardRenderList[uNumBillboardsToDraw];
       pSprite = CSpriteFrameTable_fn1(pSpriteFrameTable, v1->uSpriteID, pLayingItemsList[i].uSpriteFrameID);
 
             v36 = pSprite->dword_00002C;
             v38 = pSprite->word_000030 * pLayingItemsList[i].word_000022;
-            v9 = class59_Atan2(pClass59_global, pLayingItemsList[i].sItemPosX - pOldCamera->sPosX, pLayingItemsList[i].sItemPosY - pOldCamera->sPosY);
+            v9 = class59_Atan2(pClass59_global, pLayingItemsList[i].vPosition.x - pOldCamera->sPosX, pLayingItemsList[i].vPosition.y - pOldCamera->sPosY);
             LOWORD(v10) = pLayingItemsList[i].uFacing;
             v4 = v36;
 
@@ -2161,10 +2161,10 @@ LABEL_191:
           }
           if ( uCurrentlyLoadedLevelType == 1 )
             return;
-          v139 = pParty_global->sPartyPosZ;
-          v115 = pParty_global->sPartyPosX;
-          v118 = pParty_global->sPartyPosZ + 2500;
-          v117 = pParty_global->sPartyPosY;
+          v139 = pParty_global->vPosition.z;
+          v115 = pParty_global->vPosition.x;
+          v118 = pParty_global->vPosition.z + 2500;
+          v117 = pParty_global->vPosition.y;
           v23 = 8;
           if ( BYTE1(a5) & 1 )
           {
@@ -3401,16 +3401,13 @@ LABEL_34:
 //----- (00466B8C) --------------------------------------------------------
 int __cdecl err_show()
 {
- if ( !pGame->dword_000004 )
-  {
     ClipCursor(0);
-    pGame->dword_000004 = true;
     if (!pD3DRenderer->bWindowMode)
       sub_4667E9();
     if ( MessageBoxA(0, (char *)pGlobalTXT_LocalizationStrings[176], (char *)pGlobalTXT_LocalizationStrings[59], 0x34u) == 6 )
       SaveGame(1, 0);
     Game_DeinitializeAndTerminate((void *)1);
-  }
+
   return 0;
 }
 
@@ -6145,9 +6142,9 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       if ( v5 != 2 )
         return 0;
       v7 = 32 * v2;
-      v63 = pLevelDecorations[v2].sPosX;
-      v64 = pLevelDecorations[v2].sPosY;
-      v65 = pLevelDecorations[v2].sPosZ;
+      v63 = pLevelDecorations[v2].vPosition.x;
+      v64 = pLevelDecorations[v2].vPosition.y;
+      v65 = pLevelDecorations[v2].vPosition.z;
       v6 = sub_49AC17((int)byte_6BE3C8, v63, v64, v65);
     }
     else
@@ -6163,9 +6160,9 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
   else
   {
     v10 = 112 * v2;
-    v63 = pLayingItemsList[v2].sItemPosX;
-    v64 = pLayingItemsList[v2].sItemPosY;
-    v11 = pLayingItemsList[v2].sItemPosZ;
+    v63 = pLayingItemsList[v2].vPosition.x;
+    v64 = pLayingItemsList[v2].vPosition.y;
+    v11 = pLayingItemsList[v2].vPosition.z;
     v6 = pLayingItemsList[v2].sRoom;
     v65 = v11;
   }
@@ -6183,17 +6180,17 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
         if ( v15 != 1 )
           return 0;
         v16 = 32 * v12;
-        v18 = pLevelDecorations[v12].sPosX;
-        v43 = v60 = pLevelDecorations[v12].sPosY;
-        v17 = v44 = pLevelDecorations[v12].sPosZ;
+        v18 = pLevelDecorations[v12].vPosition.x;
+        v43 = v60 = pLevelDecorations[v12].vPosition.y;
+        v17 = v44 = pLevelDecorations[v12].vPosition.z;
       }
       else
       {
-        v18 = pParty_global->sPartyPosX;
-        v17 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
-        v60 = pParty_global->sPartyPosY;
-        v44 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
-        v43 = pParty_global->sPartyPosY;
+        v18 = pParty_global->vPosition.x;
+        v17 = pParty_global->uEyelevel + pParty_global->vPosition.z;
+        v60 = pParty_global->vPosition.y;
+        v44 = pParty_global->uEyelevel + pParty_global->vPosition.z;
+        v43 = pParty_global->vPosition.z;
       }
       v19 = sub_49AC17((int)byte_6BE3C8, v18, v43, v44);
     }
@@ -6210,9 +6207,9 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
   else
   {
     v22 = 112 * v12;
-    v18 = pLayingItemsList[v12].sItemPosX;
-    v17 = pLayingItemsList[v12].sItemPosY;
-    v60 = pLayingItemsList[v12].sItemPosZ;
+    v18 = pLayingItemsList[v12].vPosition.x;
+    v17 = pLayingItemsList[v12].vPosition.y;
+    v60 = pLayingItemsList[v12].vPosition.z;
     v19 = pLayingItemsList[v12].sRoom;
   }
   v62 = v19;
@@ -7055,12 +7052,12 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
   int v159; // [sp+60h] [bp-1Ch]@12
   int v160; // [sp+60h] [bp-1Ch]@47
   int v161; // [sp+60h] [bp-1Ch]@128
-  int v162; // [sp+64h] [bp-18h]@2
-  int v163; // [sp+68h] [bp-14h]@2
-  int v164; // [sp+6Ch] [bp-10h]@2
-  int v165; // [sp+70h] [bp-Ch]@2
-  int v166; // [sp+74h] [bp-8h]@2
-  int v167; // [sp+78h] [bp-4h]@2
+  //int v162; // [sp+64h] [bp-18h]@2
+  //int v163; // [sp+68h] [bp-14h]@2
+  //int v164; // [sp+6Ch] [bp-10h]@2
+  //int v165; // [sp+70h] [bp-Ch]@2
+  //int v166; // [sp+74h] [bp-8h]@2
+  //int v167; // [sp+78h] [bp-4h]@2
   int v168; // [sp+84h] [bp+8h]@60
   int v169; // [sp+84h] [bp+8h]@136
   int v170; // [sp+88h] [bp+Ch]@60
@@ -7081,57 +7078,62 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
   v112 = 0;
   v111 = 0;
   v115 = v6;
+  
+  Vec3<int> v162,
+            v165;
   if ( uCurrentlyLoadedLevelType != 2 )
   {
-    RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, &v166, &v167, &v165);
-    RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, &v163, &v164, &v162);
-    v48 = v164 - v167;
-    v47 = v162 - v165;
-    v49 = v163 - v166;
+    //RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, &v166, &v167, &v165);
+    //RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, &v163, &v164, &v162);
+    RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, Vec3<int>(v113, v114, a3), &v165);
+    RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, Vec3<int>(a4, a5, a6), &v162);
+    v48 = v162.y - v165.y;
+    v47 = v162.z - v165.z;
+    v49 = v162.x - v165.x;
     v46 = sub_452A9E(v49 * v49 + v48 * v48 + v47 * v47);
     v45 = 65536;
     if ( v46 )
       v45 = 65536 / v46;
-    v50 = v163;
+    v50 = v162.x;
     v142 = v49 * v45;
     v52 = v48 * v45;
     v53 = v47 * v45;
-    v51 = v166;
+    v51 = v165.x;
     v146 = v52;
     v150 = v53;
-    v118 = v166;
-    if ( v166 < v163 )
+    v118 = v165.x;
+    if ( v165.x < v162.x )
     {
-      v122 = v163;
+      v122 = v162.x;
     }
     else
     {
-      v118 = v163;
-      v122 = v166;
+      v118 = v162.x;
+      v122 = v165.x;
     }
-    v55 = v167;
-    v54 = v164;
-    v126 = v167;
-    if ( v167 < v164 )
+    v55 = v165.y;
+    v54 = v162.y;
+    v126 = v165.y;
+    if ( v165.y < v162.y )
     {
-      v130 = v164;
-    }
-    else
-    {
-      v126 = v164;
-      v130 = v167;
-    }
-    v56 = v162;
-    v57 = v165;
-    v134 = v165;
-    if ( v165 < v162 )
-    {
-      v138 = v162;
+      v130 = v162.y;
     }
     else
     {
-      v134 = v162;
-      v138 = v165;
+      v126 = v162.y;
+      v130 = v165.y;
+    }
+    v56 = v162.z;
+    v57 = v165.z;
+    v134 = v165.z;
+    if ( v165.z < v162.z)
+    {
+      v138 = v162.z;
+    }
+    else
+    {
+      v134 = v162.z;
+      v138 = v165.z;
     }
     v157 = 0;
     while ( !v112 )
@@ -7170,19 +7172,19 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
               v105 = v63 + v64 + v65,
               v66) )
           goto LABEL_107;
-        v67 = v165 * *(_DWORD *)(v61 + 24);
-        v68 = -(*(_DWORD *)(v61 + 28) + v67 + v167 * *(_DWORD *)(v61 + 20) + v166 * *(_DWORD *)(v61 + 16));
+        v67 = v165.z * *(_DWORD *)(v61 + 24);
+        v68 = -(*(_DWORD *)(v61 + 28) + v67 + v165.y * *(_DWORD *)(v61 + 20) + v165.x * *(_DWORD *)(v61 + 16));
         if ( v62 <= 0 )
         {
-          if ( *(_DWORD *)(v61 + 28) + v67 + v167 * *(_DWORD *)(v61 + 20) + v166 * *(_DWORD *)(v61 + 16) < 0 )
+          if ( *(_DWORD *)(v61 + 28) + v67 + v165.y * *(_DWORD *)(v61 + 20) + v165.x * *(_DWORD *)(v61 + 16) < 0 )
             goto LABEL_107;
         }
         else
         {
-          if ( *(_DWORD *)(v61 + 28) + v67 + v167 * *(_DWORD *)(v61 + 20) + v166 * *(_DWORD *)(v61 + 16) > 0 )
+          if ( *(_DWORD *)(v61 + 28) + v67 + v165.y * *(_DWORD *)(v61 + 20) + v165.x * *(_DWORD *)(v61 + 16) > 0 )
             goto LABEL_107;
         }
-        v69 = abs(-(*(_DWORD *)(v61 + 28) + v67 + v167 * *(_DWORD *)(v61 + 20) + v166 * *(_DWORD *)(v61 + 16))) >> 14;
+        v69 = abs(-(*(_DWORD *)(v61 + 28) + v67 + v165.y * *(_DWORD *)(v61 + 20) + v165.x * *(_DWORD *)(v61 + 16))) >> 14;
         if ( v69 <= abs(v62) )
         {
           LODWORD(v70) = v68 << 16;
@@ -7192,9 +7194,9 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
           if ( v71 >= 0 )
           {
             if ( sub_4075DB(
-                   v166 + ((signed int)(((unsigned __int64)(v106 * v142) >> 16) + 32768) >> 16),
-                   v167 + ((signed int)(((unsigned __int64)(v106 * v146) >> 16) + 32768) >> 16),
-                   v165 + ((signed int)(((unsigned __int64)(v106 * v150) >> 16) + 32768) >> 16),
+                   v165.x + ((signed int)(((unsigned __int64)(v106 * v142) >> 16) + 32768) >> 16),
+                   v165.y + ((signed int)(((unsigned __int64)(v106 * v146) >> 16) + 32768) >> 16),
+                   v165.z + ((signed int)(((unsigned __int64)(v106 * v150) >> 16) + 32768) >> 16),
                    v61) )
             {
               v112 = 1;
@@ -7209,62 +7211,67 @@ LABEL_107:
       ++v157;
       if ( v157 >= 2 )
         break;
-      v56 = v162;
-      v54 = v164;
-      v50 = v163;
-      v57 = v165;
-      v55 = v167;
-      v51 = v166;
+      v56 = v162.z;
+      v54 = v162.y;
+      v50 = v162.x;
+      v57 = v165.z;
+      v55 = v165.y;
+      v51 = v165.x;
     }
-    RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v166, &v167, &v165);
-    RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v163, &v164, &v162);
-    v75 = v164 - v167;
-    v74 = v162 - v165;
-    v76 = v163 - v166;
+    //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v166, &v167, &v165);
+    //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v163, &v164, &v162);
+
+    //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v165.x, &v165.y, &v165.z);
+    RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, Vec3<int>(v113, v114, a3), &v165);
+    //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v162.x, &v162.y, &v162.z);
+    RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, Vec3<int>(a4, a5, a6), &v162);
+    v75 = v162.y - v165.y;
+    v74 = v162.z - v165.z;
+    v76 = v162.x - v165.x;
     v73 = sub_452A9E(v76 * v76 + v75 * v75 + v74 * v74);
     v72 = 65536;
     if ( v73 )
       v72 = 65536 / v73;
-    v77 = v163;
+    v77 = v162.x;
     v143 = v76 * v72;
     v79 = v75 * v72;
     v80 = v74 * v72;
-    v78 = v166;
+    v78 = v165.x;
     v147 = v79;
     v151 = v80;
-    v119 = v166;
-    if ( v166 < v163 )
+    v119 = v165.x;
+    if ( v165.x < v162.x )
     {
-      v123 = v163;
+      v123 = v162.x;
     }
     else
     {
-      v119 = v163;
-      v123 = v166;
+      v119 = v162.x;
+      v123 = v165.x;
     }
-    v82 = v167;
-    v81 = v164;
-    v127 = v167;
-    if ( v167 < v164 )
+    v82 = v165.y;
+    v81 = v162.y;
+    v127 = v165.y;
+    if ( v165.y < v162.y )
     {
-      v131 = v164;
-    }
-    else
-    {
-      v127 = v164;
-      v131 = v167;
-    }
-    v83 = v162;
-    v84 = v165;
-    v135 = v165;
-    if ( v165 < v162 )
-    {
-      v139 = v162;
+      v131 = v162.y;
     }
     else
     {
-      v135 = v162;
-      v139 = v165;
+      v127 = v162.y;
+      v131 = v165.y;
+    }
+    v83 = v162.z;
+    v84 = v165.z;
+    v135 = v165.z;
+    if ( v165.z < v162.z )
+    {
+      v139 = v162.z;
+    }
+    else
+    {
+      v135 = v162.z;
+      v139 = v165.z;
     }
     v158 = 0;
     while ( 1 )
@@ -7294,12 +7301,12 @@ LABEL_148:
       ++v158;
       if ( v158 >= 2 )
         return !v112 || !v111;
-      v83 = v162;
-      v81 = v164;
-      v77 = v163;
-      v84 = v165;
-      v82 = v167;
-      v78 = v166;
+      v83 = v162.z;
+      v81 = v162.y;
+      v77 = v162.x;
+      v84 = v165.z;
+      v82 = v165.y;
+      v78 = v165.x;
     }
     while ( 1 )
     {
@@ -7319,19 +7326,19 @@ LABEL_148:
             v173 = v169 + v174 + v178,
             v90) )
         goto LABEL_145;
-      v91 = v165 * *(_DWORD *)(v88 + 24);
-      v92 = -(*(_DWORD *)(v88 + 28) + v91 + v167 * *(_DWORD *)(v88 + 20) + v166 * *(_DWORD *)(v88 + 16));
+      v91 = v165.z * *(_DWORD *)(v88 + 24);
+      v92 = -(*(_DWORD *)(v88 + 28) + v91 + v165.y * *(_DWORD *)(v88 + 20) + v165.x * *(_DWORD *)(v88 + 16));
       if ( v89 <= 0 )
       {
-        if ( *(_DWORD *)(v88 + 28) + v91 + v167 * *(_DWORD *)(v88 + 20) + v166 * *(_DWORD *)(v88 + 16) < 0 )
+        if ( *(_DWORD *)(v88 + 28) + v91 + v165.y * *(_DWORD *)(v88 + 20) + v165.x * *(_DWORD *)(v88 + 16) < 0 )
           goto LABEL_145;
       }
       else
       {
-        if ( *(_DWORD *)(v88 + 28) + v91 + v167 * *(_DWORD *)(v88 + 20) + v166 * *(_DWORD *)(v88 + 16) > 0 )
+        if ( *(_DWORD *)(v88 + 28) + v91 + v165.y * *(_DWORD *)(v88 + 20) + v165.x * *(_DWORD *)(v88 + 16) > 0 )
           goto LABEL_145;
       }
-      v179 = abs(-(*(_DWORD *)(v88 + 28) + v91 + v167 * *(_DWORD *)(v88 + 20) + v166 * *(_DWORD *)(v88 + 16))) >> 14;
+      v179 = abs(-(*(_DWORD *)(v88 + 28) + v91 + v165.y * *(_DWORD *)(v88 + 20) + v165.x * *(_DWORD *)(v88 + 16))) >> 14;
       if ( v179 <= abs(v89) )
       {
         LODWORD(v93) = v92 << 16;
@@ -7341,9 +7348,9 @@ LABEL_148:
         if ( v94 >= 0 )
         {
           if ( sub_4075DB(
-                 v166 + ((signed int)(((unsigned __int64)(v175 * v143) >> 16) + 32768) >> 16),
-                 v167 + ((signed int)(((unsigned __int64)(v175 * v147) >> 16) + 32768) >> 16),
-                 v165 + ((signed int)(((unsigned __int64)(v175 * v151) >> 16) + 32768) >> 16),
+                 v165.x + ((signed int)(((unsigned __int64)(v175 * v143) >> 16) + 32768) >> 16),
+                 v165.y + ((signed int)(((unsigned __int64)(v175 * v147) >> 16) + 32768) >> 16),
+                 v165.z + ((signed int)(((unsigned __int64)(v175 * v151) >> 16) + 32768) >> 16),
                  v88) )
           {
             v111 = 1;
@@ -7359,11 +7366,17 @@ LABEL_145:
         goto LABEL_148;
     }
   }
-  RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, &v166, &v167, &v165);
-  RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, &v163, &v164, &v162);
-  v10 = v164 - v167;
-  v9 = v162 - v165;
-  v11 = v163 - v166;
+  //RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, &v166, &v167, &v165);
+  //RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, &v163, &v164, &v162);
+
+  //RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, &v165.x, &v165.y, &v165);
+  RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, Vec3<int>(v113, v114, a3), &v165);
+  //RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, &v162.x, &v162.y, &v162.z);
+  RotateVector(32, pClass59_global->uIntegerHalfPi + v6, 0, Vec3<int>(a4, a5, a6), &v162);
+
+  v10 = v162.y - v165.y;
+  v9 = v162.z - v165.z;
+  v11 = v162.x - v165.x;
   v8 = sub_452A9E(v11 * v11 + v10 * v10 + v9 * v9);
   v7 = 65536;
   if ( v8 )
@@ -7371,39 +7384,39 @@ LABEL_145:
   v124 = v11 * v7;
   v13 = v7;
   v14 = v9 * v7;
-  v12 = v166;
+  v12 = v165.x;
   v116 = v14;
   v120 = v10 * v13;
-  v148 = v166;
-  if ( v166 < v163 )
+  v148 = v165.x;
+  if ( v165.x < v162.x )
   {
-    v144 = v163;
+    v144 = v162.x;
   }
   else
   {
-    v148 = v163;
-    v144 = v166;
+    v148 = v162.x;
+    v144 = v165.x;
   }
-  v15 = v164;
-  v140 = v167;
-  if ( v167 < v164 )
+  v15 = v162.y;
+  v140 = v165.y;
+  if (v165.y < v162.y )
   {
-    v136 = v164;
-  }
-  else
-  {
-    v140 = v164;
-    v136 = v167;
-  }
-  v132 = v165;
-  if ( v165 < v162 )
-  {
-    v128 = v162;
+    v136 = v162.y;
   }
   else
   {
-    v132 = v162;
-    v128 = v165;
+    v140 = v162.y;
+    v136 = v165.y;
+  }
+  v132 = v165.z;
+  if ( v165.z < v162.z )
+  {
+    v128 = v162.z;
+  }
+  else
+  {
+    v132 = v162.z;
+    v128 = v165.z;
   }
   v159 = 0;
   if ( pClass51_global->uNumBModels > 0 )
@@ -7415,8 +7428,8 @@ LABEL_145:
       v155 = v102 + (int)pClass51_global->pBModels + 68;
       if ( sub_4088E9(
              v12,
-             v167,
-             v163,
+             v165.y,
+             v162.x,
              v15,
              *(_DWORD *)(v102 + pClass51_global->pBModels + 112),
              *(_DWORD *)(v102 + pClass51_global->pBModels + 116)) <= *(_DWORD *)(v102 + pClass51_global->pBModels + 184) + 128 )
@@ -7430,8 +7443,8 @@ LABEL_36:
       v102 += 188;
       if ( v159 >= pClass51_global->uNumBModels )
         goto LABEL_37;
-      v15 = v164;
-      v12 = v166;
+      v15 = v162.y;
+      v12 = v165.x;
     }
     v104 = 0;
     while ( 1 )
@@ -7451,19 +7464,19 @@ LABEL_36:
             v107 = v19 + v20 + v21,
             v22) )
         goto LABEL_33;
-      v23 = v167 * *(_DWORD *)(v17 + 4);
-      v24 = -(*(_DWORD *)(v17 + 12) + v23 + v165 * *(_DWORD *)(v17 + 8) + v166 * *(_DWORD *)v17);
+      v23 = v165.y * *(_DWORD *)(v17 + 4);
+      v24 = -(*(_DWORD *)(v17 + 12) + v23 + v165.z * *(_DWORD *)(v17 + 8) + v165.x * *(_DWORD *)v17);
       if ( v18 <= 0 )
       {
-        if ( *(_DWORD *)(v17 + 12) + v23 + v165 * *(_DWORD *)(v17 + 8) + v166 * *(_DWORD *)v17 < 0 )
+        if ( *(_DWORD *)(v17 + 12) + v23 + v165.z * *(_DWORD *)(v17 + 8) + v165.x * *(_DWORD *)v17 < 0 )
           goto LABEL_33;
       }
       else
       {
-        if ( *(_DWORD *)(v17 + 12) + v23 + v165 * *(_DWORD *)(v17 + 8) + v166 * *(_DWORD *)v17 > 0 )
+        if ( *(_DWORD *)(v17 + 12) + v23 + v165.z * *(_DWORD *)(v17 + 8) + v165.x * *(_DWORD *)v17 > 0 )
           goto LABEL_33;
       }
-      v25 = abs(-(*(_DWORD *)(v17 + 12) + v23 + v165 * *(_DWORD *)(v17 + 8) + v166 * *(_DWORD *)v17)) >> 14;
+      v25 = abs(-(*(_DWORD *)(v17 + 12) + v23 + v165.z * *(_DWORD *)(v17 + 8) + v165.x * *(_DWORD *)v17)) >> 14;
       if ( v25 <= abs(v18) )
       {
         LODWORD(v26) = v24 << 16;
@@ -7473,9 +7486,9 @@ LABEL_36:
         if ( v27 >= 0 )
         {
           if ( sub_4077F1(
-                 v166 + ((signed int)(((unsigned __int64)(v108 * v124) >> 16) + 32768) >> 16),
-                 v167 + ((signed int)(((unsigned __int64)(v108 * v120) >> 16) + 32768) >> 16),
-                 v165 + ((signed int)(((unsigned __int64)(v108 * v116) >> 16) + 32768) >> 16),
+                 v165.x + ((signed int)(((unsigned __int64)(v108 * v124) >> 16) + 32768) >> 16),
+                 v165.y + ((signed int)(((unsigned __int64)(v108 * v120) >> 16) + 32768) >> 16),
+                 v165.z + ((signed int)(((unsigned __int64)(v108 * v116) >> 16) + 32768) >> 16),
                  v17,
                  v155) )
           {
@@ -7492,11 +7505,16 @@ LABEL_33:
     }
   }
 LABEL_37:
-  RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v166, &v167, &v165);
-  RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v163, &v164, &v162);
-  v31 = v164 - v167;
-  v30 = v162 - v165;
-  v32 = v163 - v166;
+  //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v166, &v167, &v165);
+  //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v163, &v164, &v162);
+
+  //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, &v165.x, &v165.y, &v165.z);
+  //RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, &v162.x, &v162.y, &v162.z);
+  RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, Vec3<int>(v113, v114, a3), &v165);
+  RotateVector(32, v115 - pClass59_global->uIntegerHalfPi, 0, Vec3<int>(a4, a5, a6), &v162);
+  v31 = v162.y - v165.y;
+  v30 = v162.z - v165.z;
+  v32 = v162.x - v165.x;
   v29 = sub_452A9E(v32 * v32 + v31 * v31 + v30 * v30);
   v28 = 65536;
   if ( v29 )
@@ -7504,39 +7522,39 @@ LABEL_37:
   v125 = v32 * v28;
   v34 = v28;
   v35 = v30 * v28;
-  v33 = v166;
+  v33 = v165.x;
   v117 = v35;
   v121 = v31 * v34;
-  v149 = v166;
-  if ( v166 < v163 )
+  v149 = v165.x;
+  if ( v165.x < v162.x )
   {
-    v145 = v163;
+    v145 = v162.x;
   }
   else
   {
-    v149 = v163;
-    v145 = v166;
+    v149 = v162.x;
+    v145 = v165.x;
   }
-  v36 = v164;
-  v141 = v167;
-  if ( v167 < v164 )
+  v36 = v162.y;
+  v141 = v165.y;
+  if ( v165.y < v162.y )
   {
-    v137 = v164;
-  }
-  else
-  {
-    v141 = v164;
-    v137 = v167;
-  }
-  v133 = v165;
-  if ( v165 < v162 )
-  {
-    v129 = v162;
+    v137 = v162.y;
   }
   else
   {
-    v133 = v162;
-    v129 = v165;
+    v141 = v162.y;
+    v137 = v165.y;
+  }
+  v133 = v165.z;
+  if ( v165.z < v162.z )
+  {
+    v129 = v162.z;
+  }
+  else
+  {
+    v133 = v162.z;
+    v129 = v165.z;
   }
   v160 = 0;
   if ( pClass51_global->uNumBModels > 0 )
@@ -7548,8 +7566,8 @@ LABEL_37:
       v156 = v103 + (int)pClass51_global->pBModels + 68;
       if ( sub_4088E9(
              v33,
-             v167,
-             v163,
+             v165.y,
+             v162.x,
              v36,
              *(_DWORD *)(v103 + pClass51_global->pBModels + 112),
              *(_DWORD *)(v103 + pClass51_global->pBModels + 116)) <= *(_DWORD *)(v103 + pClass51_global->pBModels + 184) + 128 )
@@ -7563,8 +7581,8 @@ LABEL_71:
       v103 += 188;
       if ( v160 >= pClass51_global->uNumBModels )
         return !v112 || !v111;
-      v36 = v164;
-      v33 = v166;
+      v36 = v162.y;
+      v33 = v165.x;
     }
     v180 = 0;
     while ( 1 )
@@ -7584,19 +7602,19 @@ LABEL_71:
             v170 = v168 + v171 + v176,
             v40) )
         goto LABEL_68;
-      v41 = v167 * *(_DWORD *)(v38 + 4);
-      v42 = -(*(_DWORD *)(v38 + 12) + v41 + v165 * *(_DWORD *)(v38 + 8) + v166 * *(_DWORD *)v38);
+      v41 = v165.y * *(_DWORD *)(v38 + 4);
+      v42 = -(*(_DWORD *)(v38 + 12) + v41 + v165.z * *(_DWORD *)(v38 + 8) + v165.x * *(_DWORD *)v38);
       if ( v39 <= 0 )
       {
-        if ( *(_DWORD *)(v38 + 12) + v41 + v165 * *(_DWORD *)(v38 + 8) + v166 * *(_DWORD *)v38 < 0 )
+        if ( *(_DWORD *)(v38 + 12) + v41 + v165.z * *(_DWORD *)(v38 + 8) + v165.x * *(_DWORD *)v38 < 0 )
           goto LABEL_68;
       }
       else
       {
-        if ( *(_DWORD *)(v38 + 12) + v41 + v165 * *(_DWORD *)(v38 + 8) + v166 * *(_DWORD *)v38 > 0 )
+        if ( *(_DWORD *)(v38 + 12) + v41 + v165.z * *(_DWORD *)(v38 + 8) + v165.x * *(_DWORD *)v38 > 0 )
           goto LABEL_68;
       }
-      v177 = abs(-(*(_DWORD *)(v38 + 12) + v41 + v165 * *(_DWORD *)(v38 + 8) + v166 * *(_DWORD *)v38)) >> 14;
+      v177 = abs(-(*(_DWORD *)(v38 + 12) + v41 + v165.z * *(_DWORD *)(v38 + 8) + v165.x * *(_DWORD *)v38)) >> 14;
       if ( v177 <= abs(v39) )
       {
         LODWORD(v43) = v42 << 16;
@@ -7606,9 +7624,9 @@ LABEL_71:
         if ( v44 >= 0 )
         {
           if ( sub_4077F1(
-                 v166 + ((signed int)(((unsigned __int64)(v172 * v125) >> 16) + 32768) >> 16),
-                 v167 + ((signed int)(((unsigned __int64)(v172 * v121) >> 16) + 32768) >> 16),
-                 v165 + ((signed int)(((unsigned __int64)(v172 * v117) >> 16) + 32768) >> 16),
+                 v165.x + ((signed int)(((unsigned __int64)(v172 * v125) >> 16) + 32768) >> 16),
+                 v165.y + ((signed int)(((unsigned __int64)(v172 * v121) >> 16) + 32768) >> 16),
+                 v165.z + ((signed int)(((unsigned __int64)(v172 * v117) >> 16) + 32768) >> 16),
                  v38,
                  v156) )
           {
@@ -12885,11 +12903,15 @@ Result::Code LoadWorld()
   else   
     byte_6BE3C4_MaybeDrowningFlag = false;
 
+    byte_6BE3C5 = 0;
+  if (!_strcmpi(pLevelFilename, "out15.odm") || !_strcmpi(pLevelFilename, "d23.blv") )
+    byte_6BE3C5 = 1;
+
   pParty_global->dword_0006F4 = 0;
   if (strcmpi((char *)pLevelType, "blv"))
     PrepareToLoadODM(pLevelFilename, v10);
   else
-    PrepareToLoadBLV((void *)v10);
+    PrepareToLoadBLV(pLevelFilename, (void *)v10);
 
 
   if (!bNoSound)

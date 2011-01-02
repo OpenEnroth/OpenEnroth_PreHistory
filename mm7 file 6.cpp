@@ -9,6 +9,7 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+#include "menus.h"
 
 #include "GUI\GUI.h"
 
@@ -4319,10 +4320,6 @@ signed int __thiscall sub_498C45(int _this)
 //----- (00498E0A) --------------------------------------------------------
 signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, int a5)
 {
- compile_error();
- //load ddm?
- return 0;
-/*
   int v5; // ebx@1
   int v6; // esi@1
   signed int result; // eax@3
@@ -4620,7 +4617,8 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
   v5 = 0;
   v6 = (int)Dest;
   dword_6807E0 = 0;
-  wsprintfA(&FileName, "levels\\%s", Args);
+
+  /*wsprintfA(&FileName, "levels\\%s", Args);
   if ( _access(&FileName, 4) != -1 )
   {
     sub_498B15(v6);
@@ -4709,7 +4707,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
             }
             else
             {
-              v26 = LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
+              v26 = LODFile_Icons_LOD.LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
               v27 = a5;
               *(_WORD *)(a5 + *(_DWORD *)(v6 + 636) + 74) = v26;
               *(_BYTE *)(v27 + *(_DWORD *)(v6 + 636) + 45) &= 0xBFu;
@@ -4717,7 +4715,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
           }
           else
           {
-            *(_WORD *)(a5 + *(_DWORD *)(v6 + 636) + 74) = LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
+            *(_WORD *)(a5 + *(_DWORD *)(v6 + 636) + 74) = LODFile_Icons_LOD.LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
           }
           ++v286;
           a5 += 96;
@@ -4735,7 +4733,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
         do
         {
           locked_fread(&Dst, 1u, 0xAu, v8);
-          v28 = LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
+          v28 = LODFile_Icons_LOD.LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
           v29 = *(_DWORD *)(v6 + 644);
           v30 = a5;
           ++v287;
@@ -5028,13 +5026,13 @@ LABEL_50:
       goto LABEL_179;
     }
     return 4;
-  }
-  if ( !LODFile_Games_LOD_FindLeveL((int)&unk_6A0A60, Args) )
+  }*/
+  if ( !LODFile_Games_LOD.IsContainerExist(Args) )
     erroneous_printf("Unable to find %s in Games.LOD", Args);
   v270 = (char *)(Args - 4);
   v90 = strlen(Args);
   strcpy(&v270[v90], ".blv");
-  v91 = LODFile_FindContainer(unk_6A0A60, Args, 1);
+  v91 = (int)LODFile_Games_LOD.Find_Container(Args, 1);
   v92 = *(_DWORD *)(v6 + 80) == 0;
   File = (FILE *)v91;
   if ( !v92 )
@@ -5071,10 +5069,10 @@ LABEL_50:
     }
     else
     {
-      HIDWORD(v280) = malloc(v95);
-      locked_fread(HIDWORD(v280), v95, 1u, File);
-      v96 = MemUnzip(v94, (int *)&ElementSize, SHIDWORD(v280), v95);
-      free(v96, HIDWORD(v280));
+      HIDWORD(v280) = (long)malloc(v95);
+      locked_fread((void *)HIDWORD(v280), v95, 1u, File);
+      v96 = MemUnzip((void *)v94, (unsigned int *)&ElementSize, (void *)SHIDWORD(v280), v95);
+      free((void *)HIDWORD(v280));
     }
   }
   else
@@ -5092,20 +5090,20 @@ LABEL_50:
   *(_DWORD *)(v6 + 80) = 1;
   memcpy((void *)v230, (const void *)v231, v232);
   v99 = (const void *)(v94 + 136);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 624), v99, 4u);
   v99 = (char *)v99 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 6 * *(_DWORD *)(v6 + 624);
   v233 = (int)v99;
   v232 = *(_DWORD *)(v6 + 628);
   v283 = v234;
   memcpy((void *)v232, v99, v234);
   v100 = (char *)v99 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 632), v100, 4u);
   v100 = (char *)v100 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 96 * *(_DWORD *)(v6 + 632);
   v233 = (int)v100;
   v232 = *(_DWORD *)(v6 + 636);
@@ -5115,7 +5113,7 @@ LABEL_50:
   v234 = (int)"L.FData";
   v233 = *(_DWORD *)(v6 + 592);
   v232 = *(_DWORD *)(v6 + 684);
-  v102 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.FData");
+  v102 = (int)NamedMemAlloc(unsigned char, v233, "L.FData");
   v103 = *(_DWORD *)(v6 + 592);
   *(_DWORD *)(v6 + 684) = v102;
   v283 = v103;
@@ -5183,7 +5181,7 @@ LABEL_50:
         }
         else
         {
-          v120 = LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
+          v120 = LODFile_Bitmaps_LOD.LODFile_LoadTexture(&Dst, 0);
           v121 = v282;
           *(_WORD *)(v282 + *(_DWORD *)(v6 + 636) + 74) = v120;
           *(_BYTE *)(v121 + *(_DWORD *)(v6 + 636) + 45) &= 0xBFu;
@@ -5191,17 +5189,17 @@ LABEL_50:
       }
       else
       {
-        *(_WORD *)(v282 + *(_DWORD *)(v6 + 636) + 74) = LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
+        *(_WORD *)(v282 + *(_DWORD *)(v6 + 636) + 74) = LODFile_Bitmaps_LOD.LODFile_LoadTexture(&Dst, 0);
       }
       ++v283;
       v282 += 96;
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 640), v98, 4u);
   v123 = (char *)v98 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 36 * *(_DWORD *)(v6 + 640);
   v233 = (int)v123;
   v232 = *(_DWORD *)(v6 + 644);
@@ -5216,9 +5214,9 @@ LABEL_50:
     {
       memcpy(&Dst, v122, 0xAu);
       v122 = (char *)v122 + 10;
-      if ( !_strcmpi(&Dst, Class) )
+      if ( !_strcmpi(&Dst, "") )
         *(_WORD *)(HIDWORD(v280) + *(_DWORD *)(v6 + 644) + 14) = -1;
-      v124 = LODFile_LoadTexture((int)&unk_6F0E80, &Dst, 0);
+      v124 = LODFile_Bitmaps_LOD.LODFile_LoadTexture(&Dst, 0);
       v125 = *(_DWORD *)(v6 + 644);
       v126 = HIDWORD(v280);
       ++v283;
@@ -5248,10 +5246,10 @@ LABEL_50:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 648), v122, 4u);
   v132 = (char *)v122 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 116 * *(_DWORD *)(v6 + 648);
   v233 = (int)v132;
   v232 = *(_DWORD *)(v6 + 652);
@@ -5261,7 +5259,7 @@ LABEL_50:
   v234 = (int)"L.RData";
   v233 = *(_DWORD *)(v6 + 596);
   v232 = *(_DWORD *)(v6 + 688);
-  v134 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.RData");
+  v134 = (int)NamedMemAlloc(unsigned char, v233, "L.RData");
   v135 = *(_DWORD *)(v6 + 596);
   *(_DWORD *)(v6 + 688) = v134;
   v283 = v135;
@@ -5276,11 +5274,11 @@ LABEL_50:
   {
     do
     {
-      *(_DWORD *)(*(_DWORD *)(v6 + 652) + v130 + 8) = (char *)Src + *(_DWORD *)(v6 + 688);
+      *(_DWORD *)(*(_DWORD *)(v6 + 652) + v130 + 8) = (int)Src + *(_DWORD *)(v6 + 688);
       v282 = v130 + *(_DWORD *)(v6 + 652);
       v138 = *(_DWORD *)(v6 + 688);
       Src = (char *)Src + 2 * *(_WORD *)(v282 + 4);
-      *(_DWORD *)(v282 + 16) = (char *)Src + v138;
+      *(_DWORD *)(v282 + 16) = (int)Src + v138;
       v139 = v130 + *(_DWORD *)(v6 + 652);
       v282 = v139;
       v140 = (char *)Src + 2 * *(_WORD *)(v139 + 12);
@@ -5296,26 +5294,26 @@ LABEL_50:
       v282 = v130 + *(_DWORD *)(v6 + 652);
       v145 = *(_DWORD *)(v6 + 688);
       Src = (char *)Src + 2 * *(_WORD *)(v282 + 28);
-      *(_DWORD *)(v282 + 40) = (char *)Src + v145;
+      *(_DWORD *)(v282 + 40) = (int)Src + v145;
       v282 = v130 + *(_DWORD *)(v6 + 652);
       v146 = *(_DWORD *)(v6 + 688);
       Src = (char *)Src + 2 * *(_WORD *)(v282 + 36);
-      *(_DWORD *)(v282 + 48) = (char *)Src + v146;
+      *(_DWORD *)(v282 + 48) = (int)Src + v146;
       v282 = v130 + *(_DWORD *)(v6 + 652);
       v147 = *(_DWORD *)(v6 + 688);
       Src = (char *)Src + 2 * *(_WORD *)(v282 + 44);
-      *(_DWORD *)(v282 + 64) = (char *)Src + v147;
+      *(_DWORD *)(v282 + 64) = (int)Src + v147;
       v282 = v130 + *(_DWORD *)(v6 + 652);
       v148 = *(_DWORD *)(v6 + 688);
       Src = (char *)Src + 2 * *(_WORD *)(v282 + 60);
-      *(_DWORD *)(v282 + 72) = (char *)Src + v148;
+      *(_DWORD *)(v282 + 72) = (int)Src + v148;
       v149 = v130 + *(_DWORD *)(v6 + 652);
       v130 += 116;
       v282 = v149;
       v150 = *(_DWORD *)(v6 + 688);
       Src = (char *)Src + 2 * *(_WORD *)(v149 + 68);
       ++v283;
-      *(_DWORD *)(v149 + 80) = (char *)Src + v150;
+      *(_DWORD *)(v149 + 80) = (int)Src + v150;
       Src = (char *)Src + 2 * *(_WORD *)(*(_DWORD *)(v6 + 652) + v130 - 40);
     }
     while ( v283 < *(_DWORD *)(v6 + 648) );
@@ -5323,13 +5321,13 @@ LABEL_50:
   v234 = (int)"L.RLData";
   v233 = *(_DWORD *)(v6 + 600);
   v232 = *(_DWORD *)(v6 + 696);
-  v152 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.RLData");
+  v152 = (int)NamedMemAlloc(unsigned char, v233, "L.RLData");
   v153 = *(_DWORD *)(v6 + 600);
   *(_DWORD *)(v6 + 696) = v152;
   v283 = v153;
   memcpy((void *)v152, v131, v153);
   v151 = (char *)v131 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v154 = *(_DWORD *)(v6 + 648) == 0;
   v155 = *(_DWORD *)(v6 + 648) < 0;
   Src = 0;
@@ -5350,20 +5348,20 @@ LABEL_50:
         break;
     }
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 664), v151, 4u);
   v160 = (char *)v151 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy(&uNumLevelDecorations, v160, 4u);
   v160 = (char *)v160 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v283 = 32 * uNumLevelDecorations;
-  memcpy(word_6836D0, v160, 32 * uNumLevelDecorations);
+  memcpy(pLevelDecorations, v160, 32 * uNumLevelDecorations);
   v159 = (char *)v160 + v283;
   v283 = 0;
   if ( (signed int)uNumLevelDecorations > 0 )
   {
-    File = (FILE *)word_6836D0;
+    File = (FILE *)pLevelDecorations;
     do
     {
       memcpy(&Str1, v159, 0x20u);
@@ -5376,41 +5374,41 @@ LABEL_50:
     }
     while ( v283 < (signed int)uNumLevelDecorations );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 656), v159, 4u);
   v163 = (char *)v159 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 16 * *(_DWORD *)(v6 + 656);
   v233 = (int)v163;
   v232 = *(_DWORD *)(v6 + 660);
   v283 = v234;
   memcpy((void *)v232, v163, v234);
   v164 = (char *)v163 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 672), v164, 4u);
   v164 = (char *)v164 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 8 * *(_DWORD *)(v6 + 672);
   v233 = (int)v164;
   v232 = *(_DWORD *)(v6 + 676);
   v283 = v234;
   memcpy((void *)v232, v164, v234);
   v165 = (char *)v164 + v283;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy((void *)(v6 + 700), v165, 4u);
   v165 = (char *)v165 + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v166 = *(_DWORD *)(v6 + 700);
   v234 = (int)"Spawn";
   v233 = 24 * v166;
   v232 = *(_DWORD *)(v6 + 704);
-  v167 = mem_mng.AllocatedNamedBuffer( v232, 24 * v166, "Spawn");
+  v167 = (int)NamedMemAlloc(unsigned char, 24 * v166, "Spawn");
   v168 = *(_DWORD *)(v6 + 700);
   *(_DWORD *)(v6 + 704) = v167;
   v283 = 24 * v168;
   memcpy((void *)v167, v165, 24 * v168);
   v169 = (int)((char *)v165 + v283);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 4;
   v233 = v169;
   v232 = *(_DWORD *)(v6 + 680);
@@ -5418,11 +5416,11 @@ LABEL_50:
   v170 = *(_DWORD *)(v6 + 680);
   v231 = 12 * *(_DWORD *)v170;
   v171 = (int)memcpy((void *)(v170 + 4), (const void *)(v169 + 4), v231);
-  free(v171, v278);
+  free((void *)v278);
   v234 = (int)".dlv";
   v172 = strlen(Args);
   strcpy(&v270[v172], (const char *)v234);
-  v283 = LODFile_FindContainer(unk_6A0820, Args, 1);
+  v283 = (int)LODFile_New_LOD.Find_Container(Args, 1);
   locked_fread(&v271, 0x10u, 1u, (FILE *)v283);
   v282 = 0;
   if ( v271 != 91969 || v272 != 109 || v273 != 118 || v274 != 105 || v275 != 105 )
@@ -5450,10 +5448,10 @@ LABEL_50:
       }
       else
       {
-        HIDWORD(v280) = malloc(v173);
-        locked_fread(HIDWORD(v280), v173, 1u, (FILE *)v283);
-        v174 = MemUnzip((int)Src, (int *)&Count, SHIDWORD(v280), v173);
-        free(v174, HIDWORD(v280));
+        HIDWORD(v280) = (long)malloc(v173);
+        locked_fread((void *)HIDWORD(v280), v173, 1u, (FILE *)v283);
+        v174 = MemUnzip(Src, (unsigned int *)&Count, (void *)SHIDWORD(v280), v173);
+        free((void *)HIDWORD(v280));
       }
     }
     else
@@ -5482,7 +5480,7 @@ LABEL_50:
   HIDWORD(v280) = 0;
   if ( a3 - *(_DWORD *)(v6 + 712) >= (unsigned int)i )
   {
-    if ( _strcmpi(::Str1, "d29.dlv") )
+    if ( _strcmpi(&Str1, "d29.dlv") )
       HIDWORD(v280) = 1;
   }
   v177 = 875;
@@ -5495,7 +5493,7 @@ LABEL_50:
   {
     v178 = (int)memcpy(&v235, Src, 0x36Bu);
 LABEL_132:
-    free(v178, (unsigned int)File);
+    free((unsigned int *)File);
     v179 = v282 == 1;
     *(_DWORD *)(v6 + 712) = a3;
     if ( v179 )
@@ -5503,7 +5501,7 @@ LABEL_132:
     v234 = 0;
     v233 = (int)Args;
     *(_DWORD *)a5 = 1;
-    v283 = LODFile_FindContainer(unk_6A0A60, (const char *)v233, v234);
+    v283 = (int)LODFile_Games_LOD.Find_Container((const char *)v233, v234);
     locked_fread(&v271, 0x10u, 1u, (FILE *)v283);
     v180 = v276;
     Count = Size;
@@ -5517,10 +5515,10 @@ LABEL_132:
       }
       else
       {
-        HIDWORD(v280) = malloc(v180);
-        locked_fread(HIDWORD(v280), v180, 1u, (FILE *)v283);
-        v181 = MemUnzip((int)Src, (int *)&Count, SHIDWORD(v280), v180);
-        free(v181, HIDWORD(v280));
+        HIDWORD(v280) = (long)malloc(v180);
+        locked_fread((void *)HIDWORD(v280), v180, 1u, (FILE *)v283);
+        v181 = MemUnzip(Src, (unsigned int *)&Count, (void *)SHIDWORD(v280), v180);
+        free((void *)HIDWORD(v280));
       }
     }
     else
@@ -5581,7 +5579,7 @@ LABEL_140:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v188 = 0;
   if ( (signed int)uNumLevelDecorations > 0 )
   {
@@ -5595,25 +5593,25 @@ LABEL_140:
     }
     while ( v188 < (signed int)uNumLevelDecorations );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy(&uNumActors, Src, 4u);
   Src = (char *)Src + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v189 = 836 * uNumActors;
   memcpy(pActors, Src, 836 * uNumActors);
   Src = (char *)Src + v189;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  memcpy(&::Count, Src, 4u);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  memcpy(&Count, Src, 4u);
   Src = (char *)Src + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  v190 = 112 * ::Count;
-  memcpy(pLayingItemsList, Src, 112 * ::Count);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  v190 = 112 * Count;
+  memcpy(pLayingItemsList, Src, 112 * Count);
   Src = (char *)Src + v190;
-  if ( (signed int)::Count > 0 )
+  if ( (signed int)Count > 0 )
   {
     v191 = pObjectDescriptionList->uNumObjects;
-    v192 = &unk_665254;
-    i = ::Count;
+    v192 = (char *)pLayingItemsList + 0x24;
+    i = Count;
     do
     {
       if ( *(_DWORD *)v192 && !(*((_BYTE *)v192 - 9) & 1) )
@@ -5628,7 +5626,7 @@ LABEL_165:
         }
         else
         {
-          a5 = pObjectDescriptionList->pDescriptions + 32;
+          a5 = (int)pObjectDescriptionList->pDescriptions + 32;
           while ( v193 != *(_WORD *)a5 )
           {
             ++v297;
@@ -5644,14 +5642,14 @@ LABEL_165:
     }
     while ( i-- != 1 );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   memcpy(&dword_5FF140, Src, 4u);
   Src = (char *)Src + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v197 = 5324 * dword_5FF140;
   memcpy(array_5E5150, Src, 5324 * dword_5FF140);
   Src = (char *)Src + v197;
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v234 = 16000;
   v233 = (int)Src;
   v232 = *(_DWORD *)(v6 + 668);
@@ -5660,7 +5658,7 @@ LABEL_165:
   v234 = (int)"L.DData";
   v233 = *(_DWORD *)(v6 + 604);
   v232 = *(_DWORD *)(v6 + 692);
-  v198 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.DData");
+  v198 = (int)NamedMemAlloc(unsigned char, v233, "L.DData");
   v199 = *(_DWORD *)(v6 + 604);
   *(_DWORD *)(v6 + 692) = v198;
   memcpy((void *)v198, Src, v199);
@@ -5718,7 +5716,7 @@ LABEL_165:
     do
     {
       v299 = 0;
-      for (L = v222 + v219; v299 < *(_WORD *)(v222 + v219 + 70); l = v222 + v219 )
+      for (l = v222 + v219; v299 < *(_WORD *)(v222 + v219 + 70); l = v222 + v219 )
       {
         v224 = 2 * v299;
         v225 = 96 * *(_WORD *)(*(_DWORD *)(l + 40) + 2 * v299++);
@@ -5734,12 +5732,12 @@ LABEL_165:
     }
     while ( v283 < *(_DWORD *)(v6 + 664) );
   }
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v227 = Src;
-  memcpy(byte_5E4C90, Src, 0xC8u);
-  LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+  memcpy(&global_5E4C90, Src, 0xC8u);
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
   v228 = (int)memcpy((void *)(v6 + 748), (char *)v227 + 200, 0x38u);
-  free(v228, (unsigned int)File);
+  free((unsigned int *)File);
   v5 = 0;
 LABEL_179:
   sub_4A9A67(pSoundList, 64, v5);
@@ -5747,7 +5745,7 @@ LABEL_179:
   sub_4A9A67(pSoundList, 63, v5);
   sub_4A9A67(pSoundList, 102, v5);
   sub_4A9A67(pSoundList, 50, v5);
-  sub_4A9A67(pSoundList, 89, v5);*/
+  sub_4A9A67(pSoundList, 89, v5);
   return 0;
 
 }
@@ -7877,7 +7875,7 @@ LABEL_7:
             //fstp    [ebp+var_34]
             //fild    pParty_global->sPartyPosX
           }
-          a2 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+          a2 = pParty_global->vPosition.z + pParty_global->uEyelevel;
           __asm
           {
            int 3
@@ -13601,9 +13599,9 @@ int __fastcall sub_4AAEA6(int a1)
   result = 0;
   if ( dword_51B6F8 )
   {
-    v13 = *(float *)a1 - (double)pParty_global->sPartyPosX;
-    v11 = *(float *)(a1 + 4) - (double)pParty_global->sPartyPosY;
-    v4 = *(float *)(a1 + 8) - (double)pParty_global->sPartyPosZ;
+    v13 = *(float *)a1 - (double)pParty_global->vPosition.x;
+    v11 = *(float *)(a1 + 4) - (double)pParty_global->vPosition.y;
+    v4 = *(float *)(a1 + 8) - (double)pParty_global->vPosition.z;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       v6 = v11 * *(float *)&dword_51B714 + v13 * flt_51B710;
@@ -13620,9 +13618,9 @@ int __fastcall sub_4AAEA6(int a1)
   }
   else
   {
-    v14 = *(float *)a1 - (double)pParty_global->sPartyPosX;
-    v12 = *(float *)(a1 + 4) - (double)pParty_global->sPartyPosY;
-    v7 = *(float *)(a1 + 8) - (double)pParty_global->sPartyPosZ;
+    v14 = *(float *)a1 - (double)pParty_global->vPosition.x;
+    v12 = *(float *)(a1 + 4) - (double)pParty_global->vPosition.y;
+    v7 = *(float *)(a1 + 8) - (double)pParty_global->vPosition.z;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       *(float *)(a1 + 12) = v12 * *(float *)&dword_51B714 + v14 * flt_51B710;
@@ -13644,7 +13642,7 @@ int __fastcall sub_4AB66C(int a1, int a2)
 {
   int v2; // eax@1
 
-  v2 = pClass59_global->uDoublePiMask & (class59_Atan2(pClass59_global, a1 - pParty_global->sPartyPosX, a2 - pParty_global->sPartyPosY) - pClass59_global->uIntegerHalfPi - pParty_global->sRotationY);
+  v2 = pClass59_global->uDoublePiMask & (class59_Atan2(pClass59_global, a1 - pParty_global->vPosition.x, a2 - pParty_global->vPosition.y) - pClass59_global->uIntegerHalfPi - pParty_global->sRotationY);
   if ( v2 > pClass59_global->uIntegerPi )
     v2 = 2 * pClass59_global->uIntegerPi - v2;
   return (v2 >> 3) - (v2 >> 10);
@@ -14389,7 +14387,7 @@ int __thiscall sub_4AD385(int _this)
 }
 
 //----- (004AD3C8) --------------------------------------------------------
-bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, int sLightPosX, int sLightPosY, int sLightPosZ, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9)
+bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, const Vec3<float> *pLightPosition, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9)
 {
   char result; // al@2
  struct StationaryLight *pLight; // eax@2
@@ -14409,9 +14407,8 @@ bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, int sLi
   else
   {
    pLight = &_this->pLights[_this->uNumStationaryLightsActive++];
-   pLight->sLightPosX = sLightPosX;
-   pLight->sLightPosY = sLightPosY;
-   pLight->sLightPosZ = sLightPosZ;
+
+   pLight->vPosition = *pLightPosition;
    pLight->word_000006 = a5;
    pLight->uLightColorRed = uLightColorRed;
    pLight->uLightColorGreen = uLightColorGreen;

@@ -1035,17 +1035,15 @@ int __fastcall SaveGame(int a1, int a2)
   {
     DstBuf = MemAlloc(char, 1000000);//DstBuf = operator new(0xF4240u);
     Reset_LODIndex(&St2);
-    v56 = pParty_global->sPartyPosX;
-    v55 = pParty_global->sPartyPosY;
-    v66 = pParty_global->sPartyPosZ;
+    v56 = pParty_global->vPosition.x;
+    v55 = pParty_global->vPosition.y;
+    v66 = pParty_global->vPosition.z;
     v57 = pParty_global->sRotationY;
     v58 = pParty_global->sRotationX;
-    pParty_global->sPartyPosX = pParty_global->sOldPosX;
-    pParty_global->sPartyPosY = pParty_global->sOldPosY;
-    pParty_global->sPartyPosZ = pParty_global->sOldPosZ;
+    pParty_global->vPosition = pParty_global->vOldPosition;
     pParty_global->sRotationY = pParty_global->sOldRotationY;
     pParty_global->sRotationX = pParty_global->sOldRotationX;
-    pParty_global->dword_000700 = pParty_global->sOldPosZ;
+    pParty_global->dword_000700 = pParty_global->vOldPosition.z;
 
     if (uCurrentlyLoadedLevelType == 1)
       qword_6BE6B4[0] = pParty_global->qword_00002C;
@@ -1369,9 +1367,7 @@ int __fastcall SaveGame(int a1, int a2)
         sub_466D09(&v69, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
       }
     }
-    pParty_global->sPartyPosX = v56;
-    pParty_global->sPartyPosY = v55;
-    pParty_global->sPartyPosZ = v66;
+    pParty_global->vPosition = Vec3<int>(v56, v55, v66);
     pParty_global->dword_000700 = v66;
     pParty_global->sRotationY = v57;
     result = v58;
@@ -1671,13 +1667,13 @@ LABEL_71:
         {
           v6 = *((_DWORD *)v5 + 3);
           pParty_global->sRotationX = 0;
-          pParty_global->sPartyPosX = v6;
+          pParty_global->vPosition.x = v6;
           v7 = *((_DWORD *)v5 + 4);
           pOldCamera->sRotationY = 0;
           pParty_global->dword_007778 |= 2;
-          pParty_global->sPartyPosY = v7;
-          pParty_global->sPartyPosZ = *((_DWORD *)v5 + 5);
-          pParty_global->dword_000700 = pParty_global->sPartyPosZ;
+          pParty_global->vPosition.y = v7;
+          pParty_global->vPosition.z = *((_DWORD *)v5 + 5);
+          pParty_global->dword_000700 = pParty_global->vPosition.z;
           pParty_global->sRotationY = *((_DWORD *)v5 + 6);
         }
         sub_4B1E92(ptr_507BC0->dword_00001C, 2);
@@ -1822,10 +1818,7 @@ bool MaybeDoAutosave()
     LODFile_New_LOD.Append_item_to_temp_file(&v12, &saves_hdr[0]);
     LODFile_New_LOD.Write_SubIndex();
 
-    pParty_global->sPartyPosX = 12552;
-    pParty_global->sPartyPosY = 1816;
-    pParty_global->sPartyPosZ = 0;
-
+    pParty_global->vPosition = Vec3<int>(12552, 1816, 0);
 
     //Camera_SetDirection(pParty_global->pCamera, 0, 0, 1);
     runtime_warning(deprication);
@@ -1834,9 +1827,7 @@ bool MaybeDoAutosave()
      pParty_global->sRotationY = 512;
     }
 
-    pParty_global->sOldPosX = 12552;
-    pParty_global->sOldPosY = 1816;
-    pParty_global->sOldPosZ = 0;
+    pParty_global->vOldPosition = Vec3<int>(12552, 1816, 0);
     pParty_global->sOldRotationY = 512;
     pParty_global->sOldRotationX = 0;
 

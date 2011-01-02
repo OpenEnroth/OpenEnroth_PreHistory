@@ -1106,6 +1106,8 @@ LABEL_19:
   }
 }
 
+
+
 //----- (004304E7) --------------------------------------------------------
 void GameUI_Process()
 {
@@ -2586,14 +2588,14 @@ LABEL_306:
                       sub_4452BB();
                       goto LABEL_317;
                     case 17:
-                      if ( pParty_global->sPartyPosX < -22528 )
-                        pParty_global->sPartyPosX = -22528;
-                      if ( pParty_global->sPartyPosX > 22528 )
-                        pParty_global->sPartyPosX = 22528;
-                      if ( pParty_global->sPartyPosY < -22528 )
-                        pParty_global->sPartyPosY = -22528;
-                      if ( pParty_global->sPartyPosY > 22528 )
-                        pParty_global->sPartyPosY = 22528;
+                      if ( pParty_global->vPosition.x < -22528 )
+                        pParty_global->vPosition.x = -22528;
+                      if ( pParty_global->vPosition.x > 22528 )
+                        pParty_global->vPosition.x = 22528;
+                      if ( pParty_global->vPosition.y < -22528 )
+                        pParty_global->vPosition.y = -22528;
+                      if ( pParty_global->vPosition.y > 22528 )
+                        pParty_global->vPosition.y = 22528;
                       goto LABEL_317;
                     case 16:
                       pVideoPlayer->UnloadAll();
@@ -2771,17 +2773,17 @@ LABEL_92:
           {
             if ( dword_59117C )
             {
-              pParty_global->sPartyPosX = dword_59117C;
+              pParty_global->vPosition.x = dword_59117C;
               dword_5B65A8 = dword_59117C;
             }
             if ( dword_591178 )
             {
-              pParty_global->sPartyPosY = dword_591178;
+              pParty_global->vPosition.y = dword_591178;
               dword_5B65AC = dword_591178;
             }
             if ( dword_591174 )
             {
-              pParty_global->sPartyPosZ = dword_591174;
+              pParty_global->vPosition.z = dword_591174;
               dword_5B65B0 = dword_591174;
               pParty_global->dword_000700 = dword_591174;
             }
@@ -2841,19 +2843,19 @@ LABEL_92:
           compile_error(level name should not be globally-defined);
   //strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
           if (byte_6BE3C4_MaybeDrowningFlag != 1 && pParty_global->bFlying ||
-              sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != 1 )
+              sub_48902E((char *)pClass51_global->string_000000, pParty_global->vPosition.x, pParty_global->vPosition.y, &Source, 20) != 1 )
           {
             struct_576FE8.dword_000044 = 1;
 LABEL_387:
             sub_42FC15();
-            if ( pParty_global->sPartyPosX < -22528 )
-              pParty_global->sPartyPosX = -22528;
-            if ( pParty_global->sPartyPosX > 22528 )
-              pParty_global->sPartyPosX = 22528;
-            if ( pParty_global->sPartyPosY < -22528 )
-              pParty_global->sPartyPosY = -22528;
-            if ( pParty_global->sPartyPosY > 22528 )
-              pParty_global->sPartyPosY = 22528;
+            if ( pParty_global->vPosition.x < -22528 )
+              pParty_global->vPosition.x = -22528;
+            if ( pParty_global->vPosition.x > 22528 )
+              pParty_global->vPosition.x = 22528;
+            if ( pParty_global->vPosition.y < -22528 )
+              pParty_global->vPosition.y = -22528;
+            if ( pParty_global->vPosition.y > 22528 )
+              pParty_global->vPosition.y = 22528;
 LABEL_317:
             sub_44603D();
             dword_4E28F8_PartyCantJumpIfTrue = 0;
@@ -2923,8 +2925,8 @@ LABEL_317:
             sub_443FDC_MessWithEvents(v53);
             sub_489487();
             sub_4498D5_TeleportToStartingPoint(dword_6BE35C);
-            pParty_global->sPartyPosZ = sub_48257A(pParty_global->sPartyPosX, pParty_global->sPartyPosY, (int)&v229, 0);
-            pParty_global->dword_000700 = pParty_global->sPartyPosZ;
+            pParty_global->vPosition.z = sub_48257A(pParty_global->vPosition.x, pParty_global->vPosition.y, (int)&v229, 0);
+            pParty_global->dword_000700 = pParty_global->vPosition.z;
             compile_error(level name should not be globally-defined);
   //sub_461103();
             cEventTimer.Resume();
@@ -3179,10 +3181,10 @@ LABEL_450:
             }
             else
             {
-              pParty_global->sPartyPosX = *(_DWORD *)(v211 + 8);
-              pParty_global->sPartyPosY = *(_DWORD *)(v211 + 12);
-              pParty_global->sPartyPosZ = *(_DWORD *)(v211 + 16);
-              pParty_global->dword_000700 = pParty_global->sPartyPosZ;
+              pParty_global->vPosition.x = *(_DWORD *)(v211 + 8);
+              pParty_global->vPosition.y = *(_DWORD *)(v211 + 12);
+              pParty_global->vPosition.z = *(_DWORD *)(v211 + 16);
+              pParty_global->dword_000700 = pParty_global->vPosition.z;
               pParty_global->sRotationY = *(_WORD *)(v211 + 20);
               pParty_global->sRotationX = *(_WORD *)(v211 + 22);
             }
@@ -3205,9 +3207,9 @@ LABEL_450:
             v74 = (unsigned __int64)(pParty_global->qword_00002C + (signed __int64)((double)(qword_506350 << 7) * 0.03333333507180214)) >> 32;
             *(_DWORD *)v211 = pParty_global->qword_00002C + (signed __int64)((double)(qword_506350 << 7) * 0.03333333507180214);
             *(_DWORD *)(v73 + 4) = v74;
-            *(_DWORD *)(v73 + 8) = pParty_global->sPartyPosX;
-            *(_DWORD *)(v73 + 12) = pParty_global->sPartyPosY;
-            *(_DWORD *)(v73 + 16) = pParty_global->sPartyPosZ;
+            *(_DWORD *)(v73 + 8) = pParty_global->vPosition.x;
+            *(_DWORD *)(v73 + 12) = pParty_global->vPosition.y;
+            *(_DWORD *)(v73 + 16) = pParty_global->vPosition.z;
             *(_WORD *)(v73 + 20) = pParty_global->sRotationY;
             *(_WORD *)(v73 + 22) = pParty_global->sRotationX;
             if (LODFile_Games_LOD.uNumSubidices / 2 <= 0 )
@@ -3256,11 +3258,11 @@ LABEL_486:
                     //pParty_global->sPartyPosX = *(int *)((char *)dword_4ECBB8 + v76);
                     //pParty_global->sPartyPosY = *(int *)((char *)dword_4ECBBC + v76);
                     //pParty_global->sPartyPosZ = *(int *)((char *)dword_4ECBC0 + v76);
-                    pParty_global->sPartyPosX = stru_4ECBB8[v209].sSomeX;
-                    pParty_global->sPartyPosY = stru_4ECBB8[v209].sSomeY;
-                    pParty_global->sPartyPosZ = stru_4ECBB8[v209].sSomeZ;
+                    pParty_global->vPosition = Vec3<int>(stru_4ECBB8[v209].sSomeX,
+                                                         stru_4ECBB8[v209].sSomeY,
+                                                         stru_4ECBB8[v209].sSomeZ);
 
-                    pParty_global->dword_000700 = pParty_global->sPartyPosZ;
+                    pParty_global->dword_000700 = pParty_global->vPosition.z;
                     //pParty_global->sRotationY = *(__int16 *)((char *)word_4ECBC4 + v76);
                     //pParty_global->sRotationX = *(__int16 *)((char *)word_4ECBC6 + v76);
                     pParty_global->sRotationY = stru_4ECBB8[v209].sSomeRotationY;
@@ -3438,9 +3440,7 @@ LABEL_91:
               {
                 v89 = v205;
 LABEL_544:
-                pParty_global->sPartyPosX = v87;
-                pParty_global->sPartyPosY = v89;
-                pParty_global->sPartyPosZ = v88;
+                pParty_global->vPosition = Vec3<int>(v87, v89, v88);
                 pParty_global->dword_000700 = v88;
                 goto LABEL_92;
               }
@@ -4270,6 +4270,7 @@ LABEL_789:
 }
 
 
+
 //----- (004219BE) --------------------------------------------------------
 int __thiscall sub_4219BE(void *_this)
 {
@@ -4385,8 +4386,8 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
   v21 = (double)(1 << (16 - (_BYTE)v20));
 
   //convert world-space xy to texture-space xy
-  uMinimapOffsetX = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth * (32768 + pParty_global->sPartyPosX) / 65536;
-  uMinimapOffsetY = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureHeight * (32768 - pParty_global->sPartyPosY) / 65536;
+  uMinimapOffsetX = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth * (32768 + pParty_global->vPosition.x) / 65536;
+  uMinimapOffsetY = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureHeight * (32768 - pParty_global->vPosition.y) / 65536;
 
   uMinimapOffsetX -= uMinimapWidth / (uMinimapZoom / 256);
   uMinimapOffsetY -= uMinimapHeight / (uMinimapZoom / 256);
@@ -4441,18 +4442,18 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
       {
         v73 = uMinimapCentreX
             + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v10)) >> 16) << 16)
-                          - uMinimapZoom * pParty_global->sPartyPosX) >> 16);
+                          - uMinimapZoom * pParty_global->vPosition.x) >> 16);
         v71 = uMinimapCentreY
             - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v10 + 2)) >> 16) << 16)
-                          - uMinimapZoom * pParty_global->sPartyPosY) >> 16);
+                          - uMinimapZoom * pParty_global->vPosition.y) >> 16);
         v100 = uMinimapCentreX
              + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v10 + 2))) >> 16) << 16)
-                           - uMinimapZoom * pParty_global->sPartyPosX) >> 16);
+                           - uMinimapZoom * pParty_global->vPosition.x) >> 16);
         v16 = uMinimapCentreY
             - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom
                                                              * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v10 + 2) + 2)) >> 16) << 16)
-                          - uMinimapZoom * pParty_global->sPartyPosY) >> 16);
-        v15 = abs(*(_WORD *)(v10 + 8) - pParty_global->sPartyPosZ) / 8;
+                          - uMinimapZoom * pParty_global->vPosition.y) >> 16);
+        v15 = abs(*(_WORD *)(v10 + 8) - pParty_global->vPosition.z) / 8;
         if ( v15 > 100 )
           v15 = 100;
         //Render_FillRect(pD3DRenderer, v73, v71, v100, v16, *((_WORD *)&unk_5771E4 - v15));
@@ -4471,10 +4472,10 @@ LABEL_26:
     Render_FillRect(pD3DRenderer,
       uMinimapCentreX
     + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v17)) >> 16) << 16)
-                  - uMinimapZoom * pParty_global->sPartyPosX) >> 16),
+                  - uMinimapZoom * pParty_global->vPosition.x) >> 16),
       uMinimapCentreY
     - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v17 + 2)) >> 16) << 16)
-                  - uMinimapZoom * pParty_global->sPartyPosY) >> 16),
+                  - uMinimapZoom * pParty_global->vPosition.y) >> 16),
       uMinimapCentreX
     + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom
                                                      * *(_WORD *)(dword_6BE63C
@@ -4482,7 +4483,7 @@ LABEL_26:
                                                                 * *(_WORD *)(dword_6BE670
                                                                            + 12 * (unsigned __int16)word_576D80[i]
                                                                            + 6))) >> 16) << 16)
-                  - uMinimapZoom * pParty_global->sPartyPosX) >> 16),
+                  - uMinimapZoom * pParty_global->vPosition.x) >> 16),
       uMinimapCentreY
     - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom
                                                      * *(_WORD *)(dword_6BE63C
@@ -4491,7 +4492,7 @@ LABEL_26:
                                                                            + 12 * (unsigned __int16)word_576D80[i]
                                                                            + 6)
                                                                 + 2)) >> 16) << 16)
-                  - uMinimapZoom * pParty_global->sPartyPosY) >> 16),
+                  - uMinimapZoom * pParty_global->vPosition.y) >> 16),
       0xFF0000FF);
   }
  }
@@ -4503,8 +4504,8 @@ LABEL_26:
    if (!pLayingItemsList[i].uItemType || !pLayingItemsList[i].uObjectDescriptionID || v79 == 1)
      continue;
 
-   v44 = uMinimapCentreX + uMinimapZoom * (pLayingItemsList[i].sItemPosX - pParty_global->sPartyPosX) / 65535;
-   v45 = uMinimapCentreY - uMinimapZoom * (pLayingItemsList[i].sItemPosY - pParty_global->sPartyPosY) / 65535;
+   v44 = uMinimapCentreX + uMinimapZoom * (pLayingItemsList[i].vPosition.x - pParty_global->vPosition.x) / 65535;
+   v45 = uMinimapCentreY - uMinimapZoom * (pLayingItemsList[i].vPosition.y - pParty_global->vPosition.y) / 65535;
    if (v44 < pD3DRenderer->dword_00001C || v44 > pD3DRenderer->dword_000024 ||
        v45 < pD3DRenderer->dword_000020 || v45 > pD3DRenderer->dword_000028)
      continue;
@@ -4523,8 +4524,8 @@ LABEL_26:
 
    if (pActors[i].uAIState == AI::State::Dead || pActors[i].uAttributes & 0x8000)
    {
-    v45 = uMinimapCentreX + uMinimapZoom * (pActors[i].vPosition.x - pParty_global->sPartyPosX) / 65535;
-    v44 = uMinimapCentreY - uMinimapZoom * (pActors[i].vPosition.y - pParty_global->sPartyPosY) / 65535;
+    v45 = uMinimapCentreX + uMinimapZoom * (pActors[i].vPosition.x - pParty_global->vPosition.x) / 65535;
+    v44 = uMinimapCentreY - uMinimapZoom * (pActors[i].vPosition.y - pParty_global->vPosition.y) / 65535;
 
     if (v45 >= pD3DRenderer->dword_00001C && v45 <= pD3DRenderer->dword_000024 &&
         v44 >= pD3DRenderer->dword_000020 && v44 <= pD3DRenderer->dword_000028)
@@ -4545,8 +4546,8 @@ LABEL_26:
  for (i = 0; i < uNumLevelDecorations; ++i)
    if (pLevelDecorations[i].word_000002 & 8 )
    {
-    v44 = uMinimapCentreX + uMinimapZoom * (pLevelDecorations[i].sPosX - pParty_global->sPartyPosX) / 65536;
-    v45 = uMinimapCentreY - uMinimapZoom * (pLevelDecorations[i].sPosY - pParty_global->sPartyPosY) / 65536;
+    v44 = uMinimapCentreX + uMinimapZoom * (pLevelDecorations[i].vPosition.x - pParty_global->vPosition.x) / 65536;
+    v45 = uMinimapCentreY - uMinimapZoom * (pLevelDecorations[i].vPosition.y - pParty_global->vPosition.y) / 65536;
     if (v44 >= pD3DRenderer->dword_00001C && v44 <= pD3DRenderer->dword_000024 &&
         v45 >= pD3DRenderer->dword_000020 && v45 <= pD3DRenderer->dword_000028)
     {
