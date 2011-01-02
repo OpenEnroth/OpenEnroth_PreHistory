@@ -11,7 +11,7 @@
 
 unsigned int RenderOperatorD3D10_DrawTerrain::Execute()
 {
- Vec3 vCameraPos = *pCamera->GetPosition();
+ Vec3<float> vCameraPos = *pCamera->GetPosition();
  float fHeightmapPosX = (float)(uHeightmapDimX) * (vCameraPos.x / fTerrainCellScale) / uResolutionX,
        fHeightmapPosZ = (float)(uHeightmapDimY) * (vCameraPos.z / fTerrainCellScale) / uResolutionZ;
 

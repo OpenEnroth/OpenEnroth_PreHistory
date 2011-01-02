@@ -1431,12 +1431,12 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
         (int)_this->sLightPosZ * a2->pFaceNormal[2] + a2->sNormalDistance) >> 16;
 
  if (_this->word_000006 > 0 &&
-     _this->sLightPosX > *(_WORD *)(a2 + 278) - _this->word_000006 &&
-     _this->sLightPosX < *(_WORD *)(a2 + 280) + _this->word_000006 &&
-     _this->sLightPosY > *(_WORD *)(a2 + 282) - _this->word_000006 &&
-     _this->sLightPosY < *(_WORD *)(a2 + 284) + _this->word_000006 &&
-     _this->sLightPosZ > *(_WORD *)(a2 + 286) - _this->word_000006 &&
-     _this->sLightPosZ < *(_WORD *)(a2 + 288) + _this->word_000006 &&
+     _this->sLightPosX > a2->cBoundingBoxX.min - _this->word_000006 &&
+     _this->sLightPosX < a2->cBoundingBoxX.max + _this->word_000006 &&
+     _this->sLightPosY > a2->cBoundingBoxY.min - _this->word_000006 &&
+     _this->sLightPosY < a2->cBoundingBoxY.max + _this->word_000006 &&
+     _this->sLightPosZ > a2->cBoundingBoxZ.min - _this->word_000006 &&
+     _this->sLightPosZ < a2->cBoundingBoxZ.max + _this->word_000006 &&
      a4 || v8 >= 0 && v8 <= _this->word_000006)
   {
     dword_F8ADD8[*(_DWORD *)a3] = _this->word_000006;

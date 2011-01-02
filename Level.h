@@ -45,9 +45,9 @@ struct BSPModel
   unsigned short uTextureID;                   // word     @ 000110
   short          sTextureDeltaU;               // word     @ 000112
   short          sTextureDeltaV;               // word     @ 000114
-  Range<short>   cBoundingBoxX;                // word[2]  @ 000016
-  Range<short>   cBoundingBoxY;                // word[2]  @ 00001A
-  Range<short>   cBoundingBoxZ;                // word[2]  @ 00001E
+  Range<short>   cBoundingBoxX;                // word[2]  @ 000116
+  Range<short>   cBoundingBoxY;                // word[2]  @ 00011A
+  Range<short>   cBoundingBoxZ;                // word[2]  @ 00011E
   short          sCogNumber;                   // word @ 000122
   short          sCogTriggeredID;              // word @ 000124     Event::dword_000000
   short          sCogTriggerType;              // word @ 000126

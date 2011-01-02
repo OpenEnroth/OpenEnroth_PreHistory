@@ -5608,7 +5608,7 @@ LABEL_61:
   if ( dword_4E28F8_PartyCantJumpIfTrue != 5 )
   {
    
-     for(int i=1; i<5; i++) 
+     for(int i=0; i<4; i++) 
           {
 	  v49 = pPlayers[i];
       v50 = *(_DWORD *)v49;

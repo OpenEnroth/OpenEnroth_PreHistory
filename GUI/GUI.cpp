@@ -10773,8 +10773,6 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   int v5; // esi@5
   int v6; // eax@5
   int v7; // edx@5
-  int v8; // ecx@10
-  int v9; // eax@12
   int v10; // eax@16
   char v11; // zf@16
   char v12; // zf@18
@@ -10783,11 +10781,9 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   char v15; // zf@27
   int v16; // eax@32
   int v17; // ecx@32
-  int v18; // edi@33
   int v19; // eax@34
   int v20; // eax@36
   int v21; // esi@37
-  unsigned __int16 v22; // ax@37
   unsigned __int8 v23; // al@40
   unsigned __int8 v24; // al@44
   unsigned __int8 v25; // al@48
@@ -10805,7 +10801,6 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   int v38; // eax@81
   const char *v40; // eax@85
   int v41; // eax@87
-  int v42; // eax@109
   int v43; // eax@109
   int v44; // edx@113
   int v45; // eax@113
@@ -10820,12 +10815,10 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   const char *v54; // [sp-10h] [bp-288h]@56
   int v55; // [sp-10h] [bp-288h]@58
   int v56; // [sp-10h] [bp-288h]@110
-  const char *v57; // [sp-Ch] [bp-284h]@36
   int v58; // [sp-Ch] [bp-284h]@46
   int v59; // [sp-Ch] [bp-284h]@56
   int v60; // [sp-Ch] [bp-284h]@58
   signed int v61; // [sp-Ch] [bp-284h]@110
-  int v62; // [sp-8h] [bp-280h]@36
   int v63; // [sp-8h] [bp-280h]@46
   int v64; // [sp-8h] [bp-280h]@56
   int v65; // [sp-8h] [bp-280h]@58
@@ -10862,9 +10855,8 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   int v94; // [sp+268h] [bp-10h]@1
   int v95; // [sp+26Ch] [bp-Ch]@18
   char *Str1; // [sp+270h] [bp-8h]@65
-  int v97; // [sp+274h] [bp-4h]@1
+  Item *pItem;
 
-  v97 = (int)_this;
   *(_DWORD *)v78 = 0xFFFF9B;
   v94 = (int)pFontComic;
   if ( _this->uItemID )
@@ -10878,9 +10870,10 @@ void GameUI_DrawItemInfo(ItemGen *_this)
     else
       v2 = GUICursor_GetMousePos(pGame->pGUICursor, &v91)->x - local_208.uFrameWidth - 30;
     local_208.uFrameX = v2;
+    pItem = &pClass40->pItems[_this->uItemID];
     v4 = (int *)&pClass40->pItems[_this->uItemID].pIconName;
     v81 = v4;
-    v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char *)*v4, 2);
+    v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (char*)pItem->pIconName, 2);
     v5 = v6;
    // v6 *= 72;
   //  v80 = v6;
@@ -10896,20 +10889,18 @@ void GameUI_DrawItemInfo(ItemGen *_this)
       v93 = 0;
     else
       v93 >>= 1;
-    v8 = v97;
     if ( !*((_BYTE *)v4 + 46) )
       _this->uAttributes |= 1u;
-    v9 = _this->uAttributes;
     v82 = 0;
-    v91.y = v9 & 2;
-    if (pClass40->pItems[*(_DWORD *)v8 - 1].uEquipType == 18 )
-      v82 = *(_DWORD *)(v8 + 12);
+    v91.y = _this->uAttributes & 2;
+    if (pClass40->pItems[_this->uItemID - 1].uEquipType == 18 )
+      v82 = _this->dword_00000C;
     if ( uActiveCharacter )
     {
-      if ( !(v9 & 1) )
+      if ( !(_this->uAttributes & 1) )
       {
-        v11 = sub_4910D3(v97) == 1;
-        v10 = v97;
+        v11 = sub_4910D3((int)_this) == 1;
+        v10 = (int)_this;
         if ( v11 )
           _this->uAttributes |= 1u;
         v12 = (*(_BYTE *)(v10 + 20) & 1) == 0;
@@ -10921,7 +10912,7 @@ void GameUI_DrawItemInfo(ItemGen *_this)
         else
         {
           v95 = 8;
-          if ( ItemGen_sub_456442((ItemGen *)v97) < (unsigned int)(100 * (*((_WORD *)pPlayers[uActiveCharacter - 1] + 109) + 5)) )
+          if ( ItemGen_sub_456442(_this) < (unsigned int)(100 * (*((_WORD *)pPlayers[uActiveCharacter - 1] + 109) + 5)) )
             v95 = 7;
         }
         if ( dword_4E455C )
@@ -10930,11 +10921,11 @@ void GameUI_DrawItemInfo(ItemGen *_this)
           dword_4E455C = 0;
         }
       }
-      sub_458260(v97, pParty_global->qword_00002C);
+      sub_458260((int)_this, pParty_global->qword_00002C);
       if ( v91.y )
       {
-        v14 = Player_sub_491151(pPlayers[uActiveCharacter - 1], v97) == 1;
-        v13 = v97;
+        v14 = Player_sub_491151(pPlayers[uActiveCharacter - 1], (int)_this) == 1;
+        v13 = (int)_this;
         if ( v14 )
           _this->uAttributes = _this->uAttributes & 0xFFFFFFFD | 1;
         v15 = (*(_BYTE *)(v13 + 20) & 2) == 0;
@@ -10956,7 +10947,6 @@ void GameUI_DrawItemInfo(ItemGen *_this)
     if ( v17 & 2 )
     {
       GUIWindow_sub_415551(&local_208, 0);
-      v18 = (int)pD3DRenderer;
       Render_Set2DClippingRect(pD3DRenderer, local_208.uFrameX + 12, local_208.uFrameY + 12, local_208.uFrameX + local_208.uFrameWidth - 12, local_208.uFrameY + local_208.uFrameHeight - 12);
       local_208.uFrameWidth -= 24;
       local_208.uFrameHeight -= 12;
@@ -10969,14 +10959,13 @@ void GameUI_DrawItemInfo(ItemGen *_this)
         v19 = v81[2];
       GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v19, 3);
       v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[32], &local_208, 0, 0);
-      v62 = 3;
-      v57 = (char *)pGlobalTXT_LocalizationStrings[32];
-      goto LABEL_37;
+      v21 = v20 >> 1;
+      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, 0xFF1919, (char *)pGlobalTXT_LocalizationStrings[32], 3);
+      goto LABEL_116;
     }
     if ( !v16 )
     {
       GUIWindow_sub_415551(&local_208, 0);
-      v18 = (int)pD3DRenderer;
       Render_Set2DClippingRect(pD3DRenderer, local_208.uFrameX + 12, local_208.uFrameY + 12, local_208.uFrameX + local_208.uFrameWidth - 12, local_208.uFrameY + local_208.uFrameHeight - 12);
       local_208.uFrameWidth -= 24;
       local_208.uFrameHeight -= 12;
@@ -10985,12 +10974,8 @@ void GameUI_DrawItemInfo(ItemGen *_this)
       Render_DrawTransparentTexture(pD3DRenderer, local_208.uFrameX + v83, v93 + local_208.uFrameY + 30, (cTexture *)(v5 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v5]: 0));
       GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v81[2], 3);
       v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[232], &local_208, 0, 0);
-      v62 = 3;
-      v57 = (char *)pGlobalTXT_LocalizationStrings[232];
-LABEL_37:
       v21 = v20 >> 1;
-      v22 = 0xFF1919;
-      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, v22, v57, v62);
+      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, 0xFF1919, (char *)pGlobalTXT_LocalizationStrings[232], 3);
       goto LABEL_116;
     }
     wsprintfA(v67, (char *)pGlobalTXT_LocalizationStrings[463], v4[2]);
@@ -11039,7 +11024,7 @@ LABEL_50:
     v26 = *((_BYTE *)v4 + 28);
     if ( v26 == 14 )
     {
-      v27 = *(_DWORD *)(v97 + 4);
+      v27 = _this->dword_000004;
       if ( v27 )
         goto LABEL_56;
 LABEL_65:
@@ -11068,9 +11053,9 @@ LABEL_65:
       local_208.uFrameHeight = *(_WORD *)(v79 + 26) + v93 + 54;
       if ( (signed int)Str1 > local_208.uFrameHeight)
         local_208.uFrameHeight = (int)Str1;
-      if ( *(_BYTE *)(v97 + 20) & 8 )
+      if ( _this->uAttributes & 8 )
       {
-        if ( *(_DWORD *)(v97 + 12) || *(_DWORD *)(v97 + 4) )
+        if ( _this->dword_00000C || _this->dword_000004 )
           local_208.uFrameHeight += *(_BYTE *)(v94 + 5);
       }
       v95 = 0;
@@ -11078,7 +11063,7 @@ LABEL_65:
       {
         local_208.uFrameWidth -= 24;
         v34 = pFontArrus->uFontHeight;
-        v35 = ItemGen_sub_4564B3((ItemGen *)v97);
+        v35 = ItemGen_sub_4564B3(_this);
         if ( GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v35, &local_208, 0, 0) / v34 )
           v95 = v34;
         local_208.uFrameWidth += 24;
@@ -11088,7 +11073,6 @@ LABEL_65:
       local_208.uFrameW = local_208.uFrameY + local_208.uFrameHeight - 1;
       local_208.uFrameZ = local_208.uFrameX + local_208.uFrameWidth - 1;
       GUIWindow_sub_415551(&local_208, 0);
-      v18 = (int)pD3DRenderer;
       Render_Set2DClippingRect(pD3DRenderer, local_208.uFrameX + 12, local_208.uFrameY + 12, local_208.uFrameX + local_208.uFrameWidth - 12, local_208.uFrameY + local_208.uFrameHeight - 12);
       local_208.uFrameWidth -= 12;
       v37 = *(_WORD *)(v79 + 26);
@@ -11115,7 +11099,7 @@ LABEL_65:
         FontDrawText(&local_208, pFontSmallnum, 100, v36, v40, 0, 0, 0);
       local_208.uFrameX += 12;
       local_208.uFrameWidth -= 24;
-      v41 = ItemGen_sub_4564B3((ItemGen *)v97);
+      v41 = ItemGen_sub_4564B3(_this);
       GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v41, 3);
       local_208.uFrameWidth += 24;
       local_208.uFrameX -= 12;
@@ -11133,11 +11117,11 @@ LABEL_65:
       }
       else
       {
-        if ( *(_BYTE *)(v97 + 20) & 8 )
+        if ( _this->uAttributes & 8 )
         {
-          if ( *(_DWORD *)(v97 + 12) || *(_DWORD *)(v97 + 4) )
+          if ( _this->dword_00000C || _this->dword_000004 )
           {
-            sub_493F79((int)&v72, *(_QWORD *)(v97 + 28) - pParty_global->qword_00002C);
+            sub_493F79((int)&v72, *(_QWORD *)((char*)_this + 28) - pParty_global->qword_00002C);
             strcpy((char *)TmpBuf, "Duration:");
             Str1 = (char *)(v77 - 1168);
             if ( v77 != 1168 )
@@ -11159,11 +11143,10 @@ LABEL_65:
             FontDrawText(&local_208, (Font *)v94, 100, local_208.uFrameHeight - 2 * *(_BYTE *)(v94 + 5), (char *)TmpBuf, 0, 0, 0);
           }
         }
-        v43 = ItemGen_sub_456442((ItemGen *)v97);
+        v43 = ItemGen_sub_456442(_this);
         wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[465], v43);
         FontDrawText(&local_208, (Font *)v94, 100, local_208.uFrameHeight - *(_BYTE *)(v94 + 5), (char *)TmpBuf, 0, 0, 0);
-        v42 = *(_DWORD *)(v97 + 20);
-        if ( BYTE1(v42) & 1 )
+        if ( _this->uAttributes & 1 )
         {
           v66 = 0;
           v61 = 0;
@@ -11172,7 +11155,7 @@ LABEL_65:
         }
         else
         {
-          if ( !(BYTE1(v42) & 2) )
+          if ( !(_this->uAttributes & 2) )
             goto LABEL_116;
           v66 = 0;
           v61 = 0;
@@ -11187,17 +11170,17 @@ LABEL_65:
       }
       FontDrawText(&local_208, (Font *)v44, v46, v47, v52, v56, v61, (unsigned int)v66);
 LABEL_116:
-      Render_Reset2DClippingRect((BaseRender *)v18);
+      Render_Reset2DClippingRect(pD3DRenderer);
       if ( !bTextureLoading )
       {
-        cTexture_Free((cTexture *)v79);
+        cTexture_Free(v79);
         LODFile_Icons_LOD.LODFile_sub_40F9C5();
       }
       return;
     }
     if ( v26 == 13 )
     {
-     v27 = pClass40->pItems[*(_DWORD *)v97 - 1].uDamageDice;
+     v27 = pClass40->pItems[_this->uItemID - 1].uDamageDice;
 LABEL_56:
       v64 = v27;
       v59 = (int)pGlobalTXT_LocalizationStrings[449];
@@ -11206,29 +11189,29 @@ LABEL_64:
       wsprintfA(v69, v54, v59, v64);
       goto LABEL_65;
     }
-    v28 = *(_DWORD *)(v97 + 4);
+    v28 = _this->dword_000004;
     if ( v28 )
     {
-      v65 = *(_DWORD *)(v97 + 8);
+      v65 = _this->dword_000008;
       v60 = dword_5DBFD0[5 * v28 + 1];
       v55 = (int)pGlobalTXT_LocalizationStrings[210];
       v51 = "%s: %s +%d";
     }
     else
     {
-      v29 = *(_DWORD *)(v97 + 12);
+      v29 = _this->dword_00000C;
       if ( !v29 )
       {
-        if ( *(_DWORD *)(v97 + 16) )
+        if ( _this->dword_000010 )
         {
-          v64 = *(_DWORD *)(v97 + 16);
+          v64 = _this->dword_000010;
           v59 = (int)pGlobalTXT_LocalizationStrings[464];
           v54 = "%s: %lu";
           goto LABEL_64;
         }
         goto LABEL_65;
       }
-      v65 = *(_DWORD *)(v97 + 8);
+      v65 = _this->dword_000008;
       v60 = dword_5DC1A8[7 * v29 + 1];
       v55 = (int)pGlobalTXT_LocalizationStrings[210];
       v51 = "%s: %s";
