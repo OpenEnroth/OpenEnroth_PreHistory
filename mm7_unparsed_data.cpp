@@ -1636,9 +1636,9 @@ unsigned int          uCurrentMenuID;  // dword     @ MM7.exe::006A0D44
  int dword_6A0D48; // weak
 
 OutdoorLocation class51_6A0DA0_dwReserved;
-OutdoorLocation *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
+OutdoorLocation *pOutdoor = &class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
  struct tagOFNA stru_6A0DA0; // idb
-//dwReserved @ 6A0DF0 @ pClass51_global::000000
+//dwReserved @ 6A0DF0 @ pOutdoor::000000
  int dword_6A12B0; // weak
  int dword_6A12B4; // weak
  //struct 40 bytes
@@ -1766,24 +1766,8 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
  char byte_6BE3B0[20]; // idb
  char byte_6BE3C4_MaybeDrowningFlag; // weak
  char byte_6BE3C5; // weak
- char byte_6BE3C8[604]; // idb
- size_t Size; // idb
- int dword_6BE63C; // weak
- int dword_6BE640; // weak
-struct struct12 *ptr_6BE644; // weak
- int dword_6BE648; // weak
- int dword_6BE64C; // weak
- int dword_6BE654; // weak
- int dword_6BE658; // weak
- int dword_6BE65C; // weak
- int dword_6BE660; // weak
- void *Src; // idb
- int dword_6BE66C; // weak
- int dword_6BE670; // weak
- void *dword_6BE67C; // idb
- int dword_6BE684; // weak
- int dword_6BE688; // weak
 
+IndoorLocation *pIndoor = nullptr; //  // struct @ MM7.exe::006BE3C8
  //struct 40 bytes
  _UNKNOWN unk_6BE68C; // weak
  int dword_6BE694; // weak 8

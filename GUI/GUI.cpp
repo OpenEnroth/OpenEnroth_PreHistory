@@ -856,15 +856,15 @@ LABEL_93:
           {
             if ( uCurrentlyLoadedLevelType != 1 )
             {
-              v21 = *(_WORD *)(*(_DWORD *)((char *)&pClass51_global->pBModels[((signed int)(unsigned __int16)v18 >> 9)] + 84)
+              v21 = *(_WORD *)(*(_DWORD *)((char *)&pOutdoor->pBModels[((signed int)(unsigned __int16)v18 >> 9)] + 84)
                              + 308 * (v19 & 0x3F)
                              + 292);
               goto LABEL_71;
             }
-            v20 = (int)(ptr_6BE644 + v19);
+            v20 = (int)((int)pIndoor->pFaces + v19);
             if ( *(_BYTE *)(v20 + 47) & 6 )
             {
-              v21 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v20 + 72) + 26);
+              v21 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v20 + 72) + 26);
 LABEL_71:
               if ( !v21 || (v22 = sub_444732((void *)v21), !v22) )
                 goto LABEL_73;
@@ -2841,9 +2841,9 @@ LABEL_92:
           sub_42FBDD();
           v211 = sub_444D80();
           compile_error(level name should not be globally-defined);
-  //strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
+  //strcpy((char *)pOutdoor->string_000000, CurrentLevelName);
           if (byte_6BE3C4_MaybeDrowningFlag != 1 && pParty_global->bFlying ||
-              sub_48902E((char *)pClass51_global->string_000000, pParty_global->vPosition.x, pParty_global->vPosition.y, &Source, 20) != 1 )
+              sub_48902E((char *)pOutdoor->string_000000, pParty_global->vPosition.x, pParty_global->vPosition.y, &Source, 20) != 1 )
           {
             struct_576FE8.dword_000044 = 1;
 LABEL_387:
@@ -2977,16 +2977,16 @@ LABEL_400:
               goto LABEL_92;
             if ( uCurrentlyLoadedLevelType != 1 )
             {
-             v62 = (int)&pClass51_global->pBModels[(v56 >> 9)].pFaces[(v58 & 0x3F)];
+             v62 = (int)&pOutdoor->pBModels[(v56 >> 9)].pFaces[(v58 & 0x3F)];
               if ( !(*(_BYTE *)(v62 + 31) & 2) || !*(_WORD *)(v62 + 292) )
                 goto LABEL_92;
               v56 = v212;
               goto LABEL_415;
             }
-            v61 = (int)(ptr_6BE644 + v58);
+            v61 = (int)(pIndoor->pFaces) + v58;
             if ( !(*(_BYTE *)(v61 + 47) & 2) )
               goto LABEL_92;
-            v60 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v61 + 72) + 26) == 0;
+            v60 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v61 + 72) + 26) == 0;
           }
           if ( v60 )
             goto LABEL_92;
@@ -3436,7 +3436,7 @@ LABEL_91:
             v88 = v86;
             if ( uCurrentlyLoadedLevelType == 1 )
             {
-              if ( sub_49AC17((int)byte_6BE3C8, v87, v205, v86) )
+              if ( IndoorLocation_sub_49AC17((int)pIndoor, v87, v205, v86) )
               {
                 v89 = v205;
 LABEL_544:
@@ -4407,32 +4407,32 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
   Render_FillRect2(pD3DRenderer, uX, uY, uMinimapWidth, uMinimapHeight, 15);
   dword_576D14 = 0;
   v93 = 0;
-  if ( *(_DWORD *)dword_6BE670 > 0 )
+  if ( *(_DWORD *)pIndoor->ptr_00002A8 > 0 )
   {
     v86 = 0;
-    v8 = (int)ptr_6BE644;
+    v8 = (int)pIndoor->pFaces;
     do
     {
-      v10 = v86 + dword_6BE670 + 4;
-      v9 = *(_DWORD *)(96 * *(_WORD *)(v86 + dword_6BE670 + 8) + v8 + 44);
+      v10 = v86 + (int)pIndoor->ptr_00002A8 + 4;
+      v9 = *(_DWORD *)(96 * *(_WORD *)(v86 + (int)pIndoor->ptr_00002A8 + 8) + v8 + 44);
       if ( BYTE1(v9) & 0x20
-        || (v11 = *(_DWORD *)(96 * *(_WORD *)(v86 + dword_6BE670 + 10) + v8 + 44), BYTE1(v11) & 0x20) )
+        || (v11 = *(_DWORD *)(96 * *(_WORD *)(v86 + (int)pIndoor->ptr_00002A8 + 10) + v8 + 44), BYTE1(v11) & 0x20) )
         goto LABEL_26;
-      v12 = *(_WORD *)(v86 + dword_6BE670 + 14);
+      v12 = *(_WORD *)(v86 + (int)pIndoor->ptr_00002A8 + 14);
       if ( !(v12 & 1) )
       {
         if ( (_BYTE)v9 >= 0 && (_BYTE)v11 >= 0 )
           goto LABEL_26;
-        *(_WORD *)(v86 + dword_6BE670 + 14) = v12 | 1;
+        *(_WORD *)(v86 + (int)pIndoor->ptr_00002A8 + 14) = v12 | 1;
         byte_6BE6EC[v93 >> 3] |= 1 << (7 - v93 % 8);
-        v8 = (int)ptr_6BE644;
+        v8 = (int)pIndoor->pFaces;
       }
       if ( v84
         && v79 >= 3
         && ((v13 = v8 + 96 * *(_WORD *)(v10 + 4), *(_DWORD *)(v13 + 44) & 0x2000000)
          || *(_DWORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 44) & 0x2000000)
-        && (*(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v13 + 72) + 26)
-         || *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 72) + 26))
+        && (*(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v13 + 72) + 26)
+         || *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 72) + 26))
         && (v14 = dword_576D14, dword_576D14 < 49) )
       {
         word_576D80[dword_576D14] = v93;
@@ -4440,58 +4440,45 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
       }
       else
       {
-        v73 = uMinimapCentreX
-            + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v10)) >> 16) << 16)
+        v73 = uMinimapCentreX +
+            ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v10)) >> 16) << 16)
                           - uMinimapZoom * pParty_global->vPosition.x) >> 16);
-        v71 = uMinimapCentreY
-            - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v10 + 2)) >> 16) << 16)
+        v71 = uMinimapCentreY -
+            ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v10 + 2)) >> 16) << 16)
                           - uMinimapZoom * pParty_global->vPosition.y) >> 16);
-        v100 = uMinimapCentreX
-             + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v10 + 2))) >> 16) << 16)
+        v100 = uMinimapCentreX +
+             ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v10 + 2))) >> 16) << 16)
                            - uMinimapZoom * pParty_global->vPosition.x) >> 16);
-        v16 = uMinimapCentreY
-            - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom
-                                                             * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v10 + 2) + 2)) >> 16) << 16)
+        v16 = uMinimapCentreY -
+            ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v10 + 2) + 2)) >> 16) << 16)
                           - uMinimapZoom * pParty_global->vPosition.y) >> 16);
         v15 = abs(*(_WORD *)(v10 + 8) - pParty_global->vPosition.z) / 8;
         if ( v15 > 100 )
           v15 = 100;
         //Render_FillRect(pD3DRenderer, v73, v71, v100, v16, *((_WORD *)&unk_5771E4 - v15));
         Render_FillRect(pD3DRenderer, v73, v71, v100, v16, struct_576FE8.pSomeColorTable[200 - v15]);
-        v8 = (int)ptr_6BE644;
+        v8 = (int)pIndoor->pFaces;
       }
 LABEL_26:
       ++v93;
       v86 += 12;
     }
-    while ( v93 < *(_DWORD *)dword_6BE670 );
+    while ( v93 < *(_DWORD *)pIndoor->ptr_00002A8 );
   }
   for ( i = 0; i < dword_576D14; ++i )
   {
-    v17 = dword_6BE670 + 12 * (unsigned __int16)word_576D80[i] + 4;
-    Render_FillRect(pD3DRenderer,
-      uMinimapCentreX
-    + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v17)) >> 16) << 16)
+    v17 = (int)pIndoor->ptr_00002A8 + 12 * (unsigned __int16)word_576D80[i] + 4;
+    Render_FillRect(pD3DRenderer, uMinimapCentreX +
+    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v17)) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.x) >> 16),
-      uMinimapCentreY
-    - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)v17 + 2)) >> 16) << 16)
+      uMinimapCentreY -
+    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v17 + 2)) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.y) >> 16),
-      uMinimapCentreX
-    + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom
-                                                     * *(_WORD *)(dword_6BE63C
-                                                                + 6
-                                                                * *(_WORD *)(dword_6BE670
-                                                                           + 12 * (unsigned __int16)word_576D80[i]
-                                                                           + 6))) >> 16) << 16)
+      uMinimapCentreX +
+    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)((int)pIndoor->ptr_00002A8 + 12 * (unsigned __int16)word_576D80[i] + 6))) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.x) >> 16),
-      uMinimapCentreY
-    - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom
-                                                     * *(_WORD *)(dword_6BE63C
-                                                                + 6
-                                                                * *(_WORD *)(dword_6BE670
-                                                                           + 12 * (unsigned __int16)word_576D80[i]
-                                                                           + 6)
-                                                                + 2)) >> 16) << 16)
+      uMinimapCentreY -
+    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom* *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)((int)pIndoor->ptr_00002A8 + 12 * (unsigned __int16)word_576D80[i] + 6) + 2)) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.y) >> 16),
       0xFF0000FF);
   }

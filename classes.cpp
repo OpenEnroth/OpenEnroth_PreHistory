@@ -5,9 +5,8 @@
 #include "defs.h"
 #include "RenderD3D3.h"
 #include "clock.h"
-#include "Level.h"
 #include "FrameTables.h"
- #include "_lod.h"
+#include "_lod.h"
 #include "data.h"
 
 #include "Game.h"

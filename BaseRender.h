@@ -1,7 +1,7 @@
 #pragma once
 #include "defs.h"
 #include "CoreDefinitions.h"
-#include "Level.h"
+#include "Environment\Outdoor.h"
 
 #include <stdio.h>
 #include <windows.h>

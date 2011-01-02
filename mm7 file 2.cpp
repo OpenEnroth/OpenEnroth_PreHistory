@@ -14,7 +14,7 @@
 
 #include "GUI\GUI.h"
 
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "Actor.h"
   #include "_lod.h"
 #include "mm7_unparsed_data.h"
@@ -291,14 +291,14 @@ int __thiscall sub_443365(struct unnamed_576FE8 *_this)
     v14 = 0x40000000;
     v17 = 0xC0000000;
     v15 = 0xC0000000;
-    if ( *(_DWORD *)dword_6BE670 > 0 )
+    if ( *(_DWORD *)pIndoor->ptr_00002A8 > 0 )
     {
-      v2 = dword_6BE670 + 4;
-      v11 = *(_DWORD *)dword_6BE670;
-      v12 = dword_6BE670 + 4;
+      v2 = (int)pIndoor->ptr_00002A8 + 4;
+      v11 = *(_DWORD *)pIndoor->ptr_00002A8;
+      v12 = (int)pIndoor->ptr_00002A8 + 4;
       do
       {
-        v3 = dword_6BE63C + 6 * *(_WORD *)v2;
+        v3 = (int)pIndoor->pVertices + 6 * *(_WORD *)v2;
         v4 = *(_WORD *)v3;
         if ( v4 < v16 )
           v16 = *(_WORD *)v3;
@@ -310,7 +310,7 @@ int __thiscall sub_443365(struct unnamed_576FE8 *_this)
           v14 = v4;
         if ( v5 > v15 )
           v15 = v4;
-        v6 = dword_6BE63C + 6 * *(_WORD *)(v2 + 2);
+        v6 = (int)pIndoor->pVertices + 6 * *(_WORD *)(v2 + 2);
         v7 = *(_WORD *)v6;
         if ( v7 < v16 )
           v16 = v4;
@@ -11181,8 +11181,8 @@ void __cdecl sub_41F5BE()
       struct_576FE8.dword_000044 = 1;
       if ( uCurrentlyLoadedLevelType == 2 )
       {
-        class51_sub_4892E6(pClass51_global);
-        class51_sub_4893C1(pClass51_global);
+        class51_sub_4892E6(pOutdoor);
+        class51_sub_4893C1(pOutdoor);
       }
     }
     dword_506F14 = 0;
@@ -11220,7 +11220,7 @@ int __cdecl sub_41F6C1()
   dword_506F14 = 0;
   dword_506F10 = 2;
   if ( uCurrentlyLoadedLevelType == 2 )
-    dword_506F10 = sub_4893CF(pClass51_global, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+    dword_506F10 = sub_4893CF(pOutdoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   if ( sub_476387() )
   {
     v0 = pParty_global->pPlayers[0].uClass;
@@ -11595,7 +11595,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
   pGameLoadingUI_ProgressBar->SetProgress(0.10f);
 
   int v1;
-  pClass51_global->Load(pLevelFilename,
+  pOutdoor->Load(pLevelFilename,
              (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
              (int)&v1);
 
@@ -11633,12 +11633,12 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
 
 
   sub_47F138_MessWithDecorations();
-  sub_47F223_LooksLikeGenerateMonsterLoot(pClass51_global);
+  sub_47F223_LooksLikeGenerateMonsterLoot(pOutdoor);
   InitializeActors((MapInfo *)v4);
-  class51_sub_48917E((int)pClass51_global);
+  class51_sub_48917E((int)pOutdoor);
   v8 = strlen("levels\\");
   strcpy(Source, &pLevelFilename[v8]);
-  strcpy((char *)pClass51_global->string_000000, Source);
+  strcpy((char *)pOutdoor->string_000000, Source);
   sub_4C2EA0(&struct_6BD080);
 
   pGameLoadingUI_ProgressBar->SetProgress(0.90f);
@@ -11647,7 +11647,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
   pOldCamera->sRotationY = pParty_global->sRotationY;
 
   struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
-  class51_sub_4892E6(pClass51_global);
+  class51_sub_4892E6(pOutdoor);
   pStruct9_global->dword_000014 = pOldCamera->flt_00001C;
   pStruct9_global->dword_000018 = pOldCamera->flt_000020;
 
@@ -12067,7 +12067,7 @@ signed int __fastcall sub_42041E(int a1)
         goto LABEL_12;
       if ( uCurrentlyLoadedLevelType == 2 )
       {
-        v12 = *(_DWORD *)(188 * (dword_5B5920 >> 9) + pClass51_global->pBModels + 84) + 308 * ((dword_5B5920 >> 3) & 0x3F);
+        v12 = *(_DWORD *)(188 * (dword_5B5920 >> 9) + pOutdoor->pBModels + 84) + 308 * ((dword_5B5920 >> 3) & 0x3F);
         v8 = *(_WORD *)(v12 + 282);
         v11 = *(_WORD *)(v12 + 288);
         v10 = *(_WORD *)(v12 + 278) + *(_WORD *)(v12 + 280);
@@ -12076,7 +12076,7 @@ signed int __fastcall sub_42041E(int a1)
       }
       else
       {
-        v13 = (int)(ptr_6BE644 + v5);
+        v13 = (int)pIndoor->pFaces + v5;
         v8 = *(_WORD *)(v13 + 84);
         v11 = *(_WORD *)(v13 + 90);
         v10 = *(_WORD *)(v13 + 80) + *(_WORD *)(v13 + 82);
@@ -12148,7 +12148,7 @@ LABEL_32:
     v31 = v51.z;
     v33 = 0;
     v34 = 48;
-    v35 = sub_49AC17((int)byte_6BE3C8, v51.x, v51.y, v51.z);
+    v35 = IndoorLocation_sub_49AC17((int)pIndoor, v51.x, v51.y, v51.z);
     v36 = 0;
     v42 = 0;
     v43 = 0;
@@ -12620,7 +12620,7 @@ LABEL_15:
       v16 = 0;
       v15 = 0;
       v17 = 8;
-      v8 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+      v8 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
       v19 = 0;
       v18 = v8;
       memcpy(&local_28, &pParty_global->pickedItem, sizeof(struct ItemGen));
@@ -13002,7 +13002,7 @@ void __cdecl sub_42213C()
       v2 = (signed int)(unsigned __int16)v0 >> 3;
       if ( uCurrentlyLoadedLevelType == 1 )
       {
-        v3 = (int)(ptr_6BE644 + v2);
+        v3 = (int)pIndoor->pFaces + v2;
         if ( !(*(_DWORD *)(v3 + 44) & 0x2000000) )
         {
 LABEL_11:
@@ -13036,7 +13036,7 @@ LABEL_18:
             v24.v28 = pParty_global->uEyelevel + pParty_global->vPosition.z;
             v24.v29 = 0;
             v24.v30 = 8;
-            v24.v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+            v24.v31 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
             v24.v32 = 0;
             memcpy(&v24.local_30, &pParty_global->pickedItem, sizeof(struct ItemGen));
             v8 = (int)GUICursor_GetMousePos(pGame->pGUICursor, &v35);
@@ -13055,11 +13055,11 @@ LABEL_13:
             return;
           goto LABEL_14;
         }
-        v11 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v3 + 72) + 26);
+        v11 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v3 + 72) + 26);
       }
       else
       {
-        v12 = *(_DWORD *)(188 * ((signed int)(unsigned __int16)v0 >> 9) + pClass51_global->pBModels + 84) + 308 * (v2 & 0x3F);
+        v12 = *(_DWORD *)(188 * ((signed int)(unsigned __int16)v0 >> 9) + pOutdoor->pBModels + 84) + 308 * (v2 & 0x3F);
         if ( !(*(_DWORD *)(v12 + 28) & 0x2000000) )
           goto LABEL_11;
         v11 = *(_WORD *)(v12 + 292);
@@ -13257,8 +13257,8 @@ int __fastcall sub_423B5D(int a1)
   signed int v93; // [sp+24h] [bp-4h]@51
   signed int v94; // [sp+24h] [bp-4h]@61
 
-  v1 = (int)(ptr_6BE644 + a1);
-  v3 = dword_6BE63C + 6 * **(_WORD **)(v1 + 48);
+  v1 = (int)&pIndoor->pFaces[a1];
+  v3 = (int)pIndoor->pVertices + 6 * **(_WORD **)(v1 + 48);
   v4 = *(_DWORD *)v3;
   v5 = *(_WORD *)(v3 + 4);
   v2 = 0;
@@ -13279,7 +13279,7 @@ int __fastcall sub_423B5D(int a1)
   {
     do
     {
-      v6 = dword_6BE63C + 6 * *(_WORD *)(*(_DWORD *)(v1 + 48) + 2 * v2);
+      v6 = (int)pIndoor->pVertices + 6 * *(_WORD *)(*(_DWORD *)(v1 + 48) + 2 * v2);
       sub_43669D(
         *(_WORD *)v6,
         *(_WORD *)(v6 + 2),
@@ -13693,9 +13693,9 @@ signed int __fastcall sub_424579(int a1, int a2)
   int v28; // [sp+20h] [bp-8h]@3
   int v29; // [sp+24h] [bp-4h]@3
 
-  v2 = (int)(ptr_6BE644 + a1);
-  v3 = dword_6BE63C;
-  v4 = dword_6BE63C + 6 * **(_WORD **)(v2 + 48);
+  v2 = (int)&pIndoor->pFaces[a1];
+  v3 = (int)pIndoor->pVertices;
+  v4 = (int)pIndoor->pVertices + 6 * **(_WORD **)(v2 + 48);
   if ( *(_DWORD *)(v2 + 16) * ((signed __int16)*(_DWORD *)v4 - dword_51B6E8)
      + *(_DWORD *)(v2 + 20) * ((signed __int16)(*(_DWORD *)v4 >> 16) - dword_51B6EC)
      + *(_DWORD *)(v2 + 24) * (*(_WORD *)(v4 + 4) - dword_51B6F0) < 0 )

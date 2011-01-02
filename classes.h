@@ -4,7 +4,7 @@
 #include "c18.h"
 #include "Party.h"
 #include "Items.h"
-#include "Level.h"
+#include "Environment\Outdoor.h"
 
 #include "GUI\GUI.h"
 

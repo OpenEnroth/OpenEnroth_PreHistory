@@ -34,6 +34,9 @@
     <Filter Include="Extras">
       <UniqueIdentifier>{0eaa8547-5577-4c0e-8631-789864dfdc5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Environment">
+      <UniqueIdentifier>{57bd345f-c481-4544-af89-b37ce602c755}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Render\RenderD3D10.cpp">
@@ -58,7 +61,6 @@
     <ClCompile Include="data.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="FrameTables.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="memory_mng.cpp" />
     <ClCompile Include="menus.cpp" />
     <ClCompile Include="mm7 file 1.cpp" />
@@ -218,12 +220,15 @@
     <ClCompile Include="Vis.cpp" />
     <ClCompile Include="Win32Window.cpp" />
     <ClCompile Include="OSWindow.cpp" />
+    <ClCompile Include="Environment\Indoor.cpp">
+      <Filter>Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Environment\Outdoor.cpp">
+      <Filter>Environment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Math.inl">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Render\Render.h">
@@ -264,7 +269,6 @@
     <ClInclude Include="defs.h" />
     <ClInclude Include="FrameTables.h" />
     <ClInclude Include="Items.h" />
-    <ClInclude Include="Level.h" />
     <ClInclude Include="localization_defs.h" />
     <ClInclude Include="memory_mng.h" />
     <ClInclude Include="menus.h" />
@@ -452,6 +456,15 @@
     </ClInclude>
     <ClInclude Include="Vis.h" />
     <ClInclude Include="OSWindow.h" />
+    <ClInclude Include="Math\Math.inl">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Environment\Indoor.h">
+      <Filter>Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Environment\Outdoor.h">
+      <Filter>Environment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

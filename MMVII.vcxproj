@@ -99,6 +99,8 @@
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="Environment\Indoor.cpp" />
+    <ClCompile Include="Environment\Outdoor.cpp" />
     <ClCompile Include="Events..cpp" />
     <ClCompile Include="FrameTables.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -114,7 +116,6 @@
     <ClCompile Include="GUI\ProgressBar.cpp" />
     <ClCompile Include="GUI\Window.cpp" />
     <ClCompile Include="GUI\WindowOverlapped.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="libs\AIL\AIL.cpp" />
     <ClCompile Include="libs\Bink\Bink.cpp" />
     <ClCompile Include="libs\libpng143\png.c" />
@@ -190,6 +191,8 @@
     <ClInclude Include="CoreDefinitions.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="Environment\Indoor.h" />
+    <ClInclude Include="Environment\Outdoor.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="Extras\List.h" />
     <ClInclude Include="Extras\Pool.h" />
@@ -206,7 +209,6 @@
     <ClInclude Include="GUI\ProgressBar.h" />
     <ClInclude Include="GUI\Window.h" />
     <ClInclude Include="Items.h" />
-    <ClInclude Include="Level.h" />
     <ClInclude Include="libs\AIL\AIL.h" />
     <ClInclude Include="libs\Bink\Bink.h" />
     <ClInclude Include="libs\legacy_dx\d3d.h" />

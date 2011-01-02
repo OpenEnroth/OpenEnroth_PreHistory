@@ -5,7 +5,7 @@
 #include "defs.h"
 
 #include "classes.h"
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "Vis.h"
 
 #include "GUI\GUI.h"

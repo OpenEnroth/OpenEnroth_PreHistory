@@ -5,7 +5,8 @@
 #include "memory_mng.h"
 #include "RenderD3D3.h"
 #include "GUI\GUI.h"
-#include "Level.h"
+#include "Environment\Outdoor.h"
+#include "Environment\Indoor.h"
 #include "Actor.h"
 #include "Player.h"
 #include "classes.h"
@@ -1712,9 +1713,9 @@ extern unsigned int uCurrentMenuID; // dword @ MM7.exe::006A0D44
 extern int dword_6A0D48; // weak
 
 extern OutdoorLocation class51_6A0DA0_dwReserved;
-extern OutdoorLocation *pClass51_global; // struct @ stru_6A0DA0.dwReserved
+extern OutdoorLocation *pOutdoor; // struct @ stru_6A0DA0.dwReserved
 extern struct tagOFNA stru_6A0DA0; // idb
-//dwReserved @ 6A0DF0 @ pClass51_global::000000
+//dwReserved @ 6A0DF0 @ pOutdoor::000000
 //int dword_6A0EA0; // ::dword_0000B0
 //int dword_6A0EC8; // ::ptr_0000D8
 //int dword_6A0ED0; // 0000E0
@@ -1863,26 +1864,28 @@ extern float flt_6BE3AC_debug_recmod1_x_1_6; // weak
 extern char byte_6BE3B0[20]; // idb
 extern char byte_6BE3C4_MaybeDrowningFlag; // underwater flag?
 extern char byte_6BE3C5; // weak
-extern char byte_6BE3C8[604]; // idb
-extern size_t Size; // idb
-extern int dword_6BE63C; // weak
-extern int dword_6BE640; // weak
-extern struct struct12 *ptr_6BE644; // weak
-extern int dword_6BE648; // weak
-extern int dword_6BE64C; // weak
-extern int dword_6BE654; // array of some structs
-extern int dword_6BE658; // weak
-extern int dword_6BE65C; // weak
-extern int dword_6BE660; // weak
-extern void *Src; // idb
-extern int dword_6BE66C; // weak
-extern int dword_6BE670; // weak
-extern void *dword_6BE67C; // idb
-extern int dword_6BE684; // weak
-extern int dword_6BE688; // weak
+
+//extern char byte_6BE3C8[604]; // idb
+extern IndoorLocation *pIndoor; // struct @ MM7.exe::006BE3C8
+//size_t Size;      // 00025C     MM7.exe::006BE624
+//int dword_6BE63C; // 000274
+//int dword_6BE640; // 000278
+//struct struct12 *ptr_6BE644; // 00027C
+//int dword_6BE648; // 000280
+//int dword_6BE64C; // 000284
+//int dword_6BE654; // 00028C array of some structs
+//int dword_6BE658; // 000290
+//int dword_6BE65C; // 000294
+//int dword_6BE660; // 000298
+//void *Src; // 00029C    MM7.exe::006BE664
+//int dword_6BE66C; // 0002A4
+//int dword_6BE670; // 0002A8
+//void *dword_6BE67C; // 0002B4
+//int dword_6BE684; // 0002BC
+//int dword_6BE688; // 0002C0
 extern _UNKNOWN unk_6BE68C; // weak
 extern int dword_6BE698; // weak
-extern int dword_6BE69C; // weak
+extern int dword_6BE69C; // num indoor faces
 extern int dword_6BE6A0; // weak
 extern int dword_6BE6A4; // weak
 extern __int64 qword_6BE6B4[7]; // weak
@@ -1971,8 +1974,8 @@ extern struct unnamed_721530
  int dword_000068;
  int dword_00006C;
  int dword_000070;
- int dword_000074; // some index
- int dword_000078;
+ int dword_000074; // IndoorLevel::000028C index
+ int dword_000078; // BLVFace index
  int dword_00007C;
  int dword_000080;
  int dword_000084;

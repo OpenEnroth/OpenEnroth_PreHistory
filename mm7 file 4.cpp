@@ -15,7 +15,7 @@
 
 #include "GUI\GUI.h"
 
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "Actor.h"
  
 #include "mm7_unparsed_data.h"
@@ -2568,7 +2568,7 @@ LABEL_7:
   LODWORD(v20.v688) = a3;
   v20.v690 = 0;
   v20.v691 = a8;
-  v20.v692 = sub_49AC17((int)byte_6BE3C8, v37, a3, a4);
+  v20.v692 = IndoorLocation_sub_49AC17((int)pIndoor, v37, a3, a4);
   v20.v693 = 0;
   v20.v698 = 0;
   v36 = 0;
@@ -2682,7 +2682,7 @@ LABEL_5:
   v14 = a3;
   v15 = 0;
   v16 = 0;
-  v17 = sub_49AC17((int)byte_6BE3C8, v4, v5, a3);
+  v17 = IndoorLocation_sub_49AC17((int)pIndoor, v4, v5, a3);
   v18 = 0;
   v24 = 0;
   v25 = 0;
@@ -2787,7 +2787,7 @@ LABEL_5:
   v16 = v7;
   v17 = a3;
   v20 = 0;
-  v21 = sub_49AC17((int)byte_6BE3C8, v6, v7, a3);
+  v21 = IndoorLocation_sub_49AC17((int)pIndoor, v6, v7, a3);
   v22 = 0;
   v28 = 0;
   v29 = 0;
@@ -4583,7 +4583,7 @@ char __thiscall sub_437906(void *_this, int a2, int a3)
   v5 = 0;
   if ( *(_BYTE *)(a2 + 93) )
   {
-    v6 = dword_6BE63C;
+    v6 = (int)pIndoor->pVertices;
     v7 = &unk_50CDD4;
     do
     {
@@ -8711,12 +8711,12 @@ char __stdcall sub_45C7F6(signed int a1)
   int v13; // [sp+14h] [bp-4h]@1
   int v14; // [sp+14h] [bp-4h]@5
 
-  v3 = (int)(ptr_6BE644 + a1);
+  v3 = (int)pIndoor->pFaces + a1;
   v1 = dword_51B6DC;
   v13 = 0;
   v2 = 116 * *(_WORD *)(v3 + 76);
   a1 = 0;
-  dword_F8AD54 = (dword_F8B120 + *(_WORD *)(v2 + dword_6BE654 + 98)) << 16;
+  dword_F8AD54 = (dword_F8B120 + *(_WORD *)(v2 + (int)pIndoor->ptr_000028C + 98)) << 16;
   if ( dword_51B6DC > 0 )
   {
     v10 = (int)array_519ABC;
@@ -8732,14 +8732,14 @@ char __stdcall sub_45C7F6(signed int a1)
   }
   v4 = 0;
   v14 = 0;
-  v11 = *(_WORD *)(v2 + dword_6BE654 + 84);
-  if ( (signed int)*(_WORD *)(v2 + dword_6BE654 + 84) > 0 )
+  v11 = *(_WORD *)(v2 + (int)pIndoor->ptr_000028C + 84);
+  if ( (signed int)*(_WORD *)(v2 + (int)pIndoor->ptr_000028C + 84) > 0 )
   {
     do
     {
       if ( a1 >= 20 )
         break;
-      v5 = dword_6BE65C + 16 * *(_WORD *)(*(_DWORD *)(v2 + dword_6BE654 + 88) + 2 * v4);
+      v5 = (int)pIndoor->ptr_0000294 + 16 * *(_WORD *)(*(_DWORD *)(v2 + (int)pIndoor->ptr_000028C + 88) + 2 * v4);
       if ( !(*(_BYTE *)(v5 + 12) & 8) )
         sub_45C911(v5, v3, (int)&a1, 0, (int)&byte_4E94D0);
       v4 = v14 + 1;
@@ -8973,7 +8973,7 @@ bool __stdcall sub_45D036(struct Vec3<float> *pNormal, int a2, struct RenderVert
  int i;
 
   v10 = 0;
-  dword_F8AD54 = pClass51_global->dword_000CBC;
+  dword_F8AD54 = pOutdoor->dword_000CBC;
   for (i = 0; i < dword_51B6DC; ++i)
   {
       if ( v10 >= 20 )
@@ -9729,7 +9729,6 @@ int __thiscall sub_45E26C(char *Filename)
 //----- (00460A78) --------------------------------------------------------
 char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
 {
-  int v1; // ebx@1
   MapInfo *v2; // eax@8
   int v3; // edi@9
   int v4; // eax@11
@@ -9774,7 +9773,6 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   int i; // [sp+410h] [bp-4h]@27
 
   v41 = (int)_this;
-  v1 = 0;
   v39 = 0;
 
             //LevelLoadingUI_Reset(pGameLoadingUI_ProgressBar, 32);
@@ -9795,7 +9793,6 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   if ( v2 )
   {
    v3 = (int)v2->pLocationName;
-    v1 = *(_DWORD *)(v3 + 28);
     v42 = sub_450DA3();
   }
   else
@@ -9809,10 +9806,10 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
 
   pStationaryLightsStack->uNumStationaryLightsActive = 0;
 
-  v4 = sub_498E0A(byte_6BE3C8,
-         pLevelFilename,
+  pIndoor = MemAlloc(IndoorLocation, 1);
+  pIndoor->Clear();
+  v4 = pIndoor->Load(pLevelFilename,
          (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
-         v1,
          (int)&v44)
      - 1;
   if ( !v4 )
@@ -9843,10 +9840,10 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   if ( v44 == 1 )
   {
     v7 = 0;
-    for ( i = 0; i < dword_6BE684; v7 += 24 )
+    for ( i = 0; i < pIndoor->dword_00002BC; v7 += 24 )
     {
-      v8 = dword_6BE688 + v7;
-      if ( *(_WORD *)(dword_6BE688 + v7 + 14) == 3 )
+      v8 = (int)pIndoor->ptr_00002C0 + v7;
+      if ( *(_WORD *)((int)pIndoor->ptr_00002C0 + v7 + 14) == 3 )
         sub_44F57C_MaybeCreateRandomMonster(v3, v8, 0, 0, 0);
       else
         sub_44FFD8(v3, v8);
@@ -9858,18 +9855,18 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   sub_4A9A67(pSoundList, (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID] + 1, 0);
   i = 0;
   v9 = 2;
-  if ( dword_6BE660 > 0 )
+  if ( pIndoor->dword_000298 > 0 )
   {
     v10 = 0;
     while ( 1 )
     {
-      if ( *((_BYTE *)Src + v10) & 1 )
+      if ( *((_BYTE *)pIndoor->ptr_000029C + v10) & 1 )
       {
-        *(_WORD *)((char *)Src + v10 + 76) = 1;
-        *(_DWORD *)((char *)Src + v10 + 8) = 15360;
-        *(_DWORD *)((char *)Src + v10) = 2;
+        *(_WORD *)((char *)pIndoor->ptr_000029C + v10 + 76) = 1;
+        *(_DWORD *)((char *)pIndoor->ptr_000029C + v10 + 8) = 15360;
+        *(_DWORD *)((char *)pIndoor->ptr_000029C + v10) = 2;
       }
-      v11 = (char *)Src + v10 + 76;
+      v11 = (char *)pIndoor->ptr_000029C + v10 + 76;
       if ( !*(_WORD *)v11 )
         break;
       if ( *(_WORD *)v11 == 2 )
@@ -9880,32 +9877,33 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
 LABEL_42:
       ++i;
       v10 += 80;
-      if ( i >= dword_6BE660 )
+      if ( i >= pIndoor->dword_000298 )
         goto LABEL_43;
     }
     *(_WORD *)v11 = 3;
 LABEL_41:
-    *(_DWORD *)((char *)Src + v10 + 8) = 15360;
-    *(_DWORD *)((char *)Src + v10) = 2;
+    *(_DWORD *)((char *)pIndoor->ptr_000029C + v10 + 8) = 15360;
+    *(_DWORD *)((char *)pIndoor->ptr_000029C + v10) = 2;
     goto LABEL_42;
   }
 LABEL_43:
   i = 0;
-  if ( dword_6BE640 > 0 )
+  if ( pIndoor->uNumFaces > 0 )
   {
     v12 = 0;
     do
     {
-      if ( *(_WORD *)(ptr_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(ptr_6BE644 + v12 + 74) + 7278780 : 0 )
-        *(_WORD *)(*(_WORD *)(ptr_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(ptr_6BE644 + v12 + 74) + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, *(_WORD *)(*(_WORD *)(ptr_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(ptr_6BE644 + v12 + 74) + 7278780 + 0x24 : 36));
+      if ( *(_WORD *)((int)pIndoor->pFaces + v12 + 74) != -1 ? 72 * *(_WORD *)((int)pIndoor->pFaces + v12 + 74) + 7278780 : 0 )
+        *(_WORD *)(*(_WORD *)((int)pIndoor->pFaces + v12 + 74) != -1 ? 72 * *(_WORD *)((int)pIndoor->pFaces + v12 + 74) + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, *(_WORD *)(*(_WORD *)((int)pIndoor->pFaces + v12 + 74) != -1 ? 72 * *(_WORD *)((int)pIndoor->pFaces + v12 + 74) + 7278780 + 0x24 : 36));
       ++i;
       v12 += 96;
     }
-    while ( i < dword_6BE640 );
+    while ( i < pIndoor->uNumFaces );
   }
   v13 = 0;
-  compile_error();
+
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+
   i = 0;
   if ( (signed int)uNumLevelDecorations > 0 )
   {
@@ -9977,8 +9975,9 @@ LABEL_43:
     }
     while ( i < (signed int)uNumLevelDecorations );
   }
-  compile_error();
+
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+
   v23 = 0;
   if ( (signed int)uNumLayingItems > v13 )
   {
@@ -10050,8 +10049,9 @@ LABEL_90:
     }
     while ( i < (signed int)uNumActors );
   }
-  compile_error();
+
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+
   Actor_TotalReset((Actor *)&v35);
   v36 = 45;
   Actor_LinkSprites((Actor *)&v35, 0);
@@ -10065,8 +10065,10 @@ LABEL_90:
     sub_4498D5_TeleportToStartingPoint(dword_6BE35C);
   }
   sub_443365(&struct_576FE8);
+
   compile_error(level name should not be globally-defined);
   //LOBYTE(v30) = LoadLevel_InitializeMusic();
+
   if ( !v41 )
   {
     v31 = 0;

@@ -3300,11 +3300,11 @@ signed int __cdecl sub_479332_SoftwareRender_OnDraw_NoRedraw()
   float v16; // [sp+Ch] [bp-2Ch]@1
  int i;
 
-  v14 = (double)pClass51_global->dword_000D30 * 0.0000152587890625;
+  v14 = (double)pOutdoor->dword_000D30 * 0.0000152587890625;
   result = 0;
   v1 = (int)&array_77EC08[pStruct9_global->dword_00002C];
-  v15 = (double)pClass51_global->dword_000D34 * 0.0000152587890625;
-  v16 = (double)pClass51_global->dword_000D38 * 0.0000152587890625;
+  v15 = (double)pOutdoor->dword_000D34 * 0.0000152587890625;
+  v16 = (double)pOutdoor->dword_000D38 * 0.0000152587890625;
   if ( pStruct9_global->dword_00002C > 0)
   {
    i = 0;
@@ -3316,12 +3316,12 @@ signed int __cdecl sub_479332_SoftwareRender_OnDraw_NoRedraw()
         break;
       if ( v3 == 1 )
       {
-       v9 = (unsigned __int16)pClass51_global->pTerrainNormalIndices[((*((_DWORD *)v2 - 9) >> 15) & 1)
+       v9 = (unsigned __int16)pOutdoor->pTerrainNormalIndices[((*((_DWORD *)v2 - 9) >> 15) & 1)
                                          + 2 * (*((_BYTE *)v2 + 9) + (*((_BYTE *)v2 + 8) << 7))];
-       if ( v9 > pClass51_global->uNumTerrainNormals - 1 )
+       if ( v9 > pOutdoor->uNumTerrainNormals - 1 )
           v10 = 0;
         else
-         v10 = (int)pClass51_global->pTerrainNormals + v9;
+         v10 = (int)pOutdoor->pTerrainNormals + v9;
         if ( v10 )
         {
           v11 = -(v16 * *(float *)(v10 + 8) + v15 * *(float *)(v10 + 4) + v14 * *(float *)v10);
@@ -3348,9 +3348,9 @@ LABEL_24:
      v2 = (char *)&array_77EC08[i].ptr_000048;
     }
 
-    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -pClass51_global->dword_000D30 / 65536 +
-         (__int64)(*array_77EC08[i].ptr_000048)[1] * -pClass51_global->dword_000D34 / 65536 +
-         (__int64)(*array_77EC08[i].ptr_000048)[2] * -pClass51_global->dword_000D38 / 65536) / 65536.0;
+    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -pOutdoor->dword_000D30 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[1] * -pOutdoor->dword_000D34 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[2] * -pOutdoor->dword_000D38 / 65536) / 65536.0;
     if ( v4 < 0.0 )
       v4 = 0.0;
     v6 = v4 * 31.0;

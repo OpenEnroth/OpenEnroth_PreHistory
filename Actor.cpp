@@ -41,11 +41,11 @@ void __cdecl UpdateActors()
   v5 = 0;
 
  bool bCelesteLevel = false;
- if (!strcmpi((char *)pClass51_global->pLocationFileName, "d25.blv"))
+ if (!strcmpi((char *)pOutdoor->pLocationFileName, "d25.blv"))
    bCelesteLevel = true;
 
  bool bPitLevel = false;
- if (!strcmpi((char *)pClass51_global->pLocationFileName, "d26.blv"))
+ if (!strcmpi((char *)pOutdoor->pLocationFileName, "d26.blv"))
    bPitLevel = true;
 
   if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )
@@ -183,10 +183,10 @@ struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObje
  {
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-   char *ptr = (char *)ptr_6BE644 + 96 * uObject1ID;
-   v0 = Vec3<int>((*(_WORD *)(ptr + 80) + (signed int)*(_WORD *)(ptr + 82)) >> 1,
-                  (*(_WORD *)(ptr + 84) + (signed int)*(_WORD *)(ptr + 86)) >> 1,
-                  (*(_WORD *)(ptr + 88) + (signed int)*(_WORD *)(ptr + 90)) >> 1);
+   IndoorLocation::BLVFace *pFace = &pIndoor->pFaces[uObject1ID];
+   v0 = Vec3<int>((pFace->cBoundingBoxX.min + pFace->cBoundingBoxX.max) / 2,
+                  (pFace->cBoundingBoxY.min + pFace->cBoundingBoxY.max) / 2,
+                  (pFace->cBoundingBoxZ.min + pFace->cBoundingBoxZ.max) / 2);
   }
  }
  else   
@@ -217,10 +217,10 @@ struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObje
     v0 = pLevelDecorations[uObject2ID].vPosition;
  else if (uObject2Type == 6)
  {
-    char *ptr = (char *)ptr_6BE644 + 96 * uObject2ID;
-    v1 = Vec3<int>((*(_WORD *)(ptr + 80) + *(_WORD *)(ptr + 82)) >> 1,
-                   (*(_WORD *)(ptr + 84) + *(_WORD *)(ptr + 86)) >> 1,
-                   (*(_WORD *)(ptr + 88) + *(_WORD *)(ptr + 90)) >> 1);
+  IndoorLocation::BLVFace *pFace = &pIndoor->pFaces[uObject1ID];
+  v1 = Vec3<int>((pFace->cBoundingBoxX.min + pFace->cBoundingBoxX.max) / 2,
+                 (pFace->cBoundingBoxY.min + pFace->cBoundingBoxY.max) / 2,
+                 (pFace->cBoundingBoxZ.min + pFace->cBoundingBoxZ.max) / 2);
  }
  else
    v1 = Vec3<int>(0, 0, 0);

@@ -9,7 +9,7 @@
 
 #include "GUI\GUI.h"
 
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "Actor.h"
   #include "_lod.h"
 #include "mm7_unparsed_data.h"
@@ -149,10 +149,10 @@ int __fastcall sub_4AD504(int a1)
   v95 = pD3DRenderer->uTargetSurfacePitch;
   if ( a1 >= 0 )
   {
-    if ( a1 < dword_6BE640 )
+    if ( a1 < pIndoor->uNumFaces )
     {
-      v3 = (int)(ptr_6BE644 + a1);
-      v91 = (int)(ptr_6BE644 + a1);
+      v3 = (int)&pIndoor->pFaces[a1];
+      v91 = (int)&pIndoor->pFaces[a1];
       if ( !pD3DRenderer->pRenderD3D3 )
       {
         result = sub_423B5D(a1);
@@ -612,9 +612,9 @@ void __fastcall sub_4ADD1D(int a1)
   v45 = pD3DRenderer->uTargetSurfacePitch;
   if ( a1 >= 0 )
   {
-    if ( a1 < dword_6BE640 )
+    if ( a1 < pIndoor->uNumFaces )
     {
-      v2 = (int)(ptr_6BE644 + a1);
+      v2 = (int)&pIndoor->pFaces[a1];
       if ( pD3DRenderer->pRenderD3D3 )
       {
         v3 = sub_424579(a1, (int)&dword_F8AD28);
@@ -1088,8 +1088,8 @@ void __fastcall sub_4AE5F1(int a1)
   int v80; // [sp+38h] [bp-8h]@10
   int v81; // [sp+3Ch] [bp-4h]@10
 
-  v5 = (int)(ptr_6BE644 + a1);
-  v3 = dword_6BE64C + 36 * *(_WORD *)(v5 + 72);
+  v5 = (int)&pIndoor->pFaces[a1];
+  v3 = (int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v5 + 72);
   v6 = *(_WORD *)(v5 + 74);
   v7 = *(_WORD *)(v5 + 74);
   v75 = v3;
@@ -1233,7 +1233,7 @@ void __fastcall sub_4AE5F1(int a1)
   v76 = v16;
   v81 = 0;
   v80 = 0;
-  dword_F8AD54 = (dword_F8B120 + *(_WORD *)(dword_6BE654 + v16 + 98)) << 16;
+  dword_F8AD54 = (dword_F8B120 + *(_WORD *)((int)pIndoor->ptr_000028C + v16 + 98)) << 16;
   v77 = dword_51B6DC;
   if ( dword_51B6DC > 0 )
   {
@@ -1302,13 +1302,13 @@ void __fastcall sub_4AE5F1(int a1)
   }
   v30 = 0;
   v80 = 0;
-  v31 = *(_WORD *)(dword_6BE654 + v16 + 84);
-  v77 = *(_WORD *)(dword_6BE654 + v16 + 84);
+  v31 = *(_WORD *)((int)pIndoor->ptr_000028C + v16 + 84);
+  v77 = *(_WORD *)((int)pIndoor->ptr_000028C + v16 + 84);
   if ( v31 > 0 )
   {
     while ( v81 < 20 )
     {
-      v32 = dword_6BE65C + 16 * *(_WORD *)(*(_DWORD *)(dword_6BE654 + v16 + 88) + 2 * v30);
+      v32 = (int)pIndoor->ptr_0000294 + 16 * *(_WORD *)(*(_DWORD *)((int)pIndoor->ptr_000028C + v16 + 88) + 2 * v30);
       if ( !(*(_BYTE *)(v32 + 12) & 8) )
       {
         v35 = *(_WORD *)(v5 + 80);
@@ -1656,7 +1656,7 @@ char __thiscall class37_sub_4AFB86(void *_this, int a2, int a3)
   signed int v23; // [sp+28h] [bp+8h]@20
 
   v4 = _this;
-  v3 = (int)(ptr_6BE644 + a3);
+  v3 = (int)pIndoor->pFaces + a3;
   v21 = v3;
   if ( *(_BYTE *)(v3 + 44) & 1 )
   {
@@ -1699,7 +1699,7 @@ char __thiscall class37_sub_4AFB86(void *_this, int a2, int a3)
         v3 = v21;
         v5 = v20;
       }
-      v10 = dword_6BE63C + 6 * **(_WORD **)(v3 + 48);
+      v10 = (int)pIndoor->pVertices + 6 * **(_WORD **)(v3 + 48);
       v9 = *(_DWORD *)(v3 + 16) * ((signed __int16)*(_DWORD *)v10 - dword_51B6E8)
          + *(_DWORD *)(v3 + 20) * ((signed __int16)(*(_DWORD *)v10 >> 16) - dword_51B6EC)
          + *(_DWORD *)(v3 + 24) * (*(_WORD *)(v10 + 4) - dword_51B6F0);
@@ -1931,9 +1931,9 @@ void __fastcall sub_4AFF79(int a1)
   v111 = pD3DRenderer->uTargetSurfacePitch;
   if ( a1 >= 0 )
   {
-    if ( a1 < dword_6BE640 )
+    if ( a1 < pIndoor->uNumFaces )
     {
-      v3 = (int)(ptr_6BE644 + a1);
+      v3 = (int)&pIndoor->pFaces[a1];
       v103 = v3;
       v2 = *(_DWORD *)(v3 + 44);
       if ( !(BYTE1(v2) & 0x20) )
@@ -2404,7 +2404,7 @@ void __cdecl sub_4B0967()
     v1 = word_51B77C[2 * i];
     if ( v1 >= 0 )
     {
-      if ( v1 < dword_6BE640 )
+      if ( v1 < pIndoor->uNumFaces )
       {
         v3 = word_51B77C[2 * i];
         dword_51B75C = (int)((char *)&unk_51C72C + 2252 * word_51B77C[2 * i + 1]);
@@ -2478,7 +2478,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
   v34 = a1;
   if ( a1 >= 0 )
   {
-    if ( a1 < dword_6BE640 )
+    if ( a1 < pIndoor->uNumFaces )
     {
       if ( !(byte_F7CE28 & 1) )
       {
@@ -2514,7 +2514,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
         sub_49B001(&unk_F7B60C);
         compile_error();//atexit(loc_4B0DFB);
       }
-      v9 = (int)(ptr_6BE644 + v4);
+      v9 = (int)pIndoor->pFaces + v4;
       if ( *(_BYTE *)(v9 + 93) >= 3u )
       {
         if ( !(*(_BYTE *)(v9 + 45) & 0x20) )
@@ -2527,13 +2527,13 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
             v10 = pGame->class08_obj;
             v32 = pGame->class08_obj;
             v31 = (int)pGame->class04_obj;
-            if ( !sub_436455((struct12 *)v9) )
+            if ( !sub_436455((IndoorLocation::BLVFace *)v9) )
             {
               v11 = 0;
               v35 = *(_BYTE *)(v9 + 93);
               if ( v35 > 0 )
               {
-                v13 = dword_6BE63C;
+                v13 = (int)pIndoor->pVertices;
                 v12 = &unk_F7C230;
                 do
                 {
@@ -2663,8 +2663,8 @@ unsigned int __fastcall sub_4B0E07(int a1)
   unsigned int v6; // eax@1
   int v7; // ecx@5
 
-  v3 = (int)(ptr_6BE644 + a1);
-  v5 = dword_6BE64C + 36 * *(_WORD *)(v3 + 72);
+  v3 = (int)&pIndoor->pFaces[a1];
+  v5 = (int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v3 + 72);
   v4 = *(_WORD *)(v3 + 74) != -1 ? 72 * *(_WORD *)(v3 + 74) + 7278780 : 0;
   dword_F8AD64 = *(_WORD *)(v5 + 20);
   dword_F8AD68 = *(_WORD *)(v5 + 22);
@@ -2734,7 +2734,7 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
 
   v4 = a3;
   v5 = _this;
-  v3 = (int)(ptr_6BE644 + a3);
+  v3 = (int)pIndoor->pFaces + a3;
   *(_DWORD *)(2252 * *(_DWORD *)(_this + 4004) + _this + 5968) = -1;
   v38 = v3;
   if ( *(_BYTE *)(v3 + 44) & 1 )
@@ -2771,7 +2771,7 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
       v3 = v38;
       v6 = v34;
     }
-    v10 = dword_6BE63C + 6 * **(_WORD **)(v3 + 48);
+    v10 = (int)pIndoor->pVertices + 6 * **(_WORD **)(v3 + 48);
     v9 = *(_DWORD *)(v3 + 16) * ((signed __int16)*(_DWORD *)v10 - dword_51B6E8)
        + *(_DWORD *)(v3 + 20) * ((signed __int16)(*(_DWORD *)v10 >> 16) - dword_51B6EC)
        + *(_DWORD *)(v3 + 24) * (*(_WORD *)(v10 + 4) - dword_51B6F0);
@@ -2877,7 +2877,7 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
                       do
                       {
                         v25 = *(_WORD *)(*(_DWORD *)(v18 + 48) + 2 * v23++);
-                        v26 = dword_6BE63C + 6 * v25;
+                        v26 = (int)pIndoor->pVertices + 6 * v25;
                         v27 = (double)*(_WORD *)(v26 + 4);
                         v28 = *(_WORD *)(v26 + 2);
                         v18 = v38;
@@ -11210,7 +11210,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v5 = uNumActors;
-        v16 = sub_49AC17((int)byte_6BE3C8, a2, a3, a4);
+        v16 = IndoorLocation_sub_49AC17((int)pIndoor, a2, a3, a4);
       }
       v8 = (int)&pActors[v5];
       Actor_Reset((Actor *)v8);
@@ -13517,7 +13517,7 @@ bool IsPointInsideD3DBillboard(struct RenderBillboardD3D3 *pBillboard, float fX,
 
 
 //----- (004C1D2B) --------------------------------------------------------
-int __stdcall sub_4C1D2B(struct12 *a1, Vec3<short> a2, unsigned int uModelID)
+int __stdcall sub_4C1D2B(IndoorLocation::BLVFace *a1, Vec3<short> a2, unsigned int uModelID)
 {
   int v4; // esi@1
   bool v5; // edi@9

@@ -626,7 +626,7 @@ void sub_487389_DrawSpansAndAll()
    dword_80AA14 = v17;
    dword_80AA18 = v17 - 0x1FF0000;
 
-   byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v4->byte_00005C, v4->byte_00005D - 1) / 512) & 1;
+   byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pOutdoor, v4->byte_00005C, v4->byte_00005D - 1) / 512) & 1;
 
    if (v4->word_000030 & 0x0002 || v4->word_000030 & 0x0100)
    {
@@ -668,7 +668,7 @@ void sub_487389_DrawSpansAndAll()
       dword_80AA14 = ((unsigned int)(v4->byte_00005D) << 25) + 2147418112;
       dword_80AA18 = dword_80AA14 - 33488896;
       byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
-                                               pClass51_global,
+                                               pOutdoor,
                                                v4->byte_00005C,
                                                v4->byte_00005D - 1) >> 9) & 1;
       sub_484442((int)pSpan);
@@ -728,7 +728,7 @@ void sub_487389_DrawSpansAndAll()
       dword_80AA1C = dword_80AA20 + 33488896;
       dword_80AA14 = ((unsigned int)(v4->byte_00005D) << 25) + 2147418112;
       dword_80AA18 = dword_80AA14 - 33488896;
-      byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global,
+      byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pOutdoor,
                                                v4->byte_00005C,
                                                v4->byte_00005D - 1) >> 9) & 1;
 
@@ -877,12 +877,12 @@ LABEL_74:
  sub_48607B_MessWithStruct8(&array_77EC08[1999], pClass57_global);
  class57_sub_48694B(array_77EC08[1999].ptr_000038);
 
- if (pClass51_global->dword_0000EC == -1)
+ if (pOutdoor->dword_0000EC == -1)
    return;
- array_77EC08[1999].ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->dword_0000EC];
+ array_77EC08[1999].ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[pOutdoor->dword_0000EC];
 
  array_77EC08[1999].byte_000058 = 23 - ((signed int)((unsigned __int64)(1310720i64
-                                               * (signed int)((unsigned __int64)((signed __int64)(-pClass51_global->dword_000D38) << 16) >> 16)) >> 16) >> 16);
+                                               * (signed int)((unsigned __int64)((signed __int64)(-pOutdoor->dword_000D38) << 16) >> 16)) >> 16) >> 16);
  if (array_77EC08[1999].byte_000058 > 20)
    array_77EC08[1999].byte_000058 = 20;
 
@@ -900,10 +900,10 @@ LABEL_74:
  class57_sub_48694B(array_77EC08[1999].ptr_000038);
 
 
- if (pClass51_global->uSkyTextureID == -1)
+ if (pOutdoor->uSkyTextureID == -1)
     return;
 
- array_77EC08[1999].ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->uSkyTextureID];
+ array_77EC08[1999].ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[pOutdoor->uSkyTextureID];
  array_77EC08[1999].byte_000058 = 0;
 
 
@@ -3558,35 +3558,35 @@ void sub_4789DE_RenderBuildingsSoftware()
  int i, j, k;
 
 
- if (!pClass51_global->uNumBModels)
+ if (!pOutdoor->uNumBModels)
    return;
 
   v87 = 0;
 
- for (i = 0; i < pClass51_global->uNumBModels; ++i)
+ for (i = 0; i < pOutdoor->uNumBModels; ++i)
  {
-  v1 = (int)&pClass51_global->pBModels[i].dword_00004C;
-  pModel = &pClass51_global->pBModels[i];
+  v1 = (int)&pOutdoor->pBModels[i].dword_00004C;
+  pModel = &pOutdoor->pBModels[i];
 
   if (!sub_479089(i, &v87))
     continue;
 
-  pClass51_global->pBModels[i].dword_000040 |= 0x0001;
-  for (j = 0; j < pClass51_global->pBModels[i].dword_00004C; ++j)
+  pOutdoor->pBModels[i].dword_000040 |= 0x0001;
+  for (j = 0; j < pOutdoor->pBModels[i].dword_00004C; ++j)
   {
-   v3 = &pClass51_global->pBModels[i].ptr_000054[j];
+   v3 = &pOutdoor->pBModels[i].ptr_000054[j];
  
-      if ( !(pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x20))
+      if ( !(pOutdoor->pBModels[i].ptr_000054[j].byte_000010[13] & 0x20))
       {
-        v7 = pClass51_global->pBModels[i].ptr_000054[j].array_000020[0];
-        v8 = pClass51_global->pBModels[i].ptr_000048[v7].y + 4;
+        v7 = pOutdoor->pBModels[i].ptr_000054[j].array_000020[0];
+        v8 = pOutdoor->pBModels[i].ptr_000048[v7].y + 4;
         v84 = 0;
         v76 = 0;
         v77 = 0;
 
         v10 = (double)v8;
         
-        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].uNumVertices; ++k)
+        for (k = 0; k < pOutdoor->pBModels[i].ptr_000054[j].uNumVertices; ++k)
         {
          v11 = &pModel->ptr_000048[v3->array_000020[k]];
 
@@ -3613,15 +3613,15 @@ void sub_4789DE_RenderBuildingsSoftware()
         v14 = (int)&array_77EC08[pStruct9_global->dword_00002C];
         p14 = (struct8 *)v14;
         p14->word_000030 = 0;
-        if ( v84 == pClass51_global->pBModels[i].ptr_000054[j].uNumVertices)
+        if ( v84 == pOutdoor->pBModels[i].ptr_000054[j].uNumVertices)
           p14->word_000030 = 65536;
 
         p14->ptr_000054 = v3;
-        p14->uNumVertices = pClass51_global->pBModels[i].ptr_000054[j].uNumVertices;
+        p14->uNumVertices = pOutdoor->pBModels[i].ptr_000054[j].uNumVertices;
         p14->byte_000059 = 5;
-        v85 = (unsigned __int64)(v3->dword_000000) * -pClass51_global->dword_000D30 / 65536;
-        v84 = (unsigned __int64)(v3->dword_000004) * -pClass51_global->dword_000D34 / 65536;
-        v83 = (unsigned __int64)(v3->dword_000008) * -pClass51_global->dword_000D38 / 65536;
+        v85 = (unsigned __int64)(v3->dword_000000) * -pOutdoor->dword_000D30 / 65536;
+        v84 = (unsigned __int64)(v3->dword_000004) * -pOutdoor->dword_000D34 / 65536;
+        v83 = (unsigned __int64)(v3->dword_000008) * -pOutdoor->dword_000D38 / 65536;
         v86 = v85 + v84 + v83;
         v15 = (double)v86 / 65536.0;
         if ( v15 < 0.0 )
@@ -3650,7 +3650,7 @@ void sub_4789DE_RenderBuildingsSoftware()
 
         ++pStruct9_global->dword_00002C;
         ++pStruct9_global->dword_000044;
-        if (!sub_482170(pClass51_global->pBModels[i].ptr_000054, array_73D150, p14))
+        if (!sub_482170(pOutdoor->pBModels[i].ptr_000054, array_73D150, p14))
         {
 LABEL_71:
           --pStruct9_global->dword_00002C;
@@ -3684,7 +3684,7 @@ LABEL_71:
         else if (v3->byte_000010[12] & 0x40)
           p14->word_000030 |= 0x1000;
 
-        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].uNumVertices; ++k)
+        for (k = 0; k < pOutdoor->pBModels[i].ptr_000054[j].uNumVertices; ++k)
         {
             //memcpy((char *)&unk_50AC10 + v32, &array_73D150[v32 / 48], 0x30u);
          memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct RenderVertex));
@@ -3724,11 +3724,11 @@ LABEL_71:
           v57 = flt_73C81C;
           v58 = flt_73C820;
           v59 = flt_73C824;
-          sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, (int)array_50AC10, pClass51_global->pBModels[i].ptr_000054[j].uNumVertices, (int)&v57);
+          sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, (int)array_50AC10, pOutdoor->pBModels[i].ptr_000054[j].uNumVertices, (int)&v57);
         }
         if (v76)
         {
-          v38 = sub_4250FE(pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
+          v38 = sub_4250FE(pOutdoor->pBModels[i].ptr_000054[j].uNumVertices);
           v39 = v38;
           if ( !v38)
             goto LABEL_71;
@@ -3751,7 +3751,7 @@ LABEL_71:
         {
           if (v77)
           {
-            v45 = sub_4252E8(pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
+            v45 = sub_4252E8(pOutdoor->pBModels[i].ptr_000054[j].uNumVertices);
             v46 = v45;
 
             if ( !v45)
@@ -3773,7 +3773,7 @@ LABEL_71:
           }
           else
           {
-            v52 = sub_4254D2(pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
+            v52 = sub_4254D2(pOutdoor->pBModels[i].ptr_000054[j].uNumVertices);
             p14->uNumVertices = v52;
             if (!v52)
               goto LABEL_71;
@@ -5208,9 +5208,9 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   v3 = 0;
   v91 = 0;
   v82 = v4 - 1;
-  v96 = pClass51_global->dword_000D30 / 65536.0;
-  v97 = pClass51_global->dword_000D34 / 65536.0;
-  v98 = pClass51_global->dword_000D38 / 65536.0;
+  v96 = pOutdoor->dword_000D30 / 65536.0;
+  v97 = pOutdoor->dword_000D34 / 65536.0;
+  v98 = pOutdoor->dword_000D38 / 65536.0;
   if ( v4 - 1 > 0 )
   {
     while ( 1 )
@@ -5259,21 +5259,21 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         break;
 
       v16 = &array_77EC08[pStruct9_global->dword_00002C];
-      v17 = class51_GetTileTexture(pClass51_global, v102, v101);
+      v17 = class51_GetTileTexture(pOutdoor, v102, v101);
       array_77EC08[pStruct9_global->dword_00002C].uTextureID = v17;
       if ( v17 != -1 )
       {
         v20 = LODWORD(v100);
-        array_77EC08[pStruct9_global->dword_00002C].word_000030 = 0x8010 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
+        array_77EC08[pStruct9_global->dword_00002C].word_000030 = 0x8010 | class51_sub_488EB1_GetSomeOtherTileInfo(pOutdoor, v102, v101);
         array_77EC08[pStruct9_global->dword_00002C].byte_000059 = 1;
         array_77EC08[pStruct9_global->dword_00002C].byte_00005C = v95;
         array_77EC08[pStruct9_global->dword_00002C].byte_00005D = v20;
         array_77EC08[pStruct9_global->dword_00002C].dword_000034 = *(_WORD *)(v93 + 2);
-        v18 = (unsigned __int16)pClass51_global->pTerrainNormalIndices[2 * (v20 + (v95 * 128)) + 1];
-        if (v18 < 0 || v18 > pClass51_global->uNumTerrainNormals - 1)
+        v18 = (unsigned __int16)pOutdoor->pTerrainNormalIndices[2 * (v20 + (v95 * 128)) + 1];
+        if (v18 < 0 || v18 > pOutdoor->uNumTerrainNormals - 1)
           pNormal = 0;
         else
-          pNormal = pClass51_global->pTerrainNormals + v18;
+          pNormal = pOutdoor->pTerrainNormals + v18;
 
         if (pNormal)
         {
@@ -5377,10 +5377,10 @@ LABEL_105:
         return;
     }
     v37 = &array_77EC08[pStruct9_global->dword_00002C];
-    array_77EC08[pStruct9_global->dword_00002C].uTextureID = class51_GetTileTexture(pClass51_global, v102, v101);
+    array_77EC08[pStruct9_global->dword_00002C].uTextureID = class51_GetTileTexture(pOutdoor, v102, v101);
     if (array_77EC08[pStruct9_global->dword_00002C].uTextureID == -1)
       goto LABEL_105;
-    v40 = 0x80 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
+    v40 = 0x80 | class51_sub_488EB1_GetSomeOtherTileInfo(pOutdoor, v102, v101);
 
     v41 = LODWORD(v100);
     array_77EC08[pStruct9_global->dword_00002C].word_000030 = v40;
@@ -5392,11 +5392,11 @@ LABEL_105:
     v37->byte_00005C = v95;
     v44 = 4 * (v41 + (v43 << 7));
     LODWORD(v94) = v44;
-    v39 = *(unsigned __int16 *)((char *)pClass51_global->pTerrainNormalIndices + v44 + 2);
-    if ( v39 < 0 || v39 > pClass51_global->uNumTerrainNormals - 1 )
+    v39 = *(unsigned __int16 *)((char *)pOutdoor->pTerrainNormalIndices + v44 + 2);
+    if ( v39 < 0 || v39 > pOutdoor->uNumTerrainNormals - 1 )
       pNormal = 0;
     else
-      pNormal = pClass51_global->pTerrainNormals + v39;
+      pNormal = pOutdoor->pTerrainNormals + v39;
 
     if (pNormal)
     {
@@ -5467,21 +5467,21 @@ LABEL_68:
           sub_481DB2(array_508690, v53, v37);
 LABEL_75:
           v16 = &array_77EC08[pStruct9_global->dword_00002C];
-          v16->uTextureID = class51_GetTileTexture(pClass51_global, v102, v101);
+          v16->uTextureID = class51_GetTileTexture(pOutdoor, v102, v101);
           if (v16->uTextureID == -1)
             goto LABEL_105;
-          v16->word_000030 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
+          v16->word_000030 = class51_sub_488EB1_GetSomeOtherTileInfo(pOutdoor, v102, v101);
           v16->word_000032 = 0;
           v58 = v93;
           v16->byte_000059 = 1;
           v16->dword_000034 = *(_WORD *)(v58 + 2);
           v16->byte_00005C = v95;
           v16->byte_00005D = LOBYTE(v100);
-          v57 = *(unsigned __int16 *)((char *)pClass51_global->pTerrainNormalIndices + LODWORD(v94));
-          if ( v57 > pClass51_global->uNumTerrainNormals - 1 )
+          v57 = *(unsigned __int16 *)((char *)pOutdoor->pTerrainNormalIndices + LODWORD(v94));
+          if ( v57 > pOutdoor->uNumTerrainNormals - 1 )
              pNormal = 0;
           else
-             pNormal = pClass51_global->pTerrainNormals + v57;
+             pNormal = pOutdoor->pTerrainNormals + v57;
           if ( pNormal )
           {
            v60 = -(v98 * pNormal->y + v97 * pNormal->z + v96 * pNormal->x);

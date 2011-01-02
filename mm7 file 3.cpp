@@ -13,7 +13,7 @@
 
 #include "GUI\GUI.h"
 
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "Actor.h"
  #include "_lod.h"
 #include "mm7_unparsed_data.h"
@@ -3106,7 +3106,7 @@ void __thiscall sub_43F39E(int _this)
     {
       v7 = word_56EEAC[v6];
       v14 = 0;
-      v9 = dword_6BE654 + 116 * word_56EEAC[v6];
+      v9 = (int)pIndoor->ptr_000028C + 116 * word_56EEAC[v6];
       v8 = *(_DWORD *)(v9 + 72);
       if ( *(_WORD *)(v9 + 68) > 0 )
       {
@@ -3159,7 +3159,7 @@ signed int __fastcall sub_43F55F(int a1, signed int a2)
   v2 = a1;
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-    v3 = *(_WORD *)(116 * *(_WORD *)(a1 + 28) + dword_6BE654 + 98);
+    v3 = *(_WORD *)(116 * *(_WORD *)(a1 + 28) + (int)pIndoor->ptr_000028C + 98);
   }
   else
   {
@@ -3279,7 +3279,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
   }
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-    v15 = dword_6BE654 + 116 * v6;
+    v15 = (int)pIndoor->ptr_000028C + 116 * v6;
     v14 = 0;
     v51 = 0;
     v38 = v15;
@@ -3288,7 +3288,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
     {
       while ( 1 )
       {
-        v16 = dword_6BE65C + 16 * *(_WORD *)(*(_DWORD *)(v15 + 88) + 2 * v14);
+        v16 = (int)pIndoor->ptr_0000294 + 16 * *(_WORD *)(*(_DWORD *)(v15 + 88) + 2 * v14);
         if ( !(*(_BYTE *)(v16 + 12) & 8) )
         {
           v17 = abs((signed)((double)*(_WORD *)v16 - a3));
@@ -4010,7 +4010,7 @@ char __fastcall sub_440639(signed int a1, int a2)
   v3 = a1;
   LOBYTE(v2) = -52 * a1;
   v4 = 0;
-  v5 = dword_6BE654 + 116 * word_51C720[1126 * a1];
+  v5 = (int)pIndoor->ptr_000028C + 116 * word_51C720[1126 * a1];
   if ( pD3DRenderer->pRenderD3D3 )
   {
     if ( *(_WORD *)(v5 + 46) > 0 )
@@ -4061,9 +4061,9 @@ char __fastcall sub_4406BC(signed int a1, int a2)
   v13 = &word_51C720[1126 * a1];
   while ( 1 )
   {
-    v5 = dword_6BE654 + 116 * *v13;
-    v4 = dword_6BE66C + 8 * a2;
-    v2 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * *(_WORD *)(v4 + 4)));
+    v5 = (int)(pIndoor->ptr_000028C + *v13);
+    v4 = (int)(pIndoor->pNodes + a2);
+    v2 = (int)((int)pIndoor->pFaces + *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * *(_WORD *)(v4 + 4)));
     v3 = *(_DWORD *)(v2 + 28)
        + dword_51B6E8 * *(_DWORD *)(v2 + 16)
        + dword_51B6EC * *(_DWORD *)(v2 + 20)
@@ -4141,7 +4141,7 @@ int __thiscall sub_4407D9(int _this, int a2)
   *(_DWORD *)(_this + 20) = *(_DWORD *)(a2 + 20);
   v6 = *(_DWORD *)(_this + 8);
   *(_DWORD *)(_this + 24) = *(_DWORD *)(a2 + 24);
-  v7 = sub_49AC17((int)byte_6BE3C8, v6, v5, v4);
+  v7 = IndoorLocation_sub_49AC17((int)pIndoor, v6, v5, v4);
   *(_DWORD *)(v3 + 28) = v7;
   if ( !v7 )
   {
@@ -4150,7 +4150,7 @@ int __thiscall sub_4407D9(int _this, int a2)
     v9 = pParty_global->vPosition.y;
     v10 = *(_DWORD *)(v3 + 8);
     *(_DWORD *)(v3 + 12) = pParty_global->vPosition.y;
-    *(_DWORD *)(v3 + 28) = sub_49AC17((int)byte_6BE3C8, v10, v9, v8);
+    *(_DWORD *)(v3 + 28) = IndoorLocation_sub_49AC17((int)pIndoor, v10, v9, v8);
   }
   if ( pD3DRenderer->pRenderD3D3 )
   {
@@ -4241,7 +4241,7 @@ void __fastcall sub_440B44(char a1)
 
   if ( a1 )
   {
-    sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+    IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     for ( i = 0; i < class37_global0.dword_000000; ++i )
     {
       v2 = 2252 * word_51B77C[2 * i + 1];
@@ -4950,10 +4950,10 @@ LABEL_23:
 LABEL_8:
 	v92 = 0xFF000000;
 	v86 = 0xFF00FFFF;
-	v7 = dword_6BE670;
+	v7 = (int)pIndoor->ptr_00002A8;
 	dword_576D14 = 0;
-	v8 = *(_DWORD *)dword_6BE670 == 0;
-	v9 = *(_DWORD *)dword_6BE670 < 0;
+	v8 = *(_DWORD *)pIndoor->ptr_00002A8 == 0;
+	v9 = *(_DWORD *)pIndoor->ptr_00002A8 < 0;
 	v97 = 0;
 	if ( !(v9 | v8) )
 	{
@@ -4961,9 +4961,9 @@ LABEL_8:
 		do
 		{
 			v10 = i + v7 + 4;
-			v99 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 8) + ptr_6BE644 + 44);
+			v99 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 8) + (int)pIndoor->pFaces + 44);
 
-			if ( BYTE1(v99) & 0x20 || (v11 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 10) + ptr_6BE644 + 44), BYTE1(v11) & 0x20) ) goto LABEL_17;
+			if ( BYTE1(v99) & 0x20 || (v11 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 10) + (int)pIndoor->pFaces + 44), BYTE1(v11) & 0x20) ) goto LABEL_17;
 
 			v12 = *(_WORD *)(i + v7 + 14);
 			if ( !(v12 & 1) )
@@ -4977,14 +4977,14 @@ LABEL_8:
 
 			v14 = *(_WORD *)v10;
 			v91 = v5;
-			v15 = dword_6BE63C + 6 * v14;
+			v15 = (int)pIndoor->pVertices + 6 * v14;
 			v16 = *(_WORD *)v15;
 			v17 = *(_WORD *)(v15 + 2) - v87;
 
 			v96 = v16 - v6;
 			v95 = v17;
 
-			v18 = dword_6BE63C + 6 * *(_WORD *)(v10 + 2);
+			v18 = (int)pIndoor->pVertices + 6 * *(_WORD *)(v10 + 2);
 			v19 = *(_WORD *)v18;
 			v20 = *(_WORD *)(v18 + 2) - v87;
 			v98 = v19 - v6;
@@ -4999,7 +4999,7 @@ LABEL_8:
 			v95 = (unsigned __int64)(v20 * v5) >> 16;
       
 			Render_FillRect(pD3DRenderer,v88 + v91, v93 - v90, v88 + ((unsigned __int64)((v19 - v6) * v5) >> 16),v93 - v95,v92);
-			v7 = dword_6BE670;
+			v7 = (int)pIndoor->ptr_00002A8;
 
 
 LABEL_17:
@@ -5019,8 +5019,8 @@ LABEL_17:
 			v22 = (unsigned __int16)word_576D80[v21];
 			v90 = v5;
 			v23 = v7 + 12 * v22 + 4;
-			v24 = dword_6BE63C + 6 * *(_WORD *)v23;
-			v25 = dword_6BE63C + 6 * *(_WORD *)(v23 + 2);
+			v24 = (int)pIndoor->pVertices + 6 * *(_WORD *)v23;
+			v25 = (int)pIndoor->pVertices + 6 * *(_WORD *)(v23 + 2);
 			v26 = *(_WORD *)v25;
 			v27 = *(_WORD *)v24 - v89;
 			v28 = *(_WORD *)(v24 + 2) - v87;
@@ -5042,7 +5042,7 @@ LABEL_17:
 				
 			if ( v21 >= dword_576D14 ) break;
       
-			v7 = dword_6BE670;
+			v7 = (int)pIndoor->ptr_00002A8;
 		}
 
 		v6 = v89;
@@ -5274,9 +5274,9 @@ LABEL_71:
 				do
 				{
 					v84 = (v67 - 80) / 4;
-					if ( !sub_47F04C(pClass51_global, v84, v99) ) 
+					if ( !sub_47F04C(pOutdoor, v84, v99) ) 
 					{
-						if ( sub_47F097(pClass51_global, v84, v99) ) 
+						if ( sub_47F097(pOutdoor, v84, v99) ) 
 						{
 							if ( !((v88 + v102) % 2) ) *(_WORD *)v101 = i;
 						}
@@ -5285,9 +5285,9 @@ LABEL_71:
 
 //					v84 = (v67 - 80) / 4;
 //					v99 = (v61 - 80) / 4;
-//					if ( !sub_47F04C(pClass51_global, v84, v99) ) 
+//					if ( !sub_47F04C(pOutdoor, v84, v99) ) 
 //					{
-//						if ( sub_47F097(pClass51_global, v84, v99) ) 
+//						if ( sub_47F097(pOutdoor, v84, v99) ) 
 //						{
 //							if ( !((x + y) % 2) ) *(_WORD *)v101 = i;
 //						}
@@ -5515,7 +5515,7 @@ int __cdecl sub_4443D5_GetMinimapRightClickText()
 
   v24 = pParty_global->vPosition.x;
   v2 = pParty_global->vPosition.y;
-  v1 = pClass51_global->uNumBModels;
+  v1 = pOutdoor->uNumBModels;
   v0 = 0;
   v21 = 0;
   GUICursor_GetMouseClickPos(pGame->pGUICursor, &X, &v22);
@@ -5534,28 +5534,28 @@ LABEL_14:
   }
   else
   {
-   for (unsigned int i = 0; i < pClass51_global->uNumBModels; ++i)
+   for (unsigned int i = 0; i < pOutdoor->uNumBModels; ++i)
    {
     //while ( 1 )
     //{
-      X = *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 172) - v19;
-      v22 = *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 176) - v20;
+      X = *(_DWORD *)((char *)&pOutdoor->pBModels[i] + 172) - v19;
+      v22 = *(_DWORD *)((char *)&pOutdoor->pBModels[i] + 176) - v20;
       v6 = abs(v22);
       v7 = abs(X);
       v8 = sub_4621DA(v7, v6, v0);
-      //v5 = (int)pClass51_global->pBModels;
-      if ( v8 < 2 * *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 184) )
+      //v5 = (int)pOutdoor->pBModels;
+      if ( v8 < 2 * *(_DWORD *)((char *)&pOutdoor->pBModels[i] + 184) )
       {
-        //v11 = __SETO__(*(_DWORD *)(v4 + pClass51_global->pBModels + 76), v0);
-        //v9 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) == v0;
-        //v10 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) - v0 < 0;
+        //v11 = __SETO__(*(_DWORD *)(v4 + pOutdoor->pBModels + 76), v0);
+        //v9 = *(_DWORD *)(v4 + pOutdoor->pBModels + 76) == v0;
+        //v10 = *(_DWORD *)(v4 + pOutdoor->pBModels + 76) - v0 < 0;
         v24 = v0;
         //if ( !((unsigned __int8)(v10 ^ v11) | v9) )
-        if (*(_DWORD *)((char *)&pClass51_global->pBModels[i] + 76) <= v0)
+        if (*(_DWORD *)((char *)&pOutdoor->pBModels[i] + 76) <= v0)
         {
           do
           {
-            v12 = v0 + *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 84);
+            v12 = v0 + *(_DWORD *)((char *)&pOutdoor->pBModels[i] + 84);
             v13 = *(_WORD *)(v12 + 292);
             if ( v13 )
             {
@@ -5571,10 +5571,10 @@ LABEL_14:
               }
             }
             ++v24;
-            //v5 = (int)pClass51_global->pBModels;
+            //v5 = (int)pOutdoor->pBModels;
             v0 += 308;
           }
-          while ( v24 < *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 76) );
+          while ( v24 < *(_DWORD *)((char *)&pOutdoor->pBModels[i] + 76) );
         }
         result = v21;
         v0 = 0;
@@ -5628,27 +5628,27 @@ char *__cdecl sub_444564()
    v21 = struct_576FE8.word_00003A;
   }
   v17 = 0;
-  v16 = pClass51_global->uNumBModels;
+  v16 = pOutdoor->uNumBModels;
   GUICursor_GetMouseClickPos(pGame->pGUICursor, &X, &v18);
   v1 = 1.0 / v19;
   v0 = (signed __int64)((double)(X - 229) * v1 + (double)v20);
   LODWORD(v19) = (signed __int64)((double)v21 - (double)(v18 - 181) * v1);
   v2 = abs(v0 + 22528) / 512;
   v3 = abs(LODWORD(v19) - 22528);
-  if ( sub_47F04C(pClass51_global, v2, v3 / 512) && uCurrentlyLoadedLevelType == 2 && (v4 = 0, v20 = 0, v16 > 0) )
+  if ( sub_47F04C(pOutdoor, v2, v3 / 512) && uCurrentlyLoadedLevelType == 2 && (v4 = 0, v20 = 0, v16 > 0) )
   {
     while ( 1 )
     {
-      X = *(_DWORD *)(v4 + pClass51_global->pBModels + 172) - v0;
-      v18 = *(_DWORD *)(v4 + pClass51_global->pBModels + 176) - LODWORD(v19);
+      X = *(_DWORD *)(v4 + pOutdoor->pBModels + 172) - v0;
+      v18 = *(_DWORD *)(v4 + pOutdoor->pBModels + 176) - LODWORD(v19);
       v6 = abs(v18);
       v7 = abs(X);
       v8 = sub_4621DA(v7, v6, 0);
-      v5 = (int)pClass51_global->pBModels;
-      if ( v8 < *(_DWORD *)(v4 + pClass51_global->pBModels + 184) )
+      v5 = (int)pOutdoor->pBModels;
+      if ( v8 < *(_DWORD *)(v4 + pOutdoor->pBModels + 184) )
       {
-        v9 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) == 0;
-        v10 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) < 0;
+        v9 = *(_DWORD *)(v4 + pOutdoor->pBModels + 76) == 0;
+        v10 = *(_DWORD *)(v4 + pOutdoor->pBModels + 76) < 0;
         v21 = 0;
         if ( !(v10 | v9) )
         {
@@ -5671,10 +5671,10 @@ char *__cdecl sub_444564()
               }
             }
             ++v21;
-            v5 = (int)pClass51_global->pBModels;
+            v5 = (int)pOutdoor->pBModels;
             v22 += 308;
           }
-          while ( v21 < *(_DWORD *)(v4 + pClass51_global->pBModels + 76) );
+          while ( v21 < *(_DWORD *)(v4 + pOutdoor->pBModels + 76) );
         }
         result = v17;
         if ( v17 )
@@ -6064,7 +6064,7 @@ void __cdecl sub_444DCA()
   memcpy(&local_0C, pGUIWindow0, sizeof(GUI::Window));
   compile_error(file name should not be global);
     //v11 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
-  sub_48902E((char *)pClass51_global->string_000000, pParty_global->vPosition.x, pParty_global->vPosition.y, &Str2, 20);
+  sub_48902E((char *)pOutdoor->string_000000, pParty_global->vPosition.x, pParty_global->vPosition.y, &Str2, 20);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04_CurrentRightPanelType != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)(dword_59142C));
@@ -8966,18 +8966,18 @@ void __fastcall sub_44861E(int a1, const char *a2)
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v17 = 1;
-        if ( dword_6BE648 > 1 )
+        if ( pIndoor->dword_000280 > 1 )
         {
           v4 = 36;
           do
           {
-            if ( *(_WORD *)(v4 + dword_6BE64C + 24) == v14 )
+            if ( *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 24) == v14 )
             {
-              v5 = (int)(ptr_6BE644 + *(_WORD *)(v4 + dword_6BE64C + 12));
+              v5 = (int)((int)pIndoor->pFaces + *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12));
               if ( *(_BYTE *)(v5 + 45) & 0x40 )
               {
-                *(_WORD *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + ptr_6BE644 + 74) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
-                v6 = (int *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + ptr_6BE644 + 74);
+                *(_WORD *)(96 * *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12) + (int)pIndoor->pFaces + 74) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
+                v6 = (int *)(96 * *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12) + (int)pIndoor->pFaces + 74);
                 if ( *(_WORD *)v6 )
                 {
                   TextureFrameTable_sub_44E0ED(pTextureFrameTable, *(_WORD *)v6);
@@ -8985,7 +8985,7 @@ void __fastcall sub_44861E(int a1, const char *a2)
                 else
                 {
                   *(_WORD *)v6 = v3;
-                  v7 = (int)(*(_WORD *)(v4 + dword_6BE64C + 12) + ptr_6BE644) + 44;
+                  v7 = (int)(*(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12) + (int)pIndoor->pFaces) + 44;
                   *(_BYTE *)(v7 + 1) &= 0xBFu;
                 }
               }
@@ -8997,22 +8997,22 @@ void __fastcall sub_44861E(int a1, const char *a2)
             ++v17;
             v4 += 36;
           }
-          while ( v17 < dword_6BE648 );
+          while ( v17 < pIndoor->dword_000280 );
         }
         pParty_global->dword_007778 |= 2;
       }
       else
       {
         v15 = 0;
-        if ( pClass51_global->uNumBModels > 0 )
+        if ( pOutdoor->uNumBModels > 0 )
         {
           v16 = 0;
           do
           {
             v8 = 0;
-            v9 = v16 + (int)pClass51_global->pBModels + 68;
+            v9 = v16 + (int)pOutdoor->pBModels + 68;
             v18 = 0;
-            if ( *(_DWORD *)(v16 + pClass51_global->pBModels + 76) > 0 )
+            if ( *(_DWORD *)(v16 + pOutdoor->pBModels + 76) > 0 )
             {
               do
               {
@@ -9046,7 +9046,7 @@ void __fastcall sub_44861E(int a1, const char *a2)
             ++v15;
             v16 += 188;
           }
-          while ( v15 < pClass51_global->uNumBModels );
+          while ( v15 < pOutdoor->uNumBModels );
         }
       }
       pParty_global->dword_007778 |= 2;
@@ -9102,11 +9102,11 @@ void __fastcall sub_4488F7(int a1, int a2)
 
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-    if ( a1 <= dword_6BE658 - 1 )
+    if ( a1 <= pIndoor->dword_000290 - 1 )
     {
       if ( a1 >= 0 )
       {
-        v2 = 16 * a1 + dword_6BE65C + 12;
+        v2 = 16 * a1 + (int)pIndoor->ptr_0000294 + 12;
         if ( a2 )
           *(_BYTE *)v2 &= 0xF7u;
         else
@@ -9138,15 +9138,15 @@ int __fastcall sub_44892E(int a1, int a2, int a3)
     v4 = 1;
     if ( uCurrentlyLoadedLevelType == 1 )
     {
-      if ( dword_6BE648 > 1 )
+      if ( pIndoor->dword_000280 > 1 )
       {
         v5 = 36;
         do
         {
-          result = v5 + dword_6BE64C;
-          if ( *(_WORD *)(v5 + dword_6BE64C + 24) == v10 )
+          result = v5 + (int)pIndoor->ptr_0000284;
+          if ( *(_WORD *)(v5 + (int)pIndoor->ptr_0000284 + 24) == v10 )
           {
-            result = (int)(*(_WORD *)(result + 12) + ptr_6BE644) + 44;
+            result = (int)(*(_WORD *)(result + 12) + (int)pIndoor->pFaces) + 44;
             if ( a3 )
               *(_DWORD *)result |= a2;
             else
@@ -9155,22 +9155,22 @@ int __fastcall sub_44892E(int a1, int a2, int a3)
           ++v4;
           v5 += 36;
         }
-        while ( v4 < dword_6BE648 );
+        while ( v4 < pIndoor->dword_000280 );
       }
       pParty_global->dword_007778 |= 2;
     }
     else
     {
       v11 = 0;
-      if ( pClass51_global->uNumBModels > 0 )
+      if ( pOutdoor->uNumBModels > 0 )
       {
         v12 = 0;
         do
         {
           v7 = 0;
-          v8 = v12 + (int)pClass51_global->pBModels + 68;
+          v8 = v12 + (int)pOutdoor->pBModels + 68;
           v6 = 0;
-          if ( *(_DWORD *)(v12 + pClass51_global->pBModels + 76) > 0 )
+          if ( *(_DWORD *)(v12 + pOutdoor->pBModels + 76) > 0 )
           {
             do
             {
@@ -9188,10 +9188,10 @@ int __fastcall sub_44892E(int a1, int a2, int a3)
             while ( v6 < *(_DWORD *)(v8 + 8) );
           }
           ++v11;
-          result = pClass51_global->uNumBModels;
+          result = pOutdoor->uNumBModels;
           v12 += 188;
         }
-        while ( v11 < pClass51_global->uNumBModels );
+        while ( v11 < pOutdoor->uNumBModels );
       }
     }
     pParty_global->dword_007778 |= 2;
@@ -9632,7 +9632,7 @@ LABEL_41:
           v60 = a5;
           v59 = a4;
           v63 = 16;
-          v64 = sub_49AC17((int)byte_6BE3C8, a4, a5, SHIDWORD(a5));
+          v64 = IndoorLocation_sub_49AC17((int)pIndoor, a4, a5, SHIDWORD(a5));
           v72 = v54;
           v65 = 0;
           v70 = 8002;
@@ -9673,7 +9673,7 @@ LABEL_35:
         v60 = a5;
         v59 = a4;
         v63 = 16;
-        v64 = sub_49AC17((int)byte_6BE3C8, a4, a5, SHIDWORD(a5));
+        v64 = IndoorLocation_sub_49AC17((int)pIndoor, a4, a5, SHIDWORD(a5));
         v72 = v54;
         v19 = v55;
         v65 = 0;
@@ -9728,7 +9728,7 @@ LABEL_60:
         v60 = a5;
         v59 = a4;
         v63 = 16;
-        v64 = sub_49AC17((int)byte_6BE3C8, a4, a5, SHIDWORD(a5));
+        v64 = IndoorLocation_sub_49AC17((int)pIndoor, a4, a5, SHIDWORD(a5));
         v72 = v54;
         v65 = 0;
         v70 = 8002;
@@ -9888,7 +9888,7 @@ LABEL_71:
     v60 = a5;
     v59 = a4;
     v63 = 16;
-    v64 = sub_49AC17((int)byte_6BE3C8, a4, a5, SHIDWORD(a5));
+    v64 = IndoorLocation_sub_49AC17((int)pIndoor, a4, a5, SHIDWORD(a5));
     v72 = v54;
     v65 = 0;
     v70 = 8002;
@@ -10003,12 +10003,12 @@ __int16 __fastcall sub_449A49(int a1, int a2)
   signed int v9; // esi@19
   char Args[40]; // [sp+Ch] [bp-78h]@6
 
-  LOWORD(v2) = (_WORD)Src;
+  LOWORD(v2) = (_WORD)pIndoor->ptr_000029C;
   v3 = a2;
-  if ( !Src )
+  if ( !pIndoor->ptr_000029C )
     return v2;
   v5 = 0;
-  v4 = (char *)Src + 4;
+  v4 = (char *)pIndoor->ptr_000029C + 4;
   do
   {
     if ( *(_DWORD *)v4 == a1 )
@@ -10022,7 +10022,7 @@ __int16 __fastcall sub_449A49(int a1, int a2)
     wsprintfA(Args, "Unable to find Door ID: %i!", a1);
     erroneous_printf(Args);
   }
-  v6 = (char *)Src + 80 * v5;
+  v6 = (char *)pIndoor->ptr_000029C + 80 * v5;
   if ( v3 == 2 )
   {
     LOWORD(v2) = *((_WORD *)v6 + 38);
@@ -12859,7 +12859,7 @@ LABEL_26:
         a4 = v23;
         v61 = v22;
         if ( uCurrentlyLoadedLevelType == 1 )
-          v57 = sub_49AC17((int)byte_6BE3C8, v24, v23, v22);
+          v57 = IndoorLocation_sub_49AC17((int)pIndoor, v24, v23, v22);
         v56 = 0;
         result = (((uCurrentlyLoadedLevelType != 2) - 1) & 0x40) + 64;
         v55 = (((uCurrentlyLoadedLevelType != 2) - 1) & 0x40) + 64;
@@ -12965,7 +12965,7 @@ LABEL_26:
       v65 = *(_DWORD *)(v5 + 8);
       if ( uCurrentlyLoadedLevelType != 2 )
       {
-        v40 = sub_49AC17((int)byte_6BE3C8, v58, a4, v32);
+        v40 = IndoorLocation_sub_49AC17((int)pIndoor, v58, a4, v32);
         if ( v40 != v57
           || (v41 = sub_46CEC3(v58, a4, v66, v40, (int)&v51), v42 = v41, v41 == -30000)
           || abs(v41 - v67) > 1024 )
@@ -13073,7 +13073,7 @@ LABEL_12:
     v21 = 0;
     v22 = pParty_global->vPosition.z;
     if ( uCurrentlyLoadedLevelType == 1 )
-      v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+      v21 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     v8 = (int)((char *)pActors + 836 * v20);
     //v9 = (char *)&unk_5CCE98 + 88 * v23;
     v9 = (char *)&pMonsterStats->pMonsterInfos[v23 + 1];
@@ -13117,7 +13117,7 @@ LABEL_12:
     *(_WORD *)(v8 + 160) = 256;
     Actor_UpdateAnimation((Actor *)v8);
     if ( uCurrentlyLoadedLevelType == 2
-      || (v22 = pParty_global->vPosition.z, result = sub_49AC17((int)byte_6BE3C8, v7, v6, pParty_global->vPosition.z), result == v21)
+      || (v22 = pParty_global->vPosition.z, result = IndoorLocation_sub_49AC17((int)pIndoor, v7, v6, pParty_global->vPosition.z), result == v21)
       && (result = sub_46CEC3(v7, v6, v22, result, (int)&v18), result != -30000)
       && (result = abs(result - v22), result <= 1024) )
     {
@@ -13197,7 +13197,7 @@ int __fastcall sub_44FD29(int a1, int a2)
   v28 = 0;
   v25 = v6;
   if ( uCurrentlyLoadedLevelType == 1 )
-    v28 = sub_49AC17((int)byte_6BE3C8, *(_WORD *)(v3 + 142), *(_WORD *)(v3 + 144), v6);
+    v28 = IndoorLocation_sub_49AC17((int)pIndoor, *(_WORD *)(v3 + 142), *(_WORD *)(v3 + 144), v6);
   v12 = v4 - 1;
   v11 = (int)((char *)pActors + 836 * uNumActors);
   v27 = (((uCurrentlyLoadedLevelType != 2) - 1) & 0x40) + 64;
@@ -13256,7 +13256,7 @@ int __fastcall sub_44FD29(int a1, int a2)
   if ( uCurrentlyLoadedLevelType == 2
     || (v22 = *(_WORD *)(v30 + 146),
         v27 = *(_WORD *)(v30 + 146),
-        result = sub_49AC17((int)byte_6BE3C8, v10, v9, v22),
+        result = IndoorLocation_sub_49AC17((int)pIndoor, v10, v9, v22),
         result == v28)
     && (result = sub_46CEC3(v10, v9, v27, result, (int)&v25), result != -30000)
     && (result = abs(result - v27), result <= 1024) )
@@ -13459,7 +13459,7 @@ LABEL_35:
   v45 = 0;
   v44 = 0;
   v43 = 0;
-  v30 = sub_49AC17((int)byte_6BE3C8, v28, v27, v29);
+  v30 = IndoorLocation_sub_49AC17((int)pIndoor, v28, v27, v29);
   v47 = 0;
   v46 = 0;
   v39 = 0;
@@ -13519,7 +13519,7 @@ LABEL_5:
   v17 = a5;
   v18 = a6;
   v19 = 0;
-  v20 = sub_49AC17((int)byte_6BE3C8, a3, a4, a5);
+  v20 = IndoorLocation_sub_49AC17((int)pIndoor, a3, a4, a5);
   v21 = 0;
   return sub_42F5ED((int)&v13, 0, 0, 0, 0);
 }
@@ -13635,17 +13635,17 @@ int __fastcall sub_45063B(int a1, int a2)
       v30 = 0;
       v21 = sub_46D49E_ProbablyCollidePartyWithBModels(v19, v26 + pParty_global->vPosition.y, pParty_global->vPosition.z, 0, (int)&v29, (int)&v30, 0);
       v26 = 0;
-      if ( pClass51_global->uNumBModels > 0 )
+      if ( pOutdoor->uNumBModels > 0 )
       {
         while ( 1 )
         {
-          v9 = abs(v20 - *(_DWORD *)(v6 + pClass51_global->pBModels + 176));
-          v10 = abs(v19 - *(_DWORD *)(v6 + pClass51_global->pBModels + 172));
-          if ( sub_4621DA(v10, v9, 0) < *(_DWORD *)(v6 + pClass51_global->pBModels + 184) + 256 )
+          v9 = abs(v20 - *(_DWORD *)(v6 + pOutdoor->pBModels + 176));
+          v10 = abs(v19 - *(_DWORD *)(v6 + pOutdoor->pBModels + 172));
+          if ( sub_4621DA(v10, v9, 0) < *(_DWORD *)(v6 + pOutdoor->pBModels + 184) + 256 )
             break;
           ++v26;
           v6 += 188;
-          if ( v26 >= pClass51_global->uNumBModels )
+          if ( v26 >= pOutdoor->uNumBModels )
             goto LABEL_16;
         }
         v25 = 1;
@@ -13664,7 +13664,7 @@ LABEL_16:
   else
   {
     v29 = 0;
-    v25 = sub_49AC17((int)byte_6BE3C8, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+    v25 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     do
     {
       ++v29;
@@ -13681,7 +13681,7 @@ LABEL_16:
       v20 = v26 + pParty_global->vPosition.y;
       v21 = pParty_global->vPosition.z;
       v22 = v27;
-      v12 = sub_49AC17((int)byte_6BE3C8, v19, v26 + pParty_global->vPosition.y, pParty_global->vPosition.z);
+      v12 = IndoorLocation_sub_49AC17((int)pIndoor, v19, v26 + pParty_global->vPosition.y, pParty_global->vPosition.z);
       if ( v12 == v25 )
       {
         v18 = sub_46CEC3(v19, v20, v21, v12, (int)&v28);

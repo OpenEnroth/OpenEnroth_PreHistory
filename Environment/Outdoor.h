@@ -2,10 +2,10 @@
 #include <windows.h>
 #include <stdio.h>
 
-#include "defs.h"
-#include "CoreDefinitions.h"
+#include "..\defs.h"
+#include "..\CoreDefinitions.h"
 
-#include "Math\Math.h"
+#include "..\Math\Math.h"
 
 
 
@@ -27,7 +27,7 @@ struct BSPModel
 
  struct Face
  {
-  int            pFaceNormal[3];               // dword[3] @ 000000
+  Vec3<int>      vFaceNormal;                  // dword[3] @ 000000
   int            sNormalDistance;              // dword    @ 00000C
   int            zCalc1;                       // dword    @ 000010
   int            zCalc2;                       // dword    @ 000014
@@ -140,12 +140,8 @@ namespace Terrain
 
 
 
-//class51
-class Location
-{
-};
 
-class OutdoorLocation: public Location
+class OutdoorLocation
 {
  protected:
    struct TerrainData
@@ -204,11 +200,11 @@ class OutdoorLocation: public Location
 
 
  public:
- unsigned char  string_000000[32];
- unsigned char  pLocationFileName[32];        // byte[32] @ 000020
- unsigned char  pLocationFileDescription[32]; // byte[32] @ 000040
- unsigned char  pSkyTextureName[32];   // byte[32] @ 000060
- unsigned char  pGroundTileset[32];    // byte[32] @ 000080
+   unsigned char  string_000000[32];
+   unsigned char  pLocationFileName[32];        // byte[32] @ 000020
+   unsigned char  pLocationFileDescription[32]; // byte[32] @ 000040
+   unsigned char  pSkyTextureName[32];   // byte[32] @ 000060
+   unsigned char  pGroundTileset[32];    // byte[32] @ 000080
 
  TileType       pTileTypes[4]; // struct[4] @ 0000A0
 

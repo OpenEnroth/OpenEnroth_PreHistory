@@ -1,23 +1,23 @@
 #include <io.h>
 
-#include "Level.h"
-#include "menus.h"
-#include "tiles.h"
-#include "data.h"
- #include "_lod.h"
-#include "Events.h"
+#include "Outdoor.h"
+#include "..\menus.h"
+#include "..\tiles.h"
+#include "..\data.h"
+#include "..\_lod.h"
+#include "..\Events.h"
 
-#include "mm7_unparsed_data.h"
-#include "mm7_unparsed_functions.h"
+#include "..\mm7_unparsed_data.h"
+#include "..\mm7_unparsed_functions.h"
 
-#include "GUI\GUI.h"
+#include "..\GUI\GUI.h"
 
-#include "AudioPlayer.h"
-#include "FrameTables.h"
+#include "..\AudioPlayer.h"
+#include "..\FrameTables.h"
 
-#include "Actor.h"
+#include "..\Actor.h"
 
-#include "RenderD3D3.h"
+#include "..\RenderD3D3.h"
 
 
 
@@ -1426,9 +1426,9 @@ bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct Stati
   v5 = _this->vPosition.x;
   v6 = _this->vPosition.y;
   v7 = _this->vPosition.z;
-  v8 = ((int)_this->vPosition.x * a2->pFaceNormal[0] +
-        (int)_this->vPosition.y * a2->pFaceNormal[1] +
-        (int)_this->vPosition.z * a2->pFaceNormal[2] + a2->sNormalDistance) >> 16;
+  v8 = ((int)_this->vPosition.x * a2->vFaceNormal.x +
+        (int)_this->vPosition.y * a2->vFaceNormal.y +
+        (int)_this->vPosition.z * a2->vFaceNormal.z + a2->sNormalDistance) >> 16;
 
  if (_this->word_000006 > 0 &&
 

@@ -105,7 +105,7 @@ void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unna
 
 
 //----- (004C1026) --------------------------------------------------------
-int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
+int __thiscall Vis_sub_4C1026(struct Vis *_this, IndoorLocation::BLVFace *a2, int a3, float a4)
 {
   _UNKNOWN *v4; // eax@4
   signed int v5; // ecx@4
@@ -157,7 +157,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
   {
     if ( v7 > 0 )
     {
-      v8 = dword_6BE63C;
+      v8 = (int)pIndoor->pVertices;
       v9 = (char *)&array_F8F200[0].vPosition.y;
       do
       {
@@ -177,7 +177,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, struct12 *a2, int a3, float a4)
   {
     if ( v7 > 0 )
     {
-      v12 = (int)&pClass51_global->pBModels[((unsigned int)a3 >> 9)] + 72;
+      v12 = (int)&pOutdoor->pBModels[((unsigned int)a3 >> 9)] + 72;
       v11 = (char *)&array_F8F200[0].vPosition.y;
       do
       {
@@ -756,7 +756,7 @@ bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6
   }
   else
   {
-   v14 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(uD3DBillboardID + 72) + 26) == 0;
+   v14 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(uD3DBillboardID + 72) + 26) == 0;
    v15 = *(_DWORD *)(uD3DBillboardID + 44);
   }
 
@@ -1042,16 +1042,16 @@ int Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(Vis *_this, float a2, class25 *a3, 
       v5 = word_51B77C[2 * result];
       if ( v5 >= 0 )
       {
-        if ( v5 < dword_6BE640 )
+        if ( v5 < pIndoor->uNumFaces )
         {
-          v6 = (int)(ptr_6BE644 + v5);
-          if ( !sub_436455(ptr_6BE644 + v5) )
+          v6 = (int)pIndoor->pFaces + v5;
+          if ( !sub_436455(pIndoor->pFaces + v5) )
           {
             if ( Vis_is_part_of_selection(v6, a4) )
             {
               v8 = 8 * v5;
               LOBYTE(v8) = 8 * v5 | 6;
-              v7 = Vis_sub_4C1026(_this, (struct12 *)v6, v8, a2);
+              v7 = Vis_sub_4C1026(_this, (IndoorLocation::BLVFace *)v6, v8, a2);
               if ( v7 )
               {
                 v9 = *(_DWORD *)(v7 + 4);
@@ -1083,7 +1083,7 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
   int v13; // eax@8
   int v14; // ecx@9
 
-  struct struct12 local_10;
+  struct IndoorLocation::BLVFace local_10;
   //int v15[0x60/4]; // [sp+10h] [bp-84h]@1
 
   int v16; // [sp+70h] [bp-24h]@9
@@ -1096,16 +1096,16 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
   v19 = 0;
 
   v7 = 0;
- for (unsigned int i = 0; i < pClass51_global->uNumBModels; ++i)
+ for (unsigned int i = 0; i < pOutdoor->uNumBModels; ++i)
  {
-  BSPModel *pModel = &pClass51_global->pBModels[i];
+  BSPModel *pModel = &pOutdoor->pBModels[i];
       LOBYTE(v7) = sub_479089(i, &v19);
       if (v7)
       {
         if (v19)
         {
           v23 = 0;
-          if (pClass51_global->pBModels[i].uNumFaces > 0)
+          if (pOutdoor->pBModels[i].uNumFaces > 0)
           {
             v21 = 0;
             do
@@ -1113,7 +1113,7 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
              BSPModel::Face *pFace = pModel->pFaces + (v21 / 308);
               if ( Vis_is_part_of_selection((unsigned int)pFace, a4) )
               {
-                sub_4C0EF2_BSPModel_Face_To_struct12(&local_10, pFace);
+                sub_4C0EF2_BSPModel_Face_To_BLV_Face(&local_10, pFace);
                 v13 = 8 * (v23 | (i << 6));
                 LOBYTE(v13) = v13 | 6;
                 v12 = Vis_sub_4C1026(_this, &local_10, v13, a2);
@@ -1164,7 +1164,7 @@ class25::class25()
 
 
 //----- (004C1C0C) --------------------------------------------------------
-char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pRay_SomePoint, struct12 *a5, int a6)
+char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pRay_SomePoint, IndoorLocation::BLVFace *a5, int a6)
 {
   int v6; // eax@1
   double v8; // st7@3
@@ -1178,16 +1178,15 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
       v6 & 0x2000)
     return 0;
 
-  v8 = pRayEnd->vPosition.x * a5->pFaceNormalf[0] +
-       pRayEnd->vPosition.y * a5->pFaceNormalf[1] +
-       pRayEnd->vPosition.z * a5->pFaceNormalf[2];
-  if (v8 >= 0.0)
+  v8 = Dot(pRayEnd->vPosition, a5->vFaceNormalf);
+  if (v8 >= 0.0) // ray's away (>) from face surface or parallel (==)
     return 0;
 
-  v9 = -(pRayOrigin->vPosition.x * a5->pFaceNormalf[0] +
-         pRayOrigin->vPosition.y * a5->pFaceNormalf[1] +
-         pRayOrigin->vPosition.z * a5->pFaceNormalf[2] +
-         a5->fNormalDistance);
+  //v9 = -(pRayOrigin->vPosition.x * a5->vFaceNormalf.x +
+  //       pRayOrigin->vPosition.y * a5->vFaceNormalf.y +
+  //       pRayOrigin->vPosition.z * a5->vFaceNormalf.z +
+  //       a5->fNormalDistance);
+  v9 = -(Dot(pRayOrigin->vPosition, a5->vFaceNormalf) + a5->fNormalDistance);
 
   if ( v8 <= 0.0 )
   {
@@ -1271,22 +1270,22 @@ int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class
       v6 = word_51B77C[2 * result];
       if ( v6 >= 0 )
       {
-        if ( v6 < dword_6BE640 )
+        if ( v6 < pIndoor->uNumFaces )
         {
           v7 = 96 * v6;
-          if ( Vis_is_part_of_selection((unsigned int)(v6 + ptr_6BE644), a5) )
+          if ( Vis_is_part_of_selection((unsigned int)(v6 + (int)pIndoor->pFaces), a5) )
           {
-            if ( !sub_436455(v7/96 + ptr_6BE644) )
+            if ( !sub_436455(v7/96 + pIndoor->pFaces) )
             {
-              if ( sub_4C1C0C(pRay, pRay + 1, &a2, &local_0C, v7/96 + ptr_6BE644, -1) )
+              if ( sub_4C1C0C(pRay, pRay + 1, &a2, &local_0C, v7/96 + pIndoor->pFaces, -1) )
               {
                 sub_436523(&local_0C, 1);
                 v8 = sub_48B561(local_0C.flt_00000C);
                 LOWORD(v8) = 0;
                 v18 = (8 * v6 | 6) + v8;
-                v17 = (int)(ptr_6BE644 + v7/96);
+                v17 = (int)(pIndoor->pFaces + v7/96);
 
-                a4->array_000004[a4->uNumPointers].uBillboardID = (unsigned int)(ptr_6BE644 + v7/96);
+                a4->array_000004[a4->uNumPointers].uBillboardID = (unsigned int)(pIndoor->pFaces + v7/96);
                 a4->array_000004[a4->uNumPointers].sZValue = v18;
                 a4->array_000004[a4->uNumPointers++].dword_000008 = 2;
               }
@@ -1317,7 +1316,7 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
   //int v12; // eax@12
   //int v13; // edi@12
 
-  struct struct12 local_10;
+  struct IndoorLocation::BLVFace local_10;
   //char v17[0x60]; // [sp+10h] [bp-B8h]@1
 
   RenderVertex cRay_SomePoint;
@@ -1345,13 +1344,13 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
   cRay_SomePoint.flt_00002C = 0.0;
 
   i = 0;
-  if ( pClass51_global->uNumBModels > 0 )
+  if ( pOutdoor->uNumBModels > 0 )
   {
     v28 = 0;
     BSPModel *pBModel;
     while ( 1 )
     {
-      pBModel = &pClass51_global->pBModels[i];
+      pBModel = &pOutdoor->pBModels[i];
       LOBYTE(v6) = sub_479089(v7, &v27);
       if ( a6 )
         break;
@@ -1361,10 +1360,10 @@ LABEL_15:
       v28 += 188;
       v7 = v29 + 1;
       ++i;
-      //v15 = __SETO__(v29 + 1, pClass51_global->uNumBModels);
-      //v14 = v29++ + 1 - pClass51_global->uNumBModels < 0;
+      //v15 = __SETO__(v29 + 1, pOutdoor->uNumBModels);
+      //v14 = v29++ + 1 - pOutdoor->uNumBModels < 0;
       //if ( !(v14 ^ v15) )
-      if (++v29 >= pClass51_global->uNumBModels)
+      if (++v29 >= pOutdoor->uNumBModels)
         return v6;
     }
     if (!v6 || !v27)
@@ -1380,7 +1379,7 @@ LABEL_8:
 
      if (Vis_is_part_of_selection((unsigned int)pStru2, a5))
      {
-          sub_4C0EF2_BSPModel_Face_To_struct12(&local_10, pStru2);
+          sub_4C0EF2_BSPModel_Face_To_BLV_Face(&local_10, pStru2);
           if ( sub_4C1C0C(pRay, pRay + 1, &a2, &cRay_SomePoint, &local_10, v29) )
           {
             sub_436523(&cRay_SomePoint, 1);
@@ -1409,16 +1408,14 @@ LABEL_8:
 
 
 //----- (004C0EF2) --------------------------------------------------------
-void sub_4C0EF2_BSPModel_Face_To_struct12(struct12 *_this, BSPModel::Face *a2)
+void sub_4C0EF2_BSPModel_Face_To_BLV_Face(IndoorLocation::BLVFace *_this, BSPModel::Face *a2)
 {
- _this->pFaceNormal[0] = a2->pFaceNormal[0];
- _this->pFaceNormal[1] = a2->pFaceNormal[1];
- _this->pFaceNormal[2] = a2->pFaceNormal[2];
+ _this->vFaceNormal = a2->vFaceNormal;
  _this->sNormalDistance = a2->sNormalDistance;
 
- _this->pFaceNormalf[0] = (float)(a2->pFaceNormal[0] & 0xFFFF) / 65535.0f + (float)(a2->pFaceNormal[0] >> 16);
- _this->pFaceNormalf[1] = (float)(a2->pFaceNormal[1] & 0xFFFF) / 65535.0f + (float)(a2->pFaceNormal[1] >> 16);
- _this->pFaceNormalf[2] = (float)(a2->pFaceNormal[2] & 0xFFFF) / 65535.0f + (float)(a2->pFaceNormal[2] >> 16);
+ _this->vFaceNormalf.x = (float)(a2->vFaceNormal.x & 0xFFFF) / 65535.0f + (float)(a2->vFaceNormal.x >> 16);
+ _this->vFaceNormalf.y = (float)(a2->vFaceNormal.y & 0xFFFF) / 65535.0f + (float)(a2->vFaceNormal.y >> 16);
+ _this->vFaceNormalf.z = (float)(a2->vFaceNormal.z & 0xFFFF) / 65535.0f + (float)(a2->vFaceNormal.z >> 16);
  _this->fNormalDistance = (float)(a2->sNormalDistance & 0xFFFF) / 65535.0f + (float)(a2->sNormalDistance >> 16);
 
  _this->zCalc1 = a2->zCalc1;
@@ -1444,22 +1441,22 @@ void sub_4C0EF2_BSPModel_Face_To_struct12(struct12 *_this, BSPModel::Face *a2)
 
 
 //----- (00436455) --------------------------------------------------------
-char __stdcall sub_436455(struct12 *a1)
+char __stdcall sub_436455(IndoorLocation::BLVFace *a1)
 {
   char v2; // [sp+8h] [bp-30h]@1
 
-  sub_43648F((int)&v2, dword_6BE63C + 6 * *a1->pVertexIDs);
+  sub_43648F((int)&v2, (int)pIndoor->pVertices + 6 * *a1->pVertexIDs);
   return sub_438258(a1, (int)&v2);
 }
 
 //----- (00438258) --------------------------------------------------------
-char __stdcall sub_438258(struct12 *a1, int a2)
+char __stdcall sub_438258(IndoorLocation::BLVFace *a1, int a2)
 {
   char result; // al@2
 
-  if ( (*(float *)(a2 + 8) - (double)pOldCamera->sPosZ) * (double)a1->pFaceNormal[2]
-     + (*(float *)(a2 + 4) - (double)pOldCamera->sPosY) * (double)a1->pFaceNormal[1]
-     + (*(float *)(a2 + 0) - (double)pOldCamera->sPosX) * (double)a1->pFaceNormal[0] < 0.0
+  if ((*(float *)(a2 + 8) - (double)pOldCamera->sPosZ) * (double)a1->vFaceNormal.z +
+      (*(float *)(a2 + 4) - (double)pOldCamera->sPosY) * (double)a1->vFaceNormal.y +
+      (*(float *)(a2 + 0) - (double)pOldCamera->sPosX) * (double)a1->vFaceNormal.x < 0.0
     || (result = 1, a1->uFaceAttributes & 1) )
     result = 0;
   return result;
@@ -1471,7 +1468,7 @@ char __stdcall sub_438258(struct12 *a1, int a2)
 
 
 //----- (004C1EE5) --------------------------------------------------------
-char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct struct12 *a6)
+char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, IndoorLocation::BLVFace *a6)
 {
   int v6; // ecx@1
   int v7; // ecx@2
@@ -1507,14 +1504,14 @@ char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4
       {
         v9 = 2 * v22;
         *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 52))
-                                 + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48)));
+                                 + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48)));
         *(_WORD *)(v8 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v9)
-                           + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48)) + 2);
+                           + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48)) + 2);
         *(_WORD *)(v19 + v8) = *(_WORD *)(v9 + *(_DWORD *)(a6 + 52) + 2)
-                             + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48) + 2));
+                             + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48) + 2));
         ++v22;
         *(_WORD *)v8 = *(_WORD *)(v9 + *(_DWORD *)(a6 + 56) + 2)
-                     + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48) + 2) + 2);
+                     + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v9 + *(_DWORD *)(a6 + 48) + 2) + 2);
         v8 += 4;
       }
       while ( v22 < *(_BYTE *)(a6 + 93) );
@@ -1538,14 +1535,14 @@ char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4
         {
           v17 = 2 * v24;
           *(_WORD *)(a3 + 4 * v24) = *(_WORD *)(2 * v24 + *(_DWORD *)(a6 + 56))
-                                   + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(2 * v24 + *(_DWORD *)(a6 + 48)) + 2);
+                                   + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(2 * v24 + *(_DWORD *)(a6 + 48)) + 2);
           *(_WORD *)(v16 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 60) + v17)
-                              + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48)) + 4);
+                              + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48)) + 4);
           *(_WORD *)(v21 + v16) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v17 + 2)
-                                + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48) + 2) + 2);
+                                + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48) + 2) + 2);
           ++v24;
           *(_WORD *)v16 = *(_WORD *)(*(_DWORD *)(a6 + 60) + v17 + 2)
-                        + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48) + 2) + 4);
+                        + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v17 + *(_DWORD *)(a6 + 48) + 2) + 4);
           v16 += 4;
         }
         while ( v24 < *(_BYTE *)(a6 + 93) );
@@ -1565,14 +1562,14 @@ char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4
         {
           v14 = 2 * v23;
           *(_WORD *)(a3 + 4 * v23) = *(_WORD *)(2 * v23 + *(_DWORD *)(a6 + 52))
-                                   + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(2 * v23 + *(_DWORD *)(a6 + 48)));
+                                   + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(2 * v23 + *(_DWORD *)(a6 + 48)));
           *(_WORD *)(v13 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 60) + v14)
-                              + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48)) + 4);
+                              + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48)) + 4);
           *(_WORD *)(v20 + v13) = *(_WORD *)(*(_DWORD *)(a6 + 52) + v14 + 2)
-                                + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2));
+                                + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2));
           ++v23;
           *(_WORD *)v13 = *(_WORD *)(*(_DWORD *)(a6 + 60) + v14 + 2)
-                        + *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2) + 4);
+                        + *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2) + 4);
           v13 += 4;
         }
         while ( v23 < *(_BYTE *)(a6 + 93) );
@@ -1583,7 +1580,7 @@ char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4
 }
 
 //----- (004C2186) --------------------------------------------------------
-Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct struct12 *a6, unsigned int uModelID)
+Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, IndoorLocation::BLVFace *a6, unsigned int uModelID)
 {
  if (a6->uFaceAttributes & 0x0100) // xy plane polygon
  {
@@ -1592,11 +1589,11 @@ Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, s
 
   for (unsigned int i = 0; i < a6->uNumVertices; ++i)
   {
-   a3[i * 2] = a6->pXInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].x;
-   a4[i * 2] = a6->pYInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
+   a3[i * 2] = a6->pXInterceptDisplacements[i] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].x;
+   a4[i * 2] = a6->pYInterceptDisplacements[i] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
 
-   a3[i * 2 + 1] = a6->pXInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].x;
-   a4[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
+   a3[i * 2 + 1] = a6->pXInterceptDisplacements[i + 1] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].x;
+   a4[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
   }
  }
  else if (a6->uFaceAttributes & 0x0200) // xz plane polygon
@@ -1606,11 +1603,11 @@ Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, s
 
   for (unsigned int i = 0; i < a6->uNumVertices; ++i)
   {
-   a3[i * 2] = a6->pXInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].x;
-   a4[i * 2] = a6->pZInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].z;
+   a3[i * 2] = a6->pXInterceptDisplacements[i] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].x;
+   a4[i * 2] = a6->pZInterceptDisplacements[i] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].z;
 
-   a3[i * 2 + 1] = a6->pXInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].x;
-   a4[i * 2 + 1] = a6->pZInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].z;
+   a3[i * 2 + 1] = a6->pXInterceptDisplacements[i + 1] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].x;
+   a4[i * 2 + 1] = a6->pZInterceptDisplacements[i + 1] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].z;
   }
  }
  else  // yz plane polygon
@@ -1620,11 +1617,11 @@ Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, s
 
   for (unsigned int i = 0; i < a6->uNumVertices; ++i)
   {
-   a3[i * 2] = a6->pYInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
-   a4[i * 2] = a6->pZInterceptDisplacements[i] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].z;
+   a3[i * 2] = a6->pYInterceptDisplacements[i] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].y;
+   a4[i * 2] = a6->pZInterceptDisplacements[i] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i]].z;
 
-   a3[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
-   a4[i * 2 + 1] = a6->pZInterceptDisplacements[i + 1] + (short)pClass51_global->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].z;
+   a3[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
+   a4[i * 2 + 1] = a6->pZInterceptDisplacements[i + 1] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].z;
   }
  }
 

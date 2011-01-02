@@ -16,7 +16,7 @@
 
 #include "GUI\GUI.h"
 
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "Actor.h"
 #include "Events.h"
 #include "Thread.h"
@@ -569,7 +569,7 @@ LABEL_5:
   v13 = v7;
   v15 = 0;
   v16 = 0;
-  v17 = sub_49AC17((int)byte_6BE3C8, v6, v12, v7);
+  v17 = IndoorLocation_sub_49AC17((int)pIndoor, v6, v12, v7);
   v8 = 8 * v27;
   LOBYTE(v8) = 8 * v27 | 3;
   v18 = 0;
@@ -738,7 +738,7 @@ LABEL_19:
   v20 = v10;
   v21 = 0;
   v22 = 0;
-  v11 = sub_49AC17((int)byte_6BE3C8, v17, v18, v19);
+  v11 = IndoorLocation_sub_49AC17((int)pIndoor, v17, v18, v19);
   v9 = *(_DWORD *)(v5 + 12);
   v23 = v11;
   v12 = 8 * v33;
@@ -1492,10 +1492,10 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
 
   v20 = (pStruct9_global->dword_000010 << 11) / 360 >> 1;
 
-  v5 = (int)&pClass51_global->pBModels[uModelIdx];
+  v5 = (int)&pOutdoor->pBModels[uModelIdx];
 
-  v4 = pClass51_global->pBModels[uModelIdx].sBoundingCenterX - pOldCamera->sPosX;
-  v3 = pClass51_global->pBModels[uModelIdx].sBoundingCenterY - pOldCamera->sPosY;
+  v4 = pOutdoor->pBModels[uModelIdx].sBoundingCenterX - pOldCamera->sPosX;
+  v3 = pOutdoor->pBModels[uModelIdx].sBoundingCenterY - pOldCamera->sPosY;
 
   v6 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
   v21 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
@@ -1512,7 +1512,7 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   v10 = sub_4621DA(v9, v8, 0);
 
   *a2 = 0;
-  if (v10 < pClass51_global->pBModels[uModelIdx].sBoundingRadius + 256)
+  if (v10 < pOutdoor->pBModels[uModelIdx].sBoundingRadius + 256)
     *a2 = 1;
 
   v15 = class59_SinCos(pClass59_global, v20 - pClass59_global->uIntegerHalfPi);
@@ -1523,7 +1523,7 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   v12 = v11 >> 16;
   if (v10 <= pStruct9_global->shading_dist_mist + 2048 )
   {
-   if ( abs(v12) > pClass51_global->pBModels[uModelIdx].sBoundingRadius + 512 )
+   if ( abs(v12) > pOutdoor->pBModels[uModelIdx].sBoundingRadius + 512 )
       return v12 >= 0;
     else
       return true;
@@ -2021,7 +2021,7 @@ LABEL_33:
               v124 = v18;
               v125 = 0;
               v126 = 0;
-              v127 = sub_49AC17((int)byte_6BE3C8, v15, v16, v17);
+              v127 = IndoorLocation_sub_49AC17((int)pIndoor, v15, v16, v17);
               v19 = 8 * LODWORD(v141);
               LOBYTE(v19) = 8 * LOBYTE(v141) | 3;
               v133 = v19;
@@ -2103,7 +2103,7 @@ LABEL_191:
             v124 = v92;
             v125 = 0;
             v126 = 0;
-            v93 = sub_49AC17((int)byte_6BE3C8, v89, v90, v91);
+            v93 = IndoorLocation_sub_49AC17((int)pIndoor, v89, v90, v91);
             v87 = *(_DWORD *)(v88 + 12);
             v127 = v93;
             LODWORD(v140) = v87;
@@ -2797,7 +2797,7 @@ LABEL_183:
   v124 = v78;
   v125 = 0;
   v126 = 0;
-  v127 = sub_49AC17((int)byte_6BE3C8, v75, v76, v77);
+  v127 = IndoorLocation_sub_49AC17((int)pIndoor, v75, v76, v77);
   v79 = 8 * LODWORD(v141);
   LOBYTE(v79) = 8 * LOBYTE(v141) | 3;
   v133 = v79;
@@ -2858,14 +2858,14 @@ void __cdecl sub_464479_ResetCursorAndOther()
     dword_EF52A4 = 0;
   }
 
-  if ( uCurrentlyLoadedLevelType == 1 )
-    sub_498B15((int)byte_6BE3C8);
-  else if ( uCurrentlyLoadedLevelType == 2 )
-    pClass51_global->Clear();
+  if (uCurrentlyLoadedLevelType == 1)
+    pIndoor->Clear();
+  else if (uCurrentlyLoadedLevelType == 2)
+    pOutdoor->Clear();
 
-  if(!bNoSound)
+  if (!bNoSound)
   {
-    pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
+    pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
     SoundList_sub_4A9D79(pSoundList, 0);
   }
   SpriteFrameTable_fn3(pSpriteFrameTable);
@@ -4375,13 +4375,13 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
   dword_721110[0] = -1;
   dword_7211B0[0] = v9;
 
-  if ( pClass51_global->uNumBModels <= 0 )
+  if ( pOutdoor->uNumBModels <= 0 )
     goto LABEL_63;
 
 
-  for (i = 0; i < pClass51_global->uNumBModels; ++i)
+  for (i = 0; i < pOutdoor->uNumBModels; ++i)
   {
-    v10 = &pClass51_global->pBModels[i];
+    v10 = &pOutdoor->pBModels[i];
     if (v7 <= v10->sMaxX && v7 >= v10->sMinX)
       {
         if (v8 <= v10->sMaxY && v8 >= v10->sMinY)
@@ -4535,7 +4535,7 @@ LABEL_55:
 LABEL_56:
   if ( v29 )
   {
-    v34 = *(_DWORD *)((char *)&pClass51_global->pBModels[dword_721160[v29]] + 84) + 308 * dword_721110[v29];
+    v34 = *(_DWORD *)((char *)&pOutdoor->pBModels[dword_721160[v29]] + 84) + 308 * dword_721110[v29];
     *(_DWORD *)a5 = 0;
     if ( *(_BYTE *)(v34 + 28) & 0x10 )
       *(_DWORD *)a5 = 1;
@@ -6145,7 +6145,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       v63 = pLevelDecorations[v2].vPosition.x;
       v64 = pLevelDecorations[v2].vPosition.y;
       v65 = pLevelDecorations[v2].vPosition.z;
-      v6 = sub_49AC17((int)byte_6BE3C8, v63, v64, v65);
+      v6 = IndoorLocation_sub_49AC17((int)pIndoor, v63, v64, v65);
     }
     else
     {
@@ -6192,7 +6192,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
         v44 = pParty_global->uEyelevel + pParty_global->vPosition.z;
         v43 = pParty_global->vPosition.z;
       }
-      v19 = sub_49AC17((int)byte_6BE3C8, v18, v43, v44);
+      v19 = IndoorLocation_sub_49AC17((int)pIndoor, v18, v43, v44);
     }
     else
     {
@@ -6262,12 +6262,12 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
   {
     if ( v26 == v62 )
       return 1;
-    if ( v57 >= 30 || (v27 = dword_6BE654, v28 = 116 * v66, v61 = 0, *(_WORD *)(116 * v66 + dword_6BE654 + 36) <= 0) )
+    if ( v57 >= 30 || (v27 = (int)pIndoor->ptr_000028C, v28 = 116 * v66, v61 = 0, *(_WORD *)(116 * v66 + (int)pIndoor->ptr_000028C + 36) <= 0) )
       break;
     while ( 1 )
     {
-      v30 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v28 + v27 + 40) + 2 * v61));
-      v31 = dword_6BE63C + 6 * **(_WORD **)(v30 + 48);
+      v30 = (int)pIndoor->pFaces + *(_WORD *)(*(_DWORD *)(v28 + v27 + 40) + 2 * v61);
+      v31 = (int)pIndoor->pVertices + 6 * **(_WORD **)(v30 + 48);
       v45 = *(_DWORD *)v31;
       v46 = *(_WORD *)(v31 + 4);
       v29 = *(_DWORD *)(v30 + 24) * (v46 - v65)
@@ -6298,7 +6298,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       if ( *(_DWORD *)(v30 + 28) + v37 + v63 * *(_DWORD *)(v30 + 16) + v64 * *(_DWORD *)(v30 + 20) <= 0 )
         goto LABEL_49;
 LABEL_53:
-      v27 = dword_6BE654;
+      v27 = (int)pIndoor->ptr_000028C;
 LABEL_54:
       ++v61;
       if ( v61 >= *(_WORD *)(v28 + v27 + 36) )
@@ -6437,7 +6437,7 @@ bool __cdecl sub_47F138_MessWithDecorations()
 
   v0 = 0;
   v7 = 0;
-    if ( !_strcmpi((char *)pClass51_global->pLocationFileName, "out09.odm") )
+    if ( !_strcmpi((char *)pOutdoor->pLocationFileName, "out09.odm") )
     v7 = 1;
 
   for (i = 0; i < uNumLevelDecorations; ++i)
@@ -6656,7 +6656,7 @@ signed int __fastcall sub_4075DB(int a1, int a2, int a3, int a4)
     v6 = a2;
     if ( !v8 )
     {
-      v9 = dword_6BE63C;
+      v9 = (int)pIndoor->pVertices;
       do
       {
         dword_4F5D98[v7] = *(_WORD *)(v9 + 6 * *(_WORD *)(*(_DWORD *)(v4 + 48) + 2 * v7));
@@ -6676,7 +6676,7 @@ signed int __fastcall sub_4075DB(int a1, int a2, int a3, int a4)
       v35 = a1;
       if ( !v12 )
       {
-        v13 = dword_6BE63C;
+        v13 = (int)pIndoor->pVertices;
         do
         {
           dword_4F5D98[v11] = *(_WORD *)(v13 + 6 * *(_WORD *)(*(_DWORD *)(v4 + 48) + 2 * v11));
@@ -6693,7 +6693,7 @@ signed int __fastcall sub_4075DB(int a1, int a2, int a3, int a4)
       v35 = a2;
       if ( !v16 )
       {
-        v17 = dword_6BE63C;
+        v17 = (int)pIndoor->pVertices;
         do
         {
           dword_4F5D98[v15] = *(_WORD *)(v17 + 6 * *(_WORD *)(*(_DWORD *)(v4 + 48) + 2 * v15) + 2);
@@ -7150,13 +7150,13 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
         v98 = v54;
         v96 = v50;
       }
-      v60 = sub_49AC17((int)byte_6BE3C8, v96, v98, v100);
-      v58 = dword_6BE654;
+      v60 = IndoorLocation_sub_49AC17((int)pIndoor, v96, v98, v100);
+      v58 = (int)pIndoor->ptr_000028C;
       v59 = 116 * v60;
       v154 = 0;
-      for ( i = 116 * v60; v154 < *(_WORD *)(v59 + dword_6BE654 + 12) + 2 * *(_WORD *)(v59 + dword_6BE654 + 4); ++v154 )
+      for ( i = 116 * v60; v154 < *(_WORD *)(v59 + (int)pIndoor->ptr_000028C + 12) + 2 * *(_WORD *)(v59 + (int)pIndoor->ptr_000028C + 4); ++v154 )
       {
-        v61 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v59 + v58 + 16) + 2 * v154));
+        v61 = (int)pIndoor->pFaces + *(_WORD *)(*(_DWORD *)(v59 + v58 + 16) + 2 * v154);
         if ( *(_BYTE *)(v61 + 44) & 1
           || v118 > *(_WORD *)(v61 + 82)
           || v122 < *(_WORD *)(v61 + 80)
@@ -7206,7 +7206,7 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
         }
         v59 = i;
 LABEL_107:
-        v58 = dword_6BE654;
+        v58 = (int)pIndoor->ptr_000028C;
       }
       ++v157;
       if ( v157 >= 2 )
@@ -7290,12 +7290,12 @@ LABEL_107:
         v99 = v81;
         v97 = v77;
       }
-      v87 = sub_49AC17((int)byte_6BE3C8, v97, v99, v101);
-      v85 = dword_6BE654;
+      v87 = IndoorLocation_sub_49AC17((int)pIndoor, v97, v99, v101);
+      v85 = (int)pIndoor->ptr_000028C;
       v86 = 116 * v87;
       v161 = 0;
       v110 = v86;
-      if ( *(_WORD *)(v86 + dword_6BE654 + 12) + 2 * *(_WORD *)(v86 + dword_6BE654 + 4) > 0 )
+      if ( *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 12) + 2 * *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 4) > 0 )
         break;
 LABEL_148:
       ++v158;
@@ -7310,7 +7310,7 @@ LABEL_148:
     }
     while ( 1 )
     {
-      v88 = (int)(ptr_6BE644 + *(_WORD *)(*(_DWORD *)(v86 + v85 + 16) + 2 * v161));
+      v88 = (int)pIndoor->pFaces + *(_WORD *)(*(_DWORD *)(v86 + v85 + 16) + 2 * v161);
       if ( *(_BYTE *)(v88 + 44) & 1
         || v119 > *(_WORD *)(v88 + 82)
         || v123 < *(_WORD *)(v88 + 80)
@@ -7360,9 +7360,9 @@ LABEL_148:
       }
       v86 = v110;
 LABEL_145:
-      v85 = dword_6BE654;
+      v85 = (int)pIndoor->ptr_000028C;
       ++v161;
-      if ( v161 >= *(_WORD *)(v86 + dword_6BE654 + 12) + 2 * *(_WORD *)(v86 + dword_6BE654 + 4) )
+      if ( v161 >= *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 12) + 2 * *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 4) )
         goto LABEL_148;
     }
   }
@@ -7419,20 +7419,20 @@ LABEL_145:
     v128 = v165.z;
   }
   v159 = 0;
-  if ( pClass51_global->uNumBModels > 0 )
+  if ( pOutdoor->uNumBModels > 0 )
   {
     v102 = 0;
     while ( 1 )
     {
-      v16 = v102 + (int)pClass51_global->pBModels + 68;
-      v155 = v102 + (int)pClass51_global->pBModels + 68;
+      v16 = v102 + (int)pOutdoor->pBModels + 68;
+      v155 = v102 + (int)pOutdoor->pBModels + 68;
       if ( sub_4088E9(
              v12,
              v165.y,
              v162.x,
              v15,
-             *(_DWORD *)(v102 + pClass51_global->pBModels + 112),
-             *(_DWORD *)(v102 + pClass51_global->pBModels + 116)) <= *(_DWORD *)(v102 + pClass51_global->pBModels + 184) + 128 )
+             *(_DWORD *)(v102 + pOutdoor->pBModels + 112),
+             *(_DWORD *)(v102 + pOutdoor->pBModels + 116)) <= *(_DWORD *)(v102 + pOutdoor->pBModels + 184) + 128 )
       {
         v152 = 0;
         if ( *(_DWORD *)(v16 + 8) > 0 )
@@ -7441,7 +7441,7 @@ LABEL_145:
 LABEL_36:
       ++v159;
       v102 += 188;
-      if ( v159 >= pClass51_global->uNumBModels )
+      if ( v159 >= pOutdoor->uNumBModels )
         goto LABEL_37;
       v15 = v162.y;
       v12 = v165.x;
@@ -7557,20 +7557,20 @@ LABEL_37:
     v129 = v165.z;
   }
   v160 = 0;
-  if ( pClass51_global->uNumBModels > 0 )
+  if ( pOutdoor->uNumBModels > 0 )
   {
     v103 = 0;
     while ( 1 )
     {
-      v37 = v103 + (int)pClass51_global->pBModels + 68;
-      v156 = v103 + (int)pClass51_global->pBModels + 68;
+      v37 = v103 + (int)pOutdoor->pBModels + 68;
+      v156 = v103 + (int)pOutdoor->pBModels + 68;
       if ( sub_4088E9(
              v33,
              v165.y,
              v162.x,
              v36,
-             *(_DWORD *)(v103 + pClass51_global->pBModels + 112),
-             *(_DWORD *)(v103 + pClass51_global->pBModels + 116)) <= *(_DWORD *)(v103 + pClass51_global->pBModels + 184) + 128 )
+             *(_DWORD *)(v103 + pOutdoor->pBModels + 112),
+             *(_DWORD *)(v103 + pOutdoor->pBModels + 116)) <= *(_DWORD *)(v103 + pOutdoor->pBModels + 184) + 128 )
       {
         v153 = 0;
         if ( *(_DWORD *)(v37 + 8) > 0 )
@@ -7579,7 +7579,7 @@ LABEL_37:
 LABEL_71:
       ++v160;
       v103 += 188;
-      if ( v160 >= pClass51_global->uNumBModels )
+      if ( v160 >= pOutdoor->uNumBModels )
         return !v112 || !v111;
       v36 = v162.y;
       v33 = v165.x;

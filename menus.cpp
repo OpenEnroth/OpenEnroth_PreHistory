@@ -13,7 +13,7 @@
 
 #include "GUI\GUI.h"
 
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "Actor.h"
 #include "UserInput.h"
  
@@ -1199,7 +1199,7 @@ int __fastcall SaveGame(int a1, int a2)
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v13 = DstBuf;
-        dword_6BE69C = dword_6BE640;
+        dword_6BE69C = pIndoor->uNumFaces;
         dword_6BE6A4 = 0;
         dword_6BE6A0 = uNumLevelDecorations;
         memcpy(DstBuf, &unk_6BE68C, 40);
@@ -1207,18 +1207,18 @@ int __fastcall SaveGame(int a1, int a2)
         memcpy(v13, byte_6BE6EC, 875);
         v12 = (char *)v13 + 875;
         v75 = 0;
-        if ( dword_6BE640 > 0 )
+        if ( pIndoor->uNumFaces > 0 )
         {
           v73 = 0;
           do
           {
-            v42 = (int)((int)v73/96 + ptr_6BE644) + 44;
+            v42 = (int)((int)v73/96 + pIndoor->pFaces) + 44;
             memcpy(v12, (const void *)v42, 4);
             v73 = (char *)v73 + 96;
             v12 = (char *)v12 + 4;
             ++v75;
           }
-          while ( v75 < dword_6BE640 );
+          while ( v75 < pIndoor->uNumFaces );
         }
 
         v75 = 0;
@@ -1261,13 +1261,13 @@ int __fastcall SaveGame(int a1, int a2)
       {
         
         dword_6A12C8 = 0;
-		  for (v20 = 0;v20 < pClass51_global->uNumBModels; ++v20)
+		  for (v20 = 0;v20 < pOutdoor->uNumBModels; ++v20)
           {
-		      dword_6A12C8 += pClass51_global->pBModels[v20].uNumFaces;
+		      dword_6A12C8 += pOutdoor->pBModels[v20].uNumFaces;
           }
 
         v24 = DstBuf;
-        dword_6A12D0 = pClass51_global->uNumBModels;
+        dword_6A12D0 = pOutdoor->uNumBModels;
         dword_6A12CC = uNumLevelDecorations;
         memcpy(DstBuf, &unk_6A12B8,40);
         v24 = (char *)v24 + 40;
@@ -1275,14 +1275,14 @@ int __fastcall SaveGame(int a1, int a2)
         v24 = (char *)v24 + 968;
         memcpy(v24, &unk_6A16E0, 968);
         v23 = (char *)v24 + 968;  
-        if ( pClass51_global->uNumBModels > 0 )
+        if ( pOutdoor->uNumBModels > 0 )
         {
         
-           for (v75 = 0;v75 < pClass51_global->uNumBModels; v75++)
+           for (v75 = 0;v75 < pOutdoor->uNumBModels; v75++)
           {
-             for (v71 = 0;v71 < pClass51_global->pBModels->uNumFaces; v71++)
+             for (v71 = 0;v71 < pOutdoor->pBModels->uNumFaces; v71++)
               {		
-                memcpy(v23, &pClass51_global->pBModels[v75].pFaces[v71].uFaceAttributes, 4);
+                memcpy(v23, &pOutdoor->pBModels[v75].pFaces[v71].uFaceAttributes, 4);
                 v23 = (char *)v23 + 4;
               }
 

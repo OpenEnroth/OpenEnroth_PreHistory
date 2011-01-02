@@ -3,7 +3,7 @@
 
 #include "defs.h"
 #include "RenderD3D3.h"
-#include "Level.h"
+#include "Environment\Outdoor.h"
 #include "FrameTables.h"
  #include "_lod.h"
 #include "data.h"
