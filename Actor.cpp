@@ -183,7 +183,7 @@ struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObje
  {
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-   IndoorLocation::BLVFace *pFace = &pIndoor->pFaces[uObject1ID];
+   BLVFace *pFace = &pIndoor->pFaces[uObject1ID];
    v0 = Vec3<int>((pFace->cBoundingBoxX.min + pFace->cBoundingBoxX.max) / 2,
                   (pFace->cBoundingBoxY.min + pFace->cBoundingBoxY.max) / 2,
                   (pFace->cBoundingBoxZ.min + pFace->cBoundingBoxZ.max) / 2);
@@ -217,7 +217,7 @@ struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObje
     v0 = pLevelDecorations[uObject2ID].vPosition;
  else if (uObject2Type == 6)
  {
-  IndoorLocation::BLVFace *pFace = &pIndoor->pFaces[uObject1ID];
+  BLVFace *pFace = &pIndoor->pFaces[uObject1ID];
   v1 = Vec3<int>((pFace->cBoundingBoxX.min + pFace->cBoundingBoxX.max) / 2,
                  (pFace->cBoundingBoxY.min + pFace->cBoundingBoxY.max) / 2,
                  (pFace->cBoundingBoxZ.min + pFace->cBoundingBoxZ.max) / 2);

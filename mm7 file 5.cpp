@@ -5683,7 +5683,7 @@ LABEL_45:
 int __thiscall sub_46E889(int a1)
 {
   int result; // eax@1
-  struct BSPModel::Face *v4; // eax@11
+  struct ODMFace *v4; // eax@11
   int v5; // ecx@17
   int v6; // edi@17
   int v7; // esi@17
@@ -5703,7 +5703,7 @@ int __thiscall sub_46E889(int a1)
   int v21; // eax@42
   int v24; // eax@43
 
-  struct IndoorLocation::BLVFace local_0C;
+  struct BLVFace local_0C;
   /*struct unnamed_local_0C
   {
    //char v25; // [sp+Ch] [bp-7Ch]@1
@@ -5805,7 +5805,7 @@ _proceed:
       local_0C.pZInterceptDisplacements = v4->pZInterceptDisplacements;
       local_0C.uPolygonType = v4->uPolygonType;
       local_0C.uNumVertices = v4->uNumVertices;
-      local_0C.uTextureID = v4->uTextureID;
+      local_0C.uBitmapID = v4->uTextureID;
       local_0C.pVertexIDs = v4->pVertexIDs;
       if ( v5 & 0x20000000 || v5 & 1 )
         continue;
@@ -6313,14 +6313,14 @@ void __cdecl sub_46F228()
   v1 = 0;
   v89 = (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID];
   v84 = 0;
-  if ( pIndoor->dword_000298 > 0 )
+  if ( pIndoor->uNumDoors > 0 )
   {
     v83 = 0;
     do
     {
-      v3 = (char *)pIndoor->ptr_000029C + v83;
-      v90 = (char *)pIndoor->ptr_000029C + v83;
-      v2 = *(_WORD *)((char *)pIndoor->ptr_000029C + v83 + 76);
+      v3 = (char *)pIndoor->pDoors + v83;
+      v90 = (char *)pIndoor->pDoors + v83;
+      v2 = *(_WORD *)((char *)pIndoor->pDoors + v83 + 76);
       if ( v2 == (_WORD)v0 || v2 == 2 )
       {
         *(_DWORD *)v3 &= 0xFFFFFFFDu;
@@ -6624,7 +6624,7 @@ LABEL_62:
       ++v1;
       v84 = v1;
     }
-    while ( v1 < pIndoor->dword_000298 );
+    while ( v1 < pIndoor->uNumDoors );
   }
 }
 
@@ -10376,9 +10376,10 @@ int __cdecl sub_47752B()
   int v5; // eax@9
   int v6; // eax@11
 
-  v0 = &unk_6A12B8;
+  v0 = (char *)&pOutdoor->cDDMHeader;
   if ( uCurrentlyLoadedLevelType != 2 )
-    v0 = &unk_6BE68C;
+    v0 = (char *)&pIndoor->cDLVHeader;
+
   v1 = 0;
   v2 = CheckHiredNPCSpeciality(0x2D);
   if ( v2 )
@@ -11124,7 +11125,7 @@ char __cdecl RenderBuildings()
   char result; // al@3
   int v1; // eax@3
   int v2; // ebx@4
-  struct BSPModel::Face *v4; // esi@6
+  struct ODMFace *v4; // esi@6
   int v6; // ecx@8
   int v7; // ecx@8
  struct struct8 *v8; // ebx@8
@@ -11465,7 +11466,7 @@ LABEL_85:
 bool struct8_sub_479295(struct struct8 *_this)
 {
   int v1; // edi@1
- struct BSPModel::Face *v2; // esi@1
+ struct ODMFace *v2; // esi@1
   int v3; // eax@4
   int v4; // edx@4
   int v5; // ecx@4
@@ -14991,10 +14992,10 @@ signed int __cdecl sub_489487()
 LABEL_14:
     if ( sub_464839() )
       sub_464851();
-    dword_6A12F8 = dword_6BE040;
-    dword_6A12FC = dword_6BE044;
+    pOutdoor->array_0004F0[6] = dword_6BE040;
+    pOutdoor->array_0004F0[7] = dword_6BE044;
     result = dword_6BE030;
-    dword_6A12F4 = dword_6BE030;
+    pOutdoor->array_0004F0[5] = dword_6BE030;
   }
   return result;
 }

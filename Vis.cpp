@@ -105,7 +105,7 @@ void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unna
 
 
 //----- (004C1026) --------------------------------------------------------
-int __thiscall Vis_sub_4C1026(struct Vis *_this, IndoorLocation::BLVFace *a2, int a3, float a4)
+int __thiscall Vis_sub_4C1026(struct Vis *_this, BLVFace *a2, int a3, float a4)
 {
   _UNKNOWN *v4; // eax@4
   signed int v5; // ecx@4
@@ -1051,7 +1051,7 @@ int Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(Vis *_this, float a2, class25 *a3, 
             {
               v8 = 8 * v5;
               LOBYTE(v8) = 8 * v5 | 6;
-              v7 = Vis_sub_4C1026(_this, (IndoorLocation::BLVFace *)v6, v8, a2);
+              v7 = Vis_sub_4C1026(_this, (BLVFace *)v6, v8, a2);
               if ( v7 )
               {
                 v9 = *(_DWORD *)(v7 + 4);
@@ -1083,7 +1083,7 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
   int v13; // eax@8
   int v14; // ecx@9
 
-  struct IndoorLocation::BLVFace local_10;
+  struct BLVFace local_10;
   //int v15[0x60/4]; // [sp+10h] [bp-84h]@1
 
   int v16; // [sp+70h] [bp-24h]@9
@@ -1110,10 +1110,10 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
             v21 = 0;
             do
             {
-             BSPModel::Face *pFace = pModel->pFaces + (v21 / 308);
+             ODMFace *pFace = pModel->pFaces + (v21 / 308);
               if ( Vis_is_part_of_selection((unsigned int)pFace, a4) )
               {
-                sub_4C0EF2_BSPModel_Face_To_BLV_Face(&local_10, pFace);
+                sub_4C0EF2_ODMFace_to_BLVFace(&local_10, pFace);
                 v13 = 8 * (v23 | (i << 6));
                 LOBYTE(v13) = v13 | 6;
                 v12 = Vis_sub_4C1026(_this, &local_10, v13, a2);
@@ -1164,7 +1164,7 @@ class25::class25()
 
 
 //----- (004C1C0C) --------------------------------------------------------
-char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pRay_SomePoint, IndoorLocation::BLVFace *a5, int a6)
+char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pRay_SomePoint, BLVFace *a5, int a6)
 {
   int v6; // eax@1
   double v8; // st7@3
@@ -1316,7 +1316,7 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
   //int v12; // eax@12
   //int v13; // edi@12
 
-  struct IndoorLocation::BLVFace local_10;
+  struct BLVFace local_10;
   //char v17[0x60]; // [sp+10h] [bp-B8h]@1
 
   RenderVertex cRay_SomePoint;
@@ -1375,11 +1375,11 @@ LABEL_8:
 
     for (unsigned int j = 0; j < pBModel->uNumFaces; ++j)
     {
-     BSPModel::Face *pStru2 = pBModel->pFaces + j;
+     ODMFace *pStru2 = pBModel->pFaces + j;
 
      if (Vis_is_part_of_selection((unsigned int)pStru2, a5))
      {
-          sub_4C0EF2_BSPModel_Face_To_BLV_Face(&local_10, pStru2);
+          sub_4C0EF2_ODMFace_to_BLVFace(&local_10, pStru2);
           if ( sub_4C1C0C(pRay, pRay + 1, &a2, &cRay_SomePoint, &local_10, v29) )
           {
             sub_436523(&cRay_SomePoint, 1);
@@ -1408,7 +1408,7 @@ LABEL_8:
 
 
 //----- (004C0EF2) --------------------------------------------------------
-void sub_4C0EF2_BSPModel_Face_To_BLV_Face(IndoorLocation::BLVFace *_this, BSPModel::Face *a2)
+void sub_4C0EF2_ODMFace_to_BLVFace(BLVFace *_this, ODMFace *a2)
 {
  _this->vFaceNormal = a2->vFaceNormal;
  _this->sNormalDistance = a2->sNormalDistance;
@@ -1423,7 +1423,7 @@ void sub_4C0EF2_BSPModel_Face_To_BLV_Face(IndoorLocation::BLVFace *_this, BSPMod
  _this->zCalc3 = a2->zCalc3;
  _this->uFaceAttributes = a2->uFaceAttributes;
 
- _this->uTextureID = a2->uTextureID;
+ _this->uBitmapID = a2->uTextureID;
 
  _this->cBoundingBoxX = a2->cBoundingBoxX;
  _this->cBoundingBoxY = a2->cBoundingBoxY;
@@ -1441,7 +1441,7 @@ void sub_4C0EF2_BSPModel_Face_To_BLV_Face(IndoorLocation::BLVFace *_this, BSPMod
 
 
 //----- (00436455) --------------------------------------------------------
-char __stdcall sub_436455(IndoorLocation::BLVFace *a1)
+char __stdcall sub_436455(BLVFace *a1)
 {
   char v2; // [sp+8h] [bp-30h]@1
 
@@ -1450,7 +1450,7 @@ char __stdcall sub_436455(IndoorLocation::BLVFace *a1)
 }
 
 //----- (00438258) --------------------------------------------------------
-char __stdcall sub_438258(IndoorLocation::BLVFace *a1, int a2)
+char __stdcall sub_438258(BLVFace *a1, int a2)
 {
   char result; // al@2
 
@@ -1468,7 +1468,7 @@ char __stdcall sub_438258(IndoorLocation::BLVFace *a1, int a2)
 
 
 //----- (004C1EE5) --------------------------------------------------------
-char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, IndoorLocation::BLVFace *a6)
+char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, BLVFace *a6)
 {
   int v6; // ecx@1
   int v7; // ecx@2
@@ -1580,7 +1580,7 @@ char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4
 }
 
 //----- (004C2186) --------------------------------------------------------
-Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, IndoorLocation::BLVFace *a6, unsigned int uModelID)
+Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, BLVFace *a6, unsigned int uModelID)
 {
  if (a6->uFaceAttributes & 0x0100) // xy plane polygon
  {

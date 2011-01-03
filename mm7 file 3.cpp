@@ -168,9 +168,11 @@ LABEL_12:
           dword_AE31E0 = 0;
         if ( dword_AE31E0 > 4000000 )
           dword_AE31E0 = 4000000;
-        v6 = &unk_6A12B8;
+
+        v6 = (char *)&pOutdoor->cDDMHeader;
         if ( uCurrentlyLoadedLevelType != 2 )
-          v6 = &unk_6BE68C;
+          v6 = (char *)&pIndoor->cDLVHeader;
+
         v7 = *((_DWORD *)v6 + 2);
         if ( v7 < 10000 )
           *((_DWORD *)v6 + 2) = v7 + 1;
@@ -4582,7 +4584,7 @@ LABEL_14:
 }
 
 //----- (00441BD4) --------------------------------------------------------
-void __cdecl sub_441BD4()
+void __cdecl sub_441BD4_DrawIndoor()
 {
   signed int v0; // eax@1
   int v1; // [sp+0h] [bp-4Ch]@5
@@ -4950,10 +4952,10 @@ LABEL_23:
 LABEL_8:
 	v92 = 0xFF000000;
 	v86 = 0xFF00FFFF;
-	v7 = (int)pIndoor->ptr_00002A8;
+	v7 = (int)pIndoor->ptr_0002A8;
 	dword_576D14 = 0;
-	v8 = *(_DWORD *)pIndoor->ptr_00002A8 == 0;
-	v9 = *(_DWORD *)pIndoor->ptr_00002A8 < 0;
+	v8 = *(_DWORD *)pIndoor->ptr_0002A8 == 0;
+	v9 = *(_DWORD *)pIndoor->ptr_0002A8 < 0;
 	v97 = 0;
 	if ( !(v9 | v8) )
 	{
@@ -4972,7 +4974,7 @@ LABEL_8:
 				v99 = v97 >> 3;
 				v13 = v97;
 				*(_WORD *)(v10 + 10) = v12 | 1;
-				byte_6BE6EC[v99] |= 1 << (7 - v13 % 8);
+				pIndoor->unk_000324[v99] |= 1 << (7 - v13 % 8);
 			}
 
 			v14 = *(_WORD *)v10;
@@ -4999,7 +5001,7 @@ LABEL_8:
 			v95 = (unsigned __int64)(v20 * v5) >> 16;
       
 			Render_FillRect(pD3DRenderer,v88 + v91, v93 - v90, v88 + ((unsigned __int64)((v19 - v6) * v5) >> 16),v93 - v95,v92);
-			v7 = (int)pIndoor->ptr_00002A8;
+			v7 = (int)pIndoor->ptr_0002A8;
 
 
 LABEL_17:
@@ -5042,7 +5044,7 @@ LABEL_17:
 				
 			if ( v21 >= dword_576D14 ) break;
       
-			v7 = (int)pIndoor->ptr_00002A8;
+			v7 = (int)pIndoor->ptr_0002A8;
 		}
 
 		v6 = v89;
@@ -9350,7 +9352,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
   if ( result )
   {
     v11 = uNumActors;
-    sub_44F57C_MaybeCreateRandomMonster((int)&pMapStats->pMapInfos[(_DWORD)result], (int)&v17, 0, a3, 0);
+    sub_44F57C_SpawnMonsters((int)&pMapStats->pMapInfos[(_DWORD)result], (SpawnPointMM7 *)&v17, 0, a3, 0);
     result = GetDirectionInfo(8 * v11 | 3, 4, &local_0C, 1);
     memcpy(&v15, result, 0x1Cu);
     v12 = v11;
@@ -9512,7 +9514,7 @@ void __fastcall sub_448DF8(int a1, int a2, signed int a3, int a4, __int64 a5, si
   if ( v73 <= 0 || v73 > 4 )
     v14 = 1;
   v79 = v14;
-  sub_404828(&v57);
+  sub_404828_ctor((sub_404828_stru0 *)&v57);
   v57 = word_4E3ACC[2 * v75];
   if ( v75 > 58 )
   {
@@ -10003,12 +10005,12 @@ __int16 __fastcall sub_449A49(int a1, int a2)
   signed int v9; // esi@19
   char Args[40]; // [sp+Ch] [bp-78h]@6
 
-  LOWORD(v2) = (_WORD)pIndoor->ptr_000029C;
+  LOWORD(v2) = (_WORD)pIndoor->pDoors;
   v3 = a2;
-  if ( !pIndoor->ptr_000029C )
+  if ( !pIndoor->pDoors )
     return v2;
   v5 = 0;
-  v4 = (char *)pIndoor->ptr_000029C + 4;
+  v4 = (char *)pIndoor->pDoors + 4;
   do
   {
     if ( *(_DWORD *)v4 == a1 )
@@ -10022,7 +10024,7 @@ __int16 __fastcall sub_449A49(int a1, int a2)
     wsprintfA(Args, "Unable to find Door ID: %i!", a1);
     erroneous_printf(Args);
   }
-  v6 = (char *)pIndoor->ptr_000029C + 80 * v5;
+  v6 = (char *)pIndoor->pDoors + 80 * v5;
   if ( v3 == 2 )
   {
     LOWORD(v2) = *((_WORD *)v6 + 38);
@@ -10153,15 +10155,17 @@ char __thiscall Player_sub_449BB4(int _this, signed int a2, void *a3)
         v3 = (unsigned __int8)byte_ACD771;
         goto LABEL_170;
       case 275:
-        v19 = &unk_6A12B8;
+        v19 = (char *)&pOutdoor->cDDMHeader;
         if ( uCurrentlyLoadedLevelType != 2 )
-          v19 = &unk_6BE68C;
+          v19 = (char *)&pIndoor->cDLVHeader;
+
         v20 = *((_DWORD *)v19 + 2) >= (signed int)a3;
         goto LABEL_125;
       case 305:
-        v21 = &unk_6A12B8;
+        v21 = (char *)&pOutdoor->cDDMHeader;
         if ( uCurrentlyLoadedLevelType != 2 )
-          v21 = &unk_6BE68C;
+          v21 = (char *)&pIndoor->cDLVHeader;
+
         v20 = *((_DWORD *)v21 + 3) == (_DWORD)a3;
 LABEL_125:
         LOBYTE(v6) = v20;
@@ -10732,9 +10736,10 @@ LABEL_8:
       {
         if ( a2 == 275 )
         {
-          v23 = &unk_6A12B8;
+          v23 = (char *)&pOutdoor->cDDMHeader;
           if ( uCurrentlyLoadedLevelType != 2 )
-            v23 = &unk_6BE68C;
+            v23 = (char *)&pIndoor->cDLVHeader;
+
           *((_DWORD *)v23 + 2) = a3;
           if ( a3 > 10000 )
             *((_DWORD *)v23 + 2) = 10000;
@@ -11270,9 +11275,10 @@ LABEL_8:
       {
         if ( a2 == 275 )
         {
-          v27 = &unk_6A12B8;
+          v27 = (char *)&pOutdoor->cDDMHeader;
           if ( uCurrentlyLoadedLevelType != 2 )
-            v27 = &unk_6BE68C;
+            v27 = (char *)&pIndoor->cDLVHeader;
+
           *((_DWORD *)v27 + 2) += a3;
           if ( *((_DWORD *)v27 + 2) > 10000 )
             *((_DWORD *)v27 + 2) = 10000;
@@ -11834,9 +11840,10 @@ LABEL_8:
                 *(_DWORD *)v17 = 0;
               break;
             case 275:
-              v16 = &unk_6A12B8;
+              v16 = (char *)&pOutdoor->cDDMHeader;
               if ( uCurrentlyLoadedLevelType != 2 )
-                v16 = &unk_6BE68C;
+                v16 = (char *)&pIndoor->cDLVHeader;
+
               *((_DWORD *)v16 + 2) -= a3;
               if ( *((_DWORD *)v16 + 2) < -10000 )
                 *((_DWORD *)v16 + 2) = -10000;
@@ -12562,7 +12569,7 @@ char __thiscall Game_sub_44EDE4(int _this, int a2, void **a3)
 }
 
 //----- (0044EE30) --------------------------------------------------------
-bool Game_sub_44EE30(struct Game *_this, struct BSPModel::Face *a2, void **a3)
+bool Game_sub_44EE30(struct Game *_this, struct ODMFace *a2, void **a3)
 {
  if (_this->dword_000E24 & 2 && a2->uFaceAttributes & 0x02)
  {
@@ -12655,7 +12662,7 @@ LABEL_9:
 }
 
 //----- (0044F57C) --------------------------------------------------------
-int __fastcall sub_44F57C_MaybeCreateRandomMonster(int a1, int a2, int a3, signed int a4, int a5)
+int __fastcall sub_44F57C_SpawnMonsters(int a1, SpawnPointMM7 *a2, int a3, signed int a4, int a5)
 {
   int v5; // ebx@1
   int v6; // esi@1
@@ -12725,11 +12732,12 @@ int __fastcall sub_44F57C_MaybeCreateRandomMonster(int a1, int a2, int a3, signe
 
   v60 = 0;
   v6 = a1;
-  v5 = a2;
-  if ( uCurrentlyLoadedLevelType == 1 )
-    result = dword_6A12C4;
-  else
-    result = uCurrentlyLoadedLevelType == 2 ? dword_6BE698 : 0;
+  v5 = (int)a2;
+  if (uCurrentlyLoadedLevelType == 1)
+    result = pOutdoor->cDDMHeader.dword_00000C;
+  else if (uCurrentlyLoadedLevelType == 2)
+    result = pIndoor->cDLVHeader.dword_00000C;
+  else result = 0;
   if ( result )
   {
     v8 = (*(_BYTE *)(a2 + 18) & 1) == 0;
@@ -13246,7 +13254,7 @@ int __fastcall sub_44FD29(int a1, int a2)
 }
 
 //----- (0044FFD8) --------------------------------------------------------
-int __fastcall sub_44FFD8(int a1, int a2)
+int __fastcall sub_44FFD8_SpawnMonsters(int a1, SpawnPointMM7 *a2)
 {
   int result; // eax@1
   int v3; // ebx@1
@@ -13277,31 +13285,36 @@ int __fastcall sub_44FFD8(int a1, int a2)
   int v28; // eax@35
   int v29; // esi@35
   __int16 v30; // ax@35
-  __int16 v31; // [sp+Ch] [bp-7Ch]@1
-  __int16 v32; // [sp+Eh] [bp-7Ah]@25
-  int v33; // [sp+10h] [bp-78h]@35
-  int v34; // [sp+14h] [bp-74h]@35
-  int v35; // [sp+18h] [bp-70h]@35
-  __int16 v36; // [sp+22h] [bp-66h]@35
-  int v37; // [sp+24h] [bp-64h]@35
-  __int16 v38; // [sp+28h] [bp-60h]@35
-  __int16 v39; // [sp+2Ah] [bp-5Eh]@35
-  int v40; // [sp+30h] [bp-58h]@1
-  int v41; // [sp+3Ch] [bp-4Ch]@25
-  int v42; // [sp+44h] [bp-44h]@25
-  int v43; // [sp+54h] [bp-34h]@35
-  int v44; // [sp+58h] [bp-30h]@35
-  int v45; // [sp+5Ch] [bp-2Ch]@35
-  int v46; // [sp+64h] [bp-24h]@35
-  int v47; // [sp+68h] [bp-20h]@35
+
+  sub_404828_stru0 local_0C;
+  //__int16 v31; // [sp+Ch] [bp-7Ch]@1
+  //__int16 v32; // [sp+Eh] [bp-7Ah]@25
+  //int v33; // [sp+10h] [bp-78h]@35
+  //int v34; // [sp+14h] [bp-74h]@35
+  //int v35; // [sp+18h] [bp-70h]@35
+  //__int16 v36; // [sp+22h] [bp-66h]@35
+  //int v37; // [sp+24h] [bp-64h]@35
+  //__int16 v38; // [sp+28h] [bp-60h]@35
+  //__int16 v39; // [sp+2Ah] [bp-5Eh]@35
+  //ItemGen v40;
+  // //int v40; // [sp+30h] [bp-58h]@1
+  // //int v41; // [sp+3Ch] [bp-4Ch]@25
+  // //int v42; // [sp+44h] [bp-44h]@25
+  //int v43; // [sp+54h] [bp-34h]@35
+  //int v44; // [sp+58h] [bp-30h]@35
+  //int v45; // [sp+5Ch] [bp-2Ch]@35
+  //int v46; // [sp+64h] [bp-24h]@35
+  //int v47; // [sp+68h] [bp-20h]@35
   int v48; // [sp+7Ch] [bp-Ch]@1
   int v49; // [sp+80h] [bp-8h]@1
   int v50; // [sp+84h] [bp-4h]@1
 
   v5 = a1;
-  v4 = a2;
-  sub_404828(&v31);
-  ItemGen_Reset((ItemGen *)&v40);
+  v4 = (int)a2;
+
+  sub_404828_ctor(&local_0C);
+  ItemGen_Reset(&local_0C.local_000024);
+
   v6 = rand();
   v50 = 0;
   v7 = v6 % 100;
@@ -13353,8 +13366,8 @@ int __fastcall sub_44FFD8(int a1, int a2)
               {
 LABEL_20:
                 v16 = 0;
-                v15 = word_5D29F8[24 * v40];
-                v31 = word_5D29F8[24 * v40];
+                v15 = word_5D29F8[24 * local_0C.local_000024.uItemID];
+                local_0C.word_000000 = word_5D29F8[24 * local_0C.local_000024.uItemID];
                 if ( pObjectDescriptionList->uNumObjects <= 0 )
                 {
 LABEL_24:
@@ -13372,34 +13385,34 @@ LABEL_24:
                   }
                   v18 = v16;
                 }
-                v42 |= 1u;
-                v32 = v18;
-                v41 = v50;
+                local_0C.local_000024.uAttributes |= 1;
+                local_0C.word_000002 = v18;
+                local_0C.local_000024.dword_00000C = v50;
                 goto LABEL_35;
               }
               v14 = rand() % 3001 + 2000;
             }
-            v40 = 199;
+            local_0C.local_000024.uItemID = 199;
 LABEL_19:
             v50 = v14;
             goto LABEL_20;
           }
           v14 = rand() % 501 + 500;
         }
-        v40 = 198;
+        local_0C.local_000024.uItemID = 198;
         goto LABEL_19;
       }
       v14 = rand() % 101 + 100;
     }
-    v40 = 197;
+    local_0C.local_000024.uItemID = 197;
     goto LABEL_19;
   }
-  result = sub_4505CC(&v40);
+  result = sub_4505CC(&local_0C.local_000024);
   if ( !result )
     return result;
   v24 = 0;
-  v23 = word_5D29F8[24 * v40];
-  v31 = word_5D29F8[24 * v40];
+  v23 = word_5D29F8[24 * local_0C.local_000024.uItemID];
+  local_0C.word_000000 = word_5D29F8[24 * local_0C.local_000024.uItemID];
   if ( pObjectDescriptionList->uNumObjects <= 0 )
   {
 LABEL_33:
@@ -13417,26 +13430,27 @@ LABEL_33:
     }
     v26 = v24;
   }
-  v32 = v26;
-  ItemGen_Reset((ItemGen *)&v40);
+  local_0C.word_000002 = v26;
+  ItemGen_Reset(&local_0C.local_000024);
 LABEL_35:
   v27 = *(_DWORD *)(v4 + 4);
   v28 = *(_DWORD *)v4;
   v29 = *(_DWORD *)(v4 + 8);
-  v34 = v27;
-  v37 = 0;
-  v36 = 0;
-  v35 = v29;
-  v33 = v28;
-  v45 = 0;
-  v44 = 0;
-  v43 = 0;
+  local_0C.dword_000008 = v27;
+  local_0C.word_000018 = 0;
+  local_0C.word_00001A = 0;
+  local_0C.word_000016 = 0;
+  local_0C.dword_00000C = v29;
+  local_0C.dword_000004 = v28;
+  local_0C.dword_000050 = 0;
+  local_0C.dword_00004C = 0;
+  local_0C.dword_000048 = 0;
   v30 = IndoorLocation_sub_49AC17((int)pIndoor, v28, v27, v29);
-  v47 = 0;
-  v46 = 0;
-  v39 = 0;
-  v38 = v30;
-  return sub_42F5ED((int)&v31, 0, 0, 0, 0);
+  local_0C.dword_00005C = 0;
+  local_0C.dword_000058 = 0;
+  local_0C.word_00001E = 0;
+  local_0C.word_00001C = v30;
+  return sub_42F5ED((int)&local_0C, 0, 0, 0, 0);
 }
 
 //----- (00450521) --------------------------------------------------------
@@ -13448,26 +13462,27 @@ signed int __fastcall sub_450521(int a1, signed int a2, int a3, signed int a4, i
   signed int v9; // esi@1
   int v10; // edx@2
   __int16 v11; // ax@5
-  __int16 v13; // [sp+8h] [bp-70h]@1
-  __int16 v14; // [sp+Ah] [bp-6Eh]@6
-  int v15; // [sp+Ch] [bp-6Ch]@6
-  int v16; // [sp+10h] [bp-68h]@6
-  int v17; // [sp+14h] [bp-64h]@6
-  __int16 v18; // [sp+1Eh] [bp-5Ah]@6
-  __int16 v19; // [sp+22h] [bp-56h]@6
-  __int16 v20; // [sp+24h] [bp-54h]@6
-  __int16 v21; // [sp+26h] [bp-52h]@6
 
-  struct ItemGen local_2C;
-  //int Dst; // [sp+2Ch] [bp-4Ch]@1
+  sub_404828_stru0 local_08;
+  //__int16 v13; // [sp+8h] [bp-70h]@1
+  //__int16 v14; // [sp+Ah] [bp-6Eh]@6
+  //int v15; // [sp+Ch] [bp-6Ch]@6
+  //int v16; // [sp+10h] [bp-68h]@6
+  //int v17; // [sp+14h] [bp-64h]@6
+  //__int16 v18; // [sp+1Eh] [bp-5Ah]@6
+  //__int16 v19; // [sp+22h] [bp-56h]@6
+  //__int16 v20; // [sp+24h] [bp-54h]@6
+  //__int16 v21; // [sp+26h] [bp-52h]@6
+  //struct ItemGen local_2C;
+  //  //int Dst; // [sp+2Ch] [bp-4Ch]@1
 
   v8 = a1;
   v9 = a2;
-  sub_404828(&v13);
-  class40_sub_456620_CreateSomeSemirandomItem(pClass40, v8, v9, &local_2C);
+  sub_404828_ctor(&local_08);
+  class40_sub_456620_CreateSomeSemirandomItem(pClass40, v8, v9, &local_08.local_000024);
   v7 = 0;
-  v6 = word_5D29F8[24 * local_2C.uItemID];
-  v13 = word_5D29F8[24 * local_2C.uItemID];
+  v6 = word_5D29F8[24 * local_08.local_000024.uItemID];
+  local_08.word_000000 = word_5D29F8[24 * local_08.local_000024.uItemID];
   if ( pObjectDescriptionList->uNumObjects <= 0 )
   {
 LABEL_5:
@@ -13485,15 +13500,15 @@ LABEL_5:
     }
     v11 = v7;
   }
-  v14 = v11;
-  v16 = a4;
-  v15 = a3;
-  v17 = a5;
-  v18 = a6;
-  v19 = 0;
-  v20 = IndoorLocation_sub_49AC17((int)pIndoor, a3, a4, a5);
-  v21 = 0;
-  return sub_42F5ED((int)&v13, 0, 0, 0, 0);
+  local_08.word_000002 = v11;
+  local_08.dword_000008 = a4;
+  local_08.dword_000004 = a3;
+  local_08.dword_00000C = a5;
+  local_08.word_000016 = a6;
+  local_08.word_00001A = 0;
+  local_08.word_00001C = IndoorLocation_sub_49AC17((int)pIndoor, a3, a4, a5);
+  local_08.word_00001E = 0;
+  return sub_42F5ED((int)&local_08, 0, 0, 0, 0);
 }
 
 //----- (004505CC) --------------------------------------------------------
@@ -13675,7 +13690,7 @@ LABEL_8:
   }
   else
   {
-    sub_44F57C_MaybeCreateRandomMonster(v24, (int)&v19, 0, 0, 1);
+    sub_44F57C_SpawnMonsters(v24, (SpawnPointMM7 *)&v19, 0, 0, 1);
     result = v27;
   }
   return result;
@@ -13705,7 +13720,7 @@ int __thiscall sub_450929(void *_this)
   {
     switch ( v1 )
     {
-      case 209:
+      case 209: 
         result = rand() % 7 + 183;
         break;
       case 210:
@@ -13945,10 +13960,11 @@ int __cdecl sub_450DA3()
 {
   int result; // eax@2
 
-  if ( uCurrentlyLoadedLevelType == 1 )
-    result = dword_6A12C4;
-  else
-    result = uCurrentlyLoadedLevelType == 2 ? dword_6BE698 : 0;
+  if (uCurrentlyLoadedLevelType == 1)
+    result = pOutdoor->cDDMHeader.dword_00000C;
+  else if (uCurrentlyLoadedLevelType == 2)
+    result = pIndoor->cDLVHeader.dword_00000C;
+  else return 0;
   return result;
 }
 

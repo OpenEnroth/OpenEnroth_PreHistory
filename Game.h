@@ -130,7 +130,7 @@ signed int Game_sub_44EC23(Game *_this, struct struct8 *a2, int *a3, signed int 
 //void __thiscall sub_40E2F6(int _this, char a2);
 void Game_stru0_sub_40E2F6(Game_stru0 *_this, char a2);
 //char __thiscall sub_44EE30(int _this, int a2, void **a3);
-bool Game_sub_44EE30(Game *_this, BSPModel::Face *a2, void **a3);
+bool Game_sub_44EE30(Game *_this, ODMFace *a2, void **a3);
 
 
 

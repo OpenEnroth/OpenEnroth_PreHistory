@@ -98,7 +98,7 @@ void Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, float a2, clas
 //void __thiscall sub_4C1542(void *_this, float a2, float a3, float a4, int a5, int a6);
 void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6);
 //int __thiscall sub_4C1026(void *_this, int a2, int a3, float a4);
-int Vis_sub_4C1026(struct Vis *_this, IndoorLocation::BLVFace *a2, int a3, float a4);
+int Vis_sub_4C1026(struct Vis *_this, BLVFace *a2, int a3, float a4);
 //char __thiscall sub_4C1ABA(void *_this, int a2, int a3, int a4);
 bool Vis_sort_some_objects(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
 //int __thiscall sub_4C1495(void *_this, const void *Src, int a3, int a4, int a5);
@@ -117,13 +117,13 @@ signed int Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(struct Vis *_this);
 
 char Vis_sub_4C1930(Vis *_this, float a2, int a3);
 
-char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayDirection, float *pDepth, struct RenderVertex *pRay_SomePoint, IndoorLocation::BLVFace *a5, int a6);
+char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayDirection, float *pDepth, struct RenderVertex *pRay_SomePoint, BLVFace *a5, int a6);
 
 
 
 
-char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct IndoorLocation::BLVFace *a6);
-Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct IndoorLocation::BLVFace *a6, unsigned int uModelID);
+char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct BLVFace *a6);
+Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, struct BLVFace *a6, unsigned int uModelID);
 
 
 

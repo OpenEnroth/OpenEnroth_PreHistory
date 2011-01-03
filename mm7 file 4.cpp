@@ -1755,9 +1755,11 @@ signed int __thiscall sub_42EBEE(void *_this)
     //v4 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
     if ( v4 )
       v5 = pMapStats->pMapInfos[v4].dword_000024;
-    v6 = &unk_6A12B8;
+
+    v6 = (char *)&pOutdoor->cDDMHeader;
     if ( uCurrentlyLoadedLevelType != 2 )
-      v6 = &unk_6BE68C;
+      v6 = (char *)&pIndoor->cDLVHeader;
+
     compile_error();//sub_48D88B((int)v2, v7, v5, *((_DWORD *)v6 + 2)++);
     v8 = Player_sub_GetAttackRecoveryTime((Player *)v2, 0);
     if ( v8 < 30 )
@@ -2532,7 +2534,7 @@ signed int __fastcall sub_42F7EB_DropItemAt(int a1, int a2, signed int a3, int a
   v9 = a1;
   v37 = a2;
   v38 = a1;
-  sub_404828(&v20);
+  sub_404828_ctor((sub_404828_stru0 *)&v20);
   ItemGen_Reset(&v20.v694);
   if ( a9 )
   {
@@ -2651,7 +2653,7 @@ void __fastcall sub_42F960(int a1, signed int a2, int a3)
 
   v4 = a1;
   v5 = a2;
-  sub_404828(&v10);
+  sub_404828_ctor((sub_404828_stru0 *)&v10);
   ItemGen_Reset((ItemGen *)&v19);
   v3 = 0;
   v22 = 0;
@@ -2758,7 +2760,7 @@ signed int __fastcall sub_42FA66(int a1, signed int a2, int a3, int a4, __int16 
 
   v6 = a1;
   v7 = a2;
-  sub_404828(&v13);
+  sub_404828_ctor((sub_404828_stru0 *)&v13);
   v13 = 600;
   ItemGen_Reset((ItemGen *)&v23);
   v24 = 6;
@@ -9732,16 +9734,14 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   MapInfo *v2; // eax@8
   int v3; // edi@9
   int v4; // eax@11
-  int v5; // eax@12
-  int v6; // eax@13
-  int v7; // esi@27
-  int v8; // edx@28
-  char v9; // bl@33
-  int v10; // eax@34
-  void *v11; // ecx@37
-  int v12; // edi@44
-  int v13; // edi@48
-  int v14; // esi@49
+  //int v7; // esi@27
+  //int v8; // edx@28
+  //char v9; // bl@33
+  //int v10; // eax@34
+  //void *v11; // ecx@37
+  //int v12; // edi@44
+  //int v13; // edi@48
+  //int v14; // esi@49
   __int16 v15; // ax@50
   int v16; // ecx@52
   int v17; // eax@54
@@ -9761,8 +9761,9 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   signed int v31; // edi@94
   int v32; // esi@94
   int v33; // edx@100
-  char v35; // [sp+Ch] [bp-408h]@91
-  __int16 v36; // [sp+6Ch] [bp-3A8h]@91
+  Actor local_0C;
+  //char v35; // [sp+Ch] [bp-408h]@91
+  //__int16 v36; // [sp+6Ch] [bp-3A8h]@91
   char Args[152]; // [sp+350h] [bp-C4h]@16
   int v38[4]; // [sp+3E8h] [bp-2Ch]@96
   int v39; // [sp+3F8h] [bp-1Ch]@1
@@ -9770,7 +9771,7 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   int v41; // [sp+400h] [bp-14h]@1
   int v42; // [sp+404h] [bp-10h]@1
   int v44; // [sp+40Ch] [bp-8h]@1
-  int i; // [sp+410h] [bp-4h]@27
+  //int i; // [sp+410h] [bp-4h]@27
 
   v41 = (int)_this;
   v39 = 0;
@@ -9810,126 +9811,107 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   pIndoor->Clear();
   v4 = pIndoor->Load(pLevelFilename,
          (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
-         (int)&v44)
-     - 1;
-  if ( !v4 )
+         (int)&v44);
+  if (v4 == 1)
   {
     wsprintfA(Args, "Unable to open %s", pLevelFilename);
     erroneous_printf(Args);
   }
-  v5 = v4 - 1;
-  if ( !v5 )
+  else if (v4 == 2)
   {
     compile_error(file name should not be global);
     wsprintfA(Args, "File %s is not a BLV File", pLevelFilename);
     erroneous_printf(Args);
   }
-  v6 = v5 - 1;
-  if ( !v6 )
+  else if (v4 == 3)
     erroneous_printf("Attempt to open new level before clearing old");
-  if ( v6 == 1 )
+  else if (v4 == 4)
     erroneous_printf("Out of memory loading indoor level");
-  if ( !(BYTE1(dword_6BE364) & 0x20) )
+  if (~dword_6BE364 & 0x2000)
   {
     UpdateActors();
     sub_408896();
   }
-  BYTE1(dword_6BE364) &= 0xDFu;
+  dword_6BE364 &= ~0x2000;
   if ( !v2 )
     v44 = 0;
   if ( v44 == 1 )
   {
-    v7 = 0;
-    for ( i = 0; i < pIndoor->uNumSpawnPoints; v7 += 24 )
+    for (unsigned i = 0; i < pIndoor->uNumSpawnPoints; ++i)
     {
-      v8 = (int)pIndoor->pSpawnPoints + v7;
-      if ( *(_WORD *)((int)pIndoor->pSpawnPoints + v7 + 14) == 3 )
-        sub_44F57C_MaybeCreateRandomMonster(v3, v8, 0, 0, 0);
+      SpawnPointMM7 *pSpawnPoint = pIndoor->pSpawnPoints + i;
+      if (pSpawnPoint->uKind == 3)
+        sub_44F57C_SpawnMonsters(v3, pSpawnPoint, 0, 0, 0);
       else
-        sub_44FFD8(v3, v8);
-      ++i;
+        sub_44FFD8_SpawnMonsters(v3, pSpawnPoint);
     }
     sub_450AAA();
   }
+
+
   sub_4A9A67(pSoundList, (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID], 0);
   sub_4A9A67(pSoundList, (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID] + 1, 0);
-  i = 0;
-  v9 = 2;
-  if ( pIndoor->dword_000298 > 0 )
-  {
-    v10 = 0;
-    while ( 1 )
-    {
-      if ( *((_BYTE *)pIndoor->ptr_000029C + v10) & 1 )
-      {
-        *(_WORD *)((char *)pIndoor->ptr_000029C + v10 + 76) = 1;
-        *(_DWORD *)((char *)pIndoor->ptr_000029C + v10 + 8) = 15360;
-        *(_DWORD *)((char *)pIndoor->ptr_000029C + v10) = 2;
-      }
-      v11 = (char *)pIndoor->ptr_000029C + v10 + 76;
-      if ( !*(_WORD *)v11 )
-        break;
-      if ( *(_WORD *)v11 == 2 )
-      {
-        *(_WORD *)v11 = 1;
-        goto LABEL_41;
-      }
-LABEL_42:
-      ++i;
-      v10 += 80;
-      if ( i >= pIndoor->dword_000298 )
-        goto LABEL_43;
-    }
-    *(_WORD *)v11 = 3;
-LABEL_41:
-    *(_DWORD *)((char *)pIndoor->ptr_000029C + v10 + 8) = 15360;
-    *(_DWORD *)((char *)pIndoor->ptr_000029C + v10) = 2;
-    goto LABEL_42;
-  }
-LABEL_43:
-  i = 0;
-  if ( pIndoor->uNumFaces > 0 )
-  {
-    v12 = 0;
-    do
-    {
-      if ( *(_WORD *)((int)pIndoor->pFaces + v12 + 74) != -1 ? 72 * *(_WORD *)((int)pIndoor->pFaces + v12 + 74) + 7278780 : 0 )
-        *(_WORD *)(*(_WORD *)((int)pIndoor->pFaces + v12 + 74) != -1 ? 72 * *(_WORD *)((int)pIndoor->pFaces + v12 + 74) + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, *(_WORD *)(*(_WORD *)((int)pIndoor->pFaces + v12 + 74) != -1 ? 72 * *(_WORD *)((int)pIndoor->pFaces + v12 + 74) + 7278780 + 0x24 : 36));
-      ++i;
-      v12 += 96;
-    }
-    while ( i < pIndoor->uNumFaces );
-  }
-  v13 = 0;
 
+ for (unsigned int i = 0; i < pIndoor->uNumDoors; ++i)
+ {
+  BLVDoor *pDoor = pIndoor->pDoors + i;
+
+  if (pDoor->dword_000000 & 0x01)
+  {
+   pDoor->word_00004C = 1;
+   pDoor->dword_000008 = 15360;
+   pDoor->dword_000000 = 2;
+  }
+
+  if (!pDoor->word_00004C)
+  {
+   pDoor->word_00004C = 3;
+   pDoor->dword_000008 = 15360;
+   pDoor->dword_000000 = 2;
+  }
+  else if (pDoor->word_00004C == 2)
+  {
+   pDoor->word_00004C = 1;
+   pDoor->dword_000008 = 15360;
+   pDoor->dword_000000 = 2;
+  }
+ }
+
+
+ for (unsigned int i = 0; i < pIndoor->uNumFaces; ++i)
+ {
+  BLVFace *pFace = pIndoor->pFaces + i;
+  if (pFace->uBitmapID == -1)
+    continue;
+
+  LODFile_Bitmaps_LOD.aLODHeaders[pFace->uBitmapID].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[pFace->uBitmapID].word_000024);
+ }
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
-  i = 0;
-  if ( (signed int)uNumLevelDecorations > 0 )
-  {
-   v14 = (int)&pLevelDecorations[0].vPosition.y;
-    do
-    {
-      sub_458693(pDecorationDescriptionList, *(_WORD *)(v14 - 8));
-      v15 = *(_WORD *)(84 * *(_WORD *)(v14 - 8) + pDecorationDescriptionList->pDescriptions + 76);
-      if ( v15 != (_WORD)v13 )
+ for (unsigned int i = 0; i < uNumLevelDecorations; ++i)
+ {
+  LevelDecoration *pDecortaion = pLevelDecorations + i;
+
+  sub_458693(pDecorationDescriptionList, pDecortaion->uDecorationDescriptionID);
+  v15 = pDecorationDescriptionList->pDescriptions[pDecortaion->uDecorationDescriptionID].word_00004C;
+      if ( v15 != 0)
       {
         if ( dword_6807E0 < 9 )
         {
-          sub_4A9A67(pSoundList, v15, v13);
+          sub_4A9A67(pSoundList, v15, 0);
           v16 = dword_6807E0++;
           dword_6807B8[v16] = i;
         }
       }
-      if ( !(*(_BYTE *)(v14 - 6) & 0x20) )
+      if ( !(pDecortaion->word_000002 & 0x20) )
       {
-        v17 = (int)pDecorationDescriptionList->pDescriptions + 84 * *(_WORD *)(v14 - 8);
-        if ( !((unsigned __int8)v9 & *(_BYTE *)(v17 + 74)) )
+        v17 = (int)&pDecorationDescriptionList->pDescriptions[pDecortaion->uDecorationDescriptionID];
+        if ( !((unsigned __int8)2 & *(_BYTE *)(v17 + 74)) )
         {
           v18 = *(_WORD *)(v17 + 70);
-          if ( v18 != v13 )
+          if ( v18 )
           {
-            if ( (int)pD3DRenderer->pRenderD3D3 == v13 || pD3DRenderer->bUseColoredLights == v13 )
+            if (!pD3DRenderer->pRenderD3D3 || !pD3DRenderer->bUseColoredLights)
             {
               v19 = -1;
               v20 = 255;
@@ -9942,58 +9924,52 @@ LABEL_43:
               v40 = *(_BYTE *)(v17 + 82);
             }
             StationaryLightsStack_AddLight(pStationaryLightsStack,
-              &Vec3<float>(*(_DWORD *)(v14 - 4),
-                           *(_DWORD *)v14,
-                           *(_WORD *)(v14 + 4) + *(_WORD *)(v17 + 66) / 2),
+                                           &Vec3<float>(pDecortaion->vPosition.x,
+                                                        pDecortaion->vPosition.y,
+                                                        pDecortaion->vPosition.z + *(_WORD *)(v17 + 66) / 2),
               v18,
               v20,
               v19,
               v40,
               byte_4E94D0);
-            v13 = 0;
-            v9 = 2;
           }
         }
       }
-      if ( *(_WORD *)(v14 + 14) == (_WORD)v13 )
+      if (!pDecortaion->word_000016)
       {
-        if ( sub_44C2F4_SomeDecorationTypeCheck((LevelDecoration *)(v14 - 8)) )
+        if ( sub_44C2F4_SomeDecorationTypeCheck(pDecortaion) )
         {
           if ( v39 < 124 )
           {
             v21 = v39 + 1;
-            *(_WORD *)(v14 + 20) = v39 + 75;
+            pDecortaion->word_00001C = v39 + 75;
             v22 = global_5E4C90.byte_000000[v21 + 74];
             v39 = v21;
             if ( !v22 )
-              *(_BYTE *)(v14 - 6) |= 0x20u;
+              pDecortaion->word_000002 |= 0x20;
           }
         }
       }
-      ++i;
-      v14 += 32;
-    }
-    while ( i < (signed int)uNumLevelDecorations );
   }
-
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
+
   v23 = 0;
-  if ( (signed int)uNumLayingItems > v13 )
+  if ( (signed int)uNumLayingItems > 0 )
   {
     v24 = (int)&pLayingItemsList[0].stru_000024;
     do
     {
-      if ( *(_WORD *)(v24 - 34) != (_WORD)v13 )
+      if (*(_WORD *)(v24 - 34))
       {
         v25 = *(_DWORD *)v24;
-        if ( *(_DWORD *)v24 != v13 )
+        if ( *(_DWORD *)v24 != 0 )
         {
           if ( v25 != 220 )
           {
            if (pClass40->pItems[v25 - 1].uEquipType == 14 )
             {
-              if ( *(_DWORD *)(v24 + 4) == v13 )
+              if ( *(_DWORD *)(v24 + 4) == 0 )
                 *(_DWORD *)(v24 + 4) = rand() % 15 + 5;
             }
           }
@@ -10005,8 +9981,10 @@ LABEL_43:
     }
     while ( v23 < (signed int)uNumLayingItems );
   }
-  i = v13;
-  if ( (signed int)uNumActors > v13 )
+
+
+  int i = 0;
+  if ( (signed int)uNumActors > 0 )
   {
    v26 = (char *)&pActors->uAttributes;
     do
@@ -10052,9 +10030,9 @@ LABEL_90:
 
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
-  Actor_TotalReset((Actor *)&v35);
-  v36 = 45;
-  Actor_LinkSprites((Actor *)&v35, 0);
+  Actor_TotalReset(&local_0C);
+  local_0C.uMonsterID = 45 - 1;   // greater light elemental
+  Actor_LinkSprites(&local_0C, 0);
   if ( !v41 )
   {
     pParty_global->sRotationX = 0;
@@ -10066,8 +10044,6 @@ LABEL_90:
   }
   sub_443365(&struct_576FE8);
 
-  compile_error(level name should not be globally-defined);
-  //LOBYTE(v30) = LoadLevel_InitializeMusic();
 
   if ( !v41 )
   {
@@ -10075,7 +10051,7 @@ LABEL_90:
     v32 = 1;
     do
     {
-      v30 = Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v32]);
+      v30 = Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v32 - 1]);
       if ( v30 )
         v38[v31++] = v32;
       ++v32;

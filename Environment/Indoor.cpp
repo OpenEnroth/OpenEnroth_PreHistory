@@ -48,13 +48,13 @@ Result::Code IndoorLocation::Clear()
  }
  uNumLights = 0;
 
- dword_000298 = 0;
 
- if (ptr_000029C)
+ if (pDoors)
  {
-  MemFree(ptr_000029C);
-  ptr_000029C = nullptr;
+  MemFree(pDoors);
+  pDoors = nullptr;
  }
+ uNumDoors = 0;
 
  if (pNodes)
  {
@@ -63,34 +63,34 @@ Result::Code IndoorLocation::Clear()
  }
  uNumNodes = 0;
 
- if (ptr_00002A8)
+ if (ptr_0002A8)
  {
-  MemFree(ptr_00002A8);
-  ptr_00002A8 = nullptr;
+  MemFree(ptr_0002A8);
+  ptr_0002A8 = nullptr;
  }
 
- if (ptr_00002AC)
+ if (ptr_0002AC)
  {
-  MemFree(ptr_00002AC);
-  ptr_00002AC = nullptr;
+  MemFree(ptr_0002AC);
+  ptr_0002AC = nullptr;
  }
 
- if (ptr_00002B0_sector_rdata)
+ if (ptr_0002B0_sector_rdata)
  {
-  MemFree(ptr_00002B0_sector_rdata);
-  ptr_00002B0_sector_rdata = nullptr;
+  MemFree(ptr_0002B0_sector_rdata);
+  ptr_0002B0_sector_rdata = nullptr;
  }
 
- if (ptr_00002B4)
+ if (ptr_0002B4_doors_ddata)
  {
-  MemFree(ptr_00002B4);
-  ptr_00002B4 = nullptr;
+  MemFree(ptr_0002B4_doors_ddata);
+  ptr_0002B4_doors_ddata = nullptr;
  }
 
- if (ptr_00002B8_sector_lrdata)
+ if (ptr_0002B8_sector_lrdata)
  {
-  MemFree(ptr_00002B8_sector_lrdata);
-  ptr_00002B8_sector_lrdata = nullptr;
+  MemFree(ptr_0002B8_sector_lrdata);
+  ptr_0002B8_sector_lrdata = nullptr;
  }
 
  if (pSpawnPoints)
@@ -111,8 +111,6 @@ Result::Code IndoorLocation::Clear()
 //----- (00498E0A) --------------------------------------------------------
 Result::Code IndoorLocation::Load(const char *pLevelFilename, int a3, int a5)
 {
-  int v5; // ebx@1
-  //int v6; // esi@1
   signed int result; // eax@3
   FILE *v8; // edi@3
   int v9; // ecx@4
@@ -195,149 +193,19 @@ Result::Code IndoorLocation::Load(const char *pLevelFilename, int a3, int a5)
   __int16 v86; // ax@50
   int v88; // eax@52
   void **v89; // esi@52
-  //size_t v90; // eax@56
-  //int v91; // eax@56
   void *v93; // eax@67
-  //int v94; // ebx@67
   size_t v95; // edi@67
   int v96; // eax@71
-  //int v97; // eax@72
-  //const void *v98; // ebx@72
   const char *v99; // ebx@72
-  //const void *v100; // ebx@72
-  //const void *v101; // ebx@72
-  //int v102; // eax@72
-  //size_t v103; // ecx@72
-  //unsigned __int8 v104; // zf@72
-  //unsigned __int8 v105; // sf@72
-  //int v106; // ecx@73
-  //int v107; // ecx@73
-  //int v108; // edx@73
-  //int v109; // ecx@73
-  //int v110; // ecx@73
   int v111; // edx@73
-  //int v112; // edx@73
-  //int v113; // edx@73
-  //int v114; // edx@73
-  //unsigned __int8 v115; // zf@74
-  //unsigned __int8 v116; // sf@74
-  //__int16 v117; // ax@77
-  //__int16 v118; // ax@77
-  //int v119; // ecx@77
-  //__int16 v120; // ax@78
-  //int v121; // ecx@78
-  //const void *v122; // ebx@82
-  //const void *v123; // ebx@82
-  //__int16 v124; // ax@86
-  //int v125; // ecx@86
-  //int v126; // edx@86
-  //unsigned __int8 v127; // zf@87
-  //unsigned __int8 v128; // sf@87
-  //int v129; // ecx@89
-  //int v130; // eax@94
-  //const void *v131; // ebx@94
-  //const void *v132; // ebx@94
-  //const void *v133; // ebx@94
-  //int v134; // eax@94
-  //size_t v135; // ecx@94
-  //unsigned __int8 v136; // zf@94
-  //unsigned __int8 v137; // sf@94
-  //int v138; // edx@95
-  //int v139; // ecx@95
-  //void *v140; // ecx@95
-  //int v141; // edx@95
-  //int v142; // ecx@95
-  //void *v143; // ecx@95
-  //int v144; // edx@95
-  //int v145; // edx@95
-  //int v146; // edx@95
-  //int v147; // edx@95
-  //int v148; // edx@95
-  //int v149; // ecx@95
-  //int v150; // edx@95
-  //const void *v151; // ebx@96
-  //int v152; // eax@96
-  //size_t v153; // ecx@96
-  //unsigned __int8 v154; // zf@96
-  //unsigned __int8 v155; // sf@96
-  //int v156; // eax@97
-  //FILE *v157; // ecx@97
-  //int v158; // edx@99
-  //const void *v159; // ebx@100
-  //const void *v160; // ebx@100
-  //__int16 v161; // ax@102
-  //FILE *v162; // ecx@102
-  //const void *v163; // ebx@103
-  //const void *v164; // ebx@103
-  //const void *v165; // ebx@103
-  //int v166; // eax@103
-  //int v167; // eax@103
-  //int v168; // ecx@103
-  //int v169; // ebx@103
-  //int v170; // ecx@103
-  //int v171; // eax@103
-  //size_t v172; // eax@103
   size_t v173; // ebx@109
   int v174; // eax@114
   int v175; // ecx@116
   int v176; // eax@117
-  size_t v177; // ebx@126
   int v178; // eax@130
   char v179; // zf@132
   size_t v180; // ebx@134
   int v181; // eax@138
-  //size_t v182; // eax@140
-  signed int v183; // ebx@142
-  int v184; // ebx@148
-  int v185; // ecx@149
-  int v186; // eax@149
-  int v187; // ecx@149
-  signed int v188; // ebx@154
-  unsigned int v189; // ebx@157
-  unsigned int v190; // ebx@157
-  int v191; // edx@158
-  _UNKNOWN *v192; // ecx@158
-  __int16 v193; // ax@161
-  __int16 v194; // ax@165
-  int v196; // edx@168
-  unsigned int v197; // ebx@168
-  int v198; // eax@168
-  size_t v199; // ebx@168
-  unsigned __int8 v200; // zf@168
-  unsigned __int8 v201; // sf@168
-  int v202; // eax@169
-  int v203; // ecx@169
-  int v204; // ecx@172
-  int v205; // edx@172
-  int v206; // ecx@172
-  int v207; // edx@172
-  int v208; // ecx@172
-  int v209; // edx@172
-  int v210; // ecx@172
-  int v211; // edx@172
-  int v212; // ecx@172
-  int v213; // edx@172
-  int v214; // ecx@172
-  int v215; // edx@172
-  int v216; // ecx@172
-  int v217; // edx@172
-  int v218; // ebx@172
-  int v219; // edx@173
-  unsigned __int8 v220; // zf@173
-  unsigned __int8 v221; // sf@173
-  int v222; // ecx@174
-  int l; // eax@175
-  int v224; // ebx@176
-  int v225; // ecx@176
-  int v226; // ecx@176
-  void *v227; // ebx@178
-  int v228; // eax@178
-  char v229; // [sp-18h] [bp-680h]@66
-  //int v230; // [sp-14h] [bp-67Ch]@66
-  //int v231; // [sp-10h] [bp-678h]@66
-  int v232; // [sp-Ch] [bp-674h]@66
-  int v233; // [sp-8h] [bp-670h]@4
-  //int v234; // [sp-4h] [bp-66Ch]@4
   char v235[876]; // [sp+Ch] [bp-65Ch]@130
   char FileName; // [sp+378h] [bp-2F0h]@1
   char DstBuf; // [sp+47Ch] [bp-1ECh]@4
@@ -370,10 +238,8 @@ Result::Code IndoorLocation::Load(const char *pLevelFilename, int a3, int a5)
   __int32 v264; // [sp+5B8h] [bp-B0h]@52
   __int32 v265; // [sp+5C4h] [bp-A4h]@52
   __int32 v266; // [sp+5D0h] [bp-98h]@52
-  //char Str1[40]; // [sp+5FCh] [bp-6Ch]@42
   size_t ElementSize; // [sp+624h] [bp-44h]@67
   char Dst[12]; // [sp+628h] [bp-40h]@9
-  //char *v270; // [sp+634h] [bp-34h]@38
 
   struct maybe_blv_header
   {
@@ -382,19 +248,10 @@ Result::Code IndoorLocation::Load(const char *pLevelFilename, int a3, int a5)
    unsigned int uCompressedSize; // [sp+B60h] [bp-20h]@50
    unsigned int uUncompressedSize; // [sp+B64h] [bp-1Ch]@50
   } v271;
-  //int v271; // [sp+638h] [bp-30h]@61
-  //char v272; // [sp+63Ch] [bp-2Ch]@61
-  //char v273; // [sp+63Dh] [bp-2Bh]@61
-  //char v274; // [sp+63Eh] [bp-2Ah]@61
-  //char v275; // [sp+63Fh] [bp-29h]@61
-  //size_t v276; // [sp+640h] [bp-28h]@61
-  //size_t Size; // [sp+644h] [bp-24h]@61
-  //unsigned int v278; // [sp+648h] [bp-20h]@66
   size_t Count; // [sp+64Ch] [bp-1Ch]@109
   __int64 v280; // [sp+650h] [bp-18h]@66
   FILE *File; // [sp+658h] [bp-10h]@56
   int v282; // [sp+65Ch] [bp-Ch]@72
-  int v283; // [sp+660h] [bp-8h]@72
   void *Src; // [sp+664h] [bp-4h]@73
   int v285; // [sp+670h] [bp+8h]@4
   int v286; // [sp+670h] [bp+8h]@7
@@ -406,13 +263,8 @@ Result::Code IndoorLocation::Load(const char *pLevelFilename, int a3, int a5)
   int v292; // [sp+670h] [bp+8h]@35
   signed int v293; // [sp+670h] [bp+8h]@40
   int v294; // [sp+670h] [bp+8h]@45
-  int v295; // [sp+670h] [bp+8h]@143
-  void *v296; // [sp+670h] [bp+8h]@155
-  int v297; // [sp+670h] [bp+8h]@161
   int v298; // [sp+670h] [bp+8h]@172
-  signed int v299; // [sp+670h] [bp+8h]@175
 
-  v5 = 0;
   dword_6807E0 = 0;
 
 #pragma region
@@ -549,7 +401,7 @@ Result::Code IndoorLocation::Load(const char *pLevelFilename, int a3, int a5)
           v31 = *(_DWORD *)(v6 + 644) + 36 * *(_WORD *)(a5 + *(_DWORD *)(v6 + 636) + 72);
           if ( *(_WORD *)(v31 + 26) )
           {
-            if ( sub_44C23B_IfTextureWavyAnimated(v31) )
+            if ( sub_44C23B(v31) )
               *(_BYTE *)(a5 + *(_DWORD *)(v6 + 636) + 46) |= 0x10u;
             else
               *(_BYTE *)(a5 + *(_DWORD *)(v6 + 636) + 46) &= 0xEFu;
@@ -873,7 +725,6 @@ LABEL_50:
   }
   else
   {
-    File = (FILE *)&v229;
     //Game_sub_40E2C8(&v229, "Can't load file!", (int)((char *)&v280 + 3));
     //sub_466D09(&File, *(int *)&v229, v230, v231, v232, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Polydata.cpp", 803);
     MessageBoxW(0, L"Can't load file!", 0, 0);
@@ -899,30 +750,30 @@ LABEL_50:
   memcpy(pFaces, v99 + 4, uNumFaces * sizeof(BLVFace));
   v99 += uNumFaces * sizeof(BLVFace) + 4;
 
-  ptr_00002AC = (unsigned short *)NamedMemAlloc(char, cBLVHeader.dword_000068_sizeof_faces_fdata, "L.FData");
-  memcpy(ptr_00002AC, v99, cBLVHeader.dword_000068_sizeof_faces_fdata);
+  ptr_0002AC = (unsigned short *)NamedMemAlloc(char, cBLVHeader.dword_000068_sizeof_faces_fdata, "L.FData");
+  memcpy(ptr_0002AC, v99, cBLVHeader.dword_000068_sizeof_faces_fdata);
   v99 += cBLVHeader.dword_000068_sizeof_faces_fdata;
 
  for (unsigned int i = 0, j = 0; i < uNumFaces; ++i)
  {
   BLVFace *pFace = pFaces + i;
 
-  pFace->pVertexIDs = ptr_00002AC + j;
+  pFace->pVertexIDs = ptr_0002AC + j;
 
   j += pFace->uNumVertices + 1;
-  pFace->pXInterceptDisplacements = ptr_00002AC + j;
+  pFace->pXInterceptDisplacements = ptr_0002AC + j;
 
   j += pFace->uNumVertices + 1;
-  pFace->pYInterceptDisplacements = ptr_00002AC + j;
+  pFace->pYInterceptDisplacements = ptr_0002AC + j;
 
   j += pFace->uNumVertices + 1;
-  pFace->pZInterceptDisplacements = ptr_00002AC + j;
+  pFace->pZInterceptDisplacements = ptr_0002AC + j;
 
   j += pFace->uNumVertices + 1;
-  pFace->pVertexUIDs = ptr_00002AC + j;
+  pFace->pVertexUIDs = ptr_0002AC + j;
 
   j += pFace->uNumVertices + 1;
-  pFace->pVertexVIDs = ptr_00002AC + j;
+  pFace->pVertexVIDs = ptr_0002AC + j;
 
   j += pFace->uNumVertices + 1;
  }
@@ -934,17 +785,17 @@ LABEL_50:
 
   if (pFace->uFaceAttributes & 0x4000)
   {
-   pFace->uTextureID = TextureFrameTable_sub_44E163(pTextureFrameTable, v99);
-   if (pFace->uTextureID)
-     TextureFrameTable_sub_44E0ED(pTextureFrameTable, pFace->uTextureID);
+   pFace->uBitmapID = TextureFrameTable_sub_44E163(pTextureFrameTable, v99);
+   if (pFace->uBitmapID)
+     TextureFrameTable_sub_44E0ED(pTextureFrameTable, pFace->uBitmapID);
    else
    {
-    pFace->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(v99, 0);
+    pFace->uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(v99, 0);
     pFace->uFaceAttributes &= ~0x4000;
    }
   }
   else
-    pFace->uTextureID  = LODFile_Bitmaps_LOD.LODFile_LoadTexture(v99, 0);
+    pFace->uBitmapID  = LODFile_Bitmaps_LOD.LODFile_LoadTexture(v99, 0);
 
   v99 += 10;
  }
@@ -978,7 +829,7 @@ LABEL_50:
 
   if (pFaceExtra->uEventID)
   {
-   if (sub_44C23B_IfTextureWavyAnimated(pFaceExtra))
+   if (sub_44C23B(pFaceExtra))
      pFace->uFaceAttributes |= 0x100000;
    else
      pFace->uFaceAttributes &= ~0x100000;
@@ -991,58 +842,58 @@ LABEL_50:
  memcpy(pSectors, v99 + 4, uNumSectors * sizeof(BLVSector));
  v99 += uNumSectors * sizeof(BLVSector) + 4;
 
- ptr_00002B0_sector_rdata = (unsigned short *)NamedMemAlloc(unsigned char, cBLVHeader.dword_00006C_sizeof_sector_rdata, "L.RData");
- memcpy(ptr_00002B0_sector_rdata, v99, cBLVHeader.dword_00006C_sizeof_sector_rdata);
+ ptr_0002B0_sector_rdata = (unsigned short *)NamedMemAlloc(unsigned char, cBLVHeader.dword_00006C_sizeof_sector_rdata, "L.RData");
+ memcpy(ptr_0002B0_sector_rdata, v99, cBLVHeader.dword_00006C_sizeof_sector_rdata);
  v99 += cBLVHeader.dword_00006C_sizeof_sector_rdata;
 
  for (unsigned int i = 0, j = 0; i < uNumSectors; ++i)
  {
   BLVSector *pSector = pSectors + i;
 
-  pSector->ptr_000008 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000008 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_000004;
-  pSector->ptr_000010 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000010 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_00000C;
-  pSector->ptr_000018 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000018 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_000014;
-  pSector->ptr_000020 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000020 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_00001C;
-  pSector->ptr_000028 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000028 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_000024;
-  pSector->ptr_000030 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000030 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_00002C;
-  pSector->ptr_000040 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000040 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_00003C;
-  pSector->ptr_000048 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000048 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_000044;
-  pSector->ptr_000050 = ptr_00002B0_sector_rdata + j;
+  pSector->ptr_000050 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_00004C;
  }
 
- ptr_00002B8_sector_lrdata = (unsigned short *)NamedMemAlloc(unsigned char, cBLVHeader.dword_000070_sizeof_sector_lrdata, "L.RLData/Indoor Sectors");
- memcpy(ptr_00002B8_sector_lrdata, v99, cBLVHeader.dword_000070_sizeof_sector_lrdata);
+ ptr_0002B8_sector_lrdata = (unsigned short *)NamedMemAlloc(unsigned char, cBLVHeader.dword_000070_sizeof_sector_lrdata, "L.RLData/Indoor Sectors");
+ memcpy(ptr_0002B8_sector_lrdata, v99, cBLVHeader.dword_000070_sizeof_sector_lrdata);
  v99 += cBLVHeader.dword_000070_sizeof_sector_lrdata;
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
  for (unsigned int i = 0, j = 0; i < uNumSectors; ++i)
  {
-  pSectors->ptr_000058 = ptr_00002B8_sector_lrdata + j;
+  pSectors->ptr_000058 = ptr_0002B8_sector_lrdata + j;
 
   j += pSectors->word_000054;
  }
 
 
  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
- memcpy(&dword_000298, v99, 4);
+ memcpy(&uNumDoors, v99, 4);
 
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
  memcpy(&uNumLevelDecorations, v99 + 4, 4);
@@ -1078,11 +929,11 @@ LABEL_50:
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
   unsigned int uNumElements;
-  //memcpy(ptr_00002A8, v99, 4);
+  //memcpy(ptr_0002A8, v99, 4);
   memcpy(&uNumElements, v99, 4);
-  ptr_00002A8 = (int *)NamedMemAlloc(unsigned char, 4 + uNumElements * 12, "Indoor map");
-  *(unsigned int *)(ptr_00002A8) = uNumElements;
-  memcpy((char *)ptr_00002A8 + 4, v99 + 4, uNumElements * 12);
+  ptr_0002A8 = NamedMemAlloc(unsigned char, 4 + uNumElements * 12, "Indoor map");
+  *(unsigned int *)(ptr_0002A8) = uNumElements;
+  memcpy((char *)ptr_0002A8 + 4, v99 + 4, uNumElements * 12);
 
  MemFree(pRawBLV);
 
@@ -1097,8 +948,8 @@ LABEL_50:
   v282 = 0;
   if ( v271.v271 != 91969 || v271.magic != 'iivm' && v271.magic != 'IIVM')
   {
-    Game_sub_40E2C8(&v229, "Can't load file!", (int)((char *)&v280 + 3));
-    sub_466D09(0, *(int *)&v229, 0, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Polydata.cpp", 1090);
+    Game_sub_40E2C8(0, "Can't load file!", (int)((char *)&v280 + 3));
+    sub_466D09(0, 0, 0, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Polydata.cpp", 1090);
     v282 = 1;
   }
   v173 = v271.uCompressedSize;
@@ -1125,8 +976,8 @@ LABEL_50:
     }
     else
     {
-      Game_sub_40E2C8(&v229, "Can't load file!", (int)((char *)&v280 + 3));
-      sub_466D09(0, *(int *)&v229, 0, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Polydata.cpp", 1108);
+      Game_sub_40E2C8(0, "Can't load file!", (int)((char *)&v280 + 3));
+      sub_466D09(0, 0, 0, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Polydata.cpp", 1108);
     }
     memcpy(&cDLVHeader, Src, sizeof(DLVHeader));
     Src = (char *)Src + 40;
@@ -1151,10 +1002,10 @@ LABEL_50:
     if ( _strcmpi(pLevelDLVName, "d29.dlv") )
       HIDWORD(v280) = 1;
   }
-  v177 = 875;
+
   if ( v282 )
   {
-    v178 = (int)memset(&v235, 0, 0x36Bu);
+    v178 = (int)memset(v235, 0, 0x36B);
     goto LABEL_132;
   }
   if ( HIDWORD(v280) || !cDLVHeader.dword_000004)
@@ -1167,10 +1018,9 @@ LABEL_132:
     if ( v179 )
       ++cDLVHeader.dword_000000;
 
-    v233 = (int)pLevelFilename;
     *(_DWORD *)a5 = 1;
-    v283 = (int)LODFile_Games_LOD.Find_Container((const char *)v233, 0);
-    locked_fread(&v271, 0x10u, 1u, (FILE *)v283);
+    hDLVFile = LODFile_Games_LOD.Find_Container(pLevelDLVName, 0);
+    locked_fread(&v271, 0x10u, 1u, hDLVFile);
     v180 = v271.uCompressedSize;
     Count = v271.uUncompressedSize;
     Src = malloc(v271.uUncompressedSize);
@@ -1179,237 +1029,171 @@ LABEL_132:
     {
       if ( v180 == Count )
       {
-        locked_fread(Src, 1u, Count, (FILE *)v283);
+        locked_fread(Src, 1u, Count, hDLVFile);
       }
       else
       {
         HIDWORD(v280) = (long)malloc(v180);
-        locked_fread((void *)HIDWORD(v280), v180, 1u, (FILE *)v283);
+        locked_fread((void *)HIDWORD(v280), v180, 1u, hDLVFile);
         v181 = MemUnzip(Src, (unsigned int *)&Count, (void *)SHIDWORD(v280), v180);
         free((void *)HIDWORD(v280));
       }
     }
     else
     {
-      Game_sub_40E2C8(&v229, "Can't load file!", 0);
-      sub_466D09(&a3, *(int *)&v229, 0, 0, v232, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Polydata.cpp", 1195);
+      Game_sub_40E2C8(0, "Can't load file!", 0);
+      sub_466D09(&a3, 0, 0, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Polydata.cpp", 1195);
     }
     Src = (char *)Src + 40;
-    v177 = 875;
+
     goto LABEL_140;
   }
   *(_DWORD *)a5 = 0;
 LABEL_140:
 
-  memcpy((void *)(this + 804), Src, v177);
-  Src = (char *)Src + v177;
+  memcpy(unk_000324, Src, 0x36B);
+  v99 = (char *)Src + 0x36B;
   if ( *(_DWORD *)a5 )
-    memcpy((void *)(this + 804), &v235, v177);
-  v183 = 0;
-  if ( *(_DWORD *)pIndoor->ptr_00002A8 > 0 )
+    memcpy(unk_000324, v235, 0x36B);
+
+
+ for (unsigned int i = 0; i < *(unsigned int *)pIndoor->ptr_0002A8; ++i)
+ {
+  BLVMapVertex *pMapVertex = (BLVMapVertex *)(pIndoor->ptr_0002A8 + 4) + i;
+
+  if ( (unsigned __int8)(1 << (7 - i % 8)) & *(_BYTE *)(i / 8 + unk_000324) )
+    pMapVertex->word_00000A |= 1;
+ }
+
+
+ for (unsigned int i = 0; i < uNumFaces; ++i)
+ {
+  BLVFace      *pFace = pFaces + i;
+  BLVFaceExtra *pFaceExtra = pFaceExtras + pFace->uFaceExtraID;
+
+  memcpy(&pFace->uFaceAttributes, v99, 4);
+  if (pFaceExtra->uEventID)
   {
-    v295 = 0;
-    do
-    {
-      if ( (unsigned __int8)(1 << (7 - v183 % 8)) & *(_BYTE *)(v183 / 8 + this + 804) )
-        *(_BYTE *)(*(_DWORD *)(this + 680) + v295 + 14) |= 1u;
-      v295 += 12;
-      ++v183;
-    }
-    while ( v183 < *(_DWORD *)pIndoor->ptr_00002A8 );
+   if (sub_44C23B(pFaceExtra))
+     pFace->uFaceAttributes |= 0x100000;
+   else
+     pFace->uFaceAttributes &= ~0x100000;
   }
-  v283 = 0;
-  if ( *(_DWORD *)(this + 632) > 0 )
-  {
-    v184 = 0;
-    do
-    {
-      v232 = v184 + *(_DWORD *)(this + 636) + 44;
-      memcpy((void *)v232, Src, 4u);
-      v186 = *(_DWORD *)(this + 636);
-      v187 = *(_DWORD *)(this + 644);
-      Src = (char *)Src + 4;
-      v185 = v187 + 36 * *(_WORD *)(v184 + v186 + 72);
-      if ( *(_WORD *)(v185 + 26) )
-      {
-        if ( sub_44C23B_IfTextureWavyAnimated((BLVFaceExtra *)v185) )
-          *(_BYTE *)(v184 + *(_DWORD *)(this + 636) + 46) |= 0x10u;
-        else
-          *(_BYTE *)(v184 + *(_DWORD *)(this + 636) + 46) &= 0xEFu;
-      }
-      ++v283;
-      v184 += 96;
-    }
-    while ( v283 < *(_DWORD *)(this + 632) );
-  }
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  v188 = 0;
-  if ( (signed int)uNumLevelDecorations > 0 )
-  {
-    v296 = &pLevelDecorations[0].word_000002;
-    do
-    {
-      memcpy(v296, Src, 2);
-      Src = (char *)Src + 2;
-      v296 = (char *)v296 + 32;
-      ++v188;
-    }
-    while ( v188 < (signed int)uNumLevelDecorations );
-  }
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  memcpy(&uNumActors, Src, 4u);
-  Src = (char *)Src + 4;
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  v189 = 836 * uNumActors;
-  memcpy(pActors, Src, 836 * uNumActors);
-  Src = (char *)Src + v189;
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  memcpy(&Count, Src, 4u);
-  Src = (char *)Src + 4;
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  v190 = 112 * Count;
-  memcpy(pLayingItemsList, Src, 112 * Count);
-  Src = (char *)Src + v190;
-  int i;
-  if ( (signed int)Count > 0 )
-  {
-    v191 = pObjectDescriptionList->uNumObjects;
-    v192 = (char *)pLayingItemsList + 0x24;
-    i = Count;
-    do
-    {
-      if ( *(_DWORD *)v192 && !(*((_BYTE *)v192 - 9) & 1) )
-      {
-        v297 = 0;
-        v193 = word_5D29F8[24 * *(_DWORD *)v192];
-        *((_WORD *)v192 - 18) = v193;
-        if ( v191 <= 0 )
-        {
-LABEL_165:
-          v194 = 0;
-        }
-        else
-        {
-          a5 = (int)pObjectDescriptionList->pDescriptions + 32;
-          while ( v193 != *(_WORD *)a5 )
-          {
-            ++v297;
-            a5 += 56;
-            if ( v297 >= v191 )
-              goto LABEL_165;
-          }
-          v194 = v297;
-        }
-        *((_WORD *)v192 - 17) = v194;
-      }
-      v192 = (char *)v192 + 112;
-    }
-    while ( i-- != 1 );
-  }
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  memcpy(&dword_5FF140, Src, 4u);
-  Src = (char *)Src + 4;
-  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  v197 = 5324 * dword_5FF140;
-  memcpy(array_5E5150, Src, 5324 * dword_5FF140);
-  Src = (char *)Src + v197;
+
+  v99 += 4;
+ }
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
 
-  v233 = (int)Src;
-  v232 = *(_DWORD *)(this + 668);
-  memcpy((void *)v232, Src, 0x3E80u);
-  Src = (char *)Src + 16000;
 
-  v233 = *(_DWORD *)(this + 604);
-  v232 = *(_DWORD *)(this + 692);
-  v198 = (int)NamedMemAlloc(unsigned char, v233, "L.DData");
-  v199 = *(_DWORD *)(this + 604);
-  *(_DWORD *)(this + 692) = v198;
-  memcpy((void *)v198, Src, v199);
-  Src = (char *)Src + v199;
-  v196 = 0;
-  v200 = *(_DWORD *)(this + 664) == 0;
-  v201 = *(_DWORD *)(this + 664) < 0;
-  v283 = 0;
-  if ( !(v201 | v200) )
-  {
-    v203 = *(_DWORD *)(this + 668);
-    v202 = 0;
-    while ( 1 )
-    {
-      *(_DWORD *)(v203 + v202 + 36) = v196 + *(_DWORD *)(this + 692);
-      v204 = v202 + *(_DWORD *)(this + 668);
-      v205 = v196 + 2 * *(_WORD *)(v204 + 68);
-      *(_DWORD *)(v204 + 40) = v205 + *(_DWORD *)(this + 692);
-      v206 = v202 + *(_DWORD *)(this + 668);
-      v207 = v205 + 2 * *(_WORD *)(v206 + 70);
-      *(_DWORD *)(v206 + 44) = v207 + *(_DWORD *)(this + 692);
-      v208 = v202 + *(_DWORD *)(this + 668);
-      v209 = v207 + 2 * *(_WORD *)(v208 + 72);
-      *(_DWORD *)(v208 + 48) = v209 + *(_DWORD *)(this + 692);
-      v210 = v202 + *(_DWORD *)(this + 668);
-      v211 = v209 + 2 * *(_WORD *)(v210 + 70);
-      *(_DWORD *)(v210 + 52) = v211 + *(_DWORD *)(this + 692);
-      v212 = v202 + *(_DWORD *)(this + 668);
-      v213 = v211 + 2 * *(_WORD *)(v212 + 70);
-      *(_DWORD *)(v212 + 56) = v213 + *(_DWORD *)(this + 692);
-      v214 = v202 + *(_DWORD *)(this + 668);
-      v215 = v213 + 2 * *(_WORD *)(v214 + 74);
-      *(_DWORD *)(v214 + 60) = v215 + *(_DWORD *)(this + 692);
-      v216 = v202 + *(_DWORD *)(this + 668);
-      v202 += 80;
-      v217 = v215 + 2 * *(_WORD *)(v216 + 74);
-      v218 = v217 + *(_DWORD *)(this + 692);
-      ++v283;
-      *(_DWORD *)(v216 + 64) = v218;
-      v203 = *(_DWORD *)(this + 668);
-      v298 = v217 + 2 * *(_WORD *)(v203 + v202 - 6);
-      if ( v283 >= *(_DWORD *)(this + 664) )
-        break;
-      v196 = v298;
-    }
-  }
-  v219 = 0;
-  v220 = *(_DWORD *)(this + 664) == 0;
-  v221 = *(_DWORD *)(this + 664) < 0;
-  v283 = 0;
-  if ( !(v221 | v220) )
-  {
-    v222 = *(_DWORD *)(this + 668);
-    a5 = 0;
-    do
-    {
-      v299 = 0;
-      for (l = v222 + v219; v299 < *(_WORD *)(v222 + v219 + 70); l = v222 + v219 )
-      {
-        v224 = 2 * v299;
-        v225 = 96 * *(_WORD *)(*(_DWORD *)(l + 40) + 2 * v299++);
-        v226 = *(_DWORD *)(this + 644) + 36 * *(_WORD *)(v225 + *(_DWORD *)(this + 636) + 72);
-        *(_WORD *)(v224 + *(_DWORD *)(l + 48)) = *(_WORD *)(v226 + 20);
-        v219 = a5;
-        *(_WORD *)(v224 + *(_DWORD *)(a5 + *(_DWORD *)(this + 668) + 52)) = *(_WORD *)(v226 + 22);
-        v222 = *(_DWORD *)(this + 668);
-      }
-      ++v283;
-      v219 += 80;
-      a5 = v219;
-    }
-    while ( v283 < *(_DWORD *)(this + 664) );
-  }
+ for (unsigned int i = 0; i < uNumLevelDecorations; ++i)
+ {
+  memcpy(&pLevelDecorations[i].word_000002, v99, 2);
+  v99 += 2;
+ }
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  v227 = Src;
-  memcpy(&global_5E4C90, Src, 0xC8u);
+
+
+ memcpy(&uNumActors, v99, 4);
+ memcpy(pActors, v99 + 4, uNumActors * sizeof(Actor));
+ v99 += uNumActors * sizeof(Actor) + 4;
   //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
-  v228 = (int)memcpy((void *)(this + 748), (char *)v227 + 200, 0x38u);
-  free((unsigned int *)File);
-  v5 = 0;
+
+ memcpy(&uNumLayingItems, v99, 4);
+ memcpy(pLayingItemsList, v99 + 4, uNumLayingItems * sizeof(LayingItem));
+ v99 += uNumLayingItems * sizeof(LayingItem) + 4;
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+
+
+
+ for (unsigned int i = 0; i < uNumLayingItems; ++i)
+ {
+  LayingItem *pItem = pLayingItemsList + i;
+ 
+  if (pItem->stru_000024.uItemID && !(pItem->uAttributes & 0x0100))
+  {
+   pItem->uItemType = word_5D29F8[24 * pItem->stru_000024.uItemID];
+
+   unsigned int uObjectID = 0;
+   for (unsigned int j = 0; j < pObjectDescriptionList->uNumObjects; ++j)
+     if (pItem->uItemType == pObjectDescriptionList->pDescriptions[j].word_000020)
+     {
+      pItem->uObjectDescriptionID = j;
+      break;
+     }
+  }
+ }
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+
+
+  memcpy(&dword_5FF140, v99, 4);
+  memcpy(array_5E5150, v99 + 4, dword_5FF140 * sizeof(struct3));
+  v99 += dword_5FF140 * sizeof(struct3) + 4;
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+
+  pDoors = NamedMemAlloc(BLVDoor, uNumDoors, "L.D/Indoor Doors");
+  memcpy(pDoors, v99, uNumDoors * sizeof(BLVDoor));
+  v99 += uNumDoors * sizeof(BLVDoor);
+
+  ptr_0002B4_doors_ddata = (unsigned short *)NamedMemAlloc(unsigned char, cBLVHeader.dword_000074_sizeof_doors_ddata, "L.DData\Indoor");
+  memcpy(ptr_0002B4_doors_ddata, v99, cBLVHeader.dword_000074_sizeof_doors_ddata);
+  v99 += cBLVHeader.dword_000074_sizeof_doors_ddata;
+
+ for (unsigned int i = 0, j = 0; i < uNumDoors; ++i)
+ {
+  BLVDoor *pDoor = pDoors + i;
+
+  pDoor->ptr_000024 = ptr_0002B4_doors_ddata + j;
+  j += pDoor->word_000044;
+
+  pDoor->pFaceIDs = ptr_0002B4_doors_ddata + j;
+  j += pDoor->uNumFaces;
+
+  pDoor->ptr_00002C = ptr_0002B4_doors_ddata + j;
+  j += pDoor->word_000048;
+
+  pDoor->pDeltaUs = (short *)(ptr_0002B4_doors_ddata + j);
+  j += pDoor->uNumFaces;
+
+  pDoor->pDeltaVs = (short *)(ptr_0002B4_doors_ddata + j);
+  j += pDoor->uNumFaces;
+
+  pDoor->ptr_000038 = ptr_0002B4_doors_ddata + j;
+  j += pDoor->word_00004A;
+
+  pDoor->ptr_00003C = ptr_0002B4_doors_ddata + j;
+  j += pDoor->word_00004A;
+
+  pDoor->ptr_000040 = ptr_0002B4_doors_ddata + j;
+  j += pDoor->word_00004A;
+ }
+
+ for (unsigned int i = 0; i < uNumDoors; ++i)
+ {
+  BLVDoor *pDoor = pDoors + i;
+
+  for (unsigned int j = 0; j < pDoor->uNumFaces; ++j)
+  {
+   BLVFace      *pFace = pFaces + pDoor->pFaceIDs[j];
+   BLVFaceExtra *pFaceExtra = pFaceExtras + pFace->uFaceExtraID;
+
+   pDoor->pDeltaUs[j] = pFaceExtra->sTextureDeltaU;
+   pDoor->pDeltaVs[j] = pFaceExtra->sTextureDeltaV;
+  }
+ }
+  //LevelLoadingUI_UpdateAndDrawProgressBar(pGameLoadingUI_ProgressBar);
+
+
+ memcpy(&global_5E4C90, v99, 0xC8);
+ memcpy(unk_0002EC, v99 + 200, 0x38);
+ free((unsigned int *)File);
+
 LABEL_179:
-  sub_4A9A67(pSoundList, 64, v5);
-  sub_4A9A67(pSoundList, 103, v5);
-  sub_4A9A67(pSoundList, 63, v5);
-  sub_4A9A67(pSoundList, 102, v5);
-  sub_4A9A67(pSoundList, 50, v5);
-  sub_4A9A67(pSoundList, 89, v5);
+  sub_4A9A67(pSoundList, 64, 0);
+  sub_4A9A67(pSoundList, 103, 0);
+  sub_4A9A67(pSoundList, 63, 0);
+  sub_4A9A67(pSoundList, 102, 0);
+  sub_4A9A67(pSoundList, 50, 0);
+  sub_4A9A67(pSoundList, 89, 0);
 
  return Result::Success;
 }
@@ -1424,13 +1208,12 @@ IndoorLocation::IndoorLocation():
   uNumLights(0),      pLights(nullptr),
   uNumSpawnPoints(0), pSpawnPoints(nullptr),
   uNumNodes(0),       pNodes(nullptr),
-  dword_000298(0),
-  ptr_000029C(nullptr),
-  ptr_00002A8(nullptr),
-  ptr_00002AC(nullptr),
-  ptr_00002B0_sector_rdata(nullptr),
-  ptr_00002B4(nullptr),
-  ptr_00002B8_sector_lrdata(nullptr),
+  uNumDoors(0),       pDoors(nullptr),
+  ptr_0002A8(nullptr),
+  ptr_0002AC(nullptr),
+  ptr_0002B0_sector_rdata(nullptr),
+  ptr_0002B4_doors_ddata(nullptr),
+  ptr_0002B8_sector_lrdata(nullptr),
   bLoaded(false)
 {
 }
@@ -1528,7 +1311,7 @@ signed int __thiscall IndoorLocation_sub_498C45(int _this)
 
 
 //----- (0044C23B) --------------------------------------------------------
-bool sub_44C23B_IfTextureWavyAnimated(IndoorLocation::BLVFaceExtra *_this)
+bool sub_44C23B(BLVFaceExtra *_this)
 {
   int v1; // eax@1
   _UNKNOWN *v2; // esi@2

@@ -457,7 +457,8 @@ void sub_458693(struct DecorationDescriptionList *_this, unsigned int uDecoratio
 struct ObjectDescription
 {
  unsigned char  a[32];
- char           b[4];   // 000020
+ short          word_000020;
+ char           b[2];   // 000022
  char           byte_000024;
  char           byte_000025;
  char           byte_000026;

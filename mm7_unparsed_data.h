@@ -1722,19 +1722,19 @@ extern struct tagOFNA stru_6A0DA0; // idb
 //int dword_6A0ED4; // 0000E4
 //int dword_6A0ED8; // 0000E8
 //int dword_6A0EDC; // 0000EC
-extern int dword_6A12B0; // weak
-extern int dword_6A12B4; // weak
-extern _UNKNOWN unk_6A12B8; // weak
-extern int dword_6A12C4; // weak
-extern int dword_6A12C8; // weak
-extern int dword_6A12CC; // weak
-extern int dword_6A12D0; // weak
-extern __int64 qword_6A12E0; // weak
-extern int dword_6A12F4; // weak
-extern int dword_6A12F8; // weak
-extern int dword_6A12FC; // weak
-extern _UNKNOWN unk_6A1318; // weak
-extern _UNKNOWN unk_6A16E0; // weak
+//int dword_6A12B0; // 0004C0
+//int dword_6A12B4; // 0004C4
+//_UNKNOWN unk_6A12B8; // 0004C8
+//int dword_6A12C4; // 0004D4
+//int dword_6A12C8; // 0004D8
+//int dword_6A12CC; // 0004DC
+//int dword_6A12D0; // 0004E0
+//__int64 qword_6A12E0; // 0004F0
+//int dword_6A12F4; // 000504
+//int dword_6A12F8; // 000508
+//int dword_6A12FC; // 00050C
+//_UNKNOWN unk_6A1318; // 000528
+//_UNKNOWN unk_6A16E0; // 0008F0
 //int dword_6A1AAC; // 000CBC
 //int dword_6A1B20; // 000D30
 //int dword_6A1B24; // 000D34
@@ -1883,14 +1883,13 @@ extern IndoorLocation *pIndoor; // struct @ MM7.exe::006BE3C8
 //void *dword_6BE67C; // 0002B4
 //int dword_6BE684; // 0002BC
 //int dword_6BE688; // 0002C0
-extern _UNKNOWN unk_6BE68C; // weak
-extern int dword_6BE698; // weak
-extern int dword_6BE69C; // num indoor faces
-extern int dword_6BE6A0; // weak
-extern int dword_6BE6A4; // weak
-extern __int64 qword_6BE6B4[7]; // weak
-extern char byte_6BE6EC[875]; // weak
-
+//_UNKNOWN unk_6BE68C; // 0002C4
+//int dword_6BE698; // 0002D0
+//int dword_6BE69C; // 0002D4
+//int dword_6BE6A0; // 0002D8
+//int dword_6BE6A4; // 0002DC
+//__int64 qword_6BE6B4[7]; // 0002EC
+//char byte_6BE6EC[875]; // 000324
 
 
 //_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup

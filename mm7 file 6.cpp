@@ -5171,7 +5171,7 @@ char __thiscall sub_49BBBD(int _this, int a2)
 }
 
 //----- (0049BCEB) --------------------------------------------------------
-bool sub_49BCEB(struct class58 *_this, struct BSPModel::Face *a2)
+bool sub_49BCEB(struct class58 *_this, struct ODMFace *a2)
 {
   double v5; // st7@12
 

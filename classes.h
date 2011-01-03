@@ -919,7 +919,7 @@ struct class58
 //sizeof == ?
 //int __thiscall sub_49B525(int _this, int a2);
 void class58_sub_49B525(struct class58 *_this, int a2);
-bool __thiscall sub_49BCEB(struct class58 *_this, BSPModel::Face *a2);
+bool __thiscall sub_49BCEB(struct class58 *_this, ODMFace *a2);
 bool __thiscall class58_sub_49BE8A(struct class58 *_this, int a2, Vec3<float> *pNormal, int a4, int a5, int a6, char a7);
 
 //math predefines
@@ -1019,7 +1019,7 @@ struct StationaryLight
 };
 //sizeof  = 0C
 //char __stdcall sub_45CE50(int _this, int a2, int *a3, char a4);
-bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, BSPModel::Face *a2, int *a3, char a4);
+bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, ODMFace *a2, int *a3, char a4);
 
 struct StationaryLightsStack
 {
@@ -1116,6 +1116,37 @@ struct unnamed_F93E6C
 
 
 
+struct sub_404828_stru0
+{
+ #pragma pack(push, 1)
+ short   word_000000;    //__int16 v24; // [sp+Ch] [bp-80h]@1
+ short   word_000002;    //__int16 v25; // [sp+Eh] [bp-7Eh]@19
+ int     dword_000004;   //int v26; // [sp+10h] [bp-7Ch]@19
+ int     dword_000008;   //int v27; // [sp+14h] [bp-78h]@19
+ int     dword_00000C;   //int v28; // [sp+18h] [bp-74h]@19
+ short   word_000010;    //int unk2;
+ short   word_000012;
+ short   word_000014;    //short unk3;
+ short   word_000016;   //int v29; // [sp+22h] [bp-6Ah]@19      TWO WORDS? apparently
+ short   word_000018;
+ short   word_00001A;    //__int16 v30; // [sp+26h] [bp-66h]@19
+ short   word_00001C;    //__int16 v31; // [sp+28h] [bp-64h]@19
+ short   word_00001E;    //__int16 v32; // [sp+2Ah] [bp-62h]@19
+ short   word_000020;    //short unk4[2];
+ short   word_000022;
+ ItemGen local_000024;   //ItemGen local_30;
+ int     dword_000048;
+ int     dword_00004C;
+ int     dword_000050;
+ int     unk_000054;     //int unk_60;
+ int     dword_000058;   //int v34; // [sp+64h] [bp-28h]@19
+ int     dword_00005C;
+ char    unk_000060[4];
+ #pragma pack(pop)
+};
+//sizeof ~ 64
+void sub_404828_ctor(sub_404828_stru0 *_this);
+signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5);
 
 
 

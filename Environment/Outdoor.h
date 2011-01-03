@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #include "..\defs.h"
-#include "..\CoreDefinitions.h"
 
 #include "..\Math\Math.h"
 
@@ -18,113 +17,57 @@
 #pragma pack(push, 1)
 
 
-struct BSPModel
+struct ODMFace
 {
- struct Vertex
- {
-  int x; // dword @ 000000
-  int z; // dword @ 000004
-  int y; // dword @ 000008
- };
- //sizeof == 0C
-
- struct Face
- {
-  Vec3<int>      vFaceNormal;                  // dword[3] @ 000000
-  int            sNormalDistance;              // dword    @ 00000C
-  int            zCalc1;                       // dword    @ 000010
-  int            zCalc2;                       // dword    @ 000014
-  int            zCalc3;                       // dword    @ 000018
-  unsigned int   uFaceAttributes;              // dword    @ 00001C    & 0x40: word_000110 == TextureFrameTable ID  ?  plain Texture ID
-                                               //                    & 0x0100  intersection in xy plane 
-                                               //                    & 0x0200  intersection in xz plane
-                                               //                    else      intersection in yz plane
-                                               //                    0x00000001 - It's a portal.
-                                               //                    0x00000010 - The texture is wavy, like water.
-                                               //                    0x00002000 - Invisible.
-                                               //                    0x00040000 - For facets that can be moved (are a part of door or lever). If set, the texture is moved accordingly.
-                                               //                    0x00400000 - The texture moves slowly. For horizontal facets only.
-                                               //                    0x02000000 - Event can be triggered by clicking on the facet.
-                                               //                    0x04000000 - Event can be triggered by stepping on the facet.
-                                               //                    0x20000000 - Untouchable You can pass through it.
-
-  unsigned short pVertexIDs[20];               // word[20] @ 000020     list of face vertices, pVertexIDs[0] == pVertexIDs[uNumVertices]
-  unsigned short pTextureUIDs[20];             // word[20] @ 000048    list of face texcoord u's
-  unsigned short pTextureVIDs[20];             // word[20] @ 000070    list of face texcoord v's
-  unsigned short pXInterceptDisplacements[20]; // word[20] @ 000098
-  unsigned short pYInterceptDisplacements[20]; // word[20] @ 0000C0
-  unsigned short pZInterceptDisplacements[20]; // word[20] @ 0000E8
-  unsigned short uTextureID;                   // word     @ 000110
-  short          sTextureDeltaU;               // word     @ 000112
-  short          sTextureDeltaV;               // word     @ 000114
-  Range<short>   cBoundingBoxX;                // word[2]  @ 000116
-  Range<short>   cBoundingBoxY;                // word[2]  @ 00011A
-  Range<short>   cBoundingBoxZ;                // word[2]  @ 00011E
-  short          sCogNumber;                   // word @ 000122
-  short          sCogTriggeredID;              // word @ 000124     Event::dword_000000
-  short          sCogTriggerType;              // word @ 000126
-  char           unk_000128[2];
-  unsigned char  uGradientVertex1;             // byte @ 000012A
-  unsigned char  uGradientVertex2;             // byte @ 000012B
-  unsigned char  uGradientVertex3;             // byte @ 000012C
-  unsigned char  uGradientVertex4;             // byte @ 000012D
-  unsigned char  uNumVertices;                 // byte @ 000012E
-  unsigned char  uPolygonType;                 // byte @ 000012F
-                                               //// 5 - ceiling, 6 - in-between ceiling and wall, 1 - vertical wall, 4 - in-between floor and wall, 3 - floor
+ Vec3<int>      vFaceNormal;                  // dword[3] @ 000000
+ int            sNormalDistance;              // dword    @ 00000C
+ int            zCalc1;                       // dword    @ 000010
+ int            zCalc2;                       // dword    @ 000014
+ int            zCalc3;                       // dword    @ 000018
+ unsigned int   uFaceAttributes;              // dword    @ 00001C    & 0x40: word_000110 == TextureFrameTable ID  ?  plain Texture ID
+                                              //                    & 0x0100  intersection in xy plane 
+                                              //                    & 0x0200  intersection in xz plane
+                                              //                    else      intersection in yz plane
+                                              //                    0x00000001 - It's a portal.
+                                              //                    0x00000010 - The texture is wavy, like water.
+                                              //                    0x00002000 - Invisible.
+                                              //                    0x00040000 - For facets that can be moved (are a part of door or lever). If set, the texture is moved accordingly.
+                                              //                    0x00400000 - The texture moves slowly. For horizontal facets only.
+                                              //                    0x02000000 - Event can be triggered by clicking on the facet.
+                                              //                    0x04000000 - Event can be triggered by stepping on the facet.
+                                              //                    0x20000000 - Untouchable You can pass through it.
+ unsigned short pVertexIDs[20];               // word[20] @ 000020     list of face vertices, pVertexIDs[0] == pVertexIDs[uNumVertices]
+ unsigned short pTextureUIDs[20];             // word[20] @ 000048    list of face texcoord u's
+ unsigned short pTextureVIDs[20];             // word[20] @ 000070    list of face texcoord v's
+ unsigned short pXInterceptDisplacements[20]; // word[20] @ 000098
+ unsigned short pYInterceptDisplacements[20]; // word[20] @ 0000C0
+ unsigned short pZInterceptDisplacements[20]; // word[20] @ 0000E8
+ unsigned short uTextureID;                   // word     @ 000110
+ short          sTextureDeltaU;               // word     @ 000112
+ short          sTextureDeltaV;               // word     @ 000114
+ Range<short>   cBoundingBoxX;                // word[2]  @ 000116
+ Range<short>   cBoundingBoxY;                // word[2]  @ 00011A
+ Range<short>   cBoundingBoxZ;                // word[2]  @ 00011E
+ short          sCogNumber;                   // word @ 000122
+ short          sCogTriggeredID;              // word @ 000124     Event::dword_000000
+ short          sCogTriggerType;              // word @ 000126
+ char           unk_000128[2];
+ unsigned char  uGradientVertex1;             // byte @ 000012A
+ unsigned char  uGradientVertex2;             // byte @ 000012B
+ unsigned char  uGradientVertex3;             // byte @ 000012C
+ unsigned char  uGradientVertex4;             // byte @ 000012D
+ unsigned char  uNumVertices;                 // byte @ 000012E
+ unsigned char  uPolygonType;                 // byte @ 000012F
+                                              // 5 - ceiling, 6 - in-between ceiling and wall, 1 - vertical wall, 4 - in-between floor and wall, 3 - floor
 #if 1  // mm7/8 stuff
-  unsigned char  uShadeType;                   // byte @ 000130
-  unsigned char  bVisible;                     // byte @ 000131
-  char           unk_000132[2];
+ unsigned char  uShadeType;                   // byte @ 000130
+ unsigned char  bVisible;                     // byte @ 000131
+ char           unk_000132[2];
 #endif
- };
+};
 //sizeof == 134
 
- struct BSPNode
- {
-  int dword_000000;
-  int dword_000004;
- };
- //sizeof == 08
 
-
- runtime_warning(read direcrlty from file)
- #pragma pack(push, 1)
-   unsigned char         pModelName[32];   // byte[32] @ 000000
-   unsigned char         pModelName2[32];  // byte[32] @ 000020
-   int                   dword_000040;
-   unsigned int          uNumVertices;     // dword  @ 000044
-   Vertex               *pVertices;        // dword  @ 000048
-   unsigned int          uNumFaces;        // dword  @ 00004C
-   unsigned int          uNumConvexFaces;  // d/word @ 000050
-   Face                 *pFaces;           // dword  @ 000054
-   unsigned short       *pFacesOrdering;   // dword  @ 000058
-   unsigned int          uNumNodes;        // dword  @ 00005C
-   BSPNode              *pNodes;           // dword  @ 000060
-   unsigned int          uNumDecorations;  // dword  @ 000064
-   int                   sCenterX;         // dword  @ 000068
-   int                   sCenterY;         // dword  @ 00006C
-   int                   sPosX;            // dword  @ 000070
-   int                   sPosY;            // dword  @ 000074
-   int                   sPosZ;            // dword  @ 000078
-   int                   sMinX;            // dword  @ 00007C
-   int                   sMinY;            // dword  @ 000080
-   int                   sMinZ;            // dword  @ 000084
-   int                   sMaxX;            // dword  @ 000088
-   int                   sMaxY;            // dword  @ 00008C
-   int                   sMaxZ;            // dword  @ 000090
-   int                   sSomeOtherMinX;   // dword  @ 000094
-   int                   sSomeOtherMinY;   // dword  @ 000098
-   int                   sSomeOtherMinZ;   // dword  @ 00009C
-   int                   sSomeOtherMaxX;   // dword  @ 0000A0
-   int                   sSomeOtherMaxY;   // dword  @ 0000A4
-   int                   sSomeOtherMaxZ;   // dword  @ 0000A8
-   int                   sBoundingCenterX; // dword  @ 0000AC
-   int                   sBoundingCenterY; // dword  @ 0000B0
-   int                   sBoundingCenterZ; // dword  @ 0000B4
-   int                   sBoundingRadius;  // dword  @ 0000B8
- #pragma pack(pop)
-};
-//sizeof == BC
 
 #pragma pack(pop)
 
@@ -157,6 +100,22 @@ namespace Terrain
 class OutdoorLocation
 {
  protected:
+   struct DDMHeader
+   {
+    int dword_000000;
+    int dword_000004;
+    int dword_000008;
+    int dword_00000C;
+    int dword_000010;  // [4] num faces in bmodels
+    int dword_000014;  // [5] num decorations
+    int dword_000018;  // [6] num bmodels
+    int dword_00001C;
+    int dword_000020;
+    int dword_000024;
+   };
+   //sizeof == 28
+
+
    struct TerrainData
    {
     inline TerrainData():
@@ -221,7 +180,7 @@ class OutdoorLocation
  SpawnPointMM7 *pSpawnPoints;   // dword @ 0004C4
 #endif
 
- int array_0004C8[10];
+ DDMHeader cDDMHeader; // struct @ 0004C8
  int array_0004F0[14];
 
  unsigned char array_000528[0x3C8];
@@ -285,9 +244,9 @@ int __thiscall class51_CreateDefaultMap(int Dest);
 
 
 
-bool sub_44C1E8(BSPModel::Face *_this);
-bool sub_482170(BSPModel::Face *_this, struct RenderVertex *a2, struct struct8 *a3);
-bool __stdcall sub_45CDB7_Face_ApplyLight(BSPModel::Face *_this, struct class04 *);
+bool sub_44C1E8(ODMFace *_this);
+bool sub_482170(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3);
+bool __stdcall sub_45CDB7_Face_ApplyLight(ODMFace *_this, struct class04 *);
 
 
 
@@ -332,7 +291,7 @@ struct struct8
  short                word_00004E;
  short                 word_000050;
  short                word_000052;
- BSPModel::Face      *ptr_000054;
+ ODMFace             *ptr_000054;
  char                 byte_000058;    //0..31 steps (step = ï/32) of some rotation
  char                 byte_000059;
  char                 byte_00005A;

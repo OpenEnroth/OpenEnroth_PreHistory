@@ -362,7 +362,7 @@ LABEL_150:
         {
           if ( uCurrentlyLoadedLevelType != 1 )
             goto LABEL_184;
-          v81 = (char *)pIndoor->ptr_000029C + 80 * (a3 >> 3);
+          v81 = (char *)pIndoor->pDoors + 80 * (a3 >> 3);
           if ( !*((_DWORD *)v81 + 1) )
             return;
           if ( !sub_4AB6B1_GetSoundStrengthByDistanceFromParty(**((_WORD **)v81 + 14), **((_WORD **)v81 + 15), **((_WORD **)v81 + 16)) )
@@ -722,7 +722,7 @@ LABEL_192:
         {
           if ( uCurrentlyLoadedLevelType != 1 )
             goto LABEL_103;
-          v49 = (char *)pIndoor->ptr_000029C + 80 * (a3 >> 3);
+          v49 = (char *)pIndoor->pDoors + 80 * (a3 >> 3);
           if ( !*((_DWORD *)v49 + 1) )
             return;
           v87 = (double)**((_WORD **)v49 + 14);
@@ -1601,7 +1601,7 @@ void AudioPlayer::sub_4AAFCF()
               break;
             if ( uCurrentlyLoadedLevelType != 1 )
               goto LABEL_31;
-            v17 = (char *)pIndoor->ptr_000029C + 80 * (*(_DWORD *)(v8 + 4) >> 3);
+            v17 = (char *)pIndoor->pDoors + 80 * (*(_DWORD *)(v8 + 4) >> 3);
             if ( *((_DWORD *)v17 + 1) )
             {
               v67 = **((_WORD **)v17 + 14);
@@ -1756,7 +1756,7 @@ LABEL_37:
           {
             if ( uCurrentlyLoadedLevelType == 1 )
             {
-              v43 = (char *)pIndoor->ptr_000029C + 80 * (v35 >> 3);
+              v43 = (char *)pIndoor->pDoors + 80 * (v35 >> 3);
               if ( !*((_DWORD *)v43 + 1) )
               {
 LABEL_61:

@@ -1046,9 +1046,9 @@ int __fastcall SaveGame(int a1, int a2)
     pParty_global->dword_000700 = pParty_global->vOldPosition.z;
 
     if (uCurrentlyLoadedLevelType == 1)
-      qword_6BE6B4[0] = pParty_global->qword_00002C;
+      *(__int64 *)pIndoor->unk_0002EC = pParty_global->qword_00002C;
     else
-      qword_6A12E0 = pParty_global->qword_00002C;
+      *(__int64 *)pOutdoor->array_0004F0 = pParty_global->qword_00002C;
 
     runtime_warning(aint workin);
     //v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(150, 112);
@@ -1199,12 +1199,12 @@ int __fastcall SaveGame(int a1, int a2)
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v13 = DstBuf;
-        dword_6BE69C = pIndoor->uNumFaces;
-        dword_6BE6A4 = 0;
-        dword_6BE6A0 = uNumLevelDecorations;
-        memcpy(DstBuf, &unk_6BE68C, 40);
+        pIndoor->cDLVHeader.dword_000010 = pIndoor->uNumFaces;
+        pIndoor->cDLVHeader.dword_000018 = 0;
+        pIndoor->cDLVHeader.dword_000014 = uNumLevelDecorations;
+        memcpy(DstBuf, (char *)&pIndoor->cDLVHeader, 40);
         v13 = (char *)v13 + 40;
-        memcpy(v13, byte_6BE6EC, 875);
+        memcpy(v13, pIndoor->unk_000324, 875);
         v12 = (char *)v13 + 875;
         v75 = 0;
         if ( pIndoor->uNumFaces > 0 )
@@ -1255,25 +1255,25 @@ int __fastcall SaveGame(int a1, int a2)
         compile_error();//v19 = (char *)v18 + ::Size;
         memcpy(v19, &global_5E4C90, sizeof(struct struct4));
         v14 = (int)((char *)v19 + 200);
-        memcpy((void *)v14, &qword_6BE6B4,56);
+        memcpy((void *)v14, pIndoor->unk_0002EC, 56);
       }
       else
       {
         
-        dword_6A12C8 = 0;
+        pOutdoor->cDDMHeader.dword_000010 = 0;
 		  for (v20 = 0;v20 < pOutdoor->uNumBModels; ++v20)
           {
-		      dword_6A12C8 += pOutdoor->pBModels[v20].uNumFaces;
+		      pOutdoor->cDDMHeader.dword_000010 += pOutdoor->pBModels[v20].uNumFaces;
           }
 
         v24 = DstBuf;
-        dword_6A12D0 = pOutdoor->uNumBModels;
-        dword_6A12CC = uNumLevelDecorations;
-        memcpy(DstBuf, &unk_6A12B8,40);
+        pOutdoor->cDDMHeader.dword_000018 = pOutdoor->uNumBModels;
+        pOutdoor->cDDMHeader.dword_000014 = uNumLevelDecorations;
+        memcpy(DstBuf, (char *)&pOutdoor->cDDMHeader, 40);
         v24 = (char *)v24 + 40;
-        memcpy(v24, &unk_6A1318, 968);
+        memcpy(v24, pOutdoor->array_000528, 968);
         v24 = (char *)v24 + 968;
-        memcpy(v24, &unk_6A16E0, 968);
+        memcpy(v24, pOutdoor->array_0008F0, 968);
         v23 = (char *)v24 + 968;  
         if ( pOutdoor->uNumBModels > 0 )
         {
@@ -1319,7 +1319,7 @@ int __fastcall SaveGame(int a1, int a2)
 
         memcpy(v33, &global_5E4C90, sizeof(struct struct4));
         v14 = (int)((char *)v33 + 200);
-        memcpy((void *)v14, &qword_6A12E0, 56);
+        memcpy((void *)v14, pOutdoor->array_0004F0, 56);
         v11 = v76;
       }
       v34 = v14 + 56;

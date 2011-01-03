@@ -2544,15 +2544,14 @@ void sub_44103C()
     dword_EF5290 = LODWORD(v3);
    }
 
+
+   //Render
    if (uCurrentlyLoadedLevelType == 1)
-      {
-        sub_441BD4();
-      }
-      else
-      {
-        if ( uCurrentlyLoadedLevelType == 2 )
-          sub_441CFF();
-      }
+     sub_441BD4_DrawIndoor();
+   else if ( uCurrentlyLoadedLevelType == 2 )
+     sub_441CFF_DrawOutdoor();
+
+
       if ( pD3DRenderer->pRenderD3D3 )
       {
         class58_sub_49C304(pClass58_global, 0, (unsigned int)pD3DRenderer);
@@ -5675,7 +5674,7 @@ int __cdecl sub_493938()
     }
     if (pParty_global->pPartyBuffs[10].dword_000004 >= 0 && (pParty_global->pPartyBuffs[10].dword_000004 > 0 || pParty_global->pPartyBuffs[10].dword_000000) )
     {
-      sub_404828(&v43);
+      sub_404828_ctor((sub_404828_stru0 *)&v43);
       v11 = 0;
       v61 = 0;
       v60 = 0;
@@ -6075,7 +6074,7 @@ LABEL_20:
 }
 
 //----- (00441CFF) --------------------------------------------------------
-void __cdecl sub_441CFF()
+void __cdecl sub_441CFF_DrawOutdoor()
 {
   //if ( !(pParty_global->dword_007778 & 2) && !(*(_BYTE *)(&pGame->dword_000E24) & 1) )
   //  sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(false);
@@ -6831,7 +6830,7 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
   int v714; // [sp+E80h] [bp-4h]@1
 
   v672 = _this;
-  sub_404828(&v686);
+  sub_404828_ctor((sub_404828_stru0 *)&v686);
   v1 = 0i64;
   v714 = 0;
   v711 = 0;
@@ -11228,9 +11227,10 @@ LABEL_1087:
          pParty_global->pPlayers[i].sMana = Player_GetMaxMana(&pParty_global->pPlayers[i]);
         }
 
-        v576 = &unk_6A12B8;
+        v576 = (char *)&pOutdoor->cDDMHeader;
         if ( uCurrentlyLoadedLevelType != 2 )
-          v576 = &unk_6BE68C;
+          v576 = (char *)&pIndoor->cDLVHeader;
+
         *((_DWORD *)v576 + 2) += 15;
         if ( *((_DWORD *)v576 + 2) > 10000 )
           *((_DWORD *)v576 + 2) = 10000;

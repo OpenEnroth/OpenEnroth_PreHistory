@@ -291,11 +291,11 @@ int __thiscall sub_443365(struct unnamed_576FE8 *_this)
     v14 = 0x40000000;
     v17 = 0xC0000000;
     v15 = 0xC0000000;
-    if ( *(_DWORD *)pIndoor->ptr_00002A8 > 0 )
+    if ( *(_DWORD *)pIndoor->ptr_0002A8 > 0 )
     {
-      v2 = (int)pIndoor->ptr_00002A8 + 4;
-      v11 = *(_DWORD *)pIndoor->ptr_00002A8;
-      v12 = (int)pIndoor->ptr_00002A8 + 4;
+      v2 = (int)pIndoor->ptr_0002A8 + 4;
+      v11 = *(_DWORD *)pIndoor->ptr_0002A8;
+      v12 = (int)pIndoor->ptr_0002A8 + 4;
       do
       {
         v3 = (int)pIndoor->pVertices + 6 * *(_WORD *)v2;
@@ -11567,13 +11567,13 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
 {
   int v3; // ebx@3
   MapInfo *v4; // edi@4
-  int v5; // eax@8
-  int v6; // edx@14
+  //int v5; // eax@8
+  //int v6; // edx@14
   size_t v8; // eax@19
   char Source[120]; // [sp+Ch] [bp-84h]@19
-  int v13; // [sp+88h] [bp-8h]@12
-  int v14; // [sp+8Ch] [bp-4h]@11
- int i;
+  //int v13; // [sp+88h] [bp-8h]@12
+  //int v14; // [sp+8Ch] [bp-4h]@11
+ //int i;
 
   sub_485F64(pStruct9_global);
   dword_6BE024 = 0;
@@ -11605,27 +11605,17 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
     sub_408896();
   }
   dword_6BE364 &= ~0x4000;
-  v5 = 0;
+
 
   if ( v1 == 1 )
   {
-    v14 = 0;
-    if ( dword_6A12B0 > 0 )
-    {
-      v13 = 0;
-      while ( 1 )
-      {
-        v6 = dword_6A12B4 + v13;
-        if ( *(_WORD *)(dword_6A12B4 + v13 + 14) == 3 )
-          sub_44F57C_MaybeCreateRandomMonster((int)v4, v6, v5, v5, v5);
-        else
-          sub_44FFD8((int)v4, v6);
-        ++v14;
-        v13 += 24;
-        if ( v14 >= dword_6A12B0 )
-          break;
-        v5 = 0;
-      }
+   for (unsigned int i = 0; i < pOutdoor->uNumSpawnPoints; ++i)
+   {
+    SpawnPointMM7 *pSpawnPoint = pOutdoor->pSpawnPoints + i;
+    if (pSpawnPoint->uKind == 3)
+          sub_44F57C_SpawnMonsters((int)v4, pSpawnPoint, 0, 0, 0);
+    else
+          sub_44FFD8_SpawnMonsters((int)v4, pSpawnPoint);
     }
     sub_450AAA();
   }
@@ -11656,7 +11646,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
 
  pGameLoadingUI_ProgressBar->SetProgress(0.95f);
 
- for (i = 0; i < 2000; ++i)
+ for (unsigned int i = 0; i < 2000; ++i)
  {
   array_77EC08[i].word_000030 = 0;
   array_77EC08[i].word_000032 = 0;
@@ -12116,7 +12106,7 @@ signed int __fastcall sub_42041E(int a1)
 
     v24 = &v44 + v50;
     sub_42F7EB_DropItemAt(*v24, v51.x, v51.y, v51.z, 0, 1, 0, 48, 0);
-    sub_404828(&v27);
+    sub_404828_ctor((sub_404828_stru0 *)&v27);
     ItemGen_Reset((ItemGen *)&v37);
     v23 = *(_WORD *)v24;
     v22 = 0;
@@ -12486,7 +12476,7 @@ void __cdecl sub_420E01()
   POINT v7; // [sp+7Ch] [bp-10h]@2
   POINT v8; // [sp+84h] [bp-8h]@2
 
-  sub_404828(&v6);
+  sub_404828_ctor((sub_404828_stru0 *)&v6);
   v0 = pGUIWindow_CurrentMenu->dword_00001C;
   if (pParty_global->pickedItem.uItemID)
   {
@@ -12592,7 +12582,7 @@ signed int __cdecl sub_421B2C_DropPickedItem()
 LABEL_10:
       if ( v23 != 4 )
         goto LABEL_18;
-      sub_404828(&v10);
+      sub_404828_ctor((sub_404828_stru0 *)&v10);
       v6 = word_5D29F8[24 * pParty_global->pickedItem.uItemID];
       v5 = 0;
       v10 = word_5D29F8[24 * pParty_global->pickedItem.uItemID];
@@ -12931,7 +12921,7 @@ void __cdecl sub_42213C()
   int v37; // [sp+88h] [bp-4h]@30
  POINT pt;
 
-  sub_404828(&v24);
+  sub_404828_ctor((sub_404828_stru0 *)&v24);
   if ( pD3DRenderer->pRenderD3D3 )
   {
     v0 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);

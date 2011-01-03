@@ -1639,23 +1639,6 @@ OutdoorLocation class51_6A0DA0_dwReserved;
 OutdoorLocation *pOutdoor = &class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
  struct tagOFNA stru_6A0DA0; // idb
 //dwReserved @ 6A0DF0 @ pOutdoor::000000
- int dword_6A12B0; // weak
- int dword_6A12B4; // weak
- //struct 40 bytes
- _UNKNOWN unk_6A12B8; // weak
- int dword_6A12C4; // weak
- int dword_6A12C8; // weak
- int dword_6A12CC; // weak
- int dword_6A12D0; // weak
- //
- __int64 qword_6A12E0; // weak
- int dword_6A12F4; // weak
- int dword_6A12F8; // weak
- int dword_6A12FC; // weak
- _UNKNOWN unk_6A1318; // weak
- //
- _UNKNOWN unk_6A16E0; // weak
-
 
  float flt_6BD074; // weak
  int dword_6BD078; // weak
@@ -1767,22 +1750,7 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
  char byte_6BE3C4_MaybeDrowningFlag; // weak
  char byte_6BE3C5; // weak
 
-IndoorLocation *pIndoor = nullptr; //  // struct @ MM7.exe::006BE3C8
- //struct 40 bytes
- _UNKNOWN unk_6BE68C; // weak
- int dword_6BE694; // weak 8
- int dword_6BE698; // weak	12
- int dword_6BE69C; // weak	16
- int dword_6BE6A0; // weak	20
- int dword_6BE6A4; // weak	24
-
-
- //
- __int64 qword_6BE6B4[7]; // weak 
- // bytes875
- char byte_6BE6EC[875]; // weak
-
-
+IndoorLocation *pIndoor = nullptr; // struct @ MM7.exe::006BE3C8
 
 //_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
 //MemoryMng mem_mng;  // struct @ MM7.exe::00702B28

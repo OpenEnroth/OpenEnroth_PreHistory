@@ -535,7 +535,7 @@ signed int __fastcall sub_404736(int a1)
 
   v27 = a1;
   v2 = (char *)pActors + 836 * a1;
-  sub_404828(&v9);
+  sub_404828_ctor((sub_404828_stru0 *)&v9);
   v1 = 0;
   v9 = 600;
   if ( pObjectDescriptionList->uNumObjects <= 0 )
@@ -583,29 +583,28 @@ LABEL_5:
 
 
 //----- (00404828) --------------------------------------------------------
-void *__thiscall sub_404828(void *_this)
+void sub_404828_ctor(sub_404828_stru0 *_this)
 {
-  void *v2; // esi@1
+ ItemGen_Reset(&_this->local_000024);
+ _this->word_000022 = 1;
 
-  v2 = _this;
-  ItemGen_Reset((ItemGen *)((char *)_this + 36));
-  *((_WORD *)v2 + 17) = 1;
-  *((_WORD *)v2 + 12) = 0;
-  *((_WORD *)v2 + 11) = 0;
-  *((_WORD *)v2 + 10) = 0;
-  *((_WORD *)v2 + 9) = 0;
-  *((_WORD *)v2 + 8) = 0;
-  *(_WORD *)v2 = 0;
-  *((_WORD *)v2 + 1) = 0;
-  *((_BYTE *)v2 + 97) = 0;
-  *((_BYTE *)v2 + 96) = 0;
-  *((_WORD *)v2 + 16) = 0;
-  *((_WORD *)v2 + 15) = 0;
-  *((_DWORD *)v2 + 20) = 0;
-  *((_DWORD *)v2 + 19) = 0;
-  *((_DWORD *)v2 + 18) = 0;
-  *((_DWORD *)v2 + 21) = 0;
-  return v2;
+ _this->word_000010 = 0;
+ _this->word_000012 = 0;
+ _this->word_000014 = 0;
+ _this->word_000016 = 0;
+ _this->word_000018 = 0;
+
+ _this->word_000000 = 0;
+ _this->word_000000 = 0;
+
+  *((_BYTE *)_this + 97) = 0;
+  *((_BYTE *)_this + 96) = 0;
+  *((_WORD *)_this + 16) = 0;
+  *((_WORD *)_this + 15) = 0;
+  *((_DWORD *)_this + 20) = 0;
+  *((_DWORD *)_this + 19) = 0;
+  *((_DWORD *)_this + 18) = 0;
+  *((_DWORD *)_this + 21) = 0;
 }
 
 
@@ -664,7 +663,7 @@ char __fastcall sub_404874(int a1, int a2, int a3, char a4)
   v33 = a1;
   v5 = a2;
   v6 = (char *)pActors + 836 * a1;
-  sub_404828(&v15);
+  sub_404828_ctor((sub_404828_stru0 *)&v15);
   v4 = a3 - 1;
   switch ( a3 )
   {
@@ -1908,7 +1907,7 @@ void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
   LODWORD(v141) = a1;
   v7 = (int)&pActors[a1];
   v138 = a2;
-  sub_404828(&v119);
+  sub_404828_ctor((sub_404828_stru0 *)&v119);
   v6 = a5 & 0x3F;
   v5 = sub_458244_GetSkillMasteryLevel(a5);
   if ( a3 <= 47 )
@@ -3283,10 +3282,12 @@ LABEL_36:
       if ( v31 >= uLevelEVT_NumEvents )
         return;
     }
-    v28 = qword_6A12E0;
     v3 = (char *)&array_5B5928[dword_5B65C8];
+
+    v28 = *(__int64 *)pOutdoor->array_0004F0;
     if ( uCurrentlyLoadedLevelType == 1 )
-      v28 = qword_6BE6B4[0];
+      v28 = *(__int64 *)pIndoor->unk_0002EC;
+
     v5 = pLevelEVT[(_DWORD)a1 + 4];
     WORD2(a1) = *(_WORD *)v2;
     *((_WORD *)v3 + 14) = v5;
@@ -4332,7 +4333,7 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
   int v9; // eax@1
   struct BSPModel *v10; // esi@4
   char v11; // al@11
-  struct BSPModel::Face *v12; // ecx@11
+  struct ODMFace *v12; // ecx@11
   int v15; // edx@22
   int v17; // edi@24
   signed int v18; // edx@26
@@ -5039,12 +5040,12 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
     pD3DRenderer->BeginScene();
     if ( uCurrentlyLoadedLevelType == 1 )
     {
-      sub_441BD4();
+      sub_441BD4_DrawIndoor();
     }
     else
     {
       if ( uCurrentlyLoadedLevelType == 2 )
-        sub_441CFF();
+        sub_441CFF_DrawOutdoor();
     }
     //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
     pD3DRenderer->EndScene();
@@ -5107,12 +5108,12 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
     pD3DRenderer->BeginScene();
     if ( uCurrentlyLoadedLevelType == 1 )
     {
-      sub_441BD4();
+      sub_441BD4_DrawIndoor();
     }
     else
     {
       if ( uCurrentlyLoadedLevelType == 2 )
-        sub_441CFF();
+        sub_441CFF_DrawOutdoor();
    } 
     v26 = (int)pD3DRenderer->pTargetSurface;
     v28 = pD3DRenderer->uTargetSurfacePitch;

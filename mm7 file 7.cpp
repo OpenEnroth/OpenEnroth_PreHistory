@@ -2527,7 +2527,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
             v10 = pGame->class08_obj;
             v32 = pGame->class08_obj;
             v31 = (int)pGame->class04_obj;
-            if ( !sub_436455((IndoorLocation::BLVFace *)v9) )
+            if ( !sub_436455((BLVFace *)v9) )
             {
               v11 = 0;
               v35 = *(_BYTE *)(v9 + 93);
@@ -2980,9 +2980,10 @@ LABEL_13:
   dword_AE310C[a1] = 1;
   if ( v3 )
   {
-    v7 = &unk_6A12B8;
+    v7 = (char *)&pOutdoor->cDDMHeader;
     if ( uCurrentlyLoadedLevelType != 2 )
-      v7 = &unk_6BE68C;
+      v7 = (char *)&pIndoor->cDLVHeader;
+
     *((_DWORD *)v7 + 2) += v3;
     if ( *((_DWORD *)v7 + 2) > 10000 )
       *((_DWORD *)v7 + 2) = 10000;
@@ -7438,9 +7439,9 @@ LABEL_78:
       if ( pParty_global->uNumGold >= (unsigned int)(signed __int64)v25 )
       {
         sub_492BB6((signed __int64)v25);
-        v26 = (int)&unk_6A12B8;
+        v26 = (int)&pOutdoor->cDDMHeader;
         if ( uCurrentlyLoadedLevelType != 2 )
-          v26 = (int)&unk_6BE68C;
+          v26 = (int)&pIndoor->cDLVHeader;
         v27 = *(_DWORD *)(v26 + 8);
         v68 = (const char *)v26;
         if ( v27 > -5 )
@@ -11306,12 +11307,12 @@ void __cdecl sub_4BC109()
   pD3DRenderer->BeginScene();
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-    sub_441BD4();
+    sub_441BD4_DrawIndoor();
   }
   else
   {
     if ( uCurrentlyLoadedLevelType == 2 )
-      sub_441CFF();
+      sub_441CFF_DrawOutdoor();
   }
   //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
   pD3DRenderer->EndScene();
@@ -13517,7 +13518,7 @@ bool IsPointInsideD3DBillboard(struct RenderBillboardD3D3 *pBillboard, float fX,
 
 
 //----- (004C1D2B) --------------------------------------------------------
-int __stdcall sub_4C1D2B(IndoorLocation::BLVFace *a1, Vec3<short> a2, unsigned int uModelID)
+int __stdcall sub_4C1D2B(BLVFace *a1, Vec3<short> a2, unsigned int uModelID)
 {
   int v4; // esi@1
   bool v5; // edi@9

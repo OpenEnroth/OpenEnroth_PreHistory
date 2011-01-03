@@ -68,10 +68,12 @@ struct ItemGen
 };
 //sizeof = 24
 
+void ItemGen_Reset(struct ItemGen *_this);  // ctor apparently
 
-int __thiscall ItemGen_sub_456442(ItemGen *_this);
-int __thiscall ItemGen_sub_456499(ItemGen *_this);
-int __thiscall ItemGen_sub_4564B3(ItemGen *_this);
+int ItemGen_sub_456442(ItemGen *_this);
+int ItemGen_sub_456499(ItemGen *_this);
+int ItemGen_sub_4564B3(ItemGen *_this);
+signed int sub_4505CC(void *_this);
 
 
 //Item laying on the ground, pickable and rendered as a sprite billboard
@@ -80,13 +82,7 @@ struct LayingItem
  unsigned short uItemType;             // word     @ 000000
  short          uObjectDescriptionID;  // word     @ 000002
  Vec3<int>      vPosition;             // dword[3] @ 000004
- //int            sItemPosX;             // dword @ 000004
- //int            sItemPosY;             // dword @ 000008
- //int            sItemPosZ;             // dword @ 00000C
  Vec3<short>    vVelocity;             // word[3] @ 000010
- //short          sVelocityX;            // word  @ 000010
- //short          sVelocityY;            // word  @ 000012
- //short          sVelocityZ;            // word  @ 000014
  unsigned short uFacing;               // word  @ 000016
  unsigned short uSoundID;              // word  @ 000018
  unsigned short uAttributes;           // word  @ 00001A
