@@ -9,6 +9,7 @@
 #define  LOCSTR_SPY  							    3		// "Spy"
 
 #define  LOCSTR_TOWN_PORTAL		                    10 // "Town Portal"	
+#define  LOCSTR_ARMOR                               11 // "Armor"
 
 #define  LOCSTR_ASSASIN                     		13	// "Assassin"
 
@@ -23,6 +24,7 @@
 
 
 #define  LOCSTR_RANGER		                        31 //"Ranger"
+#define  LOCSTR_BROKEN_ITEM                         32 //"Broken Item"
 
 #define  LOCSTR_CANCEL		                        34 //"Cancel"	
 
@@ -34,6 +36,8 @@
 #define  LOCSTR_CONDITION                   		47	//"Condition"
 
 #define  LOCSTR_CREATE_PARTY                  		51   //"C R E A T E   P A R T Y"	
+
+#define  LOCSTR_DAMAGE                              53 // "Damage"
 
 #define  LOCSTR_DAWN                                55 //"Dawn"	
 #define  LOCSTR_DAY                          		56	//"Day"	
@@ -83,10 +87,17 @@
 #define  LOCSTR_REST_HEAL_8                         183 //"Rest & Heal 8 Hours"	
 
 #define  LOCSTR_TIME_ERATHIA                		186 // "Time in Erathia"	
+#define  LOCSTR_STOLEN                              187 // "Stolen"
 
 #define  LOCSTR_SAVING                      		190  // "Saving"	
 
+#define  LOCSTR_SHOOT                               203 // "Shoot"
+
 #define  LOCSTR_SKILL_POINTS		                207 /// "Skill Points"	
+
+#define  LOCSTR_SPECIAL                             210 // "Special"
+
+#define  LOCSTR_NOT_IDENTIFIED                      232 // "Not idenfified"
 
 #define  LOCSTR_KNIGHT                      		253  //"Knight"	
 #define  LOCSTR_CAVALIER		                    254  //"Cavalier"	
@@ -128,7 +139,16 @@
 #define  LOCSTR_EXPERT		                        433	//"Expert"
 #define  LOCSTR_LIKED		                        434 //"Liked"	
 
+#define  LOCSTR_POWER                               449 // "Power"
 #define  LOCSTR_ACTIVE_SPELL                		450	// "Active Spells: %s"	
+
+#define  LOCSTR_IDENTIFY_FAILED                     446 // "Identify failed"
+#define  LOCSTR_REPAIR_FAILED                       448 // "Repair failed"
+
+#define  LOCSTR_TYPE_S                              463 // "Type: %s"
+#define  LOCSTR_CHARGES                             464 // "Charges"
+
+#define  LOCSTR_VALUE                               465 // "Value"
 
 #define  LOCSTR_READING                         	505 ///"Reading..."	
 
@@ -152,6 +172,8 @@
 
 #define  LOCSTR_BONUS                       		623 //"Bonus"	
 
+#define  LOCSTR_HARDENED                            651 // "Hardened"
+
 #define  LOCSTR_GAME_SAVED                  		656	// "Game Saved!"	
 /*
 
@@ -162,7 +184,6 @@
 +		[8]	0x04102dd0 "Obelisk Notes"	unsigned char *
 +		[9]	0x04102de1 "Congratulations!"	unsigned char *
 
-+		[11]	0x04102e06 "Armor"	unsigned char *
 +		[0xc]	0x04102e10 "Armor Class"	unsigned char *
 
 +		[0xe]	0x04102e2d "Asleep"	unsigned char *
@@ -183,7 +204,6 @@
 +		[29]	0x04102efc "Body"	unsigned char *
 +		[30]	0x04102f05 "Bonus"	unsigned char *
 
-+		[32]	0x04102f1a "Broken Item"	unsigned char *
 +		[33]	0x04102f2a "Ranger Lord"	unsigned char *
 +		[34]	0x04102f3a "Cancel"	unsigned char *
 +		[35]	0x04102f45 "Town Portal to %s"	unsigned char *
@@ -204,7 +224,6 @@
 +		[50]	0x0410302e "Dodging"	unsigned char *
 
 +		[52]	0x04103056 "Cursed"	unsigned char *
-+		[0x35]	0x04103061 "Damage"	unsigned char *
 +		[0x36]	0x0410306c "Dark"	unsigned char *
 
 
@@ -339,7 +358,6 @@
 +		[184]	0x04103bf2 "Reinstall Necessary"	unsigned char *
 +		[185]	0x04103c0b "Steal item"	unsigned char *
 
-+		[187]	0x04103c30 "Stolen"	unsigned char *
 +		[188]	0x04103c3c "Saturday"	unsigned char *
 +		[189]	0x04103c4a "%s shoots %s for %lu points"	unsigned char *
 
@@ -355,14 +373,12 @@
 +		[200]	0x04103d6b "Sell"	unsigned char *
 +		[201]	0x04103d75 "Are you sure?  Click again to start a New Game"	unsigned char *
 +		[202]	0x04103da9 "Air Res"	unsigned char *
-+		[203]	0x04103db6 "Shoot"	unsigned char *
 +		[204]	0x04103dc1 "Body Res"	unsigned char *
 +		[205]	0x04103dcf "Skills"	unsigned char *
 +		[206]	0x04103ddb "Skills for"	unsigned char *
 
 +		[208]	0x04103dfd "Earth Res"	unsigned char *
 +		[209]	0x04103e0c "SP"	unsigned char *
-+		[210]	0x04103e14 "Special"	unsigned char *
 +		[211]	0x04103e21 "Speed"	unsigned char *
 +		[212]	0x04103e2c "Spell Points"	unsigned char *
 +		[213]	0x04103e3e "Mind Res"	unsigned char *
@@ -384,7 +400,6 @@
 +		[229]	0x04103f6d "Pain Reflection"	unsigned char *
 +		[230]	0x04103f82 "Tuesday"	unsigned char *
 +		[231]	0x04103f8f "Unconscious"	unsigned char *
-+		[232]	0x04103fa0 "Not Identified"	unsigned char *
 +		[233]	0x04103fb4 "Preservation"	unsigned char *
 +		[234]	0x04103fc6 "Regeneration"	unsigned char *
 +		[235]	0x04103fd8 "Temp Accuracy"	unsigned char *
@@ -592,10 +607,7 @@
 +		[443]	0x04104cb9 "Bless"	unsigned char *
 +		[444]	0x04104cc4 "Ooops!"	unsigned char *
 +		[445]	0x04104cd0 "Lucky Day"	unsigned char *
-+		[446]	0x04104cdf "Identify Failed"	unsigned char *
 +		[447]	0x04104cf4 "Precision"	unsigned char *
-+		[448]	0x04104d03 "Repair Failed"	unsigned char *
-+		[449]	0x04104d16 "Power"	unsigned char *
 +		[450]	0x04104d21 "Active Spells: %s"	unsigned char *
 +		[451]	0x04104d38 "Active Party Spells"	unsigned char *
 +		[452]	0x04104d51 "Torch Light"	unsigned char *
@@ -609,9 +621,7 @@
 +		[460]	0x04104dc9 "Prot Cold"	unsigned char *
 +		[461]	0x04104dd8 "Prot Poison"	unsigned char *
 +		[462]	0x04104de9 "Prot Magic"	unsigned char *
-+		[463]	0x04104df9 "Type: %s"	unsigned char *
 +		[464]	0x04104e07 "Charges"	unsigned char *
-+		[465]	0x04104e14 "Value"	unsigned char *
 +		[466]	0x04104e1f "You found %lu gold (followers take %lu)!"	unsigned char *
 +		[467]	0x04104e4d "You found %lu gold!"	unsigned char *
 +		[468]	0x04104e66 "Clicking here will spend %d Skill Points"	unsigned char *
@@ -797,7 +807,6 @@
 +		[648]	0x04105f2b "This character can't summon any more monsters!"	unsigned char *
 +		[649]	0x04105f5f "Summoned"	unsigned char *
 +		[650]	0x04105f6d "Current Hit Points"	unsigned char *
-+		[651]	0x04105f85 "Hardened"	unsigned char *
 +		[652]	0x04105f93 "You can not do that while you are underwater!"	unsigned char *
 +		[653]	0x04105fc6 "Food"	unsigned char *
 +		[654]	0x04105fd0 "%s's Jar"	unsigned char *

@@ -6207,24 +6207,24 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   
   v83 = v115 + 2 * pFontArrus->uFontHeight;
   v84 = Player_GetAttackBonus(pPlayer, 0);
- // wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
-  StringCbPrintfA((char *)TmpBuf,50 ,"%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
+ // wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], v84);
+  StringCbPrintfA((char *)TmpBuf,50 ,"%s\t100%+d\n", pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], v84);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v83, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v85 = v83 + pFontArrus->uFontHeight - 2;
   v86 = Player_GetMeleeDamage_String(pPlayer);
-  wsprintfA((char *)TmpBuf, "%s\t100 %s\n", pGlobalTXT_LocalizationStrings[53], v86);
+  wsprintfA((char *)TmpBuf, "%s\t100 %s\n", pGlobalTXT_LocalizationStrings[LOCSTR_DAMAGE], v86);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v85, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v87 = v85 + pFontArrus->uFontHeight - 2;
   v88 = Player_sub_48D0B9(pPlayer);
-  //wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
-  StringCbPrintfA((char *)TmpBuf,50 ,"%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
+  //wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[LOCSTR_SHOOT], v88);
+  StringCbPrintfA((char *)TmpBuf,50 ,"%s\t100%+d\n", pGlobalTXT_LocalizationStrings[LOCSTR_SHOOT], v88);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v87, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v89 = v87 + pFontArrus->uFontHeight - 2;
   v90 = Player_sub_48D396((int)pPlayer);
-  wsprintfA((char *)TmpBuf, "%s\t100 %s\n\n", pGlobalTXT_LocalizationStrings[53], v90);
+  wsprintfA((char *)TmpBuf, "%s\t100 %s\n\n", pGlobalTXT_LocalizationStrings[LOCSTR_DAMAGE], v90);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v89, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v125 = "%s\f%06x\t110%d\f000000 / %d\n";
@@ -6930,7 +6930,7 @@ void CharacterUI_DrawSkillsTab(int uSelectedCharacter) // character skills tab
   if ( !v86 )
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, pFontLucida->uFontHeight + v90 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0xFFFFFFFF, 0, 0);
   v34 = 2 * pFontLucida->uFontHeight + 13;
-  wsprintfA((char *)TmpBuf, "%s\r177%s", pGlobalTXT_LocalizationStrings[11], pGlobalTXT_LocalizationStrings[131]);
+  wsprintfA((char *)TmpBuf, "%s\r177%s", pGlobalTXT_LocalizationStrings[LOCSTR_ARMOR], pGlobalTXT_LocalizationStrings[131]);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v34, (char *)TmpBuf, 0xFFFFFF9B, 0, 0);
   v87 = 0;
   for(i = 0; i < 5; i++) 
@@ -10761,7 +10761,6 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   int v5; // esi@5
   int v6; // eax@5
   int v7; // edx@5
-  int v10; // eax@16
   char v11; // zf@16
   char v12; // zf@18
   int v13; // eax@25
@@ -10775,7 +10774,6 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   unsigned __int8 v23; // al@40
   unsigned __int8 v24; // al@44
   unsigned __int8 v25; // al@48
-  char v26; // al@51
   int v27; // eax@52
   int v28; // eax@57
   int v29; // eax@60
@@ -10794,22 +10792,10 @@ void GameUI_DrawItemInfo(ItemGen *_this)
   int v45; // eax@113
   signed int v46; // [sp-20h] [bp-298h]@113
   int v47; // [sp-1Ch] [bp-294h]@113
-  char *v48; // [sp-18h] [bp-290h]@46
   __int16 v49; // [sp-18h] [bp-290h]@113
-  int v50; // [sp-14h] [bp-28Ch]@46
-  const char *v51; // [sp-14h] [bp-28Ch]@58
   const char *v52; // [sp-14h] [bp-28Ch]@110
-  int v53; // [sp-10h] [bp-288h]@46
-  const char *v54; // [sp-10h] [bp-288h]@56
-  int v55; // [sp-10h] [bp-288h]@58
   int v56; // [sp-10h] [bp-288h]@110
-  int v58; // [sp-Ch] [bp-284h]@46
-  int v59; // [sp-Ch] [bp-284h]@56
-  int v60; // [sp-Ch] [bp-284h]@58
   signed int v61; // [sp-Ch] [bp-284h]@110
-  int v63; // [sp-8h] [bp-280h]@46
-  int v64; // [sp-8h] [bp-280h]@56
-  int v65; // [sp-8h] [bp-280h]@58
   char *v66; // [sp-8h] [bp-280h]@110
   char v67[100]; // [sp+8h] [bp-270h]@40
   char Dest[100]; // [sp+6Ch] [bp-20Ch]@40
@@ -10881,21 +10867,20 @@ void GameUI_DrawItemInfo(ItemGen *_this)
       _this->uAttributes |= 1u;
     v82 = 0;
     v91.y = _this->uAttributes & 2;
-    if (pClass40->pItems[_this->uItemID - 1].uEquipType == 18 )
+    if (pItem->uEquipType == 18 )
       v82 = _this->dword_00000C;
     if ( uActiveCharacter )
     {
       if ( !(_this->uAttributes & 1) )
       {
         v11 = sub_4910D3((int)_this) == 1;
-        v10 = (int)_this;
         if ( v11 )
           _this->uAttributes |= 1u;
-        v12 = (*(_BYTE *)(v10 + 20) & 1) == 0;
+        v12 = (_this->uAttributes & 1) == 0;
         v95 = 9;
         if ( v12 )
         {
-          sub_44C175((char *)pGlobalTXT_LocalizationStrings[446], 2);
+          sub_44C175((char *)pGlobalTXT_LocalizationStrings[LOCSTR_IDENTIFY_FAILED], 2);
         }
         else
         {
@@ -10921,7 +10906,7 @@ void GameUI_DrawItemInfo(ItemGen *_this)
         if ( v15 )
           v95 = 10;
         else
-          sub_44C175((char *)pGlobalTXT_LocalizationStrings[448], 2);
+          sub_44C175((char *)pGlobalTXT_LocalizationStrings[LOCSTR_REPAIR_FAILED], 2);
         if ( dword_4E455C )
         {
           Player_PlaySound(pPlayers[uActiveCharacter - 1], v95, 0);
@@ -10946,9 +10931,9 @@ void GameUI_DrawItemInfo(ItemGen *_this)
       else
         v19 = v81[2];
       GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v19, 3);
-      v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[32], &local_208, 0, 0);
+      v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[LOCSTR_BROKEN_ITEM], &local_208, 0, 0);
       v21 = v20 >> 1;
-      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, 0xFF1919, (char *)pGlobalTXT_LocalizationStrings[32], 3);
+      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, 0xFF1919, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_BROKEN_ITEM], 3);
       goto LABEL_116;
     }
     if ( !v16 )
@@ -10961,22 +10946,19 @@ void GameUI_DrawItemInfo(ItemGen *_this)
       local_208.uFrameW = local_208.uFrameY + local_208.uFrameHeight - 1;
       Render_DrawTransparentTexture(pD3DRenderer, local_208.uFrameX + v83, v93 + local_208.uFrameY + 30, (cTexture *)(v5 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v5]: 0));
       GUIWindow_DrawText(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v81[2], 3);
-      v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[232], &local_208, 0, 0);
+      v20 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[LOCSTR_NOT_IDENTIFIED], &local_208, 0, 0);
       v21 = v20 >> 1;
-      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, 0xFF1919, (char *)pGlobalTXT_LocalizationStrings[232], 3);
+      GUIWindow_DrawText(&local_208, pFontArrus, 100, (local_208.uFrameHeight / 2) - v21, 0xFF1919, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NOT_IDENTIFIED], 3);
       goto LABEL_116;
     }
-    wsprintfA(v67, (char *)pGlobalTXT_LocalizationStrings[463], v4[2]);
+    wsprintfA(v67, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_TYPE_S], v4[2]);
     strcpy(Dest, "");
     strcpy(v69, "");
-    v23 = *((_BYTE *)v4 + 28);
+    v23 = pItem->uEquipType;
     if ( v23 <= 1u )
     {
-      v63 = *((_BYTE *)v4 + 31);
-      v58 = *((_BYTE *)v4 + 30);
-      v53 = (int)pGlobalTXT_LocalizationStrings[53];
-      v50 = *((_BYTE *)v4 + 32);
-      v48 = (char *)pGlobalTXT_LocalizationStrings[18];
+      wsprintfA(Dest, "%s: +%d   %s: %dd%d", pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], pItem->uDamageModifier, 
+                    pGlobalTXT_LocalizationStrings[LOCSTR_DAMAGE], pItem->uDamageDice, pItem->uDamageRoll);
     }
     else
     {
@@ -10986,21 +10968,17 @@ void GameUI_DrawItemInfo(ItemGen *_this)
         {
           if ( v23 <= 0xBu )
           {
-            v24 = *((_BYTE *)v4 + 30);
+            v24 = pItem->uDamageDice;
             if ( v24 )
-              wsprintfA(Dest, "%s: +%d", pGlobalTXT_LocalizationStrings[11], v24 + *((_BYTE *)v4 + 32));
+              wsprintfA(Dest, "%s: +%d", pGlobalTXT_LocalizationStrings[LOCSTR_ARMOR], v24 + pItem->uDamageModifier);
           }
         }
         goto LABEL_50;
       }
-      v63 = *((_BYTE *)v4 + 31);
-      v58 = *((_BYTE *)v4 + 30);
-      v53 = (int)pGlobalTXT_LocalizationStrings[53];
-      v50 = *((_BYTE *)v4 + 32);
-      v48 = (char *)pGlobalTXT_LocalizationStrings[203];
+      wsprintfA(Dest, "%s: +%d   %s: %dd%d", pGlobalTXT_LocalizationStrings[LOCSTR_SHOOT], pItem->uDamageModifier, 
+                    pGlobalTXT_LocalizationStrings[LOCSTR_DAMAGE], pItem->uDamageDice, pItem->uDamageRoll);
     }
-    wsprintfA(Dest, "%s: +%d   %s: %dd%d", v48, v50, v53, v58, v63);
-    v25 = *((_BYTE *)v4 + 32);
+    v25 = pItem->uDamageModifier;
     if ( v25 )
     {
       wsprintfA(Source, " +%d", v25);
@@ -11009,12 +10987,11 @@ void GameUI_DrawItemInfo(ItemGen *_this)
 LABEL_50:
     if ( v82 )
       goto LABEL_65;
-    v26 = *((_BYTE *)v4 + 28);
-    if ( v26 == 14 )
+    if ( pItem->uEquipType == 14 )
     {
       v27 = _this->dword_000004;
       if ( v27 )
-        goto LABEL_56;
+        wsprintfA(v69, "%s: %d", pGlobalTXT_LocalizationStrings[LOCSTR_POWER], v27);
 LABEL_65:
       local_208.uFrameWidth -= 12;
       v91.y = 3;
@@ -11093,7 +11070,7 @@ LABEL_65:
       local_208.uFrameX -= 12;
       if ( v82 )
       {
-        wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[465], v82);
+        wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[LOCSTR_VALUE], v82);
         v44 = v94;
         v66 = 0;
         v61 = 0;
@@ -11132,14 +11109,14 @@ LABEL_65:
           }
         }
         v43 = ItemGen_sub_456442(_this);
-        wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[465], v43);
+        wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[LOCSTR_VALUE], v43);
         FontDrawText(&local_208, (Font *)v94, 100, local_208.uFrameHeight - *(_BYTE *)(v94 + 5), (char *)TmpBuf, 0, 0, 0);
         if ( _this->uAttributes & 1 )
         {
           v66 = 0;
           v61 = 0;
           v56 = 0;
-          v52 = (char *)pGlobalTXT_LocalizationStrings[187];
+          v52 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_STOLEN];
         }
         else
         {
@@ -11148,7 +11125,7 @@ LABEL_65:
           v66 = 0;
           v61 = 0;
           v56 = 0;
-          v52 = (char *)pGlobalTXT_LocalizationStrings[651];
+          v52 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_HARDENED];
         }
         v49 = pD3DRenderer->uTargetRMask;
         v47 = local_208.uFrameHeight - *(_BYTE *)(v94 + 5);
@@ -11166,24 +11143,16 @@ LABEL_116:
       }
       return;
     }
-    if ( v26 == 13 )
+    if ( pItem->uEquipType == 13 )
     {
-     v27 = pClass40->pItems[_this->uItemID - 1].uDamageDice;
-LABEL_56:
-      v64 = v27;
-      v59 = (int)pGlobalTXT_LocalizationStrings[449];
-      v54 = "%s: %d";
-LABEL_64:
-      wsprintfA(v69, v54, v59, v64);
+      wsprintfA(v69, "%s: %d", pGlobalTXT_LocalizationStrings[LOCSTR_POWER], pItem->uDamageDice);
       goto LABEL_65;
     }
     v28 = _this->dword_000004;
     if ( v28 )
     {
-      v65 = _this->dword_000008;
-      v60 = dword_5DBFD0[5 * v28 + 1];
-      v55 = (int)pGlobalTXT_LocalizationStrings[210];
-      v51 = "%s: %s +%d";
+      wsprintfA(v69, "%s: %s +%d", pGlobalTXT_LocalizationStrings[LOCSTR_SPECIAL], dword_5DBFD0[5 * v28 + 1], _this->dword_000008);
+      goto LABEL_65;
     }
     else
     {
@@ -11192,20 +11161,14 @@ LABEL_64:
       {
         if ( _this->dword_000010 )
         {
-          v64 = _this->dword_000010;
-          v59 = (int)pGlobalTXT_LocalizationStrings[464];
-          v54 = "%s: %lu";
-          goto LABEL_64;
+          wsprintfA(v69, "%s: %lu", pGlobalTXT_LocalizationStrings[LOCSTR_CHARGES], _this->dword_000010);
+          goto LABEL_65;
         }
         goto LABEL_65;
       }
-      v65 = _this->dword_000008;
-      v60 = dword_5DC1A8[7 * v29 + 1];
-      v55 = (int)pGlobalTXT_LocalizationStrings[210];
-      v51 = "%s: %s";
+      wsprintfA(v69, "%s: %s", pGlobalTXT_LocalizationStrings[LOCSTR_SPECIAL], dword_5DC1A8[7 * v29 + 1], _this->dword_000008);
+      goto LABEL_65;
     }
-    wsprintfA(v69, v51, v55, v60, v65);
-    goto LABEL_65;
   }
 }
 

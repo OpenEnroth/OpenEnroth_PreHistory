@@ -9185,7 +9185,7 @@ void  QuickRefDraw()
     GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v20, 0, v23, 84, 0);
     v22 = v45 + v20;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v22, 0, (char *)pGlobalTXT_LocalizationStrings[203], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v22, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_SHOOT], 60, 0);
 
     v25 = Player_sub_48D0B9(v2);
       //wsprintfA((char *)TmpBuf,"%+d",  v25);
@@ -10960,14 +10960,14 @@ LABEL_123:
   v113 = (int)pGlobalTXT_LocalizationStrings[54];
   if ( v138 )
   {
-    wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[18], 0, *(&v103 + *(_BYTE *)(v143 + 65)));
+    wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], 0, *(&v103 + *(_BYTE *)(v143 + 65)));
     FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     Str1 = &Str1[*(_BYTE *)(v56 + 5) - 3];
     v57 = *(_BYTE *)(v143 + 68);
     if ( v57 )
       wsprintfA((char *)TmpBuf,
         (const char *)&unk_4E334C,
-        pGlobalTXT_LocalizationStrings[53],
+        pGlobalTXT_LocalizationStrings[LOCSTR_DAMAGE],
         0,
         *(_BYTE *)(v143 + 66),
         *(_BYTE *)(v143 + 67),
@@ -10975,17 +10975,17 @@ LABEL_123:
     else
       wsprintfA((char *)TmpBuf,
         (const char *)&unk_4E3338,
-        pGlobalTXT_LocalizationStrings[53],
+        pGlobalTXT_LocalizationStrings[LOCSTR_DAMAGE],
         0,
         *(_BYTE *)(v143 + 66),
         *(_BYTE *)(v143 + 67));
   }
   else
   {
-    wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[18], 0, pGlobalTXT_LocalizationStrings[630]);
+    wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], 0, pGlobalTXT_LocalizationStrings[630]);
     FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
     Str1 = &Str1[*(_BYTE *)(v56 + 5) - 3];
-    wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[53], 0, pGlobalTXT_LocalizationStrings[630]);
+    wsprintfA((char *)TmpBuf, (const char *)&unk_4E3364, pGlobalTXT_LocalizationStrings[LOCSTR_DAMAGE], 0, pGlobalTXT_LocalizationStrings[630]);
   }
   FontDrawText((GUI::Window *)v145, (Font *)v56, 150, (int)Str1, (char *)TmpBuf, 0, 0, 0);
   v58 = *(_BYTE *)(v56 + 5);
