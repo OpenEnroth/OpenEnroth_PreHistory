@@ -8716,7 +8716,7 @@ char __stdcall sub_45C7F6(signed int a1)
   v13 = 0;
   v2 = 116 * *(_WORD *)(v3 + 76);
   a1 = 0;
-  dword_F8AD54 = (dword_F8B120 + *(_WORD *)(v2 + (int)pIndoor->ptr_000028C + 98)) << 16;
+  dword_F8AD54 = (dword_F8B120 + *(_WORD *)(v2 + (int)pIndoor->pSectors + 98)) << 16;
   if ( dword_51B6DC > 0 )
   {
     v10 = (int)array_519ABC;
@@ -8732,14 +8732,14 @@ char __stdcall sub_45C7F6(signed int a1)
   }
   v4 = 0;
   v14 = 0;
-  v11 = *(_WORD *)(v2 + (int)pIndoor->ptr_000028C + 84);
-  if ( (signed int)*(_WORD *)(v2 + (int)pIndoor->ptr_000028C + 84) > 0 )
+  v11 = *(_WORD *)(v2 + (int)pIndoor->pSectors + 84);
+  if ( (signed int)*(_WORD *)(v2 + (int)pIndoor->pSectors + 84) > 0 )
   {
     do
     {
       if ( a1 >= 20 )
         break;
-      v5 = (int)pIndoor->ptr_0000294 + 16 * *(_WORD *)(*(_DWORD *)(v2 + (int)pIndoor->ptr_000028C + 88) + 2 * v4);
+      v5 = (int)pIndoor->pLights + 16 * *(_WORD *)(*(_DWORD *)(v2 + (int)pIndoor->pSectors + 88) + 2 * v4);
       if ( !(*(_BYTE *)(v5 + 12) & 8) )
         sub_45C911(v5, v3, (int)&a1, 0, (int)&byte_4E94D0);
       v4 = v14 + 1;
@@ -9840,10 +9840,10 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   if ( v44 == 1 )
   {
     v7 = 0;
-    for ( i = 0; i < pIndoor->dword_00002BC; v7 += 24 )
+    for ( i = 0; i < pIndoor->uNumSpawnPoints; v7 += 24 )
     {
-      v8 = (int)pIndoor->ptr_00002C0 + v7;
-      if ( *(_WORD *)((int)pIndoor->ptr_00002C0 + v7 + 14) == 3 )
+      v8 = (int)pIndoor->pSpawnPoints + v7;
+      if ( *(_WORD *)((int)pIndoor->pSpawnPoints + v7 + 14) == 3 )
         sub_44F57C_MaybeCreateRandomMonster(v3, v8, 0, 0, 0);
       else
         sub_44FFD8(v3, v8);

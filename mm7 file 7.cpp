@@ -1089,7 +1089,7 @@ void __fastcall sub_4AE5F1(int a1)
   int v81; // [sp+3Ch] [bp-4h]@10
 
   v5 = (int)&pIndoor->pFaces[a1];
-  v3 = (int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v5 + 72);
+  v3 = (int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v5 + 72);
   v6 = *(_WORD *)(v5 + 74);
   v7 = *(_WORD *)(v5 + 74);
   v75 = v3;
@@ -1233,7 +1233,7 @@ void __fastcall sub_4AE5F1(int a1)
   v76 = v16;
   v81 = 0;
   v80 = 0;
-  dword_F8AD54 = (dword_F8B120 + *(_WORD *)((int)pIndoor->ptr_000028C + v16 + 98)) << 16;
+  dword_F8AD54 = (dword_F8B120 + *(_WORD *)((int)pIndoor->pSectors + v16 + 98)) << 16;
   v77 = dword_51B6DC;
   if ( dword_51B6DC > 0 )
   {
@@ -1302,13 +1302,13 @@ void __fastcall sub_4AE5F1(int a1)
   }
   v30 = 0;
   v80 = 0;
-  v31 = *(_WORD *)((int)pIndoor->ptr_000028C + v16 + 84);
-  v77 = *(_WORD *)((int)pIndoor->ptr_000028C + v16 + 84);
+  v31 = *(_WORD *)((int)pIndoor->pSectors + v16 + 84);
+  v77 = *(_WORD *)((int)pIndoor->pSectors + v16 + 84);
   if ( v31 > 0 )
   {
     while ( v81 < 20 )
     {
-      v32 = (int)pIndoor->ptr_0000294 + 16 * *(_WORD *)(*(_DWORD *)((int)pIndoor->ptr_000028C + v16 + 88) + 2 * v30);
+      v32 = (int)pIndoor->pLights + 16 * *(_WORD *)(*(_DWORD *)((int)pIndoor->pSectors + v16 + 88) + 2 * v30);
       if ( !(*(_BYTE *)(v32 + 12) & 8) )
       {
         v35 = *(_WORD *)(v5 + 80);
@@ -2664,7 +2664,7 @@ unsigned int __fastcall sub_4B0E07(int a1)
   int v7; // ecx@5
 
   v3 = (int)&pIndoor->pFaces[a1];
-  v5 = (int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v3 + 72);
+  v5 = (int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v3 + 72);
   v4 = *(_WORD *)(v3 + 74) != -1 ? 72 * *(_WORD *)(v3 + 74) + 7278780 : 0;
   dword_F8AD64 = *(_WORD *)(v5 + 20);
   dword_F8AD68 = *(_WORD *)(v5 + 22);

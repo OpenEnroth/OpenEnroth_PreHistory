@@ -10112,7 +10112,7 @@ LABEL_855:
               dword_507CD8 = 1;
               v634 = 1;
               if ( uCurrentlyLoadedLevelType == 1 )
-                v419 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(96 * v1 + (int)pIndoor->pFaces + 72) + 26);
+                v419 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(96 * v1 + (int)pIndoor->pFaces + 72) + 26);
               else
                 v419 = *(_WORD *)(*(_DWORD *)(188 * (n >> 9) + pOutdoor->pBModels + 84) + 308 * (v1 & 0x3F) + 292);
               goto LABEL_866;

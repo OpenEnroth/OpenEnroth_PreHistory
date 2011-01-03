@@ -6262,7 +6262,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
   {
     if ( v26 == v62 )
       return 1;
-    if ( v57 >= 30 || (v27 = (int)pIndoor->ptr_000028C, v28 = 116 * v66, v61 = 0, *(_WORD *)(116 * v66 + (int)pIndoor->ptr_000028C + 36) <= 0) )
+    if ( v57 >= 30 || (v27 = (int)pIndoor->pSectors, v28 = 116 * v66, v61 = 0, *(_WORD *)(116 * v66 + (int)pIndoor->pSectors + 36) <= 0) )
       break;
     while ( 1 )
     {
@@ -6298,7 +6298,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       if ( *(_DWORD *)(v30 + 28) + v37 + v63 * *(_DWORD *)(v30 + 16) + v64 * *(_DWORD *)(v30 + 20) <= 0 )
         goto LABEL_49;
 LABEL_53:
-      v27 = (int)pIndoor->ptr_000028C;
+      v27 = (int)pIndoor->pSectors;
 LABEL_54:
       ++v61;
       if ( v61 >= *(_WORD *)(v28 + v27 + 36) )
@@ -7151,10 +7151,10 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
         v96 = v50;
       }
       v60 = IndoorLocation_sub_49AC17((int)pIndoor, v96, v98, v100);
-      v58 = (int)pIndoor->ptr_000028C;
+      v58 = (int)pIndoor->pSectors;
       v59 = 116 * v60;
       v154 = 0;
-      for ( i = 116 * v60; v154 < *(_WORD *)(v59 + (int)pIndoor->ptr_000028C + 12) + 2 * *(_WORD *)(v59 + (int)pIndoor->ptr_000028C + 4); ++v154 )
+      for ( i = 116 * v60; v154 < *(_WORD *)(v59 + (int)pIndoor->pSectors + 12) + 2 * *(_WORD *)(v59 + (int)pIndoor->pSectors + 4); ++v154 )
       {
         v61 = (int)pIndoor->pFaces + *(_WORD *)(*(_DWORD *)(v59 + v58 + 16) + 2 * v154);
         if ( *(_BYTE *)(v61 + 44) & 1
@@ -7206,7 +7206,7 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
         }
         v59 = i;
 LABEL_107:
-        v58 = (int)pIndoor->ptr_000028C;
+        v58 = (int)pIndoor->pSectors;
       }
       ++v157;
       if ( v157 >= 2 )
@@ -7291,11 +7291,11 @@ LABEL_107:
         v97 = v77;
       }
       v87 = IndoorLocation_sub_49AC17((int)pIndoor, v97, v99, v101);
-      v85 = (int)pIndoor->ptr_000028C;
+      v85 = (int)pIndoor->pSectors;
       v86 = 116 * v87;
       v161 = 0;
       v110 = v86;
-      if ( *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 12) + 2 * *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 4) > 0 )
+      if ( *(_WORD *)(v86 + (int)pIndoor->pSectors + 12) + 2 * *(_WORD *)(v86 + (int)pIndoor->pSectors + 4) > 0 )
         break;
 LABEL_148:
       ++v158;
@@ -7360,9 +7360,9 @@ LABEL_148:
       }
       v86 = v110;
 LABEL_145:
-      v85 = (int)pIndoor->ptr_000028C;
+      v85 = (int)pIndoor->pSectors;
       ++v161;
-      if ( v161 >= *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 12) + 2 * *(_WORD *)(v86 + (int)pIndoor->ptr_000028C + 4) )
+      if ( v161 >= *(_WORD *)(v86 + (int)pIndoor->pSectors + 12) + 2 * *(_WORD *)(v86 + (int)pIndoor->pSectors + 4) )
         goto LABEL_148;
     }
   }

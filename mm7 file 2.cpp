@@ -13055,7 +13055,7 @@ LABEL_13:
             return;
           goto LABEL_14;
         }
-        v11 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v3 + 72) + 26);
+        v11 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v3 + 72) + 26);
       }
       else
       {

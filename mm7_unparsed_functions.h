@@ -496,7 +496,6 @@ void __thiscall sub_44AFFB(char *Dst, signed int a2, signed int a3);
 void __thiscall sub_44B9C4(int _this, signed int a2, signed int a3);
 int __fastcall sub_44C175(const char *Source, int a2);
 int __cdecl sub_44C1D0();
-signed int __thiscall sub_44C23B(int _this);
 signed int __cdecl sub_44C28B();
 int __cdecl sub_44C28F();
 bool sub_44C2F4_SomeDecorationTypeCheck(struct LevelDecoration *_this);

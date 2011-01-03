@@ -465,6 +465,9 @@
     <ClInclude Include="Environment\Outdoor.h">
       <Filter>Environment</Filter>
     </ClInclude>
+    <ClInclude Include="Environment\Common.h">
+      <Filter>Environment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

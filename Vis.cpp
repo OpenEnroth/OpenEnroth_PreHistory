@@ -756,7 +756,7 @@ bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6
   }
   else
   {
-   v14 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(uD3DBillboardID + 72) + 26) == 0;
+   v14 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(uD3DBillboardID + 72) + 26) == 0;
    v15 = *(_DWORD *)(uD3DBillboardID + 44);
   }
 

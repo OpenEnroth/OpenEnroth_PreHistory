@@ -864,7 +864,7 @@ LABEL_93:
             v20 = (int)((int)pIndoor->pFaces + v19);
             if ( *(_BYTE *)(v20 + 47) & 6 )
             {
-              v21 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v20 + 72) + 26);
+              v21 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v20 + 72) + 26);
 LABEL_71:
               if ( !v21 || (v22 = sub_444732((void *)v21), !v22) )
                 goto LABEL_73;
@@ -2986,7 +2986,7 @@ LABEL_400:
             v61 = (int)(pIndoor->pFaces) + v58;
             if ( !(*(_BYTE *)(v61 + 47) & 2) )
               goto LABEL_92;
-            v60 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v61 + 72) + 26) == 0;
+            v60 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v61 + 72) + 26) == 0;
           }
           if ( v60 )
             goto LABEL_92;
@@ -4431,8 +4431,8 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
         && v79 >= 3
         && ((v13 = v8 + 96 * *(_WORD *)(v10 + 4), *(_DWORD *)(v13 + 44) & 0x2000000)
          || *(_DWORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 44) & 0x2000000)
-        && (*(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v13 + 72) + 26)
-         || *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 72) + 26))
+        && (*(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v13 + 72) + 26)
+         || *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 72) + 26))
         && (v14 = dword_576D14, dword_576D14 < 49) )
       {
         word_576D80[dword_576D14] = v93;

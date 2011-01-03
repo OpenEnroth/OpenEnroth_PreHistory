@@ -3106,7 +3106,7 @@ void __thiscall sub_43F39E(int _this)
     {
       v7 = word_56EEAC[v6];
       v14 = 0;
-      v9 = (int)pIndoor->ptr_000028C + 116 * word_56EEAC[v6];
+      v9 = (int)pIndoor->pSectors + 116 * word_56EEAC[v6];
       v8 = *(_DWORD *)(v9 + 72);
       if ( *(_WORD *)(v9 + 68) > 0 )
       {
@@ -3159,7 +3159,7 @@ signed int __fastcall sub_43F55F(int a1, signed int a2)
   v2 = a1;
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-    v3 = *(_WORD *)(116 * *(_WORD *)(a1 + 28) + (int)pIndoor->ptr_000028C + 98);
+    v3 = *(_WORD *)(116 * *(_WORD *)(a1 + 28) + (int)pIndoor->pSectors + 98);
   }
   else
   {
@@ -3279,7 +3279,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
   }
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-    v15 = (int)pIndoor->ptr_000028C + 116 * v6;
+    v15 = (int)pIndoor->pSectors + 116 * v6;
     v14 = 0;
     v51 = 0;
     v38 = v15;
@@ -3288,7 +3288,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
     {
       while ( 1 )
       {
-        v16 = (int)pIndoor->ptr_0000294 + 16 * *(_WORD *)(*(_DWORD *)(v15 + 88) + 2 * v14);
+        v16 = (int)pIndoor->pLights + 16 * *(_WORD *)(*(_DWORD *)(v15 + 88) + 2 * v14);
         if ( !(*(_BYTE *)(v16 + 12) & 8) )
         {
           v17 = abs((signed)((double)*(_WORD *)v16 - a3));
@@ -4010,7 +4010,7 @@ char __fastcall sub_440639(signed int a1, int a2)
   v3 = a1;
   LOBYTE(v2) = -52 * a1;
   v4 = 0;
-  v5 = (int)pIndoor->ptr_000028C + 116 * word_51C720[1126 * a1];
+  v5 = (int)pIndoor->pSectors + 116 * word_51C720[1126 * a1];
   if ( pD3DRenderer->pRenderD3D3 )
   {
     if ( *(_WORD *)(v5 + 46) > 0 )
@@ -4061,7 +4061,7 @@ char __fastcall sub_4406BC(signed int a1, int a2)
   v13 = &word_51C720[1126 * a1];
   while ( 1 )
   {
-    v5 = (int)(pIndoor->ptr_000028C + *v13);
+    v5 = (int)(pIndoor->pSectors + *v13);
     v4 = (int)(pIndoor->pNodes + a2);
     v2 = (int)((int)pIndoor->pFaces + *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * *(_WORD *)(v4 + 4)));
     v3 = *(_DWORD *)(v2 + 28)
@@ -8966,18 +8966,18 @@ void __fastcall sub_44861E(int a1, const char *a2)
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v17 = 1;
-        if ( pIndoor->dword_000280 > 1 )
+        if ( pIndoor->uNumFaceExtras > 1 )
         {
           v4 = 36;
           do
           {
-            if ( *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 24) == v14 )
+            if ( *(_WORD *)(v4 + (int)pIndoor->pFaceExtras + 24) == v14 )
             {
-              v5 = (int)((int)pIndoor->pFaces + *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12));
+              v5 = (int)((int)pIndoor->pFaces + *(_WORD *)(v4 + (int)pIndoor->pFaceExtras + 12));
               if ( *(_BYTE *)(v5 + 45) & 0x40 )
               {
-                *(_WORD *)(96 * *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12) + (int)pIndoor->pFaces + 74) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
-                v6 = (int *)(96 * *(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12) + (int)pIndoor->pFaces + 74);
+                *(_WORD *)(96 * *(_WORD *)(v4 + (int)pIndoor->pFaceExtras + 12) + (int)pIndoor->pFaces + 74) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
+                v6 = (int *)(96 * *(_WORD *)(v4 + (int)pIndoor->pFaceExtras + 12) + (int)pIndoor->pFaces + 74);
                 if ( *(_WORD *)v6 )
                 {
                   TextureFrameTable_sub_44E0ED(pTextureFrameTable, *(_WORD *)v6);
@@ -8985,7 +8985,7 @@ void __fastcall sub_44861E(int a1, const char *a2)
                 else
                 {
                   *(_WORD *)v6 = v3;
-                  v7 = (int)(*(_WORD *)(v4 + (int)pIndoor->ptr_0000284 + 12) + (int)pIndoor->pFaces) + 44;
+                  v7 = (int)(*(_WORD *)(v4 + (int)pIndoor->pFaceExtras + 12) + (int)pIndoor->pFaces) + 44;
                   *(_BYTE *)(v7 + 1) &= 0xBFu;
                 }
               }
@@ -8997,7 +8997,7 @@ void __fastcall sub_44861E(int a1, const char *a2)
             ++v17;
             v4 += 36;
           }
-          while ( v17 < pIndoor->dword_000280 );
+          while ( v17 < pIndoor->uNumFaceExtras );
         }
         pParty_global->dword_007778 |= 2;
       }
@@ -9102,11 +9102,11 @@ void __fastcall sub_4488F7(int a1, int a2)
 
   if ( uCurrentlyLoadedLevelType == 1 )
   {
-    if ( a1 <= pIndoor->dword_000290 - 1 )
+    if ( a1 <= pIndoor->uNumLights - 1 )
     {
       if ( a1 >= 0 )
       {
-        v2 = 16 * a1 + (int)pIndoor->ptr_0000294 + 12;
+        v2 = 16 * a1 + (int)pIndoor->pLights + 12;
         if ( a2 )
           *(_BYTE *)v2 &= 0xF7u;
         else
@@ -9138,13 +9138,13 @@ int __fastcall sub_44892E(int a1, int a2, int a3)
     v4 = 1;
     if ( uCurrentlyLoadedLevelType == 1 )
     {
-      if ( pIndoor->dword_000280 > 1 )
+      if ( pIndoor->uNumFaceExtras > 1 )
       {
         v5 = 36;
         do
         {
-          result = v5 + (int)pIndoor->ptr_0000284;
-          if ( *(_WORD *)(v5 + (int)pIndoor->ptr_0000284 + 24) == v10 )
+          result = v5 + (int)pIndoor->pFaceExtras;
+          if ( *(_WORD *)(v5 + (int)pIndoor->pFaceExtras + 24) == v10 )
           {
             result = (int)(*(_WORD *)(result + 12) + (int)pIndoor->pFaces) + 44;
             if ( a3 )
@@ -9155,7 +9155,7 @@ int __fastcall sub_44892E(int a1, int a2, int a3)
           ++v4;
           v5 += 36;
         }
-        while ( v4 < pIndoor->dword_000280 );
+        while ( v4 < pIndoor->uNumFaceExtras );
       }
       pParty_global->dword_007778 |= 2;
     }
@@ -12170,34 +12170,6 @@ int __cdecl sub_44C1D0()
 
   if ( !dword_5C35B8_Some_GetTickCount_timer )
     result = sub_44C175((char *)pGlobalTXT_LocalizationStrings[521], 2);
-  return result;
-}
-
-//----- (0044C23B) --------------------------------------------------------
-signed int __thiscall sub_44C23B(int _this)
-{
-  int v1; // eax@1
-  _UNKNOWN *v2; // esi@2
-  signed int result; // eax@5
-  int v4; // eax@6
-
-  v1 = 0;
-  if ( uLevelEVT_NumEvents - 1 <= 0 )
-    goto LABEL_5;
-  v2 = (char *)pLevelEVT_Events;
-  while ( *(_DWORD *)v2 != *(_WORD *)(_this + 26) )
-  {
-    ++v1;
-    v2 = (char *)v2 + 12;
-    if ( v1 >= uLevelEVT_NumEvents - 1 )
-      goto LABEL_5;
-  }
-  v4 = 12 * v1;
-  if (pLevelEVT[*(int *)((char *)&pLevelEVT_Events[1].uEventOffsetInEVT + v4) + 4] != 1 || pLevelEVT[*(int *)((char *)&pLevelEVT_Events[0].uEventOffsetInEVT + v4) + 4] != 4 )
-LABEL_5:
-    result = 0;
-  else
-    result = 1;
   return result;
 }
 

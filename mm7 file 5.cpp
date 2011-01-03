@@ -2018,7 +2018,7 @@ LABEL_13:
         sub_44C1D0();
         return 1;
       }
-      if ( v5 & 0x100000 || (v6 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v4 + 72) + 26), !v6) )
+      if ( v5 & 0x100000 || (v6 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v4 + 72) + 26), !v6) )
         return 1;
       if ( dword_4E28F8_PartyCantJumpIfTrue != 19 )
         goto LABEL_13;
@@ -2436,7 +2436,7 @@ LABEL_36:
         v21 = (int)pIndoor->pFaces + v19;
         if ( !(*(_BYTE *)(v21 + 47) & 2) )
           goto LABEL_41;
-        v22 = (void *)*(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v21 + 72) + 26);
+        v22 = (void *)*(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v21 + 72) + 26);
       }
       else
       {
@@ -4582,7 +4582,7 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
   int v60; // [sp+4Ch] [bp+Ch]@1
   signed int i; // [sp+4Ch] [bp+Ch]@32
 
-  v7 = (int)&pIndoor->ptr_000028C[a4];
+  v7 = (int)&pIndoor->pSectors[a4];
   v59 = a2;
   v58 = a1;
   v6 = 0;
@@ -5283,7 +5283,7 @@ void __cdecl sub_46E0B2()
   int v17; // [sp+10h] [bp-8h]@10
   int v18; // [sp+14h] [bp-4h]@8
 
-  v0 = (int)&pIndoor->ptr_000028C[stru_721530.dword_000074];
+  v0 = (int)&pIndoor->pSectors[stru_721530.dword_000074];
   for ( i = 0; i < *(_WORD *)(v0 + 68); ++i )
   {
     v1 = (short *)&pLevelDecorations[*(_WORD *)(*(_DWORD *)(v0 + 72) + 2 * i)];
@@ -5506,7 +5506,7 @@ int __thiscall sub_46E44E(void *_this)
   int v36; // [sp+2Ch] [bp-2Ch]@15
   int v37[10]; // [sp+30h] [bp-28h]@1
 
-  v2 = (int)&pIndoor->ptr_000028C[stru_721530.dword_000074];
+  v2 = (int)&pIndoor->pSectors[stru_721530.dword_000074];
   v1 = 0;
   v32 = (int)_this;
   v37[0] = stru_721530.dword_000074;
@@ -5551,7 +5551,7 @@ int __thiscall sub_46E44E(void *_this)
   {
     while ( 1 )
     {
-      v10 = (int)pIndoor->ptr_000028C + 116 * v37[result];
+      v10 = (int)pIndoor->pSectors + 116 * v37[result];
       v9 = 0;
       v36 = *(_WORD *)(v10 + 4) + *(_WORD *)(v10 + 12) + *(_WORD *)(v10 + 20);
       v30 = 0;
@@ -6137,7 +6137,7 @@ signed int __cdecl sub_46F04E()
   int v12; // [sp+10h] [bp-4h]@15
 
   v8 = 0;
-  v1 = (int)&pIndoor->ptr_000028C[stru_721530.dword_000074];
+  v1 = (int)&pIndoor->pSectors[stru_721530.dword_000074];
   v0 = 16777215;
   v10 = 16777215;
   v9 = v1;
@@ -6460,7 +6460,7 @@ LABEL_18:
           }
           if ( *(_BYTE *)(v19 + 46) & 4 || pD3DRenderer->pRenderD3D3 )
             sub_498A41(v19, (int)&v73, (int)&v70);
-          v30 = (int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v19 + 72);
+          v30 = (int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v19 + 72);
           if ( !pD3DRenderer->pRenderD3D3 )
           {
             if ( !(*(_BYTE *)(v19 + 46) & 4) )
@@ -7039,7 +7039,7 @@ LABEL_123:
                     }
                   }
                   if ( *(_BYTE *)(v42 + 47) & 8 )
-                    sub_44684A_LooksLikeEventProcessor(*(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v42 + 72) + 26), 0, 1);
+                    sub_44684A_LooksLikeEventProcessor(*(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v42 + 72) + 26), 0, 1);
                 }
 LABEL_119:
                 v58 = *(_WORD *)(v1 + 148);
@@ -8003,7 +8003,7 @@ LABEL_25:
             *((_WORD *)v2 + 10) = 0;
 LABEL_60:
           if ( *(_BYTE *)(v16 + 47) & 0x10 )
-            sub_44684A_LooksLikeEventProcessor(*(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v16 + 72) + 26), 0, 1);
+            sub_44684A_LooksLikeEventProcessor(*(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v16 + 72) + 26), 0, 1);
           goto LABEL_63;
         }
         v18 = *((_WORD *)v2 + 9);
@@ -8832,7 +8832,7 @@ LABEL_43:
     v11 = (int)pIndoor->pFaces + v79;
     if ( *(_BYTE *)(v11 + 47) & 4 )
     {
-      v70 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v11 + 72) + 26);
+      v70 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v11 + 72) + 26);
       goto LABEL_43;
     }
   }
@@ -9180,7 +9180,7 @@ LABEL_143:
           if (pParty_global->dword_0006F4 != v43 >> 3)
           {
             if (*(_BYTE *)(v45 + 47) & 4)
-              v70 = *(_WORD *)((int)pIndoor->ptr_0000284 + 36 * *(_WORD *)(v45 + 72) + 26);
+              v70 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v45 + 72) + 26);
           }
           goto LABEL_152;
         }

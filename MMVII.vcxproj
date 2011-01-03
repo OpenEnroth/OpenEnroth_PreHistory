@@ -191,6 +191,7 @@
     <ClInclude Include="CoreDefinitions.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="Environment\Common.h" />
     <ClInclude Include="Environment\Indoor.h" />
     <ClInclude Include="Environment\Outdoor.h" />
     <ClInclude Include="Events.h" />

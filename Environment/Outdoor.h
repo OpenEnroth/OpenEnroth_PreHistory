@@ -7,6 +7,9 @@
 
 #include "..\Math\Math.h"
 
+#include "Common.h"
+
+
 
 
 
@@ -36,6 +39,15 @@ struct BSPModel
                                                //                    & 0x0100  intersection in xy plane 
                                                //                    & 0x0200  intersection in xz plane
                                                //                    else      intersection in yz plane
+                                               //                    0x00000001 - It's a portal.
+                                               //                    0x00000010 - The texture is wavy, like water.
+                                               //                    0x00002000 - Invisible.
+                                               //                    0x00040000 - For facets that can be moved (are a part of door or lever). If set, the texture is moved accordingly.
+                                               //                    0x00400000 - The texture moves slowly. For horizontal facets only.
+                                               //                    0x02000000 - Event can be triggered by clicking on the facet.
+                                               //                    0x04000000 - Event can be triggered by stepping on the facet.
+                                               //                    0x20000000 - Untouchable You can pass through it.
+
   unsigned short pVertexIDs[20];               // word[20] @ 000020     list of face vertices, pVertexIDs[0] == pVertexIDs[uNumVertices]
   unsigned short pTextureUIDs[20];             // word[20] @ 000048    list of face texcoord u's
   unsigned short pTextureVIDs[20];             // word[20] @ 000070    list of face texcoord v's
@@ -58,6 +70,7 @@ struct BSPModel
   unsigned char  uGradientVertex4;             // byte @ 000012D
   unsigned char  uNumVertices;                 // byte @ 000012E
   unsigned char  uPolygonType;                 // byte @ 000012F
+                                               //// 5 - ceiling, 6 - in-between ceiling and wall, 1 - vertical wall, 4 - in-between floor and wall, 3 - floor
 #if 1  // mm7/8 stuff
   unsigned char  uShadeType;                   // byte @ 000130
   unsigned char  bVisible;                     // byte @ 000131
@@ -173,24 +186,6 @@ class OutdoorLocation
    //void sub_47C7C2(int_this)                                   0047C7C2  TerrainData::Clear
    //void sub_47C80A(int _this, int sX, int sY, int sZ, int sW)  0047C80A  TerrainData::sub_47C80A
    //signed int sub_47CCE2(void **_this)                         0047CCE2  TerrainData::Reset
-
-   struct SpawnPointMM6
-   {
-    int            sPosX;       // dword @ 000000
-    int            sPosY;       // dword @ 000004
-    int            sPosZ;       // dword @ 000008
-    unsigned short uRadius;     // word  @ 00000C
-    unsigned short uKind;       // word  @ 00000E
-    unsigned short uIndex;      // word  @ 000010  Index: monster (1-3: M1-M3,  4-6: M1a-M1c,  7-9: M2a-M2c,  10-12: M3a-M3c) or item (1-6)
-    unsigned short uAttributes; // word  @ 000012
-   };
-   // sizeof == 14
-
-   struct SpawnPointMM7: public SpawnPointMM6
-   {
-    unsigned int uGroup; // dword @ 000014
-   };
-   // sizeof == 18
 
    struct TileType
    {
