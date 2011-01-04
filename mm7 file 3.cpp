@@ -3069,7 +3069,7 @@ void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this)
   signed int v14; // [sp+1Ch] [bp-4h]@8
 
   sub_4407D9(&stru_51B6E0, _this);
-  dword_51B6DC = 0;
+  pMobileLightsStack->uNumLightsActive = 0;
   dword_5187EC = 0;
   dword_5187E8 = 0;
   dword_5187E4 = 0;
@@ -3085,16 +3085,15 @@ void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this)
     LOBYTE(v1) = byte_4E94D0;
     v4 = *(float *)&dword_AE31E4 + 6.755399441055744e15;
     v3 = *(float *)&dword_AE31E8 + 6.755399441055744e15;
-    sub_467D88((int)&unk_519AB8,
-      stru_51B6E0.vPosition.x,
+    pMobileLightsStack->AddLight_Mobile(&Vec3<float>(stru_51B6E0.vPosition.x,
       stru_51B6E0.vPosition.y,
-      stru_51B6E0.vPosition.z,
+      stru_51B6E0.vPosition.z),
       stru_51B6E0.dword_00001C,
       v5,
       SLOBYTE(v4),
       SLOBYTE(v3),
       v13,
-      v1);
+      (int)v1);
   }
 
   sub_43F953();
@@ -3230,10 +3229,10 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
   v50 = 0;
   v6 = a2;
   v5 = a1;
-  if ( dword_51B6DC > 0 )
+  if ( pMobileLightsStack->uNumLightsActive > 0 )
   {
-   v7 = (signed int *)&array_519ABC[0].word_000006;
-    v48 = (signed int *)&array_519ABC[0].word_000006;
+   v7 = (signed int *)&pMobileLightsStack->pLights[0].word_000006;
+    v48 = (signed int *)&pMobileLightsStack->pLights[0].word_000006;
     do
     {
       v43 = abs((signed)((double)*((_WORD *)v7 - 3) - a3));
@@ -3277,7 +3276,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
       v7 = (signed int *)((char *)v7 + 18);
       v48 = v7;
     }
-    while ( v50 < dword_51B6DC );
+    while ( v50 < pMobileLightsStack->uNumLightsActive );
   }
   if ( uCurrentlyLoadedLevelType == 1 )
   {
@@ -3341,7 +3340,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
     }
   }
   v52 = 0;
-  if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
+  if ( pStationaryLightsStack->uNumLightsActive > 0 )
   {
    v27 = (char *)&pStationaryLightsStack->pLights[0].vPosition.z;
     do
@@ -3386,7 +3385,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
       ++v52;
       v27 = (char *)v27 + 12;
     }
-    while ( v52 < pStationaryLightsStack->uNumStationaryLightsActive );
+    while ( v52 < pStationaryLightsStack->uNumLightsActive );
   }
   if ( v5 <= 31 )
   {
@@ -3523,7 +3522,7 @@ void __fastcall sub_43FA33(int a1, int a2)
         v47 = stru_51B6E0.dword_000000;
         v6 = ((pClass59_global->uIntegerPi + v9) >> 8) & 7;
         if (pParty_global->bTurnBasedModeOn)
-          v47 = cMiscTimer.dword_000024;
+          v47 = cMiscTimer.uTotalGameTimeElapsed;
         v12 = abs(*((_DWORD *)v2 + 1) + *((_DWORD *)v2 + 2));
         v13 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v4 + 72), v47 + v12);
         v40 = 0;
@@ -3699,7 +3698,7 @@ int __fastcall sub_43FDED(int a1)
       {
         if ( v4 == 1 )
         {
-          v7 = cMiscTimer.dword_000024;
+          v7 = cMiscTimer.uTotalGameTimeElapsed;
           goto LABEL_10;
         }
       }
@@ -3737,7 +3736,7 @@ LABEL_12:
       if ( *(_WORD *)(v11 + 48) )
       {
         LOBYTE(v10) = byte_4E94D3;
-        sub_467D88((int)&unk_519AB8, v35, v34, v33, v36, *(_WORD *)(v11 + 48), -1, -1, -1, v10);
+        pMobileLightsStack->AddLight_Mobile(&Vec3<float>(v35, v34, v33), v36, *(_WORD *)(v11 + 48), -1, -1, -1, (int)v10);
       }
       v12 = 0;
       if ( dword_56EEA8 <= 0 )
@@ -3927,17 +3926,13 @@ void __cdecl sub_44028F()
             if ( v28 )
             {
               LOBYTE(v11) = byte_4E94D3;
-              sub_467D88(
-                (int)&unk_519AB8,
-                v30,
-                v29,
-                v34,
+              pMobileLightsStack->AddLight_Mobile(&Vec3<float>(v30, v29, v34),
                 v27,
                 v28,
                 *(_BYTE *)(v26 + 50),
                 *(_BYTE *)(v26 + 51),
                 *(_BYTE *)(v26 + 52),
-                v11);
+                (int)v11);
             }
             if ( sub_43669D(v30, v29, v34, &v40, (int)&v39, (int)&v38, 1) )
             {
@@ -4551,7 +4546,7 @@ LABEL_14:
     result = dword_50C994;
     if ( dword_50C994 < dword_50C998 )
     {
-      result = cEventTimer.int_00001C + dword_50C994;
+      result = cEventTimer.uElapsedTime + dword_50C994;
       dword_50C994 = result;
       if ( result >= dword_50C998 )
         dword_50C998 = 0;
@@ -4590,7 +4585,7 @@ void __cdecl sub_441BD4_DrawIndoor()
     v0 = 1;
   if ( struct_576FE8.dword_000054 )
     LOBYTE(v0) = v0 | 2;
-  local_00.dword_000000_timer_000024 = cEventTimer.dword_000024;
+  local_00.dword_000000_timer_000024 = cEventTimer.uTotalGameTimeElapsed;
   local_00.dword_000004 = v0;
   local_00.vPosition.x = pParty_global->vPosition.x - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY) * pParty_global->dword_000018) >> 16);
   local_00.dword_000044 = class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uIntegerHalfPi);
@@ -5723,7 +5718,7 @@ LABEL_10:
     }
     else
     {
-      for ( i = 4 * (3 * v1 + 3) + 5989848; *(void **)i == _this; i += 12 )
+      for ( i = 4 * (3 * v1 + 3) + (int)pLevelEVT_Events; *(void **)i == _this; i += 12 )
       {
         v8 = *(_DWORD *)(i + 8);
         if (pLevelEVT[v8 + 4] == 2 )
@@ -6175,7 +6170,7 @@ void __fastcall sub_4451A8(int a1, int a2, int a3)
   if ( !pGUIWindow2 )
   {
     if ( pParty_global->dword_007778 & 2 )
-      sub_44103C();
+      sub_44103C_Draw();
     if ( !dword_597F18 )
       pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
     cMiscTimer.Pause();

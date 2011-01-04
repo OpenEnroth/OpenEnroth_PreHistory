@@ -30,7 +30,8 @@ struct ODMFace
                                               //                    else      intersection in yz plane
                                               //                    0x00000001 - It's a portal.
                                               //                    0x00000010 - The texture is wavy, like water.
-                                              //                    0x00002000 - Invisible.
+                                              //                    0x00002000 - Invisible
+                                              //                    0x00004000 - Texture ID is a frameset from TextureFrameTable, otherwise BitmapID
                                               //                    0x00040000 - For facets that can be moved (are a part of door or lever). If set, the texture is moved accordingly.
                                               //                    0x00400000 - The texture moves slowly. For horizontal facets only.
                                               //                    0x02000000 - Event can be triggered by clicking on the facet.
@@ -61,7 +62,7 @@ struct ODMFace
                                               // 5 - ceiling, 6 - in-between ceiling and wall, 1 - vertical wall, 4 - in-between floor and wall, 3 - floor
 #if 1  // mm7/8 stuff
  unsigned char  uShadeType;                   // byte @ 000130
- unsigned char  bVisible;                     // byte @ 000131
+ unsigned char  bVisible;                     // byte @ 000131   visibility after backface culling
  char           unk_000132[2];
 #endif
 };
@@ -192,9 +193,7 @@ class OutdoorLocation
  int dword_000D1C;
  int dword_000D20;
 
- int dword_000D30; // looks like some light vector
- int dword_000D34;
- int dword_000D38;
+ Vec3<int> vSunlight; // dword[3] @ 000D30
 
  float flt_01C284;
  int   dword_01C288;
@@ -245,8 +244,8 @@ int __thiscall class51_CreateDefaultMap(int Dest);
 
 
 bool sub_44C1E8(ODMFace *_this);
-bool sub_482170(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3);
-bool __stdcall sub_45CDB7_Face_ApplyLight(ODMFace *_this, struct class04 *);
+bool sub_482170_IsPrimitiveCulled(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3);
+bool __stdcall sub_45CDB7_Face_ApplyLight(ODMFace *_this);
 
 
 
@@ -292,14 +291,14 @@ struct struct8
  short                 word_000050;
  short                word_000052;
  ODMFace             *ptr_000054;
- char                 byte_000058;    //0..31 steps (step = ï/32) of some rotation
+ char                 byte_000058;    //0..31 steps (step = ï/32) of some rotation   OR  strength of sinlight (light x normal)
  char                 byte_000059;
  char                 byte_00005A;
  char                 byte_00005B;
  char                 byte_00005C;
  char                 byte_00005D;
  char                 byte_00005E;     //bmodel id
- char                 byte_00005F;     //bmodel's class51_stru2 id
+ char                 byte_00005F;     //bmodel's face id
  struct Edge         *array_000060[20];
  int                  dword_0000B0;        //num ptrs in 000060
  struct Edge         *array_0000B4[20];

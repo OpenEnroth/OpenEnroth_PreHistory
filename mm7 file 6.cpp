@@ -1336,7 +1336,7 @@ void __thiscall sub_4909F4(void *_this)
       v2 = Player_GetConditionIdx((Player *)(v1 - 6812));
       if ( v2 == 18 || v2 == 17 )
       {
-        *(_WORD *)(v1 + 2) += cMiscTimer.int_00001C;
+        *(_WORD *)(v1 + 2) += cMiscTimer.uElapsedTime;
         if ( *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
         {
           if ( *(_WORD *)v1 != 1 || rand() % 5 )
@@ -1454,7 +1454,7 @@ LABEL_56:
       else
       {
         v3 = *(_WORD *)v1;
-        if ( *(_WORD *)v1 != 34 && v3 != 35 && v3 != 36 || cMiscTimer.int_00001C + *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
+        if ( *(_WORD *)v1 != 34 && v3 != 35 && v3 != 36 || cMiscTimer.uElapsedTime + *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
         {
           *(_WORD *)(v1 + 4) = 0;
           *(_WORD *)(v1 + 2) = 0;
@@ -1509,7 +1509,7 @@ LABEL_56:
         }
         else
         {
-          *(_WORD *)(v1 + 2) += cMiscTimer.int_00001C;
+          *(_WORD *)(v1 + 2) += cMiscTimer.uElapsedTime;
         }
       }
       v1 += 6972;
@@ -1524,7 +1524,7 @@ LABEL_56:
       if ( v9 )
       {
         v10 = pParty_global->pHiredNPCs[i].dword_000028;
-        v11 = cMiscTimer.int_00001C + pParty_global->pHiredNPCs[i].dword_00002C;
+        v11 = cMiscTimer.uElapsedTime + pParty_global->pHiredNPCs[i].dword_00002C;
         if ( v11 >= v9 )
         {
           v10 = 0;
@@ -5047,8 +5047,8 @@ char __thiscall sub_49B790(int _this, int a2, char a3, int a4, int a5, int a6, i
     if ( !*(_DWORD *)a6 )
       goto LABEL_24;
     v32 = a8;
-    sub_436523((RenderVertex *)a8, *(_DWORD *)a6);
-    class08_sub_436BB7(pGame->class08_obj, (RenderVertex *)v32, *(_DWORD *)v31, 0);
+    sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)a8, *(_DWORD *)a6);
+    class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, (RenderVertex *)v32, *(_DWORD *)v31, 0);
     if ( !(a12 & 1) )
     {
 LABEL_19:
@@ -8083,7 +8083,7 @@ void __thiscall Render_sub_4A2ED5(int _this, signed int a2, int a3, int a4)
       if ( a2 > 0 )
       {
         v7 = (char *)&pVertices->y;
-        v8 = (char *)&array_507D30[0].flt_00001C;
+        v8 = (char *)&array_507D30[0].vWorldViewProjY;
         do
         {
           v9 = *((float *)v8 - 4) * 0.06175889447331429;
@@ -8213,7 +8213,7 @@ void __thiscall Render_sub_4A2FC0(int _this, signed int a2, int a3, signed int a
         v10 = a2;
         if ( a2 > 0 )
         {
-         v14 = (char *)&array_507D30[0].flt_00000C;
+         v14 = (char *)&array_507D30[0].vWorldViewPosition.x;
           v13 = (char *)&pVertices->y;
           a7 = a2;
           do
@@ -8271,7 +8271,7 @@ void __thiscall Render_sub_4A2FC0(int _this, signed int a2, int a3, signed int a
           if ( a2 > 0 )
           {
             v54 = a5;
-            v55 = (char *)&array_507D30[0].flt_00000C;
+            v55 = (char *)&array_507D30[0].vWorldViewPosition.x;
             v53 = (char *)&pVertices->y;
             a5 = a2;
             do
@@ -8324,7 +8324,7 @@ void __thiscall Render_sub_4A2FC0(int _this, signed int a2, int a3, signed int a
           if ( a2 > 0 )
           {
             v26 = a5;
-            v27 = (char *)&array_507D30[0].flt_00000C;
+            v27 = (char *)&array_507D30[0].vWorldViewPosition.x;
             v25 = (char *)&pVertices->y;
             a5 = a2;
             do
@@ -11328,17 +11328,13 @@ void __stdcall sub_4A7948(int a1)
 //----- (004A7A27) --------------------------------------------------------
 char __stdcall sub_4A7A27(int a1, unsigned int a2, int a3)
 {
-  return sub_467D88(
-           (int)&unk_519AB8,
-           *(_DWORD *)(a1 + 4),
-           *(_DWORD *)(a1 + 8),
-           *(_DWORD *)(a1 + 12),
+  return pMobileLightsStack->AddLight_Mobile(&Vec3<float>(*(_DWORD *)(a1 + 4), *(_DWORD *)(a1 + 8), *(_DWORD *)(a1 + 12)),
            *(_WORD *)(a1 + 28),
            a3,
            a2 >> 16,
            SBYTE1(a2),
            a2 != 0,
-           (char *)byte_4E94D3);
+           byte_4E94D3);
 }
 
 //----- (004A7A66) --------------------------------------------------------
@@ -11645,7 +11641,7 @@ int __stdcall sub_4A806F(int a1)
   double v2; // st7@2
   float v4; // ST00_4@6
 
-  v1 = *(_DWORD *)(a1 + 372) - cMiscTimer.dword_000024;
+  v1 = *(_DWORD *)(a1 + 372) - cMiscTimer.uTotalGameTimeElapsed;
   if ( v1 <= 64 )
   {
     if ( v1 < 0 )
@@ -12813,35 +12809,25 @@ int __thiscall sub_4AD385(int _this)
 }
 
 //----- (004AD3C8) --------------------------------------------------------
-bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, const Vec3<float> *pLightPosition, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9)
+template<>
+  Result::Code LightsStack<StationaryLight>::AddLight_Stationary(const Vec3<float> *pLightPosition, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9)
 {
-  char result; // al@2
- struct StationaryLight *pLight; // eax@2
-  char v12; // [sp-18h] [bp-18h]@3
-  const CHAR *v13; // [sp-14h] [bp-14h]@3
-  int v14; // [sp-10h] [bp-10h]@3
-  int v15; // [sp-Ch] [bp-Ch]@3
-  char *v18; // [sp+18h] [bp+18h]@3
+ if (uNumLightsActive >= 400)
+ {
+  Game_sub_40E2C8(0, "Too many stationary lights!", 0);
+  sub_467834(0, 0, 0, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\StationaryLightStack.cpp", __LINE__);
+  return Result::OutOfMemory;
+ }
 
-  if (_this->uNumStationaryLightsActive >= 400)
-  {
-    v18 = &v12;
-    Game_sub_40E2C8(&v12, "Too many stationary lights!", (int)((char *)&uLightColorRed + 3));
-    sub_467834(&uLightColorGreen, v12, v13, v14, v15, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\StationaryLightStack.cpp", __LINE__);
-    return false;
-  }
-  else
-  {
-   pLight = &_this->pLights[_this->uNumStationaryLightsActive++];
+ StationaryLight *pLight = &pLights[uNumLightsActive++];
 
-   pLight->vPosition = *pLightPosition;
-   pLight->word_000006 = a5;
-   pLight->uLightColorRed = uLightColorRed;
-   pLight->uLightColorGreen = uLightColorGreen;
-   pLight->uLightColorBlue = uLightColorBlue;
-   pLight->byte_00000B = a9;
-   return true;
-  }
+ pLight->vPosition = *pLightPosition;
+ pLight->word_000006 = a5;
+ pLight->uLightColorRed = uLightColorRed;
+ pLight->uLightColorGreen = uLightColorGreen;
+ pLight->uLightColorBlue = uLightColorBlue;
+ pLight->byte_00000B = a9;
+ return Result::Success;
 }
 
 //----- (004AD48F) --------------------------------------------------------

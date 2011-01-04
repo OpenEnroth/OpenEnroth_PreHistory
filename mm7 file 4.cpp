@@ -45,7 +45,7 @@ signed int __fastcall sub_424EE0_MakeFanFromTriangle(int a1)
   memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v2 = 0;
   v23 = 0;
-  if ( array_50AC10[0].flt_00000C <= v3 )
+  if ( array_50AC10[0].vWorldViewPosition.x <= v3 )
     v2 = 1;
   if ( a1 + 1 <= 1 )
     return 0;
@@ -54,41 +54,43 @@ signed int __fastcall sub_424EE0_MakeFanFromTriangle(int a1)
   v5 = array_507D30;
   for (i = 0; i < a1 - 1; ++i)
   {
-    v20 = v3 >= array_50AC10[i + 1].flt_00000C;
+    v20 = v3 >= array_50AC10[i + 1].vWorldViewPosition.x;
     if ( v2 == v20 )
       goto LABEL_21;
 
       if ( v20 )
       {
-       v9 = (v3 - array_50AC10[i].flt_00000C) /
-            (array_50AC10[i + 1].flt_00000C - array_50AC10[i].flt_00000C);
-       v5->flt_000010 = (array_50AC10[i + 1].flt_000010 - array_50AC10[i].flt_000010) * v9 + array_50AC10[i].flt_000010;
-       v5->flt_000014 = (array_50AC10[i + 1].flt_000014 - array_50AC10[i].flt_000014) * v9 + array_50AC10[i].flt_000014;
+       v9 = (v3 - array_50AC10[i].vWorldViewPosition.x) /
+            (array_50AC10[i + 1].vWorldViewPosition.x - array_50AC10[i].vWorldViewPosition.x);
+       v5->vWorldViewPosition.y = (array_50AC10[i + 1].vWorldViewPosition.y - array_50AC10[i].vWorldViewPosition.y) * v9 + array_50AC10[i].vWorldViewPosition.y;
+       v5->vWorldViewPosition.z = (array_50AC10[i + 1].vWorldViewPosition.z - array_50AC10[i].vWorldViewPosition.z) * v9 + array_50AC10[i].vWorldViewPosition.z;
        v5->u = (array_50AC10[i + 1].u - array_50AC10[i].u) * v9 + array_50AC10[i].u;
-       v5->v  = (array_50AC10[i + 1].v - array_50AC10[i].v) * v9 + array_50AC10[i].v;
+       v5->v = (array_50AC10[i + 1].v - array_50AC10[i].v) * v9 + array_50AC10[i].v;
       }
       else
       {
-        v10 = (v3 - array_50AC10[i + 1].flt_00000C) / (array_50AC10[i].flt_00000C - array_50AC10[i + 1].flt_00000C);
-       v5->flt_000010 = (array_50AC10[i].flt_000010 - array_50AC10[i + 1].flt_000010) * v10 + array_50AC10[i + 1].flt_000010;
-       v5->flt_000014 = (array_50AC10[i].flt_000014 - array_50AC10[i + 1].flt_000014) * v10 + array_50AC10[i + 1].flt_000014;
+        v10 = (v3 - array_50AC10[i + 1].vWorldViewPosition.x) / (array_50AC10[i].vWorldViewPosition.x - array_50AC10[i + 1].vWorldViewPosition.x);
+       v5->vWorldViewPosition.y = (array_50AC10[i].vWorldViewPosition.y - array_50AC10[i + 1].vWorldViewPosition.y) * v10 + array_50AC10[i + 1].vWorldViewPosition.y;
+       v5->vWorldViewPosition.z = (array_50AC10[i].vWorldViewPosition.z - array_50AC10[i + 1].vWorldViewPosition.z) * v10 + array_50AC10[i + 1].vWorldViewPosition.z;
        v5->u = (array_50AC10[i].u - array_50AC10[i + 1].u) * v10 + array_50AC10[i + 1].u;
-       v5->v  = (array_50AC10[i].v - array_50AC10[i + 1].v) * v10 + array_50AC10[i + 1].v;
+       v5->v = (array_50AC10[i].v - array_50AC10[i + 1].v) * v10 + array_50AC10[i + 1].v;
       }
 
-      v5->flt_00000C = v3;
+      v5->vWorldViewPosition.x = v3;
       v5->flt_000020 = 1.0 / v3;
       if ( v2 )
       {
-        if (v3 != array_50AC10[i].flt_00000C || v5->flt_000010 != array_50AC10[i].flt_000010 ||
-            v5->flt_000014 == array_50AC10[i].flt_000014)
+        if (v3 != array_50AC10[i].vWorldViewPosition.x ||
+            v5->vWorldViewPosition.y != array_50AC10[i].vWorldViewPosition.y ||
+            v5->vWorldViewPosition.z == array_50AC10[i].vWorldViewPosition.z)
         {
       v5++;
       ++v23;
         }
       }
-      else if (v3 != array_50AC10[i + 1].flt_00000C || v5->flt_000010 != array_50AC10[i + 1].flt_000010 ||
-               v5->flt_000014 == array_50AC10[i + 1].flt_000014)
+      else if (v3 != array_50AC10[i + 1].vWorldViewPosition.x ||
+               v5->vWorldViewPosition.y != array_50AC10[i + 1].vWorldViewPosition.y ||
+               v5->vWorldViewPosition.z == array_50AC10[i + 1].vWorldViewPosition.z)
       {
       v5++;
       ++v23;
@@ -97,7 +99,7 @@ signed int __fastcall sub_424EE0_MakeFanFromTriangle(int a1)
 LABEL_21:
     if ( v20 )
     {
-      v15 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
+      v15 = 1.0 / (array_50AC10[i + 1].vWorldViewPosition.x + 0.0000001000000011686097);
       ++v23;
       memcpy(v5, &array_50AC10[i + 1], sizeof(struct RenderVertex));
       v5->flt_000020 = v15;
@@ -129,50 +131,50 @@ signed int __fastcall sub_4250FE(int a1)
 
   memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v21 = 0;
-  v17 = array_50AC10[0].flt_00000C >= 8.0;
+  v17 = array_50AC10[0].vWorldViewPosition.x >= 8.0;
   if ( a1 + 1 <= 1 )
     return 0;
   v3 = array_507D30;
 
  for (i = 0; i < a1; ++i)
  {
-    v18 = array_50AC10[i + 1].flt_00000C >= 8.0;
+    v18 = array_50AC10[i + 1].vWorldViewPosition.x >= 8.0;
     if ( v17 == v18 )
       goto LABEL_22;
 
     if ( v18 )
       {
-        v7 = (8.0 - array_50AC10[i].flt_00000C) /
-             (array_50AC10[i + 1].flt_00000C - array_50AC10[i].flt_00000C);
-        v3->flt_000010 = (array_50AC10[i + 1].flt_000010 - array_50AC10[i].flt_000010) * v7 + array_50AC10[i].flt_000010;
-        v3->flt_000014 = (array_50AC10[i + 1].flt_000014 - array_50AC10[i].flt_000014) * v7 + array_50AC10[i].flt_000014;
+        v7 = (8.0 - array_50AC10[i].vWorldViewPosition.x) /
+             (array_50AC10[i + 1].vWorldViewPosition.x - array_50AC10[i].vWorldViewPosition.x);
+        v3->vWorldViewPosition.y = (array_50AC10[i + 1].vWorldViewPosition.y - array_50AC10[i].vWorldViewPosition.y) * v7 + array_50AC10[i].vWorldViewPosition.y;
+        v3->vWorldViewPosition.z = (array_50AC10[i + 1].vWorldViewPosition.z - array_50AC10[i].vWorldViewPosition.z) * v7 + array_50AC10[i].vWorldViewPosition.z;
         v3->flt_00002C = (array_50AC10[i + 1].flt_00002C - array_50AC10[i].flt_00002C) * v7 + array_50AC10[i].flt_00002C;
       }
       else
       {
-        v8 = (8.0 - array_50AC10[i + 1].flt_00000C) /
-             (array_50AC10[i].flt_00000C - array_50AC10[i + 1].flt_00000C);
-        v3->flt_000010 = (array_50AC10[i].flt_000010 - array_50AC10[i + 1].flt_000010) * v8 + array_50AC10[i + 1].flt_000010;
-        v3->flt_000014 = (array_50AC10[i].flt_000014 - array_50AC10[i + 1].flt_000014) * v8 + array_50AC10[i + 1].flt_000014;
+        v8 = (8.0 - array_50AC10[i + 1].vWorldViewPosition.x) /
+             (array_50AC10[i].vWorldViewPosition.x - array_50AC10[i + 1].vWorldViewPosition.x);
+        v3->vWorldViewPosition.y = (array_50AC10[i].vWorldViewPosition.y - array_50AC10[i + 1].vWorldViewPosition.y) * v8 + array_50AC10[i + 1].vWorldViewPosition.y;
+        v3->vWorldViewPosition.z = (array_50AC10[i].vWorldViewPosition.z - array_50AC10[i + 1].vWorldViewPosition.z) * v8 + array_50AC10[i + 1].vWorldViewPosition.z;
         v3->flt_00002C = (array_50AC10[i].flt_00002C - array_50AC10[i + 1].flt_00002C) * v8 + array_50AC10[i + 1].flt_00002C;
       }
 
-      v3->flt_00000C = 8.0;
+      v3->vWorldViewPosition.x = 8.0;
       v3->flt_000020 = 0.12500000;
 
       if (v17)
       {
-        if (array_50AC10[i].flt_00000C != 8.0 ||
-            v3->flt_000010 != array_50AC10[i].flt_000010 ||
-            v3->flt_000014 != array_50AC10[i].flt_000014)
+        if (array_50AC10[i].vWorldViewPosition.x != 8.0 ||
+            v3->vWorldViewPosition.y != array_50AC10[i].vWorldViewPosition.y ||
+            v3->vWorldViewPosition.z != array_50AC10[i].vWorldViewPosition.z)
         {
          v3++;
          ++v21;
         }
       }
-      else if (array_50AC10[i + 1].flt_00000C != 8.0 ||
-            v3->flt_000010 != array_50AC10[i + 1].flt_000010 ||
-            v3->flt_000014 != array_50AC10[i + 1].flt_000014)
+      else if (array_50AC10[i + 1].vWorldViewPosition.x != 8.0 ||
+            v3->vWorldViewPosition.y != array_50AC10[i + 1].vWorldViewPosition.y ||
+            v3->vWorldViewPosition.z != array_50AC10[i + 1].vWorldViewPosition.z)
         {
          v3++;
          ++v21;
@@ -181,7 +183,7 @@ signed int __fastcall sub_4250FE(int a1)
 LABEL_22:
     if (v18)
     {
-     v12 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
+     v12 = 1.0 / (array_50AC10[i + 1].vWorldViewPosition.x + 0.0000001000000011686097);
       ++v21;
       memcpy(v3, &array_50AC10[i + 1], sizeof(struct RenderVertex));
       v3->flt_000020 = v12;
@@ -215,52 +217,52 @@ signed int __fastcall sub_4252E8(int a1)
   v1 = a1;
   memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v22 = 0;
-  v18 = array_50AC10[0].flt_00000C <= pStruct9_global->shading_dist_mist;
+  v18 = array_50AC10[0].vWorldViewPosition.x <= pStruct9_global->shading_dist_mist;
   if ( a1 + 1 <= 1 )
     return 0;
 
  v5 = array_507D30;
  for (i = 0; i < a1; ++i)
  {
-  v19 = pStruct9_global->shading_dist_mist >= array_50AC10[i + 1].flt_00000C;
+  v19 = pStruct9_global->shading_dist_mist >= array_50AC10[i + 1].vWorldViewPosition.x;
   if (v18 == v19)
     goto LABEL_22;
 
 
   if (v19)
   {
-   v8 = (pStruct9_global->shading_dist_mist - array_50AC10[i].flt_00000C) /
-        (array_50AC10[i + 1].flt_00000C - array_50AC10[i].flt_00000C);
-   v5->flt_000010 = (array_50AC10[i + 1].flt_000010 - array_50AC10[i].flt_000010) * v8 + array_50AC10[i].flt_000010;
-   v5->flt_000014 = (array_50AC10[i + 1].flt_000014 - array_50AC10[i].flt_000014) * v8 + array_50AC10[i].flt_000014;
+   v8 = (pStruct9_global->shading_dist_mist - array_50AC10[i].vWorldViewPosition.x) /
+        (array_50AC10[i + 1].vWorldViewPosition.x - array_50AC10[i].vWorldViewPosition.x);
+   v5->vWorldViewPosition.y = (array_50AC10[i + 1].vWorldViewPosition.y - array_50AC10[i].vWorldViewPosition.y) * v8 + array_50AC10[i].vWorldViewPosition.y;
+   v5->vWorldViewPosition.z = (array_50AC10[i + 1].vWorldViewPosition.z - array_50AC10[i].vWorldViewPosition.z) * v8 + array_50AC10[i].vWorldViewPosition.z;
    v5->flt_00002C = (array_50AC10[i + 1].flt_00002C - array_50AC10[i].flt_00002C) * v8 + array_50AC10[i].flt_00002C;
   }
   else
   {
-   v9 = (pStruct9_global->shading_dist_mist - array_50AC10[i + 1].flt_00000C) /
-        (array_50AC10[i].flt_00000C - array_50AC10[i + 1].flt_00000C);
-   v5->flt_000010 = (array_50AC10[i].flt_000010 - array_50AC10[i + 1].flt_000010) * v9 + array_50AC10[i + 1].flt_000010;
-   v5->flt_000014 = (array_50AC10[i].flt_000014 - array_50AC10[i + 1].flt_000014) * v9 + array_50AC10[i + 1].flt_000014;
+   v9 = (pStruct9_global->shading_dist_mist - array_50AC10[i + 1].vWorldViewPosition.x) /
+        (array_50AC10[i].vWorldViewPosition.x - array_50AC10[i + 1].vWorldViewPosition.x);
+   v5->vWorldViewPosition.y = (array_50AC10[i].vWorldViewPosition.y - array_50AC10[i + 1].vWorldViewPosition.y) * v9 + array_50AC10[i + 1].vWorldViewPosition.y;
+   v5->vWorldViewPosition.z = (array_50AC10[i].vWorldViewPosition.z - array_50AC10[i + 1].vWorldViewPosition.z) * v9 + array_50AC10[i + 1].vWorldViewPosition.z;
    v5->flt_00002C = (array_50AC10[i].flt_00002C - array_50AC10[i + 1].flt_00002C) * v9 + array_50AC10[i + 1].flt_00002C;
   }
 
-  v5->flt_00000C = pStruct9_global->shading_dist_mist;
+  v5->vWorldViewPosition.x = pStruct9_global->shading_dist_mist;
   v5->flt_000020 = 1.0 / (float)pStruct9_global->shading_dist_mist;
 
   //if vertices are identical, count them as one?
   if (v18)
   {
-   if (pStruct9_global->shading_dist_mist != array_50AC10[i].flt_00000C ||
-       v5->flt_000010 != array_50AC10[i].flt_000010 ||
-       v5->flt_000014 != array_50AC10[i].flt_000014)
+   if (pStruct9_global->shading_dist_mist != array_50AC10[i].vWorldViewPosition.x ||
+       v5->vWorldViewPosition.y != array_50AC10[i].vWorldViewPosition.y ||
+       v5->vWorldViewPosition.z != array_50AC10[i].vWorldViewPosition.z)
    {
     v5++;
     ++v22;
    }
   }
-  else if (pStruct9_global->shading_dist_mist != array_50AC10[i + 1].flt_00000C ||
-           v5->flt_000010 != array_50AC10[i + 1].flt_000010 ||
-           v5->flt_000014 != array_50AC10[i + 1].flt_000014)
+  else if (pStruct9_global->shading_dist_mist != array_50AC10[i + 1].vWorldViewPosition.x ||
+           v5->vWorldViewPosition.y != array_50AC10[i + 1].vWorldViewPosition.y ||
+           v5->vWorldViewPosition.z != array_50AC10[i + 1].vWorldViewPosition.z)
   {
    v5++;
    ++v22;
@@ -270,7 +272,7 @@ signed int __fastcall sub_4252E8(int a1)
 LABEL_22:
     if (v19)
     {
-      v13 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
+      v13 = 1.0 / (array_50AC10[i + 1].vWorldViewPosition.x + 0.0000001000000011686097);
       ++v22;
       memcpy(v5, &array_50AC10[i + 1], sizeof(struct RenderVertex));
       v5->flt_000020 = v13;
@@ -3669,11 +3671,11 @@ void __stdcall sub_4364C5(int a1, int a2, int a3, int a4)
     }
     while ( v4 );
   }
-  sub_436523((RenderVertex *)a3, a2);
+  sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)a3, a2);
 }
 
 //----- (00436523) --------------------------------------------------------
-void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs)
+void __stdcall sub_436523_PrimitiveApplyViewMatrix(struct RenderVertex *a1, unsigned int uNumStructs)
 {
   int v2; // esi@4
   int v3; // ecx@7
@@ -4788,8 +4790,8 @@ LABEL_11:
     result = sub_437285((int)&v25, (int)&a6, &v32, (int)((char *)_this + 52), 4, 1, 0);
     if ( result != 1 || a6 >= 2 )
     {
-      sub_436523((RenderVertex *)&v32, 2);
-      class08_sub_436BB7((class08 *)v54, (RenderVertex *)&v32, 2, 0);
+      sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)&v32, 2);
+      class08_sub_436BB7_PrimitiveApplyProjectionMatrix((class08 *)v54, (RenderVertex *)&v32, 2, 0);
       goto LABEL_11;
     }
   }
@@ -5077,7 +5079,7 @@ LABEL_15:
     v22 = a3;
     v23 = a4;
   }
-  sub_436523((RenderVertex *)&v21, 1);
+  sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)&v21, 1);
   v10 = 0;
   v11 = &v24;
   do
@@ -5090,7 +5092,7 @@ LABEL_15:
   while ( v10 < 1 );
   if ( v10 < 1 )
   {
-    class08_sub_436BB7((class08 *)v74, (RenderVertex *)&v21, 1, 0);
+    class08_sub_436BB7_PrimitiveApplyProjectionMatrix((class08 *)v74, (RenderVertex *)&v21, 1, 0);
     goto LABEL_15;
   }
 }
@@ -8394,9 +8396,9 @@ char __thiscall sub_45BE86(int _this, int a2, int a3, float a4, signed int a5, f
   }
   v57[1] = *(const char **)v43;
   v45 = v65;
-  sub_436523((RenderVertex *)v65, (int)v57[1]);
+  sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)v65, (int)v57[1]);
   *(_QWORD *)v57 = *(_DWORD *)v43;
-  class08_sub_436BB7(pGame->class08_obj, (RenderVertex *)v45, (int)v57[0], SLOBYTE(v57[1]));
+  class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, (RenderVertex *)v45, (int)v57[0], SLOBYTE(v57[1]));
   if ( !(a10 & 1) )
     goto LABEL_39;
   if ( uCurrentlyLoadedLevelType == 2 )
@@ -8714,14 +8716,14 @@ char __stdcall sub_45C7F6(signed int a1)
   int v14; // [sp+14h] [bp-4h]@5
 
   v3 = (int)pIndoor->pFaces + a1;
-  v1 = dword_51B6DC;
+  v1 = pMobileLightsStack->uNumLightsActive;
   v13 = 0;
   v2 = 116 * *(_WORD *)(v3 + 76);
   a1 = 0;
   dword_F8AD54 = (dword_F8B120 + *(_WORD *)(v2 + (int)pIndoor->pSectors + 98)) << 16;
-  if ( dword_51B6DC > 0 )
+  if ( pMobileLightsStack->uNumLightsActive > 0 )
   {
-    v10 = (int)array_519ABC;
+   v10 = (int)pMobileLightsStack->pLights;
     do
     {
       if ( a1 >= 20 )
@@ -8751,7 +8753,7 @@ char __stdcall sub_45C7F6(signed int a1)
     while ( v6 ^ v7 );
   }
   v8 = 0;
-  if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
+  if ( pStationaryLightsStack->uNumLightsActive > 0 )
   {
     v12 = (int)pStationaryLightsStack->pLights;
     do
@@ -8762,7 +8764,7 @@ char __stdcall sub_45C7F6(signed int a1)
       v12 += 12;
       ++v8;
     }
-    while ( v8 < pStationaryLightsStack->uNumStationaryLightsActive );
+    while ( v8 < pStationaryLightsStack->uNumLightsActive );
   }
   dword_F8ADD4 = a1;
   return 1;
@@ -8976,26 +8978,26 @@ bool __stdcall sub_45D036(struct Vec3<float> *pNormal, int a2, struct RenderVert
 
   v10 = 0;
   dword_F8AD54 = pOutdoor->dword_000CBC;
-  for (i = 0; i < dword_51B6DC; ++i)
+  for (i = 0; i < pMobileLightsStack->uNumLightsActive; ++i)
   {
       if ( v10 >= 20 )
         break;
-      sub_45D0D5((struct6 *)&array_519ABC[i], pNormal, a2, a3, a4, X, (int)&v10);
+      sub_45D0D5(&pMobileLightsStack->pLights[i], pNormal, a2, a3, a4, X, (int)&v10);
   }
-  /*
-  for (i = 0; i < pStationaryLightsStack->uNumStationaryLightsActive; ++i)
+
+  for (i = 0; i < pStationaryLightsStack->uNumLightsActive; ++i)
   {
       if ( v10 >= 20 )
         break;
-      sub_45D0D5((struct6 *)&pStationaryLightsStack->pLights[i], pNormal, a2, a3, a4, X, (int)&v10);
-  }	  crushes */ 
+      sub_45D0D5(&pStationaryLightsStack->pLights[i], pNormal, a2, a3, a4, X, (int)&v10);
+  }
 
   dword_F8ADD4 = v10;
   return true;
 }
 
 //----- (0045D0D5) --------------------------------------------------------
-char __stdcall sub_45D0D5(struct struct6 *a1, struct Vec3<float> *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7)
+char __stdcall sub_45D0D5(struct StationaryLight *a1, struct Vec3<float> *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7)
 {
   float v7; // edi@1
   int v8; // eax@1
@@ -9805,7 +9807,7 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
       dword_6BE13C_uCurrentlyLoadedLocationID = i;
 
 
-  pStationaryLightsStack->uNumStationaryLightsActive = 0;
+  pStationaryLightsStack->uNumLightsActive = 0;
 
   pIndoor = MemAlloc(IndoorLocation, 1);
   pIndoor->Clear();
@@ -9923,10 +9925,9 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
               v19 = *(_BYTE *)(v17 + 81);
               v40 = *(_BYTE *)(v17 + 82);
             }
-            StationaryLightsStack_AddLight(pStationaryLightsStack,
-                                           &Vec3<float>(pDecortaion->vPosition.x,
-                                                        pDecortaion->vPosition.y,
-                                                        pDecortaion->vPosition.z + *(_WORD *)(v17 + 66) / 2),
+            pStationaryLightsStack->AddLight_Stationary(&Vec3<float>(pDecortaion->vPosition.x,
+                                                          pDecortaion->vPosition.y,
+                                                          pDecortaion->vPosition.z + *(_WORD *)(v17 + 66) / 2),
               v18,
               v20,
               v19,
@@ -10889,12 +10890,11 @@ int __thiscall sub_467D45(int _this)
 }
 
 //----- (00467D88) --------------------------------------------------------
-char __thiscall sub_467D88(int _this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9, char *a10)
+template<>
+  Result::Code LightsStack<MobileLight>::AddLight_Mobile(const Vec3<float> *pLightPosition, __int16 a5, int a6, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a10)
 {
   signed int v10; // eax@1
   char result; // al@2
-  int v12; // esi@2
-  int v13; // eax@2
   char v14; // [sp-18h] [bp-1Ch]@3
   const CHAR *v15; // [sp-14h] [bp-18h]@3
   int v16; // [sp-10h] [bp-14h]@3
@@ -10902,35 +10902,26 @@ char __thiscall sub_467D88(int _this, __int16 a2, __int16 a3, __int16 a4, __int1
   const char *v18; // [sp-8h] [bp-Ch]@3
   int v19; // [sp-4h] [bp-8h]@3
 
-  v10 = *(_DWORD *)(_this + 7204);
-  if ( v10 >= 400 )
-  {
-    v19 = 51;
-    v18 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MobileLightStack.cpp";
-    a10 = &v14;
-    Game_sub_40E2C8(&v14, "Too many mobile lights!", (int)((char *)&a10 + 3));
-    sub_467834(&a2, v14, v15, v16, v17, v18, v19);
-    result = 0;
-  }
-  else
-  {
-    v12 = a6;
-    v13 = _this + 18 * v10 + 4;
-    *(_WORD *)v13 = a2;
-    *(_WORD *)(v13 + 2) = a3;
-    *(_WORD *)(v13 + 4) = a4;
-    *(_WORD *)(v13 + 6) = v12;
-    *(_WORD *)(v13 + 12) = (((v12 < 0) - 1) & 0x3E) - 31;
-    *(_WORD *)(v13 + 14) = a5;
-    *(_WORD *)(v13 + 16) = v12 * v12 >> 5;
-    *(_BYTE *)(v13 + 8) = a7;
-    *(_BYTE *)(v13 + 9) = a8;
-    *(_BYTE *)(v13 + 10) = a9;
-    *(_BYTE *)(v13 + 11) = (_BYTE)a10;
-    ++*(_DWORD *)(_this + 7204);
-    result = 1;
-  }
-  return result;
+ if (uNumLightsActive >= 400)
+ {
+  Game_sub_40E2C8(0, "Too many mobile lights!", 0);
+  sub_467834(0, 0, 0, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MobileLightStack.cpp", 51);
+  return Result::OutOfMemory;
+ }
+
+ MobileLight *pLight = &pLights[uNumLightsActive++];
+
+ pLight->vPosition = *pLightPosition;
+ pLight->word_000006 = a6;
+
+ pLight->uLightColorRed = uLightColorRed;
+ pLight->uLightColorGreen = uLightColorGreen;
+ pLight->uLightColorBlue = uLightColorBlue;
+ pLight->byte_00000B = (_BYTE)a10;
+ pLight->word_00000C = (((a6 < 0) - 1) & 0x3E) - 31;
+ pLight->word_00000E = a5;
+ pLight->word_000010 = a6 * a6 >> 5;
+ return Result::Success;
 }
 
 //----- (00467E7F) --------------------------------------------------------

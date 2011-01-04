@@ -912,8 +912,8 @@ LABEL_74:
  array_77EC08[1999].dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
  array_77EC08[1999].dword_000024 = 0x2000000;
 
- array_77EC08[1999].dword_000028 = 224 * cMiscTimer.dword_000024;
- array_77EC08[1999].dword_00002C = 224 * cMiscTimer.dword_000024;
+ array_77EC08[1999].dword_000028 = 224 * cMiscTimer.uTotalGameTimeElapsed;
+ array_77EC08[1999].dword_00002C = 224 * cMiscTimer.uTotalGameTimeElapsed;
  
  v9 = pStruct9_global->uNumSpans;
  if (!v9)
@@ -1494,8 +1494,8 @@ signed int __fastcall sub_485044(struct Span *pSpan, struct struct8 *a2, int a3)
     v57 = v18 / v52;
     v23 = a2->dword_00002C + ((signed int)(((unsigned __int64)(v20) * (signed int)(v18 / v52)) >> 16) >> 3);
     v24 = ((unsigned __int64)(v55) * v57) >> 16;
-    v39 = (signed int)(((unsigned __int64)(v24) * pStruct9_global->camera_rotation_y_int_sine) >> 16) >> 3;
-    v37 = (signed int)(((unsigned __int64)(v24) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) >> 3;
+    v39 = (signed int)(((unsigned __int64)(v24) * 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048)) >> 16) >> 3;
+    v37 = (signed int)(((unsigned __int64)(v24) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) >> 3;
     v25 = (char *)sub_47C178(v21, a2, 0, 1);
 
     v41 = (short *)v25;
@@ -1816,7 +1816,7 @@ LABEL_12:
   v33 = (signed int)*(_WORD *)(v31 + 26) >> v62;
   v34 = v62 - *(_WORD *)(v31 + 28);
   v45 = (v33 << 16) - 65536;
-  X = 2 * cMiscTimer.dword_000024;
+  X = 2 * cMiscTimer.uTotalGameTimeElapsed;
   v58 = pStruct9_global->dword_000018;
   v47 = v34 + 16;
   v46 = v32 - 1;
@@ -3169,8 +3169,8 @@ signed int __fastcall sub_485044(struct Span *pSpan, struct struct8 *a2, int a3)
     v57 = v18 / v52;
     v23 = a2->dword_00002C + ((signed int)(((unsigned __int64)(v20) * (signed int)(v18 / v52)) >> 16) >> 3);
     v24 = ((unsigned __int64)(v55) * v57) >> 16;
-    v39 = (signed int)(((unsigned __int64)(v24) * pStruct9_global->camera_rotation_y_int_sine) >> 16) >> 3;
-    v37 = (signed int)(((unsigned __int64)(v24) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) >> 3;
+    v39 = (signed int)(((unsigned __int64)(v24) * 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048)) >> 16) >> 3;
+    v37 = (signed int)(((unsigned __int64)(v24) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) >> 3;
     v25 = (char *)sub_47C178(v21, a2, 0, 1);
 
     v41 = (short *)v25;
@@ -3518,7 +3518,7 @@ LABEL_50:
 
 
 //----- (004789DE) --------------------------------------------------------
-void sub_4789DE_RenderBuildingsSoftware()
+void RenderBuildingsSoftware()
 {
   int v1; // ebx@2
   struct class51_stru2 *v3; // edi@4
@@ -3568,7 +3568,7 @@ void sub_4789DE_RenderBuildingsSoftware()
   v1 = (int)&pOutdoor->pBModels[i].dword_00004C;
   pModel = &pOutdoor->pBModels[i];
 
-  if (!sub_479089(i, &v87))
+  if (!sub_479089_IsBModelVisible(i, &v87))
     continue;
 
   pOutdoor->pBModels[i].dword_000040 |= 0x0001;
@@ -3596,7 +3596,7 @@ void sub_4789DE_RenderBuildingsSoftware()
          if (v10 == v11->y + 4.0)
            ++v84;
 
-         sub_436523(&array_73D150[k], 1);
+         sub_436523_PrimitiveApplyViewMatrix(&array_73D150[k], 1);
          if (array_73D150[k].flt_00000C < 8.0 ||
              array_73D150[k].flt_00000C > pStruct9_global->shading_dist_mist)
          {
@@ -3606,7 +3606,7 @@ void sub_4789DE_RenderBuildingsSoftware()
             v76 = 1;
          }
          else
-           class08_sub_436BB7(pGame->class08_obj, &array_73D150[k], 1, 0);
+           class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, &array_73D150[k], 1, 0);
         }
 
 
@@ -3637,7 +3637,7 @@ void sub_4789DE_RenderBuildingsSoftware()
            p14->byte_000058 = 31;
 
         if (v3->byte_000010[13] & 0x40)
-          v18 = TextureFrameTable_GetFrame(pTextureFrameTable, v3->uTextureID, cEventTimer.dword_000024);
+          v18 = TextureFrameTable_GetFrame(pTextureFrameTable, v3->uTextureID, cEventTimer.uTotalGameTimeElapsed);
         else v18 = v3->uTextureID;
 
         if (v18 == -1)
@@ -3650,7 +3650,7 @@ void sub_4789DE_RenderBuildingsSoftware()
 
         ++pStruct9_global->dword_00002C;
         ++pStruct9_global->dword_000044;
-        if (!sub_482170(pOutdoor->pBModels[i].ptr_000054, array_73D150, p14))
+        if (sub_482170_IsPrimitiveCulled(pOutdoor->pBModels[i].ptr_000054, array_73D150, p14))
         {
 LABEL_71:
           --pStruct9_global->dword_00002C;
@@ -4685,8 +4685,8 @@ signed int __thiscall sub_482A94(int _this)
   v28 = *(_DWORD *)(v4 + 40) << 16;
   v47 = *(_DWORD *)(v4 + 44) << 16;
   v11 = *(_WORD *)(v3 + 8);
-  v29 = pStruct9_global->camera_rotation_y_int_sine;
-  v44 = pStruct9_global->camera_rotation_y_int_cosine;
+  v29 = 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048);
+  v44 = (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048));
   v37 = *(_WORD *)(v3 + 12);
   v12 = *(_DWORD *)(v4 + 36);
   v49 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - v11);
@@ -4990,7 +4990,7 @@ LABEL_12:
     v33 = (signed int)*(_WORD *)(v31 + 26) >> v87;
     v34 = v87 - *(_WORD *)(v31 + 28);
     v66 = (v33 << 16) - 65536;
-    v93 = 2 * cMiscTimer.dword_000024;
+    v93 = 2 * cMiscTimer.uTotalGameTimeElapsed;
     v68 = v34 + 16;
     v67 = v92 - 1;
     if ( v78 > 0 )

@@ -10083,7 +10083,7 @@ void GUIWindow_sub_41D3B7(GUI::Window *_this)	  //show quick info
         v44 = 1;
       if (pPlayer->uExpressionID == 21)
       {
-       v14 = pPlayerFrameTable->PlayerFrameTable_sub_494B5E( (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, cMiscTimer.int_00001C);
+       v14 = pPlayerFrameTable->PlayerFrameTable_sub_494B5E( (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, cMiscTimer.uElapsedTime);
       }
       else
       {
@@ -10679,7 +10679,7 @@ LABEL_59:
   GUIWindow_DrawText((GUI::Window *)v145, pFontComic, 0, 12, v38, (char *)TmpBuf, 3);
   sub_41AF52(v143, v145);
   v141 = 0;
-  stru_506580_MonsterInfoUI_Doll.uCurrentActionTime += cMiscTimer.int_00001C;
+  stru_506580_MonsterInfoUI_Doll.uCurrentActionTime += cMiscTimer.uElapsedTime;
   v137 = 0;
   v138 = 0;
   i = 0;
@@ -11395,9 +11395,9 @@ void __cdecl sub_41FA01()
       cTexture_Free((cTexture *)dword_507BB0);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
-    v3 = cEventTimer.int_00001C + dword_507CD4;
-    v4 = (unsigned int)(cEventTimer.int_00001C + dword_507CD4) < 0x200;
-    dword_507CD4 += cEventTimer.int_00001C;
+    v3 = cEventTimer.uElapsedTime + dword_507CD4;
+    v4 = (unsigned int)(cEventTimer.uElapsedTime + dword_507CD4) < 0x200;
+    dword_507CD4 += cEventTimer.uElapsedTime;
     if ( !v4 )
     {
       v3 = 0;
@@ -11636,7 +11636,6 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
   pOldCamera->sRotationX = pParty_global->sRotationX;
   pOldCamera->sRotationY = pParty_global->sRotationY;
 
-  struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
   class51_sub_4892E6(pOutdoor);
   pStruct9_global->dword_000014 = pOldCamera->flt_00001C;
   pStruct9_global->dword_000018 = pOldCamera->flt_000020;
@@ -14407,18 +14406,18 @@ signed int __fastcall sub_424CD7(int a1)
   memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v2 = 0;
   v21 = 0;
-  if ( array_50AC10[0].flt_00000C >= 8.0 )
+  if ( array_50AC10[0].vWorldViewPosition.x >= 8.0 )
     v2 = 1;
   if ( a1 + 1 <= 1 )
     return 0;
-  v5 = (char *)&array_507D30[0].flt_000014;
-  v4 = (char *)&array_507D30[0].flt_000010;
+  v5 = (char *)&array_507D30[0].vWorldViewPosition.z;
+  v4 = (char *)&array_507D30[0].vWorldViewPosition.y;
   v6 = v1;
   v24 = (char *)&array_507D30[0].flt_000020;
   v22 = (char *)array_507D30;
-  v19 = (char *)&array_507D30[0].flt_000014;
-  v20 = (char *)&array_507D30[0].flt_000010;
-  v23 = (char *)&array_507D30[0].flt_00000C;
+  v19 = (char *)&array_507D30[0].vWorldViewPosition.z;
+  v20 = (char *)&array_507D30[0].vWorldViewPosition.y;
+  v23 = (char *)&array_507D30[0].vWorldViewPosition.x;
   v25 = (char *)&array_507D30[0].v;
   v26 = (char *)&array_507D30[0].u;
   v3 = &array_50AC10[0].v;

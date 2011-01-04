@@ -118,12 +118,10 @@ LABEL_89:
         ((BaseRender *)v2)->Present();
         continue;
       }
-      if ( pAsyncMouse)
-        CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
 
       if (pVideoPlayer)
       {
-       if (pVideoPlayer->pSmackerMovie )
+       if (pVideoPlayer->pSmackerMovie)
        {
         compile_error();
         /*if ( !SmackWait(pVideoPlayer->pSmackerMovie) )
@@ -135,7 +133,7 @@ LABEL_89:
           ((BaseRender *)v2)->EndScene();
         }*/
        }
-       if (pVideoPlayer->pBinkMovie )
+       if (pVideoPlayer->pBinkMovie)
        {
         compile_error();
         /*if ( !BinkWait(pVideoPlayer->pBinkMovie) )
@@ -149,9 +147,9 @@ LABEL_89:
        }
       }
 
-    cEventTimer.clock_sub_4263B7();
-    cMiscTimer.clock_sub_4263B7();
-      sub_448B67(false);
+    cEventTimer.Update();
+    cMiscTimer.Update();
+      sub_448B67_ProcessEvents(false);
       sub_448B45_LooksLikeResetSomeTimer(false);
       if (cMiscTimer.bPaused)
       {
@@ -209,7 +207,7 @@ LABEL_96:
         if ( dword_6A0D48 != 9 )
         {
 LABEL_85:
-          sub_44103C();
+          sub_44103C_Draw();
           continue;
         }
         ((BaseRender *)v2)->BeginScene();
@@ -627,7 +625,7 @@ char Game_sub_44EEA7(struct Game *_this)
         dword_EF524C = v5 & 0xFFFFFF;
       }
     }
-    if ( *(_BYTE *)(v1 + 0xE21) & 4 )
+    if (_this->uSomeFlags & 0x0400 )
       _this->dword_000E24 |= 0x01;
 
     v6 = qword_5C6DF0 - _this->dword_000E10;
@@ -636,10 +634,10 @@ char Game_sub_44EEA7(struct Game *_this)
       if ( !((unsigned __int64)(qword_5C6DF0 - *(unsigned __int64 *)&_this->dword_000E10) >> 32) )
         _this->dword_000E24 |= v6;
     }
-    if (_this->dword_000E18 != pStationaryLightsStack->uNumStationaryLightsActive )
+    if (_this->dword_000E18 != pStationaryLightsStack->uNumLightsActive )
     {
       _this->dword_000E24 |= 1;
-      _this->dword_000E18 = pStationaryLightsStack->uNumStationaryLightsActive;
+      _this->dword_000E18 = pStationaryLightsStack->uNumLightsActive;
     }
     sub_44E904(_this);
     result = 1;
@@ -787,16 +785,15 @@ int Game_fn1(struct Game *_this, int flags)
 }
 
 //----- (0044F120) --------------------------------------------------------
-void Game_sub_44F120_MaybeStackStationaryLights(struct Game *_this, int a2)
+void Game_StackStationaryLights(struct Game *_this, int a2)
 {
  for (unsigned int i = 0; i < _this->uNumStationaryLights; ++i)
-   StationaryLightsStack_AddLight(pStationaryLightsStack,
-                                  &_this->pStationaryLights[i].vPosition,
-                                  _this->pStationaryLights[i].flt_000018,
-                                  _this->pStationaryLights[i].vRGBColor.x,
-                                  _this->pStationaryLights[i].vRGBColor.y,
-                                  _this->pStationaryLights[i].vRGBColor.z,
-                                  byte_4E94D0);
+   pStationaryLightsStack->AddLight_Stationary(&_this->pStationaryLights[i].vPosition,
+                                    _this->pStationaryLights[i].flt_000018,
+                                    _this->pStationaryLights[i].vRGBColor.x,
+                                    _this->pStationaryLights[i].vRGBColor.y,
+                                    _this->pStationaryLights[i].vRGBColor.z,
+                                    byte_4E94D0);
 }
 
 //----- (0044F192) --------------------------------------------------------

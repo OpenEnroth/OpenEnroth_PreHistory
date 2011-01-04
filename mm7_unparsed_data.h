@@ -1115,15 +1115,15 @@ extern unsigned int uNumBillboardsToDraw; // dword @ MM7.exe::005187E0
 extern int dword_5187E4; // weak
 extern int dword_5187E8; // weak
 extern int dword_5187EC; // weak
-extern struct StationaryLightsStack *pStationaryLightsStack; // struct @ MM7.exe::005187F0
+
+extern struct LightsStack<StationaryLight> *pStationaryLightsStack;  // struct @ MM7.exe::005187F0
 //_UNKNOWN unk_5187F0; // weak
 //struct struct7 array_5187F4[400]; // struct[400] @ MM7.exe::005187F4
 //int            dword_519AB4; // num of elements in array_5187F4
-
-extern _UNKNOWN unk_519AB8; // weak
-
-extern struct struct6 array_519ABC[400]; // struct[400] @ MM7.exe::00519ABC
-extern int dword_51B6DC; // num of elements in array_519ABC
+extern struct LightsStack<MobileLight> *pMobileLightsStack; // struct @ MM7.exe::00519AB8
+//extern _UNKNOWN unk_519AB8; // weak
+//struct struct6 array_519ABC[400]; // struct[400] @ MM7.exe::00519ABC
+//int dword_51B6DC; // num of elements in array_519ABC
 
 
 extern struct sub_4407D9_stru0
@@ -1940,9 +1940,9 @@ extern IndoorLocation *pIndoor; // struct @ MM7.exe::006BE3C8
 
 
 //_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
-//extern MemoryMng mem_mng;  // struct @ MM7.exe::00702B28;  // struct @ MM7.exe::00702B28
-extern int dword_71FFF4; // weak
-extern int dword_71FFF8; // weak
+//extern MemoryMng mem_mng;  // struct @ MM7.exe::00702B28;
+//int dword_71FFF4; // 01D4CC
+//int dword_71FFF8; // 01D4D0
 //unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
 extern unsigned int bNoVideo;         // dword @ MM7.exe::0072000C
 extern unsigned int bNoCredits;       // new

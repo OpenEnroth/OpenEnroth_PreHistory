@@ -69,25 +69,26 @@ void Clock::clock_sub_4263A0()
 }
 
 //----- (004263B7) -----------.text:00426B8F---------------------------------------------
-void Clock::clock_sub_4263B7()
+Result::Code Clock::Update()
 {
- 
   signed int v2; // eax@2
 
   do
   {
     v2 = Time() - uStartTime;
-    int_00001C = v2;
+    uElapsedTime = v2;
   }
   while ( v2 <= 0 );
 
-  uStartTime = Time();
+ uStartTime = Time();
 
-  if ( int_00001C > 32 )
-    int_00001C = 32;
-  if (!bPaused &&(dword_000008==0))
-	dword_000024+=int_00001C;
-  dword_000020=(int_00001C<<16)/128; 
+ if (uElapsedTime > 32)
+   uElapsedTime = 32;
+ if (!bPaused && !dword_000008)
+   uTotalGameTimeElapsed += uElapsedTime;
+ dword_000020 = (uElapsedTime << 16) / 128; 
+
+ return Result::Success;
 }
 
 
@@ -98,7 +99,7 @@ Result::Code Clock::Initialize()
  if (!bReady)
  {
   bReady = true;
-  dword_000024 = 0;
+  uTotalGameTimeElapsed = 0;
 
   return Result::Success;
  }
@@ -110,5 +111,5 @@ Result::Code Clock::Initialize()
 Clock::Clock()
 {
  bReady = false;
- dword_000024 = 0;
+ uTotalGameTimeElapsed = 0;
 }

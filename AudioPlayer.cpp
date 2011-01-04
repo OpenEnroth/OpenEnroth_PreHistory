@@ -604,7 +604,7 @@ LABEL_47:
   if ( uCurrentlyLoadedLevelType == 1 )
     sub_4AAEA6((int)&v87);
   else
-    sub_436523((RenderVertex *)&v87, 1);
+    sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)&v87, 1);
   if ( a3 )
   {
     if ( a3 != -1 )
@@ -736,7 +736,7 @@ LABEL_101:
             goto LABEL_104;
           }
 LABEL_103:
-          sub_436523((RenderVertex *)&v87, 1);
+          sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)&v87, 1);
 LABEL_104:
           AIL_start_3D_sample(*(_DWORD *)v43);
           AIL_set_3D_sample_float_distances(*(_DWORD *)v43, 100.0, 20.0, 100.0, 20.0);
@@ -1573,7 +1573,7 @@ void AudioPlayer::sub_4AAFCF()
   if ( !v3 )
   {
     v4 = v2 + 720;
-    *(_DWORD *)v4 -= cEventTimer.int_00001C;
+    *(_DWORD *)v4 -= cEventTimer.uElapsedTime;
     if ( *(_DWORD *)(v2 + 720) <= 0 )
     {
       v5 = *(_DWORD *)(v2 + 4) == 0;
@@ -1700,7 +1700,7 @@ LABEL_21:
           else
           {
 LABEL_31:
-            sub_436523((RenderVertex *)&v58, 1);
+            sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)&v58, 1);
           }
           v68 = v62 * -0.01220703125;
           v24 = v61 * 0.01220703125;

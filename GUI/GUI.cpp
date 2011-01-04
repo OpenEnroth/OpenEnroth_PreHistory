@@ -4248,9 +4248,9 @@ LABEL_789:
   {
     if ( dword_50C9D0 > 0 )
     {
-      v135 = dword_50C9D8 == cEventTimer.int_00001C;
-      v136 = dword_50C9D8 - cEventTimer.int_00001C < 0;
-      dword_50C9D8 -= cEventTimer.int_00001C;
+      v135 = dword_50C9D8 == cEventTimer.uElapsedTime;
+      v136 = dword_50C9D8 - cEventTimer.uElapsedTime < 0;
+      dword_50C9D8 -= cEventTimer.uElapsedTime;
       if ( v136 | v135 )
       {
       /*  if ( dword_50CBD0[0] < 40 )
@@ -5635,7 +5635,7 @@ void GameUI_DrawPortraits(void *_this)
   v22 = _this;
   if ( qword_A750D8 )
   {
-    qword_A750D8 -= cMiscTimer.int_00001C;
+    qword_A750D8 -= cMiscTimer.uElapsedTime;
     if ( qword_A750D8 <= 0 )
     {
       if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[word_A750E2]) )
@@ -5688,7 +5688,7 @@ LABEL_27:
 
     if (pParty_global->pPlayers[i].uExpressionID == 21)
       pPlayerFaceIcon = pPlayerFrameTable->PlayerFrameTable_sub_494B5E((int)&pParty_global->pPlayers[i].dword_001AA8,
-                                   (int)&pParty_global->pPlayers[i].dword_001AA4, cMiscTimer.int_00001C);
+                                   (int)&pParty_global->pPlayers[i].dword_001AA4, cMiscTimer.uElapsedTime);
     else
       pPlayerFaceIcon = pPlayerFrameTable->GetFrameFromFrameset(v7, pParty_global->pPlayers[i].uExpressionTimePassed);
 
@@ -6430,9 +6430,9 @@ LABEL_24:
             //v20 = dword_50C9A8 == cEventTimer->int_00001C;
             //v21 = dword_50C9A8 - cEventTimer->int_00001C < 0;
             //dword_50C9A8 -= cEventTimer->int_00001C;
-            v20 = dword_50C9A8 == cEventTimer.int_00001C;
-            v21 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-            dword_50C9A8 -= cEventTimer.int_00001C;
+            v20 = dword_50C9A8 == cEventTimer.uElapsedTime;
+            v21 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+            dword_50C9A8 -= cEventTimer.uElapsedTime;
             if ( v21 | v20 )
             {
               dword_50C9A8 = 0;
@@ -7926,9 +7926,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
             v197 = "sp91a";
 LABEL_49:
             v236 = (int)&LODFile_Icons_LOD.aLODHeaders[v28->LODFile_LoadTexture( v197, 2)];
-            v29 = dword_50C9A8 == cEventTimer.int_00001C;
-            v30 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-            dword_50C9A8 -= cEventTimer.int_00001C;
+            v29 = dword_50C9A8 == cEventTimer.uElapsedTime;
+            v30 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+            dword_50C9A8 -= cEventTimer.uElapsedTime;
             if ( v30 | v29 )
             {
               dword_50C9A8 = 0;
@@ -7999,9 +7999,9 @@ LABEL_74:
                         v198 = "sp91a";
 LABEL_85:
                         v43 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v198, 2)];
-                        v44 = dword_50C9A8 == cEventTimer.int_00001C;
-                        v45 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                        dword_50C9A8 -= cEventTimer.int_00001C;
+                        v44 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                        v45 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                        dword_50C9A8 -= cEventTimer.uElapsedTime;
                         if ( v45 | v44 )
                         {
                           dword_50C9A8 = 0;
@@ -8104,9 +8104,9 @@ LABEL_106:
                           v199 = "sp91a";
 LABEL_117:
                           v57 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v199, 2)];
-                          v58 = dword_50C9A8 == cEventTimer.int_00001C;
-                          v59 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                          dword_50C9A8 -= cEventTimer.int_00001C;
+                          v58 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                          v59 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                          dword_50C9A8 -= cEventTimer.uElapsedTime;
                           if ( v59 | v58 )
                           {
                             dword_50C9A8 = 0;
@@ -8308,9 +8308,9 @@ LABEL_168:
                           v201 = "sp91a";
 LABEL_181:
                           v88 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v201, 2)];
-                          v89 = dword_50C9A8 == cEventTimer.int_00001C;
-                          v90 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                          dword_50C9A8 -= cEventTimer.int_00001C;
+                          v89 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                          v90 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                          dword_50C9A8 -= cEventTimer.uElapsedTime;
                           if ( v90 | v89 )
                           {
                             dword_50C9A8 = 0;
@@ -8445,9 +8445,9 @@ LABEL_292:
                                           v208 = "sp91a";
 LABEL_284:
                                           v243 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v208, 2)];
-                                          v138 = dword_50C9A8 == cEventTimer.int_00001C;
-                                          v139 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                                          dword_50C9A8 -= cEventTimer.int_00001C;
+                                          v138 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                                          v139 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                                          dword_50C9A8 -= cEventTimer.uElapsedTime;
                                           if ( v139 | v138 )
                                           {
                                             dword_50C9A8 = 0;
@@ -8540,9 +8540,9 @@ LABEL_312:
                                             v209 = "sp91a";
 LABEL_325:
                                             v151 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v209, 2)];
-                                            v152 = dword_50C9A8 == cEventTimer.int_00001C;
-                                            v153 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                                            dword_50C9A8 -= cEventTimer.int_00001C;
+                                            v152 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                                            v153 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                                            dword_50C9A8 -= cEventTimer.uElapsedTime;
                                             if ( v153 | v152 )
                                             {
                                               dword_50C9A8 = 0;
@@ -8729,9 +8729,9 @@ LABEL_370:
                                                     v212 = "sp91a";
 LABEL_381:
                                                     v183 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v212, 2)];
-                                                    v184 = dword_50C9A8 == cEventTimer.int_00001C;
-                                                    v185 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                                                    dword_50C9A8 -= cEventTimer.int_00001C;
+                                                    v184 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                                                    v185 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                                                    dword_50C9A8 -= cEventTimer.uElapsedTime;
                                                     if ( v185 | v184 )
                                                     {
                                                       dword_50C9A8 = 0;
@@ -8795,9 +8795,9 @@ LABEL_380:
                                           v211 = "sp91a";
 LABEL_348:
                                           v164 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v211, 2)];
-                                          v165 = dword_50C9A8 == cEventTimer.int_00001C;
-                                          v166 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                                          dword_50C9A8 -= cEventTimer.int_00001C;
+                                          v165 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                                          v166 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                                          dword_50C9A8 -= cEventTimer.uElapsedTime;
                                           if ( v166 | v165 )
                                           {
                                             dword_50C9A8 = 0;
@@ -8877,9 +8877,9 @@ LABEL_209:
                                   v202 = "sp91a";
 LABEL_226:
                                   v110 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v202, 2)];
-                                  v111 = dword_50C9A8 == cEventTimer.int_00001C;
-                                  v112 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                                  dword_50C9A8 -= cEventTimer.int_00001C;
+                                  v111 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                                  v112 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                                  dword_50C9A8 -= cEventTimer.uElapsedTime;
                                   if ( v112 | v111 )
                                   {
                                     dword_50C9A8 = 0;
@@ -8998,9 +8998,9 @@ LABEL_256:
                               v207 = "sp91a";
 LABEL_246:
                               v110 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v207, 2)];
-                              v126 = dword_50C9A8 == cEventTimer.int_00001C;
-                              v127 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                              dword_50C9A8 -= cEventTimer.int_00001C;
+                              v126 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                              v127 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                              dword_50C9A8 -= cEventTimer.uElapsedTime;
                               if ( v127 | v126 )
                               {
                                 dword_50C9A8 = 0;
@@ -9050,9 +9050,9 @@ LABEL_246:
                     v200 = "sp91a";
 LABEL_145:
                     v72 =(int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v200, 2)];
-                    v73 = dword_50C9A8 == cEventTimer.int_00001C;
-                    v74 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-                    dword_50C9A8 -= cEventTimer.int_00001C;
+                    v73 = dword_50C9A8 == cEventTimer.uElapsedTime;
+                    v74 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+                    dword_50C9A8 -= cEventTimer.uElapsedTime;
                     if ( v74 | v73 )
                     {
                       dword_50C9A8 = 0;
@@ -9152,9 +9152,9 @@ LABEL_48:
           v196 = "sp91a";
 LABEL_27:
           v16 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v196, 2)];
-          v17 = dword_50C9A8 == cEventTimer.int_00001C;
-          v18 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-          dword_50C9A8 -= cEventTimer.int_00001C;
+          v17 = dword_50C9A8 == cEventTimer.uElapsedTime;
+          v18 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+          dword_50C9A8 -= cEventTimer.uElapsedTime;
           if ( v18 | v17 )
           {
             dword_50C9A8 = 0;
@@ -9362,9 +9362,9 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
 				}
 			
 			v49 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v45, 2)];
-			v8 = dword_50C9A8 == cEventTimer.int_00001C;
-			v9 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-			dword_50C9A8 -= cEventTimer.int_00001C;
+			v8 = dword_50C9A8 == cEventTimer.uElapsedTime;
+			v9 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+			dword_50C9A8 -= cEventTimer.uElapsedTime;
 			if ( v9 | v8 )
 			{
 			  dword_50C9A8 = 0;
@@ -9453,9 +9453,9 @@ LABEL_36:
   v46 = "sptext01";
 LABEL_37:
   v51 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v46, 2)];
-  v22 = dword_50C9A8 == cEventTimer.int_00001C;
-  v23 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-  dword_50C9A8 -= cEventTimer.int_00001C;
+  v22 = dword_50C9A8 == cEventTimer.uElapsedTime;
+  v23 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+  dword_50C9A8 -= cEventTimer.uElapsedTime;
   if ( v23 | v22 )
   {
     dword_50C9A8 = 0;
@@ -9525,9 +9525,9 @@ LABEL_57:
   v47 = "sptext01";
 LABEL_58:
   v37 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v47, 2)];
-  v38 = dword_50C9A8 == cEventTimer.int_00001C;
-  v39 = dword_50C9A8 - cEventTimer.int_00001C < 0;
-  dword_50C9A8 -= cEventTimer.int_00001C;
+  v38 = dword_50C9A8 == cEventTimer.uElapsedTime;
+  v39 = dword_50C9A8 - cEventTimer.uElapsedTime < 0;
+  dword_50C9A8 -= cEventTimer.uElapsedTime;
   if ( v39 | v38 )
   {
     dword_50C9A8 = 0;

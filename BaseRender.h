@@ -68,14 +68,18 @@ struct Render_HWLBitmap
 
 struct RenderVertex
 {
- float x; // float @ 000000   looks like world coordinates
- float z; // float @ 000004
- float y; // float @ 000008
- float flt_00000C;
- float flt_000010;
- float flt_000014;
- float flt_000018;  // value lies between pOldViewport->uGameX and pOldViewport->uGameZ  screen-space transformed x
- float flt_00001C; //  value lies between pOldViewport->uGameY and pOldViewport->uGameW  screen-space transformed y
+ Vec3<float> vWorldPosition;     // float[3] @ 000000   vertex world
+ Vec3<float> vWorldViewPosition; // float[3] @ 00000C   vertex world * view
+ //float x; // float @ 000000   looks like world coordinates
+ //float z; // float @ 000004
+ //float y; // float @ 000008
+ //float flt_00000C;
+ //float flt_000010;
+ //float flt_000014;
+ //float flt_000018;  // value lies between pOldViewport->uGameX and pOldViewport->uGameZ  screen-space transformed x
+ //float flt_00001C; //  value lies between pOldViewport->uGameY and pOldViewport->uGameW  screen-space transformed y
+ float vWorldViewProjX; // float @ 000018
+ float vWorldViewProjY; // float @ 00001C
  float flt_000020;
  float u;          // float @ 000024   looks like texture coordinates
  float v;          // float @ 000028

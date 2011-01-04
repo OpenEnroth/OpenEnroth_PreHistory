@@ -254,7 +254,7 @@ void class08_sub_437607(struct class08 *_this, struct class26 *a2, struct class2
 //int __thiscall sub_437691(int _this, int a2, int a3);
 void class08_Vec3Transform(struct class08 *_this, struct class26 *pVec, struct class26 *pOut);
 //void __thiscall sub_436BB7(void *_this, int a2, int a3, char a4);
-void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, char a4);
+void class08_sub_436BB7_PrimitiveApplyProjectionMatrix(struct class08 *_this, struct RenderVertex *a2, int a3, char a4);
 //void __thiscall sub_438240(int _this);
 void class08_sub_438240(struct class08 *_this);
 //void __fastcall sub_438141(int a1);
@@ -825,10 +825,10 @@ struct OldCamera
  float        fRotationYCosine;           // float @ 000030    = cos(2ï * (sRotationY / 2048))
  float        fRotationXSine;             // float @ 000034    = +/- sin(2ï * (sRotationX / 2048))   sign depends on condition  (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || uCurrentlyLoadedLevelType == 1)
  float        fRotationXCosine;           // float @ 000038    = +/- cos(2ï * (sRotationX / 2048))   -//-
- int          some_angle_int_sine;         // dword @ 00003C   next four guys look like obsolete since are never used;  probably used in MM6 instead
- int          some_angle_int_cosine;       // dword @ 000040   65536 * cos(sRotationY)
- int          some_other_angle_int_sine;   // dword @ 000044   65536 * sin(sRotationX)
- int          some_other_angle_int_cosine; // dword @ 000048   65536 * cos(sRotationX)
+ int          depricated_00003C;  //int some_angle_int_sine;         // dword @ 00003C   next four guys look like obsolete since are never used;  probably used in MM6 instead
+ int          depricated_000040;  //int some_angle_int_cosine;       // dword @ 000040   65536 * cos(sRotationY)
+ int          depricated_000044;  //int some_other_angle_int_sine;   // dword @ 000044   65536 * sin(sRotationX)
+ int          depricated_000048;  //int some_other_angle_int_cosine; // dword @ 000048   65536 * cos(sRotationX)
  int          dword_00004C;
 };
 //sizeof == 50
@@ -875,13 +875,13 @@ struct struct9
  int          shading_dist_shade;     // dword @ 000004
  int          shading_dist_shademist; // dword @ 000008
  int          shading_dist_mist;      // dword @ 00000C
- int          dword_000010;		//render dist?
+ unsigned int uCameraFovInDegrees;    // dword @ 000010
  int          dword_000014;
  int          dword_000018;
- int          camera_rotation_y_int_sine;   // dword @ 00001C  integer sine   65536*sin(OldCamera->rot_y)
- int          camera_rotation_y_int_cosine; // dword @ 000020
- int          camera_rotation_x_int_sine;   // dword @ 000024
- int          camera_rotation_x_int_cosine; // dword @ 000028
+ int          depricated_00001C; //int camera_rotation_y_int_sine;   // dword @ 00001C  integer sine   65536*sin(OldCamera->rot_y)
+ int          depricated_000020; //int camera_rotation_y_int_cosine; // dword @ 000020
+ int          depricated_000024; //int camera_rotation_x_int_sine;   // dword @ 000024
+ int          depricated_000028; //int camera_rotation_x_int_cosine; // dword @ 000028
  int          dword_00002C;
  unsigned int uNumEdges; // dword @ 000030
  unsigned int uNumSurfs; // dword @ 000034
@@ -896,8 +896,7 @@ struct struct9
  unsigned int bDoNotRenderDecorations; // dword @ 000058
 };
 //sizeof ~ 60
-//int __thiscall struct9_sub_47A59E_ComputeSinCos(int _this);
-void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this);
+//void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this); //int __thiscall struct9_sub_47A59E_ComputeSinCos(int _this);
 //int __thiscall sub_485F64(int _this);
 int sub_485F64(struct struct9 *_this);
 
@@ -1007,9 +1006,6 @@ struct sub_485975_stru1
 
 struct StationaryLight
 {
- //short         sLightPosX;       // word @ 000000
- //short         sLightPosY;       // word @ 000002
- //short         sLightPosZ;       // word @ 000004
  Vec3<short>   vPosition;        // word[3] @ 000000
  short         word_000006; // light strength?
  unsigned char uLightColorRed;   // byte @ 000008
@@ -1021,34 +1017,39 @@ struct StationaryLight
 //char __stdcall sub_45CE50(int _this, int a2, int *a3, char a4);
 bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, ODMFace *a2, int *a3, char a4);
 
-struct StationaryLightsStack
+
+struct MobileLight: public StationaryLight
 {
- int                    dword_000000;
- struct StationaryLight pLights[400];               // struct[400] @ 000004
- unsigned int           uNumStationaryLightsActive; // dword       @ 0012C4
-};
-//siezof ~ ?
-//char __thiscall sub_4AD3C8(int _this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9);
-bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, const Vec3<float> *pLightPosition, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9);
-
-
-
-
-
-//DERIVED from StationaryLight
-struct struct6//: public StationaryLight
-{
- short word_000000;
- short word_000002;
- short word_000004;
- short word_000006;
- char  byte_000008;
- char  byte_000009;
- char  byte_00000A;
- char  byte_00000B;
- char  byte_00000C[6];
+ short word_00000C;
+ short word_00000E;
+ short word_000010;
 };
 //sizeof == 12
+
+
+template<typename TLight>
+  struct LightsStack
+{
+ int          dword_000000;
+ TLight       pLights[400];     // struct[400] @ 000004
+ unsigned int uNumLightsActive; // dword       @ 0012C4<StationaryLight> / 001C24<MobileLight>
+
+ inline LightsStack():
+   dword_000000(0),
+   uNumLightsActive(0)
+ {}
+
+ Result::Code AddLight_Stationary(const Vec3<float> *pLightPosition, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9);
+ Result::Code AddLight_Mobile(const Vec3<float> *pLightPosition, __int16 a5, int a6, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a10);
+};
+//siezof ~ ?
+//char sub_4AD3C8(int _this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9)             004AD3C8 LightsStack<StationaryLight>::AddLight
+//char sub_467D88(int _this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9, char *a10)  00467D88 LightsStack<MobileLight>::AddLight
+
+
+char __stdcall sub_45D0D5(struct StationaryLight *a1, Vec3<float> *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7);
+
+
 
 
 

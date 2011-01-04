@@ -193,8 +193,8 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, BLVFace *a2, int a3, float a4)
       while ( v25 < v7 );
     }
   }
-  sub_436523((RenderVertex *)array_F8F200, v7);
-  class08_sub_436BB7(pGame->class08_obj, (RenderVertex *)array_F8F200, v7, 1);
+  sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)array_F8F200, v7);
+  class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, (RenderVertex *)array_F8F200, v7, 1);
   v15 = v21;
   Vis_sort_some_objects(_this, array_F8F200, 0, v7 - 1);
   if (array_F8F200[0].flt_00000C > (double)a4)
@@ -1099,7 +1099,7 @@ void __thiscall Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, flo
  for (unsigned int i = 0; i < pOutdoor->uNumBModels; ++i)
  {
   BSPModel *pModel = &pOutdoor->pBModels[i];
-      LOBYTE(v7) = sub_479089(i, &v19);
+      LOBYTE(v7) = sub_479089_IsBModelVisible(i, &v19);
       if (v7)
       {
         if (v19)
@@ -1203,14 +1203,14 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
   if (v10 > *pDepth)
     return 0;
 
- pRay_SomePoint->x = v10 * pRayEnd->vPosition.x + pRayOrigin->vPosition.x;
- pRay_SomePoint->y = v10 * pRayEnd->vPosition.y + pRayOrigin->vPosition.y;
- pRay_SomePoint->z = v10 * pRayEnd->vPosition.z + pRayOrigin->vPosition.z;
+ pRay_SomePoint->vWorldPosition.x = v10 * pRayEnd->vPosition.x + pRayOrigin->vPosition.x;
+ pRay_SomePoint->vWorldPosition.y = v10 * pRayEnd->vPosition.y + pRayOrigin->vPosition.y;
+ pRay_SomePoint->vWorldPosition.z = v10 * pRayEnd->vPosition.z + pRayOrigin->vPosition.z;
  
- LOWORD(v12) = (signed __int64)pRay_SomePoint->x;
- HIWORD(v12) = (signed __int64)pRay_SomePoint->y;
+ LOWORD(v12) = (signed __int64)pRay_SomePoint->vWorldPosition.x;
+ HIWORD(v12) = (signed __int64)pRay_SomePoint->vWorldPosition.y;
  //if (!sub_4C1D2B(a5, v12, pRay_SomePoint->z, a6))
- if (!sub_4C1D2B(a5, Vec3<short>(pRay_SomePoint->x, pRay_SomePoint->y, pRay_SomePoint->z), a6))
+ if (!sub_4C1D2B(a5, Vec3<short>(pRay_SomePoint->vWorldPosition.x, pRay_SomePoint->vWorldPosition.y, pRay_SomePoint->vWorldPosition.z), a6))
    return 0;
 
  *pDepth = v15;
@@ -1279,8 +1279,8 @@ int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class
             {
               if ( sub_4C1C0C(pRay, pRay + 1, &a2, &local_0C, v7/96 + pIndoor->pFaces, -1) )
               {
-                sub_436523(&local_0C, 1);
-                v8 = sub_48B561(local_0C.flt_00000C);
+                sub_436523_PrimitiveApplyViewMatrix(&local_0C, 1);
+                v8 = sub_48B561(local_0C.vWorldViewPosition.x);
                 LOWORD(v8) = 0;
                 v18 = (8 * v6 | 6) + v8;
                 v17 = (int)(pIndoor->pFaces + v7/96);
@@ -1351,7 +1351,7 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
     while ( 1 )
     {
       pBModel = &pOutdoor->pBModels[i];
-      LOBYTE(v6) = sub_479089(v7, &v27);
+      LOBYTE(v6) = sub_479089_IsBModelVisible(v7, &v27);
       if ( a6 )
         break;
       if ( v6 )
@@ -1382,8 +1382,8 @@ LABEL_8:
           sub_4C0EF2_ODMFace_to_BLVFace(&local_10, pStru2);
           if ( sub_4C1C0C(pRay, pRay + 1, &a2, &cRay_SomePoint, &local_10, v29) )
           {
-            sub_436523(&cRay_SomePoint, 1);
-            v11 = sub_48B561(cRay_SomePoint.flt_00000C);
+            sub_436523_PrimitiveApplyViewMatrix(&cRay_SomePoint, 1);
+            v11 = sub_48B561(cRay_SomePoint.vWorldViewPosition.x);
 
             LOWORD(v11) = 0;
             v22 = (8 * (v30 | (v29 << 6)) | 6) + v11;

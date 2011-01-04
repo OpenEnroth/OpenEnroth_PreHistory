@@ -2782,7 +2782,7 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
    Game_sub_44EE30(pGame, a4, (void **)&v61);
    if (byte_4D8410[572] && pGame->uSomeFlags & 0x01)
    {
-    v8 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a3 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
+    v8 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a3 + 88), 0, array_50AC10[0].vWorldViewPosition.x, 0, 0);
     sub_45D74F_MessWithLight(pGame->class04_obj, v8, 0);
    }
    else
@@ -2800,18 +2800,18 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
      
      for (i = 0; i < uNumVertices; ++i)
      {
-      v61 = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+      v61 = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[i].vWorldViewPosition.x, 0, 0);
        Game_sub_44EE30(pGame, a4, (void **)&v61);
 
-       v52 = 1000 * array_50AC10[i].flt_00000C / (double)pStruct9_global->shading_dist_mist;
-       pVertices[i].x = array_50AC10[i].flt_000018;
-       pVertices[i].y = array_50AC10[i].flt_00001C;
+       v52 = 1000 * array_50AC10[i].vWorldViewPosition.x / (double)pStruct9_global->shading_dist_mist;
+       pVertices[i].x = array_50AC10[i].vWorldViewProjX;
+       pVertices[i].y = array_50AC10[i].vWorldViewProjY;
        pVertices[i].z = 1.0 - 1.0 / v52;
-       pVertices[i].rhw = 1.0 / (array_50AC10[i].flt_00000C + 0.0000001000000011686097);
+       pVertices[i].rhw = 1.0 / (array_50AC10[i].vWorldViewPosition.x + 0.0000001000000011686097);
               
-       pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+       pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[i].vWorldViewPosition.x, 0, 0);
        if (_this->bUsingSpecular)
-         pVertices[i].specular = sub_47C3D7(0, 0, array_50AC10[i].flt_00000C);
+         pVertices[i].specular = sub_47C3D7(0, 0, array_50AC10[i].vWorldViewPosition.x);
        else
          pVertices[i].specular = 0;
 
@@ -2827,7 +2827,7 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
           if (uNumVertices > 0)
           {
             LODWORD(v9) = (int)&pVertices->y;
-            v10 = &array_50AC10[0].flt_00000C;
+            v10 = &array_50AC10[0].vWorldViewPosition.x;
             a4 = (ODMFace *)&pVertices->y;
             v59 = uNumVertices;
             while ( 1 )

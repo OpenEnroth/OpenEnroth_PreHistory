@@ -3363,7 +3363,7 @@ LABEL_24:
       *(_BYTE *)v5 = 31;
     if ( *(_BYTE *)((char *)array_77EC08[i].ptr_000048 + 29) & 0x40 )
     {
-      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cEventTimer.dword_000024);
+      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cEventTimer.uTotalGameTimeElapsed);
       *((_DWORD *)v2 - 6) = v8 != -1 ? 72 * v8 + 7278780 : 0;
     }
 LABEL_23:
@@ -3446,4 +3446,44 @@ void Vis_SetupCtorDetor(Vis *_this)
 {
   *(_DWORD *)_this = (int)Vis_detor;
   *(_DWORD *)(_this + 4) = (int)class25_detor;
+}*/
+
+
+/*//----- (00441CFF) --------------------------------------------------------
+void __cdecl sub_441CFF_DrawOutdoor()
+{
+  //if ( !(pParty_global->dword_007778 & 2) && !(*(_BYTE *)(&pGame->dword_000E24) & 1) )
+  //  sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(false);
+  //else sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(true);
+
+ //force redraw each frame
+ pParty_global->dword_007778 |= 2;
+ sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw();
+
+
+  sub_47A815_DrawClass02Lines();
+  sub_4C2EFA(&struct_6BD080);
+  sub_440F07(array_5118E8);
+}
+
+//----- (0048600E) --------------------------------------------------------
+void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this)
+{
+ _this->camera_rotation_y_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
+ _this->camera_rotation_x_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
+ _this->camera_rotation_y_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
+ _this->camera_rotation_x_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
+}
+
+//----- (00481D77) --------------------------------------------------------
+void sub_481D77_DoPrimitiveApplyProjectionMatrix(struct RenderVertex *_this)
+{
+ double v1; // st7@1
+ double v2; // st7@1
+
+ v1 = 1.0 / (_this->vWorldViewPosition.x + 0.0000001000000011686097);
+ _this->flt_000020 = v1;
+ v2 = v1 * (double)pStruct9_global->dword_000014;
+ _this->vWorldViewProjX = pOldViewport->dword_000028 - v2 * _this->vWorldViewPosition.y;
+ _this->vWorldViewProjY = pOldViewport->dword_00002C - v2 * _this->vWorldViewPosition.z;
 }*/

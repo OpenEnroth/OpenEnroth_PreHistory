@@ -1289,40 +1289,40 @@ void sub_47AF11_PrepareItemsRenderList()
             if ( v38 )
             {
               LOBYTE(v11) = byte_4E94D3;
-              sub_467D88((int)&unk_519AB8, v44, v43, v45, v29, v38, -1, -1, -1, v11);
+              pMobileLightsStack->AddLight_Mobile(&Vec3<float>(v44, v43, v45), v29, v38, -1, -1, -1, (int)v11);
             }
             v12 = (v44 - pOldCamera->sPosX) << 16;
             if (pOldCamera->sRotationX)
             {
               v14 = (v43 - pOldCamera->sPosY) << 16;
-              v30 = (((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + (((unsigned __int64)(v14) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
-              v37 = ((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-              v39 = ((unsigned __int64)(v14) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v30 = (((unsigned __int64)(v12) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) + (((unsigned __int64)(v14) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16);
+              v37 = ((unsigned __int64)(v12) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+              v39 = ((unsigned __int64)(v14) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
               v33 = (v45 - pOldCamera->sPosZ) << 16;
-              v15 = ((unsigned __int64)(v30) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
-              v16 = ((unsigned __int64)(v33) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
+              v15 = ((unsigned __int64)(v30) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16;
+              v16 = ((unsigned __int64)(v33) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16;
               v13 = v16 + v15;
               v42 = v16 + v15;
               if ( v16 + v15 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
                 v18 = v39 - v37;
                 v40 = v39 - v37;
-                v17 = ((unsigned __int64)(v33 * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - (((unsigned __int64)(v30) * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+                v17 = ((unsigned __int64)(v33 * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16) - (((unsigned __int64)(v30) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16);
                 goto LABEL_29;
               }
             }
             else
             {
               v34 = (v43 - pOldCamera->sPosY) << 16;
-              v19 = ((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-              v20 = ((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v19 = ((unsigned __int64)(v12) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+              v20 = ((unsigned __int64)(v34) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
               v13 = v20 + v19;
               v42 = v20 + v19;
               if ( v20 + v19 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v21 = ((unsigned __int64)((v44 - pOldCamera->sPosX) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-                v18 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
-                v40 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
+                v21 = ((unsigned __int64)((v44 - pOldCamera->sPosX) << 16) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+                v18 = (((unsigned __int64)(v34) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) - v21;
+                v40 = (((unsigned __int64)(v34) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) - v21;
                 v17 = (v45 - pOldCamera->sPosZ) << 16;
 LABEL_29:
                 v31 = v17;
@@ -1468,12 +1468,12 @@ LSTATUS __fastcall RegistryWriteInt(const CHAR *a1, int a2)
 }
 
 //----- (00479089) --------------------------------------------------------
-bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
+bool __fastcall sub_479089_IsBModelVisible(unsigned int uModelIdx, int *a2)
 {
-  int v2; // ecx@1
+  //int v2; // ecx@1
   int v3; // ebx@1
   int v4; // edi@1
-  int v5; // eax@1
+  //int v5; // eax@1
   int v6; // ST28_4@1
   int v8; // ebx@3
   int v9; // eax@3
@@ -1489,23 +1489,22 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   int v20; // [sp+24h] [bp-8h]@1
   int v21; // [sp+28h] [bp-4h]@1
 
-  v20 = (pStruct9_global->dword_000010 << 11) / 360 >> 1;
+  v20 = (pStruct9_global->uCameraFovInDegrees * 2048) / 360 / 2;
 
-  v5 = (int)&pOutdoor->pBModels[uModelIdx];
+  //v5 = (int)&pOutdoor->pBModels[uModelIdx];
 
-  v4 = pOutdoor->pBModels[uModelIdx].sBoundingCenterX - pOldCamera->sPosX;
-  v3 = pOutdoor->pBModels[uModelIdx].sBoundingCenterY - pOldCamera->sPosY;
+ v4 = pOutdoor->pBModels[uModelIdx].sBoundingCenterX - pOldCamera->sPosX;
+ v3 = pOutdoor->pBModels[uModelIdx].sBoundingCenterY - pOldCamera->sPosY;
 
-  v6 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
-  v21 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
-  v18 = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
-  v16 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
+ v6 = 65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048);//class59_SinCos(pClass59_global, pOldCamera->sRotationY);
+ v21 = 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048);//class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
+ v18 = 65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048);//class59_SinCos(pClass59_global, pOldCamera->sRotationX);
+ v16 = 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048);//class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
 
-  v2 = v6;
   v17 = v4 * v6 + v3 * v21;
   if (pOldCamera->sRotationX)
     v17 = (unsigned __int64)(v17) * v18 >> 16;
-  v19 = v3 * v2 - v4 * v21;
+  v19 = v3 * v6 - v4 * v21;
   v8 = abs(v3);
   v9 = abs(v4);
   v10 = sub_4621DA(v9, v8, 0);
@@ -3660,7 +3659,7 @@ void __thiscall sub_405E14(void *_this)
           if ( !*(_QWORD *)(v4 + 308) )
           {
             v5 = *(_WORD *)(v4 + 160);
-            *(_DWORD *)(v4 + 184) += cMiscTimer.int_00001C;
+            *(_DWORD *)(v4 + 184) += cMiscTimer.uElapsedTime;
             if ( *(_DWORD *)(v4 + 184) >= v5 )
             {
               v17 = dword_4F6E08[v20];
@@ -3756,7 +3755,7 @@ LABEL_39:
       *(_DWORD *)(v2 + 16) = 100;
     }
   }
-  *(_DWORD *)(v2 + 8) -= cEventTimer.int_00001C;
+  *(_DWORD *)(v2 + 8) -= cEventTimer.uElapsedTime;
 }
 
 //----- (00456D17) --------------------------------------------------------
@@ -4016,7 +4015,7 @@ signed int __thiscall sub_4061CA(int _this)
       {
         v7 = *(_WORD *)(result + 160);
         //*(_DWORD *)(result + 184) += cEventTimer->int_00001C;
-        *(_DWORD *)(result + 184) += cEventTimer.int_00001C;        
+        *(_DWORD *)(result + 184) += cEventTimer.uElapsedTime;        
         if ( *(_DWORD *)(result + 184) < v7 )
         {
           v14 = 1;
@@ -4641,7 +4640,7 @@ void sub_406648(void *_this, int a2)
         if ( (_WORD)v2 != 11 )
         {
           v6 = *((_WORD *)v5 + 80);
-          *((_DWORD *)v5 + 46) += cEventTimer.int_00001C;
+          *((_DWORD *)v5 + 46) += cEventTimer.uElapsedTime;
           if ( *((_DWORD *)v5 + 46) >= v6 )
           {
             v8 = (signed __int16)v2;
@@ -5042,10 +5041,15 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
     {
       sub_441BD4_DrawIndoor();
     }
-    else
+    else if ( uCurrentlyLoadedLevelType == 2 )
     {
-      if ( uCurrentlyLoadedLevelType == 2 )
-        sub_441CFF_DrawOutdoor();
+       // sub_441CFF_DrawOutdoor();
+       pParty_global->dword_007778 |= 2;
+       sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw();
+
+       sub_47A815_DrawClass02Lines();
+       sub_4C2EFA(&struct_6BD080);
+       sub_440F07(array_5118E8);
     }
     //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
     pD3DRenderer->EndScene();
@@ -5110,11 +5114,17 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
     {
       sub_441BD4_DrawIndoor();
     }
-    else
+    else if ( uCurrentlyLoadedLevelType == 2 )
     {
-      if ( uCurrentlyLoadedLevelType == 2 )
-        sub_441CFF_DrawOutdoor();
-   } 
+     //   sub_441CFF_DrawOutdoor();
+     pParty_global->dword_007778 |= 2;
+     sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw();
+
+     sub_47A815_DrawClass02Lines();
+     sub_4C2EFA(&struct_6BD080);
+     sub_440F07(array_5118E8);
+    }
+
     v26 = (int)pD3DRenderer->pTargetSurface;
     v28 = pD3DRenderer->uTargetSurfacePitch;
     if (pD3DRenderer->pTargetSurface)
@@ -5227,8 +5237,8 @@ int __cdecl sub_494035()
 
   v60 = pParty_global->uCurrentHour;
   v58 = pParty_global->uDaysPlayed;
-  v57 = cEventTimer.int_00001C;
-  pParty_global->qword_00002C += cEventTimer.int_00001C;
+  v57 = cEventTimer.uElapsedTime;
+  pParty_global->qword_00002C += cEventTimer.uElapsedTime;
   v0 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60;
   v1 = (unsigned int)(v0 / 60) / 0x18 / 0x1C;
   pParty_global->uCurrentMonthWeek = (unsigned int)(v0 / 60) / 0x18 / 7 & 3;
@@ -5606,7 +5616,7 @@ LABEL_61:
   if ( dword_4E28F8_PartyCantJumpIfTrue != 5 )
   {
    
-     for(int i=0; i<4; i++) 
+     for (int i=0; i<4; i++) 
           {
 	  v49 = pPlayers[i];
       v50 = *(_DWORD *)v49;
@@ -5711,7 +5721,7 @@ signed int __thiscall sub_406B9F(int _this)
           v7 = *(_WORD *)(v5 + 176);
           if ( (v7 == 6 || v7 == 1) && (double)v9.uDistance < 307.19999999999999 )
             goto LABEL_26;
-          *(_DWORD *)(v5 + 184) += cEventTimer.int_00001C;
+          *(_DWORD *)(v5 + 184) += cEventTimer.uElapsedTime;
           if ( *(_DWORD *)(v5 + 184) > (signed int)*(_WORD *)(v5 + 160) )
           {
             if ( v7 == 4 )
@@ -5970,10 +5980,10 @@ void __fastcall sub_481E55(int a1)
     do
     {
       v6 = v5 * array_507D30[v1 / 48].flt_000020;
-      v7 = v6 * array_507D30[v1 / 48].flt_000010;
+      v7 = v6 * array_507D30[v1 / 48].vWorldViewPosition.y;
       memcpy(&array_50AC10[v1 / 48], &array_507D30[v1 / 48], sizeof(struct RenderVertex));
-      array_50AC10[v1 / 48].flt_000018 = v4 - v7;
-      array_50AC10[v1 / 48].flt_00001C = v3 - v6 * array_507D30[v1 / 48].flt_000014;
+      array_50AC10[v1 / 48].vWorldViewProjX = v4 - v7;
+      array_50AC10[v1 / 48].vWorldViewProjY = v3 - v6 * array_507D30[v1 / 48].vWorldViewPosition.z;
       v1 += 48;
       --v2;
     }
@@ -6033,7 +6043,7 @@ void __thiscall sub_406FA8(int _this)
                 sub_401221(v4, 4 * v4 + 5205512, 1);
                 memcpy(&v11, GetDirectionInfo(*(_DWORD *)(v18 + v3), v7, (DirectionInfo *)&v10, 0), 0x1Cu);
                 memcpy(&v12, &v11, 0x1Cu);
-                *(_DWORD *)(v6 + 184) += cMiscTimer.int_00001C;
+                *(_DWORD *)(v6 + 184) += cMiscTimer.uElapsedTime;
                 if ( *(_DWORD *)(v6 + 184) >= (signed int)*(_WORD *)(v6 + 160) )
                 {
                   if ( *(_WORD *)(v6 + 176) == 4 )
@@ -7650,7 +7660,7 @@ LABEL_68:
 
 
 //----- (00448B67) --------------------------------------------------------
-void sub_448B67(bool a1)
+void sub_448B67_ProcessEvents(bool a1)
 {
   int v1; // ebp@1
   unsigned int v2; // ebx@4

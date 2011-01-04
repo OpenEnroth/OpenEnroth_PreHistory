@@ -118,7 +118,7 @@ char Game_sub_44EEA7(Game *_this);
 //char __thiscall sub_44F07B(int _this);
 bool Game_sub_44F07B(Game *_this);
 //void __thiscall sub_44F120(int _this, int a2);
-void Game_sub_44F120_MaybeStackStationaryLights(Game *_this, int a2);
+void Game_StackStationaryLights(Game *_this, int a2);
 //void __fastcall sub_44F192(int a1);
 void Game_sub_44F192(Game *_this);
 //void __thiscall sub_44E904(void *_this);

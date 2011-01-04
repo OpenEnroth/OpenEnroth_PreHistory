@@ -1282,16 +1282,8 @@ unsigned int           uNumBillboardsToDraw;      // dword       @ MM7.exe::0051
  int dword_5187E8; // weak
  int dword_5187EC; // weak
 
-struct StationaryLightsStack *pStationaryLightsStack = 0; // struct @ MM7.exe::005187F0
-
-
- _UNKNOWN unk_519AB8; // weak
-
-struct struct6 array_519ABC[400]; // struct[400] @ MM7.exe::00519ABC
-//_UNKNOWN unk_519ABC; // weak
-//_UNKNOWN unk_519ABE; // weak
-//_UNKNOWN unk_519AC2; // weak
- int dword_51B6DC; // num of elements in array_519ABC
+struct LightsStack<StationaryLight> *pStationaryLightsStack = nullptr;  // struct @ MM7.exe::005187F0
+struct LightsStack<MobileLight>     *pMobileLightsStack = nullptr;      // struct @ MM7.exe::00519AB8
 
 struct sub_4407D9_stru0 stru_51B6E0;
  int dword_51B770; // weak
@@ -1721,10 +1713,8 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
 
 IndoorLocation *pIndoor = nullptr; // struct @ MM7.exe::006BE3C8
 
-//_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
-//MemoryMng mem_mng;  // struct @ MM7.exe::00702B28
- int dword_71FFF4; // weak
- int dword_71FFF8; // weak
+
+
 unsigned int bNoVideo = false;   // dword @ MM7.exe::0072000C
 unsigned int bNoCredits = false; // new
 unsigned int bNoIntro = false;   // new

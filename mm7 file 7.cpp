@@ -1233,10 +1233,10 @@ void __fastcall sub_4AE5F1(int a1)
   v81 = 0;
   v80 = 0;
   dword_F8AD54 = (dword_F8B120 + *(_WORD *)((int)pIndoor->pSectors + v16 + 98)) << 16;
-  v77 = dword_51B6DC;
-  if ( dword_51B6DC > 0 )
+  v77 = pMobileLightsStack->uNumLightsActive;
+  if ( pMobileLightsStack->uNumLightsActive > 0 )
   {
-   v18 = (char *)&array_519ABC[0].word_000002;
+   v18 = (char *)&pMobileLightsStack->pLights[0].vPosition.y;
     do
     {
       if ( v81 >= 20 )
@@ -1375,7 +1375,7 @@ void __fastcall sub_4AE5F1(int a1)
     }
   }
   v80 = 0;
-  if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
+  if ( pStationaryLightsStack->uNumLightsActive > 0 )
   {
    v43 = (char *)&pStationaryLightsStack->pLights[0].vPosition.y;
     do
@@ -1438,7 +1438,7 @@ void __fastcall sub_4AE5F1(int a1)
       ++v80;
       v43 = (char *)v43 + 12;
     }
-    while ( v80 < pStationaryLightsStack->uNumStationaryLightsActive );
+    while ( v80 < pStationaryLightsStack->uNumLightsActive );
   }
   dword_F8ADD4 = v81;
   v55 = *(_WORD *)(v5 + 82);
@@ -2560,7 +2560,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                   sub_45C7F6(v34);
                   sub_49BBBD((int)pClass58_global, v34);
                   sub_4364C5((int)&unk_F7B628, v35, (int)array_507D30, (int)&dword_F8AD28);
-                  class08_sub_436BB7((class08 *)v32, array_507D30, v35, 0);
+                  class08_sub_436BB7_PrimitiveApplyProjectionMatrix((class08 *)v32, array_507D30, v35, 0);
                   *(_DWORD *)(v31 + 1587204) = 0;
                   if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
                   {
@@ -11204,8 +11204,10 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
   v15 = a1;
   if ( (signed int)uNumActors < 500 )
   {
-    if ( (dword_71FFF8 >> 10) - (dword_71FFF4 >> 10) >= 2000 )
-    {
+
+    //if ( (dword_71FFF8 >> 10) - (dword_71FFF4 >> 10) >= 2000 )
+    //if ( (memory_manager.uBigBufferSizeAligned >> 10) - (memory_manager.uNextFreeOffsetInBigBuffer >> 10) >= 2000)
+    //{
       v16 = 0;
       if ( uCurrentlyLoadedLevelType == 1 )
       {
@@ -11254,7 +11256,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
         v13 = sub_4A9A67(pSoundList, v12++ + word_4EE088[*((_BYTE *)v7 + 33)], 1);
       while ( v13 );
       ++uNumActors;
-    }
+    //}
   }
 }
 
@@ -11311,7 +11313,15 @@ void __cdecl sub_4BC109()
   else
   {
     if ( uCurrentlyLoadedLevelType == 2 )
-      sub_441CFF_DrawOutdoor();
+    {
+     // sub_441CFF_DrawOutdoor();
+     pParty_global->dword_007778 |= 2;
+     sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw();
+
+     sub_47A815_DrawClass02Lines();
+     sub_4C2EFA(&struct_6BD080);
+     sub_440F07(array_5118E8);
+    }
   }
   //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
   pD3DRenderer->EndScene();
@@ -11731,7 +11741,7 @@ LABEL_74:
   }
 LABEL_87:
   if ( !dword_7241C8 )
-    sub_44103C();
+    sub_44103C_Draw();
 LABEL_89:
   dword_7241C8 = 0;
 }

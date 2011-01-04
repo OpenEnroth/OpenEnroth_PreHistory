@@ -5065,12 +5065,12 @@ int class02_sub_48AC65(struct class02 *_this)
   int v22; // [sp+44h] [bp-8h]@12
  int i;
 
-  v3 = cMiscTimer.bPaused == false ? cEventTimer.int_00001C : 0;
+  v3 = cMiscTimer.bPaused == false ? cEventTimer.uElapsedTime : 0;
 
   v20 = 0;
   v19 = 500;
 
-  v21 = cMiscTimer.bPaused == false ? cEventTimer.int_00001C : 0;
+  v21 = cMiscTimer.bPaused == false ? cEventTimer.uElapsedTime : 0;
   
  for (i = _this->dword_00E424; i <= _this->dword_00E428; ++i)
  {
@@ -5376,10 +5376,10 @@ void OldCamera_CalculateSinCos(struct OldCamera *_this)
  _this->fRotationXSine = sin(angle);
  _this->fRotationXCosine = cos(angle);
 
- _this->some_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationY - pClass59_global->uIntegerHalfPi);
- _this->some_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationY);
- _this->some_other_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationX - pClass59_global->uIntegerHalfPi);
- _this->some_other_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationX);
+ //_this->some_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationY - pClass59_global->uIntegerHalfPi);
+ //_this->some_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationY);
+ //_this->some_other_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationX - pClass59_global->uIntegerHalfPi);
+ //_this->some_other_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationX);
 }
 
 
@@ -5537,7 +5537,7 @@ int class59_Atan2(struct class59 *_this, int X, int Y)
 
 
 //----- (00436BB7) --------------------------------------------------------
-void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, char a4)
+void class08_sub_436BB7_PrimitiveApplyProjectionMatrix(struct class08 *_this, struct RenderVertex *a2, int a3, char a4)
 {
   double v7; // st7@7
   double v8; // st7@9
@@ -5548,54 +5548,60 @@ void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, 
   double v13; // st5@19
   float v14; // [sp+14h] [bp+Ch]@12
   float v15; // [sp+14h] [bp+Ch]@19
- int i;
 
- for (i = 0; i < a3; ++i)
+
+ for (unsigned int i = 0; i < a3; ++i)
  {
       if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || uCurrentlyLoadedLevelType == 1 )
       {
-        v7 = 1.0 / a2[i].flt_00000C;
-        a2[i].flt_000018 = a2[i].flt_000010 * _this->flt_0000C4 * v7 + _this->flt_0000C8;
-        a2[i].flt_00001C = (double)pOldViewport->uGameW
-                           - (a2[i].flt_000014 * _this->flt_0000C4 * v7 + _this->flt_0000CC);
+        v7 = 1.0 / a2[i].vWorldViewPosition.x;
+        a2[i].vWorldViewProjX = a2[i].vWorldViewPosition.y * _this->flt_0000C4 * v7 + _this->flt_0000C8;
+        a2[i].vWorldViewProjY = (double)pOldViewport->uGameW - (a2[i].vWorldViewPosition.z * _this->flt_0000C4 * v7 + _this->flt_0000CC);
       }
       else
       {
-        sub_481D77(&a2[i]);
+       double v1; // st7@1
+       double v2; // st7@1
+
+       v1 = 1.0 / (a2[i].vWorldViewPosition.x + 0.0000001000000011686097);
+       a2[i].flt_000020 = v1;
+       v2 = v1 * (double)pStruct9_global->dword_000014;
+       a2[i].vWorldViewProjX = pOldViewport->dword_000028 - v2 * a2[i].vWorldViewPosition.y;
+       a2[i].vWorldViewProjY = pOldViewport->dword_00002C - v2 * a2[i].vWorldViewPosition.z;
       }
       if ( a4 )
       {
         v8 = (double)pOldViewport->uGameZ;
-        if ( v8 >= a2[i].flt_000018)
-          v9 = a2[i].flt_000018;
+        if ( v8 >= a2[i].vWorldViewProjX)
+          v9 = a2[i].vWorldViewProjX;
         else
           v9 = v8;
         v10 = (double)pOldViewport->uGameX;
         v14 = v10;
         if ( v10 <= v9 )
         {
-          if ( v8 >= a2[i].flt_000018)
-            v8 = a2[i].flt_000018;
+          if ( v8 >= a2[i].vWorldViewProjX)
+            v8 = a2[i].vWorldViewProjX;
         }
         else
            v8 = v14;
-        a2[i].flt_000018 = v8;
+        a2[i].vWorldViewProjX = v8;
 
         v11 = (double)pOldViewport->uGameW;
-        if ( v11 >= a2[i].flt_00001C)
-          v12 = a2[i].flt_00001C;
+        if ( v11 >= a2[i].vWorldViewProjY)
+          v12 = a2[i].vWorldViewProjY;
         else
           v12 = v11;
         v13 = (double)pOldViewport->uGameY;
         v15 = v13;
         if ( v13 <= v12 )
         {
-          if ( v11 >= a2[i].flt_00001C)
-            v11 = a2[i].flt_00001C;
+          if ( v11 >= a2[i].vWorldViewProjY)
+            v11 = a2[i].vWorldViewProjY;
         }
         else
            v11 = v15;
-        a2[i].flt_00001C= v11;
+        a2[i].vWorldViewProjY = v11;
       }
   }
 }
@@ -5642,17 +5648,6 @@ void sub_486089_NormalizeVector(struct struct8 *_this)
 }
 
 
-
-
-//----- (0048600E) --------------------------------------------------------
-void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this)
-{
- _this->camera_rotation_y_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
- _this->camera_rotation_x_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
- _this->camera_rotation_y_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
- _this->camera_rotation_x_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
-}
-
 //----- (0048616B) --------------------------------------------------------
 int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, int a6, int a7)
 {
@@ -5683,21 +5678,21 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   int v30; // [sp+3Ch] [bp+14h]@10
 
   v1 = (int)_this;
-  v25 = pStruct9_global->camera_rotation_x_int_cosine;
-  v9 = pStruct9_global->camera_rotation_y_int_sine;
-  v27 = pStruct9_global->camera_rotation_x_int_sine;
+  v25 = (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048));
+  v9 = 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048);//65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048);
+  v27 = 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048);//(int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048));
   v11 = -pOldCamera->sPosY;
-  v10 = pStruct9_global->camera_rotation_y_int_cosine;
+  v10 = (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048));
   v26 = -pOldCamera->sPosZ;
   v24 = -pOldCamera->sPosX;
-  v7 = pStruct9_global->camera_rotation_y_int_cosine * -pOldCamera->sPosX;
-  v8 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->sPosY;
+  v7 = (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048)) * -pOldCamera->sPosX;
+  v8 = v7 + 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048) * -pOldCamera->sPosY;
   if (pOldCamera->sRotationX)
   {
-    v14 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->sPosY;
-    v15 = pStruct9_global->camera_rotation_y_int_cosine * v11 - pStruct9_global->camera_rotation_y_int_sine * v24;
-    _this->dword_000000 = ((unsigned __int64)(v8 * pStruct9_global->camera_rotation_x_int_cosine) >> 16)
-                    + ((unsigned __int64)(-65536 * pOldCamera->sPosZ * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+    v14 = v7 + 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048) * -pOldCamera->sPosY;
+    v15 = (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048)) * v11 - 65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048) * v24;
+    _this->dword_000000 = ((unsigned __int64)(v8 * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16)
+                    + ((unsigned __int64)(-65536 * pOldCamera->sPosZ * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16);
     _this->dword_000004 = v15;
     v13 = v25;
     v12 = ((unsigned __int64)((v26 << 16) * v25) >> 16) - ((unsigned __int64)(v14 * v27) >> 16);
@@ -5705,7 +5700,7 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   else
   {
     _this->dword_000000 = v8;
-    _this->dword_000004 = (__int64)pStruct9_global->camera_rotation_y_int_cosine * v11 - (__int64)pStruct9_global->camera_rotation_y_int_sine * v24;
+    _this->dword_000004 = (__int64)(int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048)) * v11 - (__int64)65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048) * v24;
     v13 = v25;
     v12 = v26 << 16;
   }
@@ -5790,7 +5785,7 @@ int sub_485F64(struct struct9 *_this)
   signed int v5; // eax@4
 
 
- _this->dword_000010 = 75;
+ _this->uCameraFovInDegrees = 75;
   v1 = pClass59_global->uPiMask & 0xD5;
   if ( v1 >= pClass59_global->uIntegerHalfPi)
     v2 = -pClass59_global->pTanTable[pClass59_global->uIntegerPi - v1];
@@ -5804,7 +5799,6 @@ int sub_485F64(struct struct9 *_this)
  _this->dword_00004C = 360000;
  _this->dword_000050 = 115;
   data_6BE060.dword_6BE064 = 1;
-  struct9_sub_47A59E_ComputeSinCos(_this);
   return 0;
 }
 
@@ -7298,7 +7292,7 @@ void sub_440F07(struct struct5 *pArray)
     pArray[i].word_000006 += rand() % 5 - 2;
     pArray[i].word_000008 += rand() % 5 - 2;
     pArray[i].word_00000A += rand() % 5 + 4;
-    pArray[i].word_00000C -= cEventTimer.int_00001C;
+    pArray[i].word_00000C -= cEventTimer.uElapsedTime;
    }
 }
 
@@ -7397,8 +7391,8 @@ int class06_sub_4A8C27(struct class06 *_this)
       v5 = 1.0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
     v7 = v5;
     Render_sub_4A52F1((int)pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
-    result = cEventTimer.int_00001C;
-    *(_DWORD *)(v1 + 1496) -= cEventTimer.int_00001C;
+    result = cEventTimer.uElapsedTime;
+    *(_DWORD *)(v1 + 1496) -= cEventTimer.uElapsedTime;
   }
 
 
@@ -7414,7 +7408,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     v11 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, v10, v9);
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;
-    *(_DWORD *)(v1 + 1492) -= cEventTimer.int_00001C;
+    *(_DWORD *)(v1 + 1492) -= cEventTimer.uElapsedTime;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       v12 = (double)pOldViewport->uGameX;
@@ -7615,9 +7609,9 @@ int class06_sub_4A7298(struct class06 *_this)
       v20 = *(float *)(v8 + 8);
       v21 = *(float *)(v8 + 12);
       v22 = *(float *)(v8 + 16);
-      sub_436523((RenderVertex *)&v13, 2);
+      sub_436523_PrimitiveApplyViewMatrix((RenderVertex *)&v13, 2);
       sub_42620A((int)&v13);
-      class08_sub_436BB7((class08 *)v5, (RenderVertex *)&v13, 2, 0);
+      class08_sub_436BB7_PrimitiveApplyProjectionMatrix((class08 *)v5, (RenderVertex *)&v13, 2, 0);
       v9 = *(_DWORD *)(v8 + 20);
       if ( v9 == -1 )
         v12 = 0;
@@ -7645,7 +7639,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
  {
   if (_this->array_000208[i].word_000000)
   {
-   _this->array_000208[i].dword_000004 += cEventTimer.int_00001C;
+   _this->array_000208[i].dword_000004 += cEventTimer.uElapsedTime;
    if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
    {
     pIcon = pIconFrameTable->GetImage(_this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);

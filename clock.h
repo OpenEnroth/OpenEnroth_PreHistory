@@ -21,9 +21,9 @@ class Clock
    unsigned int uStopTime;  // dword @ 000010  time the clock was stopped
    int dword_000014;
    int dword_000018;
-   int int_00001C;  // time passed/factor.  used in gravity pull calculations
+   unsigned int uElapsedTime; // dword @ 00001C   time elapsed, max quant == 32 ms
    int dword_000020;
-   int dword_000024;
+   unsigned int uTotalGameTimeElapsed; // dword @ 000024   
 
 
    Result::Code Initialize();
@@ -36,9 +36,7 @@ class Clock
 void clock_sub_426386();//class24_sub_426386(int _this);
 void clock_sub_4263A0();// class24_sub_4263A0(class24 *_this);	
 
-void clock_sub_4263B7(); //int class24_sub_4263B7(struct class24 *_this);	  //int __thiscall class24_sub_4263B7(int _this)
-
-
+ Result::Code Update(); //int class24_sub_4263B7(struct class24 *_this);	  //int __thiscall class24_sub_4263B7(int _this)
 };
 //sizeof ~ 28
 

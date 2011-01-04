@@ -1109,16 +1109,16 @@ void Render_DrawStrip(struct BaseRender *_this, unsigned int uNumVertices, struc
   
   for (i = 0; i < uNumVertices; ++i)
   {
-   pVertices[i].x = array_50AC10[i].flt_000018;
-   pVertices[i].y = array_50AC10[i].flt_00001C;
+   pVertices[i].x = array_50AC10[i].vWorldViewProjX;
+   pVertices[i].y = array_50AC10[i].vWorldViewProjY;
    pVertices[i].z = 0.99989998;
    pVertices[i].rhw = array_50AC10[i].flt_000020;
 
-   pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(31, 0, array_50AC10[i].flt_00000C, 1, 0);
+   pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(31, 0, array_50AC10[i].vWorldViewPosition.x, 1, 0);
    v7 = 0;
    if (_this->bUsingSpecular)
    {
-    v12 = array_50AC10[i].flt_00000C;
+    v12 = array_50AC10[i].vWorldViewPosition.x;
     v7 = sub_47C3D7(0, 1, v12);
    }
    pVertices[i].specular = v7;
@@ -1154,16 +1154,16 @@ void Render_DrawSomeFan(struct BaseRender *_this, unsigned int uNumVertices, str
   
   for (i = 0; i < uNumVertices; ++i)
   {
-   pVertices[i].x = array_50AC10[i].flt_000018;
-   pVertices[i].y = array_50AC10[i].flt_00001C;
+   pVertices[i].x = array_50AC10[i].vWorldViewProjX;
+   pVertices[i].y = array_50AC10[i].vWorldViewProjY;
    pVertices[i].z = 0.99989998;
    pVertices[i].rhw = array_50AC10[i].flt_000020;
 
-   pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(31, 0, array_50AC10[i].flt_00000C, 1, 0);
+   pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(31, 0, array_50AC10[i].vWorldViewPosition.x, 1, 0);
    v7 = 0;
    if (_this->bUsingSpecular)
    {
-    v12 = array_50AC10[i].flt_00000C;
+    v12 = array_50AC10[i].vWorldViewPosition.x;
     v7 = sub_47C3D7(0, 1, v12);
    }
    pVertices[i].specular = v7;
@@ -1235,20 +1235,20 @@ void RenderSky()
     local_14.dword_00001C = 0;
     local_14.dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
     local_14.dword_000024 = 0x2000000;
-    local_14.sTextureDeltaU = 224 * cMiscTimer.dword_000024;
-    local_14.sTextureDeltaV = 224 * cMiscTimer.dword_000024;
+    local_14.sTextureDeltaU = 224 * cMiscTimer.uTotalGameTimeElapsed;
+    local_14.sTextureDeltaV = 224 * cMiscTimer.uTotalGameTimeElapsed;
 
-    array_50AC10[0].flt_000018 = pOldViewport->uGameX;
-    array_50AC10[0].flt_00001C = pOldViewport->uGameY;
+    array_50AC10[0].vWorldViewProjX = pOldViewport->uGameX;
+    array_50AC10[0].vWorldViewProjY = pOldViewport->uGameY;
 
-    array_50AC10[1].flt_000018 = pOldViewport->uGameX;
-    array_50AC10[1].flt_00001C = v39;
+    array_50AC10[1].vWorldViewProjX = pOldViewport->uGameX;
+    array_50AC10[1].vWorldViewProjY = v39;
     
-    array_50AC10[2].flt_000018 = pOldViewport->uGameZ;
-    array_50AC10[2].flt_00001C = pOldViewport->uGameY;
+    array_50AC10[2].vWorldViewProjX = pOldViewport->uGameZ;
+    array_50AC10[2].vWorldViewProjY = pOldViewport->uGameY;
 
-    array_50AC10[3].flt_000018 = pOldViewport->uGameZ;
-    array_50AC10[3].flt_00001C = v39;
+    array_50AC10[3].vWorldViewProjX = pOldViewport->uGameZ;
+    array_50AC10[3].vWorldViewProjY = v39;
     
    
     v47_d = (double)(pOldViewport->uGameZ - pOldViewport->uGameX) * 0.5;
@@ -1256,7 +1256,7 @@ void RenderSky()
 
  for (i = 0; i < local_14.uNumVertices; ++i)
  {
-      v40 = floorf(array_50AC10[i].flt_00001C + 0.5f);
+      v40 = floorf(array_50AC10[i].vWorldViewProjY + 0.5f);
       v50 = (unsigned __int64)(local_14.ptr_000038->dword_000014 * v44 * (v41 - v40)) / 65536;
       v46 = v50 + pClass57_global->dword_00000C;
 
@@ -1271,9 +1271,9 @@ void RenderSky()
         v8 = 0;
         v50 = 0;
       }
-      v13 = (signed __int64)array_50AC10[i].flt_000018;
+      v13 = (signed __int64)array_50AC10[i].vWorldViewProjX;
       v49 = v8;
-      v14 = array_50AC10[i].flt_00001C - 1.0;
+      v14 = array_50AC10[i].vWorldViewProjY - 1.0;
       v12 = v44 * (pOldViewport->dword_000028 - v13);
       v45 = -local_14.dword_000024;
       v43 = (signed __int64)v14;
@@ -1309,10 +1309,10 @@ LABEL_12:
 
       v46 += ((unsigned __int64)(pClass57_global->dword_000010 * v12) >> 16);
       v47 += ((unsigned __int64)(pClass57_global->dword_00001C * v12) >> 16);
-      v46 = 224 * cMiscTimer.dword_000024 + (signed int)((unsigned __int64)(v46 * v17) >> 16) / 8;
-      v47 = 224 * cMiscTimer.dword_000024 + (signed int)((unsigned __int64)(v47 * v17) >> 16) / 8;
+      v46 = 224 * cMiscTimer.uTotalGameTimeElapsed + (signed int)((unsigned __int64)(v46 * v17) >> 16) / 8;
+      v47 = 224 * cMiscTimer.uTotalGameTimeElapsed + (signed int)((unsigned __int64)(v47 * v17) >> 16) / 8;
       
-      array_50AC10[i].flt_00000C = pStruct9_global->shading_dist_mist;
+      array_50AC10[i].vWorldViewPosition.x = pStruct9_global->shading_dist_mist;
       array_50AC10[i].flt_000020 = 1.0 / (double)(v17 / 65536);
       array_50AC10[i].u = (double)v46 / (65536.0 * LODFile_Bitmaps_LOD.aLODHeaders[pOutdoor->uSkyTextureID].uTextureWidth);
       array_50AC10[i].v = (double)v47 / (65536.0 * LODFile_Bitmaps_LOD.aLODHeaders[pOutdoor->uSkyTextureID].uTextureHeight);
@@ -1322,22 +1322,22 @@ LABEL_12:
     {
      float t = (GetTickCount() % 96000) / 96000.0f;
 
- array_50AC10[0].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[0].vWorldViewPosition.x = pStruct9_global->shading_dist_mist;
  array_50AC10[0].flt_000020 = 1;
  array_50AC10[0].u = 0;
  array_50AC10[0].v = 0 + t;
 
- array_50AC10[1].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[1].vWorldViewPosition.x = pStruct9_global->shading_dist_mist;
  array_50AC10[1].flt_000020 = 1;
  array_50AC10[1].u = 0;
  array_50AC10[1].v = 1 + t;
  
- array_50AC10[2].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[2].vWorldViewPosition.x = pStruct9_global->shading_dist_mist;
  array_50AC10[2].flt_000020 = 1;
  array_50AC10[2].u = 1;
  array_50AC10[2].v = 0 + t;
 
- array_50AC10[3].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[3].vWorldViewPosition.x = pStruct9_global->shading_dist_mist;
  array_50AC10[3].flt_000020 = 1;
  array_50AC10[3].u = 1;
  array_50AC10[3].v = 1 + t;
@@ -1425,7 +1425,7 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
       v65 = (int)a2;
   if (byte_4D8410[572] && pGame->uSomeFlags & 0x01)
   {
-   v10 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a4 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
+   v10 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a4 + 88), 0, array_50AC10[0].vWorldViewPosition.x, 0, 0);
    sub_45D74F_MessWithLight(pGame->class04_obj, v10, 0);
   }
       else
@@ -1455,15 +1455,15 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
 
           for (i = 0; i < uNumVertices; ++i)
           {
-              v59 = 1000.0 * array_50AC10[i].flt_00000C / (double)pStruct9_global->shading_dist_mist;
+              v59 = 1000.0 * array_50AC10[i].vWorldViewPosition.x / (double)pStruct9_global->shading_dist_mist;
 
-              pVertices[i].x = array_50AC10[0].flt_000018;
-              pVertices[i].y = array_50AC10[0].flt_00001C;
+              pVertices[i].x = array_50AC10[0].vWorldViewProjX;
+              pVertices[i].y = array_50AC10[0].vWorldViewProjY;
               pVertices[i].z = 1.0 - 1.0 / v59;
-              pVertices[i].rhw = 1.0 / (array_50AC10[i].flt_00000C + 0.0000001000000011686097);
-              v60 = sub_47C4FC_GetActorTintColor(a4->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+              pVertices[i].rhw = 1.0 / (array_50AC10[i].vWorldViewPosition.x + 0.0000001000000011686097);
+              v60 = sub_47C4FC_GetActorTintColor(a4->byte_000058, 0, array_50AC10[i].vWorldViewPosition.x, 0, 0);
 
-              v57 = array_50AC10[i].flt_00000C;
+              v57 = array_50AC10[i].vWorldViewPosition.x;
               pVertices[i].diffuse = v60;
               if (_this->bUsingSpecular)
               {
@@ -1491,7 +1491,7 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
           if (uNumVertices > 0)
           {
             LODWORD(v11) = (int)&pVertices->y;
-            v12 = &array_50AC10[0].flt_00000C;
+            v12 = &array_50AC10[0].vWorldViewPosition.x;
             a7 = (int)&pVertices->y;
             v69 = uNumVertices;
             while ( 1 )

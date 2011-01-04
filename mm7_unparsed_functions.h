@@ -57,7 +57,7 @@ int __cdecl MenuLoop_Main();
 int __fastcall GetSizeInInventorySlots(unsigned int uNumPixels);
 void ReadMM6_ini(const wchar_t *);
 void __cdecl RenderSky();
-char __cdecl RenderBuildings();
+void RenderBuildingsD3D();
 
 
 
@@ -340,7 +340,7 @@ double __cdecl sub_436427();
 double __cdecl sub_43643E();
 int __thiscall sub_43648F(int _this, int a2);
 void __stdcall sub_4364C5(int a1, int a2, int a3, int a4);
-void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs);
+void __stdcall sub_436523_PrimitiveApplyViewMatrix(struct RenderVertex *a1, unsigned int uNumStructs);
 char __stdcall sub_43669D(int a1, int a2, int a3, signed int *a4, int a5, int a6, char a7);
 char __stdcall sub_436932_GetFacetOrientation(char a1, int a2, int a3, int a4);
 void __fastcall sub_4369DB(int a1);
@@ -420,13 +420,12 @@ void __cdecl sub_440CB8_ProbablyDrawActors();
 int __thiscall sub_440DF5(int _this, __int16 a2, __int16 a3, __int16 a4, int a5, __int16 a6);
 int __thiscall sub_440E91(void *_this, __int16 a2, int a3, int a4, int a5, __int16 a6);
 bool __cdecl sub_44100D();
-void sub_44103C();
+void sub_44103C_Draw();
 int __stdcall sub_4418B1(int a1, int a2, int a3, int a4);
 signed int __thiscall sub_4418B6(int _this, int a2, __int16 a3, int a4, int a5, __int16 a6);
 int __thiscall sub_441964(void *_this, int a2);
 __int16 __thiscall sub_441A4E(void *_this);
 void __cdecl sub_441BD4_DrawIndoor();
-void __cdecl sub_441CFF_DrawOutdoor();
 unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5);
 int __thiscall sub_443219(int _this);
 int __thiscall sub_443225(int _this);
@@ -474,7 +473,7 @@ void __fastcall sub_448A17(signed int a1, __int16 a2, int a3);
 void __fastcall sub_448A40_SomethingAboutEnablingActor(signed int a1, int a2, int a3);
 void __fastcall sub_448A98(int a1, int a2, int a3);
 void sub_448B45_LooksLikeResetSomeTimer(bool);
-void sub_448B67(bool a1);
+void sub_448B67_ProcessEvents(bool a1);
 const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4, int a5, int a6, int a7, const void *a8);
 int __thiscall sub_448DD6(int _this);
 void __fastcall sub_448DF8(int a1, int a2, signed int a3, int a4, __int64 a5, signed int a6, signed int a7, signed int a8);
@@ -577,7 +576,6 @@ void __stdcall sub_45CB89(struct RenderVertex * a1, int a2);
 int __stdcall sub_45CBD4(int a1, int a2, int a3, int a4);
 double __stdcall sub_45CC0C(float a1, float a2, float a3, float a4, float a5, int a6, float a7, float a8);
 bool __stdcall sub_45D036(Vec3<float> *pNormal, int a2, struct RenderVertex *a3, int a4, signed int X);
-char __stdcall sub_45D0D5(struct struct6 *a1, Vec3<float> *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7);
 char __stdcall sub_45D426(int a1, struct Edge *a2, signed int a3, struct Edge *a4, signed int a5);
 double __stdcall sub_45D643(int a1, float a2);
 void __stdcall class04_sub_45D73F(struct class04 *_this, long a1); // weak
@@ -650,7 +648,6 @@ int __cdecl sub_467BCF(int a1, int a2, const char *Src);
 int __cdecl sub_467C50(int a1, const char *a2, int a3);
 int __thiscall sub_467CD1(int _this, const void *Src, size_t Size);
 int __thiscall sub_467D45(int _this);
-char __thiscall sub_467D88(int _this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9, char *a10);
 int __thiscall sub_467E7A(_DWORD); // weak
 void __thiscall sub_467E7F_EquipBody(unsigned int uEquipType);
 void __fastcall sub_467F48(signed int a1);
@@ -737,8 +734,8 @@ signed int __fastcall sub_47802A(int a1);
 void __thiscall sub_47829F(void *_this, float a2, float a3, float a4, float a5, int a6);
 int __thiscall BModel_Clear(int _this);
 void __cdecl loc_4789D4(); // idb
-void __cdecl sub_4789DE_RenderBuildingsSoftware();
-bool __fastcall sub_479089(unsigned int a1, int *a2);
+void __cdecl RenderBuildingsSoftware();
+bool __fastcall sub_479089_IsBModelVisible(unsigned int a1, int *a2);
 void __fastcall sub_479A53(int a1, int a2);
 void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename);
 void __thiscall sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw();
@@ -781,7 +778,6 @@ void __cdecl loc_48118F(); // idb
 void __cdecl loc_481199(); // idb
 void __thiscall sub_4811A3(struct struct8 *_this);
 void sub_481CCE(struct RenderVertex *a1);
-void sub_481D77(struct RenderVertex *_this);
 void __fastcall sub_481DB2(struct RenderVertex *a1, signed int a2, struct struct8 *a3);
 void __fastcall sub_481E55(int a1);
 void __cdecl sub_481EB7_ResetStruct8Array();

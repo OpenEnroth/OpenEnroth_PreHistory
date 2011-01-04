@@ -1257,9 +1257,9 @@ int __thiscall class51_sub_4892E6(OutdoorLocation *_this)
       _this->dword_000D1C = 0;
       v6 = class59_SinCos(pClass59_global, v4 - pClass59_global->uIntegerHalfPi);
       _this->dword_000D20 = v6;
-      _this->dword_000D30 = -v5;
-      _this->dword_000D34 = -_this->dword_000D1C;
-      _this->dword_000D38 = -v6;
+      _this->vSunlight.x = -v5;
+      _this->vSunlight.y = -_this->dword_000D1C;
+      _this->vSunlight.z = -v6;
       if ( v3 >= 480 )
         v8 = (double)(960 - v3);
       else
@@ -1274,7 +1274,7 @@ int __thiscall class51_sub_4892E6(OutdoorLocation *_this)
 
 
 //----- (00482170) --------------------------------------------------------
-bool sub_482170(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3)
+bool sub_482170_IsPrimitiveCulled(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3)
 {
   signed int v3; // edx@1
   struct RenderVertex *v6; // ecx@2
@@ -1303,27 +1303,27 @@ bool sub_482170(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3)
 
  v3 = a3->uNumVertices;
  if (a3->uNumVertices < 3)
-   return false;
+   return true;
 
   v6 = &a2[v3 - 1];
-  if (a2[0].y == a2[1].y)
+  if (a2[0].vWorldPosition.y == a2[1].vWorldPosition.y)
   {
-    if (a2[1].y == a2[v3 - 1].y)
+    if (a2[1].vWorldPosition.y == a2[v3 - 1].vWorldPosition.y)
       a3->word_000030 |= 0x10;
   }
 
-  v19 = a2[1].flt_00000C - a2->flt_00000C;
-  v18 = a2[1].flt_000010 - a2->flt_000010;
-  v20 = a2[1].flt_000014 - a2->flt_000014;
-  v21 = a2[v3 - 1].flt_00000C - a2->flt_00000C;
-  v22 = a2[v3 - 1].flt_000010 - a2->flt_000010;
-  v23 = a2[v3 - 1].flt_000014 - a2->flt_000014;
-  v28 = a2[1].x - a2->x;
-  v27 = a2[1].z - a2->z;
-  v29 = a2[1].y - a2->y;
-  v7 = a2[v3 - 1].x - a2->x;
-  v8 = a2[v3 - 1].z - a2->z;
-  v9 = a2[v3 - 1].y - a2->y;
+  v19 = a2[1].vWorldViewPosition.x - a2->vWorldViewPosition.x;
+  v18 = a2[1].vWorldViewPosition.y - a2->vWorldViewPosition.y;
+  v20 = a2[1].vWorldViewPosition.z - a2->vWorldViewPosition.z;
+  v21 = a2[v3 - 1].vWorldViewPosition.x - a2->vWorldViewPosition.x;
+  v22 = a2[v3 - 1].vWorldViewPosition.y - a2->vWorldViewPosition.y;
+  v23 = a2[v3 - 1].vWorldViewPosition.z - a2->vWorldViewPosition.z;
+  v28 = a2[1].vWorldPosition.x - a2->vWorldPosition.x;
+  v27 = a2[1].vWorldPosition.z - a2->vWorldPosition.z;
+  v29 = a2[1].vWorldPosition.y - a2->vWorldPosition.y;
+  v7 = a2[v3 - 1].vWorldPosition.x - a2->vWorldPosition.x;
+  v8 = a2[v3 - 1].vWorldPosition.z - a2->vWorldPosition.z;
+  v9 = a2[v3 - 1].vWorldPosition.y - a2->vWorldPosition.y;
 
  v26 = v27 * v9 - v8 * v29;
  v24 = v7 * v29 - v9 * v28;
@@ -1335,9 +1335,9 @@ bool sub_482170(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3)
    if (--v3 < 2)
      break;
 
-   v10 = v6->x - a2->x;
-   v11 = v6->z - a2->z;
-   v12 = v6->y - a2->y;
+   v10 = v6->vWorldPosition.x - a2->vWorldPosition.x;
+   v11 = v6->vWorldPosition.z - a2->vWorldPosition.z;
+   v12 = v6->vWorldPosition.y - a2->vWorldPosition.y;
 
    v26 = v27 * v12 - v11 * v29;
    v24 = v10 * v29 - v12 * v28;
@@ -1346,14 +1346,14 @@ bool sub_482170(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3)
      break;
    --v6;
   }
-  v21 = v6->flt_00000C - a2->flt_00000C;
-  v22 = v6->flt_000010 - a2->flt_000010;
-  v23 = v6->flt_000014 - a2->flt_000014;
+  v21 = v6->vWorldViewPosition.x - a2->vWorldViewPosition.x;
+  v22 = v6->vWorldViewPosition.y - a2->vWorldViewPosition.y;
+  v23 = v6->vWorldViewPosition.z - a2->vWorldViewPosition.z;
  }
 
- if ((pOldCamera->sPosX - a2->x) * v26 +
-     (pOldCamera->sPosZ - a2->y) * v25 +
-     (pOldCamera->sPosY - a2->z) * v24 > 0.0)
+ if ((pOldCamera->sPosX - a2->vWorldPosition.x) * v26 +
+     (pOldCamera->sPosZ - a2->vWorldPosition.y) * v25 +
+     (pOldCamera->sPosY - a2->vWorldPosition.z) * v24 > 0.0)
  {
   v30 = v23 * v18 - v22 * v20;
   a3->dword_000018 = floorf(v30 + 0.5f);
@@ -1366,41 +1366,39 @@ bool sub_482170(ODMFace *_this, struct RenderVertex *a2, struct struct8 *a3)
 
   sub_486089_NormalizeVector(a3);
 
-  v33 = -(a3->dword_000018 * a2->flt_00000C) - a3->dword_00001C * a2->flt_000010 - a3->dword_000020 * a2->flt_000014;
+  v33 = -(a3->dword_000018 * a2->vWorldViewPosition.x) - a3->dword_00001C * a2->vWorldViewPosition.y - a3->dword_000020 * a2->vWorldViewPosition.z;
   a3->dword_000024 = floorf(v33 + 0.5f);
-  return true;
+  return false;
  }
  else
-   return false;
+   return true;
 }
 
 
 
 //----- (0045CDB7) --------------------------------------------------------
-bool __stdcall sub_45CDB7_Face_ApplyLight(ODMFace *_this, struct class04 *pClass04)
+bool __stdcall sub_45CDB7_Face_ApplyLight(ODMFace *_this)
 {
   int v2; // eax@1
   int v7; // [sp+10h] [bp-4h]@1
- int i;
 
 
  v2 = dword_F8B120 + _this->uShadeType;
  dword_F8AD54 = v2 << 16;
 
  v7 = 0;
- for (i = 0; i < dword_51B6DC; ++i)
+ for (unsigned int i = 0; i < pMobileLightsStack->uNumLightsActive; ++i)
  {
+  StationaryLight_sub_45CE50_ProbablyApplyLightToScene(&pMobileLightsStack->pLights[i], _this, &v7, 1);
   if ( v7 >= 20 )
     break;
-  //pClass04 is passed as the first parameter here in ecx but is never used inside StationaryLight_sub_45CE50_ProbablyApplyLightToScene
-  StationaryLight_sub_45CE50_ProbablyApplyLightToScene((StationaryLight *)&array_519ABC[i], _this, &v7, 1);
  }
 
- for (i = 0; i < pStationaryLightsStack->uNumStationaryLightsActive; ++i)
+ for (unsigned int i = 0; i < pStationaryLightsStack->uNumLightsActive; ++i)
  {
-  if ( v7 >= 20 )
-    break;
   StationaryLight_sub_45CE50_ProbablyApplyLightToScene(&pStationaryLightsStack->pLights[i], _this, &v7, 0);
+  if (v7 >= 20)
+    break;
  }
 
  dword_F8ADD4 = v7;

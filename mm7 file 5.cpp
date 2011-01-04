@@ -6326,7 +6326,7 @@ void __cdecl sub_46F228()
         *(_DWORD *)v3 &= 0xFFFFFFFDu;
         goto LABEL_62;
       }
-      *((_DWORD *)v3 + 2) += cEventTimer.int_00001C;
+      *((_DWORD *)v3 + 2) += cEventTimer.uElapsedTime;
       v4 = *((_DWORD *)v3 + 2);
       if ( *((_WORD *)v3 + 38) == 1 )
       {
@@ -6819,7 +6819,7 @@ void __cdecl sub_46F90C()
         else
         {
           if ( *(_DWORD *)(v21 + 24) < 45000 )
-            *(_WORD *)(v1 + 152) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+            *(_WORD *)(v1 + 152) -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
         }
       }
       else
@@ -6827,7 +6827,7 @@ void __cdecl sub_46F90C()
         if ( v61 )
         {
           if ( !v64 )
-            *(_WORD *)(v1 + 152) += -8 * cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+            *(_WORD *)(v1 + 152) += -8 * cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
         }
       }
       if ( *(_WORD *)(v1 + 148) * (signed int)*(_WORD *)(v1 + 148)
@@ -7442,7 +7442,7 @@ LABEL_121:
             v21 = v62.v63;
             v22 = v62.v64;
             v23 = v62.v63 * *(_WORD *)(v1 + 150);
-            *(_WORD *)(v1 + 152) += -8 * cEventTimer.int_00001C * v20;
+            *(_WORD *)(v1 + 152) += -8 * cEventTimer.uElapsedTime * v20;
             v75 = abs(v62.v62 * *(_WORD *)(v1 + 148) + v22 * *(_WORD *)(v1 + 152) + v23) >> 16;
             v74 = v21;
             *(_WORD *)(v1 + 148) += (unsigned int)(v75 * v62.v62) >> 16;
@@ -7459,7 +7459,7 @@ LABEL_121:
     }
     else
     {
-      *(_WORD *)(v1 + 152) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+      *(_WORD *)(v1 + 152) -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
     }
     if ( pParty_global->dword_01613C != v16 )
     {
@@ -8043,7 +8043,7 @@ LABEL_64:
   }
   if ( v50 <= *((_DWORD *)v2 + 3) - 3 )
   {
-    *((_WORD *)v2 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+    *((_WORD *)v2 + 10) -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
     goto LABEL_24;
   }
   if ( !(v5 & 0x40) || sub_46BFFA(v44, 0) )
@@ -8059,7 +8059,7 @@ LABEL_64:
     else
     {
       if ( *(_DWORD *)(v6 + 24) < 45000 )
-        *((_WORD *)v2 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+        *((_WORD *)v2 + 10) -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
       v8 = 0;
     }
     v50 = *((_WORD *)v2 + 8);
@@ -8238,7 +8238,7 @@ void __fastcall sub_471C03(int a1)
   {
     if ( v70 )
     {
-      *((_WORD *)v5 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+      *((_WORD *)v5 + 10) -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
       goto LABEL_13;
     }
     if ( v69 )
@@ -8247,7 +8247,7 @@ void __fastcall sub_471C03(int a1)
       v12 = *((_DWORD *)v5 + 1);
       *((_DWORD *)v5 + 3) = v4;
       sub_46DCC8(v12, v11, (int)&v51);
-      *((_WORD *)v5 + 10) -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+      *((_WORD *)v5 + 10) -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
       v68 = abs(v52 * *((_WORD *)v5 + 9) + v53 * *((_WORD *)v5 + 10) + v51 * *((_WORD *)v5 + 8)) >> 16;
       v72 = (unsigned __int64)(v68 * v51) >> 16;
       *((_WORD *)v5 + 8) += (unsigned int)(v68 * v51) >> 16;
@@ -8816,7 +8816,7 @@ LABEL_20:
   if ( dword_6BE374_WalkSoundFlag )
   {
     if (pParty_global->dword_0006F8 > 0)
-      pParty_global->dword_0006F8 -= cEventTimer.int_00001C;
+      pParty_global->dword_0006F8 -= cEventTimer.uElapsedTime;
   }
   if ( v87 > i + 1 )
   {
@@ -8998,13 +8998,13 @@ LABEL_76:
   pParty_global->sRotationX = v83;
   if ( v84 )
   {
-    v89 += -2 * cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+    v89 += -2 * cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
   }
   else
   {
     if ( *(_DWORD *)(v68 + (int)pIndoor->pFaces + 24) < 32768 )
     {
-      v89 -= cEventTimer.int_00001C * sub_46BDA8_GetGravityStrength();
+      v89 -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
       goto LABEL_92;
     }
     if ( BYTE1(pParty_global->dword_007778) & 1 )
@@ -11122,21 +11122,21 @@ void loc_4789D4()
 
 extern FILE *f = 0;
 //----- (0047840D) --------------------------------------------------------
-char __cdecl RenderBuildings()
+void RenderBuildingsD3D()
 {
   char result; // al@3
-  int v1; // eax@3
-  int v2; // ebx@4
-  struct ODMFace *v4; // esi@6
+  //int v1; // eax@3
+  //int v2; // ebx@4
+  //struct ODMFace *v4; // esi@6
   int v6; // ecx@8
-  int v7; // ecx@8
+  //int v7; // ecx@8
  struct struct8 *v8; // ebx@8
-  char v11; // zf@8
+  //char v11; // zf@8
   unsigned int v18; // edi@22
-  int v20; // edi@34
-  int v28; // eax@50
-  int v29; // ecx@55
-  int v30; // eax@57
+  //int v20; // edi@34
+  //int v28; // eax@50
+  //int v29; // ecx@55
+  //int v30; // eax@57
   int v31; // eax@57
   int v35; // edi@63
   int v37; // eax@73
@@ -11147,8 +11147,8 @@ char __cdecl RenderBuildings()
   int v43; // [sp-Ch] [bp-64h]@2
   const char *v44; // [sp-8h] [bp-60h]@2
   int v45; // [sp-4h] [bp-5Ch]@2
-  float v48; // [sp+14h] [bp-44h]@8
-  void *v52; // [sp+24h] [bp-34h]@3
+  //float v48; // [sp+14h] [bp-44h]@8
+  //void *v52; // [sp+24h] [bp-34h]@3
   bool v54; // [sp+2Ch] [bp-2Ch]@10
   int v55; // [sp+30h] [bp-28h]@34
   int v56;
@@ -11157,20 +11157,10 @@ char __cdecl RenderBuildings()
   int v63; // [sp+50h] [bp-8h]@3
   int v64; // [sp+57h] [bp-1h]@2
   int v62;
- int i, j, k;
-
-  if (!pD3DRenderer->pRenderD3D3)
-  {
-    Game_sub_40E2C8(&v40, "D3D version of RenderBuildings called in software!", (int)&v64);
-    sub_466D09(0, *(int *)&v40, v41, v42, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odbuild.cpp", __LINE__);
-  }
 
   //pParty_global->sRotationY = 2048 * ((GetTickCount() % 4000) / 4000.0f);
 
   v63 = 0;
-  v1 = (int)pGame->class08_obj;
-  v52 = (void *)v1;
-  result = (int)pOutdoor->pBModels;
 
   /*
  SaveHeighmap(L"Emerald Island.tga", pOutdoor->struct_0000B4.pHeightmap);
@@ -11226,55 +11216,52 @@ char __cdecl RenderBuildings()
  fclose(f);
  }*/
 
- for (i = 0; i < pOutdoor->uNumBModels; ++i)
+ for (unsigned int i = 0; i < pOutdoor->uNumBModels; ++i)
  {
-  v2 = (int)&pOutdoor->pBModels[i].uNumFaces;
-
-  if (!sub_479089(i, &v63))
+  if (!sub_479089_IsBModelVisible(i, &v63))
     continue;
 
-  pOutdoor->pBModels[i].dword_000040 |= 1;
-  for (j = 0; j < pOutdoor->pBModels[i].uNumFaces; ++j)
-  {
-   v4 = &pOutdoor->pBModels[i].pFaces[j];
+  BSPModel *pModel = pOutdoor->pBModels + i;
 
-   if (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x2000)
+  pOutdoor->pBModels[i].dword_000040 |= 1;
+  for (unsigned int j = 0; j < pModel->uNumFaces; ++j)
+  {
+   ODMFace *pFace = pModel->pFaces + j;
+
+   if (pFace->uFaceAttributes & 0x2000)
      continue;
 
-   v7 = (int)pOutdoor->pBModels[i].pVertices;
    v58 = 0;
-   v8 = &array_77EC08[pStruct9_global->dword_00002C];
 
+   v8 = &array_77EC08[pStruct9_global->dword_00002C];
    v8->word_000030 = 0;
    v8->word_000032 = 0;
 
-   v11 = (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x4000) == 0;
-   v6 = pOutdoor->pBModels[i].pFaces[j].uTextureID;
-   if (!v11)
-     v6 = TextureFrameTable_GetFrame(pTextureFrameTable, v6, cEventTimer.dword_000024);
+   v6 = pFace->uTextureID;
+   if (pFace->uFaceAttributes & 0x4000)
+     v6 = TextureFrameTable_GetFrame(pTextureFrameTable, pFace->uTextureID, cEventTimer.uTotalGameTimeElapsed);
    v8->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v6];
 
-
-   v11 = (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x10) == 0;
-   if (!v11)
+   if (pFace->uFaceAttributes & 0x10)
      v8->word_000030 |= 0x0002;
-   if (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x400000)
+
+   if (pFace->uFaceAttributes & 0x400000)
      v8->word_000030 |= 0x0400;
 
-   if (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x04)
+   if (pFace->uFaceAttributes & 0x04)
      v8->word_000030 |= 0x0400;
-   else if (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x20)
+   else if (pFace->uFaceAttributes & 0x20)
      v8->word_000030 |= 0x0800;
 
-   if (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x0800)
+   if (pFace->uFaceAttributes & 0x0800)
      v8->word_000030 |= 0x2000;
-   else if (pOutdoor->pBModels[i].pFaces[j].uFaceAttributes & 0x40)
+   else if (pFace->uFaceAttributes & 0x40)
      v8->word_000030 |= 0x1000;
 
-   v8->sTextureDeltaU = pOutdoor->pBModels[i].pFaces[j].sTextureDeltaU;
-   v8->sTextureDeltaV = pOutdoor->pBModels[i].pFaces[j].sTextureDeltaV;
+   v8->sTextureDeltaU = pFace->sTextureDeltaU;
+   v8->sTextureDeltaV = pFace->sTextureDeltaV;
    v18 = GetTickCount() / 16;
-   v45 = pOutdoor->pBModels[i].pFaces[j].vFaceNormal.z;
+   v45 = pFace->vFaceNormal.z;
    if (v45 && abs(v45) >= 59082)
    {
         if (v8->word_000030 & 0x0400)
@@ -11303,56 +11290,50 @@ LABEL_30:
       else if (v8->word_000030 & 0x2000)
         v8->sTextureDeltaU += v18 & v8->ptr_00003C->word_000020;
 
-      v20 = pOutdoor->pBModels[i].pFaces[j].uNumVertices;
       v55 = 0;
       v54 = false;
 
-      for (k = 0; k < v20; ++k)
+      // copy primitive
+      for (unsigned int k = 0; k < pFace->uNumVertices; ++k)
       {
-        array_73D150[k].x = pOutdoor->pBModels[i].pVertices[v4->pVertexIDs[k]].x;
-        array_73D150[k].z = pOutdoor->pBModels[i].pVertices[v4->pVertexIDs[k]].z;
-        array_73D150[k].y = pOutdoor->pBModels[i].pVertices[v4->pVertexIDs[k]].y;
+       array_73D150[k].vWorldPosition.x = pModel->pVertices[pFace->pVertexIDs[k]].x;
+       array_73D150[k].vWorldPosition.y = pModel->pVertices[pFace->pVertexIDs[k]].y;
+       array_73D150[k].vWorldPosition.z = pModel->pVertices[pFace->pVertexIDs[k]].z;
 
-        array_73D150[k].u = (double)(v8->sTextureDeltaU + v4->pTextureUIDs[k]) / (double)(v8->ptr_00003C->uTextureWidth);
-        array_73D150[k].v = (double)(v8->sTextureDeltaV + v4->pTextureVIDs[k]) / (double)(v8->ptr_00003C->uTextureHeight);
+       array_73D150[k].u = (double)(pFace->pTextureUIDs[k] + v8->sTextureDeltaU) / (double)(v8->ptr_00003C->uTextureWidth);
+       array_73D150[k].v = (double)(pFace->pTextureVIDs[k] + v8->sTextureDeltaV) / (double)(v8->ptr_00003C->uTextureHeight);
       }
-      
-      v48 = pOutdoor->pBModels[i].pVertices[v4->pVertexIDs[0]].y;
-      for (k = 0; k < v20; ++k)
+
+
+      // transform primitive
+      for (unsigned int k = 0; k < pFace->uNumVertices; ++k)
       {
-       if (v48 == array_73D150[k].y)
+       if (pModel->pVertices[pFace->pVertexIDs[0]].y == array_73D150[k].vWorldPosition.y)
          ++v58;
 
-       sub_436523(&array_73D150[k], 1);
-       if (array_73D150[i].flt_00000C < 8.0 || (double)pStruct9_global->shading_dist_mist < array_73D150[i].flt_00000C)
+       sub_436523_PrimitiveApplyViewMatrix(&array_73D150[k], 1);
+       if (array_73D150[i].vWorldViewPosition.x < 8.0 || (double)pStruct9_global->shading_dist_mist < array_73D150[i].vWorldViewPosition.x)
        {
-        if (array_73D150[i].flt_00000C >= 8.0)
+        if (array_73D150[i].vWorldViewPosition.x >= 8.0)
           v54 = true;
         else
           v55 = 1;
        }
        else
-         class08_sub_436BB7((class08 *)v52, &array_73D150[k], 1, 0);
+         class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, &array_73D150[k], 1, 0);
       }
 
-      if (v58 == v20) // if all y == first y
+      if (v58 == pFace->uNumVertices) // if all y == first y;  primitive in xz plane 
         v8->word_000032 |= 0x0001;
 
-      v28 = pOutdoor->dword_000D30;
-      v8->ptr_000054 = v4;
-      v8->uNumVertices = v20;
+      v8->ptr_000054 = pFace;
+      v8->uNumVertices = pFace->uNumVertices;
       v8->byte_000059 = 5;
-      LODWORD(v48) = -v28;
-      v56 = v4->vFaceNormal.x;
-      v56 = (unsigned __int64)(-v28 * v56) / 65536;
-      v58 = v4->vFaceNormal.y;
-      LODWORD(v48) = -pOutdoor->dword_000D34;
-      v58 = (unsigned __int64)(-pOutdoor->dword_000D34 * v58) / 65536;
-      v57 = v4->vFaceNormal.z;
-      v57 = (unsigned __int64)(-pOutdoor->dword_000D38 * v57) / 65536;
-      LODWORD(v48) = v56 + v58 + v57;
-      v56 = (unsigned __int64)(1310720i64 * SLODWORD(v48)) / 65536;
-      result = 20 - ((signed int)((unsigned __int64)(1310720i64 * SLODWORD(v48)) >> 16) >> 16);
+
+      v56 = (unsigned __int64)(-pOutdoor->vSunlight.x * pFace->vFaceNormal.x) / 65536;
+      v58 = (unsigned __int64)(-pOutdoor->vSunlight.y * pFace->vFaceNormal.y) / 65536;
+      v57 = (unsigned __int64)(-pOutdoor->vSunlight.z * pFace->vFaceNormal.z) / 65536;
+      result = 20 - 20 * (unsigned __int64)(v56 + v58 + v57) / 65536;
       v8->byte_000058 = result;
       if (v8->byte_000058 < 0)
         v8->byte_000058 = 0;
@@ -11360,26 +11341,23 @@ LABEL_30:
         v8->byte_000058 = 31;
 
       if (pStruct9_global->dword_00002C >= 1999)
-        return result;
+        return;
       ++pStruct9_global->dword_00002C;
       ++pStruct9_global->dword_000044;
-      if ( sub_482170(v4, array_73D150, v8) )
-      {
-        LOBYTE(v29) = j;
-        v30 = i;
-        v4->bVisible = true;
-        v8->byte_00005F = v29;
-        LOWORD(v29) = (unsigned __int8)v29;
-        v8->byte_00005E = v30;
-        v31 = 8 * (v29 | (v30 << 6));
-        LOBYTE(v31) = v31 | 6;
-        v8->word_000050 = v31;
 
-        
-        for (k = 0; k < v20; ++k)
+      //if (!sub_482170_IsPrimitiveCulled(pFace, array_73D150, v8))
+      if (true)
+      {
+        pFace->bVisible = true;
+        v8->byte_00005E = i;
+        v8->byte_00005F = j;
+        v31 = (8 * (j | (i << 6)));
+        v8->word_000050 = v31 | 6;
+
+        for (unsigned int k = 0; k < pFace->uNumVertices; ++k)
         {
          memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct RenderVertex));
-         array_50AC10[k].flt_000020 = 1.0 / (array_73D150[k].flt_00000C + 0.0000001000000011686097);
+         array_50AC10[k].flt_000020 = 1.0 / (array_73D150[k].vWorldViewPosition.x + 0.0000001000000011686097);
         }
 
         if ( !(byte_73C84C & 1) )
@@ -11388,20 +11366,21 @@ LABEL_30:
           sub_49B001(&unk_73C834);
           atexit(loc_4789D4);
         }
-        v45 = (int)v4;
 
-        sub_45CDB7_Face_ApplyLight(v4, pGame->class04_obj);
-        sub_49BCEB(pClass58_global, v4);
+        sub_45CDB7_Face_ApplyLight(pFace);
+        sub_49BCEB(pClass58_global, pFace);
         pGame->class04_obj->std__vector_000004_size = 0; //class04->std__vector_000004.clear()
         v35 = 0;
-        v62 = v20;
+        v62 = pFace->uNumVertices;
         if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
         {
           if ( v55 )
             v35 = 3;
           else
             v35 = v54 != 0 ? 5 : 0;
-          sub_49B04D(unk_73C834, (int)v4, v2 - 8);
+
+          //compile_error();
+          sub_49B04D(unk_73C834, (int)pFace, (int)&pOutdoor->pBModels[i].uNumFaces - 8);
           if ( pClass58_global->std__vector_30B00C_size > 0 )
           {
             v45 = -1;
@@ -11451,7 +11430,7 @@ LABEL_76:
           {
             v45 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v6];
           }
-          Render_DrawPolygon(pD3DRenderer, v62, v8, v4, (IDirect3DTexture2 *)v45);
+          Render_DrawPolygon(pD3DRenderer, v62, v8, pFace, (IDirect3DTexture2 *)v45);
         }
         goto LABEL_85;
       }
@@ -11461,7 +11440,6 @@ LABEL_85:
     ;
     }
   }
-  return result;
 }
 
 //----- (00479295) --------------------------------------------------------
@@ -11541,11 +11519,11 @@ signed int __cdecl sub_479332()
   float v16; // [sp+Ch] [bp-2Ch]@1
  int i;
 
-  v14 = (double)pOutdoor->dword_000D30 * 0.0000152587890625;
+  v14 = (double)pOutdoor->vSunlight.x / 65536.0;
   result = 0;
   v1 = (int)&array_77EC08[pStruct9_global->dword_00002C];
-  v15 = (double)pOutdoor->dword_000D34 * 0.0000152587890625;
-  v16 = (double)pOutdoor->dword_000D38 * 0.0000152587890625;
+  v15 = (double)pOutdoor->vSunlight.y / 65536.0;
+  v16 = (double)pOutdoor->vSunlight.z / 65536.0;
   if ( pStruct9_global->dword_00002C > 0)
   {
    i = 0;
@@ -11589,9 +11567,9 @@ LABEL_24:
      v2 = (char *)&array_77EC08[i].ptr_000048;
     }
 
-    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -pOutdoor->dword_000D30 / 65536 +
-         (__int64)(*array_77EC08[i].ptr_000048)[1] * -pOutdoor->dword_000D34 / 65536 +
-         (__int64)(*array_77EC08[i].ptr_000048)[2] * -pOutdoor->dword_000D38 / 65536) / 65536.0;
+    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -pOutdoor->vSunlight.x / 65536.0 +
+         (__int64)(*array_77EC08[i].ptr_000048)[1] * -pOutdoor->vSunlight.y / 65536.0 +
+         (__int64)(*array_77EC08[i].ptr_000048)[2] * -pOutdoor->vSunlight.z / 65536.0) / 65536.0;
     if ( v4 < 0.0 )
       v4 = 0.0;
     v6 = v4 * 31.0;
@@ -11604,7 +11582,7 @@ LABEL_24:
       *(_BYTE *)v5 = 31;
     if ( *(_BYTE *)((char *)array_77EC08[i].ptr_000048 + 29) & 0x40 )
     {
-      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cEventTimer.dword_000024);
+      v8 = TextureFrameTable_GetFrame(pTextureFrameTable, *((_WORD *)v2 - 4), cEventTimer.uTotalGameTimeElapsed);
       *((_DWORD *)v2 - 6) = v8 != -1 ? 72 * v8 + 7278780 : 0;
     }
 LABEL_23:
@@ -11782,8 +11760,8 @@ void __fastcall sub_479A53(int a1, int a2)
   v13 = *(_WORD *)(v74 + 32);
   v14 = *(_WORD *)(v74 + 34);
   v81 = v12;
-  v77 = 224 * cMiscTimer.dword_000024 & v14;
-  v80 = 224 * cMiscTimer.dword_000024 & v13;
+  v77 = 224 * cMiscTimer.uTotalGameTimeElapsed & v14;
+  v80 = 224 * cMiscTimer.uTotalGameTimeElapsed & v13;
   v92 = 0;
   v95 = 0;
   *((float *)&v82 + 1) = 1.0 / (double)SLODWORD(v94);
@@ -11796,7 +11774,7 @@ LABEL_17:
     v64 = v68;
     goto LABEL_18;
   }
-  v15 = (char *)&array_507D30[0].flt_00001C;
+  v15 = (char *)&array_507D30[0].vWorldViewProjY;
   while ( 2 )
   {
     v19 = v86 * (v84 - (signed __int64)*(float *)v15);
@@ -11873,9 +11851,9 @@ LABEL_14:
   if ( v68 > 0 )
   {
     v31 = (double)(signed int)v90;
-    v90 = &array_50AC10[0].flt_00001C;
-    v30 = &array_50AC10[0].flt_000018;
-    v29 = (char *)&array_507D30[1].flt_00001C;
+    v90 = &array_50AC10[0].vWorldViewProjY;
+    v30 = &array_50AC10[0].vWorldViewProjX;
+    v29 = (char *)&array_507D30[1].vWorldViewProjY;
     v93 = array_50AC10;
     v95 = (int)array_507D30;
     v92 = v68;
@@ -11914,7 +11892,7 @@ LABEL_28:
   }
   if ( LODWORD(v87) <= 0 )
     goto LABEL_40;
-  v36 = &array_50AC10[0].flt_00001C;
+  v36 = &array_50AC10[0].vWorldViewProjY;
   v79 = v91 >> 14;
   HIDWORD(v83) = LODWORD(v87);
   do
@@ -12156,7 +12134,7 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
             v7 = pLevelDecorations[i].vPosition.x;
             v44 = pLevelDecorations[i].vPosition.y;
             v8 = pLevelDecorations[i].vPosition.z;
-            v9 = cMiscTimer.dword_000024;
+            v9 = cMiscTimer.uTotalGameTimeElapsed;
             v43 = v7;
             v46 = v8;
             v10 = abs(v7 + v44);
@@ -12194,30 +12172,29 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
                 v15 = 255;
               }
               v54 = v14;
-              StationaryLightsStack_AddLight(pStationaryLightsStack,
-                                             &Vec3<float>(v43, v44, v46 + v2->uDecorationHeight / 2),
-                                             v53, v16, v15, v14, byte_4E94D0);
+              pStationaryLightsStack->AddLight_Stationary(&Vec3<float>(v43, v44, v46 + v2->uDecorationHeight / 2),
+                                               v53, v16, v15, v14, byte_4E94D0);
             }
             v17 = (v43 - pOldCamera->sPosX) << 16;
             if (pOldCamera->sRotationX)
             {
               v50 = (v44 - pOldCamera->sPosY) << 16;
-              v19 = (((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v19 = (((unsigned __int64)(v17) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) + (((unsigned __int64)(v50) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16);
               v52 = v19;
-              v54 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-              v53 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v54 = ((unsigned __int64)(v17) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+              v53 = ((unsigned __int64)(v50) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
               v50 = (v46 - pOldCamera->sPosZ) << 16;
-              v51 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
-              v20 = ((unsigned __int64)(v19) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
-              v18 = v20 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16);
-              v49 = v20 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+              v51 = ((unsigned __int64)(v50) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16;
+              v20 = ((unsigned __int64)(v19) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16;
+              v18 = v20 + (((unsigned __int64)(v50) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16);
+              v49 = v20 + (((unsigned __int64)(v50) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16);
               if ( v18 >= 262144 && v18 <= pStruct9_global->shading_dist_mist << 16 )
               {
                 v22 = v53 - v54;
                 v51 = v53 - v54;
-                v53 = ((unsigned __int64)(v52) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
-                v54 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
-                v21 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - v53;
+                v53 = ((unsigned __int64)(v52) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16;
+                v54 = ((unsigned __int64)(v50) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16;
+                v21 = (((unsigned __int64)(v50) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationX / 2048))) >> 16) - v53;
 LABEL_30:
                 v52 = v21;
                 v50 = 2 * abs(v18);
@@ -12282,16 +12259,16 @@ LABEL_30:
             {
               v52 = (v43 - pOldCamera->sPosX) << 16;
               v50 = (v44 - pOldCamera->sPosY) << 16;
-              v54 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-              v53 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-              v18 = v54 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
-              v49 = v54 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v54 = ((unsigned __int64)(v17) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+              v53 = ((unsigned __int64)(v50) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+              v18 = v54 + (((unsigned __int64)(v50) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16);
+              v49 = v54 + (((unsigned __int64)(v50) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16);
               if ( v18 >= 262144 && v18 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v53 = ((unsigned __int64)(v52) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-                v54 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-                v22 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
-                v51 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
+                v53 = ((unsigned __int64)(v52) * (int)(65536 * sinf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+                v54 = ((unsigned __int64)(v50) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16;
+                v22 = (((unsigned __int64)(v50) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) - v53;
+                v51 = (((unsigned __int64)(v50) * (int)(65536 * cosf(2 * 3.141592653589 * pOldCamera->sRotationY / 2048))) >> 16) - v53;
                 v21 = (v46 - pOldCamera->sPosZ) << 16;
                 goto LABEL_30;
               }
@@ -13374,9 +13351,9 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   v3 = 0;
   v88 = 0;
   v84 = v4 - 1;
-  v90 = (double)pOutdoor->dword_000D30 * 0.0000152587890625;
-  v91 = (double)pOutdoor->dword_000D34 * 0.0000152587890625;
-  v92 = (double)pOutdoor->dword_000D38 * 0.0000152587890625;
+  v90 = (float)pOutdoor->vSunlight.x / 65536,0;
+  v91 = (float)pOutdoor->vSunlight.y / 65536.0;
+  v92 = (float)pOutdoor->vSunlight.z / 65536.0;
 
  //for (i = 0; i < a1 - 1; ++i)
  if ( v4 - 1 > 0 )
@@ -13406,18 +13383,18 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
        v104 = &array_801A10[v3];
       }
 
-      v98 = floorf(v8->x + 0.5f);
-      v101 = floorf(v8->z + 0.5f);
+      v98 = floorf(v8->vWorldPosition.x + 0.5f);
+      v101 = floorf(v8->vWorldPosition.z + 0.5f);
 
-      v89 = WorldPosToGridCellX(floorf((v104->x + v8->x) / 2 + 0.5f));
-      v97 = WorldPosToGridCellZ(floorf((v107->z + v8->z) / 2 + 0.5f));
+      v89 = WorldPosToGridCellX(floorf((v104->vWorldPosition.x + v8->vWorldPosition.x) / 2 + 0.5f));
+      v97 = WorldPosToGridCellZ(floorf((v107->vWorldPosition.z + v8->vWorldPosition.z) / 2 + 0.5f));
       WorldPosToGridCellX(v98);
       WorldPosToGridCellZ(v101);
 
       if ((!byte_4D8410[572] || !(pGame->uSomeFlags & 0x80)) && !sub_481EFA(v8, v107, v104, v106, 1))
-        if (v8->y != v107->y ||
-            v107->y != v106->y ||
-            v106->y != v104->y)
+        if (v8->vWorldPosition.y != v107->vWorldPosition.y ||
+            v107->vWorldPosition.y != v106->vWorldPosition.y ||
+            v106->vWorldPosition.y != v104->vWorldPosition.y)
           break;
 
       v15 = &array_77EC08[pStruct9_global->dword_00002C];
@@ -13450,25 +13427,25 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         if ( !sub_481FC9(v8, v107, v104, v15) )
           goto LABEL_126;
 
-        v27 = 1.0 / (v102->flt_00000C + 0.0000001000000011686097);
+        v27 = 1.0 / (v102->vWorldViewPosition.x + 0.0000001000000011686097);
         memcpy(&array_50AC10[0], v102, sizeof(struct RenderVertex));
         array_50AC10[0].flt_000020 = v27;
         array_50AC10[0].u = 0.0;
         array_50AC10[0].v = 0.0;
 
-        v28 = v107->flt_00000C + 0.0000001000000011686097;
+        v28 = v107->vWorldViewPosition.x + 0.0000001000000011686097;
         memcpy(&array_50AC10[1], v107, sizeof(struct RenderVertex));
         array_50AC10[1].flt_000020 = 1.0 / v28;
         array_50AC10[1].u = 0.0;
         array_50AC10[1].v = 1.0;
 
-        v29 = v106->flt_00000C + 0.0000001000000011686097;
+        v29 = v106->vWorldViewPosition.x + 0.0000001000000011686097;
         memcpy(&array_50AC10[2], v106, sizeof(struct RenderVertex));
         array_50AC10[2].flt_000020 = 1.0 / v29;
         array_50AC10[2].u = 1.0;
         array_50AC10[2].v = 1.0;
 
-        v30 = v104->flt_00000C + 0.0000001000000011686097;
+        v30 = v104->vWorldViewPosition.x + 0.0000001000000011686097;
         memcpy(&array_50AC10[3], v104, sizeof(struct RenderVertex));
         array_50AC10[3].flt_000020 = 1.0 / v30;
         array_50AC10[3].u = 1.0;
@@ -13490,18 +13467,18 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
           v112 = pGame->class08_obj;
           if ( sub_4371C3(pGame->class08_obj, array_50AC10, (int)&v103, 0) == 1 && !v103 )
             goto LABEL_162;
-          sub_436523(array_50AC10, v103);
-          class08_sub_436BB7((class08 *)v112, array_50AC10, v103, 0);
+          sub_436523_PrimitiveApplyViewMatrix(array_50AC10, v103);
+          class08_sub_436BB7_PrimitiveApplyProjectionMatrix((class08 *)v112, array_50AC10, v103, 0);
         }
-        v117 = v102->flt_00000C < 8.0 ||
-               v107->flt_00000C < 8.0 ||
-               v104->flt_00000C < 8.0 ||
-               v106->flt_00000C < 8.0;
+        v117 = v102->vWorldViewPosition.x < 8.0 ||
+               v107->vWorldViewPosition.x < 8.0 ||
+               v104->vWorldViewPosition.x < 8.0 ||
+               v106->vWorldViewPosition.x < 8.0;
         v32 = (double)pStruct9_global->shading_dist_mist;
-        v108 = v32 < v102->flt_00000C ||
-               v32 < v107->flt_00000C ||
-               v32 < v104->flt_00000C ||
-               v32 < v106->flt_00000C;
+        v108 = v32 < v102->vWorldViewPosition.x ||
+               v32 < v107->vWorldViewPosition.x ||
+               v32 < v104->vWorldViewPosition.x ||
+               v32 < v106->vWorldViewPosition.x;
         v33 = 0;
         pGame->class04_obj->std__vector_000004_size = 0;
         if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
@@ -13608,19 +13585,19 @@ LABEL_162:
     if ( !sub_481FC9(v107, v106, v8, (struct8 *)v39) )
       goto LABEL_77;
 
-    v50 = 1.0 / (v102->flt_00000C + 0.0000001000000011686097);
+    v50 = 1.0 / (v102->vWorldViewPosition.x + 0.0000001000000011686097);
     memcpy(&array_50AC10[0], v102, sizeof(struct RenderVertex));
     array_50AC10[0].flt_000020 = v50;
     array_50AC10[0].u = 0.0;
     array_50AC10[0].v = 0.0;
 
-    v51 = v107->flt_00000C + 0.0000001000000011686097;
+    v51 = v107->vWorldViewPosition.x + 0.0000001000000011686097;
     memcpy(&array_50AC10[1], v107, sizeof(struct RenderVertex));
     array_50AC10[1].flt_000020 = 1.0 / v51;
     array_50AC10[1].u = 0.0;
     array_50AC10[1].v = 1.0;
 
-    v52 = v106->flt_00000C + 0.0000001000000011686097;
+    v52 = v106->vWorldViewPosition.x + 0.0000001000000011686097;
     memcpy(&array_50AC10[2], v106, sizeof(struct RenderVertex));
     array_50AC10[2].flt_000020 = 1.0 / v52;
     array_50AC10[2].u = 1.0;
@@ -13645,12 +13622,12 @@ LABEL_77:
         --pStruct9_global->dword_00002C;
         goto LABEL_112;
       }
-      sub_436523(array_50AC10, v99);
-      class08_sub_436BB7((class08 *)v114, array_50AC10, v99, 0);
+      sub_436523_PrimitiveApplyViewMatrix(array_50AC10, v99);
+      class08_sub_436BB7_PrimitiveApplyProjectionMatrix((class08 *)v114, array_50AC10, v99, 0);
     }
-    v118 = v102->flt_00000C < 8.0 || v107->flt_00000C < 8.0 || v106->flt_00000C < 8.0;
+    v118 = v102->vWorldViewPosition.x < 8.0 || v107->vWorldViewPosition.x < 8.0 || v106->vWorldViewPosition.x < 8.0;
     v53 = (double)pStruct9_global->shading_dist_mist;
-    v108 = v53 < v102->flt_00000C || v53 < v107->flt_00000C || v53 < v106->flt_00000C;
+    v108 = v53 < v102->vWorldViewPosition.x || v53 < v107->vWorldViewPosition.x || v53 < v106->vWorldViewPosition.x;
     v107 = 0;
     pGame->class04_obj->std__vector_000004_size = 0;
     if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
@@ -13750,19 +13727,19 @@ LABEL_126:
       goto LABEL_162;
     }
 
-    v65 = 1.0 / (v102->flt_00000C + 0.0000001000000011686097);
+    v65 = 1.0 / (v102->vWorldViewPosition.x + 0.0000001000000011686097);
     memcpy(&array_50AC10[0], v102, sizeof(struct RenderVertex));
     array_50AC10[0].flt_000020 = v65;
     array_50AC10[0].u = 0.0;
     array_50AC10[0].v = 0.0;
 
-    v66 = v106->flt_00000C + 0.0000001000000011686097;
+    v66 = v106->vWorldViewPosition.x + 0.0000001000000011686097;
     memcpy(&array_50AC10[1], v106, sizeof(struct RenderVertex));
     array_50AC10[1].flt_000020 = 1.0 / v66;
     array_50AC10[1].u = 1.0;
     array_50AC10[1].v = 1.0;
 
-    v67 = v104->flt_00000C + 0.0000001000000011686097;
+    v67 = v104->vWorldViewPosition.x + 0.0000001000000011686097;
     memcpy(&array_50AC10[2], v104, sizeof(struct RenderVertex));
     array_50AC10[2].flt_000020 = 1.0 / v67;
     array_50AC10[2].u = 1.0;
@@ -13783,12 +13760,12 @@ LABEL_126:
       v116 = pGame->class08_obj;
       if ( sub_4371C3(pGame->class08_obj, array_50AC10, (int)&v100, 0) == 1 && !v100 )
         goto LABEL_126;
-      sub_436523(array_50AC10, v100);
-      class08_sub_436BB7((class08 *)v116, array_50AC10, v100, 0);
+      sub_436523_PrimitiveApplyViewMatrix(array_50AC10, v100);
+      class08_sub_436BB7_PrimitiveApplyProjectionMatrix((class08 *)v116, array_50AC10, v100, 0);
     }
-    v119 = v102->flt_00000C < 8.0 || v106->flt_00000C < 8.0 || v104->flt_00000C < 8.0;
+    v119 = v102->vWorldViewPosition.x < 8.0 || v106->vWorldViewPosition.x < 8.0 || v104->vWorldViewPosition.x < 8.0;
     v68 = (double)pStruct9_global->shading_dist_mist;
-    v108 = v68 < v102->flt_00000C || v68 < v106->flt_00000C || v68 < v104->flt_00000C;
+    v108 = v68 < v102->vWorldViewPosition.x || v68 < v106->vWorldViewPosition.x || v68 < v104->vWorldViewPosition.x;
     v69 = 0;
     pGame->class04_obj->std__vector_000004_size = 0;
     if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
@@ -13881,47 +13858,29 @@ void __thiscall sub_4811A3(struct8 *_this)
 void sub_481CCE(struct RenderVertex *a1)
 {
   double v2; // st4@1
-  double v5; // st7@1
   float v6; // ST04_4@3
-  float v7; // [sp+0h] [bp-14h]@1
-  float v8; // [sp+8h] [bp-Ch]@1
-  float v9; // [sp+Ch] [bp-8h]@1
-  float v10; // [sp+10h] [bp-4h]@1
 
-  v8 = pOldCamera->fRotationXCosine;
-  LODWORD(v7) = *(int *)&pOldCamera->fRotationXSine;
-  v9 = a1->x - (double)pOldCamera->sPosX;
-  v10 = a1->z - (double)pOldCamera->sPosY;
-  v5 = a1->y - (double)pOldCamera->sPosZ;
 
-  v2 = v10 * pOldCamera->fRotationYSine + pOldCamera->fRotationYCosine * v9;
-  if (pOldCamera->sRotationX)
-  {
-    v6 = v2;
-    a1->flt_00000C = v2 * pOldCamera->fRotationXCosine + pOldCamera->fRotationXSine * v5;
-    a1->flt_000010 = pOldCamera->fRotationYCosine * v10 - pOldCamera->fRotationYSine * v9;
-    a1->flt_000014 = v8 * v5 - v6 * v7;
-  }
-  else
-  {
-    a1->flt_00000C = v2;
-    a1->flt_000010 = pOldCamera->fRotationYCosine * v10 - pOldCamera->fRotationYSine * v9;
-    a1->flt_000014 = v5;
-  }
+ float vCamToVertexX = a1->vWorldPosition.x - (float)pOldCamera->sPosX,
+       vCamToVertexY = a1->vWorldPosition.y - (float)pOldCamera->sPosY,
+       vCamToVertexZ = a1->vWorldPosition.z - (float)pOldCamera->sPosZ;
+
+ v2 = pOldCamera->fRotationYSine * vCamToVertexY + pOldCamera->fRotationYCosine * vCamToVertexX;
+ if (pOldCamera->sRotationX)
+ {
+  v6 = v2;
+  a1->vWorldViewPosition.x = pOldCamera->fRotationXCosine * v2 + pOldCamera->fRotationXSine * vCamToVertexZ;
+  a1->vWorldViewPosition.y = pOldCamera->fRotationYCosine * vCamToVertexY - pOldCamera->fRotationYSine * vCamToVertexX;
+  a1->vWorldViewPosition.z = pOldCamera->fRotationXCosine * vCamToVertexZ - pOldCamera->fRotationXSine * v6;
+ }
+ else
+ {
+   a1->vWorldViewPosition.x =  pOldCamera->fRotationYCosine * vCamToVertexX + pOldCamera->fRotationYSine * vCamToVertexY;
+   a1->vWorldViewPosition.y = -pOldCamera->fRotationYSine * vCamToVertexX + pOldCamera->fRotationYCosine * vCamToVertexY;
+   a1->vWorldViewPosition.z = vCamToVertexZ;
+ }
 }
 
-//----- (00481D77) --------------------------------------------------------
-void sub_481D77(struct RenderVertex *_this)
-{
- double v1; // st7@1
- double v2; // st7@1
-
- v1 = 1.0 / (_this->flt_00000C + 0.0000001000000011686097);
- _this->flt_000020 = v1;
- v2 = v1 * (double)pStruct9_global->dword_000014;
- _this->flt_000018 = pOldViewport->dword_000028 - v2 * _this->flt_000010;
- _this->flt_00001C = pOldViewport->dword_00002C - v2 * _this->flt_000014;
-}
 
 //----- (00481EFA) --------------------------------------------------------
 bool sub_481EFA(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderVertex *a3, struct RenderVertex *a4, int a5)
@@ -13929,8 +13888,8 @@ bool sub_481EFA(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
  double v11; // st7@14
 
  v11 = pStruct9_global->shading_dist_mist;
- return (a1->flt_00000C >= 8.0 || a2->flt_00000C >= 8.0 || a3->flt_00000C >= 8.0 || a4->flt_00000C >= 8.0) &&
-        (a1->flt_00000C <= v11 || a2->flt_00000C <= v11 || a3->flt_00000C <= v11 || a4->flt_00000C <= v11);
+ return (a1->vWorldViewPosition.x >= 8.0 || a2->vWorldViewPosition.x >= 8.0 || a3->vWorldViewPosition.x >= 8.0 || a4->vWorldViewPosition.x >= 8.0) &&
+        (a1->vWorldViewPosition.x <= v11 || a2->vWorldViewPosition.x <= v11 || a3->vWorldViewPosition.x <= v11 || a4->vWorldViewPosition.x <= v11);
 }
 
 //----- (00481FC9) --------------------------------------------------------
@@ -13959,39 +13918,39 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
 
   }
   */
-  if (a1->y == a2->y && a2->y == a3->y)
+  if (a1->vWorldPosition.y == a2->vWorldPosition.y && a2->vWorldPosition.y == a3->vWorldPosition.y)
     a4->word_000030 |= 0x10;
 
   
     //fld     a1->flt_00000C
     //fsub    a2->flt_00000C
     //fstp    [ebp+var_C]
-  var_c = a1->flt_00000C - a2->flt_00000C;
+  var_c = a1->vWorldViewPosition.x - a2->vWorldViewPosition.x;
 
     //fld     a1->flt_000010
     //fsub    a2->flt_000010
     //fstp    [ebp+var_14]
-  var_14 = a1->flt_000010 - a2->flt_000010;
+  var_14 = a1->vWorldViewPosition.y - a2->vWorldViewPosition.y;
 
     //fld     dword ptr [ecx+14h]
     //fsub    dword ptr [esi+14h]
     //fstp    [ebp+arg_0]
-  arg_0 = a1->flt_000014 - a2->flt_000014;
+  arg_0 = a1->vWorldViewPosition.z - a2->vWorldViewPosition.z;
 
     //fld     dword ptr [edx+0Ch]
     //fsub    dword ptr [esi+0Ch]
     //fstp    [ebp+var_10]
-  var_10 = a3->flt_00000C - a2->flt_00000C;
+  var_10 = a3->vWorldViewPosition.x - a2->vWorldViewPosition.x;
 
     //fld     dword ptr [edx+10h]
     //fsub    dword ptr [esi+10h]
     //fstp    [ebp+var_8]
-  var_8 = a3->flt_000010 - a2->flt_000010;
+  var_8 = a3->vWorldViewPosition.y - a2->vWorldViewPosition.y;
 
     //fld     dword ptr [edx+14h]
     //fsub    dword ptr [esi+14h]
     //fstp    [ebp+var_4]
-  var_4 = a3->flt_000014 - a2->flt_000014;
+  var_4 = a3->vWorldViewPosition.z - a2->vWorldViewPosition.z;
 
   /*
     fld     dword ptr [ecx]     //a1->x
@@ -14013,7 +13972,7 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
     fsub    dword ptr [esi+8]   //(a3->y - a2->y)	(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
     fstp    [ebp+arg_4]         //(a3->z - a2->z)	(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
   */
-  arg_4 = a3->y - a2->y;
+  arg_4 = a3->vWorldPosition.y - a2->vWorldPosition.y;
 
   /*
     fld     st                            //(a3->z - a2->z)													(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
@@ -14054,9 +14013,9 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
     fstp    st                            //(a1->x - a2->x)
     fstp    st                            //empty
     */
-  if (((a3->y - a2->y) * (a1->x - a2->x) - (a3->x - a2->x) * (a1->y - a2->y)) * (pOldCamera->sPosY - a2->z) +
-      ((a3->z - a2->z) * (a1->y - a2->y) - (a3->y - a2->y) * (a1->z - a2->z)) * (pOldCamera->sPosX - a2->x) +
-      ((a3->x - a2->x) * (a1->z - a2->z) - (a3->z - a2->z) * (a1->x - a2->x)) * (pOldCamera->sPosZ - a2->y) < 0)
+  if (((a3->vWorldPosition.y - a2->vWorldPosition.y) * (a1->vWorldPosition.x - a2->vWorldPosition.x) - (a3->vWorldPosition.x - a2->vWorldPosition.x) * (a1->vWorldPosition.y - a2->vWorldPosition.y)) * (pOldCamera->sPosY - a2->vWorldPosition.z) +
+      ((a3->vWorldPosition.z - a2->vWorldPosition.z) * (a1->vWorldPosition.y - a2->vWorldPosition.y) - (a3->vWorldPosition.y - a2->vWorldPosition.y) * (a1->vWorldPosition.z - a2->vWorldPosition.z)) * (pOldCamera->sPosX - a2->vWorldPosition.x) +
+      ((a3->vWorldPosition.x - a2->vWorldPosition.x) * (a1->vWorldPosition.z - a2->vWorldPosition.z) - (a3->vWorldPosition.z - a2->vWorldPosition.z) * (a1->vWorldPosition.x - a2->vWorldPosition.x)) * (pOldCamera->sPosZ - a2->vWorldPosition.y) < 0)
   {
    /*
       fld     [ebp+var_4]                    //var_4
@@ -14125,7 +14084,7 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
       fsubp   st(1), st                     //-(a4->dword_000018 * a2->flt_00000C) - a4->dword_00001C * a2->flt_000010 - a4->dword_000020 * a2->flt_000014
       fstp    [ebp+arg_4]                   //empty
    */
-   arg_4 = -(a4->dword_000018 * a2->flt_00000C) - a4->dword_00001C * a2->flt_000010 - a4->dword_000020 * a2->flt_000014;
+   arg_4 = -(a4->dword_000018 * a2->vWorldViewPosition.x) - a4->dword_00001C * a2->vWorldViewPosition.y - a4->dword_000020 * a2->vWorldViewPosition.z;
 
    /*
       fld     [ebp+arg_4]

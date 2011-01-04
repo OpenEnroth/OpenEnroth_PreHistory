@@ -311,8 +311,8 @@ Result::Code SecondaryInitialization()
  CreateDirectoryW(L".\\Saves", 0);
  //_mkdir("Saves");
 
- pStationaryLightsStack = MemAlloc(StationaryLightsStack, 1);
- memset(pStationaryLightsStack, 0, sizeof(struct StationaryLightsStack));
+ pStationaryLightsStack = MemAlloc(LightsStack<StationaryLight>, 1);
+ pMobileLightsStack = MemAlloc(LightsStack<MobileLight>, 1);
 
  result = sub_46082C();
  dword_576E28 = 9;
@@ -373,7 +373,7 @@ Result::Code PrimaryInitialization()
  cMiscTimer.Initialize();
  cMiscTimer.Pause();
 
- sub_448B67(true);
+ sub_448B67_ProcessEvents(true);
  sub_448B45_LooksLikeResetSomeTimer(true);
  pGame = Game_Initialize();
  pGame->pGUICursor = pGame->class03_obj;
