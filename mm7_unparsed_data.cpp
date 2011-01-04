@@ -1293,38 +1293,7 @@ struct struct6 array_519ABC[400]; // struct[400] @ MM7.exe::00519ABC
 //_UNKNOWN unk_519AC2; // weak
  int dword_51B6DC; // num of elements in array_519ABC
 
- int dword_51B6E0; // weak
- char byte_51B6E4; // weak
- int dword_51B6E8; // weak
- int dword_51B6EC; // weak
- int dword_51B6F0; // weak
- int dword_51B6F4; // weak
- int dword_51B6F8; // weak
- int dword_51B6FC; // weak
- int dword_51B700; // weak
- int dword_51B704; // weak
- int dword_51B708; // weak
- int dword_51B70C; // weak
- float flt_51B710; // weak
- int dword_51B714; // weak
- int dword_51B718; // weak
- int dword_51B71C; // weak
- _UNKNOWN unk_51B720; // weak
- __int16 word_51B722; // weak
- int dword_51B724; // weak
- int dword_51B728; // weak
- int dword_51B734; // weak
- int dword_51B738; // weak
- int dword_51B73C; // weak
- int dword_51B740; // weak
- int dword_51B748; // weak
- int dword_51B754; // weak
- int dword_51B758; // weak
- int dword_51B75C; // weak
- int dword_51B760; // weak
- int dword_51B764; // weak
- int dword_51B768; // weak
- int dword_51B76C; // weak
+struct sub_4407D9_stru0 stru_51B6E0;
  int dword_51B770; // weak
  int dword_51B774; // weak
 

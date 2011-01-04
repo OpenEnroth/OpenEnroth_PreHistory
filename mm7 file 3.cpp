@@ -3051,7 +3051,7 @@ LABEL_7:
 }
 
 //----- (0043F39E) --------------------------------------------------------
-void __thiscall sub_43F39E(int _this)
+void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this)
 {
   char *v1; // ecx@1
   double v2; // ST30_8@3
@@ -3068,13 +3068,13 @@ void __thiscall sub_43F39E(int _this)
   char v13; // [sp+1Ch] [bp-4h]@3
   signed int v14; // [sp+1Ch] [bp-4h]@8
 
-  sub_4407D9((int)&dword_51B6E0, _this);
+  sub_4407D9(&stru_51B6E0, _this);
   dword_51B6DC = 0;
   dword_5187EC = 0;
   dword_5187E8 = 0;
   dword_5187E4 = 0;
   uNumBillboardsToDraw = 0;
-  if ( !byte_4D8410[572] || !(*(_BYTE *)(LODWORD(pGame) + 3617) & 0x10) )
+  if ( !byte_4D8410[572] || !(pGame->uSomeFlags & 0x1000))
   {
     v2 = *(float *)&dword_AE31EC + 6.755399441055744e15;
     v13 = LOBYTE(v2);
@@ -3085,18 +3085,18 @@ void __thiscall sub_43F39E(int _this)
     LOBYTE(v1) = byte_4E94D0;
     v4 = *(float *)&dword_AE31E4 + 6.755399441055744e15;
     v3 = *(float *)&dword_AE31E8 + 6.755399441055744e15;
-    sub_467D88(
-      (int)&unk_519AB8,
-      dword_51B6E8,
-      dword_51B6EC,
-      dword_51B6F0,
-      dword_51B6FC,
+    sub_467D88((int)&unk_519AB8,
+      stru_51B6E0.vPosition.x,
+      stru_51B6E0.vPosition.y,
+      stru_51B6E0.vPosition.z,
+      stru_51B6E0.dword_00001C,
       v5,
       SLOBYTE(v4),
       SLOBYTE(v3),
       v13,
       v1);
   }
+
   sub_43F953();
   sub_44028F();
   sub_43FDED(0);
@@ -3406,14 +3406,14 @@ int __cdecl sub_43F953()
   int v1; // edx@2
 
   class37_global0.dword_000000 = 0;
-  if ( dword_51B6FC )
+  if ( stru_51B6E0.dword_00001C )
   {
-    word_51C720[0] = dword_51B6FC;
-    word_51C728 = dword_51B740;
-    word_51C726 = dword_51B73C;
-    word_51C724 = dword_51B738;
-    word_51C722 = dword_51B734;
-    sub_43F9E1((int)&unk_51C72C, dword_51B734, (signed __int16)dword_51B738, dword_51B73C, (signed __int16)dword_51B740);
+    word_51C720[0] = stru_51B6E0.dword_00001C;
+    word_51C728 = stru_51B6E0.uViewportW;
+    word_51C726 = stru_51B6E0.uViewportZ;
+    word_51C724 = stru_51B6E0.uViewportY;
+    word_51C722 = stru_51B6E0.uViewportX;
+    sub_43F9E1((int)&unk_51C72C, stru_51B6E0.uViewportX, (signed __int16)stru_51B6E0.uViewportY, stru_51B6E0.uViewportZ, (signed __int16)stru_51B6E0.uViewportW);
     word_51CEC4 = -1;
     dword_51CEC8 = -1;
     dword_51C71C = 1;
@@ -3519,8 +3519,8 @@ void __fastcall sub_43FA33(int a1, int a2)
         v38 = v8;
         v9 = *((_DWORD *)v2 + 4)
            + (pClass59_global->uIntegerPi >> 3)
-           - class59_Atan2(pClass59_global, v7 - dword_51B6E8, v37 - dword_51B6EC);
-        v47 = dword_51B6E0;
+           - class59_Atan2(pClass59_global, v7 - stru_51B6E0.vPosition.x, v37 - stru_51B6E0.vPosition.y);
+        v47 = stru_51B6E0.dword_000000;
         v6 = ((pClass59_global->uIntegerPi + v9) >> 8) & 7;
         if (pParty_global->bTurnBasedModeOn)
           v47 = cMiscTimer.dword_000024;
@@ -3554,8 +3554,8 @@ void __fastcall sub_43FA33(int a1, int a2)
               *((_WORD *)v15 + 14) = LOWORD(v41);
               if ( v16 )
               {
-                LODWORD(v21) = unk_51B720 << 16;
-                HIDWORD(v21) = unk_51B720 >> 16;
+               LODWORD(v21) = stru_51B6E0.dword_000040 << 16;
+                HIDWORD(v21) = stru_51B6E0.dword_000040 >> 16;
                 v47 = v21 / X;
                 LODWORD(v41) = *(_DWORD *)(v11 + 40);
                 v47 = v21 / X;
@@ -3690,7 +3690,7 @@ int __fastcall sub_43FDED(int a1)
       v34 = *((_WORD *)v2 + 54);
       v35 = *((_WORD *)v2 + 53);
       v33 = *((_WORD *)v2 + 55);
-      v6 = class59_Atan2(pClass59_global, v35 - dword_51B6E8, v34 - dword_51B6EC);
+      v6 = class59_Atan2(pClass59_global, v35 - stru_51B6E0.vPosition.x, v34 - stru_51B6E0.vPosition.y);
       LOWORD(a1) = *((_WORD *)v2 + 59);
       v4 = *((_WORD *)v2 + 71);
       v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + a1 - v6) >> 8) & 7;
@@ -3707,7 +3707,7 @@ int __fastcall sub_43FDED(int a1)
       {
         if ( v4 == 1 )
         {
-          v7 = dword_51B6E0;
+         v7 = stru_51B6E0.dword_000000;
 LABEL_10:
           v8 = v40 + v7;
           goto LABEL_12;
@@ -3765,8 +3765,8 @@ LABEL_12:
       *(_WORD *)(a1 + 28) = v36;
       if ( v14 )
       {
-        LODWORD(v21) = unk_51B720 << 16;
-        HIDWORD(v21) = unk_51B720 >> 16;
+        LODWORD(v21) = stru_51B6E0.dword_000040 << 16;
+        HIDWORD(v21) = stru_51B6E0.dword_000040 >> 16;
         v22 = v21 / X;
         *(_DWORD *)a1 = (unsigned __int64)(*(_DWORD *)(v11 + 40) * (signed int)(v21 / X)) >> 16;
         v37 = (unsigned __int64)(*(_DWORD *)(v11 + 40) * v22) >> 16;
@@ -3903,7 +3903,7 @@ void __cdecl sub_44028F()
             v25 = v8;
             v31 = *(_DWORD *)(v8 + 44);
             v28 = *(_WORD *)(v8 + 48) * v0[3];
-            v9 = class59_Atan2(pClass59_global, *((_DWORD *)v0 - 6) - dword_51B6E8, *((_DWORD *)v0 - 5) - dword_51B6EC);
+            v9 = class59_Atan2(pClass59_global, *((_DWORD *)v0 - 6) - stru_51B6E0.vPosition.x, *((_DWORD *)v0 - 5) - stru_51B6E0.vPosition.y);
             LOWORD(v10) = *(v0 - 3);
             v4 = v31;
             v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
@@ -3952,8 +3952,8 @@ void __cdecl sub_44028F()
               *((_WORD *)v7 + 14) = v27;
               if ( v12 )
               {
-                LODWORD(v19) = unk_51B720 << 16;
-                HIDWORD(v19) = unk_51B720 >> 16;
+                LODWORD(v19) = stru_51B6E0.dword_000040 << 16;
+                HIDWORD(v19) = stru_51B6E0.dword_000040 >> 16;
                 v20 = v19 / v40;
                 *(_DWORD *)v7 = (unsigned __int64)(*(_DWORD *)(v25 + 40) * (signed int)(v19 / v40)) >> 16;
                 v32 = (unsigned __int64)(*(_DWORD *)(v25 + 40) * v20) >> 16;
@@ -4067,9 +4067,9 @@ char __fastcall sub_4406BC(signed int a1, int a2)
     v4 = (int)(pIndoor->pNodes + a2);
     v2 = (int)((int)pIndoor->pFaces + *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * *(_WORD *)(v4 + 4)));
     v3 = *(_DWORD *)(v2 + 28)
-       + dword_51B6E8 * *(_DWORD *)(v2 + 16)
-       + dword_51B6EC * *(_DWORD *)(v2 + 20)
-       + dword_51B6F0 * *(_DWORD *)(v2 + 24);
+       + stru_51B6E0.vPosition.x * *(_DWORD *)(v2 + 16)
+       + stru_51B6E0.vPosition.y * *(_DWORD *)(v2 + 20)
+       + stru_51B6E0.vPosition.z * *(_DWORD *)(v2 + 24);
     if ( *(_BYTE *)(v2 + 44) & 1 )
     {
       if ( *(_WORD *)(v2 + 76) != *v13 )
@@ -4100,17 +4100,8 @@ char __fastcall sub_4406BC(signed int a1, int a2)
 }
 
 //----- (004407D9) --------------------------------------------------------
-int __thiscall sub_4407D9(int _this, int a2)
+int __thiscall sub_4407D9(sub_4407D9_stru0 *_this, sub_441BD4_DrawIndoor_stru0 *a2)
 {
-  int v2; // ebx@1
-  int v3; // esi@1
-  int v4; // ST08_4@1
-  signed int v5; // ST04_4@1
-  int v6; // ST00_4@1
-  int v7; // eax@1
-  int v8; // ST08_4@2
-  signed int v9; // ST04_4@2
-  int v10; // ST00_4@2
   int v11; // edi@4
   int v12; // ecx@4
   int v13; // edx@4
@@ -4127,61 +4118,49 @@ int __thiscall sub_4407D9(int _this, int a2)
   int v24; // ecx@5
   int v25; // eax@5
   int v26; // eax@5
-  int result; // eax@6
   signed int v28; // eax@6
   int v29; // [sp+24h] [bp+8h]@5
 
-  v2 = a2;
-  v3 = _this;
-  *(_DWORD *)_this = *(_DWORD *)a2;
-  *(_DWORD *)(_this + 4) = *(_DWORD *)(a2 + 4);
-  *(_DWORD *)(_this + 8) = *(_DWORD *)(a2 + 8);
-  *(_DWORD *)(_this + 12) = *(_DWORD *)(a2 + 12);
-  *(_DWORD *)(_this + 16) = *(_DWORD *)(a2 + 16);
-  v4 = *(_DWORD *)(_this + 16);
-  v5 = *(_DWORD *)(_this + 12);
-  *(_DWORD *)(_this + 20) = *(_DWORD *)(a2 + 20);
-  v6 = *(_DWORD *)(_this + 8);
-  *(_DWORD *)(_this + 24) = *(_DWORD *)(a2 + 24);
-  v7 = IndoorLocation_sub_49AC17((int)pIndoor, v6, v5, v4);
-  *(_DWORD *)(v3 + 28) = v7;
-  if ( !v7 )
-  {
-    v8 = *(_DWORD *)(v3 + 16);
-    *(_DWORD *)(v3 + 8) = pParty_global->vPosition.x;
-    v9 = pParty_global->vPosition.y;
-    v10 = *(_DWORD *)(v3 + 8);
-    *(_DWORD *)(v3 + 12) = pParty_global->vPosition.y;
-    *(_DWORD *)(v3 + 28) = IndoorLocation_sub_49AC17((int)pIndoor, v10, v9, v8);
-  }
-  if ( pD3DRenderer->pRenderD3D3 )
-  {
-    *(_DWORD *)(v3 + 32) = class59_SinCos(pClass59_global, *(_DWORD *)(v3 + 20));
-    *(_DWORD *)(v3 + 36) = class59_SinCos(pClass59_global, *(_DWORD *)(v3 + 20) - pClass59_global->uIntegerHalfPi);
-    *(_DWORD *)(v3 + 40) = class59_SinCos(pClass59_global, -*(_DWORD *)(v3 + 24));
-    *(_DWORD *)(v3 + 44) = class59_SinCos(pClass59_global, -*(_DWORD *)(v3 + 24) - pClass59_global->uIntegerHalfPi);
-    *(float *)(v3 + 48) = cos((memory_4D8410.dPi + memory_4D8410.dPi)
-                            * (double)*(signed int *)(v3 + 20) * (1.0 / 2048.0));
-    *(float *)(v3 + 52) = sin((memory_4D8410.dPi + memory_4D8410.dPi)
-                            * (double)*(signed int *)(v3 + 20) * (1.0 / 2048.0));
-    *(float *)(v3 + 56) = cos((memory_4D8410.dPi + memory_4D8410.dPi)
-                            * (double)-*(_DWORD *)(v3 + 24) * (1.0 / 2048.0));
-    *(float *)(v3 + 60) = sin((memory_4D8410.dPi + memory_4D8410.dPi)
-                            * (double)-*(_DWORD *)(v3 + 24) * (1.0 / 2048.0));
-    *(_DWORD *)(v3 + 100) = *(_DWORD *)(a2 + 60);
-    v11 = *(_DWORD *)(v3 + 96);
-    v12 = *(_DWORD *)(v3 + 84);
-    v13 = *(_DWORD *)(v3 + 92) - v12;
-    v14 = *(_DWORD *)(v3 + 92) + v12;
-    *(_DWORD *)(v3 + 112) = v13 + 1;
-    v15 = *(_DWORD *)(v3 + 88);
-    *(_DWORD *)(v3 + 108) = v11 - v15 + 1;
-    v16 = *(_DWORD *)(v3 + 96);
-    *(_DWORD *)(v3 + 116) = v14 >> 1;
-    *(_DWORD *)(v3 + 120) = (v16 + v15) >> 1;
-  }
-  else
-  {
+ _this->dword_000000 = a2->dword_000000_timer_000024;
+ _this->dword_000004 = a2->dword_000004;
+ _this->vPosition = a2->vPosition;
+ _this->sRotationY = a2->sRotationY;
+ _this->sRotationX = a2->sRotationX;
+
+ _this->dword_00001C  = IndoorLocation_sub_49AC17((int)pIndoor, _this->vPosition.x, _this->vPosition.y, _this->vPosition.z);
+ if (!_this->dword_00001C)
+ {
+  _this->vPosition.x = pParty_global->vPosition.x;
+  _this->vPosition.y = pParty_global->vPosition.y;
+  _this->dword_00001C = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, _this->vPosition.z);
+ }
+
+ if (pD3DRenderer->pRenderD3D3)
+ {
+  _this->sCosineY = class59_SinCos(pClass59_global, _this->sRotationY);
+  _this->sSineY = class59_SinCos(pClass59_global, _this->sRotationY - pClass59_global->uIntegerHalfPi);
+  _this->sCosineMinusX = class59_SinCos(pClass59_global, -_this->sRotationX);
+  _this->sSineMinusX = class59_SinCos(pClass59_global, -_this->sRotationX - pClass59_global->uIntegerHalfPi);
+
+  _this->fCosineY = cos((memory_4D8410.dPi + memory_4D8410.dPi) * (double)_this->sRotationY * (1.0 / 2048.0));
+  _this->fSineY = sin((memory_4D8410.dPi + memory_4D8410.dPi) * (double)_this->sRotationY * (1.0 / 2048.0));
+  _this->fCosineMinusX = cos((memory_4D8410.dPi + memory_4D8410.dPi) * (double)-_this->sRotationX * (1.0 / 2048.0));
+  _this->fSineMinusX = sin((memory_4D8410.dPi + memory_4D8410.dPi) * (double)-_this->sRotationX * (1.0 / 2048.0));
+
+  _this->dword_000064 = a2->dword_00003C;
+  v11 = _this->uViewportW;
+  v12 = _this->uViewportX;
+  v13 = _this->uViewportZ - v12;
+  v14 = _this->uViewportZ + v12;
+  _this->dword_000070 = v13 + 1;
+  v15 = _this->uViewportY;
+  _this->dword_00006C = v11 - v15 + 1;
+  v16 = _this->uViewportW;
+  _this->dword_000074 = v14 >> 1;
+  _this->dword_000078 = (v16 + v15) >> 1;
+ }
+  /*else
+  {//software path
     *(_DWORD *)(v3 + 32) = class59_SinCos(pClass59_global, -*(_DWORD *)(v3 + 20));
     *(_DWORD *)(v3 + 36) = class59_SinCos(pClass59_global, -*(_DWORD *)(v3 + 20) - pClass59_global->uIntegerHalfPi);
     *(_DWORD *)(v3 + 40) = class59_SinCos(pClass59_global, -*(_DWORD *)(v3 + 24));
@@ -4206,29 +4185,27 @@ int __thiscall sub_4407D9(int _this, int a2)
     v26 = *(_DWORD *)(v3 + 100);
     *(_DWORD *)(v3 + 116) = (v24 + v23) >> 1;
     *(_DWORD *)(v3 + 120) = *(_DWORD *)(v3 + 96) - ((unsigned __int64)(v26 * v29) >> 16);
-  }
-  v28 = (unsigned int)(signed __int64)((double)*(signed int *)(v3 + 112)
-                                     * memory_4D8410.d_0_5
-                                     / tan((double)(signed int)(*(_DWORD *)(v2 + 28) >> 1) * memory_4D8410.double_0000F8)
-                                     + memory_4D8410.d_0_5) << 16;
-  *(_DWORD *)(v3 + 64) = v28;
-  *(_DWORD *)(v3 + 68) = 4294967296i64 / v28;
-  *(_DWORD *)(v3 + 72) = *(_DWORD *)(v2 + 32);
-  *(_DWORD *)(v3 + 76) = *(_DWORD *)(v2 + 36);
-  *(_DWORD *)(v3 + 80) = *(_DWORD *)(v2 + 40);
-  *(_DWORD *)(v3 + 84) = *(_DWORD *)(v2 + 44);
-  *(_DWORD *)(v3 + 88) = *(_DWORD *)(v2 + 48);
-  *(_DWORD *)(v3 + 92) = *(_DWORD *)(v2 + 52);
-  *(_DWORD *)(v3 + 96) = *(_DWORD *)(v2 + 56);
-  *(_DWORD *)(v3 + 104) = *(_DWORD *)(v2 + 64);
-  result = 0;
-  *(_DWORD *)(v3 + 140) = 0;
-  *(_DWORD *)(v3 + 132) = 0;
-  *(_DWORD *)(v3 + 128) = 0;
-  *(_DWORD *)(v3 + 136) = 0;
-  dword_51B770 = 64;
-  dword_51B774 = 6;
-  return result;
+  }*/
+  v28 = (unsigned int)(signed __int64)((double)_this->dword_000070 * 0.5 / tan((double)a2->dword_00001C / 2 * memory_4D8410.double_0000F8) + 0.5) << 16;
+ _this->dword_000040 = v28;
+ _this->dword_000044 = 4294967296i64 / v28;
+ _this->pRenderTarget = a2->pRenderTarget;
+ _this->pZTarget = a2->pZTarget;
+ _this->uTargetWidth = a2->uTargetWidth;
+ _this->uTargetHeight = a2->uTargetHeight;
+ _this->uViewportX = a2->cViewport.x.min;
+ _this->uViewportY = a2->cViewport.y.min;
+ _this->uViewportZ = a2->cViewport.x.max;
+ _this->uViewportW = a2->cViewport.y.max;
+
+ _this->dword_000080 = 0;
+ _this->dword_000084 = 0;
+ _this->dword_000088 = 0;
+ _this->dword_00008C = 0;
+
+ dword_51B770 = 64;
+ dword_51B774 = 6;
+ return 0;
 }
 
 //----- (00440B44) --------------------------------------------------------
@@ -4265,14 +4242,14 @@ void __fastcall sub_440B44(char a1)
     for ( j = 0; j < class37_global0.dword_000000; ++j )
     {
       v5 = word_51B77C[2 * j];
-      dword_51B75C = (int)((char *)&unk_51C72C + 2252 * word_51B77C[2 * j + 1]);
+      stru_51B6E0.dword_00007C = (int)((char *)&unk_51C72C + 2252 * word_51B77C[2 * j + 1]);
       sub_4AFF79(v5);
     }
   }
 }
 
 //----- (00440BED) --------------------------------------------------------
-void __thiscall sub_440BED(int _this)
+void sub_440BED(sub_441BD4_DrawIndoor_stru0 *_this)
 {
   int v1; // edi@7
   _UNKNOWN *v2; // esi@8
@@ -4283,16 +4260,16 @@ void __thiscall sub_440BED(int _this)
   int v7; // [sp+Ch] [bp-4h]@8
 
   sub_43F39E(_this);
-  if ( dword_51B6FC )
+  if ( stru_51B6E0.dword_00001C )
     sub_440B44(pD3DRenderer->pRenderD3D3 != 0);
   sub_440CB8_ProbablyDrawActors();
-  if ( !pD3DRenderer->pRenderD3D3 )
-  {
-    if ( byte_51B6E4 & 2 )
+  /*if ( !pD3DRenderer->pRenderD3D3 )
+  { // software
+    if ( stru_51B6E0.dword_000004 & 2 )
       sub_4B0967();
-    if ( byte_51B6E4 & 1 )
+    if ( stru_51B6E0.dword_000004 & 1 )
     {
-      v1 = dword_51B728;
+      v1 = stru_51B6E0.dword_000048;
       v6 = 0;
       if ( dword_51C71C > 0 )
       {
@@ -4322,7 +4299,7 @@ void __thiscall sub_440BED(int _this)
         while ( v6 < dword_51C71C );
       }
     }
-  }
+  }*/
 }
 
 //----- (00440CB8) --------------------------------------------------------
@@ -4351,13 +4328,13 @@ void sub_440CB8_ProbablyDrawActors()
   int v22; // [sp+50h] [bp-4h]@3
  int i;
 
-  v6 = dword_51B728;
-  v7 = dword_51B748;
+  v6 = (int)stru_51B6E0.pRenderTarget;
+  v7 = (int)stru_51B6E0.pZTarget;
   v16 = pD3DRenderer->uTargetSurfacePitch;
-  v17 = dword_51B734;
-  v18 = dword_51B738;
-  v19 = dword_51B73C - 1;
-  v20 = dword_51B740;
+  v17 = stru_51B6E0.uViewportX;
+  v18 = stru_51B6E0.uViewportY;
+  v19 = stru_51B6E0.uViewportZ - 1;
+  v20 = stru_51B6E0.uViewportW;
   pStruct9_global->dword_00003C = uNumBillboardsToDraw;
 
  for (i = 0; i < uNumBillboardsToDraw; ++i)
@@ -4587,51 +4564,56 @@ LABEL_14:
 void __cdecl sub_441BD4_DrawIndoor()
 {
   signed int v0; // eax@1
-  int v1; // [sp+0h] [bp-4Ch]@5
-  int v2; // [sp+4h] [bp-48h]@5
-  int v3; // [sp+8h] [bp-44h]@5
-  int v4; // [sp+Ch] [bp-40h]@5
-  int v5; // [sp+10h] [bp-3Ch]@5
-  int v6; // [sp+14h] [bp-38h]@5
-  int v7; // [sp+18h] [bp-34h]@5
-  int v8; // [sp+1Ch] [bp-30h]@5
-  int v9; // [sp+20h] [bp-2Ch]@5
-  int v10; // [sp+24h] [bp-28h]@5
-  int v11; // [sp+28h] [bp-24h]@5
-  int v12; // [sp+2Ch] [bp-20h]@5
-  int v13; // [sp+30h] [bp-1Ch]@5
-  int v14; // [sp+34h] [bp-18h]@5
-  int v15; // [sp+38h] [bp-14h]@5
-  int v16; // [sp+3Ch] [bp-10h]@5
-  int v17; // [sp+40h] [bp-Ch]@5
-  int v18; // [sp+44h] [bp-8h]@5
-  int v19; // [sp+48h] [bp-4h]@5
+ sub_441BD4_DrawIndoor_stru0 local_00;
+  //int v1; // [sp+0h] [bp-4Ch]@5
+  //int v2; // [sp+4h] [bp-48h]@5
+  //int v3; // [sp+8h] [bp-44h]@5
+  //int v4; // [sp+Ch] [bp-40h]@5
+  //int v5; // [sp+10h] [bp-3Ch]@5
+  //int v6; // [sp+14h] [bp-38h]@5
+  //int v7; // [sp+18h] [bp-34h]@5
+  //int v8; // [sp+1Ch] [bp-30h]@5
+  //int v9; // [sp+20h] [bp-2Ch]@5
+  //int v10; // [sp+24h] [bp-28h]@5
+  //int v11; // [sp+28h] [bp-24h]@5
+  //int v12; // [sp+2Ch] [bp-20h]@5
+  //int v13; // [sp+30h] [bp-1Ch]@5
+  //int v14; // [sp+34h] [bp-18h]@5
+  //int v15; // [sp+38h] [bp-14h]@5
+  //int v16; // [sp+3Ch] [bp-10h]@5
+  //int v17; // [sp+40h] [bp-Ch]@5
+  //int v18; // [sp+44h] [bp-8h]@5
+  //int v19; // [sp+48h] [bp-4h]@5
 
   v0 = 0;
   if ( struct_576FE8.dword_000050 )
     v0 = 1;
   if ( struct_576FE8.dword_000054 )
     LOBYTE(v0) = v0 | 2;
-  v1 = cEventTimer.dword_000024;
-  v2 = v0;
-  v3 = pParty_global->vPosition.x - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY) * pParty_global->dword_000018) >> 16);
-  v18 = class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uIntegerHalfPi);
-  v19 = (unsigned __int64)(v18 * pParty_global->dword_000018) >> 16;
-  v8 = 65;
-  v4 = pParty_global->vPosition.y - v19;
-  v6 = pParty_global->sRotationY;
-  v7 = pParty_global->sRotationX;
-  v9 = (int)pD3DRenderer->pTargetSurface;
-  v12 = pOldViewport->uScreenX;
-  v13 = pOldViewport->uScreenY;
-  v14 = pOldViewport->uScreenZ;
-  v15 = pOldViewport->uScreenW;
-  v16 = pOldViewport->dword_000030;
-  v5 = pParty_global->vPosition.z + pParty_global->uEyelevel;
-  v10 = 640;
-  v11 = 480;
-  v17 = (int)pD3DRenderer->pActiveZBuffer;
-  sub_440BED((int)&v1);
+  local_00.dword_000000_timer_000024 = cEventTimer.dword_000024;
+  local_00.dword_000004 = v0;
+  local_00.vPosition.x = pParty_global->vPosition.x - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY) * pParty_global->dword_000018) >> 16);
+  local_00.dword_000044 = class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uIntegerHalfPi);
+  local_00.dword_000048 = (unsigned __int64)(local_00.dword_000044 * pParty_global->dword_000018) >> 16;
+  local_00.dword_00001C = 65;
+  local_00.vPosition.y = pParty_global->vPosition.y - (unsigned __int64)(local_00.dword_000044 * pParty_global->dword_000018) >> 16;
+  local_00.vPosition.z = pParty_global->vPosition.z + pParty_global->uEyelevel;
+  local_00.sRotationY = pParty_global->sRotationY;
+  local_00.sRotationX = pParty_global->sRotationX;
+
+ local_00.pRenderTarget = pD3DRenderer->pTargetSurface;
+ local_00.uTargetWidth = 640;
+ local_00.uTargetHeight = 480;
+ local_00.pZTarget = pD3DRenderer->pActiveZBuffer;
+
+ local_00.cViewport = Rect<unsigned int>(pOldViewport->uScreenX, pOldViewport->uScreenZ, pOldViewport->uScreenY, pOldViewport->uScreenW);
+ local_00.dword_00003C = pOldViewport->dword_000030;
+  //v12 = pOldViewport->uScreenX;
+  //v13 = pOldViewport->uScreenY;
+  //v14 = pOldViewport->uScreenZ;
+  //v15 = pOldViewport->uScreenW;
+
+  sub_440BED(&local_00);
   pParty_global->dword_007778 &= 0xFFFFFFFDu;
   sub_47A815_DrawClass02Lines();
   sub_440F07(array_5118E8);
@@ -12734,9 +12716,9 @@ int __fastcall sub_44F57C_SpawnMonsters(int a1, SpawnPointMM7 *a2, int a3, signe
   v6 = a1;
   v5 = (int)a2;
   if (uCurrentlyLoadedLevelType == 1)
-    result = pOutdoor->cDDMHeader.dword_00000C;
-  else if (uCurrentlyLoadedLevelType == 2)
     result = pIndoor->cDLVHeader.dword_00000C;
+  else if (uCurrentlyLoadedLevelType == 2)
+    result = pOutdoor->cDDMHeader.dword_00000C;
   else result = 0;
   if ( result )
   {
@@ -13961,9 +13943,9 @@ int __cdecl sub_450DA3()
   int result; // eax@2
 
   if (uCurrentlyLoadedLevelType == 1)
-    result = pOutdoor->cDDMHeader.dword_00000C;
-  else if (uCurrentlyLoadedLevelType == 2)
     result = pIndoor->cDLVHeader.dword_00000C;
+  else if (uCurrentlyLoadedLevelType == 2)
+    result = pOutdoor->cDDMHeader.dword_00000C;
   else return 0;
   return result;
 }

@@ -13252,9 +13252,9 @@ int __fastcall sub_423B5D(int a1)
   v4 = *(_DWORD *)v3;
   v5 = *(_WORD *)(v3 + 4);
   v2 = 0;
-  if ( *(_DWORD *)(v1 + 16) * ((signed __int16)v4 - dword_51B6E8)
-     + *(_DWORD *)(v1 + 20) * (SHIWORD(v4) - dword_51B6EC)
-     + *(_DWORD *)(v1 + 24) * (v5 - dword_51B6F0) < 0 )
+  if ( *(_DWORD *)(v1 + 16) * ((signed __int16)v4 - stru_51B6E0.vPosition.x)
+     + *(_DWORD *)(v1 + 20) * (SHIWORD(v4) - stru_51B6E0.vPosition.y)
+     + *(_DWORD *)(v1 + 24) * (v5 - stru_51B6E0.vPosition.z) < 0 )
   {
     dword_50B700 = 1;
   }
@@ -13360,7 +13360,7 @@ int __fastcall sub_423B5D(int a1)
   v21 = 4 * v82;
   dword_50B918[v82] = dword_50B918[0];
   dword_50B828[v82] = dword_50B828[0];
-  for ( dword_50B738[v82] = dword_50B738[0]; v90 < v82; *(int *)((char *)&dword_50BA08 + v22) = dword_51B758 - v33 )
+  for ( dword_50B738[v82] = dword_50B738[0]; v90 < v82; *(int *)((char *)&dword_50BA08 + v22) = stru_51B6E0.dword_000078 - v33 )
   {
     v22 = 4 * v90;
     v78 = abs(dword_50B918[v90]);
@@ -13411,17 +13411,17 @@ int __fastcall sub_423B5D(int a1)
       }
     }
     *(int *)((char *)&dword_50BA08 + v22) = v30;
-    *(int *)((char *)&dword_50BAF8 + v22) = (unsigned __int64)(word_51B722 * *(int *)((char *)&dword_50BAF8 + v22)) >> 16;
-    v33 = (unsigned __int64)(word_51B722 * *(int *)((char *)&dword_50BA08 + v22)) >> 16;
-    *(int *)((char *)&dword_50BAF8 + v22) = dword_51B754 - *(int *)((char *)&dword_50BAF8 + v22);
+    *(int *)((char *)&dword_50BAF8 + v22) = (unsigned __int64)(stru_51B6E0.word_000042 * *(int *)((char *)&dword_50BAF8 + v22)) >> 16;
+    v33 = (unsigned __int64)(stru_51B6E0.word_000042 * *(int *)((char *)&dword_50BA08 + v22)) >> 16;
+    *(int *)((char *)&dword_50BAF8 + v22) = stru_51B6E0.dword_000074 - *(int *)((char *)&dword_50BAF8 + v22);
     ++v90;
   }
   v37 = 0;
   *(int *)((char *)&dword_50BAF8 + v21) = dword_50BAF8;
   *(int *)((char *)&dword_50BA08 + v21) = dword_50BA08;
-  v34 = dword_51B734;
-  v35 = dword_50BAF8 < dword_51B734;
-  LOBYTE(v35) = dword_50BAF8 >= dword_51B734;
+  v34 = stru_51B6E0.uViewportX;
+  v35 = dword_50BAF8 < stru_51B6E0.uViewportX;
+  LOBYTE(v35) = dword_50BAF8 >= stru_51B6E0.uViewportX;
   v36 = 1;
   v91 = 1;
   if ( v82 < 1 )
@@ -13449,8 +13449,8 @@ int __fastcall sub_423B5D(int a1)
       }
       ++v37;
       dword_50B9F8[v37] = v71 + v40;
-      v34 = dword_51B734;
-      dword_50BAE8[v37] = dword_51B734;
+      v34 = stru_51B6E0.uViewportX;
+      dword_50BAE8[v37] = stru_51B6E0.uViewportX;
     }
     v35 = v85;
     if ( v85 )
@@ -13469,8 +13469,8 @@ int __fastcall sub_423B5D(int a1)
   v45 = 0;
   dword_50BAEC[v37] = dword_50BAEC[0];
   dword_50B9FC[v37] = dword_50B9FC[0];
-  v44 = dword_51B73C;
-  v79 = dword_50BAEC[0] <= dword_51B73C;
+  v44 = stru_51B6E0.uViewportZ;
+  v79 = dword_50BAEC[0] <= stru_51B6E0.uViewportZ;
   v92 = 1;
   if ( v37 < 1 )
     return 0;
@@ -13497,8 +13497,8 @@ int __fastcall sub_423B5D(int a1)
       }
       ++v45;
       dword_50B9EC[v45] = v72 + v48;
-      v44 = dword_51B73C;
-      dword_50BADC[v45] = dword_51B73C;
+      v44 = stru_51B6E0.uViewportZ;
+      dword_50BADC[v45] = stru_51B6E0.uViewportZ;
     }
     if ( v86 )
     {
@@ -13514,9 +13514,9 @@ int __fastcall sub_423B5D(int a1)
   v52 = 0;
   dword_50BAE0[v45] = dword_50BAE0[0];
   dword_50B9F0[v45] = dword_50B9F0[0];
-  v49 = dword_51B738;
-  v50 = dword_50B9F0[0] < dword_51B738;
-  LOBYTE(v50) = dword_50B9F0[0] >= dword_51B738;
+  v49 = stru_51B6E0.uViewportY;
+  v50 = dword_50B9F0[0] < stru_51B6E0.uViewportY;
+  LOBYTE(v50) = dword_50B9F0[0] >= stru_51B6E0.uViewportY;
   v51 = 1;
   v93 = 1;
   if ( v45 < 1 )
@@ -13544,8 +13544,8 @@ int __fastcall sub_423B5D(int a1)
       }
       ++v52;
       dword_50BAD0[v52] = v73 + v55;
-      v49 = dword_51B738;
-      dword_50B9E0[v52] = dword_51B738;
+      v49 = stru_51B6E0.uViewportY;
+      dword_50B9E0[v52] = stru_51B6E0.uViewportY;
     }
     v50 = v87;
     if ( v87 )
@@ -13564,8 +13564,8 @@ int __fastcall sub_423B5D(int a1)
   v60 = 0;
   dword_50BAD4[v52] = dword_50BAD4[0];
   dword_50B9E4[v52] = dword_50B9E4[0];
-  v59 = dword_51B740;
-  v80 = dword_50B9E4[0] <= dword_51B740;
+  v59 = stru_51B6E0.uViewportW;
+  v80 = dword_50B9E4[0] <= stru_51B6E0.uViewportW;
   v94 = 1;
   if ( v52 < 1 )
     return 0;
@@ -13592,8 +13592,8 @@ int __fastcall sub_423B5D(int a1)
       }
       ++v60;
       dword_50BAC4[v60] = v74 + v63;
-      v59 = dword_51B740;
-      dword_50B9D4[v60] = dword_51B740;
+      v59 = stru_51B6E0.uViewportW;
+      dword_50B9D4[v60] = stru_51B6E0.uViewportW;
     }
     if ( v88 )
     {
@@ -13686,9 +13686,9 @@ signed int __fastcall sub_424579(int a1, int a2)
   v2 = (int)&pIndoor->pFaces[a1];
   v3 = (int)pIndoor->pVertices;
   v4 = (int)pIndoor->pVertices + 6 * **(_WORD **)(v2 + 48);
-  if ( *(_DWORD *)(v2 + 16) * ((signed __int16)*(_DWORD *)v4 - dword_51B6E8)
-     + *(_DWORD *)(v2 + 20) * ((signed __int16)(*(_DWORD *)v4 >> 16) - dword_51B6EC)
-     + *(_DWORD *)(v2 + 24) * (*(_WORD *)(v4 + 4) - dword_51B6F0) < 0 )
+  if ( *(_DWORD *)(v2 + 16) * ((signed __int16)*(_DWORD *)v4 - stru_51B6E0.vPosition.x)
+     + *(_DWORD *)(v2 + 20) * ((signed __int16)(*(_DWORD *)v4 >> 16) - stru_51B6E0.vPosition.y)
+     + *(_DWORD *)(v2 + 24) * (*(_WORD *)(v4 + 4) - stru_51B6E0.vPosition.z) < 0 )
   {
     dword_50B700 = 1;
   }
@@ -13700,10 +13700,10 @@ signed int __fastcall sub_424579(int a1, int a2)
   }
   v29 = 0;
   v5 = *(_BYTE *)(v2 + 93);
-  __asm { fld     flt_51B710 }
-  v28 = dword_51B714;
-  v26 = dword_51B718;
-  v27 = dword_51B71C;
+  __asm { fld     stru_51B6E0.fCosineY }
+  v28 = *(int *)&stru_51B6E0.fSineY;
+  v26 = *(int *)&stru_51B6E0.fCosineMinusX;
+  v27 = *(int *)&stru_51B6E0.fSineMinusX;
   v25 = v5;
   if ( v5 > 0 )
   {
@@ -13753,15 +13753,15 @@ signed int __fastcall sub_424579(int a1, int a2)
     while ( v29 < v25 );
   }
   compile_error();//_EDX = &flt_50AC1C;
-  if ( dword_51B6F8 )
+  if ( stru_51B6E0.sRotationX )
   {
     if ( v5 > 0 )
     {
       __asm
       {
-        fild    dword_51B6E8
-        fild    dword_51B6EC
-        fild    dword_51B6F0
+        fild    stru_51B6E0.vPosition.x
+        fild    stru_51B6E0.vPosition.y
+        fild    stru_51B6E0.vPosition.z
       }
       compile_error();//_EAX = &unk_50AC18;
       v15 = v5;
@@ -13836,9 +13836,9 @@ LABEL_15:
     {
       __asm
       {
-        fild    dword_51B6E8
-        fild    dword_51B6EC
-        fild    dword_51B6F0
+        fild    stru_51B6E0.vPosition.x
+        fild    stru_51B6E0.vPosition.y
+        fild    stru_51B6E0.vPosition.z
       }
       compile_error();//_EAX = &flt_50AC1C;
       v19 = v5;
@@ -13906,15 +13906,15 @@ LABEL_16:
   {
     __asm
     {
-     fild    dword ptr unk_51B720
+     fild    dword ptr stru_51B6E0.dword_000040
      //lea ecx, dword ptr [array_507D30[0].flt_00000C]
     }
     v23 = result;
     __asm
     {
       fmul    dword ptr ds:byte_4D8410+94h
-      fild    dword_51B754
-      fild    dword_51B758
+      fild    stru_51B6E0.dword_000074
+      fild    stru_51B6E0.dword_000078
     }
     do
     {

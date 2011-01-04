@@ -295,14 +295,14 @@ struct class08 *class08_ctor(struct class08 *_this)
   class26_ctor(&_this->class26_obj3);
   _eh_vector_constructor_iterator_((int)_this->std__vector_000034, sizeof(struct class26_placeholder), 6, (void (__fastcall *)(void *))class26_placeholder_ctor, (void (__fastcall *)(void *))class26_placeholder_detor);
 
-  _this->flt_0000DC = dword_51B6E8;
-  _this->flt_0000E0 = dword_51B6EC;
-  _this->flt_0000E4 = dword_51B6F0;
+  _this->flt_0000DC = stru_51B6E0.vPosition.x;
+  _this->flt_0000E0 = stru_51B6E0.vPosition.y;
+  _this->flt_0000E4 = stru_51B6E0.vPosition.z;
   _this->flt_000108 = 0;
 
-  _this->flt_00010C = dword_51B6E8 + 300;
-  _this->flt_000110 = dword_51B6EC;
-  _this->flt_000114 = dword_51B6F0;
+  _this->flt_00010C = stru_51B6E0.vPosition.x + 300;
+  _this->flt_000110 = stru_51B6E0.vPosition.y;
+  _this->flt_000114 = stru_51B6E0.vPosition.z;
   _this->flt_000138 = 0;
 
   _this->flt_000168 = 0;
@@ -7036,14 +7036,14 @@ void class02_sub_48BBA6(struct class02 *_this)
         if ( sub_48AE74((void *)v2, v1) )
         {
           v25 = *(_DWORD *)(v7 - 22);
-          if ( v25 >= dword_51B734 )
+          if ( v25 >= stru_51B6E0.uViewportX )
           {
-            if ( v25 < dword_51B73C )
+            if ( v25 < stru_51B6E0.uViewportZ )
             {
               v8 = *(_DWORD *)(v7 - 18);
-              if ( v8 >= dword_51B738 )
+              if ( v8 >= stru_51B6E0.uViewportY )
               {
-                if ( v8 < dword_51B740 )
+                if ( v8 < stru_51B6E0.uViewportW )
                 {
                   if ( pD3DRenderer->pRenderD3D3 )
                   {

@@ -3867,46 +3867,46 @@ char __stdcall sub_43669D(int a1, int a2, int a3, signed int *a4, int a5, int a6
   int v20; // [sp+1Ch] [bp+10h]@5
   int v21; // [sp+1Ch] [bp+10h]@10
 
-  v16 = (a1 - dword_51B6E8) << 16;
-  v17 = (a2 - dword_51B6EC) << 16;
-  if ( dword_51B6F8 )
+  v16 = (a1 - stru_51B6E0.vPosition.x) << 16;
+  v17 = (a2 - stru_51B6E0.vPosition.y) << 16;
+  if ( stru_51B6E0.sRotationX )
   {
     v8 = a3;
-    v19 = dword_51B700;
-    v7 = (v8 - dword_51B6F0) << 16;
+    v19 = stru_51B6E0.sCosineY;
+    v7 = (v8 - stru_51B6E0.vPosition.z) << 16;
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      v15 = ((unsigned __int64)(v16 * v19) >> 16) + ((unsigned __int64)(v17 * dword_51B704) >> 16);
-      v9 = ((unsigned __int64)(v16 * dword_51B704) >> 16) - ((unsigned __int64)(v17 * dword_51B700) >> 16);
+      v15 = ((unsigned __int64)(v16 * v19) >> 16) + ((unsigned __int64)(v17 * stru_51B6E0.sSineY) >> 16);
+      v9 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) - ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
     }
     else
     {
-      v15 = ((unsigned __int64)(v16 * v19) >> 16) - ((unsigned __int64)(v17 * dword_51B704) >> 16);
-      v9 = ((unsigned __int64)(v16 * dword_51B704) >> 16) + ((unsigned __int64)(v17 * dword_51B700) >> 16);
+      v15 = ((unsigned __int64)(v16 * v19) >> 16) - ((unsigned __int64)(v17 * stru_51B6E0.sSineY) >> 16);
+      v9 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) + ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
     }
     v20 = v7;
-    v18 = (unsigned __int64)(v7 * dword_51B70C) >> 16;
+    v18 = (unsigned __int64)(v7 * stru_51B6E0.sSineMinusX) >> 16;
     v11 = a4;
-    *a4 = ((unsigned __int64)(v15 * dword_51B708) >> 16) - v18;
+    *a4 = ((unsigned __int64)(v15 * stru_51B6E0.sCosineMinusX) >> 16) - v18;
     *(_DWORD *)a5 = v9;
-    v10 = ((unsigned __int64)(v15 * dword_51B70C) >> 16) + ((unsigned __int64)(v20 * dword_51B708) >> 16);
+    v10 = ((unsigned __int64)(v15 * stru_51B6E0.sSineMinusX) >> 16) + ((unsigned __int64)(v20 * stru_51B6E0.sCosineMinusX) >> 16);
   }
   else
   {
     v14 = a3;
-    v21 = dword_51B700;
-    v10 = (v14 - dword_51B6F0) << 16;
+    v21 = stru_51B6E0.sCosineY;
+    v10 = (v14 - stru_51B6E0.vPosition.z) << 16;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       v11 = a4;
-      *a4 = ((unsigned __int64)(v16 * v21) >> 16) + ((unsigned __int64)(v17 * dword_51B704) >> 16);
-      *(_DWORD *)a5 = ((unsigned __int64)(v16 * dword_51B704) >> 16) - ((unsigned __int64)(v17 * dword_51B700) >> 16);
+      *a4 = ((unsigned __int64)(v16 * v21) >> 16) + ((unsigned __int64)(v17 * stru_51B6E0.sSineY) >> 16);
+      *(_DWORD *)a5 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) - ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
     }
     else
     {
       v11 = a4;
-      *a4 = ((unsigned __int64)(v16 * v21) >> 16) - ((unsigned __int64)(v17 * dword_51B704) >> 16);
-      *(_DWORD *)a5 = ((unsigned __int64)(v16 * dword_51B704) >> 16) + ((unsigned __int64)(v17 * dword_51B700) >> 16);
+      *a4 = ((unsigned __int64)(v16 * v21) >> 16) - ((unsigned __int64)(v17 * stru_51B6E0.sSineY) >> 16);
+      *(_DWORD *)a5 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) + ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
     }
   }
   *(_DWORD *)a6 = v10;
@@ -4054,14 +4054,14 @@ int __thiscall class08_sub_436A9A(int _this, signed int a2, signed int a3, signe
   }
   else
   {
-    LODWORD(v10) = unk_51B720 << 16;
-    HIDWORD(v10) = unk_51B720 >> 16;
+    LODWORD(v10) = stru_51B6E0.dword_000040 << 16;
+    HIDWORD(v10) = stru_51B6E0.dword_000040 >> 16;
     v11 = v10 / a2;
-    LODWORD(v10) = unk_51B720 << 16;
-    HIDWORD(v10) = unk_51B720 >> 16;
-    *(_DWORD *)a5 = dword_51B754 - ((signed int)(((unsigned __int64)(v11 * a3) >> 16) + 32768) >> 16);
+    LODWORD(v10) = stru_51B6E0.dword_000040 << 16;
+    HIDWORD(v10) = stru_51B6E0.dword_000040 >> 16;
+    *(_DWORD *)a5 = stru_51B6E0.dword_000074 - ((signed int)(((unsigned __int64)(v11 * a3) >> 16) + 32768) >> 16);
     result = a6;
-    *(_DWORD *)a6 = dword_51B758 - ((signed int)(((unsigned __int64)(v10 / a2 * a4) >> 16) + 32768) >> 16);
+    *(_DWORD *)a6 = stru_51B6E0.dword_000078 - ((signed int)(((unsigned __int64)(v10 / a2 * a4) >> 16) + 32768) >> 16);
   }
   return result;
 }
@@ -4477,9 +4477,9 @@ char __stdcall sub_437376(int a1, const void *a2, int *a3)
     goto LABEL_28;
   v4 = a2;
   memcpy(&v17, a2, 0x30u);
-  v5 = (v19 - (double)dword_51B6F0) * *(float *)(a1 + 12)
-     + (v18 - (double)dword_51B6EC) * *(float *)(a1 + 8)
-     + (v17 - (double)dword_51B6E8) * *(float *)(a1 + 4) < 0.0 ? 1.0 : -1.0;
+  v5 = (v19 - (double)stru_51B6E0.vPosition.z) * *(float *)(a1 + 12)
+     + (v18 - (double)stru_51B6E0.vPosition.y) * *(float *)(a1 + 8)
+     + (v17 - (double)stru_51B6E0.vPosition.x) * *(float *)(a1 + 4) < 0.0 ? 1.0 : -1.0;
   v22 = 0;
   memcpy((char *)v4 + 48 * v3, v4, 0x30u);
   memcpy((char *)v4 + 48 * (*a3 + 1), (char *)v4 + 48, 0x30u);

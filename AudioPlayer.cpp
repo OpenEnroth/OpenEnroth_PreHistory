@@ -1656,11 +1656,11 @@ LABEL_21:
           v60 = v13;
           if ( uCurrentlyLoadedLevelType == 1 )
           {
-            v19 = *(float *)&dword_51B718;
-            v18 = *(float *)&dword_51B71C;
-            v65 = flt_51B710;
-            LODWORD(v66) = dword_51B714;
-            if ( dword_51B6F8 )
+            v19 = stru_51B6E0.fCosineMinusX;
+            v18 = stru_51B6E0.fSineMinusX;
+            v65 = stru_51B6E0.fCosineY;
+            LODWORD(v66) = *(int *)&stru_51B6E0.fSineY;
+            if ( stru_51B6E0.sRotationX )
             {
               v68 = v58 - (double)pParty_global->vPosition.x;
               *(float *)&v67 = v59 - (double)pParty_global->vPosition.y;

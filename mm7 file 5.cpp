@@ -6224,15 +6224,15 @@ void __cdecl sub_46F228()
   int v6; // ecx@8
   int v7; // eax@12
   int v8; // eax@16
-  unsigned __int8 v9; // zf@18
-  char v10; // sf@18
-  unsigned __int8 v11; // of@18
+  //unsigned __int8 v9; // zf@18
+  //char v10; // sf@18
+  //unsigned __int8 v11; // of@18
   int v12; // edi@19
   int v13; // ecx@19
   __int16 v14; // ax@19
-  unsigned __int8 v15; // zf@21
-  char v16; // sf@21
-  unsigned __int8 v17; // of@21
+  //unsigned __int8 v15; // zf@21
+  //char v16; // sf@21
+  //unsigned __int8 v17; // of@21
   signed int v18; // eax@24
   int v19; // ebx@24
   int v20; // ecx@24
@@ -6382,11 +6382,12 @@ LABEL_17:
         goto LABEL_17;
       }
 LABEL_18:
-      compile_error();//v11 = __SETO__(*((_WORD *)v3 + 34), v0);
-      v9 = *((_WORD *)v3 + 34) == (_WORD)v0;
-      v10 = (signed __int16)(*((_WORD *)v3 + 34) - v0) < 0;
+      //v11 = __SETO__(*((_WORD *)v3 + 34), v0);
+      //v9 = *((_WORD *)v3 + 34) == (_WORD)v0;
+      //v10 = (signed __int16)(*((_WORD *)v3 + 34) - v0) < 0;
       v91 = v0;
-      if ( !((unsigned __int8)(v10 ^ v11) | v9) )
+      //if ( !((unsigned __int8)(v10 ^ v11) | v9) )
+      if (*((_WORD *)v3 + 34) > 0)
       {
         do
         {
@@ -6411,11 +6412,12 @@ LABEL_18:
         while ( v91 < *((_WORD *)v3 + 34) );
         v1 = v84;
       }
-      compile_error();//v17 = __SETO__(*((_WORD *)v3 + 35), v0);
-      v15 = *((_WORD *)v3 + 35) == (_WORD)v0;
-      v16 = (signed __int16)(*((_WORD *)v3 + 35) - v0) < 0;
+      //v17 = __SETO__(*((_WORD *)v3 + 35), v0);
+      //v15 = *((_WORD *)v3 + 35) == (_WORD)v0;
+      //v16 = (signed __int16)(*((_WORD *)v3 + 35) - v0) < 0;
       v91 = v0;
-      if ( !((unsigned __int8)(v16 ^ v17) | v15) )
+      //if ( !((unsigned __int8)(v16 ^ v17) | v15) )
+      if (*((_WORD *)v3 + 35) > 0)
       {
         while ( 1 )
         {
@@ -10777,41 +10779,41 @@ signed int __thiscall sub_477C61(void *_this)
         v4 = *(float *)(v3 - 4);
         LODWORD(v38) = *(_DWORD *)v3;
         LODWORD(v36) = *(_DWORD *)(v3 + 4);
-        if ( dword_51B6F8 )
+        if ( stru_51B6E0.sRotationX )
         {
-          v6 = v4 - (double)dword_51B6E8;
-          v5 = v38 - (double)dword_51B6EC;
+          v6 = v4 - (double)stru_51B6E0.vPosition.x;
+          v5 = v38 - (double)stru_51B6E0.vPosition.y;
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            v42 = *(float *)&dword_51B714 * v5 + flt_51B710 * v6;
-            v7 = *(float *)&dword_51B714 * v6 - flt_51B710 * v5;
+            v42 = stru_51B6E0.fSineY * v5 + stru_51B6E0.fCosineY * v6;
+            v7 = stru_51B6E0.fSineY * v6 - stru_51B6E0.fCosineY * v5;
           }
           else
           {
-            v42 = flt_51B710 * v6 - *(float *)&dword_51B714 * v5;
-            v7 = *(float *)&dword_51B714 * v6 + flt_51B710 * v5;
+            v42 = stru_51B6E0.fCosineY * v6 - stru_51B6E0.fSineY * v5;
+            v7 = stru_51B6E0.fSineY * v6 + stru_51B6E0.fCosineY * v5;
           }
           v11 = v7;
-          v12 = v36 - (double)dword_51B6F0;
-          v10 = *(float *)&dword_51B718 * v42 - *(float *)&dword_51B71C * v12;
+          v12 = v36 - (double)stru_51B6E0.vPosition.z;
+          v10 = stru_51B6E0.fCosineMinusX * v42 - stru_51B6E0.fSineMinusX * v12;
           v9 = v11;
-          v8 = *(float *)&dword_51B718 * v12 + *(float *)&dword_51B71C * v42;
+          v8 = stru_51B6E0.fCosineMinusX * v12 + stru_51B6E0.fSineMinusX * v42;
         }
         else
         {
-          v43 = v4 - (double)dword_51B6E8;
-          v40 = v38 - (double)dword_51B6EC;
+          v43 = v4 - (double)stru_51B6E0.vPosition.x;
+          v40 = v38 - (double)stru_51B6E0.vPosition.y;
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            v10 = *(float *)&dword_51B714 * v40 + flt_51B710 * v43;
-            v9 = *(float *)&dword_51B714 * v43 - flt_51B710 * v40;
+            v10 = stru_51B6E0.fSineY * v40 + stru_51B6E0.fCosineY * v43;
+            v9 = stru_51B6E0.fSineY * v43 - stru_51B6E0.fCosineY * v40;
           }
           else
           {
-            v10 = flt_51B710 * v43 - *(float *)&dword_51B714 * v40;
-            v9 = *(float *)&dword_51B714 * v43 + flt_51B710 * v40;
+            v10 = stru_51B6E0.fCosineY * v43 - stru_51B6E0.fSineY * v40;
+            v9 = stru_51B6E0.fSineY * v43 + stru_51B6E0.fCosineY * v40;
           }
-          v8 = v36 - (double)dword_51B6F0;
+          v8 = v36 - (double)stru_51B6E0.vPosition.z;
         }
         v13 = v8;
         ++v2;
@@ -10889,7 +10891,7 @@ bool __fastcall sub_477F63(int a1)
   if ( uCurrentlyLoadedLevelType == 1 )
   {
     v10 = 1182597120;
-    v3 = (double)unk_51B720 * 0.0000152587890625;
+    v3 = (double)stru_51B6E0.dword_000040 * 0.0000152587890625;
   }
   else
   {
@@ -10963,7 +10965,7 @@ signed int __fastcall sub_47802A(int a1)
       do
       {
         LODWORD(v5) = *(_DWORD *)(v4 - 8);
-        v6 = (double)unk_51B720 * 0.0000152587890625 / *(float *)(v4 - 8);
+        v6 = (double)stru_51B6E0.dword_000040 * 0.0000152587890625 / *(float *)(v4 - 8);
         if ( pD3DRenderer->pRenderD3D3 )
         {
           v7 = v5 + 6.755399441055744e15;
@@ -10981,8 +10983,8 @@ signed int __fastcall sub_47802A(int a1)
         }
         else
         {
-          *(float *)(v4 + 72) = (double)dword_51B754 - v6 * *(float *)(v4 - 4);
-          v8 = (double)dword_51B758;
+          *(float *)(v4 + 72) = (double)stru_51B6E0.dword_000074 - v6 * *(float *)(v4 - 4);
+          v8 = (double)stru_51B6E0.dword_000078;
           v9 = v6 * *(float *)v4;
           *(_DWORD *)(v4 + 80) = LODWORD(v5);
           *(float *)(v4 + 76) = v8 - v9;
@@ -11719,13 +11721,13 @@ void __fastcall sub_479A53(int a1, int a2)
       LODWORD(v94) = a1;
       do
       {
-        v83 = (GetTickCount() >> 5) - dword_51B6E8;
+        v83 = (GetTickCount() >> 5) - stru_51B6E0.vPosition.x;
         *(float *)v58 = (double)v83 + *(float *)v58;
         *(float *)v58 = *(float *)v58 * 0.25;
         v59 = GetTickCount();
         v58 = (char *)v58 + 48;
         v60 = LODWORD(v94)-- == 1;
-        v82 = dword_51B6EC + (v59 >> 5);
+        v82 = stru_51B6E0.vPosition.y + (v59 >> 5);
         *((float *)v58 - 11) = ((double)v82 + *((float *)v58 - 11)) * 0.25;
       }
       while ( !v60 );
@@ -11740,14 +11742,14 @@ void __fastcall sub_479A53(int a1, int a2)
   }
   HIDWORD(v83) = pOldCamera->sRotationX;
   HIDWORD(v82) = pOldCamera->sPosZ;
-  *(float *)&v88 = (double)dword_51B758;
-  v84 = (signed __int64)((double)(unk_51B720 * dword_51B6F0) / (((double)unk_51B720 + 16192.0) * 65536.0)
+  *(float *)&v88 = (double)stru_51B6E0.dword_000078;
+  v84 = (signed __int64)((double)(stru_51B6E0.dword_000040 * stru_51B6E0.vPosition.z) / (((double)stru_51B6E0.dword_000040 + 16192.0) * 65536.0)
                        + *(float *)&v88);
   v7 = (double)pOldCamera->sRotationX * 0.003066406352445483;
   *(float *)&v89 = v7;
   v94 = cos(v7) * 16192.0;
   v5 = (signed __int64)(*(float *)&v88
-                      - (double)unk_51B720
+                      - (double)stru_51B6E0.dword_000040
                       / ((v94 + 0.0000001000000011686097)
                        * 65535.0)
                       * (sin(*(float *)&v89) * -16192.0 - (double)SHIDWORD(v82)));
@@ -11760,14 +11762,14 @@ void __fastcall sub_479A53(int a1, int a2)
   v74 = v75 != -1 ? 72 * v75 + 7278780 : 0;
   if ( !v74 )
     return;
-  v8 = dword_51B6F8;
+  v8 = stru_51B6E0.sRotationX;
   v76 = 0;
   v68 = v3;
-  v9 = class59_SinCos(pClass59_global, dword_51B6F8 - pClass59_global->uIntegerHalfPi + 16);
+  v9 = class59_SinCos(pClass59_global, stru_51B6E0.sRotationX - pClass59_global->uIntegerHalfPi + 16);
   v70 = 0;
   v69 = -v9;
   LODWORD(v71) = -class59_SinCos(pClass59_global, v8 + 16);
-  v10 = dword_51B73C - dword_51B734;
+  v10 = stru_51B6E0.uViewportZ - stru_51B6E0.uViewportX;
   memcpy(&array_507D30[v3], array_507D30, sizeof(struct RenderVertex));
   LODWORD(v94) = v10;
   v72 = 33554432;
@@ -11809,7 +11811,7 @@ LABEL_17:
     v89 = v91 + *(_DWORD *)(v73 + 24);
     v94 = v71;
     v93 = (void *)((unsigned __int64)(SLODWORD(v71) * v19) >> 16);
-    v18 = v86 * (dword_51B754 - (signed __int64)*((float *)v15 - 1));
+    v18 = v86 * (stru_51B6E0.dword_000074 - (signed __int64)*((float *)v15 - 1));
     v21 = *(float *)v15 - 1.0;
     v17 = -v72;
     v91 = -v72;
@@ -11929,7 +11931,7 @@ LABEL_28:
     v89 = v95 + *(_DWORD *)(v73 + 24);
     v95 = LODWORD(v71);
     v92 = (unsigned __int64)(SLODWORD(v71) * v39) >> 16;
-    v38 = v86 * (dword_51B754 - (signed __int64)*(v36 - 1));
+    v38 = v86 * (stru_51B6E0.dword_000074 - (signed __int64)*(v36 - 1));
     v41 = (signed __int64)(*v36 - 1.0);
     v95 = 0;
     v90 = (float *)v41;
@@ -14670,34 +14672,34 @@ int __thiscall sub_48653D(void *_this, int a2, int a3, int a4, int a5, int a6, i
   int v32; // [sp+3Ch] [bp+14h]@10
 
   v11 = _this;
-  v10 = class59_SinCos(pClass59_global, dword_51B6F4);
-  v29 = class59_SinCos(pClass59_global, dword_51B6F4 - pClass59_global->uIntegerHalfPi);
-  v28 = class59_SinCos(pClass59_global, dword_51B6F8);
-  v12 = class59_SinCos(pClass59_global, dword_51B6F8 - pClass59_global->uIntegerHalfPi);
-  v9 = -dword_51B6EC;
-  v26 = -dword_51B6E8;
+  v10 = class59_SinCos(pClass59_global, stru_51B6E0.sRotationY);
+  v29 = class59_SinCos(pClass59_global, stru_51B6E0.sRotationY - pClass59_global->uIntegerHalfPi);
+  v28 = class59_SinCos(pClass59_global, stru_51B6E0.sRotationX);
+  v12 = class59_SinCos(pClass59_global, stru_51B6E0.sRotationX - pClass59_global->uIntegerHalfPi);
+  v9 = -stru_51B6E0.vPosition.y;
+  v26 = -stru_51B6E0.vPosition.x;
   v27 = v12;
-  v7 = -dword_51B6F0;
-  if ( dword_51B6F8 )
+  v7 = -stru_51B6E0.vPosition.z;
+  if ( stru_51B6E0.sRotationX )
   {
-    v16 = v10 * -dword_51B6E8 + v29 * -dword_51B6EC;
+    v16 = v10 * -stru_51B6E0.vPosition.x + v29 * -stru_51B6E0.vPosition.y;
     v15 = v28;
-    v17 = -65536 * dword_51B6F0;
-    *(_DWORD *)v11 = ((unsigned __int64)(v16 * v28) >> 16) + ((unsigned __int64)(-65536 * dword_51B6F0 * v27) >> 16);
+    v17 = -65536 * stru_51B6E0.vPosition.z;
+    *(_DWORD *)v11 = ((unsigned __int64)(v16 * v28) >> 16) + ((unsigned __int64)(-65536 * stru_51B6E0.vPosition.z * v27) >> 16);
     *((_DWORD *)v11 + 1) = v10 * v9 - v29 * v26;
     v14 = v27;
     v13 = ((unsigned __int64)(v17 * v28) >> 16) - ((unsigned __int64)(v16 * v27) >> 16);
   }
   else
   {
-    *(_DWORD *)v11 = v8 + v29 * -dword_51B6EC;
+    *(_DWORD *)v11 = v8 + v29 * -stru_51B6E0.vPosition.y;
     v15 = v28;
     *((_DWORD *)v11 + 1) = v10 * v9 - v29 * v26;
     v14 = v27;
     v13 = v7 << 16;
   }
   *((_DWORD *)v11 + 2) = v13;
-  if ( dword_51B6F8 )
+  if ( stru_51B6E0.sRotationX )
   {
     v19 = ((unsigned __int64)(a2 * v10) >> 16) + ((unsigned __int64)(a3 * v29) >> 16);
     *((_DWORD *)v11 + 3) = ((unsigned __int64)(v19 * v15) >> 16) + ((unsigned __int64)(a4 * v14) >> 16);
@@ -14712,7 +14714,7 @@ int __thiscall sub_48653D(void *_this, int a2, int a3, int a4, int a5, int a6, i
   }
   *((_DWORD *)v11 + 5) = v18;
   v30 = v10;
-  if ( dword_51B6F8 )
+  if ( stru_51B6E0.sRotationX )
   {
     v21 = ((unsigned __int64)(a5 * v30) >> 16) + ((unsigned __int64)(a6 * v29) >> 16);
     *((_DWORD *)v11 + 6) = ((unsigned __int64)(v21 * v15) >> 16) + ((unsigned __int64)(a7 * v14) >> 16);
@@ -15582,107 +15584,107 @@ signed int __thiscall sub_48AE74(void *_this, float a2)
   v49 = a2 + 6.755399441055744e15;
   if ( !pD3DRenderer->pRenderD3D3 )
   {
-    if ( dword_51B6F8 )
+    if ( stru_51B6E0.sRotationX )
     {
       if ( *(_BYTE *)(v2 + 1) & 2 )
       {
         v10 = *(float *)(v2 + 44) + 6.755399441055744e15;
-        LODWORD(a2) = (LODWORD(v10) - dword_51B6E8) << 16;
+        LODWORD(a2) = (LODWORD(v10) - stru_51B6E0.vPosition.x) << 16;
         v11 = *(float *)(v2 + 48) + 6.755399441055744e15;
-        v55 = (LODWORD(v11) - dword_51B6EC) << 16;
-        v51 = (unsigned __int64)(v55 * dword_51B704) >> 16;
-        v53 = ((unsigned __int64)(SLODWORD(a2) * dword_51B700) >> 16) - v51;
-        v54 = (unsigned __int64)(SLODWORD(a2) * dword_51B704) >> 16;
+        v55 = (LODWORD(v11) - stru_51B6E0.vPosition.y) << 16;
+        v51 = (unsigned __int64)(v55 * stru_51B6E0.sSineY) >> 16;
+        v53 = ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineY) >> 16) - v51;
+        v54 = (unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sSineY) >> 16;
         v12 = *(float *)(v2 + 52) + 6.755399441055744e15;
-        LODWORD(a2) = (LODWORD(v12) - dword_51B6F0) << 16;
-        v51 = ((unsigned __int64)(v53 * dword_51B708) >> 16) - ((unsigned __int64)(SLODWORD(a2) * dword_51B70C) >> 16);
+        LODWORD(a2) = (LODWORD(v12) - stru_51B6E0.vPosition.z) << 16;
+        v51 = ((unsigned __int64)(v53 * stru_51B6E0.sCosineMinusX) >> 16) - ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sSineMinusX) >> 16);
         v13 = v51;
-        HIDWORD(v12) = (unsigned __int64)(v53 * dword_51B70C) >> 16;
-        v53 = (unsigned __int64)(SLODWORD(a2) * dword_51B708) >> 16;
-        LODWORD(v14) = unk_51B720 << 16;
-        HIDWORD(v14) = unk_51B720 >> 16;
+        HIDWORD(v12) = (unsigned __int64)(v53 * stru_51B6E0.sSineMinusX) >> 16;
+        v53 = (unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineMinusX) >> 16;
+        LODWORD(v14) = stru_51B6E0.dword_000040 << 16;
+        HIDWORD(v14) = stru_51B6E0.dword_000040 >> 16;
         v15 = v14 / v51;
-        v16 = (unsigned __int64)(v55 * dword_51B700) >> 16;
+        v16 = (unsigned __int64)(v55 * stru_51B6E0.sCosineY) >> 16;
         *(_DWORD *)(v2 + 88) = v15;
         LODWORD(a2) = (unsigned __int64)(v15 * (v54 + v16)) >> 16;
-        v17 = dword_51B754 - ((signed int)((unsigned __int64)(v15 * (v54 + v16)) >> 16) >> 16);
+        v17 = stru_51B6E0.dword_000074 - ((signed int)((unsigned __int64)(v15 * (v54 + v16)) >> 16) >> 16);
         v18 = *(_DWORD *)(v2 + 88);
         *(_DWORD *)(v2 + 72) = v17;
-        v19 = dword_51B758 - ((signed int)((unsigned __int64)(v18 * (HIDWORD(v12) + v53)) >> 16) >> 16);
+        v19 = stru_51B6E0.dword_000078 - ((signed int)((unsigned __int64)(v18 * (HIDWORD(v12) + v53)) >> 16) >> 16);
         *(_DWORD *)(v2 + 84) = v13;
         *(_DWORD *)(v2 + 76) = v19;
       }
-      LODWORD(a2) = (v48 - dword_51B6E8) << 16;
-      v55 = (LODWORD(v46) - dword_51B6EC) << 16;
-      v53 = ((unsigned __int64)(SLODWORD(a2) * dword_51B700) >> 16) - ((unsigned __int64)(v55 * dword_51B704) >> 16);
-      v54 = (unsigned __int64)(SLODWORD(a2) * dword_51B704) >> 16;
-      HIDWORD(v49) = (unsigned __int64)(v55 * dword_51B700) >> 16;
-      LODWORD(a2) = (LODWORD(v49) - dword_51B6F0) << 16;
-      v21 = (unsigned __int64)(SLODWORD(a2) * dword_51B70C) >> 16;
-      v20 = ((unsigned __int64)(v53 * dword_51B708) >> 16) - v21;
-      v51 = ((unsigned __int64)(v53 * dword_51B708) >> 16) - v21;
+      LODWORD(a2) = (v48 - stru_51B6E0.vPosition.x) << 16;
+      v55 = (LODWORD(v46) - stru_51B6E0.vPosition.y) << 16;
+      v53 = ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineY) >> 16) - ((unsigned __int64)(v55 * stru_51B6E0.sSineY) >> 16);
+      v54 = (unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sSineY) >> 16;
+      HIDWORD(v49) = (unsigned __int64)(v55 * stru_51B6E0.sCosineY) >> 16;
+      LODWORD(a2) = (LODWORD(v49) - stru_51B6E0.vPosition.z) << 16;
+      v21 = (unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sSineMinusX) >> 16;
+      v20 = ((unsigned __int64)(v53 * stru_51B6E0.sCosineMinusX) >> 16) - v21;
+      v51 = ((unsigned __int64)(v53 * stru_51B6E0.sCosineMinusX) >> 16) - v21;
       if ( v20 < 262144 || v20 > 524288000 )
         return 0;
       v22 = v54 + v50;
       v47 = v54 + v50;
-      v23 = ((unsigned __int64)(SLODWORD(a2) * dword_51B708) >> 16) + ((unsigned __int64)(v53 * dword_51B70C) >> 16);
+      v23 = ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineMinusX) >> 16) + ((unsigned __int64)(v53 * stru_51B6E0.sSineMinusX) >> 16);
     }
     else
     {
       if ( *(_BYTE *)(v2 + 1) & 2 )
       {
         v24 = *(float *)(v2 + 44) + 6.755399441055744e15;
-        LODWORD(a2) = (LODWORD(v24) - dword_51B6E8) << 16;
+        LODWORD(a2) = (LODWORD(v24) - stru_51B6E0.vPosition.x) << 16;
         v25 = *(float *)(v2 + 48) + 6.755399441055744e15;
-        v55 = (LODWORD(v25) - dword_51B6EC) << 16;
-        HIDWORD(v24) = (unsigned __int64)(v55 * dword_51B704) >> 16;
-        v26 = ((unsigned __int64)(SLODWORD(a2) * dword_51B700) >> 16) - HIDWORD(v24);
-        v51 = ((unsigned __int64)(SLODWORD(a2) * dword_51B700) >> 16) - HIDWORD(v24);
-        v27 = (unsigned __int64)(SLODWORD(a2) * dword_51B704) >> 16;
+        v55 = (LODWORD(v25) - stru_51B6E0.vPosition.y) << 16;
+        HIDWORD(v24) = (unsigned __int64)(v55 * stru_51B6E0.sSineY) >> 16;
+        v26 = ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineY) >> 16) - HIDWORD(v24);
+        v51 = ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineY) >> 16) - HIDWORD(v24);
+        v27 = (unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sSineY) >> 16;
         v52 = *(float *)(v2 + 52) + 6.755399441055744e15;
-        v28 = (LODWORD(v52) - dword_51B6F0) << 16;
-        LODWORD(v29) = unk_51B720 << 16;
-        HIDWORD(v29) = unk_51B720 >> 16;
+        v28 = (LODWORD(v52) - stru_51B6E0.vPosition.z) << 16;
+        LODWORD(v29) = stru_51B6E0.dword_000040 << 16;
+        HIDWORD(v29) = stru_51B6E0.dword_000040 >> 16;
         v30 = v29 / v51;
-        v31 = (unsigned __int64)(v55 * dword_51B700) >> 16;
+        v31 = (unsigned __int64)(v55 * stru_51B6E0.sCosineY) >> 16;
         *(_DWORD *)(v2 + 88) = v30;
         LODWORD(a2) = (unsigned __int64)(v30 * (v27 + v31)) >> 16;
-        v32 = dword_51B754 - ((signed int)((unsigned __int64)(v30 * (v27 + v31)) >> 16) >> 16);
+        v32 = stru_51B6E0.dword_000074 - ((signed int)((unsigned __int64)(v30 * (v27 + v31)) >> 16) >> 16);
         v33 = *(_DWORD *)(v2 + 88);
         *(_DWORD *)(v2 + 72) = v32;
-        v34 = dword_51B758 - ((signed int)((unsigned __int64)(v33 * v28) >> 16) >> 16);
+        v34 = stru_51B6E0.dword_000078 - ((signed int)((unsigned __int64)(v33 * v28) >> 16) >> 16);
         *(_DWORD *)(v2 + 84) = v26;
         *(_DWORD *)(v2 + 76) = v34;
       }
-      LODWORD(a2) = (v48 - dword_51B6E8) << 16;
-      v55 = (LODWORD(v46) - dword_51B6EC) << 16;
-      v35 = (unsigned __int64)(v55 * dword_51B704) >> 16;
-      v20 = ((unsigned __int64)(SLODWORD(a2) * dword_51B700) >> 16) - v35;
-      v51 = ((unsigned __int64)(SLODWORD(a2) * dword_51B700) >> 16) - v35;
+      LODWORD(a2) = (v48 - stru_51B6E0.vPosition.x) << 16;
+      v55 = (LODWORD(v46) - stru_51B6E0.vPosition.y) << 16;
+      v35 = (unsigned __int64)(v55 * stru_51B6E0.sSineY) >> 16;
+      v20 = ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineY) >> 16) - v35;
+      v51 = ((unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sCosineY) >> 16) - v35;
       if ( v20 < 262144 || v20 > 524288000 )
         return 0;
-      v36 = (unsigned __int64)(SLODWORD(a2) * dword_51B704) >> 16;
-      LODWORD(a2) = (unsigned __int64)(v55 * dword_51B700) >> 16;
-      v22 = v36 + ((unsigned __int64)(v55 * dword_51B700) >> 16);
-      v47 = v36 + ((unsigned __int64)(v55 * dword_51B700) >> 16);
-      v23 = (LODWORD(v49) - dword_51B6F0) << 16;
+      v36 = (unsigned __int64)(SLODWORD(a2) * stru_51B6E0.sSineY) >> 16;
+      LODWORD(a2) = (unsigned __int64)(v55 * stru_51B6E0.sCosineY) >> 16;
+      v22 = v36 + ((unsigned __int64)(v55 * stru_51B6E0.sCosineY) >> 16);
+      v47 = v36 + ((unsigned __int64)(v55 * stru_51B6E0.sCosineY) >> 16);
+      v23 = (LODWORD(v49) - stru_51B6E0.vPosition.z) << 16;
     }
     LODWORD(a2) = abs(v22);
     v37 = abs(v20);
     if ( v37 >= LODWORD(a2) )
     {
-      LODWORD(v39) = unk_51B720 << 16;
-      HIDWORD(v39) = unk_51B720 >> 16;
+      LODWORD(v39) = stru_51B6E0.dword_000040 << 16;
+      HIDWORD(v39) = stru_51B6E0.dword_000040 >> 16;
       v40 = v39 / v51;
       *(_DWORD *)(v2 + 88) = v40;
       LODWORD(a2) = (unsigned __int64)(v40 * v47) >> 16;
-      v41 = dword_51B754 - ((signed int)((unsigned __int64)(v40 * v47) >> 16) >> 16);
+      v41 = stru_51B6E0.dword_000074 - ((signed int)((unsigned __int64)(v40 * v47) >> 16) >> 16);
       v42 = *(_DWORD *)(v2 + 88);
       *(_DWORD *)(v2 + 64) = v41;
       v43 = v42 * v23;
       LODWORD(a2) = v43 >> 16;
       v44 = *(float *)(v2 + 40);
-      *(_DWORD *)(v2 + 68) = dword_51B758 - ((signed int)(v43 >> 16) >> 16);
+      *(_DWORD *)(v2 + 68) = stru_51B6E0.dword_000078 - ((signed int)(v43 >> 16) >> 16);
       v45 = v44;
       *(_DWORD *)(v2 + 88) = (unsigned __int64)(sub_48B561(v45) * *(_DWORD *)(v2 + 88)) >> 16;
       v4 = v51;

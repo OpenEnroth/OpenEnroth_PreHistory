@@ -1715,7 +1715,7 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
           CheckHRESULT((void **)&a7, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x398u, v7);
         }
       }
-      if (pOldCamera->dword_00004C & 2 || byte_51B6E4 & 2)
+      if (pOldCamera->dword_00004C & 2 || stru_51B6E0.dword_000004 & 2)
         sub_437A55(pVertices, uNumVertices, 0x00FFFFFF, 0.0);
 }
 

@@ -1150,4 +1150,36 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5);
 
 
 
+
+
+
+
+
+
+
+
+struct sub_441BD4_DrawIndoor_stru0
+{
+ int                 dword_000000_timer_000024;
+ int                 dword_000004;
+ Vec3<int>           vPosition;            // dword[3] @ 000008
+ int                 sRotationY;           // dword    @ 000014
+ int                 sRotationX;           // dword    @ 000018
+ int                 dword_00001C;    // fov in degrees?
+ unsigned int       *pRenderTarget;        // dword    @ 000020
+ unsigned int        uTargetWidth;         // dword    @ 000024
+ unsigned int        uTargetHeight;        // dword    @ 000028
+ Rect<unsigned int>  cViewport;            // dword[4] @ 00002C
+ int                 dword_00003C;  // viewport::dword_000030
+ int                *pZTarget;             // dword    @ 000040
+   //?
+ int                 dword_000044;
+ int                 dword_000048;
+};
+
+void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this);
+void sub_440BED(sub_441BD4_DrawIndoor_stru0 *_this);
+
+
+
 #pragma pack(pop)

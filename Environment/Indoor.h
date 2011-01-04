@@ -220,7 +220,7 @@ class IndoorLocation
    unsigned int       uNumLights;     // dword  @ 000290
    BLVLight          *pLights;        // dword  @ 000294
    unsigned int       uNumDoors;      // dword  @ 000298
-   struct BLVDoor    *pDoors;         // dword  @ 00029C dword_000004 == door id
+   BLVDoor           *pDoors;         // dword  @ 00029C dword_000004 == door id
    unsigned int       uNumNodes;      // dword  @ 0002A0
    BSPModel::BSPNode *pNodes;         // dword  @ 0002A4
    unsigned char     *ptr_0002A8;     // BLVMapVertex array;  first 4 bytes int = num struct following

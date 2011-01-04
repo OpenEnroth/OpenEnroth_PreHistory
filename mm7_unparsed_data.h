@@ -1125,38 +1125,85 @@ extern _UNKNOWN unk_519AB8; // weak
 extern struct struct6 array_519ABC[400]; // struct[400] @ MM7.exe::00519ABC
 extern int dword_51B6DC; // num of elements in array_519ABC
 
-extern int dword_51B6E0; // weak
-extern char byte_51B6E4; // weak
-extern int dword_51B6E8; // weak
-extern int dword_51B6EC; // weak
-extern int dword_51B6F0; // weak
-extern int dword_51B6F4; // weak
-extern int dword_51B6F8; // weak
-extern int dword_51B6FC; // weak
-extern int dword_51B700; // weak
-extern int dword_51B704; // weak
-extern int dword_51B708; // weak
-extern int dword_51B70C; // weak
-extern float flt_51B710; // weak
-extern int dword_51B714; // weak
-extern int dword_51B718; // weak
-extern int dword_51B71C; // weak
-extern _UNKNOWN unk_51B720; // weak
-extern __int16 word_51B722; // weak
-extern int dword_51B724; // weak
-extern int dword_51B728; // weak
-extern int dword_51B734; // weak
-extern int dword_51B738; // weak
-extern int dword_51B73C; // weak
-extern int dword_51B740; // weak
-extern int dword_51B748; // weak
-extern int dword_51B754; // weak
-extern int dword_51B758; // weak
-extern int dword_51B75C; // weak
-extern int dword_51B760; // weak
-extern int dword_51B764; // weak
-extern int dword_51B768; // weak
-extern int dword_51B76C; // weak
+
+extern struct sub_4407D9_stru0
+{
+ int       dword_000000;
+ int       dword_000004;
+ Vec3<int> vPosition;     // dword[3] @ 000008
+ int       sRotationY;    // dword    @ 000014
+ int       sRotationX;    // dword    @ 000018
+ int       dword_00001C;
+ int       sCosineY;      // dword    @ 000020
+ int       sSineY;        // dword    @ 000024
+ int       sCosineMinusX; // dword    @ 000028
+ int       sSineMinusX;   // dword    @ 00002C
+ float     fCosineY;      // float    @ 000030
+ float     fSineY;        // float    @ 000034
+ float     fCosineMinusX; // float    @ 000038
+ float     fSineMinusX;   // float    @ 00003C
+ union
+ {
+  struct
+  {
+   short   word_000040;
+   short   word_000042;
+  };
+  int      dword_000040;
+ };
+ int           dword_000044;
+ unsigned int *pRenderTarget; // dword @ 000048
+ unsigned int  uTargetWidth;  // dword @ 00004C
+ unsigned int  uTargetHeight; // dword @ 000050
+ unsigned int  uViewportX;    // dword @ 000054
+ unsigned int  uViewportY;    // dword @ 000058
+ unsigned int  uViewportZ;    // dword @ 00005C
+ unsigned int  uViewportW;    // dword @ 000060
+ int           dword_000064;
+ int          *pZTarget;      // dword @ 000068
+ int           dword_00006C;
+ int           dword_000070;
+ int           dword_000074;
+ int           dword_000078;
+ int           dword_00007C;
+ int           dword_000080;
+ int           dword_000084;
+ int           dword_000088;
+ int           dword_00008C;
+} stru_51B6E0;
+int __thiscall sub_4407D9(sub_4407D9_stru0 *_this, struct sub_441BD4_DrawIndoor_stru0 *a2);
+//int dword_51B6E0; // 000000
+//char byte_51B6E4; // 000004
+//int dword_51B6E8; // 000008
+//int dword_51B6EC; // 00000C
+//int dword_51B6F0; // 000010
+//int dword_51B6F4; // 000014
+//int dword_51B6F8; // 000018
+//int dword_51B6FC; // 00001C
+//int dword_51B700; // 000020
+//int dword_51B704; // 000024
+//int dword_51B708; // 000028
+//int dword_51B70C; // 00002C
+//float flt_51B710; // 000030
+//int dword_51B714; // 000034
+//int dword_51B718; // 000038
+//int dword_51B71C; // 000034
+//UNKNOWN unk_51B720; // 000040
+//__int16 word_51B722; // 000042
+//int dword_51B724; // 000044
+//int dword_51B728; // 000048
+//int dword_51B734; // 000054
+//int dword_51B738; // 000058
+//int dword_51B73C; // 00005C
+//int dword_51B740; // 000060
+//int dword_51B748; // 000068
+//int dword_51B754; // 000074
+//int dword_51B758; // 000078
+//int dword_51B75C; // 00007C
+//int dword_51B760; // 000080
+//int dword_51B764; // 000084
+//int dword_51B768; // 000088
+//int dword_51B76C; // 00008C
 extern int dword_51B770; // weak
 extern int dword_51B774; // weak
 

@@ -5722,10 +5722,10 @@ char __thiscall sub_49C720(void *_this, int a2, int a3)
 
   v3 = a2;
   v8 = 0.0;
-  v5 = (double)dword_51B6E8;
-  v6 = (double)dword_51B6EC;
+  v5 = (double)stru_51B6E0.vPosition.x;
+  v6 = (double)stru_51B6E0.vPosition.y;
   v9 = _this;
-  v7 = (double)dword_51B6F0;
+  v7 = (double)stru_51B6E0.vPosition.z;
   if ( sub_49C7C5(a2, a2 + 48, (int)&v5, a3)
     && sub_49C7C5(a2 + 48, a2 + 96, (int)&v5, a3 + 24)
     && (v10 = a2 + 144, sub_49C7C5(v3 + 96, v3 + 144, (int)&v5, a3 + 48)) )
@@ -6259,18 +6259,18 @@ LABEL_7:
         sub_437AB5(v17, (int)&v28, -1, (int)&v32, 16776960, 0, v18);
       }
     }
-    __asm { fild    dword_51B6F0 }
+    __asm { fild    stru_51B6E0.vPosition.z }
     compile_error();//memcpy(&v28, (const void *)_EBX, 0x30u);
     __asm
     {
      int 3
       //fsubr   [ebp+var_88]
       //fmul    [ebp+var_C]
-      fild    dword_51B6EC
+      fild    stru_51B6E0.vPosition.y
       //fsubr   [ebp+var_8C]
       //fmul    [ebp+var_10]
       faddp   st(1), st
-      fild    dword_51B6E8
+      fild    stru_51B6E0.vPosition.x
       //fsubr   [ebp+var_90]
       //fmul    [ebp+var_14]
       faddp   st(1), st
@@ -12018,25 +12018,25 @@ int __fastcall sub_4AAEA6(int a1)
   float v13; // [sp+Ch] [bp-4h]@2
   float v14; // [sp+Ch] [bp-4h]@6
 
-  v3 = *(float *)&dword_51B718;
-  v2 = *(float *)&dword_51B71C;
-  v9 = flt_51B710;
-  LODWORD(v10) = dword_51B714;
+  v3 = stru_51B6E0.fCosineMinusX;
+  v2 = stru_51B6E0.fSineMinusX;
+  v9 = stru_51B6E0.fCosineY;
+  v10 = stru_51B6E0.fSineY;
   result = 0;
-  if ( dword_51B6F8 )
+  if ( stru_51B6E0.sRotationX )
   {
     v13 = *(float *)a1 - (double)pParty_global->vPosition.x;
     v11 = *(float *)(a1 + 4) - (double)pParty_global->vPosition.y;
     v4 = *(float *)(a1 + 8) - (double)pParty_global->vPosition.z;
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      v6 = v11 * *(float *)&dword_51B714 + v13 * flt_51B710;
-      v5 = v13 * *(float *)&dword_51B714 - v11 * flt_51B710;
+      v6 = v11 * stru_51B6E0.fSineY + v13 * stru_51B6E0.fCosineY;
+      v5 = v13 * stru_51B6E0.fSineY - v11 * stru_51B6E0.fCosineY;
     }
     else
     {
-      v6 = v13 * flt_51B710 - v11 * *(float *)&dword_51B714;
-      v5 = v13 * *(float *)&dword_51B714 + v11 * flt_51B710;
+      v6 = v13 * stru_51B6E0.fCosineY - v11 * stru_51B6E0.fSineY;
+      v5 = v13 * stru_51B6E0.fSineY + v11 * stru_51B6E0.fCosineY;
     }
     *(float *)(a1 + 12) = v6 * v3 - v4 * v2;
     *(float *)(a1 + 16) = v5;
@@ -12049,12 +12049,12 @@ int __fastcall sub_4AAEA6(int a1)
     v7 = *(float *)(a1 + 8) - (double)pParty_global->vPosition.z;
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      *(float *)(a1 + 12) = v12 * *(float *)&dword_51B714 + v14 * flt_51B710;
+      *(float *)(a1 + 12) = v12 * stru_51B6E0.fSineY + v14 * stru_51B6E0.fCosineY;
       v8 = v14 * v10 - v12 * v9;
     }
     else
     {
-      *(float *)(a1 + 12) = v14 * flt_51B710 - v12 * *(float *)&dword_51B714;
+      *(float *)(a1 + 12) = v14 * stru_51B6E0.fCosineY - v12 * stru_51B6E0.fSineY;
       v8 = v14 * v10 + v12 * v9;
     }
     *(float *)(a1 + 16) = v8;
