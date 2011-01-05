@@ -1597,7 +1597,7 @@ unsigned int          uCurrentMenuID;  // dword     @ MM7.exe::006A0D44
  int dword_6A0D48; // weak
 
 OutdoorLocation class51_6A0DA0_dwReserved;
-OutdoorLocation *pOutdoor = &class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
+OutdoorLocation *pOutdoor = nullptr;//&class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
  struct tagOFNA stru_6A0DA0; // idb
 //dwReserved @ 6A0DF0 @ pOutdoor::000000
 

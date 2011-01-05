@@ -41,11 +41,11 @@ void __cdecl UpdateActors()
   v5 = 0;
 
  bool bCelesteLevel = false;
- if (!strcmpi((char *)pOutdoor->pLocationFileName, "d25.blv"))
+ if (uCurrentlyLoadedLevelType == 1 && !strcmpi((char *)pIndoor->pLocationFileName, "d25.blv"))
    bCelesteLevel = true;
 
  bool bPitLevel = false;
- if (!strcmpi((char *)pOutdoor->pLocationFileName, "d26.blv"))
+ if (uCurrentlyLoadedLevelType == 1 && !strcmpi((char *)pIndoor->pLocationFileName, "d26.blv"))
    bPitLevel = true;
 
   if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )

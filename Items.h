@@ -82,19 +82,19 @@ struct LayingItem
  unsigned short uItemType;             // word     @ 000000
  short          uObjectDescriptionID;  // word     @ 000002
  Vec3<int>      vPosition;             // dword[3] @ 000004
- Vec3<short>    vVelocity;             // word[3] @ 000010
- unsigned short uFacing;               // word  @ 000016
- unsigned short uSoundID;              // word  @ 000018
- unsigned short uAttributes;           // word  @ 00001A
- short          sRoom;                 // word  @ 00001C
- unsigned short uSpriteFrameID;        // word @ 00001E
+ Vec3<short>    vVelocity;             // word[3]  @ 000010
+ unsigned short uFacing;               // word     @ 000016
+ unsigned short uSoundID;              // word     @ 000018
+ unsigned short uAttributes;           // word     @ 00001A
+ short          sRoom;                 // word     @ 00001C
+ unsigned short uSpriteFrameID;        // word     @ 00001E
  short          word_000020;
  short          word_000022;
  struct ItemGen stru_000024;
- //int            dword_000024;  // very much like ItemGen
- //char           unk_000028[36];
  int            dword_000048;  // probably local struct of the same type
- char           unk_00004Ñ[12];
+ int            dword_00004C;
+ int            dword_000050;
+ int            dword_000054;
  int            dword_000058;
  int            dword_00005C;
  char           unk_000060;
@@ -102,6 +102,24 @@ struct LayingItem
  char           unk_000062[14];
 };
 //sizeof == 70
+void sub_404828_ctor(LayingItem *_this);
+//void __stdcall sub_4A7A66(int a1, int a2, int a3, float a4);
+void __stdcall sub_4A7A66(LayingItem *a1, int a2, int a3, float a4);
+//char __stdcall sub_4A7A27(int a1, unsigned int a2, int a3);
+char __stdcall sub_4A7A27(LayingItem *a1, unsigned int a2, int a3);
+//void __stdcall sub_4A7948(int a1);
+void __stdcall sub_4A7948(LayingItem *a1);
+//void __stdcall sub_4A78AE(int a1);
+void __stdcall sub_4A78AE(LayingItem *a1);
+//void __stdcall sub_4A75CC(int a1, int a2, int a3);
+void __stdcall sub_4A75CC(LayingItem *a1, int a2, int a3);
+//signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5);
+signed int __fastcall sub_42F5ED(LayingItem *a1, int a2, int a3, int a4, int a5);
+
+
+
+
+
 
 
 

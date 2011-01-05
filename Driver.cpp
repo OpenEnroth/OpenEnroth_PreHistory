@@ -270,10 +270,10 @@ Result::Code SecondaryInitialization()
    v8 = &pObjectDescriptionList->pDescriptions[i];
 
    BYTE3(v7) = 0;
-   *(_WORD *)((char *)&v7 + 1) = v8->byte_000032;
-   LOBYTE(v7) = v8->byte_000033;
+   *(_WORD *)((char *)&v7 + 1) = v8->byte_000032_red;
+   LOBYTE(v7) = v8->byte_000033_green;
 
-   v8->dword_00002C = v8->byte_000034 | (v7 << 8);
+   v8->dword_00002C_bgr = v8->byte_000034_blue | (v7 << 8);
   }
 
   flt_6BE3A0 = 0.55000001;
@@ -645,9 +645,8 @@ LABEL_21:
 
           runtime_warning(tries to save not yet loaded level; need to rethink this mechanism);
 
-          //pGame->PrepareForLoop("d01.blv");
+          pGame->PrepareForLoop();
           //pGame->Loop("d01.blv");
-          pGame->PrepareForLoop("out01.odm");
           pGame->Loop("out01.odm");
 
           goto LABEL_49;

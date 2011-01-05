@@ -72,6 +72,7 @@ struct Game
  int      dword_000E18;
  bool     bGammaControlInitialized; // dword @ 000E1C
  int      uSomeFlags;              // dword @ 000E20   & 0x01 == lighing on?
+                                   // ~0x1000  apply mobile light at party (torchlight)
  int      dword_000E24;            // 0x08: alter gravity strength
                                    // 0x20: bloodsplats
  float    flt_000E28;
@@ -94,7 +95,7 @@ struct Game
  struct CGammaController *pGammaController;  // dword @ 000E70
  int                      dword_000E74;
 
- Result::Code PrepareForLoop(const char *pLevelName);
+ Result::Code PrepareForLoop();
  Result::Code Loop(const char *pLevelName);
 
 

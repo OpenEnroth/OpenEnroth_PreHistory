@@ -11019,7 +11019,7 @@ int __thiscall sub_4A71FE(int _this, float a2, float a3, float a4, float a5, flo
 }
 
 //----- (004A73AA) --------------------------------------------------------
-void __thiscall sub_4A73AA(void *_this, int a2, int a3, int a4)
+void __thiscall sub_4A73AA(void *_this, LayingItem *a2, int a3, int a4)
 {
   int v4; // eax@1
   void *v5; // edi@1
@@ -11043,12 +11043,12 @@ void __thiscall sub_4A73AA(void *_this, int a2, int a3, int a4)
 
   v5 = _this;
   memset(&Dst, 0, 0x68u);
-  v6 = a2;
-  v4 = *(_DWORD *)(a2 + 84);
+  v6 = (int)a2;
+  v4 = *(_DWORD *)(v6 + 84);
   if ( v4 )
   {
     v7 = (int)((char *)v5 + 16 * (v4 & 0x1F));
-    v22 = ((double)*(signed int *)(a2 + 4) - *(float *)(v7 + 4)) * 0.5 + *(float *)(v7 + 4);
+    v22 = ((double)*(signed int *)(v6 + 4) - *(float *)(v7 + 4)) * 0.5 + *(float *)(v7 + 4);
     v8 = ((double)*(signed int *)(v6 + 8) - *(float *)(v7 + 8)) * 0.5 + *(float *)(v7 + 8);
     v9 = ((double)*(signed int *)(v6 + 12) - *(float *)(v7 + 12)) * 0.5 + *(float *)(v7 + 12);
     Dst = 1036;
@@ -11078,15 +11078,15 @@ void __thiscall sub_4A73AA(void *_this, int a2, int a3, int a4)
   else
   {
     compile_error();//*(_DWORD *)(a2 + 84) = *(_DWORD *)v5++;
-    *((float *)v5 + 4 * (*(_DWORD *)(a2 + 84) & 0x1F) + 1) = (double)*(signed int *)(a2 + 4);
-    *((float *)v5 + 4 * (*(_DWORD *)(a2 + 84) & 0x1F) + 2) = (double)*(signed int *)(a2 + 8);
-    *((float *)v5 + 4 * (*(_DWORD *)(a2 + 84) & 0x1F) + 3) = (double)*(signed int *)(a2 + 12);
-    v10 = (double)*(signed int *)(a2 + 4);
+    *((float *)v5 + 4 * (*(_DWORD *)(v6 + 84) & 0x1F) + 1) = (double)*(signed int *)(v6 + 4);
+    *((float *)v5 + 4 * (*(_DWORD *)(v6 + 84) & 0x1F) + 2) = (double)*(signed int *)(v6 + 8);
+    *((float *)v5 + 4 * (*(_DWORD *)(v6 + 84) & 0x1F) + 3) = (double)*(signed int *)(v6 + 12);
+    v10 = (double)*(signed int *)(v6 + 4);
     Dst = 1036;
     v18 = a3;
     v12 = v10 + 4.0;
-    v13 = (double)*(signed int *)(a2 + 8);
-    v14 = (double)*(signed int *)(a2 + 12);
+    v13 = (double)*(signed int *)(v6 + 8);
+    v14 = (double)*(signed int *)(v6 + 12);
     v15 = 0.0;
     v16 = 0.0;
     v17 = 0.0;
@@ -11094,13 +11094,13 @@ void __thiscall sub_4A73AA(void *_this, int a2, int a3, int a4)
     v19 = (rand() & 0x7F) + 128;
     v20 = a4;
     class02_sub_48AB23((int)pGame->class02_obj, (int)&Dst);
-    v12 = (double)*(signed int *)(a2 + 4) - 4.0;
+    v12 = (double)*(signed int *)(v6 + 4) - 4.0;
     class02_sub_48AB23((int)pGame->class02_obj, (int)&Dst);
   }
 }
 
 //----- (004A75CC) --------------------------------------------------------
-void __stdcall sub_4A75CC(int a1, int a2, int a3)
+void __stdcall sub_4A75CC(LayingItem *a1, int a2, int a3)
 {
   signed int v3; // edi@1
   double v4; // st7@1
@@ -11118,9 +11118,9 @@ void __stdcall sub_4A75CC(int a1, int a2, int a3)
 
   memset(&Dst, 0, 0x68u);
   Dst = 1029;
-  v6 = (double)*(signed int *)(a1 + 4);
-  v7 = (double)*(signed int *)(a1 + 8);
-  v4 = (double)*(signed int *)(a1 + 12);
+  v6 = (double)*(signed int *)((int)a1 + 4);
+  v7 = (double)*(signed int *)((int)a1 + 8);
+  v4 = (double)*(signed int *)((int)a1 + 12);
   v12 = a2;
   v8 = v4;
   v3 = 10;
@@ -11139,7 +11139,7 @@ void __stdcall sub_4A75CC(int a1, int a2, int a3)
 }
 
 //----- (004A7688) --------------------------------------------------------
-void __thiscall sub_4A7688(void *_this, int a2)
+void __thiscall sub_4A7688(void *_this, LayingItem *a2)
 {
   int v2; // esi@1
   double v3; // st7@1
@@ -11170,20 +11170,20 @@ void __thiscall sub_4A7688(void *_this, int a2)
 
   v23 = _this;
   memset(&Dst, 0, 0x68u);
-  v2 = a2;
-  v3 = (double)*(_WORD *)(a2 + 30) / (double)*(_WORD *)(56 * *(_WORD *)(a2 + 2) + pObjectDescriptionList->pDescriptions + 42);
+  v2 = (int)a2;
+  v3 = (double)*(_WORD *)(v2 + 30) / (double)*(_WORD *)(56 * *(_WORD *)(v2 + 2) + pObjectDescriptionList->pDescriptions + 42);
   v24 = 512.0 * v3;
   if ( v3 >= 0.75 )
     v4 = (memory_4D8410.d1_0 - v3) * 4.0;
   else
     v4 = v3 * 1.3333333333333333;
   v26 = v4;
-  v5 = (double)*(signed int *)(a2 + 4);
+  v5 = (double)*(signed int *)(v2 + 4);
   Dst = 1029;
   v19 = 16727070;
   v13 = v5;
-  v14 = (double)*(signed int *)(a2 + 8);
-  v15 = (double)*(signed int *)(a2 + 12);
+  v14 = (double)*(signed int *)(v2 + 8);
+  v15 = (double)*(signed int *)(v2 + 12);
   v20 = (rand() & 0x7F) + 128;
   v21 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 2);
   v27 = 10;
@@ -11211,7 +11211,7 @@ void __thiscall sub_4A7688(void *_this, int a2)
 }
 
 //----- (004A77FD) --------------------------------------------------------
-void __thiscall sub_4A77FD(void *_this, int a2)
+void __thiscall sub_4A77FD(void *_this, LayingItem *a2)
 {
   void *v2; // edi@1
   int v3; // esi@1
@@ -11226,9 +11226,9 @@ void __thiscall sub_4A77FD(void *_this, int a2)
   float v12; // [sp+28h] [bp-4h]@1
   float v13; // [sp+34h] [bp+8h]@4
 
-  v3 = a2;
+  v3 = (int)a2;
   v2 = _this;
-  v4 = (double)*(_WORD *)(a2 + 30) / (double)*(_WORD *)(56 * *(_WORD *)(a2 + 2) + pObjectDescriptionList->pDescriptions + 42);
+  v4 = (double)*(_WORD *)((int)a2 + 30) / (double)*(_WORD *)(56 * *(_WORD *)((int)a2 + 2) + pObjectDescriptionList->pDescriptions + 42);
   v12 = 512.0 - v4 * 512.0;
   if ( v4 >= 0.75 )
     v5 = v4 * 4.0;
@@ -11245,7 +11245,7 @@ void __thiscall sub_4A77FD(void *_this, int a2)
 }
 
 //----- (004A78AE) --------------------------------------------------------
-void __stdcall sub_4A78AE(int a1)
+void __stdcall sub_4A78AE(LayingItem *a1)
 {
   int v1; // esi@1
   signed int v2; // eax@1
@@ -11262,16 +11262,16 @@ void __stdcall sub_4A78AE(int a1)
   int v13; // [sp+2Ch] [bp-44h]@1
   int v14; // [sp+30h] [bp-40h]@1
 
-  v1 = (int)&pObjectDescriptionList->pDescriptions[*(_WORD *)(a1 + 2)];
+  v1 = (int)&pObjectDescriptionList->pDescriptions[*(_WORD *)((int)a1 + 2)];
   memset(&Dst, 0, 0x68u);
-  v2 = *(_WORD *)(a1 + 30);
-  v5 = (double)*(signed int *)(a1 + 4);
-  v3 = (double)*(signed int *)(a1 + 8);
+  v2 = *(_WORD *)((int)a1 + 30);
+  v5 = (double)*(signed int *)((int)a1 + 4);
+  v3 = (double)*(signed int *)((int)a1 + 8);
   Dst = 2048;
   v11 = 0x7F7F7F;
   v12 = 1;
   v6 = v3;
-  v7 = (double)*(signed int *)(a1 + 12);
+  v7 = (double)*(signed int *)((int)a1 + 12);
   v8 = 0.0;
   v9 = 0.0;
   v10 = 0.0;
@@ -11281,7 +11281,7 @@ void __stdcall sub_4A78AE(int a1)
 }
 
 //----- (004A7948) --------------------------------------------------------
-void __stdcall sub_4A7948(int a1)
+void __stdcall sub_4A7948(LayingItem *a1)
 {
   signed int v1; // edi@1
   int v2; // esi@1
@@ -11300,15 +11300,15 @@ void __stdcall sub_4A7948(int a1)
   int v15; // [sp+2Ch] [bp-44h]@1
   float v16; // [sp+30h] [bp-40h]@1
 
-  v2 = (int)&pObjectDescriptionList->pDescriptions[*(_WORD *)(a1 + 2)];
+  v2 = (int)&pObjectDescriptionList->pDescriptions[*(_WORD *)((int)a1 + 2)];
   memset(&Dst, 0, 0x68u);
-  v3 = *(_WORD *)(a1 + 30);
-  v7 = (double)*(signed int *)(a1 + 4);
-  v4 = (double)*(signed int *)(a1 + 8);
+  v3 = *(_WORD *)((int)a1 + 30);
+  v7 = (double)*(signed int *)((int)a1 + 4);
+  v4 = (double)*(signed int *)((int)a1 + 8);
   Dst = 2053;
   v13 = 0x7F7F7F;
   v8 = v4;
-  v9 = (double)*(signed int *)(a1 + 12);
+  v9 = (double)*(signed int *)((int)a1 + 12);
   v15 = *(_WORD *)(CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v2 + 40), v3) + 24);
   v5 = rand();
   v1 = 10;
@@ -11326,10 +11326,10 @@ void __stdcall sub_4A7948(int a1)
 }
 
 //----- (004A7A27) --------------------------------------------------------
-char __stdcall sub_4A7A27(int a1, unsigned int a2, int a3)
+char __stdcall sub_4A7A27(LayingItem *a1, unsigned int a2, int a3)
 {
-  return pMobileLightsStack->AddLight_Mobile(&Vec3<float>(*(_DWORD *)(a1 + 4), *(_DWORD *)(a1 + 8), *(_DWORD *)(a1 + 12)),
-           *(_WORD *)(a1 + 28),
+  return pMobileLightsStack->AddLight_Mobile(&Vec3<float>(*(_DWORD *)((int)a1 + 4), *(_DWORD *)((int)a1 + 8), *(_DWORD *)((int)a1 + 12)),
+           *(_WORD *)((int)a1 + 28),
            a3,
            a2 >> 16,
            SBYTE1(a2),
@@ -11338,7 +11338,7 @@ char __stdcall sub_4A7A27(int a1, unsigned int a2, int a3)
 }
 
 //----- (004A7A66) --------------------------------------------------------
-void __stdcall sub_4A7A66(int a1, int a2, int a3, float a4)
+void __stdcall sub_4A7A66(LayingItem *a1, int a2, int a3, float a4)
 {
   int v4; // eax@1
   char v5; // al@1
@@ -11364,9 +11364,9 @@ void __stdcall sub_4A7A66(int a1, int a2, int a3, float a4)
 
   memset(&Dst, 0, 0x68u);
   Dst = 1029;
-  v11 = (double)*(signed int *)(a1 + 4);
-  v4 = *(_DWORD *)(a1 + 12);
-  v12 = (double)*(signed int *)(a1 + 8);
+  v11 = (double)*(signed int *)((int)a1 + 4);
+  v4 = *(_DWORD *)((int)a1 + 12);
+  v12 = (double)*(signed int *)((int)a1 + 8);
   v17 = a2;
   v13 = (double)(v4 + 32);
   v5 = rand();
@@ -11416,7 +11416,7 @@ void __stdcall sub_4A7A66(int a1, int a2, int a3, float a4)
 }
 
 //----- (004A7C07) --------------------------------------------------------
-void __thiscall sub_4A7C07(void *_this, int a2)
+void __thiscall sub_4A7C07(void *_this, LayingItem *a2)
 {
   int v2; // eax@1
   int v3; // ebx@1
@@ -11444,15 +11444,15 @@ void __thiscall sub_4A7C07(void *_this, int a2)
 
   v4 = _this;
   memset(&Dst, 0, 0x68u);
-  v5 = a2;
-  v2 = *(_DWORD *)(a2 + 84);
-  v3 = (int)&pObjectDescriptionList->pDescriptions[*(_WORD *)(a2 + 2)];
+  v5 = (int)a2;
+  v2 = *(_DWORD *)(v5 + 84);
+  v3 = (int)&pObjectDescriptionList->pDescriptions[*(_WORD *)(v5 + 2)];
   if ( v2 )
   {
     v6 = (int)((char *)v4 + 16 * (v2 & 0x1F));
-    v7 = ((double)*(signed int *)(a2 + 4) - *(float *)(v6 + 4)) * 0.5 + *(float *)(v6 + 4);
-    v8 = ((double)*(signed int *)(a2 + 8) - *(float *)(v6 + 8)) * 0.5 + *(float *)(v6 + 8);
-    v9 = ((double)*(signed int *)(a2 + 12) - *(float *)(v6 + 12)) * 0.5 + *(float *)(v6 + 12);
+    v7 = ((double)*(signed int *)(v5 + 4) - *(float *)(v6 + 4)) * 0.5 + *(float *)(v6 + 4);
+    v8 = ((double)*(signed int *)(v5 + 8) - *(float *)(v6 + 8)) * 0.5 + *(float *)(v6 + 8);
+    v9 = ((double)*(signed int *)(v5 + 12) - *(float *)(v6 + 12)) * 0.5 + *(float *)(v6 + 12);
     Dst = 2048;
     v20 = 16777215;
     *(float *)&v24 = v9;
@@ -11664,7 +11664,7 @@ int __stdcall sub_4A806F(int a1)
 }
 
 //----- (004A80DC) --------------------------------------------------------
-void __thiscall sub_4A80DC(void *_this, int a2)
+void __thiscall sub_4A80DC(void *_this, LayingItem *a2)
 {
   signed int v2; // ebx@1
   void *v3; // esi@1
@@ -11691,12 +11691,12 @@ void __thiscall sub_4A80DC(void *_this, int a2)
   do
   {
     v5 = sub_4BE5B1((int)&unk_F8BAD8) * 40.0
-       + (double)*(signed int *)(a2 + 4)
+       + (double)*(signed int *)((int)a2 + 4)
        - 20.0;
     v6 = sub_4BE5B1((int)&unk_F8BAD8) * 40.0
-       + (double)*(signed int *)(a2 + 8)
+       + (double)*(signed int *)((int)a2 + 8)
        - 20.0;
-    v7 = (double)*(signed int *)(a2 + 12);
+    v7 = (double)*(signed int *)((int)a2 + 12);
     v8 = sub_4BE5B1((int)&unk_F8BAD8) * 800.0 - 400.0;
     v9 = sub_4BE5B1((int)&unk_F8BAD8) * 800.0 - 400.0;
     v10 = sub_4BE5B1((int)&unk_F8BAD8) * 350.0 + 50.0;

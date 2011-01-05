@@ -983,7 +983,18 @@ loc_43F2A9:                             // DATA XREF: .text:0043F266o
  }
 }
 
-__declspec(naked) void __fastcall class37_loc_43F2BF(char *_this)
+
+//----- (0043F2BF) ------------- uncharted -------------------------------------------
+void __fastcall class37_stru0_ctor(class37_stru0 *_this)
+{
+ _eh_vector_constructor_iterator_((int)_this->std__vector_0007AC, sizeof(class26_placeholder), 4,
+                                  (void (__fastcall *)(void *))class26_placeholder_ctor, (void (__fastcall *)(void *))sub_498069);
+
+ for (unsigned int i = 0; i < 4; ++i)
+   _this->array_00080C[i].flt_00002C = 0;
+}
+
+/*__declspec(naked) void __fastcall class37_loc_43F2BF(char *_this)
 {
  __asm
  {
@@ -1011,11 +1022,13 @@ loc_43F2E5:                             // CODE XREF: sub_43F282+6Bj
          pop     esi
          retn
  }
-}
+}*/
 //----- (0043F282) --------------------------------------------------------
 void *class37_ctor(struct class37 *_this)
 {
- _eh_vector_constructor_iterator_((int)_this->vector_000FA8, 2252, 150, (void (__fastcall *)(void *))class37_loc_43F2BF, (void (__fastcall *)(void *))class37_loc_43F2A9);
+ _this->std__vector_000FA8_size = 0;
+ _eh_vector_constructor_iterator_((int)_this->std__vector_000FA8, sizeof(class37_stru0), 150,
+                                  (void (__fastcall *)(void *))class37_stru0_ctor, (void (__fastcall *)(void *))class37_loc_43F2A9);
  return 0;
 }
 
@@ -6415,7 +6428,7 @@ bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, c
 }
 
 //----- (004A81CA) --------------------------------------------------------
-bool class06_sub_4A81CA(struct class06 *_this, int a2)
+bool class06_sub_4A81CA(struct class06 *_this, struct LayingItem *a2)
 {
   signed int v2; // eax@1
   int v3; // ebx@1
@@ -6482,7 +6495,7 @@ bool class06_sub_4A81CA(struct class06 *_this, int a2)
   char v65; // [sp+16h] [bp-2h]@81
 
   v3 = (int)_this;
-  v2 = *(_WORD *)a2;
+  v2 = a2->uItemType;
   if ( v2 <= 545 )
   {
     if ( v2 != 545 )
@@ -6699,7 +6712,7 @@ LABEL_154:
         return 1;
       v62 = -1;
       v55 = 100;
-      v49 = a2;
+      v49 = (int)a2;
       goto LABEL_157;
     }
     if ( v2 > 9050 )
@@ -6771,7 +6784,7 @@ LABEL_32:
         HIBYTE(v64) = sub_4BE623((int)&unk_F8BAD8) + 48;
         v62 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)&Str1, 2);
         v55 = 100;
-        v49 = a2;
+        v49 = (int)a2;
 LABEL_157:
         sub_4A7E05((void *)v3, v49, v55, v62);
         return 0;

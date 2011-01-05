@@ -465,12 +465,12 @@ struct ObjectDescription
  char           byte_000027;
  unsigned short uSpriteID; // word @ 000028
  short          word_00002A;
- int            dword_00002C;
+ int            dword_00002C_bgr; // bytes 32-34 combined
  char           byte_000030;
  char           byte_000031;
- char           byte_000032;
- char           byte_000033;
- char           byte_000034;
+ char           byte_000032_red;   // mobile light source color
+ char           byte_000033_green;
+ char           byte_000034_blue;
  char           byte_000035;
  char           byte_000036;
  char           byte_000037;

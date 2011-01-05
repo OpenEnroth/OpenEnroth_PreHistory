@@ -437,8 +437,8 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
  if (!pStruct9_global->bDoNotRenderDecorations)
    sub_47A95E_PrepareDecorationsRenderList();
 
- sub_47AF11_PrepareItemsRenderList();
- sub_47BACF_PrepareActorRenderList();
+ sub_47AF11_PrepareItemsRenderList_ODM();
+ sub_47BACF_PrepareActorRenderList_ODM();
  sub_485F53((int *)&data_6BE060);
 }
 
@@ -4911,7 +4911,7 @@ LABEL_255:
     if ( v116 && (!v104_looks_like_bPartyInAir || v93) )
     {
       if ( v99
-        || *(_BYTE *)(*(_DWORD *)(188 * (pParty_global->dword_0006F4 >> 9) + pOutdoor->pBModels + 84)
+        || *(_BYTE *)(*(_DWORD *)(188 * (pParty_global->dword_0006F4 >> 9) + (int)pOutdoor->pBModels + 84)
                     + 308 * ((pParty_global->dword_0006F4 >> 3) & 0x3F)
                     + 29) & 0x20 )
       {
@@ -5353,7 +5353,7 @@ bool Player_sub_492C0B_MaybeIfPlayerConscious(struct Player *_this)
 }
 
 //----- (0047BACF) --------------------------------------------------------
-void __cdecl sub_47BACF_PrepareActorRenderList()
+void __cdecl sub_47BACF_PrepareActorRenderList_ODM()
 {
   _UNKNOWN *v1; // esi@2
   int v3; // edx@3
@@ -5681,7 +5681,7 @@ int __cdecl sub_493938()
     }
     if (pParty_global->pPartyBuffs[10].dword_000004 >= 0 && (pParty_global->pPartyBuffs[10].dword_000004 > 0 || pParty_global->pPartyBuffs[10].dword_000000) )
     {
-      sub_404828_ctor((sub_404828_stru0 *)&v43);
+      sub_404828_ctor((LayingItem *)&v43);
       v11 = 0;
       v61 = 0;
       v60 = 0;
@@ -5732,7 +5732,7 @@ LABEL_19:
           LOBYTE(v19) = 8 * v16 | 3;
           v46 = v18;
           v57 = v19;
-          v20 = sub_42F5ED((int)&v43, 0, 0, 0, 0);
+          v20 = sub_42F5ED((LayingItem *)&v43, 0, 0, 0, 0);
           DamageMonsterFromParty(8 * v20 | 2, *v15, (int)&v59);
           ++v11;
         }
@@ -6775,7 +6775,9 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
   char *Source; // [sp+DD4h] [bp-B0h]@325
   float v685; // [sp+DD8h] [bp-ACh]@163
 
-  struct
+
+  LayingItem local_DDC;
+  /*struct
   {
    //int v686; // [sp+DDCh] [bp-A8h]@1
    short word_DDC;		
@@ -6800,7 +6802,7 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
   int v699; // [sp+E38h] [bp-4Ch]@74
   char v700; // [sp+E3Ch] [bp-48h]@74
   char dummy_E3D[3]; //?
-  } v686;
+  } v686;*/
 
 
   int v701; // [sp+E4Ch] [bp-38h]@1
@@ -6819,7 +6821,7 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
   int v714; // [sp+E80h] [bp-4h]@1
 
   v672 = _this;
-  sub_404828_ctor((sub_404828_stru0 *)&v686);
+  sub_404828_ctor(&local_DDC);
   v1 = 0i64;
   v714 = 0;
   v711 = 0;
@@ -6867,8 +6869,8 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
 LABEL_18:
       n = v3;
     }
-    v686.word_DDC = word_4E3ACC[2 * *(_WORD *)v2];
-    if ( v686.word_DDC != WORD2(v1) )
+    local_DDC.uItemType = word_4E3ACC[2 * *(_WORD *)v2];
+    if ( local_DDC.uItemType != WORD2(v1) )
     {
       if ( (n & 7) == 3 )
       {
@@ -7036,41 +7038,40 @@ LABEL_69:
         if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v707 + 274)) >= 3 )
           LODWORD(v702) = 2;
         v683 = Player_sub_GetAttackRecoveryTime((Player *)HIDWORD(v1), 1);
-        ItemGen_Reset(&v686.v694);
+        ItemGen_Reset(&local_DDC.stru_000024);
         v16 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v695 = v16;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000048 = v16;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
         if ( Player_sub_48D709((Player *)HIDWORD(v1), 510, 2) )
-          v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, 3030);
-        v686.v687 = pParty_global->vPosition.x;
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v691 = 0;
-        v686.v693 = 0;
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+          local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, 3030);
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.uAttributes = 0;
+        local_DDC.uSpriteFrameID = 0;
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
         v17 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v17) = v17 | 4;
-        v686.v698 = v17;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = v678;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v17;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = v678;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         v18 = (int *)&pParty_global->pPlayers[1743 * *(_WORD *)(v2 + 2)];
-        memcpy(&v686.v694, &v18[9 * v18[1620] + 124], sizeof(ItemGen));
-        v686.v691 = 256;
+        memcpy(&local_DDC.stru_000024, &v18[9 * v18[1620] + 124], sizeof(ItemGen));
+        local_DDC.uAttributes = 256;
         if (pParty_global->bTurnBasedModeOn)
-          v686.v691 = 260;
+          local_DDC.uAttributes = 260;
         for ( i = 0; i < LODWORD(v702); ++i )
         {
           if ( i )
-            v686.v688 += 137438953472i64;
-          v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, v686.v687, v686.v688, SHIDWORD(v686.v688));
-          if ( sub_42F5ED(
-                 (int)&v686,
+            local_DDC.vPosition.z += 0x20;
+          local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, local_DDC.vPosition.z);
+          if ( sub_42F5ED(&local_DDC,
                  v678,
                  v679,
-                 *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
+                 *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48),
                  *(_WORD *)(v2 + 2) + 1) != -1 )
           {
             if (pParty_global->bTurnBasedModeOn)
@@ -7080,36 +7081,35 @@ LABEL_69:
         goto LABEL_83;
       case 102:
         v683 = Player_sub_GetAttackRecoveryTime((Player *)v707, 0);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v701;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->vPosition.x;
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v691 = 0;
-        v686.v693 = 0;
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v701;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.uAttributes = 0;
+        local_DDC.uSpriteFrameID = 0;
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
         v20 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v20) = v20 | 4;
-        v686.v698 = v20;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = v678;
-        v686.v690 = *(_WORD *)(v2 + 16);
-        memcpy(&v686.v694, (void *)(
+        local_DDC.dword_000058 = v20;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = v678;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
+        memcpy(&local_DDC.stru_000024, (void *)(
           ((char *)(&pParty_global->pPlayers[0]))[1743 * *(_WORD *)(v2 + 2) + 124] + 9 * ((char *)(&pParty_global->pPlayers))[1743 * *(_WORD *)(v2 + 2) + 1619]),
           sizeof(ItemGen));
-        v21 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, SHIDWORD(v686.v688));
-        HIBYTE(v686.v691) |= 1u;
-        v686.v692 = v21;
+        v21 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, local_DDC.vPosition.z);
+        HIBYTE(local_DDC.uAttributes) |= 1u;
+        local_DDC.sRoom = v21;
         if (pParty_global->bTurnBasedModeOn)
-          LOBYTE(v686.v691) = v686.v691 | 4;
-        if ( sub_42F5ED(
-               (int)&v686,
+          LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
+        if ( sub_42F5ED(&local_DDC,
                v678,
                v679,
-               *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
+               *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48),
                *(_WORD *)(v2 + 2) + 1) != -1 )
         {
           if (pParty_global->bTurnBasedModeOn)
@@ -7138,7 +7138,7 @@ LABEL_69:
         v612 = v714;
         v610 = v709;
         v24 = (signed __int64)((double)v711 * 4.266666889190674);
-        v25 = (char *)&pParty_global->pPartyBuffs[16];
+        v25 = (char *)&pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT];
         goto LABEL_101;
       case 7:
         v27 = v11 - 2;
@@ -7187,28 +7187,28 @@ LABEL_69:
           goto LABEL_200;
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v687 = pParty_global->vPosition.x;
-        v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v33 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v33) = v33 | 4;
-        v686.v698 = v33;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = v678;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v33;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = v678;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         if (pParty_global->bTurnBasedModeOn)
-          LOBYTE(v686.v691) = v686.v691 | 4;
+          LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
         v627 = *(_WORD *)(v2 + 2) + 1;
-        v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
+        v618 = *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48);
         v34 = pParty_global->sRotationX + 10;
         goto LABEL_124;
       case 20:
@@ -7221,31 +7221,31 @@ LABEL_69:
         v658 = HIDWORD(v1);
         v657 = HIDWORD(v1);
         v656 = HIDWORD(v1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v39 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
+        local_DDC.unk_000060 = 0;
         v39 *= 8;
         LOBYTE(v39) = v39 | 4;
-        v686.v689 = WORD2(v1);
-        v686.v698 = v39;
+        local_DDC.uFacing = WORD2(v1);
+        local_DDC.dword_000058 = v39;
         LODWORD(v1) = n >> 3;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         v40 = 836 * (n >> 3);
-        v686.v687 = pActors[n >> 3].vPosition.x;
+        local_DDC.vPosition.x = pActors[n >> 3].vPosition.x;
         v41 = pActors[n >> 3].vPosition.y;
-        HIDWORD(v686.v688) = pActors[n >> 3].vPosition.z;
+        local_DDC.vPosition.z = pActors[n >> 3].vPosition.z;
         v42 = 8 * (n >> 3);
-        LODWORD(v686.v688) = v41;
+        local_DDC.vPosition.y = v41;
         LOBYTE(v42) = v42 | 3;
-        v686.v699 = v42;
-        v36 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+        local_DDC.dword_00005C = v42;
+        v36 = sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
         v37 = &v656;
         goto LABEL_133;
       case 44:
@@ -7265,30 +7265,30 @@ LABEL_69:
         v667 = HIDWORD(v1);
         v666 = HIDWORD(v1);
         v665 = HIDWORD(v1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v43 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
-        v686.v689 = WORD2(v1);
+        local_DDC.unk_000060 = 0;
+        local_DDC.uFacing = WORD2(v1);
         v43 *= 8;
         LOBYTE(v43) = v43 | 4;
         LODWORD(v1) = LODWORD(v704);
-        v686.v698 = v43;
-        v686.v690 = *(_WORD *)(v2 + 16);
-        v686.v687 = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.x;
+        local_DDC.dword_000058 = v43;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
+        local_DDC.vPosition.x = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.x;
         v44 = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.y;
-        HIDWORD(v686.v688) = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.z;
+        local_DDC.vPosition.z = pActors[LODWORD(v712) / sizeof(struct Actor)].vPosition.z;
         v45 = 8 * LODWORD(v704);
-        LODWORD(v686.v688) = v44;
+        local_DDC.vPosition.y = v44;
         LOBYTE(v45) = 8 * LOBYTE(v704) | 3;
-        v686.v699 = v45;
-        v36 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+        local_DDC.dword_00005C = v45;
+        v36 = sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
         v37 = &v665;
 LABEL_133:
         v628 = (int)v37;
@@ -7302,28 +7302,28 @@ LABEL_133:
         LODWORD(v712) = (int)&pActors[(n >> 3)];
         v651 = HIDWORD(v1);
         v650 = HIDWORD(v1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = *(_WORD *)(LODWORD(v712) + 142);
-        LODWORD(v686.v688) = *(_WORD *)(LODWORD(v712) + 144);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.x = *(_WORD *)(LODWORD(v712) + 142);
+        local_DDC.vPosition.y = *(_WORD *)(LODWORD(v712) + 144);
         v47 = *(_WORD *)(LODWORD(v712) + 138);
-        HIDWORD(v686.v688) = *(_WORD *)(LODWORD(v712) + 138);
-        v686.v691 = WORD2(v1);
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, v686.v687, v686.v688, v47);
-        v686.v693 = WORD2(v1);
+        local_DDC.vPosition.z = *(_WORD *)(LODWORD(v712) + 138);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, v47);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v48 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v48) = v48 | 4;
-        v686.v698 = v48;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = v678;
+        local_DDC.dword_000058 = v48;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = v678;
         LOWORD(v48) = *(_WORD *)(v2 + 16);
-        LOBYTE(v686.v691) = v686.v691 | 0x80;
-        v686.v690 = v48;
-        LODWORD(v704) = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+        LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 0x80;
+        local_DDC.uSoundID = v48;
+        LODWORD(v704) = sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
         if ( !sub_438BDF(*(_WORD *)(LODWORD(v712) + 96), 1) )
           goto LABEL_200;
         v46 = v708;
@@ -7347,28 +7347,28 @@ LABEL_139:
       case 97:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v687 = pParty_global->vPosition.x;
-        v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v49 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v49) = v49 | 4;
-        v686.v698 = v49;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = v678;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v49;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = v678;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         if (pParty_global->bTurnBasedModeOn)
-          LOBYTE(v686.v691) = v686.v691 | 4;
+          LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
         if ( *(_WORD *)v2 == 18 )
-          LOBYTE(v686.v691) = v686.v691 | 0x40;
+          LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 0x40;
         goto LABEL_156;
       case 29:
       case 39:
@@ -7376,13 +7376,13 @@ LABEL_139:
       case 90:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
         v50 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
         v629 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
         v619 = pParty_global->vPosition.y;
         goto LABEL_153;
@@ -7490,34 +7490,34 @@ LABEL_174:
           SWORD2(v1),
           SHIDWORD(v1),
           SBYTE4(v1));
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
         v57 = v708;
         goto LABEL_1086;
       case 92:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        ItemGen_Reset(&v686.v694);
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->vPosition.x;
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v58 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v58) = v58 | 4;
-        v686.v698 = v58;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = v678;
-        v686.v690 = *(_WORD *)(v2 + 16);
-        v686.v697 = v709;
-        v686.v695 = 3;
-        v686.v696 = 300 * v1;
+        local_DDC.dword_000058 = v58;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = v678;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000050 = v709;
+        local_DDC.dword_000048 = 3;
+        local_DDC.dword_00004C = 300 * v1;
         goto LABEL_154;
       case 4:
         v59 = v11 - 1;
@@ -7909,30 +7909,30 @@ LABEL_269:
                 v664 = 0;
                 v663 = 0;
                 v662 = 0;
-                ItemGen_Reset(&v686.v694);
+                ItemGen_Reset(&local_DDC.stru_000024);
                 v115 = LODWORD(v712);
-                compile_error();//v686.v695 = *LODWORD(v712);
-                v686.v696 = v701;
-                v686.v697 = v709;
-                v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-                v686.v691 = 0;
-                v686.v692 = 0;
-                v686.v693 = 0;
+                compile_error();//local_DDC.dword_000048 = *LODWORD(v712);
+                local_DDC.dword_00004C = v701;
+                local_DDC.dword_000050 = v709;
+                local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+                local_DDC.uAttributes = 0;
+                local_DDC.sRoom = 0;
+                local_DDC.uSpriteFrameID = 0;
                 v116 = 8 * *(_WORD *)(v115 + 2);
                 LOBYTE(v116) = v116 | 4;
-                v686.v700 = 0;
-                v686.v698 = v116;
-                v686.v689 = 0;
-                v686.v690 = *(_WORD *)(v115 + 16);
-                v686.v687 = *((_WORD *)v111 + 71);
-                LODWORD(v686.v688) = *((_WORD *)v111 + 72);
+                local_DDC.unk_000060 = 0;
+                local_DDC.dword_000058 = v116;
+                local_DDC.uFacing = 0;
+                local_DDC.uSoundID = *(_WORD *)(v115 + 16);
+                local_DDC.vPosition.x = *((_WORD *)v111 + 71);
+                local_DDC.vPosition.y = *((_WORD *)v111 + 72);
                 LODWORD(v704) = *((_WORD *)v111 + 69);
                 v117 = 8 * n;
-                HIDWORD(v686.v688) = *((_WORD *)v111 + 73)
+                local_DDC.vPosition.z = *((_WORD *)v111 + 73)
                               - (unsigned int)(signed __int64)((double)SLODWORD(v704) * -0.80000000000000004);
                 LOBYTE(v117) = 8 * n | 3;
-                v686.v699 = v117;
-                v118 = sub_42F5ED((int)&v686, 0, 0, 0, 0);
+                local_DDC.dword_00005C = v117;
+                v118 = sub_42F5ED(&local_DDC, 0, 0, 0, 0);
                 DamageMonsterFromParty(8 * v118 | 2, v708, (int)&v662);
                 LODWORD(v705) = 1;
               }
@@ -8113,29 +8113,28 @@ LABEL_304:
               v645 = class59_Atan2(pClass59_global, (signed __int64)v682, (signed __int64)v685);
               v646 = class59_Atan2(pClass59_global, X, (signed __int64)v712);
             }
-            ItemGen_Reset(&v686.v694);
-            v686.v695 = *(_WORD *)v2;
-            v686.v696 = v1;
-            v686.v697 = v709;
-            v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-            v686.v691 = WORD2(v1);
-            v686.v687 = LODWORD(v706);
-            LODWORD(v686.v688) = LODWORD(v705);
-            v686.v692 = WORD2(v1);
-            HIDWORD(v686.v688) = n + v674;
-            v686.v693 = WORD2(v1);
-            v686.v698 = 8 * *(_WORD *)(v2 + 2) | 4;
-            v686.v699 = v708;
-            v686.v700 = sub_427546(n + 2500);
-            v686.v689 = v645;
-            v686.v690 = *(_WORD *)(v2 + 16);
+            ItemGen_Reset(&local_DDC.stru_000024);
+            local_DDC.dword_000048 = *(_WORD *)v2;
+            local_DDC.dword_00004C = v1;
+            local_DDC.dword_000050 = v709;
+            local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+            local_DDC.uAttributes = WORD2(v1);
+            local_DDC.vPosition.x = LODWORD(v706);
+            local_DDC.vPosition.y = LODWORD(v705);
+            local_DDC.sRoom = WORD2(v1);
+            local_DDC.vPosition.z = n + v674;
+            local_DDC.uSpriteFrameID = WORD2(v1);
+            local_DDC.dword_000058 = 8 * *(_WORD *)(v2 + 2) | 4;
+            local_DDC.dword_00005C = v708;
+            local_DDC.unk_000060 = sub_427546(n + 2500);
+            local_DDC.uFacing = v645;
+            local_DDC.uSoundID = *(_WORD *)(v2 + 16);
             if (pParty_global->bTurnBasedModeOn)
-              v686.v691 = 4;
-            if ( sub_42F5ED(
-                   (int)&v686,
+              local_DDC.uAttributes = 4;
+            if ( sub_42F5ED(&local_DDC,
                    v645,
                    v646,
-                   *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
+                   *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48),
                    SHIDWORD(v1)) != -1 )
             {
               if (pParty_global->bTurnBasedModeOn)
@@ -8162,40 +8161,40 @@ LABEL_304:
         v661 = HIDWORD(v1);
         v660 = HIDWORD(v1);
         v659 = HIDWORD(v1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v158 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
-        v686.v689 = WORD2(v1);
+        local_DDC.unk_000060 = 0;
+        local_DDC.uFacing = WORD2(v1);
         v158 *= 8;
         LOBYTE(v158) = v158 | 4;
-        v686.v698 = v158;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v158;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v704) > HIDWORD(v1) )
         {
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
+            local_DDC.vPosition.x = pActors[dword_50BF30[n]].vPosition.x;
+            local_DDC.vPosition.y = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
+            local_DDC.vPosition.z = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v159 = 8 * dword_50BF30[n];
             LOBYTE(v159) = v159 | 3;
-            v686.v699 = v159;
-            v160 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+            local_DDC.dword_00005C = v159;
+            v160 = sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v161 = n;
             DamageMonsterFromParty(8 * v160 | 2, dword_50BF30[n], (int)&v659);
             v162 = Game_sub_42EB6A((int)pGame);
-            class06_sub_4A81CA((class06 *)v162, (int)&v686);
+            class06_sub_4A81CA((class06 *)v162, &local_DDC);
             v163 = Game_sub_42EB6A((int)pGame);
             sub_4A8BDF(v163, 16727070, 64);
             n = v161 + 1;
@@ -8303,35 +8302,34 @@ LABEL_353:
           goto LABEL_83;
         LODWORD(v704) = 60 * pClass59_global->uIntegerDoublePi / 360;
         v710 = 60 * pClass59_global->uIntegerDoublePi / 360 / (v714 - 1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v687 = pParty_global->vPosition.x;
-        v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v181 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v181) = v181 | 4;
-        v686.v698 = v181;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v181;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         if (pParty_global->bTurnBasedModeOn)
-          LOBYTE(v686.v691) = v686.v691 | 4;
+          LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
         v183 = LODWORD(v704) / -2;
         v182 = LODWORD(v704) / 2;
         while ( v183 <= v182 )
         {
-          v686.v689 = v183 + v678;
-          if ( sub_42F5ED(
-                 (int)&v686,
+          local_DDC.uFacing = v183 + v678;
+          if ( sub_42F5ED(&local_DDC,
                  (signed __int16)(v183 + (_WORD)v678),
                  v679,
-                 *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
+                 *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48),
                  *(_WORD *)(v2 + 2) + 1) != -1 )
           {
             if (pParty_global->bTurnBasedModeOn)
@@ -8532,29 +8530,28 @@ LABEL_104:
             v642 = class59_Atan2(pClass59_global, (signed __int64)v705, (signed __int64)v706);
             v643 = class59_Atan2(pClass59_global, v641, (signed __int64)v712);
           }
-          ItemGen_Reset(&v686.v694);
-          v686.v695 = *(_WORD *)v2;
-          v686.v696 = v1;
-          v686.v697 = v709;
-          v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-          v686.v691 = WORD2(v1);
-          v686.v687 = LODWORD(v682);
-          LODWORD(v686.v688) = v674;
-          v686.v692 = WORD2(v1);
-          HIDWORD(v686.v688) = LODWORD(v702) + v703;
-          v686.v693 = WORD2(v1);
-          v686.v698 = 8 * *(_WORD *)(v2 + 2) | 4;
-          v686.v699 = v708;
-          v686.v700 = sub_427546(LODWORD(v702) + 2500);
-          v686.v689 = v642;
-          v686.v690 = *(_WORD *)(v2 + 16);
+          ItemGen_Reset(&local_DDC.stru_000024);
+          local_DDC.dword_000048 = *(_WORD *)v2;
+          local_DDC.dword_00004C = v1;
+          local_DDC.dword_000050 = v709;
+          local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+          local_DDC.uAttributes = WORD2(v1);
+          local_DDC.vPosition.x = LODWORD(v682);
+          local_DDC.vPosition.y = v674;
+          local_DDC.sRoom = WORD2(v1);
+          local_DDC.vPosition.z = LODWORD(v702) + v703;
+          local_DDC.uSpriteFrameID = WORD2(v1);
+          local_DDC.dword_000058 = 8 * *(_WORD *)(v2 + 2) | 4;
+          local_DDC.dword_00005C = v708;
+          local_DDC.unk_000060 = sub_427546(LODWORD(v702) + 2500);
+          local_DDC.uFacing = v642;
+          local_DDC.uSoundID = *(_WORD *)(v2 + 16);
           if (pParty_global->bTurnBasedModeOn)
-            v686.v691 = 4;
-          if ( sub_42F5ED(
-                 (int)&v686,
+            local_DDC.uAttributes = 4;
+          if ( sub_42F5ED(&local_DDC,
                  v642,
                  v643,
-                 *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
+                 *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48),
                  SHIDWORD(v1)) != -1 )
           {
             if (pParty_global->bTurnBasedModeOn)
@@ -8624,39 +8621,39 @@ LABEL_433:
         if ( v714 == 1 )
         {
 LABEL_152:
-          ItemGen_Reset(&v686.v694);
-          v686.v695 = *(_WORD *)v2;
-          v686.v697 = v709;
-          v686.v696 = v1;
-          v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-          LODWORD(v686.v688) = pParty_global->vPosition.y;
+          ItemGen_Reset(&local_DDC.stru_000024);
+          local_DDC.dword_000048 = *(_WORD *)v2;
+          local_DDC.dword_000050 = v709;
+          local_DDC.dword_00004C = v1;
+          local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+          local_DDC.vPosition.y = pParty_global->vPosition.y;
           v50 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
           v629 = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
           v619 = pParty_global->vPosition.y;
 LABEL_153:
-          v686.v691 = WORD2(v1);
-          v686.v687 = pParty_global->vPosition.x;
-          HIDWORD(v686.v688) = v50;
+          local_DDC.uAttributes = WORD2(v1);
+          local_DDC.vPosition.x = pParty_global->vPosition.x;
+          local_DDC.vPosition.z = v50;
           v51 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, v619, v629);
-          v686.v693 = WORD2(v1);
-          v686.v692 = v51;
+          local_DDC.uSpriteFrameID = WORD2(v1);
+          local_DDC.sRoom = v51;
           v52 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v52) = v52 | 4;
-          v686.v698 = v52;
-          v686.v699 = n;
-          v686.v700 = v677;
-          v686.v689 = v678;
-          v686.v690 = *(_WORD *)(v2 + 16);
+          local_DDC.dword_000058 = v52;
+          local_DDC.dword_00005C = n;
+          local_DDC.unk_000060 = v677;
+          local_DDC.uFacing = v678;
+          local_DDC.uSoundID = *(_WORD *)(v2 + 16);
 LABEL_154:
           if (pParty_global->bTurnBasedModeOn)
-            LOBYTE(v686.v691) = v686.v691 | 4;
+            LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
 LABEL_156:
           v627 = *(_WORD *)(v2 + 2) + 1;
           v35 = v678;
-          v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
+          v618 = *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48);
           v613 = v679;
 LABEL_157:
-          if ( sub_42F5ED((int)&v686, v35, v613, v618, v627) != -1 )
+          if ( sub_42F5ED(&local_DDC, v35, v613, v618, v627) != -1 )
           {
             if (pParty_global->bTurnBasedModeOn)
               ++dword_4F8874;
@@ -8665,25 +8662,25 @@ LABEL_157:
         else
         {
           v710 = LODWORD(v712) / (v714 - 1);
-          ItemGen_Reset(&v686.v694);
-          v686.v695 = *(_WORD *)v2;
-          v686.v696 = v1;
-          v686.v697 = v709;
-          v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-          LODWORD(v686.v688) = pParty_global->vPosition.y;
-          v686.v687 = pParty_global->vPosition.x;
-          v686.v691 = WORD2(v1);
-          HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-          v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
-          v686.v693 = WORD2(v1);
+          ItemGen_Reset(&local_DDC.stru_000024);
+          local_DDC.dword_000048 = *(_WORD *)v2;
+          local_DDC.dword_00004C = v1;
+          local_DDC.dword_000050 = v709;
+          local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+          local_DDC.vPosition.y = pParty_global->vPosition.y;
+          local_DDC.vPosition.x = pParty_global->vPosition.x;
+          local_DDC.uAttributes = WORD2(v1);
+          local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+          local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+          local_DDC.uSpriteFrameID = WORD2(v1);
           v218 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v218) = v218 | 4;
-          v686.v698 = v218;
-          v686.v699 = n;
-          v686.v700 = v677;
-          v686.v690 = *(_WORD *)(v2 + 16);
+          local_DDC.dword_000058 = v218;
+          local_DDC.dword_00005C = n;
+          local_DDC.unk_000060 = v677;
+          local_DDC.uSoundID = *(_WORD *)(v2 + 16);
           if (pParty_global->bTurnBasedModeOn)
-            LOBYTE(v686.v691) = v686.v691 | 4;
+            LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
           v219 = LODWORD(v712) / -2;
           Source = (char *)(LODWORD(v712) / 2);
           if ( LODWORD(v712) / -2 <= LODWORD(v712) / 2 )
@@ -8691,12 +8688,11 @@ LABEL_157:
             v220 = v678;
             do
             {
-              v686.v689 = v219 + v220;
-              if ( sub_42F5ED(
-                     (int)&v686,
+              local_DDC.uFacing = v219 + v220;
+              if ( sub_42F5ED(&local_DDC,
                      v219 + v220,
                      v679,
-                     *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
+                     *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48),
                      *(_WORD *)(v2 + 2) + 1) != -1 )
               {
                 if (pParty_global->bTurnBasedModeOn)
@@ -9253,28 +9249,28 @@ LABEL_634:
       case 41:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v687 = pParty_global->vPosition.x;
-        v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v309 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v309) = v309 | 4;
-        v686.v698 = v309;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = pParty_global->sRotationY;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v309;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = pParty_global->sRotationY;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         if (pParty_global->bTurnBasedModeOn)
-          LOBYTE(v686.v691) = v686.v691 | 4;
+          LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
         v627 = *(_WORD *)(v2 + 2) + 1;
-        v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
+        v618 = *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48);
         v613 = pParty_global->sRotationX;
         goto LABEL_125;
       case 43:
@@ -9282,29 +9278,29 @@ LABEL_634:
           goto LABEL_200;
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        LOWORD(v686) = 4090;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->vPosition.x;
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
+        local_DDC.uItemType = 4090;
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
         v310 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v310) = v310 | 4;
-        v686.v700 = 0;
-        v686.v698 = v310;
-        v686.v699 = n;
-        v686.v689 = pParty_global->sRotationY;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.unk_000060 = 0;
+        local_DDC.dword_000058 = v310;
+        local_DDC.dword_00005C = n;
+        local_DDC.uFacing = pParty_global->sRotationY;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         if (pParty_global->bTurnBasedModeOn)
-          v686.v691 = 4;
+          local_DDC.uAttributes = 4;
         v627 = HIDWORD(v1);
-        v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
+        v618 = *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48);
         v34 = pClass59_global->uIntegerHalfPi / 2;
 LABEL_124:
         v613 = v34;
@@ -9512,36 +9508,36 @@ LABEL_679:
         LODWORD(v704) = sub_46A6AC((int)dword_50BF30, 100, 4096);
         v345 = Game_sub_42EB6A((int)pGame);
         sub_4A8BDF(v345, 16777215, 192);
-        v686.word_DDC = v686.word_DDC + 1;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        local_DDC.uItemType = local_DDC.uItemType + 1;
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v346 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
-        v686.v689 = WORD2(v1);
+        local_DDC.unk_000060 = 0;
+        local_DDC.uFacing = WORD2(v1);
         v346 *= 8;
         LOBYTE(v346) = v346 | 4;
-        v686.v698 = v346;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v346;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         for ( n = HIDWORD(v1); n < LODWORD(v704); ++n )
         {
           LODWORD(v1) = (int)&pActors[dword_50BF30[n]];
           if ( sub_438BDF(*(_WORD *)(v1 + 96), 1) )
           {
-            v686.v687 = *(_WORD *)(v1 + 142);
-            LODWORD(v686.v688) = *(_WORD *)(v1 + 144);
+            local_DDC.vPosition.x = *(_WORD *)(v1 + 142);
+            local_DDC.vPosition.y = *(_WORD *)(v1 + 144);
             v710 = *(_WORD *)(v1 + 138);
-            HIDWORD(v686.v688) = *(_WORD *)(v1 + 146)
+            local_DDC.vPosition.z = *(_WORD *)(v1 + 146)
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v347 = 8 * dword_50BF30[n];
             LOBYTE(v347) = v347 | 3;
-            v686.v699 = v347;
-            sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+            local_DDC.dword_00005C = v347;
+            sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v710 = v711 << 7;
             SpellBuf_sub_4584E0(
               (SpellBuff *)(v1 + 276),
@@ -9867,17 +9863,17 @@ LABEL_803:
         strcpy((char *)pStringBuffer, "nothing");
 LABEL_807:
         sub_44C175((char *)pStringBuffer, 2);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = *(_WORD *)(v708 + 142);
-        LODWORD(v686.v688) = *(_WORD *)(v708 + 144);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.x = *(_WORD *)(v708 + 142);
+        local_DDC.vPosition.y = *(_WORD *)(v708 + 144);
         v633 = *(_WORD *)(v708 + 138);
-        v624 = v686.v688;
-        HIDWORD(v686.v688) = *(_WORD *)(v708 + 138);
-        v616 = v686.v687;
+        v624 = local_DDC.vPosition.y;
+        local_DDC.vPosition.z = *(_WORD *)(v708 + 138);
+        v616 = local_DDC.vPosition.x;
         goto LABEL_1087;
       case 62:
         v398 = v11 - 2;
@@ -9917,11 +9913,11 @@ LABEL_813:
             SBYTE4(v1));
           pActors[v401].uSpecialAbility = 4;
         }
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
         v57 = v708;
         goto LABEL_1086;
       case 66:
@@ -9947,11 +9943,11 @@ LABEL_813:
             SHIDWORD(v1),
             SBYTE4(v1));
         }
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
         v57 = v708;
         goto LABEL_1086;
       case 63:
@@ -9966,36 +9962,36 @@ LABEL_813:
         LODWORD(v704) = sub_46A6AC((int)dword_50BF30, 100, 4096);
         v406 = Game_sub_42EB6A((int)pGame);
         sub_4A8BDF(v406, 657930, 192);
-        v686.word_DDC = v686.word_DDC + 1;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        local_DDC.uItemType = local_DDC.uItemType + 1;
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v407 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
-        v686.v689 = WORD2(v1);
+        local_DDC.unk_000060 = 0;
+        local_DDC.uFacing = WORD2(v1);
         v407 *= 8;
         LOBYTE(v407) = v407 | 4;
-        v686.v698 = v407;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v407;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         for ( n = HIDWORD(v1); n < LODWORD(v704); ++n )
         {
           LODWORD(v1) = (int)&pActors[dword_50BF30[n]];
           if ( sub_438BDF(*(_WORD *)(v1 + 96), 1) )
             break;
-          v686.v687 = *(_WORD *)(v1 + 142);
-          LODWORD(v686.v688) = *(_WORD *)(v1 + 144);
+          local_DDC.vPosition.x = *(_WORD *)(v1 + 142);
+          local_DDC.vPosition.y = *(_WORD *)(v1 + 144);
           v710 = *(_WORD *)(v1 + 138);
-          HIDWORD(v686.v688) = *(_WORD *)(v1 + 146)
+          local_DDC.vPosition.z = *(_WORD *)(v1 + 146)
                         - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
           v408 = 8 * dword_50BF30[n];
           LOBYTE(v408) = v408 | 3;
-          v686.v699 = v408;
-          sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+          local_DDC.dword_00005C = v408;
+          sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
           if ( sub_427662(v1, 7) )
           {
             v710 = v714 << 7;
@@ -10439,41 +10435,41 @@ LABEL_641:
         v473 = Game_sub_42EB6A((int)pGame);
         sub_4A8BDF(v473, 720650, 192);
         v474 = sub_46A6AC((int)dword_50BF30, 100, 4096);
-        v686.word_DDC = v686.word_DDC + 1;
+        local_DDC.uItemType = local_DDC.uItemType + 1;
         LODWORD(v712) = v474;
         v649 = HIDWORD(v1);
         v648 = HIDWORD(v1);
         v647 = HIDWORD(v1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v475 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
-        v686.v689 = WORD2(v1);
+        local_DDC.unk_000060 = 0;
+        local_DDC.uFacing = WORD2(v1);
         v475 *= 8;
         LOBYTE(v475) = v475 | 4;
-        v686.v698 = v475;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v475;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v712) > HIDWORD(v1) )
         {
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
+            local_DDC.vPosition.x = pActors[dword_50BF30[n]].vPosition.x;
+            local_DDC.vPosition.y = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
+            local_DDC.vPosition.z = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v476 = 8 * dword_50BF30[n];
             LOBYTE(v476) = v476 | 3;
-            v686.v699 = v476;
-            v477 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+            local_DDC.dword_00005C = v476;
+            v477 = sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v478 = n;
             DamageMonsterFromParty(8 * v477 | 2, dword_50BF30[n], (int)&v647);
             n = v478 + 1;
@@ -10483,15 +10479,15 @@ LABEL_641:
         for ( n = HIDWORD(v1); n < LODWORD(v712); ++n )
         {
           LODWORD(v1) = (int)&pActors[dword_50BF30[n]];
-          v686.v687 = *(_WORD *)(v1 + 142);
-          LODWORD(v686.v688) = *(_WORD *)(v1 + 144);
+          local_DDC.vPosition.x = *(_WORD *)(v1 + 142);
+          local_DDC.vPosition.y = *(_WORD *)(v1 + 144);
           v710 = *(_WORD *)(v1 + 138);
-          HIDWORD(v686.v688) = *(_WORD *)(v1 + 146)
+          local_DDC.vPosition.z = *(_WORD *)(v1 + 146)
                         - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
           v480 = 8 * dword_50BF30[n];
           LOBYTE(v480) = v480 | 3;
-          v686.v699 = v480;
-          sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+          local_DDC.dword_00005C = v480;
+          sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
           v479 = v1 + 212;
           LODWORD(v704) = 22;
           do
@@ -10619,41 +10615,41 @@ LABEL_973:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v500 = sub_46A6AC((int)dword_50BF30, 100, 4096);
-        v686.word_DDC = v686.word_DDC + 1;
+        local_DDC.uItemType = local_DDC.uItemType + 1;
         LODWORD(v704) = v500;
         v655 = HIDWORD(v1);
         v654 = HIDWORD(v1);
         v653 = HIDWORD(v1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v501 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
-        v686.v689 = WORD2(v1);
+        local_DDC.unk_000060 = 0;
+        local_DDC.uFacing = WORD2(v1);
         v501 *= 8;
         LOBYTE(v501) = v501 | 4;
-        v686.v698 = v501;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v501;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v704) > HIDWORD(v1) )
         {
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
+            local_DDC.vPosition.x = pActors[dword_50BF30[n]].vPosition.x;
+            local_DDC.vPosition.y = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
+            local_DDC.vPosition.z = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v502 = 8 * dword_50BF30[n];
             LOBYTE(v502) = v502 | 3;
-            v686.v699 = v502;
-            v503 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+            local_DDC.dword_00005C = v502;
+            v503 = sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v504 = n;
             DamageMonsterFromParty(8 * v503 | 2, dword_50BF30[n], (int)&v653);
             n = v504 + 1;
@@ -10939,32 +10935,32 @@ LABEL_1000:
         LODWORD(v685) = (int)v542;
         if ( *((_WORD *)v542 + 20) > WORD2(v1) || (v543 = *((_WORD *)v542 + 88), v543 != 5) && v543 != 4 )
           goto LABEL_200;
-        v686.word_DDC = v686.word_DDC + 1;
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        local_DDC.uItemType = local_DDC.uItemType + 1;
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v544 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
+        local_DDC.unk_000060 = 0;
         LODWORD(v1) = LODWORD(v685);
         v544 *= 8;
         LOBYTE(v544) = v544 | 4;
-        v686.v689 = WORD2(v1);
-        v686.v698 = v544;
-        v686.v690 = *(_WORD *)(v2 + 16);
-        v686.v687 = *(_WORD *)(LODWORD(v685) + 142);
-        LODWORD(v686.v688) = *(_WORD *)(LODWORD(v685) + 144);
+        local_DDC.uFacing = WORD2(v1);
+        local_DDC.dword_000058 = v544;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
+        local_DDC.vPosition.x = *(_WORD *)(LODWORD(v685) + 142);
+        local_DDC.vPosition.y = *(_WORD *)(LODWORD(v685) + 144);
         v710 = *(_WORD *)(LODWORD(v685) + 138);
         v545 = 8 * LODWORD(v704);
-        HIDWORD(v686.v688) = *(_WORD *)(LODWORD(v685) + 146)
+        local_DDC.vPosition.z = *(_WORD *)(LODWORD(v685) + 146)
                       - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
         LOBYTE(v545) = 8 * LOBYTE(v704) | 3;
-        v686.v699 = v545;
-        sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+        local_DDC.dword_00005C = v545;
+        sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
         if ( *(_BYTE *)(v1 + 52) > v714 )
           goto LABEL_83;
         sub_402F27(SLODWORD(v704));
@@ -11043,25 +11039,25 @@ LABEL_1062:
           goto LABEL_83;
         LODWORD(v704) = 60 * pClass59_global->uIntegerDoublePi / 360;
         v710 = 60 * pClass59_global->uIntegerDoublePi / 360 / (v714 - 1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v687 = pParty_global->vPosition.x;
-        LODWORD(v686.v688) = pParty_global->vPosition.y;
-        v686.v691 = WORD2(v1);
-        HIDWORD(v686.v688) = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 2);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.vPosition.x = pParty_global->vPosition.x;
+        local_DDC.vPosition.y = pParty_global->vPosition.y;
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 2);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v559 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v559) = v559 | 4;
-        v686.v698 = v559;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v559;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         if (pParty_global->bTurnBasedModeOn)
-          LOBYTE(v686.v691) = v686.v691 | 4;
+          LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 4;
         v560 = LODWORD(v704) / -2;
         Source = (char *)(LODWORD(v704) / 2);
         if ( LODWORD(v704) / -2 <= LODWORD(v704) / 2 )
@@ -11069,12 +11065,11 @@ LABEL_1062:
           v561 = v678;
           do
           {
-            v686.v689 = v560 + v561;
-            if ( sub_42F5ED(
-                   (int)&v686,
+            local_DDC.uFacing = v560 + v561;
+            if ( sub_42F5ED(&local_DDC,
                    v560 + v561,
                    v679,
-                   *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
+                   *(_WORD *)(56 * local_DDC.uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 48),
                    *(_WORD *)(v2 + 2) + 1) != -1 )
             {
               if (pParty_global->bTurnBasedModeOn)
@@ -11121,38 +11116,38 @@ LABEL_1082:
           SWORD2(v1),
           SHIDWORD(v1),
           SBYTE4(v1));
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        v56 = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
         v57 = v708;
 LABEL_1086:
         v564 = pActors[v57 / sizeof(struct Actor)].vPosition.y;
         v565 = pActors[v57 / sizeof(struct Actor)].vPosition.x;
-        HIWORD(v686) = v56;
-        v686.v687 = v565;
+        local_DDC.uObjectDescriptionID = v56;
+        local_DDC.vPosition.x = v565;
         v566 = pActors[v57 / sizeof(struct Actor)].uActorHeight;
         v567 = pActors[v57 / sizeof(struct Actor)].vPosition.z;
-        LODWORD(v686.v688) = v564;
+        local_DDC.vPosition.y = v564;
         v633 = v567 + v566;
         v624 = v564;
-        HIDWORD(v686.v688) = v567 + v566;
+        local_DDC.vPosition.z = v567 + v566;
         v616 = v565;
 LABEL_1087:
-        v686.v691 = WORD2(v1);
-        v686.v692 = IndoorLocation_sub_49AC17((int)pIndoor, v616, v624, v633);
-        v686.v693 = WORD2(v1);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, v616, v624, v633);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v568 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v568) = v568 | 4;
-        v686.v698 = v568;
-        v686.v699 = n;
-        v686.v700 = v677;
-        v686.v689 = v678;
+        local_DDC.dword_000058 = v568;
+        local_DDC.dword_00005C = n;
+        local_DDC.unk_000060 = v677;
+        local_DDC.uFacing = v678;
         LOWORD(v568) = *(_WORD *)(v2 + 16);
-        LOBYTE(v686.v691) = v686.v691 | 0x80;
-        v686.v690 = v568;
-        sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), *(_WORD *)(v2 + 2) + 1);
+        LOBYTE(local_DDC.uAttributes) = local_DDC.uAttributes | 0x80;
+        local_DDC.uSoundID = v568;
+        sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), *(_WORD *)(v2 + 2) + 1);
         goto LABEL_1056;
       case 96:
         if ( !sub_427730(v707, SLODWORD(v706)) )
@@ -11293,21 +11288,21 @@ LABEL_1119:
         v670 = HIDWORD(v1);
         v669 = HIDWORD(v1);
         v668 = HIDWORD(v1);
-        ItemGen_Reset(&v686.v694);
-        v686.v695 = *(_WORD *)v2;
-        v686.v696 = v1;
-        v686.v697 = v709;
-        v686.word_DDE = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, v686.word_DDC);
-        v686.v691 = WORD2(v1);
-        v686.v692 = WORD2(v1);
-        v686.v693 = WORD2(v1);
+        ItemGen_Reset(&local_DDC.stru_000024);
+        local_DDC.dword_000048 = *(_WORD *)v2;
+        local_DDC.dword_00004C = v1;
+        local_DDC.dword_000050 = v709;
+        local_DDC.uObjectDescriptionID = ObjectDescriptionList_sub_42EB42((int)pObjectDescriptionList, local_DDC.uItemType);
+        local_DDC.uAttributes = WORD2(v1);
+        local_DDC.sRoom = WORD2(v1);
+        local_DDC.uSpriteFrameID = WORD2(v1);
         v585 = *(_WORD *)(v2 + 2);
-        v686.v700 = 0;
-        v686.v689 = WORD2(v1);
+        local_DDC.unk_000060 = 0;
+        local_DDC.uFacing = WORD2(v1);
         v585 *= 8;
         LOBYTE(v585) = v585 | 4;
-        v686.v698 = v585;
-        v686.v690 = *(_WORD *)(v2 + 16);
+        local_DDC.dword_000058 = v585;
+        local_DDC.uSoundID = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v712) > HIDWORD(v1) )
         {
@@ -11315,15 +11310,15 @@ LABEL_1119:
           do
           {
             LODWORD(v1) = 836 * dword_50BF30[n];
-            v686.v687 = pActors[dword_50BF30[n]].vPosition.x;
-            LODWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.y;
+            local_DDC.vPosition.x = pActors[dword_50BF30[n]].vPosition.x;
+            local_DDC.vPosition.y = pActors[dword_50BF30[n]].vPosition.y;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
-            HIDWORD(v686.v688) = pActors[dword_50BF30[n]].vPosition.z
+            local_DDC.vPosition.z = pActors[dword_50BF30[n]].vPosition.z
                           - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v586 = 8 * dword_50BF30[n];
             LOBYTE(v586) = v586 | 3;
-            v686.v699 = v586;
-            v587 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
+            local_DDC.dword_00005C = v586;
+            v587 = sub_42F5ED(&local_DDC, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v588 = n;
             DamageMonsterFromParty(8 * v587 | 2, dword_50BF30[n], (int)&v668);
             n = v588 + 1;

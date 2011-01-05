@@ -1912,7 +1912,12 @@ signed int AudioPlayer_sub_4AC041_ProbablyPrepare3DEnv(AudioPlayer *_this)
 
   v2 = (int)_this;
   runtime_warning(level name should not be globally-defined);
- MapInfo *pMapInfo = pMapStats->GetMapInfo((char *)pOutdoor->pLocationFileName);
+  MapInfo *pMapInfo;
+  if (uCurrentlyLoadedLevelType == 1)
+    pMapInfo = pMapStats->GetMapInfo((char *)pIndoor->pLocationFileName);
+  else if (uCurrentlyLoadedLevelType == 2)
+    pMapInfo = pMapStats->GetMapInfo((char *)pOutdoor->pLocationFileName);
+
   if (_this->b3DSoundInitialized)
   {
     if (_this->bEAXSupported )

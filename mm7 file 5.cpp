@@ -3822,7 +3822,7 @@ LABEL_111:
             do
             {
               v71 += pClass59_global->uIntegerHalfPi >> 1;
-              sub_42F5ED(v3, v71, 0, 1000, 0);
+              sub_42F5ED((LayingItem *)v3, v71, 0, 1000, 0);
             }
             while ( v158-- != 1 );
           }
@@ -3929,7 +3929,7 @@ LABEL_155:
           sub_4BE59E((int)&unk_F8BAD8, 5, 500);
           v105 = sub_4BE623((int)&unk_F8BAD8);
           v159 += pClass59_global->uIntegerHalfPi >> 1;
-          sub_42F5ED(v3, v104 + v159, 0, v105, 0);
+          sub_42F5ED((LayingItem *)v3, v104 + v159, 0, v105, 0);
         }
         while ( v165-- != 1 );
         goto LABEL_160;
@@ -12375,8 +12375,8 @@ char *__fastcall sub_47BC6F(int a1, int a2, signed int a3, int a4)
   if ( struct_6BD080.dword_000FA4 == 1 )
   {
     v8 = 67108864;
-    if (pParty_global->pPartyBuffs[16].qword_000000 > 0 )
-      v8 = pParty_global->pPartyBuffs[16].word_000008 << 26;
+    if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
+      v8 = pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008 << 26;
     if ( a3 <= v8 )
     {
       if ( a3 > 0 )
@@ -12550,12 +12550,12 @@ LABEL_54:
     }
     else
     {
-     if (pParty_global->pPartyBuffs[16].qword_000000 > 0 )
+     if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
       {
-       if (pParty_global->pPartyBuffs[16].qword_000000 <= 0 )
+       if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 <= 0 )
           v11 = 0;
         else
-          v11 = pParty_global->pPartyBuffs[16].word_000008;
+          v11 = pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008;
       }
       v12 = v11 << 26;
     }
@@ -12875,8 +12875,8 @@ signed int __fastcall sub_47C4FC_GetActorTintColor(int a1, int a2, float a3, int
     if ( v8 != 1 )
       return 0;
     v20 = 1;
-    if (pParty_global->pPartyBuffs[16].qword_000000 > 0 )
-      v20 = pParty_global->pPartyBuffs[16].word_000008;
+    if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
+      v20 = pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008;
     v9 = (double)v20 * 1024.0;
     if ( a4 )
       goto LABEL_20;

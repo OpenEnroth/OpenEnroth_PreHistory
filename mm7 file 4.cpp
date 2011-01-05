@@ -2342,7 +2342,7 @@ LABEL_20:
 }
 
 //----- (0042F5ED) --------------------------------------------------------
-signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
+signed int __fastcall sub_42F5ED(LayingItem *a1, int a2, int a3, int a4, int a5)
 {
   int v5; // eax@1
   signed int v6; // ecx@2
@@ -2369,8 +2369,8 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
   int v27; // [sp+20h] [bp+10h]@20
 
   v23 = a2;
-  v5 = a1;
-  if ( !*(_WORD *)(a1 + 2) )
+  v5 = (int)a1;
+  if ( !*(_WORD *)(v5 + 2) )
     return -1;
   v7 = 0;
   v6 = (int)&pLayingItemsList[0].uObjectDescriptionID;
@@ -2511,7 +2511,6 @@ signed int __fastcall sub_42F7EB_DropItemAt(int a1, int a2, signed int a3, int a
   char v700; // [sp+E3Ch] [bp-48h]@74
   char dummy_E3D[3]; //?
   } v20;
-
   /*__int16 v20; // [sp+Ch] [bp-78h]@1
   __int16 v21; // [sp+Eh] [bp-76h]@8
   int v22; // [sp+10h] [bp-74h]@8
@@ -2536,7 +2535,7 @@ signed int __fastcall sub_42F7EB_DropItemAt(int a1, int a2, signed int a3, int a
   v9 = a1;
   v37 = a2;
   v38 = a1;
-  sub_404828_ctor((sub_404828_stru0 *)&v20);
+  sub_404828_ctor((LayingItem *)&v20);
   ItemGen_Reset(&v20.v694);
   if ( a9 )
   {
@@ -2602,7 +2601,7 @@ LABEL_16:
       {
         v20.v689 = rand() % pClass59_global->uIntegerDoublePi;
         v16 = rand();
-        sub_42F5ED((int)&v20, v20.v689, (pClass59_global->uIntegerHalfPi >> 1) + (v16 % pClass59_global->uIntegerHalfPi >> 1), a5, 0);
+        sub_42F5ED((LayingItem *)&v20, v20.v689, (pClass59_global->uIntegerHalfPi >> 1) + (v16 % pClass59_global->uIntegerHalfPi >> 1), a5, 0);
         --v15;
       }
       while ( v15 );
@@ -2617,7 +2616,7 @@ LABEL_16:
     {
       do
       {
-        sub_42F5ED((int)&v20, v20.v689, v18, a5, 0);
+        sub_42F5ED((LayingItem *)&v20, v20.v689, v18, a5, 0);
         --v17;
       }
       while ( v17 );
@@ -2655,7 +2654,7 @@ void __fastcall sub_42F960(int a1, signed int a2, int a3)
 
   v4 = a1;
   v5 = a2;
-  sub_404828_ctor((sub_404828_stru0 *)&v10);
+  sub_404828_ctor((LayingItem *)&v10);
   ItemGen_Reset((ItemGen *)&v19);
   v3 = 0;
   v22 = 0;
@@ -2690,7 +2689,7 @@ LABEL_5:
   v18 = 0;
   v24 = 0;
   v25 = 0;
-  v8 = sub_42F5ED((int)&v10, 0, 0, 0, 0);
+  v8 = sub_42F5ED((LayingItem *)&v10, 0, 0, 0, 0);
   if ( v8 != -1 )
   {
     v9 = 8 * v8;
@@ -2762,7 +2761,7 @@ signed int __fastcall sub_42FA66(int a1, signed int a2, int a3, int a4, __int16 
 
   v6 = a1;
   v7 = a2;
-  sub_404828_ctor((sub_404828_stru0 *)&v13);
+  sub_404828_ctor((LayingItem *)&v13);
   v13 = 600;
   ItemGen_Reset((ItemGen *)&v23);
   v24 = 6;
@@ -2807,7 +2806,7 @@ LABEL_5:
   {
     v27 = 0;
   }
-  result = sub_42F5ED((int)&v13, 0, 0, 0, 0);
+  result = sub_42F5ED((LayingItem *)&v13, 0, 0, 0, 0);
   if ( result != -1 )
   {
     v12 = 8 * result;
@@ -9796,7 +9795,7 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   if ( v2 )
   {
    v3 = (int)v2->pLocationName;
-    v42 = sub_450DA3();
+    v42 = 0;//sub_450DA3();
   }
   else
   {

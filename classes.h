@@ -102,7 +102,7 @@ struct class06
 //int __thiscall sub_4A7155(int _this);
 void *class06_ctor(struct class06 *_this);
 //char __thiscall sub_4A81CA(int _this, int a2);
-bool class06_sub_4A81CA(struct class06 *_this, int a2);
+bool class06_sub_4A81CA(struct class06 *_this, struct LayingItem *a2);
 //int __thiscall sub_4A8C27(int _this);
 int class06_sub_4A8C27(struct class06 *_this);
 //int __thiscall sub_4A7298(void *_this);
@@ -545,16 +545,38 @@ bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, c
 
 
 
+struct class37_stru1
+{
+ char  unk_000000[0x2C];
+ float flt_00002C;
+};
+//sizeof == 30
+
+struct class37_stru0
+{
+ char                unk_000000[0x7AC];
+ class26_placeholder std__vector_0007AC[4]; // struct[4] @ 00007AC
+ class37_stru1       array_00080C[4];       // struct[4] @ 000080C
+};
+//sizeof == 8CC
+//void *__thiscall sub_43F2BF(void *this)
+void __fastcall class37_stru0_ctor(class37_stru0 *_this);
+
+
 //class37
 struct class37
 {
- int dword_000000;
-
- char vector_000FA8[337800];
+ int           dword_000000;
+ char          unk_000004[0xFA4];
+ unsigned int  std__vector_000FA8_size;  // dword @ 000FA4
+ class37_stru0 std__vector_000FA8[150];
+ int           dword_053730;             // dword @ 053730
 };
-//sizeof ~ ?
+//sizeof ~ 53734
 //void *__thiscall sub_43F282(void *_this);
-void *class37_ctor(struct class37 *_this);
+void *class37_ctor(class37 *_this);
+//int __thiscall sub_43F333(int _this);
+int class37_sub_43F333(class37 *_this);
 
 
 
@@ -1116,38 +1138,6 @@ struct unnamed_F93E6C
 
 
 
-
-struct sub_404828_stru0
-{
- #pragma pack(push, 1)
- short   word_000000;    //__int16 v24; // [sp+Ch] [bp-80h]@1
- short   word_000002;    //__int16 v25; // [sp+Eh] [bp-7Eh]@19
- int     dword_000004;   //int v26; // [sp+10h] [bp-7Ch]@19
- int     dword_000008;   //int v27; // [sp+14h] [bp-78h]@19
- int     dword_00000C;   //int v28; // [sp+18h] [bp-74h]@19
- short   word_000010;    //int unk2;
- short   word_000012;
- short   word_000014;    //short unk3;
- short   word_000016;   //int v29; // [sp+22h] [bp-6Ah]@19      TWO WORDS? apparently
- short   word_000018;
- short   word_00001A;    //__int16 v30; // [sp+26h] [bp-66h]@19
- short   word_00001C;    //__int16 v31; // [sp+28h] [bp-64h]@19
- short   word_00001E;    //__int16 v32; // [sp+2Ah] [bp-62h]@19
- short   word_000020;    //short unk4[2];
- short   word_000022;
- ItemGen local_000024;   //ItemGen local_30;
- int     dword_000048;
- int     dword_00004C;
- int     dword_000050;
- int     unk_000054;     //int unk_60;
- int     dword_000058;   //int v34; // [sp+64h] [bp-28h]@19
- int     dword_00005C;
- char    unk_000060[4];
- #pragma pack(pop)
-};
-//sizeof ~ 64
-void sub_404828_ctor(sub_404828_stru0 *_this);
-signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5);
 
 
 

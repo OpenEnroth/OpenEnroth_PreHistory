@@ -1496,7 +1496,7 @@ extern struct class40 *pClass40; // struct @ MM7.exe::005D29E0
 //int dword_5D29E8[array_size_unknown]; // 000008
 extern int dword_5D29EC[array_size_unknown]; // weak
 extern int dword_5D29F4[array_size_unknown]; // weak
-extern __int16 word_5D29F8[array_size_unknown]; // weak
+extern __int16 word_5D29F8[array_size_unknown]; // first word is item type from LayingItem, 24-byte structs array
 extern __int16 word_5D29FC; // weak
 extern __int16 word_5D29FE; // weak
 //char byte_5D2A00[]; // pItems[0]+20

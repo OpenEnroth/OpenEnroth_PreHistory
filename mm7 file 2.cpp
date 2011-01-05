@@ -11578,7 +11578,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
   sub_485F64(pStruct9_global);
   dword_6BE024 = 0;
   Render_ClearZBuffer(pD3DRenderer, 0, 479);
-  sub_450DA3();
+  //sub_450DA3();
   if ( qword_A750D8 )
     qword_A750D8 = 0i64;
 
@@ -11595,6 +11595,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
   pGameLoadingUI_ProgressBar->SetProgress(0.10f);
 
   int v1;
+  pOutdoor = MemAlloc(OutdoorLocation, 1);
   pOutdoor->Load(pLevelFilename,
              (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
              (int)&v1);
@@ -12105,7 +12106,7 @@ signed int __fastcall sub_42041E(int a1)
 
     v24 = &v44 + v50;
     sub_42F7EB_DropItemAt(*v24, v51.x, v51.y, v51.z, 0, 1, 0, 48, 0);
-    sub_404828_ctor((sub_404828_stru0 *)&v27);
+    sub_404828_ctor((LayingItem *)&v27);
     ItemGen_Reset((ItemGen *)&v37);
     v23 = *(_WORD *)v24;
     v22 = 0;
@@ -12142,7 +12143,7 @@ LABEL_32:
     v42 = 0;
     v43 = 0;
     v32 = 0;
-    sub_42F5ED((int)&v27, 0, 0, 0, 0);
+    sub_42F5ED((LayingItem *)&v27, 0, 0, 0, 0);
     pAudioPlayer->sub_4AA306(8, 0, 0, -1, 0, 0, 0, 0);
     sub_438E35(&v27);
     *v49 &= 0xFEu;
@@ -12475,7 +12476,7 @@ void __cdecl sub_420E01()
   POINT v7; // [sp+7Ch] [bp-10h]@2
   POINT v8; // [sp+84h] [bp-8h]@2
 
-  sub_404828_ctor((sub_404828_stru0 *)&v6);
+  sub_404828_ctor((LayingItem *)&v6);
   v0 = pGUIWindow_CurrentMenu->dword_00001C;
   if (pParty_global->pickedItem.uItemID)
   {
@@ -12581,7 +12582,7 @@ signed int __cdecl sub_421B2C_DropPickedItem()
 LABEL_10:
       if ( v23 != 4 )
         goto LABEL_18;
-      sub_404828_ctor((sub_404828_stru0 *)&v10);
+      sub_404828_ctor((LayingItem *)&v10);
       v6 = word_5D29F8[24 * pParty_global->pickedItem.uItemID];
       v5 = 0;
       v10 = word_5D29F8[24 * pParty_global->pickedItem.uItemID];
@@ -12613,7 +12614,7 @@ LABEL_15:
       v19 = 0;
       v18 = v8;
       memcpy(&local_28, &pParty_global->pickedItem, sizeof(struct ItemGen));
-      sub_42F5ED((int)&v10, pParty_global->sRotationY, 184, 200, 0);
+      sub_42F5ED((LayingItem *)&v10, pParty_global->sRotationY, 184, 200, 0);
     }
     GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_18:
@@ -12920,7 +12921,7 @@ void __cdecl sub_42213C()
   int v37; // [sp+88h] [bp-4h]@30
  POINT pt;
 
-  sub_404828_ctor((sub_404828_stru0 *)&v24);
+  sub_404828_ctor((LayingItem *)&v24);
   if ( pD3DRenderer->pRenderD3D3 )
   {
     v0 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
@@ -13030,7 +13031,7 @@ LABEL_18:
             memcpy(&v24.local_30, &pParty_global->pickedItem, sizeof(struct ItemGen));
             v8 = (int)GUICursor_GetMousePos(pGame->pGUICursor, &v35);
             v9 = sub_46A0A1(v35.x);
-            sub_42F5ED((int)&v24, pParty_global->sRotationY + v9, 184, 200, 0);
+            sub_42F5ED((LayingItem *)&v24, pParty_global->sRotationY + v9, 184, 200, 0);
             v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->pickedItem.uItemID].pIconName, 2);
             cTexture_Free(v10 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v10] : 0);
             GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
@@ -13048,7 +13049,7 @@ LABEL_13:
       }
       else
       {
-        v12 = *(_DWORD *)(188 * ((signed int)(unsigned __int16)v0 >> 9) + pOutdoor->pBModels + 84) + 308 * (v2 & 0x3F);
+        v12 = *(_DWORD *)(188 * ((signed int)(unsigned __int16)v0 >> 9) + (int)pOutdoor->pBModels + 84) + 308 * (v2 & 0x3F);
         if ( !(*(_DWORD *)(v12 + 28) & 0x2000000) )
           goto LABEL_11;
         v11 = *(_WORD *)(v12 + 292);

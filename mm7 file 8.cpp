@@ -535,7 +535,7 @@ signed int __fastcall sub_404736(int a1)
 
   v27 = a1;
   v2 = (char *)pActors + 836 * a1;
-  sub_404828_ctor((sub_404828_stru0 *)&v9);
+  sub_404828_ctor((LayingItem *)&v9);
   v1 = 0;
   v9 = 600;
   if ( pObjectDescriptionList->uNumObjects <= 0 )
@@ -577,25 +577,25 @@ LABEL_5:
   v24 = 0;
   v25 = 3;
   v26 = 4;
-  return sub_42F5ED((int)&v9, 0, 0, 0, 0);
+  return sub_42F5ED((LayingItem *)&v9, 0, 0, 0, 0);
 }
 
 
 
 //----- (00404828) --------------------------------------------------------
-void sub_404828_ctor(sub_404828_stru0 *_this)
+void sub_404828_ctor(LayingItem *_this)
 {
- ItemGen_Reset(&_this->local_000024);
+ ItemGen_Reset(&_this->stru_000024);
  _this->word_000022 = 1;
 
- _this->word_000010 = 0;
- _this->word_000012 = 0;
- _this->word_000014 = 0;
- _this->word_000016 = 0;
- _this->word_000018 = 0;
+ _this->vVelocity = Vec3<short>(0, 0, 0);
 
- _this->word_000000 = 0;
- _this->word_000000 = 0;
+ _this->uFacing = 0;
+ _this->uSoundID = 0;
+
+ _this->uAttributes = 0;
+ _this->sRoom = 0;
+ _this->uSpriteFrameID = 0;
 
   *((_BYTE *)_this + 97) = 0;
   *((_BYTE *)_this + 96) = 0;
@@ -663,7 +663,7 @@ char __fastcall sub_404874(int a1, int a2, int a3, char a4)
   v33 = a1;
   v5 = a2;
   v6 = (char *)pActors + 836 * a1;
-  sub_404828_ctor((sub_404828_stru0 *)&v15);
+  sub_404828_ctor((LayingItem *)&v15);
   v4 = a3 - 1;
   switch ( a3 )
   {
@@ -764,7 +764,7 @@ LABEL_19:
   }
   v32 = a4;
   LOBYTE(v4) = sub_42F5ED(
-                 (int)&v15,
+                 (LayingItem *)&v15,
                  *(_DWORD *)(v5 + 20),
                  *(_DWORD *)(v5 + 24),
                  *(_WORD *)(56 * v16 + pObjectDescriptionList->pDescriptions + 48),
@@ -778,7 +778,7 @@ LABEL_19:
       v13 = *(_DWORD *)(v5 + 20);
 LABEL_31:
       LOBYTE(v4) = sub_42F5ED(
-                     (int)&v15,
+                     (LayingItem *)&v15,
                      v13,
                      *(_DWORD *)(v5 + 24),
                      *(_WORD *)(56 * v16 + pObjectDescriptionList->pDescriptions + 48),
@@ -788,7 +788,7 @@ LABEL_31:
     if ( (_BYTE)v4 == 3 )
     {
       sub_42F5ED(
-        (int)&v15,
+        (LayingItem *)&v15,
         *(_DWORD *)(v5 + 20) + 30,
         *(_DWORD *)(v5 + 24),
         *(_WORD *)(56 * v16 + pObjectDescriptionList->pDescriptions + 48),
@@ -1196,7 +1196,7 @@ LABEL_16:
 }
 
 //----- (0047AF11) --------------------------------------------------------
-void sub_47AF11_PrepareItemsRenderList()
+void sub_47AF11_PrepareItemsRenderList_ODM()
 {
   __int16 *v0; // edi@2
   struct ObjectDescription *v1; // ebx@4
@@ -1241,9 +1241,8 @@ void sub_47AF11_PrepareItemsRenderList()
   int v44; // [sp+34h] [bp-Ch]@10
   int v45; // [sp+38h] [bp-8h]@10
   signed __int16 v46; // [sp+3Ch] [bp-4h]@12
- int i;
 
-  for (i = 0; i < uNumLayingItems; ++i)
+  for (unsigned int i = 0; i < uNumLayingItems; ++i)
   {
    v0 = &pLayingItemsList[i].sRoom;
 
@@ -1253,7 +1252,7 @@ void sub_47AF11_PrepareItemsRenderList()
     if (~v1->byte_000026 & 0x01)
     {
      v2 = pLayingItemsList[i].uItemType;
-     if ( (v2 < 1000 || v2 >= 10000) && (v2 < 500 || v2 >= 600) || class06_sub_4A81CA(pGame->class06_obj, (int)&pLayingItemsList[i]))
+     if ( (v2 < 1000 || v2 >= 10000) && (v2 < 500 || v2 >= 600) || class06_sub_4A81CA(pGame->class06_obj, &pLayingItemsList[i]))
      {
       v29 = pLayingItemsList[i].sRoom;
       v44 = pLayingItemsList[i].vPosition.x;
@@ -1906,7 +1905,7 @@ void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
   LODWORD(v141) = a1;
   v7 = (int)&pActors[a1];
   v138 = a2;
-  sub_404828_ctor((sub_404828_stru0 *)&v119);
+  sub_404828_ctor((LayingItem *)&v119);
   v6 = a5 & 0x3F;
   v5 = sub_458244_GetSkillMasteryLevel(a5);
   if ( a3 <= 47 )
@@ -2038,7 +2037,7 @@ LABEL_33:
                 {
                   v124 = v13 + *(_WORD *)(v14 + 20);
                   v20 = sub_42F5ED(
-                          (int)&v119,
+                          (LayingItem *)&v119,
                           v124,
                           *(_DWORD *)(v14 + 24),
                           *(_WORD *)(56 * v120 + pObjectDescriptionList->pDescriptions + 48),
@@ -2136,7 +2135,7 @@ LABEL_191:
             }
             v136 = 2;
             v95 = sub_42F5ED(
-                    (int)&v119,
+                    (LayingItem *)&v119,
                     *(_DWORD *)(v88 + 20),
                     *(_DWORD *)(v88 + 24),
                     *(_WORD *)(56 * v120 + pObjectDescriptionList->pDescriptions + 48),
@@ -2274,7 +2273,7 @@ LABEL_57:
                 v135 = 0;
               }
               v136 = 2;
-              v35 = sub_42F5ED((int)&v119, v30, v113, *(_WORD *)(56 * v120 + pObjectDescriptionList->pDescriptions + 48), 0);
+              v35 = sub_42F5ED((LayingItem *)&v119, v30, v113, *(_WORD *)(56 * v120 + pObjectDescriptionList->pDescriptions + 48), 0);
               if ( v35 != -1 )
               {
                 v36 = 8 * v35;
@@ -2814,7 +2813,7 @@ LABEL_183:
     {
       v81 = *(_DWORD *)(v74 + 20);
       v124 = v149 + *(_WORD *)(v74 + 20);
-      v80 = sub_42F5ED((int)&v119, v81, *(_DWORD *)(v74 + 24), *(_WORD *)(56 * v120 + pObjectDescriptionList->pDescriptions + 48), 0);
+      v80 = sub_42F5ED((LayingItem *)&v119, v81, *(_DWORD *)(v74 + 24), *(_WORD *)(56 * v120 + pObjectDescriptionList->pDescriptions + 48), 0);
       compile_error();//v84 = __SETO__(v137 + v149, v73);
       v82 = v137 + v149 == v73;
       v83 = v137 + v149 - v73 < 0;

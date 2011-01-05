@@ -5901,9 +5901,7 @@ void __cdecl GameUI_DrawLifeManaBars()
 //----- (00441498) --------------------------------------------------------
 void __cdecl GameUI_DrawTorchlightAndWizardEye()
 {
-  signed int v0; // eax@15
   int v1; // eax@15
-  signed int v2; // eax@19
   int v3; // eax@19
 
   if ( !dword_4E28F8_PartyCantJumpIfTrue
@@ -5918,12 +5916,11 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
     || dword_4E28F8_PartyCantJumpIfTrue == 3
     || dword_4E28F8_PartyCantJumpIfTrue == 19 )
   {
-   if ( HIDWORD(pParty_global->pPartyBuffs[16].qword_000000) >= 0 )
+   if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000) >= 0 )
     {
-     if ( HIDWORD(pParty_global->pPartyBuffs[16].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[16].qword_000000 )
+     if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 )
       {
-        v0 = cEventTimer.Time();
-        v1 = (int)pIconFrameTable->GetImage(array_6A0D14[2].uIconIdx, v0);
+        v1 = (int)pIconFrameTable->GetImage(array_6A0D14[2].uIconIdx, cEventTimer.Time());
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[2].word_000008, array_6A0D14[2].word_00000A, (cTexture *)(72 * *(_WORD *)(v1 + 30) + 0x6D084C));
       }
     }
@@ -5931,8 +5928,7 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
     {
      if (HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000) > 0 || LODWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000))
       {
-        v2 = cEventTimer.Time();
-        v3 = (int)pIconFrameTable->GetImage(array_6A0D14[3].uIconIdx, v2);
+        v3 = (int)pIconFrameTable->GetImage(array_6A0D14[3].uIconIdx, cEventTimer.Time());
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[3].word_000008, array_6A0D14[3].word_00000A, (cTexture *)(72 * *(_WORD *)(v3 + 30) + 0x6D084C));
       }
     }

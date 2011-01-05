@@ -12,7 +12,7 @@
 
 
 
-Result::Code Game::PrepareForLoop(const char *pStartingLevelFilename)
+Result::Code Game::PrepareForLoop()
 {
   if (uCurrentMenuID == 9)
   {
