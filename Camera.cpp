@@ -141,10 +141,10 @@ unsigned int Camera::GetViewProjection(Matrix4x4 *pOut)
  if (!pOut)
    return -1;
 
- mView[0][0] = vRight.x;                mView[0][1] = vUp.x;                mView[0][2] = vDirection.x;                mView[1][3] = 0;
- mView[1][0] = vRight.y;                mView[1][1] = vUp.y;                mView[1][2] = vDirection.y;                mView[0][3] = 0;
- mView[2][0] = vRight.z;                mView[2][1] = vUp.z;                mView[2][2] = vDirection.z;                mView[2][3] = 0;
- mView[3][0] = -Dot(vRight, vPosition); mView[3][1] = -Dot(vUp, vPosition); mView[3][2] = -Dot(vDirection, vPosition); mView[3][3] = 1;
+ mView[0][0] = vRight.x;                       mView[0][1] = vUp.x;                       mView[0][2] = vDirection.x;                mView[1][3] = 0;
+ mView[1][0] = vRight.y;                       mView[1][1] = vUp.y;                       mView[1][2] = vDirection.y;                mView[0][3] = 0;
+ mView[2][0] = vRight.z;                       mView[2][1] = vUp.z;                       mView[2][2] = vDirection.z;                mView[2][3] = 0;
+ mView[3][0] = -Dot<float>(vRight, vPosition); mView[3][1] = -Dot<float>(vUp, vPosition); mView[3][2] = -Dot<float>(vDirection, vPosition); mView[3][3] = 1;
  
  //Vec3 vd = mOrientation.Transofrm(&Vec3(0, 0, 1)),
  //     vu = mOrientation.Transofrm(&Vec3(0, 1, 0));
@@ -167,7 +167,7 @@ void Camera::SetPosition(const Vec3<float> *pNewPosition)
 {
  vPosition = *pNewPosition;
  
- mView[3][0] = -Dot(vRight, vPosition); mView[3][1] = -Dot(vUp, vPosition); mView[3][2] = -Dot(vDirection, vPosition);
+ mView[3][0] = -Dot<float>(vRight, vPosition); mView[3][1] = -Dot<float>(vUp, vPosition); mView[3][2] = -Dot<float>(vDirection, vPosition);
 }
 
 const Vec3<float> *Camera::GetPosition()

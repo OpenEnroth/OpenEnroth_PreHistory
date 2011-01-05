@@ -400,7 +400,10 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
 
     RenderSky();
     RenderBuildingsD3D();
-    sub_47F5C6_MessWithTerrainDrawing();
+
+    extern void RenderTerrainD3D();
+    RenderTerrainD3D();
+    //sub_47F5C6_MessWithTerrainDrawing();
 
 
 
@@ -470,26 +473,22 @@ void __stdcall sub_45CB89(struct RenderVertex * a1, int a2)
 }
 
 //----- (0046BDC0) --------------------------------------------------------
-void __fastcall sub_46BDC0(unsigned int a2)
+void __fastcall sub_46BDC0_UpdateUserInputAndOther(unsigned int a2)
 {
   int v2; // eax@3
 
   if ( dword_6BE364 & 0x80 )
   {
-    LOBYTE(dword_6BE364) = dword_6BE364 & 0x7F;
+    dword_6BE364 &= ~0x80;
   }
   else
   {
     v2 = uCurrentlyLoadedLevelType;
-    if ( uCurrentlyLoadedLevelType == 1 )
-    {
-      v2 = sub_46BDF1(a2);
-    }
-    else
-    {
-      if ( uCurrentlyLoadedLevelType == 2 )
-        v2 = sub_46BE0A(a2);
-    }
+    if (uCurrentlyLoadedLevelType == 1)
+      v2 = sub_46BDF1_UpdateUserInputAndOther_BLV(a2);
+    else if (uCurrentlyLoadedLevelType == 2)
+      v2 = sub_46BE0A_UpdateUserInputAndOther_ODM(a2);
+
     sub_438F8F(v2);
   }
 }
@@ -1457,13 +1456,13 @@ int __stdcall sub_401000(int a1, int a2, int a3, int (__thiscall *a4)(_DWORD))
 
 
 //----- (0046BE0A) --------------------------------------------------------
-int __fastcall sub_46BE0A(unsigned int a1)
+int __fastcall sub_46BE0A_UpdateUserInputAndOther_ODM(unsigned int a1)
 {
   signed int v1; // eax@5
   int v3; // [sp+8h] [bp-20h]@5
 
   sub_47253E(a1);
-  sub_473893_SomeStuffIncludingPartyPosUpdate();
+  sub_473893_SomeStuffIncludingPartyPosUpdate_ODM();
   if (pParty_global->vPosition.x < -22528 || pParty_global->vPosition.x > 22528 ||
       pParty_global->vPosition.y < -22528 || pParty_global->vPosition.y > 22528 )
   {
@@ -2850,7 +2849,7 @@ int __cdecl sub_4016FA()
   int v46; // [sp+20h] [bp-4h]@1
 
   pParty_global->dword_007778 &= 0xFFFFFFCFu;
-  v38 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+  v38 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   v46 = 0;
   v44 = 0;
   if ( (signed int)uNumActors > 0 )
@@ -3968,7 +3967,7 @@ void __cdecl sub_481ED9()
 }
 
 //----- (00473893) --------------------------------------------------------
-void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
+void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate_ODM()
 {
   int v0; // ebx@1
   int v1; // edi@1
@@ -7067,7 +7066,7 @@ LABEL_69:
         {
           if ( i )
             local_DDC.vPosition.z += 0x20;
-          local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, local_DDC.vPosition.z);
+          local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, local_DDC.vPosition.z);
           if ( sub_42F5ED(&local_DDC,
                  v678,
                  v679,
@@ -7101,7 +7100,7 @@ LABEL_69:
         memcpy(&local_DDC.stru_000024, (void *)(
           ((char *)(&pParty_global->pPlayers[0]))[1743 * *(_WORD *)(v2 + 2) + 124] + 9 * ((char *)(&pParty_global->pPlayers))[1743 * *(_WORD *)(v2 + 2) + 1619]),
           sizeof(ItemGen));
-        v21 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, local_DDC.vPosition.z);
+        v21 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, local_DDC.vPosition.z);
         HIBYTE(local_DDC.uAttributes) |= 1u;
         local_DDC.sRoom = v21;
         if (pParty_global->bTurnBasedModeOn)
@@ -7196,7 +7195,7 @@ LABEL_69:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v33 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v33) = v33 | 4;
@@ -7312,7 +7311,7 @@ LABEL_133:
         v47 = *(_WORD *)(LODWORD(v712) + 138);
         local_DDC.vPosition.z = *(_WORD *)(LODWORD(v712) + 138);
         local_DDC.uAttributes = WORD2(v1);
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, v47);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, v47);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v48 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v48) = v48 | 4;
@@ -7356,7 +7355,7 @@ LABEL_139:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v49 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v49) = v49 | 4;
@@ -7506,7 +7505,7 @@ LABEL_174:
         local_DDC.vPosition.y = pParty_global->vPosition.y;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v58 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v58) = v58 | 4;
@@ -8311,7 +8310,7 @@ LABEL_353:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v181 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v181) = v181 | 4;
@@ -8634,7 +8633,7 @@ LABEL_153:
           local_DDC.uAttributes = WORD2(v1);
           local_DDC.vPosition.x = pParty_global->vPosition.x;
           local_DDC.vPosition.z = v50;
-          v51 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, v619, v629);
+          v51 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, v619, v629);
           local_DDC.uSpriteFrameID = WORD2(v1);
           local_DDC.sRoom = v51;
           v52 = 8 * *(_WORD *)(v2 + 2);
@@ -8671,7 +8670,7 @@ LABEL_157:
           local_DDC.vPosition.x = pParty_global->vPosition.x;
           local_DDC.uAttributes = WORD2(v1);
           local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-          local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+          local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
           local_DDC.uSpriteFrameID = WORD2(v1);
           v218 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v218) = v218 | 4;
@@ -9258,7 +9257,7 @@ LABEL_634:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v309 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v309) = v309 | 4;
@@ -11048,7 +11047,7 @@ LABEL_1062:
         local_DDC.vPosition.y = pParty_global->vPosition.y;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 2);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 2);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v559 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v559) = v559 | 4;
@@ -11136,7 +11135,7 @@ LABEL_1086:
         v616 = v565;
 LABEL_1087:
         local_DDC.uAttributes = WORD2(v1);
-        local_DDC.sRoom = IndoorLocation_sub_49AC17((int)pIndoor, v616, v624, v633);
+        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, v616, v624, v633);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v568 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v568) = v568 | 4;

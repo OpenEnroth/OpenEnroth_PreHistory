@@ -52,8 +52,8 @@ template<typename type>
   }
  }
 
- template<typename T>
-   friend T Dot(const Vec3<T> &lh, const Vec3<T> &rh);
+ template<typename TOut, typename T1, typename T2>
+   friend TOut Dot(const Vec3<T1> &lh, const Vec3<T2> &rh);
  template<typename T>
    friend Vec3<T> Cross(const Vec3<T> &lh, const Vec3<T> &rh);
 
@@ -106,7 +106,7 @@ struct Vec4
  inline Vec4(float a, float b, float c, float d): x(a), y(b), z(c), w(d) {}
 
  inline void  Normalize();
- friend float Dot(const Vec4 &lh, const Vec4 &rh);
+ friend float Dot_v4(const Vec4 &lh, const Vec4 &rh);
 
  inline Vec4  &operator =(const Vec4 &v);
  inline float &operator [](unsigned int uCol);

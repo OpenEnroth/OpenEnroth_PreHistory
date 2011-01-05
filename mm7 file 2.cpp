@@ -9033,7 +9033,7 @@ LABEL_23:
             goto LABEL_23;
         }
       }
-      if ( *(_DWORD *)(120 * v17 + pSoundList->pSounds + 44) )
+      if ( *(_DWORD *)((int)&pSoundList->pSounds[v17] +  + 44) )
         v22 = (sLastTrackLengthMS << 7) / 1000;
     }
     LOWORD(v13) = Player_sub_494A25_LooksLikePlayEmotion(_this, v16, v22);
@@ -12138,7 +12138,7 @@ LABEL_32:
     v31 = v51.z;
     v33 = 0;
     v34 = 48;
-    v35 = IndoorLocation_sub_49AC17((int)pIndoor, v51.x, v51.y, v51.z);
+    v35 = IndoorLocation_sub_49AC17(pIndoor, v51.x, v51.y, v51.z);
     v36 = 0;
     v42 = 0;
     v43 = 0;
@@ -12610,7 +12610,7 @@ LABEL_15:
       v16 = 0;
       v15 = 0;
       v17 = 8;
-      v8 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+      v8 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
       v19 = 0;
       v18 = v8;
       memcpy(&local_28, &pParty_global->pickedItem, sizeof(struct ItemGen));
@@ -13026,7 +13026,7 @@ LABEL_18:
             v24.v28 = pParty_global->uEyelevel + pParty_global->vPosition.z;
             v24.v29 = 0;
             v24.v30 = 8;
-            v24.v31 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+            v24.v31 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
             v24.v32 = 0;
             memcpy(&v24.local_30, &pParty_global->pickedItem, sizeof(struct ItemGen));
             v8 = (int)GUICursor_GetMousePos(pGame->pGUICursor, &v35);

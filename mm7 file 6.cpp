@@ -4108,49 +4108,35 @@ char __stdcall sub_4989E1(int a1, int a2, int a3, int a4)
 }
 
 //----- (00498A41) --------------------------------------------------------
-char __thiscall sub_498A41(int _this, int a2, int a3)
+char __thiscall sub_498A41(BLVFace *_this, Vec3<int> *a2, Vec3<int> *a3)
 {
-  int v3; // eax@1
-  int v4; // ebx@1
   signed __int64 v5; // qax@2
   double v6; // st7@8
   float v8; // [sp+Ch] [bp-Ch]@8
   float v9; // [sp+10h] [bp-8h]@8
   float v10; // [sp+14h] [bp-4h]@8
 
-  v4 = _this;
-  LOBYTE(v3) = *(_BYTE *)(_this + 92);
-  if ( (_BYTE)v3 == 1 )
+  if (_this->uPolygonType == 1)
   {
-    *(_DWORD *)a2 = -*(_DWORD *)(_this + 20);
-    LODWORD(v5) = *(_DWORD *)(_this + 16);
+   a2->x = -_this->vFaceNormal.y;
+    LODWORD(v5) = _this->vFaceNormal.x;
 LABEL_9:
-    *(_DWORD *)(a2 + 4) = v5;
-    v3 = 0;
-    *(_DWORD *)(a2 + 8) = 0;
-    *(_DWORD *)(a3 + 4) = 0;
-    *(_DWORD *)(a3 + 8) = -65536;
-LABEL_11:
-    *(_DWORD *)a3 = v3;
-    goto LABEL_12;
+   a2->y = v5;
+   a2->z = 0;
+   *a3 = Vec3<int>(0, 0, -65536);
   }
-  if ( (_BYTE)v3 == 3 || (_BYTE)v3 == 5 )
+  else if (_this->uPolygonType == 3 || _this->uPolygonType == 5)
   {
 LABEL_10:
-    v3 = 0;
-    *(_DWORD *)a2 = 65536;
-    *(_DWORD *)(a2 + 8) = 0;
-    *(_DWORD *)(a2 + 4) = 0;
-    *(_DWORD *)(a3 + 4) = -65536;
-    *(_DWORD *)(a3 + 8) = 0;
-    goto LABEL_11;
+    *a2 = Vec3<int>(65536, 0, 0);
+    *a3 = Vec3<int>(0, -65536, 0);
   }
-  if ( (_BYTE)v3 == 4 || (_BYTE)v3 == 6 )
+  else if (_this->uPolygonType == 4 || _this->uPolygonType == 6)
   {
     if ( abs(*(_DWORD *)(_this + 24)) < 46441 )
     {
-      v8 = (double)-*(_DWORD *)(v4 + 20);
-      v9 = (double)*(signed int *)(v4 + 16);
+      v8 = (double)-*(_DWORD *)(_this + 20);
+      v9 = (double)*(signed int *)(_this + 16);
       v10 = 0.0;
       sub_4369DB((int)&v8);
       v6 = v9 * 65536.0;
@@ -4160,24 +4146,25 @@ LABEL_10:
     }
     goto LABEL_10;
   }
-LABEL_12:
-  if ( *(_BYTE *)(v4 + 46) & 0x80 )
+
+
+  if (_this->uAttributes & 0x800000)
   {
     *(_DWORD *)a2 = -*(_DWORD *)a2;
     *(_DWORD *)(a2 + 4) = -*(_DWORD *)(a2 + 4);
     *(_DWORD *)(a2 + 8) = -*(_DWORD *)(a2 + 8);
   }
-  if ( *(_BYTE *)(v4 + 47) & 1 )
+  if (_this->uAttributes & 0x01000000)
   {
     *(_DWORD *)a3 = -*(_DWORD *)a3;
     *(_DWORD *)(a3 + 4) = -*(_DWORD *)(a3 + 4);
     *(_DWORD *)(a3 + 8) = -*(_DWORD *)(a3 + 8);
   }
-  return v3;
+  return 0;
 }
 
 //----- (0049AC17) --------------------------------------------------------
-int __thiscall IndoorLocation_sub_49AC17(int _this, int sPosX, int sPosY, int sPosZ)
+int __thiscall IndoorLocation_sub_49AC17(IndoorLocation *_this, int sPosX, int sPosY, int sPosZ)
 {
   int v4; // esi@1
   int v8; // eax@3
@@ -4236,16 +4223,13 @@ int __thiscall IndoorLocation_sub_49AC17(int _this, int sPosX, int sPosY, int sP
   int v62; // [sp+110h] [bp-4h]@16
 
   v4 = 0;
-  //v7 = __SETO__(*(_DWORD *)(_this + 648), 1);
-  //v5 = *(_DWORD *)(_this + 648) == 1;
-  //v6 = *(_DWORD *)(_this + 648) - 1 < 0;
   v58 = 0;
   v46[0] = 0;
-  v59 = 1;
-  if (*(_DWORD *)(_this + 648) <= 1 )
+  if (_this->uNumSectors <= 1 )
     return 0;
+
   v55 = 116;
-  do
+  for (unsigned int i = 1; i < _this->uNumSectors; ++i)
   {
     v8 = v55 + *(_DWORD *)(_this + 652);
     if ( *(_WORD *)(v8 + 104) <= sPosX )
@@ -4373,10 +4357,9 @@ int __thiscall IndoorLocation_sub_49AC17(int _this, int sPosX, int sPosY, int sP
         }
       }
     }
-    ++v59;
     v55 += 116;
   }
-  while ( v59 < *(_DWORD *)(_this + 648) );
+
   if ( v58 == 1 )
     return *(_WORD *)(*(_DWORD *)(_this + 636) + 96 * v4 + 76);
   v40 = 0;

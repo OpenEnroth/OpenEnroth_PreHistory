@@ -1173,12 +1173,12 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
   signed int v12; // ST1E_4@11
   float v15; // [sp+30h] [bp+18h]@10
 
-  v6 = a5->uFaceAttributes;
+  v6 = a5->uAttributes;
   if (v6 & 0x0001 ||
       v6 & 0x2000)
     return 0;
 
-  v8 = Dot(pRayEnd->vPosition, a5->vFaceNormalf);
+  v8 = Dot<float>(pRayEnd->vPosition, a5->vFaceNormalf);
   if (v8 >= 0.0) // ray's away (>) from face surface or parallel (==)
     return 0;
 
@@ -1186,7 +1186,7 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
   //       pRayOrigin->vPosition.y * a5->vFaceNormalf.y +
   //       pRayOrigin->vPosition.z * a5->vFaceNormalf.z +
   //       a5->fNormalDistance);
-  v9 = -(Dot(pRayOrigin->vPosition, a5->vFaceNormalf) + a5->fNormalDistance);
+  v9 = -(Dot<float>(pRayOrigin->vPosition, a5->vFaceNormalf) + a5->fNormalDistance);
 
   if ( v8 <= 0.0 )
   {
@@ -1421,7 +1421,7 @@ void sub_4C0EF2_ODMFace_to_BLVFace(BLVFace *_this, ODMFace *a2)
  _this->zCalc1 = a2->zCalc1;
  _this->zCalc2 = a2->zCalc2;
  _this->zCalc3 = a2->zCalc3;
- _this->uFaceAttributes = a2->uFaceAttributes;
+ _this->uAttributes = a2->uFaceAttributes;
 
  _this->uBitmapID = a2->uTextureID;
 
@@ -1457,7 +1457,7 @@ char __stdcall sub_438258(BLVFace *a1, int a2)
   if ((*(float *)(a2 + 8) - (double)pOldCamera->sPosZ) * (double)a1->vFaceNormal.z +
       (*(float *)(a2 + 4) - (double)pOldCamera->sPosY) * (double)a1->vFaceNormal.y +
       (*(float *)(a2 + 0) - (double)pOldCamera->sPosX) * (double)a1->vFaceNormal.x < 0.0
-    || (result = 1, a1->uFaceAttributes & 1) )
+    || (result = 1, a1->uAttributes & 1) )
     result = 0;
   return result;
 }
@@ -1582,7 +1582,7 @@ char __stdcall sub_4C1EE5_IntersectBModel(int *a1, int *a2, short *a3, short *a4
 //----- (004C2186) --------------------------------------------------------
 Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, short *a4, Vec3<short> *a5, BLVFace *a6, unsigned int uModelID)
 {
- if (a6->uFaceAttributes & 0x0100) // xy plane polygon
+ if (a6->uAttributes & 0x0100) // xy plane polygon
  {
   *a1 = a5->x;
   *a2 = a5->y;
@@ -1596,7 +1596,7 @@ Result::Code __stdcall sub_4C2186_IntersectBModel(int *a1, int *a2, short *a3, s
    a4[i * 2 + 1] = a6->pYInterceptDisplacements[i + 1] + (short)pOutdoor->pBModels[uModelID].pVertices[a6->pVertexIDs[i + 1]].y;
   }
  }
- else if (a6->uFaceAttributes & 0x0200) // xz plane polygon
+ else if (a6->uAttributes & 0x0200) // xz plane polygon
  {
   *a1 = a5->x;
   *a2 = a5->z;

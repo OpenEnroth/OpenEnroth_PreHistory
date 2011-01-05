@@ -2299,7 +2299,7 @@ int AudioPlayer::sub_4ABE55(AudioPlayer::MixerChannel *pChannel)
   unsigned __int8 v6; // sf@5
   int v10; // ecx@12
   int v11; // edi@13
-  int v14[16]; // [sp+Ch] [bp-48h]@8
+  int v14[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // [sp+Ch] [bp-48h]@8
   int v15; // [sp+4Ch] [bp-8h]@5
   int v16; // [sp+50h] [bp-4h]@5
 

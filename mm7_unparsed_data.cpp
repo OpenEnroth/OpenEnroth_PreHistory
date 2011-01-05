@@ -1308,8 +1308,8 @@ struct class37 class37_global0; // struct @ MM7.exe::0051B778
  int dword_56EEA8; // weak
  __int16 word_56EEAC[array_size_unknown]; // weak
  //unsigned short array_56EFD8[137 * 117 + array_size_unknown]; // used in drawing minimap, now obsolete
- int dword_576D14; // weak
- __int16 word_576D80[array_size_unknown]; // weak
+unsigned int   uNumBlueFacesInBLVMinimap;     // dword    @ MM7.exe::00576D14
+unsigned short pBlueFacesInBLVMinimapIDs[50]; // word[50] @ MM7.exe::00576D80
 
 
 unsigned int uTextureIdx_SpellEffecIcons[14]; // dword[14] @ MM7.exe::00576DE8
@@ -1680,6 +1680,7 @@ unsigned int uCurrentlyLoadedLevelType = -1; // dword @ MM7.exe::006BE360    1 i
                    // 0x0010: no sound
                    // 0x0020: no walk sound
                    // 0x0040: no anim
+                   // 0x0080: user input and some other stuff is updated. if false => update
                    // 0x0100: application is minimized to tray/not active right now
                    // 0x0200: cEventTimer is paused
                    // 0x0400: cMiscTimer is paused

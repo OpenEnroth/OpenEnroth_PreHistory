@@ -587,15 +587,13 @@ int  CPlayerFrameTable::GetFrameByNum( unsigned int uNumFrame)
 }
 
 //----- (00494B5E) --------------------------------------------------------
-struct PlayerFrame *CPlayerFrameTable::PlayerFrameTable_sub_494B5E( int a2, int a3, int a4)
+PlayerFrame *CPlayerFrameTable::PlayerFrameTable_sub_494B5E(int a2, int a3, int a4)
 {
-  int v4; // edi@1
   signed int v5; // esi@1
   int v6; // eax@2
 
-  v4 = (int)this;
   v5 = a4 + a3;
-  if ( v5 < 8 * *(_WORD *)(*(_DWORD *)(this + 4) + 10 * *(_DWORD *)a2 + 4) )
+  if ( v5 < 8 * pFrames[*(_DWORD *)a2].word_000004 )
   {
     a3 = v5;
   }
@@ -603,7 +601,7 @@ struct PlayerFrame *CPlayerFrameTable::PlayerFrameTable_sub_494B5E( int a2, int 
   {
     v6 = rand() % 4 + 21;
     a2 = v6;
-    a3 = 8 * v5 % *(_WORD *)(*(_DWORD *)(v4 + 4) + 10 * v6 + 4);
+    a3 = 8 * v5 % pFrames[v6].word_000004;
   }
   return &pFrames[a2];
 }

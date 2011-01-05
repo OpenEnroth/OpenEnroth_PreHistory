@@ -136,6 +136,14 @@ struct Spellbook
 
 struct Player
 {
+ inline Player()
+ {
+  extern void Player_ctor(Player *_this);
+  Player_ctor(this);
+
+  dword_001AA4 = 0;
+  dword_001AA8 = 0;
+ }
 
    __int64          pConditions[20];      // qword[20] @ 000000   [14] eradicated  [16] dead  condition time may be
    unsigned __int64 uExperience;          // qword     @ 0000A0

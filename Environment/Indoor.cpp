@@ -783,7 +783,7 @@ LABEL_50:
  {
   BLVFace *pFace = pFaces + i;
 
-  if (pFace->uFaceAttributes & 0x4000)
+  if (pFace->uAttributes & 0x4000)
   {
    pFace->uBitmapID = TextureFrameTable_sub_44E163(pTextureFrameTable, v99);
    if (pFace->uBitmapID)
@@ -791,7 +791,7 @@ LABEL_50:
    else
    {
     pFace->uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(v99, 0);
-    pFace->uFaceAttributes &= ~0x4000;
+    pFace->uAttributes &= ~0x4000;
    }
   }
   else
@@ -830,9 +830,9 @@ LABEL_50:
   if (pFaceExtra->uEventID)
   {
    if (sub_44C23B(pFaceExtra))
-     pFace->uFaceAttributes |= 0x100000;
+     pFace->uAttributes |= 0x100000;
    else
-     pFace->uFaceAttributes &= ~0x100000;
+     pFace->uAttributes &= ~0x100000;
   }
  }
 
@@ -1071,13 +1071,13 @@ LABEL_140:
   BLVFace      *pFace = pFaces + i;
   BLVFaceExtra *pFaceExtra = pFaceExtras + pFace->uFaceExtraID;
 
-  memcpy(&pFace->uFaceAttributes, v99, 4);
+  memcpy(&pFace->uAttributes, v99, 4);
   if (pFaceExtra->uEventID)
   {
    if (sub_44C23B(pFaceExtra))
-     pFace->uFaceAttributes |= 0x100000;
+     pFace->uAttributes |= 0x100000;
    else
-     pFace->uFaceAttributes &= ~0x100000;
+     pFace->uAttributes &= ~0x100000;
   }
 
   v99 += 4;
@@ -1142,8 +1142,8 @@ LABEL_140:
  {
   BLVDoor *pDoor = pDoors + i;
 
-  pDoor->ptr_000024 = ptr_0002B4_doors_ddata + j;
-  j += pDoor->word_000044;
+  pDoor->pVertexIDs = ptr_0002B4_doors_ddata + j;
+  j += pDoor->uNumVertices;
 
   pDoor->pFaceIDs = ptr_0002B4_doors_ddata + j;
   j += pDoor->uNumFaces;
@@ -1157,14 +1157,14 @@ LABEL_140:
   pDoor->pDeltaVs = (short *)(ptr_0002B4_doors_ddata + j);
   j += pDoor->uNumFaces;
 
-  pDoor->ptr_000038 = ptr_0002B4_doors_ddata + j;
-  j += pDoor->word_00004A;
+  pDoor->pXOffsets = ptr_0002B4_doors_ddata + j;
+  j += pDoor->uNumOffsets;
 
-  pDoor->ptr_00003C = ptr_0002B4_doors_ddata + j;
-  j += pDoor->word_00004A;
+  pDoor->pYOffsets = ptr_0002B4_doors_ddata + j;
+  j += pDoor->uNumOffsets;
 
-  pDoor->ptr_000040 = ptr_0002B4_doors_ddata + j;
-  j += pDoor->word_00004A;
+  pDoor->pZOffsets = ptr_0002B4_doors_ddata + j;
+  j += pDoor->uNumOffsets;
  }
 
  for (unsigned int i = 0; i < uNumDoors; ++i)

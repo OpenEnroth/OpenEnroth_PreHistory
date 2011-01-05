@@ -1,10 +1,10 @@
 #include "Math.h"
 
 
-template<typename type>
-  inline type Dot(const Vec3<type> &v1, const Vec3<type> &v2)
+template<typename TOut, typename T1, typename T2>
+  inline TOut Dot(const Vec3<T1> &v1, const Vec3<T2> &v2)
 {
- return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+ return (TOut)v1.x * (TOut)v2.x + (TOut)v1.y * (TOut)v2.y + (TOut)v1.z * (TOut)v2.z;
 }
 
 template<typename type>
@@ -40,7 +40,7 @@ template<typename type>
 
 
 
-inline float Dot(const Vec4 &v1, const Vec4 &v2)
+inline float Dot_v4(const Vec4 &v1, const Vec4 &v2)
 {
  return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
 }

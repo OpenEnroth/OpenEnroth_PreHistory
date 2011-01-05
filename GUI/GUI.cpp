@@ -3436,7 +3436,7 @@ LABEL_91:
             v88 = v86;
             if ( uCurrentlyLoadedLevelType == 1 )
             {
-              if ( IndoorLocation_sub_49AC17((int)pIndoor, v87, v205, v86) )
+              if ( IndoorLocation_sub_49AC17(pIndoor, v87, v205, v86) )
               {
                 v89 = v205;
 LABEL_544:
@@ -4311,13 +4311,13 @@ int __thiscall sub_4219BE(void *_this)
 //----- (00441D38) --------------------------------------------------------
 void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uMinimapZoom)
 {
-  int v8; // eax@8
-  int v9; // edx@9
-  int v10; // edi@9
-  int v11; // ebx@10
-  __int16 v12; // cx@11
-  int v13; // ecx@17
-  int v14; // ecx@21
+  //int v8; // eax@8
+  //int v9; // edx@9
+  //int v10; // edi@9
+  //int v11; // ebx@10
+  //__int16 v12; // cx@11
+  //int v13; // ecx@17
+  //int v14; // ecx@21
   int v15; // eax@23
   int v16; // ebx@23
   int v17; // ecx@28
@@ -4343,8 +4343,8 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
   signed int v79; // [sp+34h] [bp-20h]@4
   signed int v82; // [sp+38h] [bp-1Ch]@37
   bool v84; // [sp+3Ch] [bp-18h]@2
-  int v86; // [sp+40h] [bp-14h]@8
-  signed int v93; // [sp+5Ch] [bp+8h]@7
+  //int v86; // [sp+40h] [bp-14h]@8
+  //signed int v93; // [sp+5Ch] [bp+8h]@7
   int i; // [sp+5Ch] [bp+8h]@27
   int v100; // [sp+60h] [bp+Ch]@23
   _UNKNOWN *v102; // [sp+60h] [bp+Ch]@37
@@ -4400,74 +4400,64 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
    for (x = 0; x < uMinimapWidth; ++x)
      *pTargetSurface++ = *pSourceSurface++;
   }
-  dword_576D14 = 0;
+
+  uNumBlueFacesInBLVMinimap = 0;
  }
  else
  {
   Render_FillRect2(pD3DRenderer, uX, uY, uMinimapWidth, uMinimapHeight, 15);
-  dword_576D14 = 0;
-  v93 = 0;
-  if ( *(_DWORD *)pIndoor->ptr_0002A8 > 0 )
+  uNumBlueFacesInBLVMinimap = 0;
+
+
+  for (unsigned int i = 0; i < *(unsigned int *)pIndoor->ptr_0002A8; ++i)
   {
-    v86 = 0;
-    v8 = (int)pIndoor->pFaces;
-    do
-    {
-      v10 = v86 + (int)pIndoor->ptr_0002A8 + 4;
-      v9 = *(_DWORD *)(96 * *(_WORD *)(v86 + (int)pIndoor->ptr_0002A8 + 8) + v8 + 44);
-      if ( BYTE1(v9) & 0x20
-        || (v11 = *(_DWORD *)(96 * *(_WORD *)(v86 + (int)pIndoor->ptr_0002A8 + 10) + v8 + 44), BYTE1(v11) & 0x20) )
-        goto LABEL_26;
-      v12 = *(_WORD *)(v86 + (int)pIndoor->ptr_0002A8 + 14);
-      if ( !(v12 & 1) )
-      {
-        if ( (_BYTE)v9 >= 0 && (_BYTE)v11 >= 0 )
-          goto LABEL_26;
-        *(_WORD *)(v86 + (int)pIndoor->ptr_0002A8 + 14) = v12 | 1;
-        pIndoor->unk_000324[v93 >> 3] |= 1 << (7 - v93 % 8);
-        v8 = (int)pIndoor->pFaces;
-      }
-      if ( v84
-        && v79 >= 3
-        && ((v13 = v8 + 96 * *(_WORD *)(v10 + 4), *(_DWORD *)(v13 + 44) & 0x2000000)
-         || *(_DWORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 44) & 0x2000000)
-        && (*(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v13 + 72) + 26)
-         || *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(96 * *(_WORD *)(v10 + 6) + v8 + 72) + 26))
-        && (v14 = dword_576D14, dword_576D14 < 49) )
-      {
-        word_576D80[dword_576D14] = v93;
-        dword_576D14 = v14 + 1;
-      }
-      else
-      {
-        v73 = uMinimapCentreX +
-            ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v10)) >> 16) << 16)
-                          - uMinimapZoom * pParty_global->vPosition.x) >> 16);
-        v71 = uMinimapCentreY -
-            ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v10 + 2)) >> 16) << 16)
-                          - uMinimapZoom * pParty_global->vPosition.y) >> 16);
-        v100 = uMinimapCentreX +
-             ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v10 + 2))) >> 16) << 16)
-                           - uMinimapZoom * pParty_global->vPosition.x) >> 16);
-        v16 = uMinimapCentreY -
-            ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)(v10 + 2) + 2)) >> 16) << 16)
-                          - uMinimapZoom * pParty_global->vPosition.y) >> 16);
-        v15 = abs(*(_WORD *)(v10 + 8) - pParty_global->vPosition.z) / 8;
-        if ( v15 > 100 )
+   BLVMapVertex *pMapVertex = (BLVMapVertex *)(pIndoor->ptr_0002A8 + 4) + i;
+
+   BLVFace *pFace1 = pIndoor->pFaces + pMapVertex->uFace1ID,
+           *pFace2 = pIndoor->pFaces + pMapVertex->uFace2ID;
+
+   if (pFace1->uAttributes & 0x2000 || pFace2->uAttributes & 0x2000)  // invisible faces
+     continue;
+
+   if (~pMapVertex->word_00000A & 0x01)
+   {
+    //if ((_BYTE)pFace1->uAttributes >= 0 && (_BYTE)pFace2->uAttributes >= 0 )
+    //  continue;
+
+    pMapVertex->word_00000A |= 1;
+    pIndoor->unk_000324[i >> 3] |= 1 << (7 - i % 8);
+   }
+
+   if (v84 &&
+       v79 >= 3 &&
+       (pFace1->uAttributes & 0x2000000 || pFace2->uAttributes & 0x2000000) &&  // triggerable surfaces
+       (pIndoor->pFaceExtras[pFace1->uFaceExtraID].uEventID || pIndoor->pFaceExtras[pFace2->uFaceExtraID].uEventID) &&
+       uNumBlueFacesInBLVMinimap < 49)
+   {
+        pBlueFacesInBLVMinimapIDs[uNumBlueFacesInBLVMinimap++] = i;
+   }
+   else
+   {
+    v73 = uMinimapCentreX + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * pIndoor->pVertices[pMapVertex->uVertex1ID].x) >> 16) << 16) - uMinimapZoom * pParty_global->vPosition.x) >> 16);
+    v71 = uMinimapCentreY - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * pIndoor->pVertices[pMapVertex->uVertex1ID].y) >> 16) << 16) - uMinimapZoom * pParty_global->vPosition.y) >> 16);
+    v100 = uMinimapCentreX + ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * pIndoor->pVertices[pMapVertex->uVertex2ID].x) >> 16) << 16) - uMinimapZoom * pParty_global->vPosition.x) >> 16);
+    v16 = uMinimapCentreY - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * pIndoor->pVertices[pMapVertex->uVertex2ID].y) >> 16) << 16) - uMinimapZoom * pParty_global->vPosition.y) >> 16);
+    v15 = abs(pMapVertex->sZ - pParty_global->vPosition.z) / 8;
+        if (v15 > 100)
           v15 = 100;
-        //Render_FillRect(pD3DRenderer, v73, v71, v100, v16, *((_WORD *)&unk_5771E4 - v15));
-        Render_FillRect(pD3DRenderer, v73, v71, v100, v16, struct_576FE8.pSomeColorTable[200 - v15]);
-        v8 = (int)pIndoor->pFaces;
-      }
-LABEL_26:
-      ++v93;
-      v86 += 12;
-    }
-    while ( v93 < *(_DWORD *)pIndoor->ptr_0002A8 );
+    //Render_FillRect(pD3DRenderer, v73, v71, v100, v16, struct_576FE8.pSomeColorTable[200 - v15]);
+    //Render_FillRect(pD3DRenderer,
+    //                uMinimapCentreX + (pIndoor->pVertices[pMapVertex->uVertex1ID].x - pParty_global->vPosition.x) / (uMinimapZoom / 256),
+    //                uMinimapCentreY + (pIndoor->pVertices[pMapVertex->uVertex1ID].y - pParty_global->vPosition.y) / (uMinimapZoom / 256),
+    //                uMinimapCentreX + (pIndoor->pVertices[pMapVertex->uVertex2ID].x - pParty_global->vPosition.x) / (uMinimapZoom / 256),
+    //                uMinimapCentreY + (pIndoor->pVertices[pMapVertex->uVertex2ID].y - pParty_global->vPosition.y) / (uMinimapZoom / 256),
+    //                struct_576FE8.pSomeColorTable[200 - v15]);
+   }
   }
-  for ( i = 0; i < dword_576D14; ++i )
+
+  for ( i = 0; i < uNumBlueFacesInBLVMinimap; ++i )
   {
-    v17 = (int)pIndoor->ptr_0002A8 + 12 * (unsigned __int16)word_576D80[i] + 4;
+    v17 = (int)pIndoor->ptr_0002A8 + 12 * (unsigned __int16)pBlueFacesInBLVMinimapIDs[i] + 4;
     Render_FillRect(pD3DRenderer, uMinimapCentreX +
     ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v17)) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.x) >> 16),
@@ -4475,10 +4465,10 @@ LABEL_26:
     ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)v17 + 2)) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.y) >> 16),
       uMinimapCentreX +
-    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)((int)pIndoor->ptr_0002A8 + 12 * (unsigned __int16)word_576D80[i] + 6))) >> 16) << 16)
+    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom * *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)((int)pIndoor->ptr_0002A8 + 12 * (unsigned __int16)pBlueFacesInBLVMinimapIDs[i] + 6))) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.x) >> 16),
       uMinimapCentreY -
-    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom* *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)((int)pIndoor->ptr_0002A8 + 12 * (unsigned __int16)word_576D80[i] + 6) + 2)) >> 16) << 16)
+    ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom* *(_WORD *)((int)pIndoor->pVertices + 6 * *(_WORD *)((int)pIndoor->ptr_0002A8 + 12 * (unsigned __int16)pBlueFacesInBLVMinimapIDs[i] + 6) + 2)) >> 16) << 16)
                   - uMinimapZoom * pParty_global->vPosition.y) >> 16),
       0xFF0000FF);
   }

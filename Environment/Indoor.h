@@ -15,7 +15,7 @@ struct BLVFace
  {
   uNumVertices = 0;
 
-  uFaceAttributes = 0;
+  uAttributes = 0;
   pVertexIDs = nullptr;
   pXInterceptDisplacements = nullptr;
   pYInterceptDisplacements = nullptr;
@@ -34,7 +34,7 @@ struct BLVFace
  int             zCalc1;          // dword @ 000020  BSPModel::Face::zCalc1
  int             zCalc2;          // dword @ 000024
  int             zCalc3;          // dword @ 000028
- unsigned int    uFaceAttributes; // dword @ 00002C  BSPModel::Face::uFaceAttributes
+ unsigned int    uAttributes;     // dword @ 00002C  BSPModel::Face::uFaceAttributes
  unsigned short *pVertexIDs;               // dword @ 000030  vertex indices list
  unsigned short *pXInterceptDisplacements; // dword @ 000034  BSPModel::pXInterceptDisplacements
  unsigned short *pYInterceptDisplacements; // dword @ 000038
@@ -54,6 +54,7 @@ struct BLVFace
 };
 //sizeof == 60
 void sub_4C0EF2_ODMFace_to_BLVFace(BLVFace *to, ODMFace *from);
+char sub_498A41(struct BLVFace *_this, Vec3<int> *a2, Vec3<int> *a3);
 
 
 struct BLVFaceExtra
@@ -75,26 +76,43 @@ struct BLVFaceExtra
 
 struct BLVDoor
 {
- int             dword_000000;
+ int             uAttributes;  // dword @ 000000
  unsigned int    uDoorID;      // dword @ 000004
- int             dword_000008;
- char            unk_00000C[24];
- unsigned short *ptr_000024;
+ unsigned int    dword_000008_time_elapsed;
+ Vec3<int>       vector_00000C; // dword[3] @ 00000C
+ int             dword_000018;
+ int             dword_00001C;
+ int             dword_000020;
+ unsigned short *pVertexIDs;   // dword @ 000024
  unsigned short *pFaceIDs;     // dword @ 000028
  unsigned short *ptr_00002C;
  short          *pDeltaUs;     // dword @ 000030
  short          *pDeltaVs;     // dword @ 000034
- unsigned short *ptr_000038;
- unsigned short *ptr_00003C;
- unsigned short *ptr_000040;
- unsigned short  word_000044;
- unsigned short  uNumFaces;    // word @ 000046    pFaceIDs, pDeltaUs, pDeltaVs
+ unsigned short *pXOffsets;    // dword @ 000038  things used in door vertices pos calc
+ unsigned short *pYOffsets;    // dword @ 00003C
+ unsigned short *pZOffsets;    // dword @ 000040
+ unsigned short  uNumVertices; // word  @ 000044    pVertexIDs
+ unsigned short  uNumFaces;    // word  @ 000046    pFaceIDs, pDeltaUs, pDeltaVs
  unsigned short  word_000048;
- unsigned short  word_00004A;
+ unsigned short  uNumOffsets;  // word  @ 00004A    pXOffsets, pYOffsets, pZOffsets
  short           word_00004C;
  short           word_00004E;
 };
 //sizeof == 50
+
+
+
+
+struct BLVMapVertex
+{
+ unsigned short uVertex1ID; // word @ 000000
+ unsigned short uVertex2ID; // word @ 000002
+ unsigned short uFace1ID;   // word @ 000004
+ unsigned short uFace2ID;   // word @ 000006
+ short sZ;  // word @ 000008
+ short word_00000A;
+};
+//sizeof == 0C
 
 
 
@@ -185,17 +203,6 @@ class IndoorLocation
    };
    //sizeof == 10
 
-   struct BLVMapVertex
-   {
-    short sX1; // word @ 000000
-    short sY1; // word @ 000002
-    short sX2; // word @ 000004
-    short sY2; // word @ 000006
-    short sZ;  // word @ 000008
-    short word_00000A;
-   };
-   //sizeof == 0C
-
 
 
 
@@ -241,7 +248,7 @@ class IndoorLocation
 //signed int sub_498E0A(void *Dest, const char *Args, int a3, int a5)   00498E0A  Indoor::Load
 //int sub_498B15(int _this)                                             00498B15  Indoor::Clear
 
-int IndoorLocation_sub_49AC17(int _this, int sPosX, int sPosY, int sPosZ);
+int IndoorLocation_sub_49AC17(IndoorLocation *_this, int sPosX, int sPosY, int sPosZ);
 signed int IndoorLocation_sub_498C45(int _this);
 
 

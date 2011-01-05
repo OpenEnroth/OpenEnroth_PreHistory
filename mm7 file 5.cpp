@@ -3228,13 +3228,13 @@ unsigned int sub_46BDA8_GetGravityStrength()
 }
 
 //----- (0046BDF1) --------------------------------------------------------
-function_error;//int __usercall sub_46BDF1<eax>(unsigned int a1<ebx>)
-int __fastcall sub_46BDF1(unsigned int a1)
+function_error;//int __usercall sub_46BDF1_UpdateUserInputAndOther_BLV<eax>(unsigned int a1<ebx>)
+int __fastcall sub_46BDF1_UpdateUserInputAndOther_BLV(unsigned int a1)
 {
   sub_47253E(a1);
-  sub_472866();
+  sub_472866_SomeStuffIncludingPartyPosUpdate_BLV();
   sub_46F90C();
-  sub_46F228();
+  sub_46F228_UpdateDoors_BLV();
   return sub_46CC4B();
 }
 
@@ -5793,7 +5793,7 @@ _proceed:
       v7 = v4->sNormalDistance;
       local_0C.sNormalDistance = v4->sNormalDistance;
       v5 = *(_DWORD *)((char *)v4 + 0x1C);
-      local_0C.uFaceAttributes = v4->uFaceAttributes;
+      local_0C.uAttributes = v4->uFaceAttributes;
       local_0C.cBoundingBoxX = v4->cBoundingBoxX;
       local_0C.cBoundingBoxY = v4->cBoundingBoxY;
       local_0C.cBoundingBoxZ = v4->cBoundingBoxZ;
@@ -5956,7 +5956,7 @@ int __fastcall sub_46ED1B(signed int a1, signed int a2, int a3, int *a4, int a5)
   v8 = a1;
   result = sub_46CEC3(a1, a2, a3, *a4, (int)&a4);
   if ( result != -30000 && result <= a3 + 50
-    || (v7 = IndoorLocation_sub_49AC17((int)pIndoor, v8, v9, a3), *v6 = v7, v7)
+    || (v7 = IndoorLocation_sub_49AC17(pIndoor, v8, v9, a3), *v6 = v7, v7)
     && (result = sub_46CEC3(v8, v9, a3, v7, (int)&a4), result != -30000) )
     *(_DWORD *)a5 = (int)a4;
   else
@@ -6213,12 +6213,12 @@ signed int __cdecl sub_46F04E()
 }
 
 //----- (0046F228) --------------------------------------------------------
-void __cdecl sub_46F228()
+void __cdecl sub_46F228_UpdateDoors_BLV()
 {
-  int v0; // ebx@1
-  int v1; // edi@1
-  __int16 v2; // ax@3
-  char *v3; // esi@3
+  //int v0; // ebx@1
+  //int v1; // edi@1
+  //__int16 v2; // ax@3
+  //char *v3; // esi@3
   int v4; // ecx@5
   int v5; // eax@8
   int v6; // ecx@8
@@ -6227,56 +6227,56 @@ void __cdecl sub_46F228()
   //unsigned __int8 v9; // zf@18
   //char v10; // sf@18
   //unsigned __int8 v11; // of@18
-  int v12; // edi@19
-  int v13; // ecx@19
-  __int16 v14; // ax@19
+  //int v12; // edi@19
+  //int v13; // ecx@19
+  //__int16 v14; // ax@19
   //unsigned __int8 v15; // zf@21
   //char v16; // sf@21
   //unsigned __int8 v17; // of@21
-  signed int v18; // eax@24
-  int v19; // ebx@24
-  int v20; // ecx@24
-  int v21; // esi@24
-  int v22; // eax@24
-  int v23; // edx@24
-  int v24; // ecx@24
-  signed int v25; // esi@24
-  double v26; // st7@24
-  int v27; // edi@25
+  //signed int v18; // eax@24
+  //int v19; // ebx@24
+  //int v20; // ecx@24
+  //int v21; // esi@24
+  //int v22; // eax@24
+  //int v23; // edx@24
+  //int v24; // ecx@24
+  //signed int v25; // esi@24
+  //double v26; // st7@24
+  //int v27; // edi@25
   int v28; // esi@25
   signed __int64 v29; // qtt@27
-  int v30; // esi@32
+  //int v30; // esi@32
   int v31; // eax@34
   int v32; // ecx@34
   int v33; // edx@34
   unsigned __int64 v34; // qax@34
   int v35; // eax@35
   int v36; // edx@35
-  int v37; // eax@35
-  int v38; // eax@35
-  int v39; // ecx@35
-  int v40; // edx@35
-  signed int v41; // eax@35
-  signed int v42; // edx@35
-  unsigned __int8 v43; // cf@35
-  unsigned __int8 v44; // zf@35
+  //int v37; // eax@35
+  //int v38; // eax@35
+  //int v39; // ecx@35
+  //int v40; // edx@35
+  //signed int v41; // eax@35
+  //signed int v42; // edx@35
+  //unsigned __int8 v43; // cf@35
+  //unsigned __int8 v44; // zf@35
   int v45; // ecx@36
-  int v46; // edi@36
-  int v47; // edi@36
-  int v48; // ecx@36
-  int v49; // edi@36
-  int v50; // edx@44
-  int v51; // ecx@44
-  int v52; // ecx@46
+  //int v46; // edi@36
+  //int v47; // edi@36
+  //int v48; // ecx@36
+  //int v49; // edi@36
+  //int v50; // edx@44
+  //int v51; // ecx@44
+  //int v52; // ecx@46
   __int16 v53; // ax@48
-  int v54; // eax@51
+  //int v54; // eax@51
   __int16 v55; // ax@54
   int v56; // ecx@57
   int v57; // edx@57
   unsigned __int64 v58; // qax@57
-  int v59; // ecx@58
+  //int v59; // ecx@58
   int v60; // eax@58
-  int v61; // eax@59
+  //int v61; // eax@59
   int v62; // [sp-24h] [bp-88h]@12
   signed int v63; // [sp-20h] [bp-84h]@12
   int v64; // [sp-1Ch] [bp-80h]@12
@@ -6285,67 +6285,67 @@ void __cdecl sub_46F228()
   int v67; // [sp-10h] [bp-74h]@12
   int v68; // [sp-Ch] [bp-70h]@12
   int v69; // [sp-8h] [bp-6Ch]@12
-  int v70; // [sp+8h] [bp-5Ch]@31
-  int v71; // [sp+Ch] [bp-58h]@34
-  int v72; // [sp+10h] [bp-54h]@34
-  int v73; // [sp+14h] [bp-50h]@31
-  int v74; // [sp+18h] [bp-4Ch]@34
-  int v75; // [sp+1Ch] [bp-48h]@34
-  int v76; // [sp+20h] [bp-44h]@24
-  __int16 v77; // [sp+24h] [bp-40h]@24
+
+  Vec3<int> local_08;
+  //int v70; // [sp+8h] [bp-5Ch]@31
+  //int v71; // [sp+Ch] [bp-58h]@34
+  //int v72; // [sp+10h] [bp-54h]@34
+
+  Vec3<int> local_14;
+  //int v73; // [sp+14h] [bp-50h]@31
+  //int v74; // [sp+18h] [bp-4Ch]@34
+  //int v75; // [sp+1Ch] [bp-48h]@34
+
+  //int v76; // [sp+20h] [bp-44h]@24
+  //__int16 v77; // [sp+24h] [bp-40h]@24
   int v78; // [sp+28h] [bp-3Ch]@36
   int v79; // [sp+2Ch] [bp-38h]@36
-  int v80; // [sp+30h] [bp-34h]@36
-  int v81; // [sp+34h] [bp-30h]@36
-  int v82; // [sp+38h] [bp-2Ch]@19
-  int v83; // [sp+3Ch] [bp-28h]@2
-  int v84; // [sp+40h] [bp-24h]@1
+  //int v80; // [sp+30h] [bp-34h]@36
+  //int v81; // [sp+34h] [bp-30h]@36
+  //int v82; // [sp+38h] [bp-2Ch]@19
+  //int v83; // [sp+3Ch] [bp-28h]@2
+  //int v84; // [sp+40h] [bp-24h]@1
   int v85; // [sp+44h] [bp-20h]@35
   int v86; // [sp+48h] [bp-1Ch]@34
   int v87; // [sp+4Ch] [bp-18h]@34
-  int v88; // [sp+50h] [bp-14h]@19
+  //int v88; // [sp+50h] [bp-14h]@19
   int v89; // [sp+54h] [bp-10h]@1
-  char *v90; // [sp+58h] [bp-Ch]@3
-  int v91; // [sp+5Ch] [bp-8h]@18
+  //char *v90; // [sp+58h] [bp-Ch]@3
+  //int v91; // [sp+5Ch] [bp-8h]@18
   int v92; // [sp+60h] [bp-4h]@6
 
-  v0 = 0;
-  v1 = 0;
   v89 = (unsigned __int16)word_4F0040[dword_6BE13C_uCurrentlyLoadedLocationID];
-  v84 = 0;
-  if ( pIndoor->uNumDoors > 0 )
+ 
+ for (unsigned int i = 0; i < pIndoor->uNumDoors; ++i)
+ {
+  BLVDoor *pDoor = pIndoor->pDoors + i;
+
+  if (!pDoor->word_00004C || pDoor->word_00004C == 2)
   {
-    v83 = 0;
-    do
-    {
-      v3 = (char *)pIndoor->pDoors + v83;
-      v90 = (char *)pIndoor->pDoors + v83;
-      v2 = *(_WORD *)((char *)pIndoor->pDoors + v83 + 76);
-      if ( v2 == (_WORD)v0 || v2 == 2 )
+   pDoor->uAttributes &= ~0x02;
+   continue;
+  }
+
+  pDoor->dword_000008_time_elapsed += cEventTimer.uElapsedTime;
+  v4 = pDoor->dword_000008_time_elapsed;
+  if (pDoor->word_00004C == 1 )
       {
-        *(_DWORD *)v3 &= 0xFFFFFFFDu;
-        goto LABEL_62;
-      }
-      *((_DWORD *)v3 + 2) += cEventTimer.uElapsedTime;
-      v4 = *((_DWORD *)v3 + 2);
-      if ( *((_WORD *)v3 + 38) == 1 )
-      {
-        v92 = v4 * *((_DWORD *)v3 + 8) / 128;
-        if ( v92 >= *((_DWORD *)v3 + 6) )
+        v92 = v4 * pDoor->dword_000020 / 128;
+        if ( v92 >= pDoor->dword_000018)
         {
-          v92 = *((_DWORD *)v3 + 6);
-          *((_WORD *)v3 + 38) = 2;
+          v92 = pDoor->dword_000018;
+          pDoor->word_00004C = 2;
 LABEL_10:
-          if ( !(*v3 & 6) && *((_WORD *)v3 + 34) != (_WORD)v0 )
+          if ( !(pDoor->uAttributes & 0x06) && pDoor->uNumVertices)
           {
-            v69 = v0;
-            v68 = v0;
-            v67 = v0;
-            v7 = 8 * v1;
-            v66 = v0;
+            v69 = 0;
+            v68 = 0;
+            v67 = 0;
+            v7 = 8 * i;
+            v66 = 0;
             v65 = -1;
-            LOBYTE(v7) = 8 * v1 | 1;
-            v64 = v0;
+            LOBYTE(v7) = 8 * i | 1;
+            v64 = 0;
             v63 = v7;
             v62 = v89 + 1;
 LABEL_17:
@@ -6357,177 +6357,117 @@ LABEL_17:
       }
       else
       {
-        v5 = v4 * *((_DWORD *)v3 + 7) / 128;
-        v6 = *((_DWORD *)v3 + 6);
+        v5 = v4 * pDoor->dword_00001C / 128;
+        v6 = pDoor->dword_000018;
         if ( v5 >= v6 )
         {
-          v92 = v0;
-          *((_WORD *)v3 + 38) = v0;
+          v92 = 0;
+          pDoor->word_00004C = 0;
           goto LABEL_10;
         }
         v92 = v6 - v5;
       }
-      if ( !(*v3 & 6) && *((_WORD *)v3 + 34) != (_WORD)v0 )
+      if ( !(pDoor->uAttributes & 0x06) && pDoor->uNumVertices)
       {
-        v69 = v0;
-        v68 = v0;
-        v67 = v0;
-        v8 = 8 * v1;
-        v66 = v0;
+        v69 = 0;
+        v68 = 0;
+        v67 = 0;
+        v8 = 8 * i;
+        v66 = 0;
         v65 = -1;
-        LOBYTE(v8) = 8 * v1 | 1;
+        LOBYTE(v8) = 8 * i | 1;
         v64 = 1;
         v63 = v8;
         v62 = v89;
         goto LABEL_17;
       }
+
 LABEL_18:
-      //v11 = __SETO__(*((_WORD *)v3 + 34), v0);
-      //v9 = *((_WORD *)v3 + 34) == (_WORD)v0;
-      //v10 = (signed __int16)(*((_WORD *)v3 + 34) - v0) < 0;
-      v91 = v0;
-      //if ( !((unsigned __int8)(v10 ^ v11) | v9) )
-      if (*((_WORD *)v3 + 34) > 0)
+      for (unsigned int j = 0; j < pDoor->uNumVertices; ++j)
       {
-        do
-        {
-          v12 = 2 * v91;
-          v13 = *(_WORD *)(2 * v91 + *((_DWORD *)v3 + 9));
-          v88 = v92;
-          v82 = *((_DWORD *)v3 + 3);
-          v88 = (unsigned __int64)(v82 * v92) >> 16;
-          v13 *= 6;
-          *(_WORD *)(v13 + (int)pIndoor->pVertices) = ((unsigned int)(v82 * v92) >> 16) + *(_WORD *)(2 * v91 + *((_DWORD *)v3 + 14));
-          v88 = v92;
-          v82 = *((_DWORD *)v3 + 4);
-          v88 = (unsigned __int64)(v82 * v92) >> 16;
-          *(_WORD *)(v13 + (int)pIndoor->pVertices + 2) = ((unsigned int)(v82 * v92) >> 16) + *(_WORD *)(v12 + *((_DWORD *)v3 + 15));
-          v88 = v92;
-          v82 = *((_DWORD *)v3 + 5);
-          v88 = (unsigned __int64)(v82 * v92) >> 16;
-          v14 = ((unsigned int)(v82 * v92) >> 16) + *(_WORD *)(v12 + *((_DWORD *)v3 + 16));
-          ++v91;
-          *(_WORD *)(v13 + (int)pIndoor->pVertices + 4) = v14;
-        }
-        while ( v91 < *((_WORD *)v3 + 34) );
-        v1 = v84;
+       pIndoor->pVertices[pDoor->pVertexIDs[j]].x = ((unsigned int)(pDoor->vector_00000C.x * v92) >> 16) + pDoor->pXOffsets[j];
+       pIndoor->pVertices[pDoor->pVertexIDs[j]].y = ((unsigned int)(pDoor->vector_00000C.y * v92) >> 16) + pDoor->pYOffsets[j];
+       pIndoor->pVertices[pDoor->pVertexIDs[j]].z = ((unsigned int)(pDoor->vector_00000C.z * v92) >> 16) + pDoor->pZOffsets[j];
       }
-      //v17 = __SETO__(*((_WORD *)v3 + 35), v0);
-      //v15 = *((_WORD *)v3 + 35) == (_WORD)v0;
-      //v16 = (signed __int16)(*((_WORD *)v3 + 35) - v0) < 0;
-      v91 = v0;
-      //if ( !((unsigned __int8)(v16 ^ v17) | v15) )
-      if (*((_WORD *)v3 + 35) > 0)
+
+
+      for (unsigned int j = 0; j < pDoor->uNumFaces; ++j)
       {
-        while ( 1 )
-        {
-          v19 = (int)pIndoor->pFaces + *(_WORD *)(*((_DWORD *)v3 + 10) + 2 * v91);
-          v20 = *(_DWORD *)(v19 + 48);
-          v21 = (int)pIndoor->pVertices + 6 * *(_WORD *)v20;
-          v22 = *(_DWORD *)(v19 + 20);
-          v76 = *(_DWORD *)v21;
-          v77 = *(_WORD *)(v21 + 4);
-          v23 = *(_DWORD *)(v19 + 24);
-          v18 = -(v23 * v77 + (signed __int16)v76 * *(_DWORD *)(v19 + 16) + SHIWORD(v76) * v22);
-          *(_DWORD *)(v19 + 28) = v18;
-          v24 = (int)pIndoor->pVertices + 6 * *(_WORD *)v20;
-          v82 = *(_WORD *)v24;
-          v25 = *(_WORD *)(v24 + 2);
-          v26 = (double)v82;
-          v82 = *(_WORD *)(v24 + 4);
-          *(float *)(v19 + 12) = -((double)v82 * *(float *)(v19 + 8)
-                                 + (double)v25 * *(float *)(v19 + 4)
-                                 + v26 * *(float *)v19);
-          if ( v23 )
+       BLVFace *pFace = pIndoor->pFaces + pDoor->pFaceIDs[j];
+
+       Vec3<short> *pVertex = pIndoor->pVertices + pFace->pVertexIDs[0];
+
+       pFace->sNormalDistance = -Dot<int>(pFace->vFaceNormal, *pVertex);
+       pFace->fNormalDistance = -Dot<float>(pFace->vFaceNormalf, *pVertex);
+
+       if (pFace->vFaceNormal.z && pFace->sNormalDistance)
+       {
+            v28 = abs(pFace->sNormalDistance / 32768);
+            if ( v28 > abs(pFace->vFaceNormal.z) )
+              erroneous_printf("Door Error\ndoor id: %i\nfacet no: %i\n\nOverflow dividing facet->d [%i] by facet->nz [%i]",
+                pDoor->uDoorID,
+                pDoor->pFaceIDs[j],
+                pFace->sNormalDistance,
+                pFace->vFaceNormal.z);
+            LODWORD(v29) = pFace->vFaceNormal.z << 16;
+            HIDWORD(v29) = pFace->vFaceNormal.z >> 16;
+            pFace->zCalc3 = -(v29 / pFace->sNormalDistance);
+       }
+
+       if (pFace->uAttributes & 0x040000 || pD3DRenderer->pRenderD3D3)
+         sub_498A41(pFace, &local_14, &local_08);
+
+       BLVFaceExtra *pFaceExtra = pIndoor->pFaceExtras + pFace->uFaceExtraID;
+          /*if ( !pD3DRenderer->pRenderD3D3 )
           {
-            v28 = abs(v18 >> 15);
-            v27 = (int)v90;
-            if ( v28 > abs(*(_DWORD *)(v19 + 24)) )
-              erroneous_printf(
-                "Door Error\ndoor id: %i\nfacet no: %i\n\nOverflow dividing facet->d [%i] by facet->nz [%i]",
-                *((_DWORD *)v90 + 1),
-                *(_WORD *)(*((_DWORD *)v90 + 10) + 2 * v91),
-                *(_DWORD *)(v19 + 28),
-                *(_DWORD *)(v19 + 24));
-            v82 = *(_DWORD *)(v19 + 24);
-            v88 = *(_DWORD *)(v19 + 28);
-            LODWORD(v29) = v88 << 16;
-            HIDWORD(v29) = v88 >> 16;
-            v88 = v29 / v82;
-            *(_DWORD *)(v19 + 40) = -(v29 / v82);
-          }
-          else
-          {
-            v27 = (int)v90;
-          }
-          if ( *(_BYTE *)(v19 + 46) & 4 || pD3DRenderer->pRenderD3D3 )
-            sub_498A41(v19, (int)&v73, (int)&v70);
-          v30 = (int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v19 + 72);
-          if ( !pD3DRenderer->pRenderD3D3 )
-          {
-            if ( !(*(_BYTE *)(v19 + 46) & 4) )
-              goto LABEL_59;
-            v82 = *(_DWORD *)(v27 + 12);
-            v86 = (unsigned __int64)(v82 * v73) >> 16;
-            v88 = v74;
-            v82 = *(_DWORD *)(v27 + 16);
-            v88 = (unsigned __int64)(v82 * v74) >> 16;
-            v87 = v75;
-            v82 = *(_DWORD *)(v27 + 20);
-            v87 = (unsigned __int64)(v82 * v75) >> 16;
-            v82 = v86 + v88 + ((unsigned __int64)(v82 * v75) >> 16);
+            if ( !(pFace->uFaceAttributes & 0x040000 ) )
+              continue;
+
+            v86 = (unsigned __int64)(pDoor->vector_00000C.x * v73) >> 16;
+            v88 = (unsigned __int64)(pDoor->vector_00000C.y * v74) >> 16;
+            v87 = (unsigned __int64)(pDoor->vector_00000C.z * v75) >> 16;
+            v82 = v86 + v88 + ((unsigned __int64)(pDoor->vector_00000C.z * v75) >> 16);
             v32 = v92;
             v86 = (unsigned __int64)(v82 * v92) >> 16;
             *(_WORD *)(v30 + 20) = -((unsigned int)(v82 * v92) >> 16);
-            v82 = *(_DWORD *)(v27 + 12);
-            v88 = (unsigned __int64)(v82 * v70) >> 16;
-            v86 = v71;
-            v82 = *(_DWORD *)(v27 + 16);
-            v86 = (unsigned __int64)(v82 * v71) >> 16;
-            v87 = v72;
-            v82 = *(_DWORD *)(v27 + 20);
-            v87 = (unsigned __int64)(v82 * v72) >> 16;
-            v33 = v86 + ((unsigned __int64)(v82 * v72) >> 16);
+
+            v88 = (unsigned __int64)(pDoor->vector_00000C.x * v70) >> 16;
+            v86 = (unsigned __int64)(pDoor->vector_00000C.y * v71) >> 16;
+            v87 = (unsigned __int64)(pDoor->vector_00000C.z * v72) >> 16;
+            v33 = v86 + ((unsigned __int64)(pDoor->vector_00000C.z * v72) >> 16);
             v82 = v88 + v33;
             v34 = (v88 + v33) * v32;
             v86 = v34 >> 16;
             v31 = v34 >> 16;
-            goto LABEL_58;
-          }
-          *(_WORD *)(v30 + 20) = 0;
-          *(_WORD *)(v30 + 22) = 0;
-          v37 = *(_DWORD *)(v19 + 48);
-          v88 = 1;
-          v38 = (int)pIndoor->pVertices + 6 * *(_WORD *)v37;
-          v39 = *(_WORD *)(v38 + 4);
-          v40 = *(_WORD *)(v38 + 2);
-          v85 = *(_WORD *)v38;
-          v82 = v40;
-          v41 = v73 * v85 + v74 * v40 + v75 * v39;
-          v42 = v70 * v85 + v71 * v40 + v39 * v72;
-          v35 = v41 >> 16;
-          **(_WORD **)(v19 + 64) = v35;
-          v36 = v42 >> 16;
-          **(_WORD **)(v19 + 68) = v36;
-          v43 = *(_BYTE *)(v19 + 93) < 1u;
-          v44 = *(_BYTE *)(v19 + 93) == 1;
-          v86 = v36;
+
+            v59 = j;
+            v60 = -v31;
+            *(_WORD *)(v30 + 22) = v60;
+            *(_WORD *)(v30 + 20) += pDoor->pDeltaUs[v59];
+            *(_WORD *)(v30 + 22) = v60 + pDoor->pDeltaVs[v59];
+            continue;
+          }*/
+
+          pFaceExtra->sTextureDeltaU = 0;
+          pFaceExtra->sTextureDeltaV = 0;
+
+          v35 = Dot<int>(local_14, *pVertex) >> 16;
+          pFace->pVertexUIDs[0] = v35;
           v87 = v35;
+
+          v36 = Dot<int>(local_08, *pVertex) >> 16;
+          pFace->pVertexVIDs[0] = v36;
+          v86 = v36;
+
           v85 = v36;
-          if ( !(v43 | v44) )
+
+          for (unsigned int k = 1; k < pFace->uNumVertices; ++k)
           {
-            do
-            {
-              v46 = *(_DWORD *)(v19 + 48);
-              v78 = 2 * v88;
-              v47 = (int)pIndoor->pVertices + 6 * *(_WORD *)(v46 + 2 * v88);
-              v82 = *(_WORD *)(v47 + 4);
-              v48 = *(_WORD *)(v47 + 2);
-              v49 = *(_WORD *)v47;
-              v81 = v48;
-              v79 = (v75 * v82 + v73 * v49 + v74 * v48) >> 16;
-              v45 = (v70 * v49 + v71 * v48 + v82 * v72) >> 16;
-              v80 = v45;
+              //v79 = (local_14.x * v49 + local_14.y * v48 + local_14.z * v82) >> 16;
+           v79 = Dot<int>(local_14, pIndoor->pVertices[pFace->pVertexIDs[k]]) >> 16;
+              //v45 = (local_08.x * v49 + local_08.y * v48 + local_08.z * v82) >> 16;
+           v45 = Dot<int>(local_08, pIndoor->pVertices[pFace->pVertexIDs[k]]) >> 16;
+
               if ( v79 < v35 )
                 v35 = v79;
               if ( v45 < v36 )
@@ -6536,97 +6476,62 @@ LABEL_18:
                 v87 = v79;
               if ( v45 > v85 )
                 v85 = v45;
-              v50 = *(_DWORD *)(v19 + 64);
-              v51 = v78;
-              ++v88;
-              *(_WORD *)(v78 + v50) = v79;
-              *(_WORD *)(v51 + *(_DWORD *)(v19 + 68)) = v80;
-              v36 = v86;
-            }
-            while ( v88 < *(_BYTE *)(v19 + 93) );
-            v27 = (int)v90;
+
+           pFace->pVertexUIDs[k] = v79;
+           pFace->pVertexVIDs[k] = v45;
+           v36 = v86;
           }
-          v52 = *(_DWORD *)(v19 + 44);
-          if ( BYTE1(v52) & 0x10 )
+
+          if (pFace->uAttributes & 0x1000)
             goto LABEL_50;
-          if ( BYTE1(v52) < 0 )
+          if (pFace->uAttributes & 0x8000)
           {
-            v53 = *(_WORD *)(v19 + 74);
+            v53 = pFace->uBitmapID;
             if ( v53 != -1 )
             {
               LOWORD(v35) = v87 + *(_WORD *)((signed __int16)v35 != -1 ? 72 * (signed __int16)v35 + 7278780 + 0x18 : 24);
 LABEL_50:
-              *(_WORD *)(v30 + 20) -= v35;
+              pFaceExtra->sTextureDeltaU -= v35;
               goto LABEL_51;
             }
           }
+
 LABEL_51:
-          v54 = *(_DWORD *)(v19 + 44);
-          if ( v54 & 8 )
+          if ( pFace->uAttributes & 8 )
           {
-            *(_WORD *)(v30 + 22) -= v36;
+            pFaceExtra->sTextureDeltaV -= v36;
           }
-          else
+          else if ( pFace->uAttributes & 0x20000 )
           {
-            if ( v54 & 0x20000 )
-            {
-              v55 = *(_WORD *)(v19 + 74);
+             v55 = pFace->uBitmapID;
               if ( v55 != -1 )
-                *(_WORD *)(v30 + 22) -= v85 + *(_WORD *)(v55 != -1 ? 72 * v55 + 7278780 + 0x1A : 26);
-            }
+               pFaceExtra->sTextureDeltaV -= v85 + *(_WORD *)(v55 != -1 ? 72 * v55 + 7278780 + 0x1A : 26);
           }
-          if ( *(_BYTE *)(v19 + 46) & 4 )
+          if (pFace->uAttributes & 0x040000)
           {
-            v78 = *(_DWORD *)(v27 + 12);
-            v87 = (unsigned __int64)(v78 * v73) >> 16;
-            v85 = v74;
-            v78 = *(_DWORD *)(v27 + 16);
-            v85 = (unsigned __int64)(v78 * v74) >> 16;
-            v86 = v75;
-            v78 = *(_DWORD *)(v27 + 20);
-            v86 = (unsigned __int64)(v78 * v75) >> 16;
-            v78 = v87 + v85 + ((unsigned __int64)(v78 * v75) >> 16);
+            v87 = (unsigned __int64)(pDoor->vector_00000C.x * local_14.x) >> 16;
+            v85 = (unsigned __int64)(pDoor->vector_00000C.y * local_14.y) >> 16;
+            v86 = (unsigned __int64)(pDoor->vector_00000C.z * local_14.z) >> 16;
+            v78 = v87 + v85 + v86;
             v56 = v92;
             v85 = (unsigned __int64)(v78 * v92) >> 16;
-            *(_WORD *)(v30 + 20) = -((unsigned int)(v78 * v92) >> 16);
-            v78 = *(_DWORD *)(v27 + 12);
-            v87 = (unsigned __int64)(v78 * v70) >> 16;
-            v85 = v71;
-            v78 = *(_DWORD *)(v27 + 16);
-            v85 = (unsigned __int64)(v78 * v71) >> 16;
-            v86 = v72;
-            v78 = *(_DWORD *)(v27 + 20);
-            v86 = (unsigned __int64)(v78 * v72) >> 16;
-            v57 = v85 + ((unsigned __int64)(v78 * v72) >> 16);
+            pFaceExtra->sTextureDeltaU = -((unsigned int)(v78 * v92) >> 16);
+
+            v87 = (unsigned __int64)(pDoor->vector_00000C.x * local_08.x) >> 16;
+            v85 = (unsigned __int64)(pDoor->vector_00000C.y * local_08.y) >> 16;
+            v86 = (unsigned __int64)(pDoor->vector_00000C.z * local_08.z) >> 16;
+            v57 = v85 + v86;
             v78 = v87 + v57;
             v58 = (v87 + v57) * v56;
             v85 = v58 >> 16;
             v31 = v58 >> 16;
-LABEL_58:
-            v59 = v91;
+
             v60 = -v31;
-            *(_WORD *)(v30 + 22) = v60;
-            *(_WORD *)(v30 + 20) += *(_WORD *)(*(_DWORD *)(v27 + 48) + 2 * v59);
-            *(_WORD *)(v30 + 22) = v60 + *(_WORD *)(*(_DWORD *)(v27 + 52) + 2 * v59);
+            pFaceExtra->sTextureDeltaV = v60;
+            pFaceExtra->sTextureDeltaU += pDoor->pDeltaUs[j];
+            pFaceExtra->sTextureDeltaV = pDoor->pDeltaVs[j] + v60;
           }
-LABEL_59:
-          v61 = *(_WORD *)(v27 + 70);
-          ++v91;
-          if ( v91 >= v61 )
-          {
-            v1 = v84;
-            v0 = 0;
-            break;
-          }
-          v3 = v90;
-        }
       }
-LABEL_62:
-      v83 += 80;
-      ++v1;
-      v84 = v1;
-    }
-    while ( v1 < pIndoor->uNumDoors );
   }
 }
 
@@ -6729,7 +6634,7 @@ void __cdecl sub_46F90C()
         v61 = 1;
       if ( v2 <= -30000 )
       {
-        v5 = IndoorLocation_sub_49AC17((int)pIndoor, *(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144), v4);
+        v5 = IndoorLocation_sub_49AC17(pIndoor, *(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144), v4);
         *(_WORD *)(v1 + 158) = v5;
         if ( !v5
           || (v58 = sub_46CEC3(*(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144), *(_WORD *)(v1 + 146), v5, (int)&v62),
@@ -7817,7 +7722,7 @@ void __fastcall sub_47136C(int a1)
     || abs(*((_DWORD *)v2 + 3)) > 20000
     || (v50 = sub_46CEC3(*((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3), *((_WORD *)v2 + 14), (int)&v46),
         v50 <= -30000)
-    && ((v4 = IndoorLocation_sub_49AC17((int)pIndoor, *((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3)),
+    && ((v4 = IndoorLocation_sub_49AC17(pIndoor, *((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3)),
          *((_WORD *)v2 + 14) = v4,
          !v4)
      || (v50 = sub_46CEC3(*((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3), v4, (int)&v46), v50 == -30000)) )
@@ -8583,23 +8488,23 @@ int __fastcall sub_47272C(int a1, signed int a2, int a3, int *a4, int a5)
   v6 = a1 - 2;
   v7 = a1;
   v8 = a2;
-  *a4 = IndoorLocation_sub_49AC17((int)pIndoor, a1 - 2, a2, a3 + 40);
+  *a4 = IndoorLocation_sub_49AC17(pIndoor, a1 - 2, a2, a3 + 40);
   result = sub_46ED1B(v6, v8, a3 + 40, a4, a5);
   if ( result == -30000 || !*a4 )
   {
-    *a4 = IndoorLocation_sub_49AC17((int)pIndoor, v7 + 2, v8, a3 + 40);
+    *a4 = IndoorLocation_sub_49AC17(pIndoor, v7 + 2, v8, a3 + 40);
     result = sub_46ED1B(v7 + 2, v8, a3 + 40, a4, a5);
     if ( result == -30000 || !*a4 )
     {
-      *a4 = IndoorLocation_sub_49AC17((int)pIndoor, v7, v8 - 2, a3 + 40);
+      *a4 = IndoorLocation_sub_49AC17(pIndoor, v7, v8 - 2, a3 + 40);
       result = sub_46ED1B(v7, v8 - 2, a3 + 40, a4, a5);
       if ( result == -30000 || !*a4 )
       {
-        *a4 = IndoorLocation_sub_49AC17((int)pIndoor, v7, v8 + 2, a3 + 40);
+        *a4 = IndoorLocation_sub_49AC17(pIndoor, v7, v8 + 2, a3 + 40);
         result = sub_46ED1B(v7, v8 + 2, a3 + 40, a4, a5);
         if ( result == -30000 || !*a4 )
         {
-          *a4 = IndoorLocation_sub_49AC17((int)pIndoor, v7, v8, a3 + 140);
+          *a4 = IndoorLocation_sub_49AC17(pIndoor, v7, v8, a3 + 140);
           result = sub_46ED1B(v7, v8, a3 + 140, a4, a5);
         }
       }
@@ -8609,7 +8514,7 @@ int __fastcall sub_47272C(int a1, signed int a2, int a3, int *a4, int a5)
 }
 
 //----- (00472866) --------------------------------------------------------
-void __cdecl sub_472866()
+void __cdecl sub_472866_SomeStuffIncludingPartyPosUpdate_BLV()
 {
   int v0; // ebx@1
   int v1; // edi@1
@@ -8711,7 +8616,7 @@ void __cdecl sub_472866()
   v1 = 0;
   v86 = pParty_global->vPosition.x;
   v87 = pParty_global->vPosition.z;
-  v77 = IndoorLocation_sub_49AC17((int)pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+  v77 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   v72 = 0;
   v78 = 0;
   v71 = 0;
@@ -11120,6 +11025,223 @@ void loc_4789D4()
 {
 }
 
+
+
+
+
+
+//----- (0047840D) --------------------------------------------------------
+void RenderTerrainD3D()
+{
+  char result; // al@3
+  //int v1; // eax@3
+  //int v2; // ebx@4
+  //struct ODMFace *v4; // esi@6
+  int v6; // ecx@8
+  //int v7; // ecx@8
+ struct struct8 *v8; // ebx@8
+  //char v11; // zf@8
+  unsigned int v18; // edi@22
+  //int v20; // edi@34
+  //int v28; // eax@50
+  //int v29; // ecx@55
+  //int v30; // eax@57
+  int v31; // eax@57
+  int v35; // edi@63
+  int v37; // eax@73
+  int v39; // eax@80
+  char v40; // [sp-18h] [bp-70h]@2
+  int v41; // [sp-14h] [bp-6Ch]@2
+  int v42; // [sp-10h] [bp-68h]@2
+  int v43; // [sp-Ch] [bp-64h]@2
+  const char *v44; // [sp-8h] [bp-60h]@2
+  int v45; // [sp-4h] [bp-5Ch]@2
+  //float v48; // [sp+14h] [bp-44h]@8
+  //void *v52; // [sp+24h] [bp-34h]@3
+  bool v54; // [sp+2Ch] [bp-2Ch]@10
+  int v55; // [sp+30h] [bp-28h]@34
+  int v56;
+  int v57; // [sp+38h] [bp-20h]@36
+  int v58; // [sp+3Ch] [bp-1Ch]@8
+  int v63; // [sp+50h] [bp-8h]@3
+  int v64; // [sp+57h] [bp-1h]@2
+  int v62;
+
+  v63 = 0;
+
+  // basic optimizations
+ unsigned int uStartX, uEndX,
+              uStartZ, uEndZ;
+ if (pOldCamera->sRotationY >= 0 && pOldCamera->sRotationY <= 1024)
+ {
+  /*      CAMERA
+       ï/2     512
+            ^
+       \    |    /
+         \  |  /
+   ï  _____\|/______ +  0
+ 1024       |        x  0
+            |
+           - y
+       3ï/2   1536
+  */
+  uStartX = 0, uEndX = 128;
+  uStartZ = 0, uEndZ = 64 + 16;
+ }
+ else if (pOldCamera->sRotationY >= 512 && pOldCamera->sRotationY <= 1536)
+ {
+  /*         ï/2     512
+                 + y
+             \    |     
+               \  |   
+CAMERA   ï  _____\| ______ +  0
+       1024      /|        x  0
+               /  |
+             /   - y
+             3ï/2   1536
+  */
+  uStartX = 0, uEndX = 64 + 16;
+  uStartZ = 0, uEndZ = 128;
+ }
+ else if (pOldCamera->sRotationY >= 1536 || pOldCamera->sRotationY <= 512)
+ {
+  /*         ï/2     512
+                 + y
+                  |    /  
+                  |  /  
+         ï  _____ |/______ +  0     CAMERA
+       1024       |\       x  0
+                  |  \
+                 - y   \
+             3ï/2   1536
+  */
+  uStartX = 64 - 16, uEndX = 128;
+  uStartZ = 0, uEndZ = 128;
+ }
+ else
+ {
+  uStartX = 0, uEndX = 128;
+  uStartZ = 64 - 16, uEndZ = 128;
+ }
+
+ for (unsigned int z = uStartZ; z < uEndZ - 1; ++z)
+   for (unsigned int x = uStartX; x < uEndX - 1; ++x)
+   {
+    v8 = &array_77EC08[pStruct9_global->dword_00002C];
+    v8->word_000030 = 0;
+    v8->word_000032 = 0;
+
+    unsigned int uTileID = pOutdoor->cTerrainData.pTilemap[z * 128 + x];
+    TileDesc *pTile = TileTable_GetTile(pTileTable, uTileID);
+
+    v6 = pTile->uBitmapID;
+    v8->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v6];
+
+    v8->sTextureDeltaU = 0;
+    v8->sTextureDeltaV = 0;
+
+
+/* world coordinates, z -> height
+            32767
+             +y
+
+ -32768 -x        +x 32767
+
+             -y
+           -32768
+*/
+
+    array_73D150[0].vWorldPosition.x = -32768 + (signed)x * 512;
+    array_73D150[0].vWorldPosition.y =  32767 - (signed)z * 512;
+    array_73D150[0].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[z * 128 + x];
+    array_73D150[0].u = 0;
+    array_73D150[0].v = 0;
+
+    array_73D150[1].vWorldPosition.x = -32768 + (signed)(x + 1) * 512;
+    array_73D150[1].vWorldPosition.y =  32767 - (signed)z * 512;
+    array_73D150[1].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[z * 128 + x + 1];
+    array_73D150[1].u = 1;
+    array_73D150[1].v = 0;
+
+    array_73D150[2].vWorldPosition.x = -32768 + (signed)(x + 1) * 512;
+    array_73D150[2].vWorldPosition.y =  32767 - (signed)(z + 1) * 512;
+    array_73D150[2].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[(z + 1) * 128 + x + 1];
+    array_73D150[2].u = 1;
+    array_73D150[2].v = 1;
+
+    array_73D150[3].vWorldPosition.x = -32768 + (signed)x * 512;
+    array_73D150[3].vWorldPosition.y =  32767 - (signed)(z + 1) * 512;
+    array_73D150[3].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[(z + 1) * 128 + x];
+    array_73D150[3].u = 0;
+    array_73D150[3].v = 1;
+
+      v55 = 0;
+      v54 = false;
+      v58 = 0;
+      // transform primitive
+    for (unsigned int k = 0; k < 4; ++k)
+      {
+       if (array_73D150[0].vWorldPosition.y == array_73D150[k].vWorldPosition.y)
+         ++v58;
+
+       sub_436523_PrimitiveApplyViewMatrix(&array_73D150[k], 1);
+       /*if (array_73D150[k].vWorldViewPosition.x < 8.0 || (double)pStruct9_global->shading_dist_mist < array_73D150[k].vWorldViewPosition.x)
+       {
+        if (array_73D150[k].vWorldViewPosition.x >= 8.0)
+          v54 = true;
+        else
+          v55 = 1;
+       }
+       else*/
+         class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, &array_73D150[k], 1, 0);
+    }
+
+
+      if (v58 == 4) // if all y == first y;  primitive in xz plane 
+        v8->word_000032 |= 0x0001;
+
+      v8->ptr_000054 = nullptr;
+      v8->uNumVertices = 4;
+      v8->byte_000059 = 5;
+
+      v8->byte_000058 = 0;
+
+      if (pStruct9_global->dword_00002C >= 1999)
+        return;
+
+      ++pStruct9_global->dword_00002C;
+      ++pStruct9_global->dword_000044;
+
+
+
+        v8->byte_00005E = 0;
+        v8->byte_00005F = 0;
+        v31 = (8 * (0 | (0 << 6)));
+        v8->word_000050 = v31 | 6;
+
+        for (unsigned int k = 0; k < 4; ++k)
+        {
+         memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct RenderVertex));
+         array_50AC10[k].flt_000020 = 1.0 / (array_73D150[k].vWorldViewPosition.x + 0.0000001000000011686097);
+        }
+
+
+        extern void Render_DrawTerrainPolygon(struct BaseRender *_this, struct8 *a3, IDirect3DTexture2 *pTexture);
+        Render_DrawTerrainPolygon(pD3DRenderer, v8, LODFile_Bitmaps_LOD.pHardwareTextures[v6]);
+
+        //Render_DrawPolygon(pD3DRenderer, 4, v8, nullptr, LODFile_Bitmaps_LOD.pHardwareTextures[v6]);
+
+      --pStruct9_global->dword_00002C;
+      --pStruct9_global->dword_000044;
+
+    }
+
+  }
+
+
+
+
+
 extern FILE *f = 0;
 //----- (0047840D) --------------------------------------------------------
 void RenderBuildingsD3D()
@@ -11312,9 +11434,11 @@ LABEL_30:
          ++v58;
 
        sub_436523_PrimitiveApplyViewMatrix(&array_73D150[k], 1);
-       if (array_73D150[i].vWorldViewPosition.x < 8.0 || (double)pStruct9_global->shading_dist_mist < array_73D150[i].vWorldViewPosition.x)
+
+       //near/far plane culling
+       if (array_73D150[k].vWorldViewPosition.x < 8.0 || (double)pStruct9_global->shading_dist_mist < array_73D150[k].vWorldViewPosition.x)
        {
-        if (array_73D150[i].vWorldViewPosition.x >= 8.0)
+        if (array_73D150[k].vWorldViewPosition.x >= 8.0)
           v54 = true;
         else
           v55 = 1;

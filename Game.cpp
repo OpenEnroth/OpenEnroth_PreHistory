@@ -169,12 +169,12 @@ LABEL_89:
             sub_494035();
           if ( dword_6BE364 & 1 )
           {
-            dword_6BE364 &= 0xFFFFFFFEu;
+            dword_6BE364 &= 0xFFFFFFFE;
           }
           else
           {
             sub_401A91();
-            sub_46BDC0(0);
+            sub_46BDC0_UpdateUserInputAndOther(0);
           }
         }
       }

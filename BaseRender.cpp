@@ -2715,6 +2715,130 @@ void sub_49FE05(struct BaseRender *pD3DRenderer)
 
 
 //----- (004A2050) --------------------------------------------------------
+void Render_DrawTerrainPolygon(BaseRender *_this, struct8 *a3, IDirect3DTexture2 *pTexture)
+{
+  int v5; // ebx@1
+  int v6; // edi@1
+  int v8; // eax@7
+  float v9; // eax@12
+  float *v10; // esi@12
+  float v11; // ecx@14
+  double v12; // st7@14
+  double v13; // st7@14
+  double v14; // st7@14
+  signed int v15; // eax@14
+  int v16; // eax@15
+  float v17; // ST48_4@15
+  char v18; // zf@17
+  int v19; // eax@18
+  int v20; // eax@18
+  int v21; // edx@20
+  signed int v22; // ecx@20
+  int v23; // eax@20
+  const char *v24; // ST4C_4@20
+  unsigned int v25; // ST50_4@20
+  int v26; // ST54_4@20
+  int v27; // eax@20
+  _UNKNOWN *v28; // eax@21
+  int v29; // ecx@23
+  int v30; // eax@23
+  int v31; // eax@23
+  int v32; // eax@24
+  int v33; // eax@25
+  int v34; // eax@25
+  int v35; // eax@25
+  int v36; // eax@25
+  signed int v37; // ecx@26
+  int v38; // eax@26
+  _UNKNOWN *v39; // eax@27
+  int v40; // edx@28
+  int v41; // eax@29
+  int v42; // eax@29
+  int v43; // eax@29
+  int v44; // eax@29
+  unsigned int v46; // eax@29
+  int v47; // eax@30
+  int v48; // eax@30
+  int v49; // eax@30
+  double v52; // st6@35
+  const char *v55; // [sp+4Ch] [bp-1Ch]@20
+  int v57; // [sp+5Ch] [bp-Ch]@3
+  signed int v59; // [sp+60h] [bp-8h]@12
+  int v61; // [sp+64h] [bp-4h]@4
+ int i;
+
+  v6 = (int)_this;
+  v5 = 0;
+ if (!_this->uD3D3SceneBegun)
+   return;
+
+
+
+ 
+     _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
+     _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, D3DCULL_NONE);
+     if (_this->bUsingSpecular)
+     {
+      _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 1);
+      _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
+      _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 1);
+     }
+
+     pVertices[0].x = array_50AC10[0].vWorldViewProjX;
+     pVertices[0].y = array_50AC10[0].vWorldViewProjY;
+     pVertices[0].z = 1.0 - 1.0 / (1000 * array_50AC10[0].vWorldViewPosition.x / (double)pStruct9_global->shading_dist_mist);
+     pVertices[0].rhw = 1.0 / (array_50AC10[0].vWorldViewPosition.x + 0.0000001000000011686097);
+     pVertices[0].diffuse = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[0].vWorldViewPosition.x, 0, 0);
+     pVertices[0].specular = 0;
+     pVertices[0].u = array_50AC10[0].u;
+     pVertices[0].v = array_50AC10[0].v;
+ 
+     pVertices[1].x = array_50AC10[3].vWorldViewProjX;
+     pVertices[1].y = array_50AC10[3].vWorldViewProjY;
+     pVertices[1].z = 1.0 - 1.0 / (1000 * array_50AC10[3].vWorldViewPosition.x / (double)pStruct9_global->shading_dist_mist);
+     pVertices[1].rhw = 1.0 / (array_50AC10[3].vWorldViewPosition.x + 0.0000001000000011686097);
+     pVertices[1].diffuse = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[3].vWorldViewPosition.x, 0, 0);
+     pVertices[1].specular = 0;
+     pVertices[1].u = array_50AC10[3].u;
+     pVertices[1].v = array_50AC10[3].v;
+
+     pVertices[2].x = array_50AC10[1].vWorldViewProjX;
+     pVertices[2].y = array_50AC10[1].vWorldViewProjY;
+     pVertices[2].z = 1.0 - 1.0 / (1000 * array_50AC10[1].vWorldViewPosition.x / (double)pStruct9_global->shading_dist_mist);
+     pVertices[2].rhw = 1.0 / (array_50AC10[1].vWorldViewPosition.x + 0.0000001000000011686097);
+     pVertices[2].diffuse = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[1].vWorldViewPosition.x, 0, 0);
+     pVertices[2].specular = 0;
+     pVertices[2].u = array_50AC10[1].u;
+     pVertices[2].v = array_50AC10[1].v;
+
+     memcpy(pVertices + 3, pVertices + 2, sizeof(RenderVertexD3D3));
+     memcpy(pVertices + 4, pVertices + 1, sizeof(RenderVertexD3D3));
+
+     pVertices[5].x = array_50AC10[2].vWorldViewProjX;
+     pVertices[5].y = array_50AC10[2].vWorldViewProjY;
+     pVertices[5].z = 1.0 - 1.0 / (1000 * array_50AC10[2].vWorldViewPosition.x / (double)pStruct9_global->shading_dist_mist);
+     pVertices[5].rhw = 1.0 / (array_50AC10[2].vWorldViewPosition.x + 0.0000001000000011686097);
+     pVertices[5].diffuse = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[2].vWorldViewPosition.x, 0, 0);
+     pVertices[5].specular = 0;
+     pVertices[5].u = array_50AC10[2].u;
+     pVertices[5].v = array_50AC10[2].v;
+
+
+     pD3DRenderer->pRenderD3D3->pDevice->SetTexture(0, pTexture);
+     pD3DRenderer->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLELIST, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, 6, D3DDP_DONOTLIGHT);
+
+}
+
+
+
+
+
+
+
+
+
+
+//----- (004A2050) --------------------------------------------------------
 void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, ODMFace *a4, IDirect3DTexture2 *pTexture)
 {
   int v5; // ebx@1
@@ -2790,7 +2914,7 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
     if ( !v57 || byte_4D8410[572] && pGame->uSomeFlags & 0x02)
     {
      _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
-     _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, 2);
+     _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, D3DCULL_CW);
      if (_this->bUsingSpecular)
      {
       _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 1);

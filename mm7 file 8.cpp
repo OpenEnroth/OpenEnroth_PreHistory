@@ -569,7 +569,7 @@ LABEL_5:
   v13 = v7;
   v15 = 0;
   v16 = 0;
-  v17 = IndoorLocation_sub_49AC17((int)pIndoor, v6, v12, v7);
+  v17 = IndoorLocation_sub_49AC17(pIndoor, v6, v12, v7);
   v8 = 8 * v27;
   LOBYTE(v8) = 8 * v27 | 3;
   v18 = 0;
@@ -737,7 +737,7 @@ LABEL_19:
   v20 = v10;
   v21 = 0;
   v22 = 0;
-  v11 = IndoorLocation_sub_49AC17((int)pIndoor, v17, v18, v19);
+  v11 = IndoorLocation_sub_49AC17(pIndoor, v17, v18, v19);
   v9 = *(_DWORD *)(v5 + 12);
   v23 = v11;
   v12 = 8 * v33;
@@ -2018,7 +2018,7 @@ LABEL_33:
               v124 = v18;
               v125 = 0;
               v126 = 0;
-              v127 = IndoorLocation_sub_49AC17((int)pIndoor, v15, v16, v17);
+              v127 = IndoorLocation_sub_49AC17(pIndoor, v15, v16, v17);
               v19 = 8 * LODWORD(v141);
               LOBYTE(v19) = 8 * LOBYTE(v141) | 3;
               v133 = v19;
@@ -2100,7 +2100,7 @@ LABEL_191:
             v124 = v92;
             v125 = 0;
             v126 = 0;
-            v93 = IndoorLocation_sub_49AC17((int)pIndoor, v89, v90, v91);
+            v93 = IndoorLocation_sub_49AC17(pIndoor, v89, v90, v91);
             v87 = *(_DWORD *)(v88 + 12);
             v127 = v93;
             LODWORD(v140) = v87;
@@ -2794,7 +2794,7 @@ LABEL_183:
   v124 = v78;
   v125 = 0;
   v126 = 0;
-  v127 = IndoorLocation_sub_49AC17((int)pIndoor, v75, v76, v77);
+  v127 = IndoorLocation_sub_49AC17(pIndoor, v75, v76, v77);
   v79 = 8 * LODWORD(v141);
   LOBYTE(v79) = 8 * LOBYTE(v141) | 3;
   v133 = v79;
@@ -6155,7 +6155,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       v63 = pLevelDecorations[v2].vPosition.x;
       v64 = pLevelDecorations[v2].vPosition.y;
       v65 = pLevelDecorations[v2].vPosition.z;
-      v6 = IndoorLocation_sub_49AC17((int)pIndoor, v63, v64, v65);
+      v6 = IndoorLocation_sub_49AC17(pIndoor, v63, v64, v65);
     }
     else
     {
@@ -6202,7 +6202,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
         v44 = pParty_global->uEyelevel + pParty_global->vPosition.z;
         v43 = pParty_global->vPosition.z;
       }
-      v19 = IndoorLocation_sub_49AC17((int)pIndoor, v18, v43, v44);
+      v19 = IndoorLocation_sub_49AC17(pIndoor, v18, v43, v44);
     }
     else
     {
@@ -7160,7 +7160,7 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
         v98 = v54;
         v96 = v50;
       }
-      v60 = IndoorLocation_sub_49AC17((int)pIndoor, v96, v98, v100);
+      v60 = IndoorLocation_sub_49AC17(pIndoor, v96, v98, v100);
       v58 = (int)pIndoor->pSectors;
       v59 = 116 * v60;
       v154 = 0;
@@ -7300,7 +7300,7 @@ LABEL_107:
         v99 = v81;
         v97 = v77;
       }
-      v87 = IndoorLocation_sub_49AC17((int)pIndoor, v97, v99, v101);
+      v87 = IndoorLocation_sub_49AC17(pIndoor, v97, v99, v101);
       v85 = (int)pIndoor->pSectors;
       v86 = 116 * v87;
       v161 = 0;

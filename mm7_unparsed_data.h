@@ -1228,8 +1228,8 @@ extern _UNKNOWN unk_51CF2C; // weak
 
 extern int dword_56EEA8; // weak
 extern __int16 word_56EEAC[array_size_unknown]; // weak
-extern int dword_576D14; // weak
-extern __int16 word_576D80[array_size_unknown]; // weak
+extern unsigned int   uNumBlueFacesInBLVMinimap;   // dword    @ MM7.exe::00576D14
+extern unsigned short pBlueFacesInBLVMinimapIDs[]; // word[50] @ MM7.exe::00576D80
 
 extern unsigned int uTextureIdx_SpellEffecIcons[14]; // dword[14] @ MM7.exe::00576DE8
 extern unsigned int uIconIdx_Spell21;                // dword     @ MM7.exe::00576E20
@@ -1277,6 +1277,7 @@ extern struct unnamed_576FE8
  int dword_000064;
  int dword_000068;
  int pSomeColorTable[256]; //used to be word[256] @ 00006C, a color table, 0x200 bytes long, now in dwords 0x400 bytes long
+                      // [100.. 200] different minimap height colors in BLV
 } struct_576FE8;      // struct @ MM7.exe::00576FE8
 
 

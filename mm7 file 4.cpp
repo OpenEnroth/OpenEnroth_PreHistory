@@ -2571,7 +2571,7 @@ LABEL_7:
   LODWORD(v20.v688) = a3;
   v20.v690 = 0;
   v20.v691 = a8;
-  v20.v692 = IndoorLocation_sub_49AC17((int)pIndoor, v37, a3, a4);
+  v20.v692 = IndoorLocation_sub_49AC17(pIndoor, v37, a3, a4);
   v20.v693 = 0;
   v20.v698 = 0;
   v36 = 0;
@@ -2685,7 +2685,7 @@ LABEL_5:
   v14 = a3;
   v15 = 0;
   v16 = 0;
-  v17 = IndoorLocation_sub_49AC17((int)pIndoor, v4, v5, a3);
+  v17 = IndoorLocation_sub_49AC17(pIndoor, v4, v5, a3);
   v18 = 0;
   v24 = 0;
   v25 = 0;
@@ -2790,7 +2790,7 @@ LABEL_5:
   v16 = v7;
   v17 = a3;
   v20 = 0;
-  v21 = IndoorLocation_sub_49AC17((int)pIndoor, v6, v7, a3);
+  v21 = IndoorLocation_sub_49AC17(pIndoor, v6, v7, a3);
   v22 = 0;
   v28 = 0;
   v29 = 0;
@@ -9857,24 +9857,24 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
  {
   BLVDoor *pDoor = pIndoor->pDoors + i;
 
-  if (pDoor->dword_000000 & 0x01)
+  if (pDoor->uAttributes & 0x01)
   {
    pDoor->word_00004C = 1;
-   pDoor->dword_000008 = 15360;
-   pDoor->dword_000000 = 2;
+   pDoor->dword_000008_time_elapsed = 15360;
+   pDoor->uAttributes = 2;
   }
 
   if (!pDoor->word_00004C)
   {
    pDoor->word_00004C = 3;
-   pDoor->dword_000008 = 15360;
-   pDoor->dword_000000 = 2;
+   pDoor->dword_000008_time_elapsed = 15360;
+   pDoor->uAttributes = 2;
   }
   else if (pDoor->word_00004C == 2)
   {
    pDoor->word_00004C = 1;
-   pDoor->dword_000008 = 15360;
-   pDoor->dword_000000 = 2;
+   pDoor->dword_000008_time_elapsed = 15360;
+   pDoor->uAttributes = 2;
   }
  }
 
@@ -10053,10 +10053,10 @@ LABEL_90:
     {
       v30 = Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v32 - 1]);
       if ( v30 )
-        v38[v31++] = v32;
-      ++v32;
+        v38[v31++] = v32 - 1;
     }
-    while ( v32 <= 4 );
+    while (++v32 <= 4 );
+
     if ( v31 )
     {
       if ( v44 )

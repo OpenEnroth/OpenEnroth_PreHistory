@@ -1124,7 +1124,7 @@ void __fastcall sub_4AE5F1(int a1)
     if ( v10 & 0x40 )
       dword_F8AD64 += v1 & *(_WORD *)(v4 + 32);
   }
-  sub_498A41(v5, (int)&v72, (int)&v69);
+  sub_498A41((BLVFace *)v5, (Vec3<int> *)&v72, (Vec3<int> *)&v69);
   dword_F8AD3C = v72;
   dword_F8AD40 = v73;
   dword_F8AD44 = v74;
@@ -11212,7 +11212,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v5 = uNumActors;
-        v16 = IndoorLocation_sub_49AC17((int)pIndoor, a2, a3, a4);
+        v16 = IndoorLocation_sub_49AC17(pIndoor, a2, a3, a4);
       }
       v8 = (int)&pActors[v5];
       Actor_Reset((Actor *)v8);
