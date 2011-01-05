@@ -256,7 +256,7 @@ void QuickRefDraw();
 void sub_41AD6E(void); // weak
 void __fastcall sub_41AF52(int a1, int a2);
 void __cdecl sub_41B3B6();
-int __fastcall sub_41B438(unsigned __int8 a1);
+void __fastcall sub_41B438_CheckBtnHotkeys(unsigned char a1);
 int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3);
 void __cdecl sub_41C047();
 void __thiscall sub_41C0B8_SetStatusBarString(const char *Str1);

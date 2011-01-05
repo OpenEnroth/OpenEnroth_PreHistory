@@ -627,6 +627,7 @@ int __fastcall sub_4C7C50(int a1, int a2)
   return (*(int (__fastcall **)(_DWORD, int))(a2 + 36))(*(_DWORD *)(a2 + 40), a1);
 }
 
+void __fastcall sub_48034E(int a1, int a2, int a3);
 //----- (0047F5C6) --------.text:00480F74------------------------------------------------
 int __cdecl sub_47F5C6_MessWithTerrainDrawing()
 {
@@ -740,7 +741,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
   int v120; // [sp+68h] [bp-Ch]@1
   int v121; // [sp+6Ch] [bp-8h]@9
   int v122; // [sp+70h] [bp-4h]@9
- int j;
+ int j,i;
 
   v101 = pOldCamera->sRotationY / (pClass59_global->uIntegerHalfPi / 2);  //1/8 of circle	of 2048 angles
 
@@ -811,11 +812,11 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
   v122 = v120;
   
  
-  dword_76E1C8[0] =  0x10000;
-  dword_76E3C8[0] =  0x10000;
+  dword_76E1C8[0] =  0xFFFFu;
+  dword_76E3C8[0] =  0xFFFFu;
 
-  dword_76DDC8[0] =  0x10000;
-  dword_76DFC8[0] =  0x10000;
+  dword_76DDC8[0] =  0xFFFFu;
+  dword_76DFC8[0] =  0xFFFFu;
 
  for(v112=1;v112<128;v112++)
   {
@@ -1817,7 +1818,7 @@ LABEL_261:
 		  {
 		  if (!pUserInput->sub_459F10(wParam))
 			  {
-			  sub_41B438(LOBYTE(wParam));
+			  sub_41B438_CheckBtnHotkeys(LOBYTE(wParam));
 			  }
 		  }
       if ( uMsg != WM_COMMAND )

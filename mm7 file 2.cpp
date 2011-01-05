@@ -9387,38 +9387,30 @@ void __cdecl sub_41B3B6() // draw hud
 }
 
 //----- (0041B438) ---.text:0041BA83  -----------------------------------------------------
-int __fastcall sub_41B438(unsigned __int8 a1)
+void __fastcall sub_41B438_CheckBtnHotkeys(unsigned char a1)
 {
   char v1; // dl@1
   int v2; // esi@1
-  int result; // eax@2
-  int *v4; // ecx@2
-  int v5; // edx@12
+  struct GUIButton *pControl;
+  GUI::Window *pWindow;
 
   v2 = sLastGUIWindowIdx;
   v1 = toupper(a1);
   if ( sLastGUIWindowIdx >= 0 )
   {
-    while ( 2 )
+    while ( true )
     {
-      v4 = (int *)&GUIWindow_List[array_5075E0[v2] - 1];
-      for ( result = v4[19]; result; result = *(_DWORD *)(result + 52) )
+      pWindow = &GUIWindow_List[array_5075E0[v2] - 1];
+      for (pControl = pWindow->pControlsHead; pControl; pControl = pControl->pNext)
       {
-        if ( *(_BYTE *)(result + 84) == v1 )
+        if ( pControl->uHotkey == v1 )
         {
-          v5 = *(_DWORD *)(result + 36);
-
-         /* if ( dword_50CBD0[0] < 40 )
-          {
-            dword_50CBD0[3 * dword_50CBD0[0] + 1] = *(_DWORD *)(result + 32);
-            dword_50CBD0[3 * dword_50CBD0[0] + 2] = v5;
-            dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-          }	*/
-		  dword_50CBD0.PutMessageToQueue(*(_DWORD *)(result + 32),v5,0);
-          return result;
+		  dword_50CBD0.PutMessageToQueue(pControl->uControlID, pControl->uControlParam,0);
+          return ;
         }
       }
-      if ( *v4 || v4[1] != result || !(v4[2] == 640 & v4[3] == 480) )
+      if ( pWindow->uFrameX || pWindow->uFrameY != (int)pControl // very strange comparsion (bug in original game?) 
+       || !(pWindow->uFrameWidth == 640 & pWindow->uFrameHeight == 480) )
       {
         --v2;
         if ( v2 >= 0 )
@@ -9427,7 +9419,6 @@ int __fastcall sub_41B438(unsigned __int8 a1)
       break;
     }
   }
-  return 0;
 }
 
 //----- (0041B4E1) --------------------------------------------------------

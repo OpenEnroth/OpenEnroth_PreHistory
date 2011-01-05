@@ -2210,14 +2210,14 @@ extern _UNKNOWN unk_76D590; // weak
 extern _UNKNOWN unk_76D5A8; // weak
 extern char byte_76D5C0; // weak
 
-extern int dword_76D5C8[]; // weak
-extern int dword_76D7C8[]; // weak
-extern int dword_76D9C8[]; // weak
-extern int dword_76DBC8[]; // weak
-extern int dword_76DDC8[];
-extern int dword_76DFC8[];
-extern int dword_76E1C8[];
-extern int dword_76E3C8[];
+extern int dword_76D5C8[128]; // weak
+extern int dword_76D7C8[128]; // weak
+extern int dword_76D9C8[128]; // weak
+extern int dword_76DBC8[128]; // weak
+extern int dword_76DDC8[128];
+extern int dword_76DFC8[128];
+extern int dword_76E1C8[128];
+extern int dword_76E3C8[128];
 
 extern _BYTE byte_76E5C8[]; // idb
 
