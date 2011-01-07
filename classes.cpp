@@ -4901,8 +4901,8 @@ LABEL_73:
     if ( v22 < v23 )
     {
 LABEL_128:
-      v25 = rand() % *((_DWORD *)_this + *((char *)(&_this->pItems[*(_DWORD *)v5]) + 32) + 0x45B6);
       v26 = *(_DWORD *)v5;
+      v25 = rand() % _this->unk_0116D8[_this->pItems[v26].uEquipType];
       *(_DWORD *)(v5 + 4) = 0;
 
       //v24 = *((_BYTE *)_this + _this->pItems[v26]->uEquipType + 0x9609);
