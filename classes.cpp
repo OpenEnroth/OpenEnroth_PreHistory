@@ -4903,11 +4903,10 @@ LABEL_73:
 LABEL_128:
       v25 = rand() % _this->unk_0116D8[_this->pItems[*(_DWORD *)v5 - 1].uEquipType];
       v26 = *(_DWORD *)v5;
-      v25 = rand() % _this->unk_016D8[_this->pItems[v26].uEquipType];
       *(_DWORD *)(v5 + 4) = 0;
 
-      v24 = *(((_BYTE *)_this->pEnchantments + 5) + _this->pItems[v26].uEquipType);
-      for ( i = v25; v24 < i; v24 += *(((_BYTE *)_this->pEnchantments + 5) + 20 * *(_DWORD *)(v5 + 4) + _this->pItems[v27].uEquipType) )
+      v24 = *(((_BYTE *)_this->pEnchantments + 5) + _this->pItems[v26 - 1].uEquipType);
+      for ( i = v25; v24 < i; v24 += *(((_BYTE *)_this->pEnchantments + 5) + 20 * *(_DWORD *)(v5 + 4) + _this->pItems[v27 - 1].uEquipType) )
       //v24 = *((_BYTE *)_this + _this->pItems[v26]->uEquipType + 0x9609);
       //for ( i = v25; v24 < i; v24 += *((_BYTE *)_this + 20 * *(_DWORD *)(v5 + 4) + _this->pItems[v27].uEquipType + 0x9609) )
       {
