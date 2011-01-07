@@ -1421,7 +1421,7 @@ void Actor_Die(unsigned int uActorID)
   {
     if ( (rand() % 100) < 20 )
     {
-      sub_42F7EB_DropItemAt((unsigned __int16)word_5D29F8[24 * itemGen.uItemID],
+      sub_42F7EB_DropItemAt((unsigned __int16)pClass40->pItems[itemGen.uItemID - 1].uSpriteIndex,
         pActor->vPosition.x,
         pActor->vPosition.y,
         pActor->vPosition.z + 16,

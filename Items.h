@@ -153,7 +153,7 @@ struct Item
  unsigned char *pUnidentifiedName; // ptr   @ 00000C
  unsigned char *pDescription;      // ptr   @ 000010
  unsigned int   uValue;            // dword @ 000014
- unsigned short uSpriteIndex;      // word  @ 000018
+ unsigned short uSpriteIndex;      // word  @ 000018   or ItemType from LayingItem::000000
  short          word_00001A;
  unsigned short uEquipX;           // word  @ 00001C
  unsigned short uEquipY;           // word  @ 00001E
@@ -180,19 +180,21 @@ struct class40
 {
  int  uNumItems; // dword @ 000000   looks like this sits in pItems[0]::dword_000000
 
- struct Item                   pItems[800];              // struct[800] @ 000000
- struct ItemEnchantment        pEnchantments[24];        // struct[24]  @ 009604
- struct ItemSpecialEnchantment pSpecialEnchantments[72]; // struct[72]  @ 0097E4
-
- unsigned char *pItemsTXT_Raw;    // ptr @ 011674
- unsigned char *pRndItemsTXT_Raw; // ptr @ 011678
- unsigned char *pStdItemsTXT_Raw; // ptr @ 01167C
- unsigned char *pSpcItemsTXT_Raw; // ptr @ 011680
+ struct Item                    pItems[800];              // struct[800] @ 000000
+ struct ItemEnchantment         pEnchantments[24];        // struct[24]  @ 009604
+ struct ItemSpecialEnchantment  pSpecialEnchantments[72]; // struct[72]  @ 0097E4
+ char                           unk_009FC4[0x4FA0];
+ short                          unk_00EF64[0x1388/2];
+ short                          unk_0102EC[0x1388/2];
+ unsigned char                 *pItemsTXT_Raw;    // ptr @ 011674
+ unsigned char                 *pRndItemsTXT_Raw; // ptr @ 011678
+ unsigned char                 *pStdItemsTXT_Raw; // ptr @ 01167C
+ unsigned char                 *pSpcItemsTXT_Raw; // ptr @ 011680
 
  int          array_011684[6];
- char         byte_01169C[72];
- unsigned int array_0116E4[9];
-
+ char         byte_01169C[60];
+ int          unk_0116D8[3];   // ~20 elements actually
+ unsigned int array_0116E4[7];
  int array_011700[6][2];
 
  int array_011738[24];

@@ -511,7 +511,7 @@ LABEL_21:
               v15 = local_08.uItemID;
             }
             sub_421B2C_DropPickedItem();
-            wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[304], v32 + 168, dword_5D29EC[12 * v15]);
+            wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[304], v32 + 168, pClass40->pItems[v15 - 1].pUnidentifiedName);
             sub_44C175((char *)pStringBuffer, 2);
             sub_421B2C_DropPickedItem();
             memcpy(&pParty_global->pickedItem, &local_08, sizeof(struct ItemGen));
@@ -4164,62 +4164,62 @@ LABEL_10:
 }
 
 //----- (0049AC17) --------------------------------------------------------
-int __thiscall IndoorLocation_sub_49AC17(IndoorLocation *_this, int sPosX, int sPosY, int sPosZ)
+int __thiscall IndoorLocation_GetRoom(IndoorLocation *_this, int sPosX, int sPosY, int sPosZ)
 {
   int v4; // esi@1
-  int v8; // eax@3
-  int v9; // edx@9
+  //int v8; // eax@3
+  //int v9; // edx@9
   int v10; // edi@9
   int v11; // eax@9
-  int v12; // eax@10
+  //int v12; // eax@10
   __int16 v13; // ax@12
-  char v14; // al@14
-  int v15; // edi@14
-  int v16; // edi@14
-  int v17; // eax@14
-  int v18; // eax@16
-  int v19; // esi@16
+  //char v14; // al@14
+  //int v15; // edi@14
+  //int v16; // edi@14
+  //int v17; // eax@14
+  //int v18; // eax@16
+  //int v19; // esi@16
   signed int v20; // edx@16
-  char v21; // zf@16
-  int v22; // esi@17
-  signed int v23; // edi@19
-  int v24; // edi@20
-  int v25; // edx@20
+  //char v21; // zf@16
+  //int v22; // esi@17
+  //signed int v23; // edi@19
+  //int v24; // edi@20
+  //int v25; // edx@20
   signed int v26; // edx@21
   int v27; // ebx@23
   int v28; // edx@26
-  int v29; // edx@26
+  //int v29; // edx@26
   signed __int64 v30; // qtt@26
   int v31; // eax@26
-  int v32; // edx@26
+  //int v32; // edx@26
   signed int v33; // edi@27
   signed __int64 v34; // qtt@27
-  int v35; // edx@27
+  //int v35; // edx@27
   int v36; // edx@32
-  unsigned __int8 v37; // sf@33
-  unsigned __int8 v38; // of@33
+  //unsigned __int8 v37; // sf@33
+  //unsigned __int8 v38; // of@33
   int v40; // edi@38
   int v41; // ebx@40
   int v42; // eax@41
-  char v43; // dl@42
-  int v44; // esi@42
+  //char v43; // dl@42
+  //int v44; // esi@42
   int v45; // edx@43
   int v46[50]; // [sp+Ch] [bp-108h]@1
-  int v47; // [sp+D4h] [bp-40h]@9
-  int v48; // [sp+D8h] [bp-3Ch]@14
-  int v49; // [sp+DCh] [bp-38h]@14
-  int v50; // [sp+E0h] [bp-34h]@19
-  int v51; // [sp+E4h] [bp-30h]@9
-  int v52; // [sp+E8h] [bp-2Ch]@19
+  //int v47; // [sp+D4h] [bp-40h]@9
+  //int v48; // [sp+D8h] [bp-3Ch]@14
+  //int v49; // [sp+DCh] [bp-38h]@14
+  //int v50; // [sp+E0h] [bp-34h]@19
+  //int v51; // [sp+E4h] [bp-30h]@9
+  //int v52; // [sp+E8h] [bp-2Ch]@19
   bool v53; // [sp+ECh] [bp-28h]@19
-  int v54; // [sp+F0h] [bp-24h]@9
-  int v55; // [sp+F4h] [bp-20h]@2
+  //int v54; // [sp+F0h] [bp-24h]@9
+  //int v55; // [sp+F4h] [bp-20h]@2
   int v56; // [sp+F8h] [bp-1Ch]@10
   int v57; // [sp+FCh] [bp-18h]@16
   int v58; // [sp+100h] [bp-14h]@1
   int v59; // [sp+104h] [bp-10h]@1
   int v60; // [sp+108h] [bp-Ch]@16
-  int v61; // [sp+10Ch] [bp-8h]@20
+  //int v61; // [sp+10Ch] [bp-8h]@20
   int v62; // [sp+110h] [bp-4h]@16
 
   v4 = 0;
@@ -4228,170 +4228,125 @@ int __thiscall IndoorLocation_sub_49AC17(IndoorLocation *_this, int sPosX, int s
   if (_this->uNumSectors <= 1 )
     return 0;
 
-  v55 = 116;
+
   for (unsigned int i = 1; i < _this->uNumSectors; ++i)
   {
-    v8 = v55 + *(_DWORD *)(_this + 652);
-    if ( *(_WORD *)(v8 + 104) <= sPosX )
+   BLVSector *pSector = _this->pSectors + i;
+
+    if (pSector->sX1 <= sPosX && pSector->sX2 >= sPosX &&
+        pSector->sY1 <= sPosY && pSector->sY2 >= sPosY &&
+        pSector->sZ1 - 64 <= sPosZ && pSector->sZ2 + 64 >= sPosZ)
     {
-      if ( *(_WORD *)(v8 + 106) >= sPosX )
-      {
-        if ( *(_WORD *)(v8 + 108) <= sPosY )
-        {
-          if ( *(_WORD *)(v8 + 110) >= sPosY )
-          {
-            if ( *(_WORD *)(v8 + 112) - 64 <= sPosZ )
-            {
-              if ( *(_WORD *)(v8 + 114) + 64 >= sPosZ)
-              {
-                v10 = *(_WORD *)(v8 + 4);
-                v11 = v10 + *(_WORD *)(v8 + 36);
-                v9 = 0;
-                v47 = v10;
-                v54 = v11;
-                v51 = 0;
-                if ( v11 > 0 )
+  
+
+                v10 = pSector->word_000004;
+                v11 = pSector->word_000004 + pSector->word_000024;
+
+                for (unsigned int j = 0; j < v11; ++j)
                 {
-                  v12 = -2 * v10;
-                  v56 = -2 * v10;
-                  do
-                  {
-                    if ( v9 < v47 )
-                      v13 = *(_WORD *)(*(_DWORD *)(v55 + *(_DWORD *)(_this + 652) + 8) + 2 * v9);
-                    else
-                      v13 = *(_WORD *)(v12 + *(_DWORD *)(v55 + *(_DWORD *)(_this + 652) + 40));
-                    v16 = v13;
-                    v17 = *(_DWORD *)(_this + 636);
-                    v49 = v16;
-                    v16 *= 96;
-                    v48 = v16;
-                    v15 = v17 + v16;
-                    v14 = *(_BYTE *)(v15 + 92);
-                    if ( v14 == 3 || v14 == 4 )
-                    {
-                      v19 = *(_DWORD *)(v15 + 48);
-                      v18 = *(_DWORD *)(_this + 628);
-                      v20 = *(_WORD *)(v18 + 6 * *(_WORD *)v19 + 2);
+                 if (j < v10)
+                   v13 = pSector->ptr_000008[j];
+                 else
+                   v13 = pSector->ptr_000028[-v10 + j];
+
+                 BLVFace *pFace = _this->pFaces + v13;
+                 if (pFace->uPolygonType == 3 || pFace->uPolygonType == 4)
+                 {
+                      v20 = _this->pVertices[pFace->pVertexIDs[0]].y;
                       v57 = 0;
-                      v60 = 0;
-                      v21 = *(_BYTE *)(v15 + 93) == 0;
                       v62 = v20 >= sPosY;
-                      if ( !v21 )
+
+                      if (pFace->uNumVertices)
                       {
-                        v22 = v19 + 2;
-                        do
+                        for (unsigned int k = 0; k < pFace->uNumVertices - 1; ++k) // numvertices or numvertices-1 ??
                         {
-                          if ( v57 >= 2 )
+                          if (v57 >= 2)
                             break;
-                          v52 = v18 + 6 * *(_WORD *)v22;
-                          v23 = *(_WORD *)(v52 + 2);
-                          v50 = *(_WORD *)(v52 + 2);
-                          v53 = v23 >= sPosY;
-                          if ( v62 ^ v53 )
+
+                          Vec3<short> *pNextVertex = _this->pVertices + pFace->pVertexIDs[k + 1];
+
+                          v53 = pNextVertex->y >= sPosY;
+                          if (v62 ^ v53)
                           {
-                            v61 = v18 + 6 * *(_WORD *)(v22 - 2);
-                            v24 = *(_WORD *)v61;
-                            HIWORD(v25) = HIWORD(v52);
-                            LOWORD(v25) = *(_WORD *)v52;
-                            v52 = v25;
-                            v62 = (signed __int16)v25;
-                            if ( (signed __int16)v25 >= sPosX )
+                            Vec3<short> *pPrevVertex = _this->pVertices + pFace->pVertexIDs[k];
+
+                            if (pNextVertex->x >= sPosX )
                               v26 = 0;
                             else
                               v26 = 2;
-                            v27 = v26 | v24 < sPosX;
+                            v27 = v26 | pPrevVertex->x < sPosX;
                             if ( v27 != 3 )
                             {
-                              if ( !v27
-                                || (*(_WORD *)v61 >= (_WORD)v52 ? (v33 = v24 - v62,
-                                                                   v61 = *(_WORD *)(v61 + 2) - v50,
-                                                                   LODWORD(v34) = v33 << 16,
-                                                                   HIDWORD(v34) = v33 >> 16,
-                                                                   v62 = v34 / v61,
-                                                                   v35 = *(_DWORD *)(_this + 628),
-                                                                   v61 = v34 / v61,
-                                                                   v62 = sPosY - *(_WORD *)(v35 + 6 * *(_WORD *)v22 + 2),
-                                                                   v62 = (unsigned __int64)(v61 * v62) >> 16,
-                                                                   v28 = *(_WORD *)v22) : (v29 = *(_WORD *)(v61 + 2),
-                                                                                           v62 -= v24,
-                                                                                           v61 = v50 - v29,
-                                                                                           LODWORD(v30) = v62 << 16,
-                                                                                           HIDWORD(v30) = v62 >> 16,
-                                                                                           v62 = v30 / (v50 - v29),
-                                                                                           v31 = v30 / (v50 - v29),
-                                                                                           v32 = *(_DWORD *)(_this + 628),
-                                                                                           v61 = v31,
-                                                                                           v62 = sPosY
-                                                                                               - *(_WORD *)(v32 + 6 * *(_WORD *)(v22 - 2) + 2),
-                                                                                           v62 = (unsigned __int64)(v31 * v62) >> 16,
-                                                                                           v28 = *(_WORD *)(v22 - 2)),
-                                    v18 = *(_DWORD *)(_this + 628),
-                                    v62 + *(_WORD *)(v18 + 6 * v28) > sPosX) )
+                             // no fucking idea
+                              if (!v27 || (pPrevVertex->x >= pNextVertex->x ?
+
+                                  (v33 = pPrevVertex->x - pNextVertex->x,
+                                                            LODWORD(v34) = v33 << 16,
+                                                            HIDWORD(v34) = v33 >> 16,
+                                                            v31 = v34 / (pPrevVertex->y - pNextVertex->y),
+                                                            v62 = sPosY - _this->pVertices[pFace->pVertexIDs[k + 1]].y,
+                                                            v62 = (unsigned __int64)(v31 * v62) >> 16,
+                                                            v28 = pFace->pVertexIDs[k + 1]) :
+
+                                  (v62 = pNextVertex->x - pPrevVertex->x,
+                                                            LODWORD(v30) = v62 << 16,
+                                                            HIDWORD(v30) = v62 >> 16,
+                                                            v31 = v30 / (pNextVertex->y - pPrevVertex->y),
+                                                            v62 = sPosY - _this->pVertices[pFace->pVertexIDs[k]].y,
+                                                            v62 = (unsigned __int64)(v31 * v62) >> 16,
+                                                            v28 = pFace->pVertexIDs[k]),
+
+                                    v62 + _this->pVertices[v28].x > sPosX))
                                 ++v57;
                             }
                           }
-                          ++v60;
                           v62 = v53;
-                          v22 += 2;
                         }
-                        while ( v60 < *(_BYTE *)(v48 + *(_DWORD *)(_this + 636) + 93) );
+
                         if ( v57 == 1 )
                         {
                           v36 = v58++;
-                          v46[v36] = v49;
+                          v46[v36] = v13;
                         }
                       }
                     }
-                    v9 = v51 + 1;
-                    v12 = v56 + 2;
-                    compile_error();//v38 = __SETO__(v51 + 1, v54);
-                    v37 = v51++ + 1 - v54 < 0;
-                    v56 += 2;
-                  }
-                  while ( v37 ^ v38 );
-                  v4 = v46[0];
                 }
-              }
-            }
-          }
-        }
-      }
+                  v4 = v46[0];
     }
-    v55 += 116;
   }
 
-  if ( v58 == 1 )
-    return *(_WORD *)(*(_DWORD *)(_this + 636) + 96 * v4 + 76);
-  v40 = 0;
-  if ( !v58 )
+  if (v58 == 1)
+    return _this->pFaces[v4].word_00004C;
+  else if (!v58)
     return 0;
+
+  v40 = 0;
   v41 = 0;
-  v56 = 16777215;
-  if ( v58 > 0 )
-  {
+  v56 = 0x00FFFFFF;
     v42 = sPosY;
+ BLVFace *pFace = nullptr;
     while ( 1 )
     {
-      v44 = *(_DWORD *)(_this + 636) + 96 * v46[v40];
-      v43 = *(_BYTE *)(v44 + 92);
-      if ( v43 == 3 )
+     pFace = _this->pFaces + v46[v40];
+
+      if (pFace->uPolygonType == 3)
         break;
-      if ( v43 == 4 )
+      if (pFace->uPolygonType == 4)
       {
-        v54 = *(_DWORD *)(v44 + 32);
-        v60 = (unsigned __int64)(v54 * (sPosX << 16)) >> 16;
+        v60 = ((unsigned __int64)(pFace->zCalc1) * (sPosX << 16)) >> 16;
         v59 = sPosY << 16;
-        v54 = *(_DWORD *)(v44 + 36);
-        v59 = (unsigned __int64)(v54 * (sPosY << 16)) >> 16;
-        v45 = (v59 + *(_DWORD *)(v44 + 40) + v60 + 32768) >> 16;
-        goto LABEL_46;
+        v59 = ((unsigned __int64)(pFace->zCalc2) * (sPosY << 16)) >> 16;
+        v45 = (v59 + pFace->zCalc3 + v60 + 32768) >> 16;
+        v42 = sPosZ - v45;
+        goto LABEL_47;
       }
+
 LABEL_47:
       if ( v42 >= 0 )
       {
         if ( v42 < v56 )
         {
-          v41 = *(_WORD *)(v44 + 76);
+          v41 = pFace->word_00004C;
           v56 = v42;
         }
       }
@@ -4399,12 +4354,9 @@ LABEL_47:
       if ( v40 >= v58 )
         return v41;
     }
-    v45 = *(_WORD *)(*(_DWORD *)(_this + 628) + 6 * **(_WORD **)(v44 + 48) + 4);
-LABEL_46:
+    v45 = _this->pVertices[pFace->pVertexIDs[0]].z;
     v42 = sPosZ - v45;
     goto LABEL_47;
-  }
-  return v41;
 }
 
 //----- (0049B001) --------------------------------------------------------

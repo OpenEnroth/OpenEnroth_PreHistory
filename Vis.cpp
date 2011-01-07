@@ -1039,7 +1039,7 @@ int Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(Vis *_this, float a2, class25 *a3, 
   {
     do
     {
-      v5 = word_51B77C[2 * result];
+      v5 = class37_global0.array_000004[2 * result];
       if ( v5 >= 0 )
       {
         if ( v5 < pIndoor->uNumFaces )
@@ -1267,7 +1267,7 @@ int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class
   {
     do
     {
-      v6 = word_51B77C[2 * result];
+      v6 = class37_global0.array_000004[2 * result];
       if ( v6 >= 0 )
       {
         if ( v6 < pIndoor->uNumFaces )

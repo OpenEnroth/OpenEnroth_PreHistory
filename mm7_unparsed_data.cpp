@@ -1289,23 +1289,9 @@ struct sub_4407D9_stru0 stru_51B6E0;
  int dword_51B770; // weak
  int dword_51B774; // weak
 
-struct class37 class37_global0; // struct @ MM7.exe::0051B778
- __int16 word_51B77C[array_size_unknown]; // weak
- int dword_51C71C; // weak
- __int16 word_51C720[array_size_unknown]; // weak
- __int16 word_51C722; // weak
- __int16 word_51C724; // weak
- __int16 word_51C726; // weak
- __int16 word_51C728; // weak
- _UNKNOWN unk_51C72C; // weak
- _UNKNOWN unk_51C730; // weak
- __int16 word_51CEC4; // weak
- int dword_51CEC8; // weak
- _UNKNOWN unk_51CECC; // weak
- _UNKNOWN unk_51CF2C; // weak
+class37 class37_global0; // struct @ MM7.exe::0051B778
 
 
- int dword_56EEA8; // weak
  __int16 word_56EEAC[array_size_unknown]; // weak
  //unsigned short array_56EFD8[137 * 117 + array_size_unknown]; // used in drawing minimap, now obsolete
 unsigned int   uNumBlueFacesInBLVMinimap;     // dword    @ MM7.exe::00576D14
@@ -1482,29 +1468,7 @@ struct class48 *pClass48 = 0; // struct @ MM7.exe::005C8CC0
  _UNKNOWN unk_5C8CC8; // weak
  char byte_5C8D1A[array_size_unknown]; // weak
 
-struct class40 *pClass40 = 0; // struct @ MM7.exe::005D29E0
- int dword_5D29EC[array_size_unknown]; // weak
- int dword_5D29F4[array_size_unknown]; // weak
- __int16 word_5D29F8[array_size_unknown]; // weak
- __int16 word_5D29FC; // weak
- __int16 word_5D29FE; // weak
- int dword_5DAD28[array_size_unknown]; // weak
- int dword_5DBFD0[array_size_unknown]; // weak
- char byte_5DBFE9[array_size_unknown]; // weak
- int dword_5DC1A8[array_size_unknown]; // weak
- int dword_5DC1BC[array_size_unknown]; // weak
- char byte_5DC1CC[array_size_unknown]; // weak
- char byte_5DC1DC[array_size_unknown]; // weak
- __int16 word_5E1944[array_size_unknown]; // weak
- __int16 word_5E2CCC[array_size_unknown]; // weak
- int dword_5E40B8[array_size_unknown]; // weak
- int dword_5E40F8; // weak
- int dword_5E40FC; // weak
- int dword_5E4100; // weak
- int dword_5E4104; // weak
- int dword_5E4108; // weak
- int dword_5E410C; // weak
- int dword_5E4178; // weak
+struct class40 *pClass40 = nullptr; // struct @ MM7.exe::005D29E0
 
 
  _UNKNOWN unk_5E4C14; // weak

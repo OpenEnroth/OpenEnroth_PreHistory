@@ -43,7 +43,8 @@ struct BLVFace
  unsigned short *pVertexVIDs;              // dword @ 000044
  unsigned short  uFaceExtraID;  // word    @ 000048  idx in Face Extras
  unsigned short  uBitmapID;     // word    @ 00004A
- char            unk_00004C[4];
+ short           word_00004C;
+ short           word_00004E;
  Range<short>    cBoundingBoxX; // word[2] @ 000050
  Range<short>    cBoundingBoxY; // word[2] @ 000054
  Range<short>    cBoundingBoxZ; // word[2] @ 000058
@@ -117,6 +118,57 @@ struct BLVMapVertex
 
 
 
+struct BLVSector
+{
+ int             dword_000000;
+ unsigned short  word_000004;
+ char            unk_000006[2];
+ unsigned short *ptr_000008;
+ unsigned short  word_00000C;
+ char            unk_00000E[2];
+ unsigned short *ptr_000010;
+ unsigned short  word_000014;
+ char            unk_000016[2];
+ unsigned short *ptr_000018;
+ unsigned short  word_00001C;
+ char            unk_00001E[2];
+ unsigned short *ptr_000020;
+ unsigned short  word_000024;
+ char            unk_000026[2];
+ unsigned short *ptr_000028;
+ unsigned short  word_00002C;
+ short           word_00002E;
+ unsigned short *pSomeFaceIDs; // dword @ 000030
+ char            unk_000034[8];
+ unsigned short  word_00003C;
+ char            unk_00003E[2];
+ unsigned short *ptr_000040;
+ unsigned short  word_000044;
+ char            unk_000046[2];
+ unsigned short *ptr_000048;
+ unsigned short  word_00004C;
+ char            unk_00004E[2];
+ unsigned short *ptr_000050;
+ unsigned short  word_000054;
+ char            unk_000056[2];
+ unsigned short *ptr_000058;
+ char            unk_00005C[8];
+ short           word_000064;
+ short           word_000066;
+ short           sX1;  // word @ 000068
+ short           sX2;  // word @ 00006A
+ short           sY1;  // word @ 00006C
+ short           sY2;  // word @ 00006E
+ short           sZ1;  // word @ 000070
+ short           sZ2;  // word @ 000072
+#if 0 //mm8
+ int             dword_000074;
+#endif
+};
+//sizeof == 74
+
+
+
 class IndoorLocation
 {
  public:
@@ -144,46 +196,6 @@ class IndoorLocation
    };
    //sizeof == 28
 
-   struct BLVSector
-   {
-    char            unk_000000[4];
-    unsigned short  word_000004;
-    char            unk_000006[2];
-    unsigned short *ptr_000008;
-    unsigned short  word_00000C;
-    char            unk_00000E[2];
-    unsigned short *ptr_000010;
-    unsigned short  word_000014;
-    char            unk_000016[2];
-    unsigned short *ptr_000018;
-    unsigned short  word_00001C;
-    char            unk_00001E[2];
-    unsigned short *ptr_000020;
-    unsigned short  word_000024;
-    char            unk_000026[2];
-    unsigned short *ptr_000028;
-    unsigned short  word_00002C;
-    char            unk_00002E[2];
-    unsigned short *ptr_000030;
-    char            unk_000034[8];
-    unsigned short  word_00003C;
-    char            unk_00003E[2];
-    unsigned short *ptr_000040;
-    unsigned short  word_000044;
-    char            unk_000046[2];
-    unsigned short *ptr_000048;
-    unsigned short  word_00004C;
-    char            unk_00004E[2];
-    unsigned short *ptr_000050;
-    unsigned short  word_000054;
-    char            unk_000056[2];
-    unsigned short *ptr_000058;
-    char            unk_00005C[24];
-#if 0 //mm8
-    int dword_000074;
-#endif
-   };
-   //sizeof == 74
 
    struct BLVLight
    {
@@ -248,7 +260,7 @@ class IndoorLocation
 //signed int sub_498E0A(void *Dest, const char *Args, int a3, int a5)   00498E0A  Indoor::Load
 //int sub_498B15(int _this)                                             00498B15  Indoor::Clear
 
-int IndoorLocation_sub_49AC17(IndoorLocation *_this, int sPosX, int sPosY, int sPosZ);
+int IndoorLocation_GetRoom(IndoorLocation *_this, int sPosX, int sPosY, int sPosZ);
 signed int IndoorLocation_sub_498C45(int _this);
 
 

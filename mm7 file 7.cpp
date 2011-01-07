@@ -1761,7 +1761,8 @@ char __thiscall class37_sub_4AFB86(void *_this, int a2, int a3)
                       *((_DWORD *)v4 + 1001) = v17;
                       v8 = v17 - 1;
 LABEL_14:
-                      LOBYTE(v3) = sub_440639(v8, v7);
+                      //LOBYTE(v3) = sub_440639(v8, v7);
+                      LOBYTE(v3) = sub_440639(v8);
                       return v3;
                     }
                   }
@@ -2400,13 +2401,13 @@ void __cdecl sub_4B0967()
 
   for ( i = 0; i < class37_global0.dword_000000; ++i )
   {
-    v1 = word_51B77C[2 * i];
+    v1 = class37_global0.array_000004[2 * i];
     if ( v1 >= 0 )
     {
       if ( v1 < pIndoor->uNumFaces )
       {
-        v3 = word_51B77C[2 * i];
-        stru_51B6E0.dword_00007C = (int)((char *)&unk_51C72C + 2252 * word_51B77C[2 * i + 1]);
+        v3 = class37_global0.array_000004[2 * i];
+        stru_51B6E0.dword_00007C = (int)((char *)&class37_global0.std__vector_000FA8[0].stru_00000C + 2252 * class37_global0.array_000004[2 * i + 1]);
         v2 = sub_423B5D(v3);
         if ( v2 )
         {
@@ -2693,7 +2694,7 @@ unsigned int __fastcall sub_4B0E07(int a1)
 }
 
 //----- (004B0EA8) --------------------------------------------------------
-char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
+void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
 {
   int v3; // eax@1
   int v4; // edx@1
@@ -2710,7 +2711,7 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
   int v15; // edx@24
   int v16; // esi@29
   __int16 v17; // ax@34
-  int v18; // edi@34
+  //int v18; // edi@34
   _UNKNOWN *v19; // eax@38
   signed int v20; // ecx@38
   _UNKNOWN *v21; // eax@42
@@ -2729,56 +2730,56 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
   void *v35; // [sp+14h] [bp-Ch]@36
   signed int v36; // [sp+18h] [bp-8h]@19
   void *v37; // [sp+18h] [bp-8h]@36
-  int v38; // [sp+1Ch] [bp-4h]@1
+  //int v38; // [sp+1Ch] [bp-4h]@1
 
-  v4 = a3;
-  v5 = _this;
-  v3 = (int)pIndoor->pFaces + a3;
-  *(_DWORD *)(2252 * *(_DWORD *)(_this + 4004) + _this + 5968) = -1;
-  v38 = v3;
-  if ( *(_BYTE *)(v3 + 44) & 1 )
+  v4 = uFaceID;
+  v5 = (int)_this;
+  BLVFace *pFace = pIndoor->pFaces + uFaceID;
+
+  _this->std__vector_000FA8[_this->std__vector_000FA8_size].dword_0007A8 = -1;
+  if (pFace->uAttributes & 0x01) // portal
   {
-    v6 = _this + 2252 * a2;
+    v6 = (int)_this + 2252 * a2;
     v34 = v6;
     if ( v4 == *(_WORD *)(v6 + 5964) )
-      return v3;
-    if ( !a2
-      && stru_51B6E0.vPosition.x >= *(_WORD *)(v3 + 80) - 16
-      && stru_51B6E0.vPosition.x <= *(_WORD *)(v3 + 82) + 16
-      && stru_51B6E0.vPosition.y >= *(_WORD *)(v3 + 84) - 16
-      && stru_51B6E0.vPosition.y <= *(_WORD *)(v3 + 86) + 16
-      && stru_51B6E0.vPosition.z >= *(_WORD *)(v3 + 88) - 16
-      && stru_51B6E0.vPosition.z <= *(_WORD *)(v3 + 90) + 16 )
+      return;
+    if (!a2 &&
+        stru_51B6E0.vPosition.x >= pFace->cBoundingBoxX.min - 16 &&
+        stru_51B6E0.vPosition.x <= pFace->cBoundingBoxX.max + 16 &&
+        stru_51B6E0.vPosition.y >= pFace->cBoundingBoxY.min - 16 &&
+        stru_51B6E0.vPosition.y <= pFace->cBoundingBoxY.max + 16 &&
+        stru_51B6E0.vPosition.z >= pFace->cBoundingBoxZ.min - 16 &&
+        stru_51B6E0.vPosition.z <= pFace->cBoundingBoxZ.max + 16)
     {
-      if ( abs(*(_DWORD *)(v3 + 28) + stru_51B6E0.vPosition.x * *(_DWORD *)(v3 + 16)
-                                    + stru_51B6E0.vPosition.y * *(_DWORD *)(v3 + 20)
-                                    + stru_51B6E0.vPosition.z * *(_DWORD *)(v3 + 24)) <= 589824 )
+      if ( abs(pFace->sNormalDistance + stru_51B6E0.vPosition.x * pFace->vFaceNormal.x
+                                      + stru_51B6E0.vPosition.y * pFace->vFaceNormal.y
+                                      + stru_51B6E0.vPosition.z * pFace->vFaceNormal.z) <= 589824 )
       {
-        v7 = *(_WORD *)(v38 + 76);
+       v7 = pFace->word_00004C;
         if ( *(_WORD *)(v5 + 4008) == v7 )
-          v7 = *(_WORD *)(v38 + 78);
+          v7 = pFace->word_00004E;
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4008) = v7;
-        *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5964) = a3;
+        *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5964) = uFaceID;
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4010) = stru_51B6E0.uViewportX;
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4014) = stru_51B6E0.uViewportZ;
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4012) = stru_51B6E0.uViewportY;
         *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4016) = stru_51B6E0.uViewportW;
-        compile_error();//sub_43F9E1(2252 * *(_DWORD *)(v5 + 4004)++ + v5 + 4020, stru_51B6E0.dword_000054, stru_51B6E0.dword_000058, stru_51B6E0.dword_00005C, stru_51B6E0.dword_000060);
-        LOBYTE(v3) = sub_440639(*(_DWORD *)(v5 + 4004) - 1, v8);
-        return v3;
+        sub_43F9E1((class37_stru2 *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4020), stru_51B6E0.uViewportX, stru_51B6E0.uViewportY, stru_51B6E0.uViewportZ, stru_51B6E0.uViewportW);
+        *(_DWORD *)(v5 + 4004) += 1;
+        sub_440639(*(_DWORD *)(v5 + 4004) - 1);
+        return;
       }
-      v3 = v38;
       v6 = v34;
     }
-    v10 = (int)pIndoor->pVertices + 6 * **(_WORD **)(v3 + 48);
-    v9 = *(_DWORD *)(v3 + 16) * ((signed __int16)*(_DWORD *)v10 - stru_51B6E0.vPosition.x)
-       + *(_DWORD *)(v3 + 20) * ((signed __int16)(*(_DWORD *)v10 >> 16) - stru_51B6E0.vPosition.y)
-       + *(_DWORD *)(v3 + 24) * (*(_WORD *)(v10 + 4) - stru_51B6E0.vPosition.z);
-    if ( *(_WORD *)(v6 + 4008) != *(_WORD *)(v3 + 76) )
+    v10 = (int)pIndoor->pVertices + 6 * pFace->pVertexIDs[0];
+    v9 = pFace->vFaceNormal.x * ((signed __int16)*(_DWORD *)v10 - stru_51B6E0.vPosition.x)
+       + pFace->vFaceNormal.y * ((signed __int16)(*(_DWORD *)v10 >> 16) - stru_51B6E0.vPosition.y)
+       + pFace->vFaceNormal.z * (*(_WORD *)(v10 + 4) - stru_51B6E0.vPosition.z);
+    if ( *(_WORD *)(v6 + 4008) != pFace->word_00004C)
       v9 = -v9;
     if ( v9 < 0 )
     {
-      v3 = sub_423B5D(a3);
+      v3 = sub_423B5D(uFaceID);
       v33 = v3;
       if ( v3 )
       {
@@ -2815,15 +2816,14 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
             {
               if ( v36 <= *(_WORD *)(v34 + 4016) )
               {
-                v3 = sub_424829(v3, 2252 * *(_DWORD *)(v5 + 4004) + v5 + 4020, v34 + 4020, a3);
+                v3 = sub_424829(v3, 2252 * *(_DWORD *)(v5 + 4004) + v5 + 4020, v34 + 4020, uFaceID);
                 if ( v3 )
                 {
-                  v18 = v38;
-                  v17 = *(_WORD *)(v38 + 76);
+                  v17 = pFace->word_00004C;
                   if ( *(_WORD *)(v34 + 4008) == v17 )
-                    v17 = *(_WORD *)(v38 + 78);
+                    v17 = pFace->word_00004E;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4008) = v17;
-                  *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5964) = a3;
+                  *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5964) = uFaceID;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4010) = stru_51B6E0.uViewportX;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4014) = stru_51B6E0.uViewportZ;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4012) = stru_51B6E0.uViewportY;
@@ -2832,9 +2832,8 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
                   v35 = pGame->class08_obj;
                   if ( *(_DWORD *)(v16 + 5968) == -1 )
                   {
-                    LOBYTE(v3) = sub_49C681(
-                                   pGame->class10_obj,
-                                   v38,
+                    LOBYTE(v3) = sub_49C681(pGame->class10_obj,
+                                   (int)pFace,
                                    v5 + 2252 * *(_DWORD *)(v5 + 4004) + 5972,
                                    v5 + 2252 * *(_DWORD *)(v5 + 4004) + 6068);
                   }
@@ -2869,17 +2868,16 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
                       atexit(0);
                     }
                     v23 = 0;
-                    a2 = *(_BYTE *)(v38 + 93);
+                    a2 = pFace->uNumVertices;
                     if ( a2 > 0 )
                     {
                       v24 = &unk_F7AA10;
                       do
                       {
-                        v25 = *(_WORD *)(*(_DWORD *)(v18 + 48) + 2 * v23++);
+                       v25 = *(_WORD *)((int)pFace->pVertexIDs + 2 * v23++);
                         v26 = (int)pIndoor->pVertices + 6 * v25;
                         v27 = (double)*(_WORD *)(v26 + 4);
                         v28 = *(_WORD *)(v26 + 2);
-                        v18 = v38;
                         *((float *)v24 - 2) = (double)*(_WORD *)v26;
                         *((float *)v24 - 1) = (double)v28;
                         *(float *)v24 = v27;
@@ -2888,9 +2886,8 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
                       while ( v23 < a2 );
                     }
                     sub_437285((int)&unk_F7AA08, (int)&a2, &unk_F79E08, v16 + 5972, 4, 0, 0);
-                    LOBYTE(v3) = sub_49C5DA(
-                                   v37,
-                                   v18,
+                    LOBYTE(v3) = sub_49C5DA(v37,
+                                   (int)pFace,
                                    (int)&unk_F79E08,
                                    &a2,
                                    v5 + 2252 * *(_DWORD *)(v5 + 4004) + 5972,
@@ -2898,17 +2895,18 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
                   }
                   if ( (_BYTE)v3 )
                   {
-                    *(_DWORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5968) = a3;
+                    *(_DWORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5968) = uFaceID;
                     v3 = *(_DWORD *)(v5 + 4004);
                     if ( v3 < 150 )
                     {
                       v30 = v3 + 1;
                       *(_DWORD *)(v5 + 4004) = v30;
-                      LOBYTE(v3) = sub_440639(v30 - 1, v29);
+                      //LOBYTE(v3) = sub_440639(v30 - 1, v29);
+                      /*LOBYTE(v3) = */sub_440639(v30 - 1);
                     }
                   }
                   if ( stru_51B6E0.dword_000004 & 1 )
-                    LOBYTE(v3) = sub_437906(v35, v18, 1974015);
+                    /*LOBYTE(v3) = */sub_437906(v35, (int)pFace, 1974015);
                 }
               }
             }
@@ -2929,7 +2927,6 @@ char __thiscall class37_sub_4B0EA8(int _this, signed int a2, int a3)
       *(_DWORD *)v5 += 1;
     }
   }
-  return v3;
 }
 
 //----- (004B1447) --------------------------------------------------------
@@ -4451,7 +4448,7 @@ LABEL_33:
             }
             if ( uDialogueType != 84 )
               goto LABEL_49;
-            wsprintfA((char *)TmpBuf, "\f%06x%s\f000000", *(_DWORD *)v62, dword_5D29EC[12 * dword_F8B1A8]);
+            wsprintfA((char *)TmpBuf, "\f%06x%s\f000000", *(_DWORD *)v62, pClass40->pItems[dword_F8B1A8 - 1].pUnidentifiedName);
             wsprintfA((char *)pStringBuffer, (char *)dword_F8B1E8, TmpBuf);
             dword_F8B1E8 = pStringBuffer;
             goto LABEL_45;
@@ -11212,7 +11209,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v5 = uNumActors;
-        v16 = IndoorLocation_sub_49AC17(pIndoor, a2, a3, a4);
+        v16 = IndoorLocation_GetRoom(pIndoor, a2, a3, a4);
       }
       v8 = (int)&pActors[v5];
       Actor_Reset((Actor *)v8);

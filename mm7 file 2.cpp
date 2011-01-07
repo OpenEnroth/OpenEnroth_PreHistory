@@ -7329,7 +7329,7 @@ LABEL_116:
       }
       else
       {
-        v16 = word_5E1944[v14 + 50 * v15];
+        v16 = pClass40->unk_00EF64[v14 + 50 * v15];
         v8 = v58;
       }
       v59 = v16;
@@ -7453,7 +7453,7 @@ LABEL_115:
                 v20 = v51 + 50 * v15;
                 *(_DWORD *)(v0 + 36 * v58 + 532) = v59;
                 *(_DWORD *)(v0 + 36 * v58 + 536) = (pParty_global->pickedItem.dword_000004 + *(_DWORD *)(v0 + 36 * v58 + 536)) / 2;
-                Player_sub_44A5CB((char *)v0, 223, word_5E2CCC[v20]);
+                Player_sub_44A5CB((char *)v0, 223, pClass40->unk_0102EC[v20]);
 LABEL_74:
                 v22 = (int)v0 + 36 * v58;
                 if ( !*(&pClass40->pItems[*(_DWORD *)(v22 + 532) - 1].uEquipType + 18))
@@ -12129,7 +12129,7 @@ LABEL_32:
     v31 = v51.z;
     v33 = 0;
     v34 = 48;
-    v35 = IndoorLocation_sub_49AC17(pIndoor, v51.x, v51.y, v51.z);
+    v35 = IndoorLocation_GetRoom(pIndoor, v51.x, v51.y, v51.z);
     v36 = 0;
     v42 = 0;
     v43 = 0;
@@ -12574,9 +12574,9 @@ LABEL_10:
       if ( v23 != 4 )
         goto LABEL_18;
       sub_404828_ctor((LayingItem *)&v10);
-      v6 = word_5D29F8[24 * pParty_global->pickedItem.uItemID];
+      v6 = pClass40->pItems[pParty_global->pickedItem.uItemID - 1].uSpriteIndex;
       v5 = 0;
-      v10 = word_5D29F8[24 * pParty_global->pickedItem.uItemID];
+      v10 = pClass40->pItems[pParty_global->pickedItem.uItemID - 1].uSpriteIndex;
       if ( pObjectDescriptionList->uNumObjects <= 0 )
       {
 LABEL_15:
@@ -12601,7 +12601,7 @@ LABEL_15:
       v16 = 0;
       v15 = 0;
       v17 = 8;
-      v8 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+      v8 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
       v19 = 0;
       v18 = v8;
       memcpy(&local_28, &pParty_global->pickedItem, sizeof(struct ItemGen));
@@ -12941,7 +12941,7 @@ void __cdecl sub_42213C()
       }
       else
       {
-        wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v22));
+        wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], pClass40->pItems[v22/48 - 1].pUnidentifiedName);
         sub_44C175((char *)pStringBuffer, 2);
         if ( *(_DWORD *)v23 == 506 )
           sub_449B7E((int)pParty_global->unk_000764 + 1, 184, 1);
@@ -12991,7 +12991,7 @@ LABEL_11:
           if (pParty_global->pickedItem.uItemID != -1)
           {
 LABEL_14:
-            v6 = word_5D29F8[24 * v4];
+            v6 = pClass40->pItems[v4 - 1].uSpriteIndex;
             v5 = 0;
             v24.v24 = v6;
             if ( pObjectDescriptionList->uNumObjects <= 0 )
@@ -13017,7 +13017,7 @@ LABEL_18:
             v24.v28 = pParty_global->uEyelevel + pParty_global->vPosition.z;
             v24.v29 = 0;
             v24.v30 = 8;
-            v24.v31 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+            v24.v31 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
             v24.v32 = 0;
             memcpy(&v24.local_30, &pParty_global->pickedItem, sizeof(struct ItemGen));
             v8 = (int)GUICursor_GetMousePos(pGame->pGUICursor, &v35);

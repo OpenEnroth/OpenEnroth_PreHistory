@@ -552,9 +552,28 @@ struct class37_stru1
 };
 //sizeof == 30
 
+struct class37_stru2
+{
+ int   dword_000000;
+ int   dword_000004;
+ char  byte_000008[16];
+ short array_000018[480];
+ short array_0003D8[480];
+};
+//sizeof == 798
+
 struct class37_stru0
 {
- char                unk_000000[0x7AC];
+ unsigned short      uSectorID;             // word @ 000000
+ unsigned short      uViewportX;            // word @ 000002
+ unsigned short      uViewportY;            // word @ 000004
+ unsigned short      uViewportZ;            // word @ 000006
+ unsigned short      uViewportW;            // word @ 000008
+ short               word_00000A;
+ class37_stru2       stru_00000C;
+ short               word_0007A4;
+ short               word_0007A6;
+ int                 dword_0007A8;
  class26_placeholder std__vector_0007AC[4]; // struct[4] @ 00007AC
  class37_stru1       array_00080C[4];       // struct[4] @ 000080C
 };
@@ -566,17 +585,20 @@ void __fastcall class37_stru0_ctor(class37_stru0 *_this);
 //class37
 struct class37
 {
- int           dword_000000;
- char          unk_000004[0xFA4];
- unsigned int  std__vector_000FA8_size;  // dword @ 000FA4
- class37_stru0 std__vector_000FA8[150];
- int           dword_053730;             // dword @ 053730
+ int            dword_000000;       // num idxs in 000004
+ unsigned short array_000004[150];  // array[?] indices in 000FA8
+ char           unk_000130[0xE74];
+ unsigned int   std__vector_000FA8_size;  // dword @ 000FA4
+ class37_stru0  std__vector_000FA8[150];
+ int            dword_053730;             // dword @ 053730
 };
 //sizeof ~ 53734
 //void *__thiscall sub_43F282(void *_this);
 void *class37_ctor(class37 *_this);
 //int __thiscall sub_43F333(int _this);
 int class37_sub_43F333(class37 *_this);
+//char __thiscall sub_4B0EA8(int _this, signed int a2, int a3);
+void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID);
 
 
 

@@ -3094,7 +3094,7 @@ void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this)
   sub_43FDED_PrepareActorRenderList_BLV();
   v6 = 0;
   v12 = 0;
-  if ( dword_56EEA8 > 0 )
+  if ( class37_global0.dword_053730 > 0 )
   {
     do
     {
@@ -3109,8 +3109,8 @@ void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this)
         while ( v14 < *(_WORD *)(v9 + 68) );
       }
       v6 = v12 + 1;
-      compile_error();//v11 = __SETO__(v12 + 1, dword_56EEA8);
-      v10 = v12++ + 1 - dword_56EEA8 < 0;
+      compile_error();//v11 = __SETO__(v12 + 1, class37_global0.dword_053730);
+      v10 = v12++ + 1 - class37_global0.dword_053730 < 0;
     }
     while ( v10 ^ v11 );
   }
@@ -3400,47 +3400,41 @@ int __cdecl sub_43F953()
   class37_global0.dword_000000 = 0;
   if ( stru_51B6E0.dword_00001C )
   {
-    word_51C720[0] = stru_51B6E0.dword_00001C;
-    word_51C728 = stru_51B6E0.uViewportW;
-    word_51C726 = stru_51B6E0.uViewportZ;
-    word_51C724 = stru_51B6E0.uViewportY;
-    word_51C722 = stru_51B6E0.uViewportX;
-    sub_43F9E1((int)&unk_51C72C, stru_51B6E0.uViewportX, (signed __int16)stru_51B6E0.uViewportY, stru_51B6E0.uViewportZ, (signed __int16)stru_51B6E0.uViewportW);
-    word_51CEC4 = -1;
-    dword_51CEC8 = -1;
-    dword_51C71C = 1;
-    sub_440639(0, v1);
+   class37_global0.std__vector_000FA8[0].uSectorID = stru_51B6E0.dword_00001C;
+   class37_global0.std__vector_000FA8[0].uViewportX = stru_51B6E0.uViewportX;
+   class37_global0.std__vector_000FA8[0].uViewportY = stru_51B6E0.uViewportY;
+   class37_global0.std__vector_000FA8[0].uViewportZ = stru_51B6E0.uViewportZ;
+   class37_global0.std__vector_000FA8[0].uViewportW = stru_51B6E0.uViewportW;
+   sub_43F9E1(&class37_global0.std__vector_000FA8[0].stru_00000C,
+              stru_51B6E0.uViewportX, stru_51B6E0.uViewportY, stru_51B6E0.uViewportZ, stru_51B6E0.uViewportW);
+
+   class37_global0.std__vector_000FA8[0].word_0007A4 = -1;
+   class37_global0.std__vector_000FA8[0].dword_0007A8 = -1;
+   class37_global0.std__vector_000FA8_size = 1;
+   sub_440639(0);
   }
   return class37_sub_43F333(&class37_global0);
 }
 
 //----- (0043F9E1) --------------------------------------------------------
-int __thiscall sub_43F9E1(int _this, __int16 a2, signed int a3, __int16 a4, signed int a5)
+void sub_43F9E1(struct class37_stru2 *_this, __int16 a2, signed int a3, __int16 a4, signed int a5)
 {
-  int result; // eax@1
-  signed int v6; // edx@1
+ _this->dword_000000 = a3;
+ _this->dword_000004 = a5;
 
-  *(_DWORD *)_this = a3;
-  *(_DWORD *)(_this + 4) = a5;
-  v6 = 0;
-  result = _this + 984;
-  do
+ for (unsigned int i = 0; i < 480; ++i)
+ {
+  if ( i < a3 || i > a5 )
   {
-    if ( v6 < a3 || v6 > a5 )
-    {
-      *(_WORD *)result = -1;
-      *(_WORD *)(result - 960) = 640;
-    }
-    else
-    {
-      *(_WORD *)(result - 960) = a2;
-      *(_WORD *)result = a4;
-    }
-    ++v6;
-    result += 2;
+   _this->array_000018[i] = 640;
+   _this->array_0003D8[i] = -1;
   }
-  while ( v6 < 480 );
-  return result;
+  else
+  {
+   _this->array_000018[i] = a2;
+   _this->array_0003D8[i] = a4;
+  }
+ }
 }
 
 //----- (0043FA33) --------------------------------------------------------
@@ -3733,12 +3727,12 @@ LABEL_12:
         pMobileLightsStack->AddLight_Mobile(&Vec3<float>(v35, v34, v33), v36, *(_WORD *)(v11 + 48), -1, -1, -1, (int)v10);
       }
       v12 = 0;
-      if ( dword_56EEA8 <= 0 )
+      if ( class37_global0.dword_053730 <= 0 )
         goto LABEL_48;
       while ( word_56EEAC[v12] != *((_WORD *)v2 + 61) )
       {
         ++v12;
-        if ( v12 >= dword_56EEA8 )
+        if ( v12 >= class37_global0.dword_053730 )
           goto LABEL_48;
       }
       if ( !sub_43669D(v35, v34, v33, &X, (int)&v45, (int)&v44, 1) || (a1 = abs(X), a1 < abs(v45)) )
@@ -3990,31 +3984,30 @@ void __cdecl sub_44028F_PrepareItemsRenderList_BLV()
 }
 
 //----- (00440639) --------------------------------------------------------
-char __fastcall sub_440639(signed int a1, int a2)
+char __fastcall sub_440639(signed int a1)
 {
   int v2; // eax@1
-  signed int v3; // ebx@1
+  //signed int v3; // ebx@1
   int v4; // edi@1
-  int v5; // esi@1
+  //int v5; // esi@1
 
-  v3 = a1;
   LOBYTE(v2) = -52 * a1;
   v4 = 0;
-  v5 = (int)pIndoor->pSectors + 116 * word_51C720[1126 * a1];
-  if ( pD3DRenderer->pRenderD3D3 )
+  BLVSector *pSector = pIndoor->pSectors + class37_global0.std__vector_000FA8[a1].uSectorID;
+  if (pD3DRenderer->pRenderD3D3)
   {
-    if ( *(_WORD *)(v5 + 46) > 0 )
+    if (pSector->word_00002E > 0 )
     {
       do
       {
-        class37_sub_4B0EA8((int)&class37_global0, v3, *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * v4));
-        v2 = *(_WORD *)(v5 + 46);
+        class37_sub_4B0EA8(&class37_global0, a1, pSector->pSomeFaceIDs[v4]);
+        v2 = pSector->word_00002E;
         ++v4;
       }
       while ( v4 < v2 );
     }
   }
-  else
+  /*else//software
   {
     if ( *(_WORD *)(v5 + 46) > 0 )
     {
@@ -4026,9 +4019,9 @@ char __fastcall sub_440639(signed int a1, int a2)
       }
       while ( v4 < v2 );
     }
-  }
-  if ( *(_BYTE *)v5 & 0x10 )
-    LOBYTE(v2) = sub_4406BC(v3, *(_WORD *)(v5 + 100));
+  }*/
+  if (pSector->dword_000000 & 0x10 )
+    LOBYTE(v2) = sub_4406BC(a1, pSector->word_000064);
   return v2;
 }
 
@@ -4048,7 +4041,7 @@ char __fastcall sub_4406BC(signed int a1, int a2)
   __int16 *v13; // [sp+18h] [bp-4h]@1
 
   v11 = a1;
-  v13 = &word_51C720[1126 * a1];
+  v13 = (_WORD *)&class37_global0.std__vector_000FA8[a1].uSectorID;
   while ( 1 )
   {
     v5 = (int)(pIndoor->pSectors + *v13);
@@ -4072,12 +4065,12 @@ char __fastcall sub_4406BC(signed int a1, int a2)
     if ( pD3DRenderer->pRenderD3D3 )
     {
       while ( v8 < v7 )
-        LOBYTE(v6) = class37_sub_4B0EA8((int)&class37_global0, v11, *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * v8++));
+        /*LOBYTE(v6) = */class37_sub_4B0EA8(&class37_global0, v11, *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * v8++));
     }
     else
     {
       while ( v8 < v7 )
-        LOBYTE(v6) = class37_sub_4AFB86((void *)&class37_global0, v11, *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * v8++));
+        /*LOBYTE(v6) = */class37_sub_4AFB86((void *)&class37_global0, v11, *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * v8++));
     }
     v9 = v12 ? *(_WORD *)v4 : *(_WORD *)(v4 + 2);
     if ( v9 == -1 )
@@ -4115,12 +4108,12 @@ int __thiscall sub_4407D9(sub_4407D9_stru0 *_this, sub_441BD4_DrawIndoor_stru0 *
  _this->sRotationY = a2->sRotationY;
  _this->sRotationX = a2->sRotationX;
 
- _this->dword_00001C  = IndoorLocation_sub_49AC17(pIndoor, _this->vPosition.x, _this->vPosition.y, _this->vPosition.z);
+ _this->dword_00001C  = IndoorLocation_GetRoom(pIndoor, _this->vPosition.x, _this->vPosition.y, _this->vPosition.z);
  if (!_this->dword_00001C)
  {
   _this->vPosition.x = pParty_global->vPosition.x;
   _this->vPosition.y = pParty_global->vPosition.y;
-  _this->dword_00001C = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, _this->vPosition.z);
+  _this->dword_00001C = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, _this->vPosition.z);
  }
 
  if (pD3DRenderer->pRenderD3D3)
@@ -4208,29 +4201,29 @@ void __fastcall sub_440B44(char a1)
 
   if ( a1 )
   {
-    IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+    IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     for ( i = 0; i < class37_global0.dword_000000; ++i )
     {
-      v2 = 2252 * word_51B77C[2 * i + 1];
-      if ( *(int *)((char *)&dword_51CEC8 + v2) == -1 )
+      v2 = 2252 * class37_global0.array_000004[2 * i + 1];
+      if ( *(int *)((char *)&class37_global0.std__vector_000FA8[0].dword_0007A8 + v2) == -1 )
       {
         v6 = 0;
         v3 = 0;
       }
       else
       {
-        v3 = (int)((char *)&unk_51CECC + v2);
-        v6 = (int)((char *)&unk_51CF2C + v2);
+        v3 = (int)((char *)&class37_global0.std__vector_000FA8[0].std__vector_0007AC + v2);
+        v6 = (int)((char *)class37_global0.std__vector_000FA8[0].array_00080C + v2);
       }
-      sub_4B0A25(word_51B77C[2 * i], v3, 4, v6);
+      sub_4B0A25(class37_global0.array_000004[2 * i], v3, 4, v6);
     }
   }
   else
   {
     for ( j = 0; j < class37_global0.dword_000000; ++j )
     {
-      v5 = word_51B77C[2 * j];
-      stru_51B6E0.dword_00007C = (int)((char *)&unk_51C72C + 2252 * word_51B77C[2 * j + 1]);
+      v5 = class37_global0.array_000004[2 * j];
+      stru_51B6E0.dword_00007C = (int)((char *)&class37_global0.std__vector_000FA8[0].stru_00000C + 2252 * class37_global0.array_000004[2 * j + 1]);
       sub_4AFF79(v5);
     }
   }
@@ -4259,7 +4252,7 @@ void sub_440BED(sub_441BD4_DrawIndoor_stru0 *_this)
     {
       v1 = stru_51B6E0.dword_000048;
       v6 = 0;
-      if ( dword_51C71C > 0 )
+      if ( class37_global0.std__vector_000FA8_size > 0 )
       {
         v7 = 0;
         v2 = &unk_51C730;
@@ -4284,7 +4277,7 @@ void sub_440BED(sub_441BD4_DrawIndoor_stru0 *_this)
           v7 += 1126;
           v2 = (char *)v2 + 2252;
         }
-        while ( v6 < dword_51C71C );
+        while ( v6 < class37_global0.std__vector_000FA8_size );
       }
     }
   }*/
@@ -9604,7 +9597,7 @@ LABEL_41:
           v60 = a5;
           v59 = a4;
           v63 = 16;
-          v64 = IndoorLocation_sub_49AC17(pIndoor, a4, a5, SHIDWORD(a5));
+          v64 = IndoorLocation_GetRoom(pIndoor, a4, a5, SHIDWORD(a5));
           v72 = v54;
           v65 = 0;
           v70 = 8002;
@@ -9645,7 +9638,7 @@ LABEL_35:
         v60 = a5;
         v59 = a4;
         v63 = 16;
-        v64 = IndoorLocation_sub_49AC17(pIndoor, a4, a5, SHIDWORD(a5));
+        v64 = IndoorLocation_GetRoom(pIndoor, a4, a5, SHIDWORD(a5));
         v72 = v54;
         v19 = v55;
         v65 = 0;
@@ -9700,7 +9693,7 @@ LABEL_60:
         v60 = a5;
         v59 = a4;
         v63 = 16;
-        v64 = IndoorLocation_sub_49AC17(pIndoor, a4, a5, SHIDWORD(a5));
+        v64 = IndoorLocation_GetRoom(pIndoor, a4, a5, SHIDWORD(a5));
         v72 = v54;
         v65 = 0;
         v70 = 8002;
@@ -9860,7 +9853,7 @@ LABEL_71:
     v60 = a5;
     v59 = a4;
     v63 = 16;
-    v64 = IndoorLocation_sub_49AC17(pIndoor, a4, a5, SHIDWORD(a5));
+    v64 = IndoorLocation_GetRoom(pIndoor, a4, a5, SHIDWORD(a5));
     v72 = v54;
     v65 = 0;
     v70 = 8002;
@@ -12809,7 +12802,7 @@ LABEL_26:
         a4 = v23;
         v61 = v22;
         if ( uCurrentlyLoadedLevelType == 1 )
-          v57 = IndoorLocation_sub_49AC17(pIndoor, v24, v23, v22);
+          v57 = IndoorLocation_GetRoom(pIndoor, v24, v23, v22);
         v56 = 0;
         result = (((uCurrentlyLoadedLevelType != 2) - 1) & 0x40) + 64;
         v55 = (((uCurrentlyLoadedLevelType != 2) - 1) & 0x40) + 64;
@@ -12915,7 +12908,7 @@ LABEL_26:
       v65 = *(_DWORD *)(v5 + 8);
       if ( uCurrentlyLoadedLevelType != 2 )
       {
-        v40 = IndoorLocation_sub_49AC17(pIndoor, v58, a4, v32);
+        v40 = IndoorLocation_GetRoom(pIndoor, v58, a4, v32);
         if ( v40 != v57
           || (v41 = sub_46CEC3(v58, a4, v66, v40, (int)&v51), v42 = v41, v41 == -30000)
           || abs(v41 - v67) > 1024 )
@@ -13023,7 +13016,7 @@ LABEL_12:
     v21 = 0;
     v22 = pParty_global->vPosition.z;
     if ( uCurrentlyLoadedLevelType == 1 )
-      v21 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+      v21 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     v8 = (int)((char *)pActors + 836 * v20);
     //v9 = (char *)&unk_5CCE98 + 88 * v23;
     v9 = (char *)&pMonsterStats->pMonsterInfos[v23 + 1];
@@ -13067,7 +13060,7 @@ LABEL_12:
     *(_WORD *)(v8 + 160) = 256;
     Actor_UpdateAnimation((Actor *)v8);
     if ( uCurrentlyLoadedLevelType == 2
-      || (v22 = pParty_global->vPosition.z, result = IndoorLocation_sub_49AC17(pIndoor, v7, v6, pParty_global->vPosition.z), result == v21)
+      || (v22 = pParty_global->vPosition.z, result = IndoorLocation_GetRoom(pIndoor, v7, v6, pParty_global->vPosition.z), result == v21)
       && (result = sub_46CEC3(v7, v6, v22, result, (int)&v18), result != -30000)
       && (result = abs(result - v22), result <= 1024) )
     {
@@ -13147,7 +13140,7 @@ int __fastcall sub_44FD29(int a1, int a2)
   v28 = 0;
   v25 = v6;
   if ( uCurrentlyLoadedLevelType == 1 )
-    v28 = IndoorLocation_sub_49AC17(pIndoor, *(_WORD *)(v3 + 142), *(_WORD *)(v3 + 144), v6);
+    v28 = IndoorLocation_GetRoom(pIndoor, *(_WORD *)(v3 + 142), *(_WORD *)(v3 + 144), v6);
   v12 = v4 - 1;
   v11 = (int)((char *)pActors + 836 * uNumActors);
   v27 = (((uCurrentlyLoadedLevelType != 2) - 1) & 0x40) + 64;
@@ -13206,7 +13199,7 @@ int __fastcall sub_44FD29(int a1, int a2)
   if ( uCurrentlyLoadedLevelType == 2
     || (v22 = *(_WORD *)(v30 + 146),
         v27 = *(_WORD *)(v30 + 146),
-        result = IndoorLocation_sub_49AC17(pIndoor, v10, v9, v22),
+        result = IndoorLocation_GetRoom(pIndoor, v10, v9, v22),
         result == v28)
     && (result = sub_46CEC3(v10, v9, v27, result, (int)&v25), result != -30000)
     && (result = abs(result - v27), result <= 1024) )
@@ -13336,8 +13329,8 @@ int __fastcall sub_44FFD8_SpawnMonsters(int a1, SpawnPointMM7 *a2)
               {
 LABEL_20:
                 v16 = 0;
-                v15 = word_5D29F8[24 * local_0C.stru_000024.uItemID];
-                local_0C.uItemType = word_5D29F8[24 * local_0C.stru_000024.uItemID];
+                v15 = pClass40->pItems[local_0C.stru_000024.uItemID - 1].uSpriteIndex;
+                local_0C.uItemType = pClass40->pItems[local_0C.stru_000024.uItemID - 1].uSpriteIndex;
                 if ( pObjectDescriptionList->uNumObjects <= 0 )
                 {
 LABEL_24:
@@ -13381,8 +13374,8 @@ LABEL_19:
   if ( !result )
     return result;
   v24 = 0;
-  v23 = word_5D29F8[24 * local_0C.stru_000024.uItemID];
-  local_0C.uItemType = word_5D29F8[24 * local_0C.stru_000024.uItemID];
+  v23 = pClass40->pItems[local_0C.stru_000024.uItemID - 1].uSpriteIndex;
+  local_0C.uItemType = pClass40->pItems[local_0C.stru_000024.uItemID - 1].uSpriteIndex;
   if ( pObjectDescriptionList->uNumObjects <= 0 )
   {
 LABEL_33:
@@ -13413,7 +13406,7 @@ LABEL_35:
   local_0C.dword_000050 = 0;
   local_0C.dword_00004C = 0;
   local_0C.dword_000048 = 0;
-  v30 = IndoorLocation_sub_49AC17(pIndoor, v28, v27, v29);
+  v30 = IndoorLocation_GetRoom(pIndoor, v28, v27, v29);
   local_0C.dword_00005C = 0;
   local_0C.dword_000058 = 0;
   local_0C.uSpriteFrameID = 0;
@@ -13449,8 +13442,8 @@ signed int __fastcall sub_450521_ProbablyDropItemAt(int a1, signed int a2, int s
   sub_404828_ctor(&local_08);
   class40_sub_456620_CreateSomeSemirandomItem(pClass40, v8, v9, &local_08.stru_000024);
   v7 = 0;
-  v6 = word_5D29F8[24 * local_08.stru_000024.uItemID];
-  local_08.uItemType = word_5D29F8[24 * local_08.stru_000024.uItemID];
+  v6 = pClass40->pItems[local_08.stru_000024.uItemID - 1].uSpriteIndex;
+  local_08.uItemType = pClass40->pItems[local_08.stru_000024.uItemID - 1].uSpriteIndex;
   if ( pObjectDescriptionList->uNumObjects <= 0 )
   {
 LABEL_5:
@@ -13472,7 +13465,7 @@ LABEL_5:
   local_08.vPosition = Vec3<int>(sX, sY, sZ);
   local_08.uFacing = a6;
   local_08.uAttributes = 0;
-  local_08.sRoom = IndoorLocation_sub_49AC17(pIndoor, sX, sY, sZ);
+  local_08.sRoom = IndoorLocation_GetRoom(pIndoor, sX, sY, sZ);
   local_08.uSpriteFrameID = 0;
   return sub_42F5ED(&local_08, 0, 0, 0, 0);
 }
@@ -13617,7 +13610,7 @@ LABEL_16:
   else
   {
     v29 = 0;
-    v25 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+    v25 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
     do
     {
       ++v29;
@@ -13634,7 +13627,7 @@ LABEL_16:
       v20 = v26 + pParty_global->vPosition.y;
       v21 = pParty_global->vPosition.z;
       v22 = v27;
-      v12 = IndoorLocation_sub_49AC17(pIndoor, v19, v26 + pParty_global->vPosition.y, pParty_global->vPosition.z);
+      v12 = IndoorLocation_GetRoom(pIndoor, v19, v26 + pParty_global->vPosition.y, pParty_global->vPosition.z);
       if ( v12 == v25 )
       {
         v18 = sub_46CEC3(v19, v20, v21, v12, (int)&v28);

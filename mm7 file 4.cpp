@@ -500,7 +500,7 @@ LABEL_9:
   {
     ItemGen_Reset(&local_0C);
     local_0C.uItemID = *(_WORD *)(a1 + 180);
-    v8 = dword_5D29EC[12 * local_0C.uItemID];
+    v8 = (int)pClass40->pItems[local_0C.uItemID - 1].pUnidentifiedName;
     if ( v16 )
       wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[490], v16, v8);
     else
@@ -553,7 +553,7 @@ LABEL_55:
     {
       memcpy(&local_0C, (const void *)(a1 + 672), sizeof(struct ItemGen));
       ItemGen_Reset((ItemGen *)(a1 + 672));
-      v10 = dword_5D29EC[12 * local_0C.uItemID];
+      v10 = (int)pClass40->pItems[local_0C.uItemID - 1].pUnidentifiedName;
       if ( v16 )
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[490], v16, v10);
       else
@@ -572,7 +572,7 @@ LABEL_44:
     goto LABEL_45;
   }
   class40_sub_456620_CreateSomeSemirandomItem(pClass40, v6, *(_BYTE *)(a1 + 57), &local_0C);
-  v9 = dword_5D29EC[12 * local_0C.uItemID];
+  v9 = (int)pClass40->pItems[local_0C.uItemID - 1].pUnidentifiedName;
   if ( v16 )
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[490], v16, v9);
   else
@@ -2571,7 +2571,7 @@ LABEL_7:
   LODWORD(v20.v688) = a3;
   v20.v690 = 0;
   v20.v691 = a8;
-  v20.v692 = IndoorLocation_sub_49AC17(pIndoor, v37, a3, a4);
+  v20.v692 = IndoorLocation_GetRoom(pIndoor, v37, a3, a4);
   v20.v693 = 0;
   v20.v698 = 0;
   v36 = 0;
@@ -2580,7 +2580,7 @@ LABEL_7:
     v13 = 0;
     if ( pClass40->uNumItems > 0 )
     {
-      v14 = (int)word_5D29F8;
+     v14 = (int)&pClass40->pItems[0].uSpriteIndex;
       while ( *(_WORD *)v14 != v9 )
       {
         ++v13;
@@ -2685,7 +2685,7 @@ LABEL_5:
   v14 = a3;
   v15 = 0;
   v16 = 0;
-  v17 = IndoorLocation_sub_49AC17(pIndoor, v4, v5, a3);
+  v17 = IndoorLocation_GetRoom(pIndoor, v4, v5, a3);
   v18 = 0;
   v24 = 0;
   v25 = 0;
@@ -2790,7 +2790,7 @@ LABEL_5:
   v16 = v7;
   v17 = a3;
   v20 = 0;
-  v21 = IndoorLocation_sub_49AC17(pIndoor, v6, v7, a3);
+  v21 = IndoorLocation_GetRoom(pIndoor, v6, v7, a3);
   v22 = 0;
   v28 = 0;
   v29 = 0;
@@ -7152,7 +7152,7 @@ int __thiscall ItemGen_sub_456442(ItemGen *_this)
   int result; // eax@7
 
   v2 = (int)_this;
-  v1 = dword_5D29F4[12 * _this->uItemID];
+  v1 = pClass40->pItems[_this->uItemID - 1].uValue;
   if ( *(_BYTE *)((int)_this + 20) & 8 || class40_sub_456D5E(pClass40, _this) )
     goto LABEL_12;
   if ( *(_DWORD *)(v2 + 4) )
@@ -7168,7 +7168,7 @@ LABEL_12:
   }
   else
   {
-    v3 = dword_5DC1BC[7 * v4];
+    v3 = pClass40->pSpecialEnchantments[v4].dword_000014;
     if ( (unsigned int)v3 > 0xA )
       return v1 + v3;
     result = v1 * v3;
@@ -7184,7 +7184,7 @@ int __thiscall ItemGen_sub_456499(ItemGen *_this)
   if ( *((_BYTE *)_this + 20) & 1 )
     result = ItemGen_sub_4564B3(_this);
   else
-    result = dword_5D29EC[12 * _this->uItemID];
+    result = (int)pClass40->pItems[_this->uItemID - 1].pUnidentifiedName;
   return result;
 }
 
@@ -7239,7 +7239,7 @@ LABEL_10:
     if ( *(_DWORD *)(v3 + 4) )
     {
       strcat(byte_5C8678, " ");
-      v9 = dword_5DBFD0[5 * *(_DWORD *)(v3 + 4)];
+      v9 = (int)pClass40->pEnchantments[*(_DWORD *)(v3 + 4) - 1].pName;
     }
     else
     {
@@ -7261,11 +7261,11 @@ LABEL_10:
         || v7 == 67
         || v7 == 68 )
       {
-        wsprintfA(byte_5C8678, "%s %s", dword_5DC1A8[7 * v7], pClass40->pItems[*(_DWORD *)v3].pName);
+        wsprintfA(byte_5C8678, "%s %s", pClass40->pSpecialEnchantments[v7].pName, pClass40->pItems[*(_DWORD *)v3].pName);
         return v4;
       }
       strcat(byte_5C8678, " ");
-      v9 = dword_5DC1A8[7 * *(_DWORD *)(v3 + 12)];
+      v9 = (int)pClass40->pSpecialEnchantments[*(_DWORD *)(v3 + 12)].pName;
     }
     strcat(byte_5C8678, (const char *)v9);
   }
@@ -11041,7 +11041,7 @@ void __cdecl sub_467FB6()
   local_0C.uFrameZ = local_0C.uFrameWidth + local_0C.uFrameX - 1;
   local_0C.uFrameW = local_0C.uFrameHeight + local_0C.uFrameY - 1;
 
-  v2 = dword_5DAD28[12 * ptr_507BC4->dword_00001C];
+  v2 = (int)pClass40->pItems[700 + ptr_507BC4->dword_00001C - 1].pName;
   v3 = 0xFFFFFF9B;
   wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v3, v2);
   GUIWindow_DrawText(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);

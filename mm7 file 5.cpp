@@ -1906,7 +1906,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
       {
         if (pParty_global->pickedItem.uItemID)
           return 1;
-        v27 = *(int *)((char *)dword_5D29EC + v19);
+        v27 = (int)pClass40->pItems[v19/48 - 1].pUnidentifiedName;
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v27);
         sub_44C175((char *)pStringBuffer, 2);
         if ( *(_DWORD *)v20 == 506 )
@@ -5956,7 +5956,7 @@ int __fastcall sub_46ED1B(signed int a1, signed int a2, int a3, int *a4, int a5)
   v8 = a1;
   result = sub_46CEC3(a1, a2, a3, *a4, (int)&a4);
   if ( result != -30000 && result <= a3 + 50
-    || (v7 = IndoorLocation_sub_49AC17(pIndoor, v8, v9, a3), *v6 = v7, v7)
+    || (v7 = IndoorLocation_GetRoom(pIndoor, v8, v9, a3), *v6 = v7, v7)
     && (result = sub_46CEC3(v8, v9, a3, v7, (int)&a4), result != -30000) )
     *(_DWORD *)a5 = (int)a4;
   else
@@ -6634,7 +6634,7 @@ void __cdecl sub_46F90C()
         v61 = 1;
       if ( v2 <= -30000 )
       {
-        v5 = IndoorLocation_sub_49AC17(pIndoor, *(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144), v4);
+        v5 = IndoorLocation_GetRoom(pIndoor, *(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144), v4);
         *(_WORD *)(v1 + 158) = v5;
         if ( !v5
           || (v58 = sub_46CEC3(*(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144), *(_WORD *)(v1 + 146), v5, (int)&v62),
@@ -7722,7 +7722,7 @@ void __fastcall sub_47136C(int a1)
     || abs(*((_DWORD *)v2 + 3)) > 20000
     || (v50 = sub_46CEC3(*((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3), *((_WORD *)v2 + 14), (int)&v46),
         v50 <= -30000)
-    && ((v4 = IndoorLocation_sub_49AC17(pIndoor, *((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3)),
+    && ((v4 = IndoorLocation_GetRoom(pIndoor, *((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3)),
          *((_WORD *)v2 + 14) = v4,
          !v4)
      || (v50 = sub_46CEC3(*((_DWORD *)v2 + 1), *((_DWORD *)v2 + 2), *((_DWORD *)v2 + 3), v4, (int)&v46), v50 == -30000)) )
@@ -8488,23 +8488,23 @@ int __fastcall sub_47272C(int a1, signed int a2, int a3, int *a4, int a5)
   v6 = a1 - 2;
   v7 = a1;
   v8 = a2;
-  *a4 = IndoorLocation_sub_49AC17(pIndoor, a1 - 2, a2, a3 + 40);
+  *a4 = IndoorLocation_GetRoom(pIndoor, a1 - 2, a2, a3 + 40);
   result = sub_46ED1B(v6, v8, a3 + 40, a4, a5);
   if ( result == -30000 || !*a4 )
   {
-    *a4 = IndoorLocation_sub_49AC17(pIndoor, v7 + 2, v8, a3 + 40);
+    *a4 = IndoorLocation_GetRoom(pIndoor, v7 + 2, v8, a3 + 40);
     result = sub_46ED1B(v7 + 2, v8, a3 + 40, a4, a5);
     if ( result == -30000 || !*a4 )
     {
-      *a4 = IndoorLocation_sub_49AC17(pIndoor, v7, v8 - 2, a3 + 40);
+      *a4 = IndoorLocation_GetRoom(pIndoor, v7, v8 - 2, a3 + 40);
       result = sub_46ED1B(v7, v8 - 2, a3 + 40, a4, a5);
       if ( result == -30000 || !*a4 )
       {
-        *a4 = IndoorLocation_sub_49AC17(pIndoor, v7, v8 + 2, a3 + 40);
+        *a4 = IndoorLocation_GetRoom(pIndoor, v7, v8 + 2, a3 + 40);
         result = sub_46ED1B(v7, v8 + 2, a3 + 40, a4, a5);
         if ( result == -30000 || !*a4 )
         {
-          *a4 = IndoorLocation_sub_49AC17(pIndoor, v7, v8, a3 + 140);
+          *a4 = IndoorLocation_GetRoom(pIndoor, v7, v8, a3 + 140);
           result = sub_46ED1B(v7, v8, a3 + 140, a4, a5);
         }
       }
@@ -8616,7 +8616,7 @@ void __cdecl sub_472866_SomeStuffIncludingPartyPosUpdate_BLV()
   v1 = 0;
   v86 = pParty_global->vPosition.x;
   v87 = pParty_global->vPosition.z;
-  v77 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+  v77 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   v72 = 0;
   v78 = 0;
   v71 = 0;
@@ -11524,8 +11524,10 @@ LABEL_30:
               -1);
           }
         }
-        if ( dword_F8ADD4 > 0 )
-          sub_45BC07(pGame->class04_obj, (int)&dword_F8AD28, (int)&unk_73C834, v62, (int)array_50AC10, 0.0, v35);
+
+        runtime_warning(applying lights, crashes);
+        //if ( dword_F8ADD4 > 0 )
+        //  sub_45BC07(pGame->class04_obj, (int)&dword_F8AD28, (int)&unk_73C834, v62, (int)array_50AC10, 0.0, v35);
         if ( v55 )
         {
           v37 = sub_424CD7(v62);

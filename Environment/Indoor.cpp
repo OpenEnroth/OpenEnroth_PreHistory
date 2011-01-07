@@ -614,7 +614,7 @@ Result::Code IndoorLocation::Load(const char *pLevelFilename, int a3, int a5)
           v82 = 48 * *((_DWORD *)v81 + 9);
           v83 = pObjectDescriptionList->uNumObjects == 0;
           v84 = pObjectDescriptionList->uNumObjects < 0;
-          LOWORD(v82) = *(__int16 *)((char *)word_5D29F8 + v82);
+          LOWORD(v82) = *(__int16 *)((char *)&pClass40->pItems[0].uSpriteIndex + v82);
           i = v82;
           *(_WORD *)v81 = v82;
           if ( v84 | v83 )
@@ -865,7 +865,7 @@ LABEL_50:
   pSector->ptr_000028 = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_000024;
-  pSector->ptr_000030 = ptr_0002B0_sector_rdata + j;
+  pSector->pSomeFaceIDs = ptr_0002B0_sector_rdata + j;
 
   j += pSector->word_00002C;
   pSector->ptr_000040 = ptr_0002B0_sector_rdata + j;
@@ -1111,7 +1111,7 @@ LABEL_140:
  
   if (pItem->stru_000024.uItemID && !(pItem->uAttributes & 0x0100))
   {
-   pItem->uItemType = word_5D29F8[24 * pItem->stru_000024.uItemID];
+   pItem->uItemType = pClass40->pItems[pItem->stru_000024.uItemID - 1].uSpriteIndex;
 
    unsigned int uObjectID = 0;
    for (unsigned int j = 0; j < pObjectDescriptionList->uNumObjects; ++j)

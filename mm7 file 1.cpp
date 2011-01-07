@@ -2850,7 +2850,7 @@ int __cdecl sub_4016FA()
   int v46; // [sp+20h] [bp-4h]@1
 
   pParty_global->dword_007778 &= 0xFFFFFFCFu;
-  v38 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+  v38 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
   v46 = 0;
   v44 = 0;
   if ( (signed int)uNumActors > 0 )
@@ -7067,7 +7067,7 @@ LABEL_69:
         {
           if ( i )
             local_DDC.vPosition.z += 0x20;
-          local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, local_DDC.vPosition.z);
+          local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, local_DDC.vPosition.z);
           if ( sub_42F5ED(&local_DDC,
                  v678,
                  v679,
@@ -7101,7 +7101,7 @@ LABEL_69:
         memcpy(&local_DDC.stru_000024, (void *)(
           ((char *)(&pParty_global->pPlayers[0]))[1743 * *(_WORD *)(v2 + 2) + 124] + 9 * ((char *)(&pParty_global->pPlayers))[1743 * *(_WORD *)(v2 + 2) + 1619]),
           sizeof(ItemGen));
-        v21 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, local_DDC.vPosition.z);
+        v21 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, local_DDC.vPosition.z);
         HIBYTE(local_DDC.uAttributes) |= 1u;
         local_DDC.sRoom = v21;
         if (pParty_global->bTurnBasedModeOn)
@@ -7196,7 +7196,7 @@ LABEL_69:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v33 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v33) = v33 | 4;
@@ -7312,7 +7312,7 @@ LABEL_133:
         v47 = *(_WORD *)(LODWORD(v712) + 138);
         local_DDC.vPosition.z = *(_WORD *)(LODWORD(v712) + 138);
         local_DDC.uAttributes = WORD2(v1);
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, v47);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, local_DDC.vPosition.x, local_DDC.vPosition.y, v47);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v48 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v48) = v48 | 4;
@@ -7356,7 +7356,7 @@ LABEL_139:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v49 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v49) = v49 | 4;
@@ -7506,7 +7506,7 @@ LABEL_174:
         local_DDC.vPosition.y = pParty_global->vPosition.y;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v58 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v58) = v58 | 4;
@@ -8311,7 +8311,7 @@ LABEL_353:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v181 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v181) = v181 | 4;
@@ -8634,7 +8634,7 @@ LABEL_153:
           local_DDC.uAttributes = WORD2(v1);
           local_DDC.vPosition.x = pParty_global->vPosition.x;
           local_DDC.vPosition.z = v50;
-          v51 = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, v619, v629);
+          v51 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, v619, v629);
           local_DDC.uSpriteFrameID = WORD2(v1);
           local_DDC.sRoom = v51;
           v52 = 8 * *(_WORD *)(v2 + 2);
@@ -8671,7 +8671,7 @@ LABEL_157:
           local_DDC.vPosition.x = pParty_global->vPosition.x;
           local_DDC.uAttributes = WORD2(v1);
           local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-          local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+          local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
           local_DDC.uSpriteFrameID = WORD2(v1);
           v218 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v218) = v218 | 4;
@@ -8839,20 +8839,22 @@ LABEL_484:
                             v298 = *(_BYTE *)(v703 + 28);
                             if ( v298 == 3 | v298 == 4 | v298 == 5 | v298 == 6 | v298 == 7 | v298 == 8 | v298 == 9 | v298 == 10 | v298 == 11 )
                             {
-                             v299 = rand() % dword_5E40B8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
+                             v299 = rand() % pClass40->unk_0116D8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                               *(_DWORD *)(v1 + 4) = 0;
-                              for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
-                                    ;
-                                    HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)]
-                              + pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
+                              compile_error();
+                              for (;false;)
+                              //for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
+                              //      ;
+                              //      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)]
+                              //+ pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
                               {
                                 ++*(_DWORD *)(v1 + 4);
                                 if ( HIDWORD(v1) >= v299 )
                                   break;
                               }
                               v243 = rand();
-                              HIDWORD(v1) = dword_5E40FC;
-                              v244 = dword_5E40F8;
+                              HIDWORD(v1) = pClass40->array_011700[3][1];
+                              v244 = pClass40->array_011700[3][0];
 LABEL_611:
                               *(_DWORD *)(v1 + 8) = v244 + v243 % (HIDWORD(v1) - v244 + 1);
 LABEL_612:
@@ -8913,35 +8915,37 @@ LABEL_613:
               if ( rand() % 100 < 80
                 && !(*(_BYTE *)(v260 + 28) == 0 | *(_BYTE *)(v260 + 28) == 1 | *(_BYTE *)(v260 + 28) == 2) )
               {
-               v262 = rand() % dword_5E40B8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
+               v262 = rand() % pClass40->unk_0116D8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                 *(_DWORD *)(v1 + 4) = 0;
-                for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
-                      ;
-                      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)] +
-                                    pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
+                              compile_error();
+                              for (;false;)
+                //for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
+                //      ;
+                //      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)] +
+                //                    pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
                 {
                   ++*(_DWORD *)(v1 + 4);
                   if ( HIDWORD(v1) >= v262 )
                     break;
                 }
                 v243 = rand();
-                HIDWORD(v1) = dword_5E4104;
-                v244 = dword_5E4100;
+                HIDWORD(v1) = pClass40->array_011700[4][1];
+                v244 = pClass40->array_011700[4][0];
                 goto LABEL_611;
               }
-              v263 = dword_5E4178;
+              v263 = pClass40->dword_011798;
               v264 = 0;
               v703 = 0;
               LODWORD(v712) = 0;
-              if ( dword_5E4178 > 0 )
+              if ( pClass40->dword_011798 > 0 )
               {
                 v708 = (int)&v636;
                 do
                 {
-                  v265 = byte_5DC1DC[v264];
+                  v265 = pClass40->pSpecialEnchantments[v264/28].byte_000018;
                   if ( !v265 || v265 == 1 )
                   {
-                   v266 = (unsigned __int8)*(&byte_5DC1CC[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType] + v264);
+                   v266 = pClass40->pSpecialEnchantments[v264/28].array_000008[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                     v703 += v266;
                     if ( v266 )
                     {
@@ -8958,7 +8962,7 @@ LABEL_613:
               v269 = rand() % v703;
               v270 = v636;
               *(_DWORD *)(v1 + 12) = v636;
-              HIDWORD(v1) = (unsigned __int8)*(&byte_5DC1CC[28 * v270] + pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
+              HIDWORD(v1) = pClass40->pSpecialEnchantments[v270].array_000008[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
               v268 = v269 + 1;
               if ( HIDWORD(v1) < v268 )
               {
@@ -8968,8 +8972,7 @@ LABEL_613:
                   v710 = v272;
                   v273 = *(_DWORD *)v272;
                   *(_DWORD *)(v1 + 12) = v273;
-                  HIDWORD(v1) += (unsigned __int8)*(&byte_5DC1CC[28 * v273] +
-                                 pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
+                  HIDWORD(v1) += pClass40->pSpecialEnchantments[v273].array_000008[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                   if ( HIDWORD(v1) >= v268 )
                     break;
                 }
@@ -9009,35 +9012,37 @@ LABEL_613:
               if ( rand() % 100 < 80
                 && !(*(_BYTE *)(v240 + 28) == 0 | *(_BYTE *)(v240 + 28) == 1 | *(_BYTE *)(v240 + 28) == 2) )
               {
-               v242 = rand() % dword_5E40B8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
+               v242 = rand() % pClass40->unk_0116D8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                 *(_DWORD *)(v1 + 4) = 0;
-                for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
-                      ;
-                      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)] +
-                                                    pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
+                              compile_error();
+                              for (;false;)
+                //for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
+                //      ;
+                //      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)] +
+                //                                    pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
                 {
                   ++*(_DWORD *)(v1 + 4);
                   if ( HIDWORD(v1) >= v242 )
                     break;
                 }
                 v243 = rand();
-                HIDWORD(v1) = dword_5E410C;
-                v244 = dword_5E4108;
+                HIDWORD(v1) = pClass40->array_011700[5][1];
+                v244 = pClass40->array_011700[5][0];
                 goto LABEL_611;
               }
-              v245 = dword_5E4178;
+              v245 = pClass40->dword_011798;
               v246 = 0;
               v703 = 0;
               LODWORD(v712) = 0;
-              if ( dword_5E4178 > 0 )
+              if ( pClass40->dword_011798 > 0 )
               {
                 v708 = (int)&v636;
                 do
                 {
-                  v247 = byte_5DC1DC[v246];
+                  v247 = pClass40->pSpecialEnchantments[v246/28].byte_000018;
                   if ( !v247 || v247 == 1 )
                   {
-                   v248 = (unsigned __int8)*(&byte_5DC1CC[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType] + v246);
+                   v248 = pClass40->pSpecialEnchantments[v246/28].array_000008[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                     v703 += v248;
                     if ( v248 )
                     {
@@ -9054,7 +9059,7 @@ LABEL_613:
               v251 = rand() % v703;
               v252 = v636;
               *(_DWORD *)(v1 + 12) = v636;
-              HIDWORD(v1) = (unsigned __int8)*(&byte_5DC1CC[28 * v252] + pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
+              HIDWORD(v1) = pClass40->pSpecialEnchantments[v252].array_000008[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
               v250 = v251 + 1;
               if ( HIDWORD(v1) < v250 )
               {
@@ -9064,8 +9069,7 @@ LABEL_613:
                   v710 = v254;
                   v255 = *(_DWORD *)v254;
                   *(_DWORD *)(v1 + 12) = v255;
-                  HIDWORD(v1) += (unsigned __int8)*(&byte_5DC1CC[28 * v255] +
-                                                  pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
+                  HIDWORD(v1) += pClass40->pSpecialEnchantments[v255].array_000008[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                   if ( HIDWORD(v1) >= v250 )
                     break;
                 }
@@ -9122,20 +9126,20 @@ LABEL_616:
         }
         if ( rand() % 100 >= 80 )
         {
-          v281 = dword_5E4178;
+          v281 = pClass40->dword_011798;
           v280 = LODWORD(v702);
           v282 = 0;
           v703 = 0;
           LODWORD(v712) = 0;
-          if ( dword_5E4178 > 0 )
+          if ( pClass40->dword_011798 > 0 )
           {
             v708 = (int)&v636;
             do
             {
-              v283 = byte_5DC1DC[v282];
+              v283 = pClass40->pSpecialEnchantments[v282/28].byte_000018;
               if ( !v283 || v283 == 1 )
               {
-               v284 = (unsigned __int8)*(&byte_5DC1CC[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType] + v282);
+               v284 = pClass40->pSpecialEnchantments[v282/28].array_000008[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType];
                 v703 += v284;
                 if ( v284 )
                 {
@@ -9152,7 +9156,7 @@ LABEL_616:
           v288 = rand() % v703;
           v289 = v636;
           *(_DWORD *)(v280 + 12) = v636;
-          v287 = (unsigned __int8)*(&byte_5DC1CC[28 * v289] + pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType);
+          v287 = pClass40->pSpecialEnchantments[v289].array_000008[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType];
           v286 = v288 + 1;
           if ( v287 < v286 )
           {
@@ -9162,7 +9166,7 @@ LABEL_616:
               v710 = v291;
               v292 = *(_DWORD *)v291;
               *(_DWORD *)(v280 + 12) = v292;
-              v287 += (unsigned __int8)*(&byte_5DC1CC[28 * v292] + pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType);
+              v287 += pClass40->pSpecialEnchantments[v292].array_000008[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType];
               if ( v287 >= v286 )
                 break;
             }
@@ -9172,18 +9176,21 @@ LABEL_616:
         else
         {
           v280 = LODWORD(v702);
-          compile_error();//v278 = rand() % dword_5E40B8[(unsigned __int8)byte_5D2A00[48 * *LODWORD(v702)]];
+          compile_error();
+          //v278 = rand() % pClass40->unk_0116D8[(unsigned __int8)byte_5D2A00[48 * *LODWORD(v702)]];
           *(_DWORD *)(LODWORD(v702) + 4) = 0;
-          for ( m = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType];
-                ;
-                m += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v280 + 4)] +
-                                       pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType) )
+                              compile_error();
+                              for (;false;)
+          //for ( m = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType];
+          //      ;
+          //      m += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v280 + 4)] +
+          //                             pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType) )
           {
             ++*(_DWORD *)(v280 + 4);
             if ( m >= v278 )
               break;
           }
-          *(_DWORD *)(v280 + 8) = dword_5E4100 + rand() % (dword_5E4104 - dword_5E4100 + 1);
+          *(_DWORD *)(v280 + 8) = pClass40->array_011700[4][0] + rand() % (pClass40->array_011700[4][1] - pClass40->array_011700[4][0] + 1);
         }
         *(_DWORD *)(v280 + 20) |= 0x20u;
         goto LABEL_1055;
@@ -9258,7 +9265,7 @@ LABEL_634:
         local_DDC.vPosition.x = pParty_global->vPosition.x;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 3;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v309 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v309) = v309 | 4;
@@ -10074,7 +10081,7 @@ LABEL_855:
           }
           else
           {
-            wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v421));
+            wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], pClass40->pItems[v421/48 - 1].pUnidentifiedName);
             sub_44C175((char *)pStringBuffer, 2);
             if (!Party_AddItem(pParty_global, &pLayingItemsList[v1].stru_000024))
               Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pLayingItemsList[v1].stru_000024);
@@ -11048,7 +11055,7 @@ LABEL_1062:
         local_DDC.vPosition.y = pParty_global->vPosition.y;
         local_DDC.uAttributes = WORD2(v1);
         local_DDC.vPosition.z = pParty_global->vPosition.z + pParty_global->uPartyHeight / 2;
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 2);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z + pParty_global->uPartyHeight / 2);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v559 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v559) = v559 | 4;
@@ -11136,7 +11143,7 @@ LABEL_1086:
         v616 = v565;
 LABEL_1087:
         local_DDC.uAttributes = WORD2(v1);
-        local_DDC.sRoom = IndoorLocation_sub_49AC17(pIndoor, v616, v624, v633);
+        local_DDC.sRoom = IndoorLocation_GetRoom(pIndoor, v616, v624, v633);
         local_DDC.uSpriteFrameID = WORD2(v1);
         v568 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v568) = v568 | 4;

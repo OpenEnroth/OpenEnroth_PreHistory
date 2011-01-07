@@ -3436,7 +3436,7 @@ LABEL_91:
             v88 = v86;
             if ( uCurrentlyLoadedLevelType == 1 )
             {
-              if ( IndoorLocation_sub_49AC17(pIndoor, v87, v205, v86) )
+              if ( IndoorLocation_GetRoom(pIndoor, v87, v205, v86) )
               {
                 v89 = v205;
 LABEL_544:
@@ -7859,8 +7859,8 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
     v259 = pPlayer->pEquippedItemIndices[2];
     v26 = (int)&pPlayer->pInventorySlots[v23 - 1];
     v27 = 48 * pPlayer->pInventorySlots[v23 - 1].uItemID;
-    v25 = dword_4E4C28 + dword_4E4C30[32 * v268 + 4] - *(__int16 *)((char *)&word_5D29FC + v27);
-    v224 = dword_4E4C2C + dword_4E4C30[32 * v268 + 5] - *(__int16 *)((char *)&word_5D29FE + v27);
+    v25 = dword_4E4C28 + dword_4E4C30[32 * v268 + 4] - pClass40->pItems[v27/48 - 1].uEquipX;
+    v224 = dword_4E4C2C + dword_4E4C30[32 * v268 + 5] - pClass40->pItems[v27/48 - 1].uEquipY;
 
 #ifdef OLD_CODE
     v270 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char*)pClass40->pItems[pPlayer->pInventorySlots[v23 - 1].uItemID].pIconName, 2);
@@ -8584,10 +8584,10 @@ LABEL_335:
                                       v159 = 48 * v160->uItemID;
                                       v245 = dword_4E4C28
                                            + dword_4E4C30[32 * v268 + 2]
-                                           - *(__int16 *)((char *)&word_5D29FC + v159);
+                                           - pClass40->pItems[v159/48 - 1].uEquipX;
                                       v232 = dword_4E4C2C
                                            + dword_4E4C30[32 * v268 + 3]
-                                           - *(__int16 *)((char *)&word_5D29FE + v159);
+                                           - pClass40->pItems[v159/48 - 1].uEquipY;
                                       if ( v161 == 64 )
                                         v210 = "item64v1";
                                       else
@@ -8642,10 +8642,10 @@ LABEL_358:
 LABEL_362:
                                           v176 = dword_4E4C28
                                                + dword_4E4C30[32 * v268]
-                                               - *(__int16 *)((char *)&word_5D29FC + v172);
+                                               - pClass40->pItems[v172/48 - 1].uEquipX;
                                           v233 = dword_4E4C2C
                                                + dword_4E4C30[32 * v268 + 1]
-                                               - *(__int16 *)((char *)&word_5D29FE + v172);
+                                               - pClass40->pItems[v172/48 - 1].uEquipY;
                                           goto LABEL_370;
                                         }
                                         v177 = v174 - 400;
@@ -9110,9 +9110,9 @@ LABEL_48:
 
     v13 = v11->uItemID;
     v9 = 48 * v11->uItemID;
-    v10 = dword_4E4C28 + dword_4E4C30[32 * v5 + 2] - *(__int16 *)((char *)&word_5D29FC + v9);
+    v10 = dword_4E4C28 + dword_4E4C30[32 * v5 + 2] - pClass40->pItems[v9/48 - 1].uEquipX;
     v235 = v10;
-    v223 = dword_4E4C2C + *(int *)((char *)dword_4E4C30 + 12 + v12) - *(__int16 *)((char *)&word_5D29FE + v9);
+    v223 = dword_4E4C2C + *(int *)((char *)dword_4E4C30 + 12 + v12) - pClass40->pItems[v9/48 - 1].uEquipY;
     if ( v13 == 64 )
       v195 = "item64v1";
     else
@@ -11137,7 +11137,7 @@ LABEL_116:
     v28 = _this->dword_000004;
     if ( v28 )
     {
-      wsprintfA(v69, "%s: %s +%d", pGlobalTXT_LocalizationStrings[LOCSTR_SPECIAL], dword_5DBFD0[5 * v28 + 1], _this->dword_000008);
+      wsprintfA(v69, "%s: %s +%d", pGlobalTXT_LocalizationStrings[LOCSTR_SPECIAL], pClass40->pEnchantments[v28 - 1].pParam, _this->dword_000008);
       goto LABEL_65;
     }
     else
@@ -11152,7 +11152,7 @@ LABEL_116:
         }
         goto LABEL_65;
       }
-      wsprintfA(v69, "%s: %s", pGlobalTXT_LocalizationStrings[LOCSTR_SPECIAL], dword_5DC1A8[7 * v29 + 1], _this->dword_000008);
+      wsprintfA(v69, "%s: %s", pGlobalTXT_LocalizationStrings[LOCSTR_SPECIAL], pClass40->pSpecialEnchantments[v29 - 1].pParam, _this->dword_000008);
       goto LABEL_65;
     }
   }

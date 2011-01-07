@@ -1208,25 +1208,23 @@ extern int dword_51B770; // weak
 extern int dword_51B774; // weak
 
 extern struct class37 class37_global0; // struct @ MM7.exe::0051B778
-//int dword_51B778; // weak
-extern __int16 word_51B77C[array_size_unknown]; // weak
+//int dword_51B778; // 000000
+//__int16 word_51B77C[array_size_unknown]; // 000004
 //__int16 word_51B77E[array_size_unknown]; // weak
-extern int dword_51C71C; // weak
-extern __int16 word_51C720[array_size_unknown]; // weak
-extern __int16 word_51C722; // weak
-extern __int16 word_51C724; // weak
-extern __int16 word_51C726; // weak
-extern __int16 word_51C728; // weak
-extern _UNKNOWN unk_51C72C; // weak
-extern _UNKNOWN unk_51C730; // weak
-extern __int16 word_51CEC4; // weak
-extern int dword_51CEC8; // weak
-extern _UNKNOWN unk_51CECC; // weak
-extern _UNKNOWN unk_51CF2C; // weak
+//int dword_51C71C; // 000FA4
+//__int16 word_51C720[array_size_unknown]; // 000FA8
+//__int16 word_51C722; // 000FA8 + 02
+//__int16 word_51C724; // 000FA8 + 04
+//__int16 word_51C726; // 000FA8 + 06
+//__int16 word_51C728; // 000FA8 + 08
+//_UNKNOWN unk_51C72C; // 000FA8 + 0C
+//_UNKNOWN unk_51C730; // 000FA8 + 10
+//__int16 word_51CEC4; // 00174C   000FA8[0]::0007A4
+//int dword_51CEC8;    // 001750   000FA8[0]::0007A8
+//_UNKNOWN unk_51CECC; // 001754   000FA8[0]::0007AC
+//_UNKNOWN unk_51CF2C; // 0017B4   000FA8[0]::00080C
+//int dword_56EEA8; // 053730
 
-
-
-extern int dword_56EEA8; // weak
 extern __int16 word_56EEAC[array_size_unknown]; // weak
 extern unsigned int   uNumBlueFacesInBLVMinimap;   // dword    @ MM7.exe::00576D14
 extern unsigned short pBlueFacesInBLVMinimapIDs[]; // word[50] @ MM7.exe::00576D80
@@ -1494,12 +1492,12 @@ extern char byte_5C8D1A[array_size_unknown]; // weak
 extern struct class40 *pClass40; // struct @ MM7.exe::005D29E0
 //int dword_5D29E0; // weak
 //int dword_5D29E4[array_size_unknown]; // pClass40::pItems[0]::pName
-//int dword_5D29E8[array_size_unknown]; // 000008
-extern int dword_5D29EC[array_size_unknown]; // weak
-extern int dword_5D29F4[array_size_unknown]; // weak
-extern __int16 word_5D29F8[array_size_unknown]; // first word is item type from LayingItem, 24-byte structs array
-extern __int16 word_5D29FC; // weak
-extern __int16 word_5D29FE; // weak
+//int dword_5D29E8[array_size_unknown]; // 000008 pItems[0]::000008
+//int dword_5D29EC[array_size_unknown]; // 00000C pItems[0]::00000C
+//int dword_5D29F4[array_size_unknown]; // 000014 pItems[0]::000014
+//__int16 word_5D29F8[array_size_unknown]; // 000018 pItems[0]::000018 first word is item type from LayingItem, 24-byte structs array
+//__int16 word_5D29FC; // 00001C  pItems[0]::00001C
+//__int16 word_5D29FE; // 00001E  pItems[0]::00001E
 //char byte_5D2A00[]; // pItems[0]+20
 //char byte_5D2A01[array_size_unknown]; // weak
 //char byte_5D2A02[array_size_unknown]; // weak
@@ -1507,25 +1505,25 @@ extern __int16 word_5D29FE; // weak
 //char byte_5D2A04[array_size_unknown]; // weak
 //char byte_5D2A05[array_size_unknown]; // weak
 //char byte_5D2A12[array_size_unknown]; // weak
-extern int dword_5DAD28[array_size_unknown]; // weak
-extern int dword_5DBFD0[array_size_unknown]; // weak
-//int dword_5DBFD4[array_size_unknown]; // weak
-extern char byte_5DBFE9[array_size_unknown]; // weak
-extern int dword_5DC1A8[array_size_unknown]; // weak
-//int dword_5DC1AC[array_size_unknown]; // weak
-extern int dword_5DC1BC[array_size_unknown]; // weak
-extern char byte_5DC1CC[array_size_unknown]; // weak
-extern char byte_5DC1DC[array_size_unknown]; // weak
-extern __int16 word_5E1944[array_size_unknown]; // weak
-extern __int16 word_5E2CCC[array_size_unknown]; // weak
-extern int dword_5E40B8[array_size_unknown]; // weak
-extern int dword_5E40F8; // weak
-extern int dword_5E40FC; // weak
-extern int dword_5E4100; // weak
-extern int dword_5E4104; // weak
-extern int dword_5E4108; // weak
-extern int dword_5E410C; // weak
-extern int dword_5E4178; // weak
+//int dword_5DAD28[array_size_unknown]; // 008348  pItems[700]::pName
+//int dword_5DBFD0[array_size_unknown]; // 0095F0  pEnchantments[-1]::pName
+//int dword_5DBFD4[array_size_unknown]; // 0095F4  pEnchantments[-1]::pParam
+//char byte_5DBFE9[array_size_unknown]; // 009609  pEnchantments[0]::000005
+//int dword_5DC1A8[array_size_unknown]; // 0097C8  pSpecialEnchantments[-1]::pName
+//int dword_5DC1AC[array_size_unknown]; // 0097CC  pSpecialEnchantments[-1]::pParam
+//int dword_5DC1BC[array_size_unknown]; // 0097DC  pSpecialEnchantments[-1]::dword_000014
+//char byte_5DC1CC[array_size_unknown]; // 0097EC  pSpecialEnchantments[0]::array_000008
+//char byte_5DC1DC[array_size_unknown]; // 0097FC  pSpecialEnchantments[0]::byte_000018
+//__int16 word_5E1944[array_size_unknown]; // 00EF64
+//__int16 word_5E2CCC[array_size_unknown]; // 0102EC
+//int dword_5E40B8[array_size_unknown]; // 0116D8
+//int dword_5E40F8; // 011718  array_11700[3][0]
+//int dword_5E40FC; // 01171C  array_11700[3][1]
+//int dword_5E4100; // 011720  array_11700[4][0]
+//int dword_5E4104; // 011724  array_11700[4][1]
+//int dword_5E4108; // 011728  array_11700[5][0]
+//int dword_5E410C; // 01172C  array_11700[5][1]
+//int dword_5E4178; // 011798
 
 
 extern _UNKNOWN unk_5E4C14; // weak
