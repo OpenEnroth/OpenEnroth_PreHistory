@@ -2512,7 +2512,6 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
       {
         byte_F7CE28 |= 4u;
         sub_49B001(&unk_F7B60C);
-        compile_error();//atexit(loc_4B0DFB);
       }
       v9 = (int)pIndoor->pFaces + v4;
       if ( *(_BYTE *)(v9 + 93) >= 3u )
@@ -2699,7 +2698,7 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
   int v3; // eax@1
   int v4; // edx@1
   int v5; // ebx@1
-  int v6; // ecx@2
+  //int v6; // ecx@2
   __int16 v7; // ax@11
   int v8; // edx@13
   int v9; // edx@15
@@ -2709,7 +2708,7 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
   signed int v13; // esi@19
   signed int v14; // edx@20
   int v15; // edx@24
-  int v16; // esi@29
+  //int v16; // esi@29
   __int16 v17; // ax@34
   //int v18; // edi@34
   _UNKNOWN *v19; // eax@38
@@ -2739,9 +2738,9 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
   _this->std__vector_000FA8[_this->std__vector_000FA8_size].dword_0007A8 = -1;
   if (pFace->uAttributes & 0x01) // portal
   {
-    v6 = (int)_this + 0x8CC * a2;
+    class37_stru0 *v0 = _this->std__vector_000FA8 + a2;
 
-    if ( v4 == _this->std__vector_000FA8[a2].uSomeFaceID)
+    if ( v4 == v0->uSomeFaceID)
       return;
     if (!a2 &&
         stru_51B6E0.vPosition.x >= pFace->cBoundingBoxX.min - 16 &&
@@ -2777,14 +2776,14 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
     //v9 = pFace->vFaceNormal.x * (pVertex->x - stru_51B6E0.vPosition.x) +
     //     pFace->vFaceNormal.y * (pVertex->y - stru_51B6E0.vPosition.y) +
     //     pFace->vFaceNormal.z * (pVertex->z - stru_51B6E0.vPosition.z);
-    if (_this->std__vector_000FA8[a2].uSectorID != pFace->word_00004C)
+    if (v0->uSectorID != pFace->word_00004C)
       v9 = -v9;
 
     if ( v9 < 0 )
     {
       v3 = sub_423B5D(uFaceID);
       
-       compile_error(parse further);
+
       v33 = v3;
       if ( v3 )
       {
@@ -2812,20 +2811,20 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
           }
           while ( v13 < v33 );
         }
-        v16 = v6;
-        if ( v12 >= *(_WORD *)(v6 + 4010) )
+
+        if (v12 >= v0->uViewportX)
         {
-          if ( a2 <= *(_WORD *)(v6 + 4014) )
+          if (a2 <= v0->uViewportZ)
           {
-            if ( v11 >= *(_WORD *)(v6 + 4012) )
+            if (v11 >= v0->uViewportY)
             {
-              if ( v36 <= *(_WORD *)(v6 + 4016) )
+              if (v36 <= v0->uViewportW)
               {
-                v3 = sub_424829(v3, 2252 * *(_DWORD *)(v5 + 4004) + v5 + 4020, v6 + 4020, uFaceID);
+                v3 = sub_424829(v3, 2252 * *(_DWORD *)(v5 + 4004) + v5 + 4020, (int)&v0->stru_00000C, uFaceID);
                 if ( v3 )
                 {
                   v17 = pFace->word_00004C;
-                  if ( *(_WORD *)(v6 + 4008) == v17 )
+                  if (v0->uSectorID == v17)
                     v17 = pFace->word_00004E;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4008) = v17;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5964) = uFaceID;
@@ -2835,7 +2834,7 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4016) = stru_51B6E0.uViewportW;
                   v37 = pGame->class10_obj;
                   v35 = pGame->class08_obj;
-                  if ( *(_DWORD *)(v16 + 5968) == -1 )
+                  if (v0->dword_0007A8 == -1)
                   {
                     LOBYTE(v3) = sub_49C681(pGame->class10_obj,
                                    (int)pFace,
@@ -2890,7 +2889,7 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
                       }
                       while ( v23 < a2 );
                     }
-                    sub_437285((int)&unk_F7AA08, (int)&a2, &unk_F79E08, v16 + 5972, 4, 0, 0);
+                    sub_437285((int)&unk_F7AA08, (int)&a2, &unk_F79E08, (int)v0->std__vector_0007AC, 4, 0, 0);
                     LOBYTE(v3) = sub_49C5DA(v37,
                                    (int)pFace,
                                    (int)&unk_F79E08,

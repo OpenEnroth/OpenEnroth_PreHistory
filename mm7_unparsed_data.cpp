@@ -1281,18 +1281,13 @@ struct sub_4407D9_stru0 stru_51B6E0;
  int dword_51B770; // weak
  int dword_51B774; // weak
 
-class37 class37_global0; // struct @ MM7.exe::0051B778
+class37        class37_global0;                 // struct   @ MM7.exe::0051B778
+unsigned int   uNumBlueFacesInBLVMinimap;       // dword    @ MM7.exe::00576D14
+unsigned short pBlueFacesInBLVMinimapIDs[50];   // word[50] @ MM7.exe::00576D80
+unsigned int   uTextureIdx_SpellEffecIcons[14]; // dword[14] @ MM7.exe::00576DE8
+unsigned int   uIconIdx_Spell21;                // dword     @ MM7.exe::00576E20
+unsigned int   uIconIdx_Spell27;                // dword     @ MM7.exe::00576E24
 
-
- __int16 word_56EEAC[array_size_unknown]; // weak
- //unsigned short array_56EFD8[137 * 117 + array_size_unknown]; // used in drawing minimap, now obsolete
-unsigned int   uNumBlueFacesInBLVMinimap;     // dword    @ MM7.exe::00576D14
-unsigned short pBlueFacesInBLVMinimapIDs[50]; // word[50] @ MM7.exe::00576D80
-
-
-unsigned int uTextureIdx_SpellEffecIcons[14]; // dword[14] @ MM7.exe::00576DE8
-unsigned int uIconIdx_Spell21;                // dword     @ MM7.exe::00576E20
-unsigned int uIconIdx_Spell27;                // dword     @ MM7.exe::00576E24
  int dword_576E28; // weak
 unsigned int dword_576E2C_uDefaultMinimapZoom; // weak
 

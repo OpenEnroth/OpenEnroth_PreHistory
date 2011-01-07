@@ -591,6 +591,7 @@ struct class37
  unsigned int   std__vector_000FA8_size;  // dword @ 000FA4
  class37_stru0  std__vector_000FA8[150];
  int            dword_053730;             // dword @ 053730
+ short          array_053734[16180];      // exact size unknown, sector IDs array
 };
 //sizeof ~ 53734
 //void *__thiscall sub_43F282(void *_this);

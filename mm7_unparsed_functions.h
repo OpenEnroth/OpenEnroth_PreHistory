@@ -421,7 +421,7 @@ void __fastcall sub_43FA33(int a1, int a2);
 char __fastcall sub_440639(signed int a1);
 char __fastcall sub_4406BC(signed int a1, int a2);
 void __fastcall sub_440B44(char a1);
-void __cdecl sub_440CB8_ProbablyDrawActors();
+void __cdecl sub_440CB8_ProbablyDrawActors_AndOr_Level();
 int __thiscall sub_440DF5(int _this, __int16 a2, __int16 a3, __int16 a4, int a5, __int16 a6);
 int __thiscall sub_440E91(void *_this, __int16 a2, int a3, int a4, int a5, __int16 a6);
 bool __cdecl sub_44100D();

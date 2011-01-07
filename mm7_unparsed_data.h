@@ -1224,8 +1224,8 @@ extern struct class37 class37_global0; // struct @ MM7.exe::0051B778
 //_UNKNOWN unk_51CECC; // 001754   000FA8[0]::0007AC
 //_UNKNOWN unk_51CF2C; // 0017B4   000FA8[0]::00080C
 //int dword_56EEA8; // 053730
+//__int16 word_56EEAC[array_size_unknown]; // 053734
 
-extern __int16 word_56EEAC[array_size_unknown]; // weak
 extern unsigned int   uNumBlueFacesInBLVMinimap;   // dword    @ MM7.exe::00576D14
 extern unsigned short pBlueFacesInBLVMinimapIDs[]; // word[50] @ MM7.exe::00576D80
 

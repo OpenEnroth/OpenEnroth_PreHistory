@@ -3004,66 +3004,30 @@ int __fastcall sub_43F0BD(int a1)
 int class37_sub_43F333(class37 *_this)
 {
   int result; // eax@1
-  int v4; // edx@2
-  int v5; // eax@3
-  int v6; // ebx@3
-  int v7; // esi@4
-  int v8; // [sp+0h] [bp-4h]@1
 
-  result = 0;
-  _this->dword_053730 = 0;
-  v8 = 0;
-  if (_this->std__vector_000FA8_size > 0)
+ _this->dword_053730 = 0;
+ for (unsigned int i = 0; i < _this->std__vector_000FA8_size; ++i)
+ {
+  if (!_this->dword_053730)
   {
-   compile_error(parse further);
-    v4 = (int)_this + 4008;
-    do
-    {
-      v5 = *(_DWORD *)(_this + 341808);
-      v6 = 0;
-      if ( v5 <= 0 )
-      {
-LABEL_7:
-        *(_WORD *)(_this + 2 * v5 + 341812) = *(_WORD *)v4;
-        ++*(_DWORD *)(_this + 341808);
-      }
-      else
-      {
-        v7 = (int)_this + 341812;
-        while ( *(_WORD *)v7 != *(_WORD *)v4 )
-        {
-          ++v6;
-          v7 += 2;
-          if ( v6 >= v5 )
-            goto LABEL_7;
-        }
-      }
-      ++v8;
-      v4 += 2252;
-      result = v8;
-    }
-    while ( v8 < *(_DWORD *)(_this + 4004) );
+   _this->array_053734[_this->dword_053730++] = _this->std__vector_000FA8[i].uSectorID;
+   continue;
   }
-  return result;
+
+  for (unsigned int j = 0; j < _this->dword_053730; ++j)
+    if (_this->array_053734[j] == _this->std__vector_000FA8[i].uSectorID)
+    {
+     _this->array_053734[_this->dword_053730++] = _this->std__vector_000FA8[i].uSectorID;
+     break;
+    }
+ }
+ return _this->std__vector_000FA8_size - 1;
 }
 
 //----- (0043F39E) --------------------------------------------------------
 void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this)
 {
-  //char *v1; // ecx@1
-  //double v2; // ST30_8@3
-  //double v3; // ST30_8@6
-  //double v4; // ST28_8@6
   int v5; // eax@4
-  int v6; // eax@7
-  int v7; // ebx@8
-  int v8; // edi@8
-  int v9; // esi@8
-  unsigned __int8 v10; // sf@10
-  unsigned __int8 v11; // of@10
-  int v12; // [sp+18h] [bp-8h]@7
-  //char v13; // [sp+1Ch] [bp-4h]@3
-  signed int v14; // [sp+1Ch] [bp-4h]@8
 
   sub_4407D9(&stru_51B6E0, _this);
   pMobileLightsStack->uNumLightsActive = 0;
@@ -3092,30 +3056,17 @@ void sub_43F39E(sub_441BD4_DrawIndoor_stru0 *_this)
   sub_43F953();
   sub_44028F_PrepareItemsRenderList_BLV();
   sub_43FDED_PrepareActorRenderList_BLV();
-  v6 = 0;
-  v12 = 0;
-  if ( class37_global0.dword_053730 > 0 )
-  {
-    do
-    {
-      v7 = word_56EEAC[v6];
-      v14 = 0;
-      v9 = (int)pIndoor->pSectors + 116 * word_56EEAC[v6];
-      v8 = *(_DWORD *)(v9 + 72);
-      if ( *(_WORD *)(v9 + 68) > 0 )
-      {
-        do
-          sub_43FA33(*(_WORD *)(v8 + 2 * v14++), v7);
-        while ( v14 < *(_WORD *)(v9 + 68) );
-      }
-      v6 = v12 + 1;
-      compile_error();//v11 = __SETO__(v12 + 1, class37_global0.dword_053730);
-      v10 = v12++ + 1 - class37_global0.dword_053730 < 0;
-    }
-    while ( v10 ^ v11 );
-  }
-  sub_43F515();
-  Game_sub_44F192(pGame);
+
+ for (unsigned int i = 0; i < class37_global0.dword_053730; ++i)
+ {
+  BLVSector *pSector = pIndoor->pSectors + class37_global0.array_053734[i];
+
+  for (unsigned int j = 0; j < pSector->word_000044; ++j)
+    sub_43FA33(pSector->ptr_000048[j], class37_global0.array_053734[i]);
+ }
+
+ sub_43F515();
+ Game_sub_44F192(pGame);
 }
 
 //----- (0043F515) --------------------------------------------------------
@@ -3729,7 +3680,7 @@ LABEL_12:
       v12 = 0;
       if ( class37_global0.dword_053730 <= 0 )
         goto LABEL_48;
-      while ( word_56EEAC[v12] != *((_WORD *)v2 + 61) )
+      while ( class37_global0.array_053734[v12] != *((_WORD *)v2 + 61) )
       {
         ++v12;
         if ( v12 >= class37_global0.dword_053730 )
@@ -4235,7 +4186,7 @@ void sub_440BED(sub_441BD4_DrawIndoor_stru0 *_this)
   sub_43F39E(_this);
   if ( stru_51B6E0.dword_00001C )
     sub_440B44(pD3DRenderer->pRenderD3D3 != 0);
-  sub_440CB8_ProbablyDrawActors();
+  sub_440CB8_ProbablyDrawActors_AndOr_Level();
   /*if ( !pD3DRenderer->pRenderD3D3 )
   { // software
     if ( stru_51B6E0.dword_000004 & 2 )
@@ -4276,7 +4227,7 @@ void sub_440BED(sub_441BD4_DrawIndoor_stru0 *_this)
 }
 
 //----- (00440CB8) --------------------------------------------------------
-void sub_440CB8_ProbablyDrawActors()
+void sub_440CB8_ProbablyDrawActors_AndOr_Level()
 {
   _UNKNOWN *v1; // esi@2
   __int16 v2; // ax@3
