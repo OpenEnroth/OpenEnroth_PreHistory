@@ -23,10 +23,10 @@ template<typename type>
  return Vec3<type>(lh.x + rh.x, lh.y + rh.y, lh.z + rh.z);
 }
 
-template<typename type>
-  inline Vec3<type> operator -(const Vec3<type> &lh, const Vec3<type> &rh)
+template<typename T1, typename T2>
+  inline Vec3<T1> operator -(const Vec3<T1> &lh, const Vec3<T2> &rh)
 {
- return Vec3<type>(lh.x - rh.x, lh.y - rh.y, lh.z - rh.z);
+ return Vec3<T1>(lh.x - rh.x, lh.y - rh.y, lh.z - rh.z);
 }
 
 template<typename type>

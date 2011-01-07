@@ -29,6 +29,8 @@ template<typename type>
  inline Vec3() {}
  inline Vec3(type a, type b, type c): x(a), y(b), z(c) {}
  inline Vec3(const Vec3<type> &other): x(other.x), y(other.y), z(other.z) {}
+ template<typename T2>
+   inline Vec3(const Vec3<T2> &other):  x(other.x), y(other.y), z(other.z) {}
 
  inline type Length()
  {
@@ -59,8 +61,8 @@ template<typename type>
 
  template<typename T>
    friend Vec3<T> operator +(const Vec3<T> &lh, const Vec3<T> &rh);
- template<typename T>
-   friend Vec3<T> operator -(const Vec3<T> &lh, const Vec3<T> &rh);
+ template<typename T1, typename T2>
+   friend Vec3<T1> operator -(const Vec3<T1> &lh, const Vec3<T2> &rh);
  template<typename T>
    friend Vec3<T> operator *(const Vec3<T> &lh, const T scale);
 
