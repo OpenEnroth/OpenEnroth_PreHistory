@@ -915,16 +915,16 @@ extern struct RenderVertex array_50AC10[];
 
 extern int dword_50B570[array_size_unknown]; // weak
 extern int dword_50B638[array_size_unknown]; // weak
-extern int dword_50B700; // weak
-extern int dword_50B738[array_size_unknown]; // weak
-extern int dword_50B740; // weak
-extern int dword_50B744[array_size_unknown]; // weak
-extern int dword_50B828[array_size_unknown]; // weak
-extern int dword_50B830; // weak
-extern int dword_50B834[array_size_unknown]; // weak
-extern int dword_50B918[array_size_unknown]; // weak
-extern int dword_50B920; // weak
-extern int dword_50B924[array_size_unknown]; // weak
+extern int dword_50B700; // sub_423B5D true/false flag
+extern int dword_50B738[]; // weak
+//extern int dword_50B740[]; // weak
+//extern int dword_50B744[array_size_unknown]; // weak
+extern int dword_50B828[]; // weak
+//extern int dword_50B830[]; // weak
+//extern int dword_50B834[array_size_unknown]; // weak
+extern int dword_50B918[]; // weak
+//extern int dword_50B920[]; // weak
+//extern int dword_50B924[array_size_unknown]; // weak
 extern int dword_50B9D4[array_size_unknown]; // weak
 extern int dword_50B9D8[array_size_unknown]; // weak
 extern int dword_50B9DC[array_size_unknown]; // weak
@@ -935,7 +935,7 @@ extern int dword_50B9F0[array_size_unknown]; // weak
 extern int dword_50B9F8[array_size_unknown]; // weak
 extern int dword_50B9FC[array_size_unknown]; // weak
 extern int dword_50BA04; // weak
-extern int dword_50BA08; // weak
+//int dword_50BA08; // weak
 extern int dword_50BAC4[array_size_unknown]; // weak
 extern int dword_50BAC8[array_size_unknown]; // weak
 extern int dword_50BACC[array_size_unknown]; // weak
@@ -946,7 +946,7 @@ extern int dword_50BAE0[array_size_unknown]; // weak
 extern int dword_50BAE8[array_size_unknown]; // weak
 extern int dword_50BAEC[array_size_unknown]; // weak
 extern int dword_50BAF4; // weak
-extern int dword_50BAF8; // weak
+//int dword_50BAF8; // weak
 
 
 //extern struct class24 *cEventTimer;  //struct @ MM7.exe::0050BBE0

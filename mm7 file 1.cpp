@@ -8853,8 +8853,8 @@ LABEL_484:
                                   break;
                               }
                               v243 = rand();
-                              HIDWORD(v1) = pClass40->array_011700[3][1];
-                              v244 = pClass40->array_011700[3][0];
+                              HIDWORD(v1) = pClass40->unk_0116D8[10 + 3 * 2 + 1];
+                              v244 = pClass40->unk_0116D8[10 + 3 * 2 + 0];
 LABEL_611:
                               *(_DWORD *)(v1 + 8) = v244 + v243 % (HIDWORD(v1) - v244 + 1);
 LABEL_612:
@@ -8929,8 +8929,8 @@ LABEL_613:
                     break;
                 }
                 v243 = rand();
-                HIDWORD(v1) = pClass40->array_011700[4][1];
-                v244 = pClass40->array_011700[4][0];
+                HIDWORD(v1) = pClass40->unk_0116D8[10 + 4 * 2 + 1];
+                v244 = pClass40->unk_0116D8[10 + 2 * 4 + 0];
                 goto LABEL_611;
               }
               v263 = pClass40->dword_011798;
@@ -9026,8 +9026,8 @@ LABEL_613:
                     break;
                 }
                 v243 = rand();
-                HIDWORD(v1) = pClass40->array_011700[5][1];
-                v244 = pClass40->array_011700[5][0];
+                HIDWORD(v1) = pClass40->unk_0116D8[10 + 2 * 5 + 1];
+                v244 = pClass40->unk_0116D8[10 + 2 * 5 + 0];
                 goto LABEL_611;
               }
               v245 = pClass40->dword_011798;
@@ -9190,7 +9190,7 @@ LABEL_616:
             if ( m >= v278 )
               break;
           }
-          *(_DWORD *)(v280 + 8) = pClass40->array_011700[4][0] + rand() % (pClass40->array_011700[4][1] - pClass40->array_011700[4][0] + 1);
+          *(_DWORD *)(v280 + 8) = pClass40->unk_0116D8[10 + 2 * 4 + 0] + rand() % (pClass40->unk_0116D8[10 + 2 * 4 + 1] - pClass40->unk_0116D8[10 + 2 * 4 + 0] + 1);
         }
         *(_DWORD *)(v280 + 20) |= 0x20u;
         goto LABEL_1055;

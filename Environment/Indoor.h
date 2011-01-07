@@ -43,7 +43,7 @@ struct BLVFace
  unsigned short *pVertexVIDs;              // dword @ 000044
  unsigned short  uFaceExtraID;  // word    @ 000048  idx in Face Extras
  unsigned short  uBitmapID;     // word    @ 00004A
- short           word_00004C;
+ short           word_00004C;  // compared against SectorID
  short           word_00004E;
  Range<short>    cBoundingBoxX; // word[2] @ 000050
  Range<short>    cBoundingBoxY; // word[2] @ 000054
@@ -275,3 +275,6 @@ int __stdcall sub_4C1D2B(BLVFace *a1, Vec3<short>, unsigned int uModelID);
 
 
 bool sub_44C23B(BLVFaceExtra *_this);
+
+int __fastcall sub_423B5D(unsigned int uFaceID);
+char __stdcall sub_43669D(Vec3<int> vPosition, int *a4, int *a5, int *a6, char a7);

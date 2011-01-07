@@ -193,9 +193,10 @@ struct class40
 
  int          array_011684[6];
  char         byte_01169C[60];
- int          unk_0116D8[3];   // ~20 elements actually
- unsigned int array_0116E4[7];
- int array_011700[6][2];
+ int          unk_0116D8[24]; // exact size uknown
+ //int          unk_0116D8[3];   // ~20 elements actually
+ //unsigned int array_0116E4[7];
+ //int array_011700[6][2];
 
  int array_011738[24];
  int dword_011798;

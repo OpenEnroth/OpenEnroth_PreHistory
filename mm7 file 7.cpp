@@ -2703,7 +2703,7 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
   __int16 v7; // ax@11
   int v8; // edx@13
   int v9; // edx@15
-  int v10; // esi@15
+  //int v10; // esi@15
   signed int v11; // ecx@19
   signed int v12; // edi@19
   signed int v13; // esi@19
@@ -2726,7 +2726,7 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
   int v30; // eax@52
   __int16 v31; // cx@56
   signed int v33; // [sp+Ch] [bp-14h]@18
-  int v34; // [sp+14h] [bp-Ch]@2
+  //int v34; // [sp+14h] [bp-Ch]@2
   void *v35; // [sp+14h] [bp-Ch]@36
   signed int v36; // [sp+18h] [bp-8h]@19
   void *v37; // [sp+18h] [bp-8h]@36
@@ -2739,9 +2739,9 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
   _this->std__vector_000FA8[_this->std__vector_000FA8_size].dword_0007A8 = -1;
   if (pFace->uAttributes & 0x01) // portal
   {
-    v6 = (int)_this + 2252 * a2;
-    v34 = v6;
-    if ( v4 == *(_WORD *)(v6 + 5964) )
+    v6 = (int)_this + 0x8CC * a2;
+
+    if ( v4 == _this->std__vector_000FA8[a2].uSomeFaceID)
       return;
     if (!a2 &&
         stru_51B6E0.vPosition.x >= pFace->cBoundingBoxX.min - 16 &&
@@ -2755,6 +2755,7 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
                                       + stru_51B6E0.vPosition.y * pFace->vFaceNormal.y
                                       + stru_51B6E0.vPosition.z * pFace->vFaceNormal.z) <= 589824 )
       {
+       compile_error(parse further);
        v7 = pFace->word_00004C;
         if ( *(_WORD *)(v5 + 4008) == v7 )
           v7 = pFace->word_00004E;
@@ -2769,17 +2770,21 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
         sub_440639(*(_DWORD *)(v5 + 4004) - 1);
         return;
       }
-      v6 = v34;
     }
-    v10 = (int)pIndoor->pVertices + 6 * pFace->pVertexIDs[0];
-    v9 = pFace->vFaceNormal.x * ((signed __int16)*(_DWORD *)v10 - stru_51B6E0.vPosition.x)
-       + pFace->vFaceNormal.y * ((signed __int16)(*(_DWORD *)v10 >> 16) - stru_51B6E0.vPosition.y)
-       + pFace->vFaceNormal.z * (*(_WORD *)(v10 + 4) - stru_51B6E0.vPosition.z);
-    if ( *(_WORD *)(v6 + 4008) != pFace->word_00004C)
+
+    Vec3<short> *pVertex = pIndoor->pVertices + pFace->pVertexIDs[0];
+    v9 = Dot<int>(pFace->vFaceNormal, *pVertex - stru_51B6E0.vPosition);
+    //v9 = pFace->vFaceNormal.x * (pVertex->x - stru_51B6E0.vPosition.x) +
+    //     pFace->vFaceNormal.y * (pVertex->y - stru_51B6E0.vPosition.y) +
+    //     pFace->vFaceNormal.z * (pVertex->z - stru_51B6E0.vPosition.z);
+    if (_this->std__vector_000FA8[a2].uSectorID != pFace->word_00004C)
       v9 = -v9;
+
     if ( v9 < 0 )
     {
       v3 = sub_423B5D(uFaceID);
+      
+       compile_error(parse further);
       v33 = v3;
       if ( v3 )
       {
@@ -2807,20 +2812,20 @@ void class37_sub_4B0EA8(class37 *_this, signed int a2, unsigned int uFaceID)
           }
           while ( v13 < v33 );
         }
-        v16 = v34;
-        if ( v12 >= *(_WORD *)(v34 + 4010) )
+        v16 = v6;
+        if ( v12 >= *(_WORD *)(v6 + 4010) )
         {
-          if ( a2 <= *(_WORD *)(v34 + 4014) )
+          if ( a2 <= *(_WORD *)(v6 + 4014) )
           {
-            if ( v11 >= *(_WORD *)(v34 + 4012) )
+            if ( v11 >= *(_WORD *)(v6 + 4012) )
             {
-              if ( v36 <= *(_WORD *)(v34 + 4016) )
+              if ( v36 <= *(_WORD *)(v6 + 4016) )
               {
-                v3 = sub_424829(v3, 2252 * *(_DWORD *)(v5 + 4004) + v5 + 4020, v34 + 4020, uFaceID);
+                v3 = sub_424829(v3, 2252 * *(_DWORD *)(v5 + 4004) + v5 + 4020, v6 + 4020, uFaceID);
                 if ( v3 )
                 {
                   v17 = pFace->word_00004C;
-                  if ( *(_WORD *)(v34 + 4008) == v17 )
+                  if ( *(_WORD *)(v6 + 4008) == v17 )
                     v17 = pFace->word_00004E;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4008) = v17;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 5964) = uFaceID;

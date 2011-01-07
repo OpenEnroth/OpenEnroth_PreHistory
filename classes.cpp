@@ -1198,10 +1198,10 @@ char *sub_456D84(struct class40 *_this)
   }
   while ( v86-- != 1 );
 
-  memset(_this->array_0116E4, 0, 9 * sizeof(int));
+  memset(_this->unk_0116D8 + 3, 0, 9 * sizeof(int));
   for (i = 0; i < 9; ++i)
     for (j = 0; j < 24; ++j)
-      _this->array_0116E4[i] += _this->pEnchantments[j].array_000008[i];
+      _this->unk_0116D8[3 + i] += _this->pEnchantments[j].array_000008[i];
 
   strtok(0, "\r");
   strtok(0, "\r");
@@ -1229,7 +1229,7 @@ char *sub_456D84(struct class40 *_this)
       if ( v14 )
       {
         if ( v105 > 1 )
-          _this->array_011700[i][v105 - 2] = atoi(v12);
+          _this->unk_0116D8[10 + i * 2 + v105] = atoi(v12);
       }
       ++v105;
       v12 = (char *)(v15 + 1);
@@ -4901,14 +4901,15 @@ LABEL_73:
     if ( v22 < v23 )
     {
 LABEL_128:
+      v25 = rand() % _this->unk_0116D8[_this->pItems[*(_DWORD *)v5 - 1].uEquipType];
       v26 = *(_DWORD *)v5;
-      v25 = rand() % _this->unk_0116D8[_this->pItems[v26].uEquipType];
+      v25 = rand() % _this->unk_016D8[_this->pItems[v26].uEquipType];
       *(_DWORD *)(v5 + 4) = 0;
 
+      v24 = *(((_BYTE *)_this->pEnchantments + 5) + _this->pItems[v26].uEquipType);
+      for ( i = v25; v24 < i; v24 += *(((_BYTE *)_this->pEnchantments + 5) + 20 * *(_DWORD *)(v5 + 4) + _this->pItems[v27].uEquipType) )
       //v24 = *((_BYTE *)_this + _this->pItems[v26]->uEquipType + 0x9609);
-      v24 = (int)&_this->pEnchantments[0].array_000008[_this->pItems[v26].uEquipType + 1];
-
-      for ( i = v25; v24 < i; v24 += *((_BYTE *)_this + 20 * *(_DWORD *)(v5 + 4) + *((char  *)(&_this->pItems[v27]) + 32) + 0x9609) )
+      //for ( i = v25; v24 < i; v24 += *((_BYTE *)_this + 20 * *(_DWORD *)(v5 + 4) + _this->pItems[v27].uEquipType + 0x9609) )
       {
         v27 = *(_DWORD *)v5;
         ++*(_DWORD *)(v5 + 4);

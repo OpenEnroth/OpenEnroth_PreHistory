@@ -3851,7 +3851,7 @@ void __stdcall sub_436523_PrimitiveApplyViewMatrix(struct RenderVertex *a1, unsi
 }
 
 //----- (0043669D) --------------------------------------------------------
-char __stdcall sub_43669D(int a1, int a2, int a3, signed int *a4, int a5, int a6, char a7)
+char __stdcall sub_43669D(Vec3<int> vPosition, int *a4, int *a5, int *a6, char a7)
 {
   int v7; // esi@2
   int v8; // esi@2
@@ -3868,11 +3868,11 @@ char __stdcall sub_43669D(int a1, int a2, int a3, signed int *a4, int a5, int a6
   int v20; // [sp+1Ch] [bp+10h]@5
   int v21; // [sp+1Ch] [bp+10h]@10
 
-  v16 = (a1 - stru_51B6E0.vPosition.x) << 16;
-  v17 = (a2 - stru_51B6E0.vPosition.y) << 16;
+  v16 = (vPosition.x - stru_51B6E0.vPosition.x) << 16;
+  v17 = (vPosition.y - stru_51B6E0.vPosition.y) << 16;
   if ( stru_51B6E0.sRotationX )
   {
-    v8 = a3;
+    v8 = vPosition.z;
     v19 = stru_51B6E0.sCosineY;
     v7 = (v8 - stru_51B6E0.vPosition.z) << 16;
     if ( pD3DRenderer->pRenderD3D3 )
@@ -3889,28 +3889,28 @@ char __stdcall sub_43669D(int a1, int a2, int a3, signed int *a4, int a5, int a6
     v18 = (unsigned __int64)(v7 * stru_51B6E0.sSineMinusX) >> 16;
     v11 = a4;
     *a4 = ((unsigned __int64)(v15 * stru_51B6E0.sCosineMinusX) >> 16) - v18;
-    *(_DWORD *)a5 = v9;
+    *a5 = v9;
     v10 = ((unsigned __int64)(v15 * stru_51B6E0.sSineMinusX) >> 16) + ((unsigned __int64)(v20 * stru_51B6E0.sCosineMinusX) >> 16);
   }
   else
   {
-    v14 = a3;
+    v14 = vPosition.z;
     v21 = stru_51B6E0.sCosineY;
     v10 = (v14 - stru_51B6E0.vPosition.z) << 16;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       v11 = a4;
       *a4 = ((unsigned __int64)(v16 * v21) >> 16) + ((unsigned __int64)(v17 * stru_51B6E0.sSineY) >> 16);
-      *(_DWORD *)a5 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) - ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
+      *a5 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) - ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
     }
     else
     {
       v11 = a4;
       *a4 = ((unsigned __int64)(v16 * v21) >> 16) - ((unsigned __int64)(v17 * stru_51B6E0.sSineY) >> 16);
-      *(_DWORD *)a5 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) + ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
+      *a5 = ((unsigned __int64)(v16 * stru_51B6E0.sSineY) >> 16) + ((unsigned __int64)(v17 * stru_51B6E0.sCosineY) >> 16);
     }
   }
-  *(_DWORD *)a6 = v10;
+  *a6 = v10;
   return !a7 || (v12 = *v11, v12 >= 262144) && v12 <= 524288000;
 }
 

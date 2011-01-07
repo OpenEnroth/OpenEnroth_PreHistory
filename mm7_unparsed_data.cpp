@@ -1101,15 +1101,9 @@ struct RenderVertex array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
  int dword_50B570[array_size_unknown]; // weak
  int dword_50B638[array_size_unknown]; // weak
  int dword_50B700; // weak
- int dword_50B738[array_size_unknown]; // weak
- int dword_50B740; // weak
- int dword_50B744[array_size_unknown]; // weak
- int dword_50B828[array_size_unknown]; // weak
- int dword_50B830; // weak
- int dword_50B834[array_size_unknown]; // weak
- int dword_50B918[array_size_unknown]; // weak
- int dword_50B920; // weak
- int dword_50B924[array_size_unknown]; // weak
+ int dword_50B738[16 + array_size_unknown]; // weak
+ int dword_50B828[16 + array_size_unknown]; // weak
+ int dword_50B918[16 + array_size_unknown]; // weak
  int dword_50B9D4[array_size_unknown]; // weak
  int dword_50B9D8[array_size_unknown]; // weak
  int dword_50B9DC[array_size_unknown]; // weak
@@ -1120,7 +1114,6 @@ struct RenderVertex array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
  int dword_50B9F8[array_size_unknown]; // weak
  int dword_50B9FC[array_size_unknown]; // weak
  int dword_50BA04; // weak
- int dword_50BA08; // weak
  int dword_50BAC4[array_size_unknown]; // weak
  int dword_50BAC8[array_size_unknown]; // weak
  int dword_50BACC[array_size_unknown]; // weak
@@ -1131,7 +1124,6 @@ struct RenderVertex array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
  int dword_50BAE8[array_size_unknown]; // weak
  int dword_50BAEC[array_size_unknown]; // weak
  int dword_50BAF4; // weak
- int dword_50BAF8; // weak
 
 
  int dword_50BC10[array_size_unknown]; // weak

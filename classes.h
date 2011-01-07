@@ -571,7 +571,7 @@ struct class37_stru0
  unsigned short      uViewportW;            // word @ 000008
  short               word_00000A;
  class37_stru2       stru_00000C;
- short               word_0007A4;
+ unsigned short      uSomeFaceID;           // word @ 0007A4
  short               word_0007A6;
  int                 dword_0007A8;
  class26_placeholder std__vector_0007AC[4]; // struct[4] @ 00007AC

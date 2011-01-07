@@ -3408,7 +3408,7 @@ int __cdecl sub_43F953()
    sub_43F9E1(&class37_global0.std__vector_000FA8[0].stru_00000C,
               stru_51B6E0.uViewportX, stru_51B6E0.uViewportY, stru_51B6E0.uViewportZ, stru_51B6E0.uViewportW);
 
-   class37_global0.std__vector_000FA8[0].word_0007A4 = -1;
+   class37_global0.std__vector_000FA8[0].uSomeFaceID = -1;
    class37_global0.std__vector_000FA8[0].dword_0007A8 = -1;
    class37_global0.std__vector_000FA8_size = 1;
    sub_440639(0);
@@ -3523,7 +3523,7 @@ void __fastcall sub_43FA33(int a1, int a2)
           LOBYTE(v40) = v40 | 0x80;
         if ( (256 << v6) & v10 )
           v40 |= 4u;
-        if ( sub_43669D(v39, v37, v38, &X, (int)&v45, (int)&v43, 1) )
+        if ( sub_43669D(Vec3<int>(v39, v37, v38), &X, &v45, &v43, 1) )
         {
           v14 = abs(X);
           if ( v14 >= abs(v45) )
@@ -3735,7 +3735,7 @@ LABEL_12:
         if ( v12 >= class37_global0.dword_053730 )
           goto LABEL_48;
       }
-      if ( !sub_43669D(v35, v34, v33, &X, (int)&v45, (int)&v44, 1) || (a1 = abs(X), a1 < abs(v45)) )
+      if ( !sub_43669D(Vec3<int>(v35, v34, v33), &X, &v45, &v44, 1) || (a1 = abs(X), a1 < abs(v45)) )
         goto LABEL_48;
       class08_sub_436A9A((int)pGame->class08_obj, X, v45, v44, (int)&v43, (int)&v42);
       result = uNumBillboardsToDraw;
@@ -3922,7 +3922,7 @@ void __cdecl sub_44028F_PrepareItemsRenderList_BLV()
                 pObjectDesc->byte_000034_blue,
                 (int)v11);
             }
-            if ( sub_43669D(v30, v29, v34, &v40, (int)&v39, (int)&v38, 1) )
+            if ( sub_43669D(Vec3<int>(v30, v29, v34), &v40, &v39, &v38, 1) )
             {
               class08_sub_436A9A((int)pGame->class08_obj, v40, v39, v38, (int)&v37, (int)&v36);
               if ( uNumBillboardsToDraw >= 500 )
@@ -3996,16 +3996,8 @@ char __fastcall sub_440639(signed int a1)
   BLVSector *pSector = pIndoor->pSectors + class37_global0.std__vector_000FA8[a1].uSectorID;
   if (pD3DRenderer->pRenderD3D3)
   {
-    if (pSector->word_00002E > 0 )
-    {
-      do
-      {
-        class37_sub_4B0EA8(&class37_global0, a1, pSector->pSomeFaceIDs[v4]);
-        v2 = pSector->word_00002E;
-        ++v4;
-      }
-      while ( v4 < v2 );
-    }
+   for (unsigned int i = 0; i < pSector->word_00002E; ++i)
+     class37_sub_4B0EA8(&class37_global0, a1, pSector->pSomeFaceIDs[i]);
   }
   /*else//software
   {
