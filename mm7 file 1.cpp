@@ -4657,7 +4657,7 @@ LABEL_151:
     }
     if ( sub_47050A(&stru_721530, v28) )
       break;
-    sub_46E889(1);
+    sub_46E889_CollideAgainsModelsBBoxes(1);
     v30 = WorldPosToGridCellZ(pParty_global->vPosition.y);
     v31 = WorldPosToGridCellX(pParty_global->vPosition.x);
     sub_46E26D_ProbablyCollideAgainstDecorations(v31, v30);

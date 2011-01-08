@@ -703,7 +703,7 @@ signed int __fastcall sub_46DF1A(int a1, int a2);
 void __cdecl sub_46E0B2();
 void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, signed int a2);
 int __thiscall sub_46E44E(void *_this);
-int __thiscall sub_46E889(int a1);
+int __thiscall sub_46E889_CollideAgainsModelsBBoxes(int a1);
 int __fastcall sub_46ED1B(signed int a1, signed int a2, int a3, int *a4, int a5);
 void __thiscall sub_46ED8A(void *_this);
 int __thiscall sub_46EF01(void *_this);

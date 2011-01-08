@@ -817,7 +817,6 @@ void GameUI_Update()
       if ( v18 >= 33554432 || pParty_global->pickedItem.uItemID)
       {
         v22 = (char *)ItemGen_sub_456499(&pLayingItemsList[v30/112].stru_000024);
-LABEL_93:
         v26 = (int)v22;
         sub_41C0B8_SetStatusBarString((const char *)v26);
         goto LABEL_123;
@@ -848,27 +847,35 @@ LABEL_93:
           v22 = sub_444732((void *)v23);
           if ( !v22 )
             goto LABEL_123;
-          goto LABEL_93;
+
+         v26 = (int)v22;
+         sub_41C0B8_SetStatusBarString((const char *)v26);
+         goto LABEL_123;
         }
         if ( (v18 & 7) == 6 )
         {
-          if ( v18 < 33554432 )
+          if ( v18 < 0x2000000 )
           {
             if ( uCurrentlyLoadedLevelType != 1 )
             {
-              v21 = *(_WORD *)(*(_DWORD *)((char *)&pOutdoor->pBModels[((signed int)(unsigned __int16)v18 >> 9)] + 84)
-                             + 308 * (v19 & 0x3F)
-                             + 292);
-              goto LABEL_71;
+              v21 = pOutdoor->pBModels[(unsigned __int16)v18 >> 9].pFaces[v19 & 0x3F].sCogTriggeredID;
+              if ( !v21 || (v22 = sub_444732((void *)v21), !v22) )
+                goto LABEL_73;
+
+             v26 = (int)v22;
+             sub_41C0B8_SetStatusBarString((const char *)v26);
+             goto LABEL_123;
             }
             v20 = (int)((int)pIndoor->pFaces + v19);
             if ( *(_BYTE *)(v20 + 47) & 6 )
             {
               v21 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v20 + 72) + 26);
-LABEL_71:
               if ( !v21 || (v22 = sub_444732((void *)v21), !v22) )
                 goto LABEL_73;
-              goto LABEL_93;
+
+             v26 = (int)v22;
+             sub_41C0B8_SetStatusBarString((const char *)v26);
+             goto LABEL_123;
             }
           }
 LABEL_73:

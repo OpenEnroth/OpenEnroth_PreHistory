@@ -5680,7 +5680,7 @@ LABEL_45:
 }
 
 //----- (0046E889) --------------------------------------------------------
-int __thiscall sub_46E889(int a1)
+int __thiscall sub_46E889_CollideAgainsModelsBBoxes(int a1)
 {
   int result; // eax@1
   struct ODMFace *v4; // eax@11
@@ -7418,7 +7418,7 @@ LABEL_121:
       stru_721530.dword_000024 = *(_WORD *)(v1 + 152);
       if ( sub_47050A(&stru_721530, 0) )
         goto LABEL_107;
-      sub_46E889(1);
+      sub_46E889_CollideAgainsModelsBBoxes(1);
       v32 = WorldPosToGridCellZ(*(_WORD *)(v1 + 144));
       v33 = WorldPosToGridCellX(*(_WORD *)(v1 + 142));
       sub_46E26D_ProbablyCollideAgainstDecorations(v33, v32);
@@ -8278,7 +8278,7 @@ LABEL_92:
       stru_721530.dword_000024 = *((_WORD *)v5 + 10);
       if ( sub_47050A(&stru_721530, 0) )
         return;
-      sub_46E889(0);
+      sub_46E889_CollideAgainsModelsBBoxes(0);
       v16 = WorldPosToGridCellZ(*((_DWORD *)v5 + 2));
       v17 = *((_DWORD *)v5 + 1);
       v70 = v16;
@@ -11127,6 +11127,21 @@ CAMERA   ï  _____\| ______ +  0
  uStartX = 0, uEndX = 128;
  uStartZ = 0, uEndZ = 128;
 
+
+ RenderVertex pTerrainVertices[128 * 128];
+ for (unsigned int z = uStartZ; z < uEndZ; ++z)
+   for (unsigned int x = uStartX; x < uEndX; ++x)
+   {
+    pTerrainVertices[z * 128 + x].vWorldPosition.x = (-64 + (signed)x) * 512;
+    pTerrainVertices[z * 128 + x].vWorldPosition.y = (64 - (signed)z) * 512;
+    pTerrainVertices[z * 128 + x].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[z * 128 + x];
+
+    sub_436523_PrimitiveApplyViewMatrix(&pTerrainVertices[z * 128 + x], 1);
+    class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, &pTerrainVertices[z * 128 + x], 1, 0);
+   }
+
+
+
  for (unsigned int z = uStartZ; z < uEndZ - 1; ++z)
    for (unsigned int x = uStartX; x < uEndX - 1; ++x)
    {
@@ -11203,51 +11218,26 @@ CAMERA   ï  _____\| ______ +  0
            -32768
 */
 
-    array_73D150[0].vWorldPosition.x = -32768 + (signed)x * 512;
-    array_73D150[0].vWorldPosition.y =  32767 - (signed)z * 512;
-    array_73D150[0].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[z * 128 + x];
+    memcpy(array_73D150 + 0, &pTerrainVertices[z * 128 + x], sizeof(RenderVertex));
     array_73D150[0].u = 0;
     array_73D150[0].v = 0;
 
-    array_73D150[1].vWorldPosition.x = -32768 + (signed)(x + 1) * 512;
-    array_73D150[1].vWorldPosition.y =  32767 - (signed)z * 512;
-    array_73D150[1].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[z * 128 + x + 1];
+    memcpy(array_73D150 + 1, &pTerrainVertices[z * 128 + x + 1], sizeof(RenderVertex));
     array_73D150[1].u = 1;
     array_73D150[1].v = 0;
 
-    array_73D150[2].vWorldPosition.x = -32768 + (signed)(x + 1) * 512;
-    array_73D150[2].vWorldPosition.y =  32767 - (signed)(z + 1) * 512;
-    array_73D150[2].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[(z + 1) * 128 + x + 1];
+    memcpy(array_73D150 + 2, &pTerrainVertices[(z + 1) * 128 + x + 1], sizeof(RenderVertex));
     array_73D150[2].u = 1;
     array_73D150[2].v = 1;
 
-    array_73D150[3].vWorldPosition.x = -32768 + (signed)x * 512;
-    array_73D150[3].vWorldPosition.y =  32767 - (signed)(z + 1) * 512;
-    array_73D150[3].vWorldPosition.z = 32 * pOutdoor->cTerrainData.pHeightmap[(z + 1) * 128 + x];
+    memcpy(array_73D150 + 3, &pTerrainVertices[(z + 1) * 128 + x], sizeof(RenderVertex));
     array_73D150[3].u = 0;
     array_73D150[3].v = 1;
+
 
       v55 = 0;
       v54 = false;
       v58 = 0;
-      // transform primitive
-    for (unsigned int k = 0; k < 4; ++k)
-      {
-       if (array_73D150[0].vWorldPosition.y == array_73D150[k].vWorldPosition.y)
-         ++v58;
-
-       sub_436523_PrimitiveApplyViewMatrix(&array_73D150[k], 1);
-       /*if (array_73D150[k].vWorldViewPosition.x < 8.0 || (double)pStruct9_global->shading_dist_mist < array_73D150[k].vWorldViewPosition.x)
-       {
-        if (array_73D150[k].vWorldViewPosition.x >= 8.0)
-          v54 = true;
-        else
-          v55 = 1;
-       }
-       else*/
-         class08_sub_436BB7_PrimitiveApplyProjectionMatrix(pGame->class08_obj, &array_73D150[k], 1, 0);
-    }
-
 
       if (v58 == 4) // if all y == first y;  primitive in xz plane 
         v8->word_000032 |= 0x0001;
@@ -11280,8 +11270,6 @@ CAMERA   ï  _____\| ______ +  0
 
         extern void Render_DrawTerrainPolygon(struct BaseRender *_this, struct8 *a3, IDirect3DTexture2 *pTexture);
         Render_DrawTerrainPolygon(pD3DRenderer, v8, LODFile_Bitmaps_LOD.pHardwareTextures[v6]);
-
-        //Render_DrawPolygon(pD3DRenderer, 4, v8, nullptr, LODFile_Bitmaps_LOD.pHardwareTextures[v6]);
 
       --pStruct9_global->dword_00002C;
       --pStruct9_global->dword_000044;
