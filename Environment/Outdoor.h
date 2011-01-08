@@ -86,7 +86,7 @@ namespace Terrain
    Sand = 1,
    Volcanic = 2,
 
-   // seems no 4 at all
+   Common = 4, // all common tiles
    Water = 5
 
 

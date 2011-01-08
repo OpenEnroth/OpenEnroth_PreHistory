@@ -1564,7 +1564,7 @@ struct unnamed_6BD080 struct_6BD080;
  int dword_6BE040; // weak
  int dword_6BE044; // weak
 
- struct CTileTable *pTileTable = 0; // struct @ MM7.exe::006BE048
+ struct CTileTable *pTileTable = nullptr; // struct @ MM7.exe::006BE048
 //_UNKNOWN unk_6BE048; // pTileTable::uNumTiles
 //int dword_6BE04C; // pTileTable::pTiles
  int dword_6BE050; // weak

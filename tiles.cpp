@@ -73,11 +73,11 @@ int sub_487F84(struct CTileTable *_this, int a2, int a3)
 }
 
 //----- (00487E58) --------------------------------------------------------
-void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
+void CTileTable_LoadTileset(CTileTable *_this, unsigned int uTerrainType)
 {
  for (unsigned int i = 0; i < _this->uNumTiles; ++i)
  {
-  if (_this->pTiles[i].uTerrainType == a2)
+  if (_this->pTiles[i].uTerrainType == uTerrainType)
   {
    if (_this->pTiles[i].sTileName[0])
    {

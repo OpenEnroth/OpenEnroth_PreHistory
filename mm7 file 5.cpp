@@ -11124,6 +11124,9 @@ CAMERA   ï  _____\| ______ +  0
   uStartZ = 64 - 16, uEndZ = 128;
  }
 
+ uStartX = 0, uEndX = 128;
+ uStartZ = 0, uEndZ = 128;
+
  for (unsigned int z = uStartZ; z < uEndZ - 1; ++z)
    for (unsigned int x = uStartX; x < uEndX - 1; ++x)
    {
@@ -11133,6 +11136,55 @@ CAMERA   ï  _____\| ______ +  0
 
     unsigned int uTileID = pOutdoor->cTerrainData.pTilemap[z * 128 + x];
     TileDesc *pTile = TileTable_GetTile(pTileTable, uTileID);
+
+    /*if (uTileID == 1 ||   //dirttyl BitmapID 88
+        uTileID == 2 ||   //dirt1 BitmapID 126
+        uTileID == 3 ||   //dirttyl BitmapID 88
+        uTileID == 4 ||   //dirt2 BitmapID 127
+        uTileID == 11 ||  //dirttyl BitmapID 127
+
+        uTileID == 90 ||  //grastyl BitmapID 110
+        uTileID == 92 ||  //grastyl BitmapID 110
+
+        uTileID == 102 || //grdrtNE BitmapID 128
+        uTileID == 104 || //grdrtNW BitmapID 130
+        uTileID == 105 || //grdrtSW BitmapID 131
+        uTileID == 106 || //grdrtE BitmapID 132
+        uTileID == 107 || //grdrtW BitmapID 133
+        uTileID == 108 || //grdrtN BitmapID 134
+        uTileID == 109 || //grdrtS BitmapID 135
+        uTileID == 110 || //grdrtXNE BitmapID 136
+        uTileID == 112 || //grdrtXNW BitmapID 138
+        uTileID == 113 || //grdrtXSW BitmapID 139
+
+        uTileID == 126 || uTileID == 127 || uTileID == 128 || uTileID == 129 ||
+        uTileID == 130 || //wtrtyl BitmapID 89
+        uTileID == 131 || //wtrtyl BitmapID 89
+        uTileID == 132 || //wtrtyl BitmapID 89
+        uTileID == 133 || //wtrtyl BitmapID 89
+        uTileID == 134 || //wtrtyl BitmapID 89
+        uTileID == 135 || //wtrtyl BitmapID 89
+        uTileID == 136 || //wtrtyl BitmapID 89
+        uTileID == 137 || //wtrtyl BitmapID 89
+
+        uTileID == 139 || //wtrdrSE BitmapID 141
+        uTileID == 141 || //wrtdrSW BitmapID 143
+        uTileID == 142 || //wrtdrE BitmapID 144
+        uTileID == 143 || //wrtdrW BitmapID 145
+        uTileID == 145 || //wtrdrS BitmapID 147
+        uTileID == 147 || //wtrdrXSE BitmapID 149
+        uTileID == 149 ) //wtrdrXSW BitmapID 151
+      continue;*/
+
+    /*if (uTileID == 199 || //dirttyl BitmapID 0
+        uTileID == 200 || //dirttyl BitmapID 0
+        uTileID == 201 || //dirttyl BitmapID 0
+        uTileID == 202 || //dirttyl BitmapID 0
+        uTileID == 203 || //dirttyl BitmapID 0
+        uTileID == 204 || //dirttyl BitmapID 0
+        uTileID == 212 || //dirttyl BitmapID 0
+        uTileID == 217) //dirttyl BitmapID 0
+     continue;*/
 
     v6 = pTile->uBitmapID;
     v8->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v6];

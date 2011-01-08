@@ -817,11 +817,50 @@ LABEL_120:
   memcpy(this->array_0004F0, (char *)v78 + 200, 0x38);
   MemFree((char *)v168);
 
-  CTileTable_LoadSomeTiles(pTileTable, 4);
-  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[0].uTileGroup);
-  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[1].uTileGroup);
-  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[2].uTileGroup);
-  CTileTable_LoadSomeTiles(pTileTable, pTileTypes[3].uTileGroup);
+  CTileTable_LoadTileset(pTileTable, Terrain::Tileset::Common);
+  CTileTable_LoadTileset(pTileTable, pTileTypes[0].uTileGroup);
+  CTileTable_LoadTileset(pTileTable, pTileTypes[1].uTileGroup);
+  CTileTable_LoadTileset(pTileTable, pTileTypes[2].uTileGroup);
+  CTileTable_LoadTileset(pTileTable, pTileTypes[3].uTileGroup);
+
+
+  runtime_warning(I cannot find where Road textures are really loading, so I load them here manually);
+  pTileTable->pTiles[199].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrns");
+  pTileTable->pTiles[200].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrew");
+  pTileTable->pTiles[201].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrn_e");
+  pTileTable->pTiles[202].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrn_w");
+  pTileTable->pTiles[203].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[204].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrs_w");
+  pTileTable->pTiles[205].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[206].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrns_w");
+  pTileTable->pTiles[207].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[208].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrew_s");
+  pTileTable->pTiles[209].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrncap");
+  pTileTable->pTiles[210].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[211].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrscap");
+  pTileTable->pTiles[212].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrwcap");
+  pTileTable->pTiles[213].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[214].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[215].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[216].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[217].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrs_w");
+  pTileTable->pTiles[218].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrn_e");
+
+
+/*uTileID == 199 || //dirttyl BitmapID 0
+        uTileID == 200 || //dirttyl BitmapID 0
+        uTileID == 201 || //dirttyl BitmapID 0
+        uTileID == 202 || //dirttyl BitmapID 0
+        uTileID == 203 || //dirttyl BitmapID 0
+        uTileID == 204 || //dirttyl BitmapID 0
+        uTileID == 212 || //dirttyl BitmapID 0
+        uTileID == 217) //dirttyl BitmapID 0*/
+
+
+
+
+
+
 
   strcpy((char *)this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
   v109 = pTileTypes[0].uTileID;
@@ -843,7 +882,7 @@ LABEL_120:
   if ( v106 != -1 )
     LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000024);
 
-  sub_47F0E2();
+  //sub_47F0E2();
 
 LABEL_150:
   v111 = this->array_0004F0[1];
@@ -968,7 +1007,7 @@ bool class51_sub_47F420(OutdoorLocation *_this)
 bool class51_sub_47F3EA(OutdoorLocation *_this)
 {
  _this->pTileTypes[3].uTileID = sub_487ED6(pTileTable, _this->pTileTypes[3].uTileGroup, 1);
- CTileTable_LoadSomeTiles(pTileTable, _this->pTileTypes[3].uTileGroup);
+ CTileTable_LoadTileset(pTileTable, _this->pTileTypes[3].uTileGroup);
 
  return true;
 }

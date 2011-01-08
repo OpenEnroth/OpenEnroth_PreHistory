@@ -32,7 +32,7 @@ int sub_487ED6(struct CTileTable *_this, int a2, int a3);
 //int __thiscall sub_487F84(int _this, int a2, int a3);
 int sub_487F84(struct CTileTable *_this, int a2, int a3);
 //void __thiscall sub_487E58(void *_this, int a2);
-void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2);
+void CTileTable_LoadTileset(struct CTileTable *_this, unsigned int uTerrainType);
 //int __thiscall sub_487E3B(int _this, int a2)
 struct TileDesc *TileTable_GetTile(struct CTileTable *_this, unsigned int uTileID);
 
