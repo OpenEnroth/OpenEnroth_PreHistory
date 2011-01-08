@@ -1101,7 +1101,24 @@ bool LODFile_IB::LODFile_ReleaseTexture( unsigned int uTextureID)
 {
  return true;
 }	
- 
+
+#else
+unsigned int LODFile_IB::LODFile_LoadTexture_New(const wchar_t *pFilename)
+{
+ void    *hFile;
+ DWORD    w;
+ wchar_t  pFileNotFound[256];
+
+ wchar_t      pFilePath[256];
+ unsigned int uCBMWdith,
+              uCBMHeight;
+
+ int  i;
+ char pAnsiFilename[256];
+
+ wsprintfA(pAnsiFilename, "%S", pFilename);
+ return LODFile_LoadTexture(pAnsiFilename, 2);
+}
 #endif
 //----- (004AC7C0) -------------------.text:004AE61A     -------------------------------------
 unsigned int LODFile_Sprite::LODFile_LoadSprite(const char *pSourceFile, int a3)

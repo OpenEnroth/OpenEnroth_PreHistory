@@ -145,8 +145,8 @@ int sub_46454B();
 void SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetBBits);
 
  signed int  ReLoadTexture(class cTexture *dst_texture, const char *pContainerName, int mode);
- #ifndef	OLD_CODE
     unsigned int   LODFile_LoadTexture_New(const wchar_t *pFilename);
+ #ifndef	OLD_CODE
     bool LODFile_ReleaseTexture( unsigned int uTextureID);
     unsigned char *LODFile_LoadEvent( const wchar_t *pFilename);
 #endif
