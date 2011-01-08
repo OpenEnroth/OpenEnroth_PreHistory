@@ -1788,7 +1788,7 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
  float flt_73C820; // weak
  float flt_73C824; // weak
  char byte_73C830; // weak
- _UNKNOWN unk_73C834[array_size_unknown]; // weak
+struct unk_F7B60C stru_73C834; // struct @ MM7.exe::0073C834
  char byte_73C84C; // weak
 
 
@@ -1816,9 +1816,10 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
  int dword_76D56C; // weak
  int dword_76D570; // weak
  int dword_76D574; // weak
- _UNKNOWN unk_76D578; // weak
- _UNKNOWN unk_76D590; // weak
- _UNKNOWN unk_76D5A8; // weak
+
+struct unk_F7B60C stru_76D578; // struct @ MM7.exe::0076D578
+struct unk_F7B60C stru_76D590; // struct @ MM7.exe::0076D590
+struct unk_F7B60C stru_76D5A8; // struct @ MM7.exe::0076D5A8
 
  char byte_76D5C0; // weak
 
@@ -2127,12 +2128,8 @@ SoundList *pSoundList = 0; // struct @ MM7.exe::00F79D5C
  _UNKNOWN unk_F7AA10; // weak
  _UNKNOWN unk_F7AA34; // weak
  char byte_F7B608; // weak
- _UNKNOWN unk_F7B60C; // weak
- float flt_F7B610; // weak
- float flt_F7B614; // weak
- float flt_F7B618; // weak
- float flt_F7B61C; // weak
- char byte_F7B620; // weak
+
+struct unk_F7B60C stru_F7B60C;  // struct @ MM7.exe::00F7B60C
  _UNKNOWN unk_F7B628; // weak
  _UNKNOWN unk_F7B654; // weak
  _UNKNOWN unk_F7C228; // weak

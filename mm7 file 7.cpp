@@ -2436,7 +2436,7 @@ void __cdecl sub_4B0967()
 }
 
 //----- (004B0A25) --------------------------------------------------------
-void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
+void __fastcall sub_4B0A25(unsigned int uNumFaces, struct class26_placeholder *a2, int a3, struct class37_stru1 *a4)
 {
   int v4; // esi@1
   _UNKNOWN *v5; // eax@4
@@ -2467,19 +2467,20 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
   int i; // [sp+10h] [bp-18h]@38
   int v31; // [sp+14h] [bp-14h]@16
   void *v32; // [sp+18h] [bp-10h]@16
-  int v33; // [sp+1Ch] [bp-Ch]@1
+  //int v33; // [sp+1Ch] [bp-Ch]@1
   int v34; // [sp+20h] [bp-8h]@1
   int v35; // [sp+24h] [bp-4h]@17
   signed int v36; // [sp+34h] [bp+Ch]@25
   int v37; // [sp+34h] [bp+Ch]@38
 
-  v4 = a1;
-  v33 = a2;
-  v34 = a1;
-  if ( a1 >= 0 )
-  {
-    if ( a1 < pIndoor->uNumFaces )
-    {
+  v4 = uNumFaces;
+  v34 = uNumFaces;
+  if (!uNumFaces)
+    return;
+
+  if (uNumFaces >= pIndoor->uNumFaces)
+    return;
+
       if ( !(byte_F7CE28 & 1) )
       {
         byte_F7CE28 |= 1u;
@@ -2494,6 +2495,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
         while ( v6 );
         atexit(0);
       }
+
       if ( !(byte_F7CE28 & 2) )
       {
         byte_F7CE28 |= 2;
@@ -2508,10 +2510,11 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
         while ( v8 );
         atexit(0);
       }
+
       if ( !(byte_F7CE28 & 4) )
       {
         byte_F7CE28 |= 4u;
-        sub_49B001(&unk_F7B60C);
+        sub_49B001(&stru_F7B60C);
       }
       v9 = (int)pIndoor->pFaces + v4;
       if ( *(_BYTE *)(v9 + 93) >= 3u )
@@ -2549,7 +2552,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                 while ( v15 ^ v16 );
                 v10 = v32;
               }
-              if ( !v33 || (sub_498377(a4, 4, v33, (int)&unk_F7C228, (int)&v35), v35) )
+              if ( !a2 || (sub_498377(a4, 4, a2, (int)&unk_F7C228, (int)&v35), v35) )
               {
                 if ( sub_437285((int)&unk_F7C228, (int)&v35, &unk_F7B628, (int)((char *)v10 + 52), 4, 0, 0) != 1 || v35 )
                 {
@@ -2568,11 +2571,11 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                     v19 = *(float *)(v9 + 8);
                     v20 = *(float *)(v9 + 4);
                     v21 = *(_BYTE *)(v9 + 92);
-                    flt_F7B610 = *(float *)v9;
-                    byte_F7B620 = v21;
-                    flt_F7B614 = v20;
-                    flt_F7B618 = v19;
-                    flt_F7B61C = v18;
+                    stru_F7B60C.flt_000004 = *(float *)v9;
+                    stru_F7B60C.byte_000014 = v21;
+                    stru_F7B60C.flt_000008 = v20;
+                    stru_F7B60C.flt_00000C = v19;
+                    stru_F7B60C.flt_000010 = v18;
                   }
                   if ( dword_F8ADD4 > 0 )
                   {
@@ -2580,10 +2583,10 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                       sub_45BC07(
                         (void *)v31,
                         (int)&dword_F8AD28,
-                        (int)&unk_F7B60C,
+                        &stru_F7B60C,
                         v35,
                         (int)array_507D30,
-                        *(float *)&v33,
+                        *(float *)&a2,
                         0);
                   }
                   if ( pClass58_global->std__vector_30B00C_size > 0 )
@@ -2591,10 +2594,10 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                       pClass58_global,
                       v36,
                       1,
-                      (int)&unk_F7B60C,
+                      &stru_F7B60C,
                       v35,
                       (int)array_507D30,
-                      v33,
+                      a2,
                       0.0,
                       *(_WORD *)(v9 + 76));
                   v22 = *(_DWORD *)(v9 + 44);
@@ -2647,8 +2650,6 @@ LABEL_42:
           }
         }
       }
-    }
-  }
 }
 
 //----- (004B0E07) --------------------------------------------------------

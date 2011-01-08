@@ -4450,7 +4450,7 @@ LABEL_14:
 }
 
 //----- (00437376) --------------------------------------------------------
-char __stdcall sub_437376(int a1, const void *a2, int *a3)
+char __stdcall sub_437376(struct unk_F7B60C *a1, const void *a2, int *a3)
 {
   int v3; // ebx@1
   const void *v4; // edx@2
@@ -4478,9 +4478,9 @@ char __stdcall sub_437376(int a1, const void *a2, int *a3)
     goto LABEL_28;
   v4 = a2;
   memcpy(&v17, a2, 0x30u);
-  v5 = (v19 - (double)stru_51B6E0.vPosition.z) * *(float *)(a1 + 12)
-     + (v18 - (double)stru_51B6E0.vPosition.y) * *(float *)(a1 + 8)
-     + (v17 - (double)stru_51B6E0.vPosition.x) * *(float *)(a1 + 4) < 0.0 ? 1.0 : -1.0;
+  v5 = (v19 - (double)stru_51B6E0.vPosition.z) * a1->flt_00000C
+     + (v18 - (double)stru_51B6E0.vPosition.y) * a1->flt_000008
+     + (v17 - (double)stru_51B6E0.vPosition.x) * a1->flt_000004 < 0.0 ? 1.0 : -1.0;
   v22 = 0;
   memcpy((char *)v4 + 48 * v3, v4, 0x30u);
   memcpy((char *)v4 + 48 * (*a3 + 1), (char *)v4 + 48, 0x30u);
@@ -7990,7 +7990,7 @@ void loc_45BE7B()
 }
 
 //----- (0045BC07) --------------------------------------------------------
-char __thiscall sub_45BC07(void *_this, int a2, int a3, signed int a4, int a5, float a6, int a7)
+char __thiscall sub_45BC07(void *_this, int a2, struct unk_F7B60C *a3, signed int a4, int a5, float a6, int a7)
 {
   _UNKNOWN *v7; // eax@3
   signed int v8; // ecx@3
@@ -8071,7 +8071,7 @@ char __thiscall sub_45BC07(void *_this, int a2, int a3, signed int a4, int a5, f
       }
       while ( !v13 );
     }
-    v14 = a3;
+    v14 = (int)a3;
     if ( sub_437376(a3, &unk_69B140, &a4) == 1 )
     {
       if ( !a4 )
@@ -8081,7 +8081,7 @@ char __thiscall sub_45BC07(void *_this, int a2, int a3, signed int a4, int a5, f
   }
   else
   {
-    v14 = a3;
+    v14 = (int)a3;
   }
   v16 = *(float *)(v14 + 12);
   v17 = *(float *)(v14 + 8);

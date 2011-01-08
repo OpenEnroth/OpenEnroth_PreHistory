@@ -11487,7 +11487,7 @@ LABEL_30:
         if ( !(byte_73C84C & 1) )
         {
           byte_73C84C |= 1;
-          sub_49B001(&unk_73C834);
+          sub_49B001(&stru_73C834);
           atexit(loc_4789D4);
         }
 
@@ -11504,7 +11504,7 @@ LABEL_30:
             v35 = v54 != 0 ? 5 : 0;
 
           //compile_error();
-          sub_49B04D(unk_73C834, (int)pFace, (int)&pOutdoor->pBModels[i].uNumFaces - 8);
+          sub_49B04D(&stru_73C834, pFace, pModel->pVertices);
           if ( pClass58_global->std__vector_30B00C_size > 0 )
           {
             v45 = -1;
@@ -11516,7 +11516,7 @@ LABEL_30:
               pClass58_global,
               31 - *(_BYTE *)(v8 + 88),
               2,
-              (int)&unk_73C834,
+              &stru_73C834,
               v62,
               (int)array_50AC10,
               0,
@@ -13580,7 +13580,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         if ( !(byte_76D5C0 & 1) )
         {
           byte_76D5C0 |= 1u;
-          sub_49B001(&unk_76D5A8);
+          sub_49B001(&stru_76D5A8);
           atexit(loc_481199);
         }
         v31 = (struct8 *)array_50AC10;
@@ -13613,13 +13613,13 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
             v33 = 3;
           else
             v33 = v108 != 0 ? 5 : 0;
-          sub_49B0C9((int)&unk_76D5A8, (int)pNormal, v95);
+          sub_49B0C9(&stru_76D5A8, pNormal, v95);
           if ( pClass58_global->std__vector_30B00C_size > 0 )
             sub_49B540(
               pClass58_global,
               31 - v15->byte_000058 ,
               4,
-              (int)&unk_76D5A8,
+              &stru_76D5A8,
               v103,
               (int)array_50AC10,
               0,
@@ -13627,7 +13627,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
               -1);
         }
         if ( dword_F8ADD4 > 0 )
-          sub_45BC07((void *)v97, (int)&dword_F8AD28, (int)&unk_76D5A8, v103, (int)array_50AC10, 0.0, v33);
+          sub_45BC07((void *)v97, (int)&dword_F8AD28, &stru_76D5A8, v103, (int)array_50AC10, 0.0, v33);
         v34 = v103;
         v15->uNumVertices = v103;
         if (!byte_4D8410[572] || ~pGame->uSomeFlags & 0x80)
@@ -13732,7 +13732,7 @@ LABEL_162:
     if ( !(byte_76D5C0 & 2) )
     {
       byte_76D5C0 |= 2;
-      sub_49B001(&unk_76D590);
+      sub_49B001(&stru_76D590);
       atexit(loc_48118F);
     }
     v96 = (int)pGame->class04_obj;
@@ -13762,13 +13762,13 @@ LABEL_77:
         v107 = (RenderVertex *)3;
       else
         v107 = (RenderVertex *)(v108 != 0 ? 5 : 0);
-      sub_49B0C9((int)&unk_76D590, (int)pNormal, v86);
+      sub_49B0C9(&stru_76D590, pNormal, v86);
       if ( pClass58_global->std__vector_30B00C_size > 0 )
         sub_49B540(
           pClass58_global,
           31 - *(_BYTE *)(v39 + 88),
           4,
-          (int)&unk_76D590,
+          &stru_76D590,
           v99,
           (int)array_50AC10,
           0,
@@ -13776,7 +13776,7 @@ LABEL_77:
           -1);
     }
     if ( dword_F8ADD4 > 0 )
-      sub_45BC07((void *)v96, (int)&dword_F8AD28, (int)&unk_76D590, v99, (int)array_50AC10, 0.0, (int)v107);
+      sub_45BC07((void *)v96, (int)&dword_F8AD28, &stru_76D590, v99, (int)array_50AC10, 0.0, (int)v107);
     v54 = v99;
     *(_DWORD *)(v39 + 20) = v99;
     if ( !byte_4D8410[572] || !(*(_BYTE *)(LODWORD(pGame) + 3616) & 0x80) )
@@ -13874,7 +13874,7 @@ LABEL_126:
     if ( !(byte_76D5C0 & 4) )
     {
       byte_76D5C0 |= 4;
-      sub_49B001(&unk_76D578);
+      sub_49B001(&stru_76D578);
       atexit(loc_481185);
     }
     v96 = (int)pGame->class04_obj;
@@ -13900,13 +13900,13 @@ LABEL_126:
         v69 = 3;
       else
         v69 = v108 != 0 ? 5 : 0;
-      sub_49B0C9((int)&unk_76D578, (int)pNormal, v87);
+      sub_49B0C9(&stru_76D578, pNormal, v87);
       if ( pClass58_global->std__vector_30B00C_size > 0 )
         sub_49B540(
           pClass58_global,
           31 - *(_BYTE *)(v39 + 88),
           4,
-          (int)&unk_76D578,
+          &stru_76D578,
           v100,
           (int)array_50AC10,
           0,
@@ -13914,7 +13914,7 @@ LABEL_126:
           -1);
     }
     if ( dword_F8ADD4 > 0 )
-      sub_45BC07((void *)v96, (int)&dword_F8AD28, (int)&unk_76D578, v100, (int)array_50AC10, 0.0, v69);
+      sub_45BC07((void *)v96, (int)&dword_F8AD28, &stru_76D578, v100, (int)array_50AC10, 0.0, v69);
     v31 = v58;
     v70 = v100;
     v58->uNumVertices = v100;

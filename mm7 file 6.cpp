@@ -3767,7 +3767,7 @@ __int64 __fastcall sub_49835A(int a1)
 }
 
 //----- (00498377) --------------------------------------------------------
-char __stdcall sub_498377(int a1, signed int a2, int a3, int a4, int a5)
+char __stdcall sub_498377(struct class37_stru1 *a1, signed int a2, struct class26_placeholder *a3, int a4, int a5)
 {
   int v5; // eax@7
   int v6; // ebx@7
@@ -3815,13 +3815,13 @@ char __stdcall sub_498377(int a1, signed int a2, int a3, int a4, int a5)
   v24 = 0;
   if ( a2 <= 0 )
     goto LABEL_32;
-  v25 = a1;
-  v7 = a3 + 12;
-  v21 = a3 + 12;
+  v25 = (int)a1;
+  v7 = (int)a3 + 12;
+  v21 = (int)a3 + 12;
   do
   {
     v20 = v5 + 1;
-    v8 = a1 + 48 * (v5 + 1) % a2;
+    v8 = (int)a1 + 48 * (v5 + 1) % a2;
     if ( *(float *)v25 != *(float *)v8
       || *(float *)(v25 + 4) != *(float *)(v8 + 4)
       || *(float *)(v25 + 8) != *(float *)(v8 + 8) )
@@ -4360,13 +4360,10 @@ LABEL_47:
 }
 
 //----- (0049B001) --------------------------------------------------------
-void *__thiscall sub_49B001(void *_this)
+void *sub_49B001(struct unk_F7B60C *_this)
 {
-  void *result; // eax@1
-
-  result = _this;
-  *(_DWORD *)_this = 5081252;
-  return result;
+ _this->some_data_ptr = 0x4D88A4;
+  return _this;
 }
 
 //----- (0049B02E) --------------------------------------------------------
@@ -4382,7 +4379,7 @@ int __fastcall sub_49B02E(int a1, int a2, int a3)
 }
 
 //----- (0049B04D) --------------------------------------------------------
-signed int __thiscall sub_49B04D(void *_this, int a2, int a3)
+signed int __thiscall sub_49B04D(unk_F7B60C *_this, ODMFace *pFace, Vec3<int> *pVertices)
 {
   signed int v3; // eax@1
   void *v4; // edi@1
@@ -4395,17 +4392,19 @@ signed int __thiscall sub_49B04D(void *_this, int a2, int a3)
    float v9; // [sp+Ch] [bp-4h]@1
   } local_04;
 
+  float a3;
+
   local_04.v7 = 0.0;
   local_04.v8 = 0.0;
   local_04.v9 = 0.0;
   v4 = _this;
-  sub_49B13D(a2, a3, (int)&local_04, (int)&a3);
+  sub_49B13D(pFace, pVertices, (int)&local_04, &a3);
   v3 = 2;
-  if ( *(_DWORD *)(a2 + 8) )
+  if (pFace->vFaceNormal.z)
   {
-    if ( !*(_DWORD *)a2 )
+    if ( !pFace->vFaceNormal.x)
     {
-      if ( !*(_DWORD *)(a2 + 4) )
+      if ( !pFace->vFaceNormal.y )
         v3 = 1;
     }
   }
@@ -4425,16 +4424,16 @@ signed int __thiscall sub_49B04D(void *_this, int a2, int a3)
   {
     result = 1;
   }
-  *((float *)v4 + 1) = local_04.v7;
-  *((float *)v4 + 2) = local_04.v8;
-  *((float *)v4 + 3) = local_04.v9;
-  *((float *)v4 + 4) = *(float *)&a3;
+  _this->flt_000004 = local_04.v7;
+  _this->flt_000008 = local_04.v8;
+  _this->flt_00000C = local_04.v9;
+  _this->flt_000010 = a3;
   *((_BYTE *)v4 + 20) = result;
   return result;
 }
 
 //----- (0049B0C9) --------------------------------------------------------
-signed int __thiscall sub_49B0C9(int _this, int a2, int a3)
+signed int __thiscall sub_49B0C9(struct unk_F7B60C *_this, Vec3<float> *pNormal, int a3)
 {
   signed int v3; // esi@1
   signed int result; // eax@9
@@ -4444,15 +4443,15 @@ signed int __thiscall sub_49B0C9(int _this, int a2, int a3)
   signed int v8; // [sp+0h] [bp-4h]@8
 
   v3 = 2;
-  if ( *(float *)(a2 + 8) == 0.0 )
+  if (pNormal->z == 0.0)
   {
     v3 = 0;
   }
   else
   {
-    if ( *(float *)a2 == 0.0 )
+    if (pNormal->x == 0.0)
     {
-      if ( *(float *)(a2 + 4) == 0.0 )
+      if (pNormal->y == 0.0)
         v3 = 1;
     }
   }
@@ -4468,9 +4467,9 @@ signed int __thiscall sub_49B0C9(int _this, int a2, int a3)
   {
     result = 1;
   }
-  v5 = *(float *)(a2 + 8);
-  v6 = *(float *)(a2 + 4);
-  v7 = *(float *)a2;
+  v5 = pNormal->z;
+  v6 = pNormal->y;
+  v7 = pNormal->x;
   *(_BYTE *)(_this + 20) = result;
   *(float *)(_this + 4) = v7;
   *(_DWORD *)(_this + 16) = a3;
@@ -4480,7 +4479,7 @@ signed int __thiscall sub_49B0C9(int _this, int a2, int a3)
 }
 
 //----- (0049B13D) --------------------------------------------------------
-int __stdcall sub_49B13D(int a1, int a2, int a3, int a4)
+int __stdcall sub_49B13D(ODMFace *pFace, Vec3<int> *pVertices, int a3, float *a4)
 {
   int v4; // ebx@1
   int v5; // eax@1
@@ -4530,8 +4529,8 @@ int __stdcall sub_49B13D(int a1, int a2, int a3, int a4)
 
   v42 = 0;
   v33 = 0.0;
-  v4 = a1;
-  v5 = *(_BYTE *)(a1 + 302);
+  v4 = (int)pFace;
+  v5 = pFace->uNumVertices;
   v34 = 0.0;
   v35 = 0.0;
   if ( v5 - 1 <= 0 )
@@ -4542,29 +4541,32 @@ LABEL_8:
                        + (double)(signed int)(*(_DWORD *)(v4 + 4) >> 16);
     *(float *)(a3 + 8) = (double)(*(_DWORD *)(v4 + 8) & 0xFFFF) * 0.00001525902189314365
                        + (double)(signed int)(*(_DWORD *)(v4 + 8) >> 16);
-    result = a4;
-    *(float *)a4 = (double)(*(_DWORD *)(v4 + 12) & 0xFFFF) * 0.00001525902189314365
+    result = (int)a4;
+    *a4 = (double)(*(_DWORD *)(v4 + 12) & 0xFFFF) * 0.00001525902189314365
                  + (double)(signed int)(*(_DWORD *)(v4 + 12) >> 16);
   }
   else
   {
-    v6 = a1 + 34;
+    v6 = (int)(pFace->pVertexIDs + 1);
     while ( 1 )
     {
-      v7 = *(_DWORD *)(a2 + 4);
-      v8 = v7 + 12 * *(_WORD *)(v6 - 2);
+      //v7 = *(_DWORD *)(a2 + 4);  // a2 -> struct{int numvertex; vec3<int> *pvertices;}; inside Outdoor
+      //v8 = v7 + 12 * *(_WORD *)(v6 - 2);
+     v8 = (int)&pVertices[*(_WORD *)(v6 - 2)];
       v36 = (double)*(signed int *)v8;
       v37 = (double)*(signed int *)(v8 + 4);
       v9 = (double)*(signed int *)(v8 + 8);
       v10 = *(_WORD *)v6;
       v38 = v9;
-      v11 = v7 + 12 * v10;
+      //v11 = v7 + 12 * v10;
+     v11 = (int)&pVertices[*(_WORD *)v6];
       v12 = (double)*(signed int *)v11;
       v13 = (double)*(signed int *)(v11 + 4);
       v14 = (double)*(signed int *)(v11 + 8);
       v15 = *(_WORD *)(v6 + 2);
       local_04.v24 = v14;
-      v16 = v7 + 12 * v15;
+      //v16 = v7 + 12 * v15;
+     v16 = (int)&pVertices[*(_WORD *)(v6 + 2)];
       v17 = (double)*(signed int *)v16;
       v28 = (double)*(signed int *)(v16 + 4);
       v29 = (double)*(signed int *)(v16 + 8);
@@ -4585,9 +4587,9 @@ LABEL_8:
         break;
       ++v42;
       v6 += 2;
-      if ( v42 >= *(_BYTE *)(a1 + 302) - 1 )
+      if ( v42 >= pFace->uNumVertices - 1 )
       {
-        v4 = a1;
+        v4 = (int)pFace;
         goto LABEL_8;
       }
     }
@@ -4598,8 +4600,8 @@ LABEL_8:
     v22 = v37 * local_58.v40;
     *(_DWORD *)(a3 + 4) = LODWORD(v20);
     *(_DWORD *)(a3 + 8) = LODWORD(local_58.v41);
-    result = a4;
-    *(float *)a4 = -(v21 + v22 + v36 * local_58.v39);
+    result = (int)a4;
+    *a4 = -(v21 + v22 + v36 * local_58.v39);
   }
   return result;
 }
@@ -4696,7 +4698,7 @@ char __stdcall sub_49B490(int a1, int a2, int a3, float a4, float a5, float a6, 
 }
 
 //----- (0049B540) --------------------------------------------------------
-char __thiscall sub_49B540(void *_this, signed int a2, char a3, int a4, signed int a5, int a6, int a7, float a8, int a9)
+char __thiscall sub_49B540(void *_this, signed int a2, char a3, struct unk_F7B60C *a4, signed int a5, int a6, struct class26_placeholder *a7, float a8, int a9)
 {
   _UNKNOWN *v9; // eax@3
   signed int v10; // ecx@3
@@ -4777,7 +4779,7 @@ char __thiscall sub_49B540(void *_this, signed int a2, char a3, int a4, signed i
       }
       while ( !v15 );
     }
-    v16 = a4;
+    v16 = (int)a4;
     if ( sub_437376(a4, &unk_AE4F90, &a5) == 1 )
     {
       if ( !a5 )
@@ -4787,7 +4789,7 @@ char __thiscall sub_49B540(void *_this, signed int a2, char a3, int a4, signed i
   }
   else
   {
-    v16 = a4;
+    v16 = (int)a4;
   }
   v18 = *(float *)(v16 + 12);
   v19 = *(float *)(v16 + 8);
@@ -4845,17 +4847,15 @@ char __thiscall sub_49B540(void *_this, signed int a2, char a3, int a4, signed i
       v21 = v44;
       if ( !sub_49B790(v44, v42, a3, v31, (int)&v38, v30, v43, v33, (int)&unk_AE4F60, a5, v45, SLOBYTE(a8)) )
       {
-        v37 = 114;
-        v36 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp";
         v42 = (int)&v32;
         Game_sub_40E2C8(&v32, "Error: Failed to build decal geometry", (int)((char *)&a4 + 3));
-        sub_466D09(&v41, *(int *)&v32, v33, v34, v35, (const char *)v36, v37);
+        sub_466D09(&v41, *(int *)&v32, v33, v34, v35, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 114);
         v41 = 5080748;
       }
       ++a7;
       a6 += 4;
     }
-    while ( a7 < *(_DWORD *)(v21 + 3194892) );
+    while ( (int)a7 < *(_DWORD *)(v21 + 3194892) );
   }
   return 1;
 }

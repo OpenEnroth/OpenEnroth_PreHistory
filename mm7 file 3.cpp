@@ -4133,7 +4133,7 @@ int __thiscall sub_4407D9(sub_4407D9_stru0 *_this, sub_441BD4_DrawIndoor_stru0 *
 }
 
 //----- (00440B44) --------------------------------------------------------
-void __fastcall sub_440B44(char a1)
+void __fastcall sub_440B44(bool bHardwareRender)
 {
   int i; // esi@2
   int v2; // eax@3
@@ -4142,23 +4142,19 @@ void __fastcall sub_440B44(char a1)
   int v5; // ecx@9
   int v6; // [sp-4h] [bp-8h]@4
 
-  if ( a1 )
+  if ( bHardwareRender )
   {
     IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
-    for ( i = 0; i < class37_global0.dword_000000; ++i )
+    for (unsigned int i = 0; i < class37_global0.dword_000000; ++i)
     {
-      v2 = 2252 * class37_global0.array_000004[2 * i + 1];
-      if ( *(int *)((char *)&class37_global0.std__vector_000FA8[0].dword_0007A8 + v2) == -1 )
+      if (class37_global0.std__vector_000FA8[class37_global0.array_000004[2 * i + 1]].dword_0007A8 != -1)
       {
-        v6 = 0;
-        v3 = 0;
+       sub_4B0A25(class37_global0.array_000004[2 * i],
+                  class37_global0.std__vector_000FA8[class37_global0.array_000004[2 * i + 1]].std__vector_0007AC, 4,
+                  class37_global0.std__vector_000FA8[class37_global0.array_000004[2 * i + 1]].array_00080C);
       }
       else
-      {
-        v3 = (int)((char *)&class37_global0.std__vector_000FA8[0].std__vector_0007AC + v2);
-        v6 = (int)((char *)class37_global0.std__vector_000FA8[0].array_00080C + v2);
-      }
-      sub_4B0A25(class37_global0.array_000004[2 * i], v3, 4, v6);
+        sub_4B0A25(class37_global0.array_000004[2 * i], 0, 4, 0);
     }
   }
   else

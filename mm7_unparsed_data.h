@@ -2164,7 +2164,8 @@ extern float flt_73C81C; // weak
 extern float flt_73C820; // weak
 extern float flt_73C824; // weak
 extern char byte_73C830; // weak
-extern _UNKNOWN unk_73C834[]; // weak
+extern struct unk_F7B60C stru_73C834; // struct @ MM7.exe::0073C834
+//_UNKNOWN unk_73C834[]; // weak
 extern char byte_73C84C; // weak
 
 /*
@@ -2203,9 +2204,14 @@ extern int dword_76D568; // weak
 extern int dword_76D56C; // weak
 extern int dword_76D570; // weak
 extern int dword_76D574; // weak
-extern _UNKNOWN unk_76D578; // weak
-extern _UNKNOWN unk_76D590; // weak
-extern _UNKNOWN unk_76D5A8; // weak
+
+extern struct unk_F7B60C stru_76D578; // struct @ MM7.exe::0076D578
+//extern _UNKNOWN unk_76D578; // weak
+extern struct unk_F7B60C stru_76D590; // struct @ MM7.exe::0076D590
+//extern _UNKNOWN unk_76D590; // weak
+extern struct unk_F7B60C stru_76D5A8; // struct @ MM7.exe::0076D5A8
+//extern _UNKNOWN unk_76D5A8; // weak
+
 extern char byte_76D5C0; // weak
 
 extern int dword_76D5C8[128]; // weak
@@ -2805,18 +2811,32 @@ extern _UNKNOWN unk_F7AA08; // weak
 extern _UNKNOWN unk_F7AA10; // weak
 extern _UNKNOWN unk_F7AA34; // weak
 extern char byte_F7B608; // weak
-extern _UNKNOWN unk_F7B60C; // weak
-extern float flt_F7B610; // weak
-extern float flt_F7B614; // weak
-extern float flt_F7B618; // weak
-extern float flt_F7B61C; // weak
-extern char byte_F7B620; // weak
+
+extern struct unk_F7B60C
+{
+ int   some_data_ptr;  // dword @ 000000
+ float flt_000004;
+ float flt_000008;
+ float flt_00000C;
+ float flt_000010;
+ char  byte_000014;
+ char  unk_000015[3];
+} stru_F7B60C;        // struct @ MM7.exe::00F7B60C
+//_UNKNOWN unk_F7B60C; // weak
+//float flt_F7B610; // weak
+//float flt_F7B614; // weak
+//float flt_F7B618; // weak
+//float flt_F7B61C; // weak
+//char byte_F7B620; // weak
 extern _UNKNOWN unk_F7B628; // weak
-extern _UNKNOWN unk_F7B654; // weak
+
+extern _UNKNOWN unk_F7B654; // weak  64x48 structs around here
 extern _UNKNOWN unk_F7C228; // weak
 extern _UNKNOWN unk_F7C230; // weak
-extern _UNKNOWN unk_F7C254; // weak
+
+extern _UNKNOWN unk_F7C254; // weak  next 64x48 structs around
 extern char byte_F7CE28; // weak
+
 extern int dword_F81018; // weak
 extern _UNKNOWN unk_F8101C; // weak
 extern __int16 word_F8101E; // weak
