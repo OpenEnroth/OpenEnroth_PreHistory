@@ -697,7 +697,7 @@ signed int __cdecl sub_4908DE()
   signed int v2; // edx@2
   signed int v3; // ecx@2
 
-  v0 = (signed int)pParty_global->pPlayers[0].pActiveSkills;
+  v0 = (signed int)pParty->pPlayers[0].pActiveSkills;
   while ( 1 )
   {
     v2 = 0;
@@ -727,7 +727,7 @@ void __fastcall sub_42F933(int a1)
   char *v3; // ecx@2
 
   pLayingItemsList[a1].uObjectDescriptionID = 0;
-  if (pParty_global->bTurnBasedModeOn)
+  if (pParty->bTurnBasedModeOn)
   {
    v3 = (char *)&pLayingItemsList[a1].uAttributes;
     v2 = *(_WORD *)v3;
@@ -3564,7 +3564,7 @@ LABEL_49:
     {
       if ( v7 <= 120 )
       {
-       v9 = (char *)&pParty_global->uNumGoldInBank + v7 + 1;
+       v9 = (char *)&pParty->uNumGoldInBank + v7 + 1;
         if ( !*v9 )
         {
           *v9 = 1;
@@ -3575,13 +3575,13 @@ LABEL_49:
     v10 = 108;
     do
     {
-      if ( !*((char *)&pParty_global->uNumGoldInBank + v10 + 1) )
+      if ( !*((char *)&pParty->uNumGoldInBank + v10 + 1) )
         break;
       ++v10;
     }
     while ( v10 <= 120 );
     if ( v10 == 121 )
-      sub_449B7E((int)pParty_global->unk_000764 + 1, 238, 1);
+      sub_449B7E((int)pParty->unk_000764 + 1, 238, 1);
     v11 = (int)&unk_ACDAD6;
     do
     {
@@ -4009,32 +4009,32 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
   vStat = 50;
   for(v1 = 0;v1 < 4; v1 ++)
   {    
-    r = Player_GetRace(&pParty_global->pPlayers[v1]);
+    r = Player_GetRace(&pParty->pPlayers[v1]);
     for(v9 = 0; v9 <= 6; v9++)
     {
       switch ( v9 )
       {
           case 1:
-            vStat = pParty_global->pPlayers[v1].uIntelligence;
+            vStat = pParty->pPlayers[v1].uIntelligence;
             break;
           case 2:
-            vStat = pParty_global->pPlayers[v1].uWillpower;
+            vStat = pParty->pPlayers[v1].uWillpower;
             break;
           case 3:
-            vStat = pParty_global->pPlayers[v1].uEndurance;
+            vStat = pParty->pPlayers[v1].uEndurance;
             break;
           case 4:
-            vStat = pParty_global->pPlayers[v1].uAccuracy;
+            vStat = pParty->pPlayers[v1].uAccuracy;
             break;
           case 5:
-            vStat = pParty_global->pPlayers[v1].uSpeed;
+            vStat = pParty->pPlayers[v1].uSpeed;
             break;
           case 6:
-            vStat = pParty_global->pPlayers[v1].uLuck;
+            vStat = pParty->pPlayers[v1].uLuck;
             break;
           case 0:
           default:
-            vStat = pParty_global->pPlayers[v1].uStrength;
+            vStat = pParty->pPlayers[v1].uStrength;
             break;
       }
       v3 = g_StatTable[r][v9].InitialStat;
@@ -5153,7 +5153,7 @@ int __cdecl sub_41192C()
   signed int v1; // ebp@3
   int result; // eax@4
 
-  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
+  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
   ++LODFile_Icons_LOD.uTexturePacksCount;
   if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
     LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
@@ -5168,7 +5168,7 @@ int __cdecl sub_41192C()
   dword_506444 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("ib-m6-d", 2)];
   do
   {
-    dword_50649C[v1] = (int)&LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture( (&dword_4E24E8)[4 * v1], 2)];
+    dword_50649C[v1] = (int)&LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture(dword_4E24E8[v1], 2)];
     wsprintfA((char *)TmpBuf, "tab%da", v1);
     *(_DWORD *)(v0 - 4) = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2)];
     wsprintfA((char *)TmpBuf, "tab%db", v1++);
@@ -5176,7 +5176,7 @@ int __cdecl sub_41192C()
     *(_DWORD *)v0 = result;
     v0 += 8;
   }
-  while ( v0 <= (signed int)&unk_506494 );
+  while (v1 < 9);//while ( v0 <= (signed int)&unk_506494 );
   return result;
 }
 
@@ -5205,7 +5205,7 @@ void sub_411AAA()
 
 
 //----- (00411BFC) -------------.text:00411F44 -------------------------------------------
-int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures for books
+int __thiscall GUIWindow_sub_411BFC_InitializeBookViewWindow(GUI::Window *_this)	   // prepere textures for books
 {
   GUI::Window *v1; // ebp@1
   int result; // eax@7
@@ -5268,7 +5268,7 @@ int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures f
 #endif
 	  dword_506518 = GUIButtonCreate(v1, 415, 13, 39, 36, 1, 0, 178, 0, 0, pGlobalTXT_LocalizationStrings[LOCSTR_SET_BEACON], 0);
 	  dword_506514 = GUIButtonCreate(v1, 415, 48, 39, 36, 1, 0, 178, 1, 0, pGlobalTXT_LocalizationStrings[LOCSTR_RECALL_BEACON], 0);
-	  v17 = &pParty_global->pPlayers[dword_506348];
+	  v17 = &pParty->pPlayers[dword_506348];
 	  v23 = 1;	//number of beacons	 1
 	  v16 = v17->pActiveSkills[14];//*((_WORD *)v17 + 146);
 	  if ( v16 & 0x100 || v16 & 0x80 )	
@@ -5287,9 +5287,9 @@ int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures f
 	  for(v19=0; v19 < 5; v19++)
 		  {
 		//  v21 = *(_DWORD *)(v20 + 4);
-		   if  (v17->stBeacons[v19].uBeaconTime>=pParty_global->qword_00002C)
-		//  if ( v21 > HIDWORD(pParty_global->qword_00002C) || v21 >= HIDWORD(pParty_global->qword_00002C) &&
-		//	  *(_DWORD *)v20 >= (_DWORD)pParty_global->qword_00002C )
+		   if  (v17->stBeacons[v19].uBeaconTime>=pParty->qword_00002C)
+		//  if ( v21 > HIDWORD(pParty->qword_00002C) || v21 >= HIDWORD(pParty->qword_00002C) &&
+		//	  *(_DWORD *)v20 >= (_DWORD)pParty->qword_00002C )
 			  sub_411B59(v19, dword_506348 + 1);   //load  position tumbinails
 		  else
 			  memset(&v17->stBeacons[v19], 0,28);
@@ -5347,7 +5347,7 @@ int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures f
 	  for ( j = dword_506528; j < 512; ++j )
 		  {
 		  v13 = (&dword_722F10)[4 * j];
-		  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, j) )
+		  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, j) )
 			  {
 			  if ( v13 )
 				  {
@@ -5436,7 +5436,7 @@ int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures f
 			  v25 = (&dword_723718)[8 * (signed __int16)v10];
 			  if ( (_WORD)v10 )
 				  {
-				  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 0x9A, v10) )
+				  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 0x9A, v10) )
 					  {
 					  if ( v25 )
 						  {
@@ -5558,9 +5558,11 @@ int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures f
 	  memset(byte_5C6D50, 0, 0x64u);
 	  if ( dword_506528 < 29 )
 		  {
-		  v4 = (__int64 *)(8 * dword_506528 + 11326692);
+		  v4 = (__int64 *)(8 * dword_506528 + (int)pParty->Abc.array_00052C);
 		  v24 = dword_506528 + 1;
-		  v22 = 12 * dword_506528 + 6065004;
+		  v22 = 12 * dword_506528 + (int)dword_5C8B64 + 8;
+
+          unsigned int i = 0;
 		  do
 			  {
 			  v5 = *(char **)v22;
@@ -5589,7 +5591,7 @@ int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures f
 			  ++v4;
 			  ++v24;
 			  }
-			  while ( v22 < (signed int)&unk_5C8CC8 );
+			  while (++i < 87);
 		  }
 	  }
 	  // }
@@ -5597,7 +5599,7 @@ int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this)	   // prepere textures f
 	  dword_506520 = 0;
 	  dword_506524 = result;
 	  }
-  return result;
+  return 0;
 }
 
 //----- (00412AF9) --------------------------------------------------------
@@ -6285,7 +6287,7 @@ LABEL_46:
         v32 = (&dword_723718)[8 * (signed __int16)v8];
         if ( (_WORD)v8 )
         {
-          if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 0x9A, v8) )
+          if ( (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 0x9A, v8) )
           {
             if ( v32 )
             {
@@ -6512,7 +6514,7 @@ void sub_413980_DrawSpellbook_Map()
 
   local_84.uFrameX = 0;
 
-  wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[659], pParty_global->vPosition.x, pParty_global->vPosition.y);
+  wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[659], pParty->vPosition.x, pParty->vPosition.y);
   GUIWindow_DrawText(&local_84, pFontComic, 0, 320, 0, Str, 0);
 
 }
@@ -6524,7 +6526,7 @@ void  sub_413CC6_DrawSpellbook(int book_code)
   Render_DrawTransparentTexture(pD3DRenderer, 471, 445, &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr]);
   switch (book_code)
 	  {
-	  case	177:	 sub_410DEC(); break;  //beacons
+	  case	177:	 sub_410DEC_DrawSpellbook_Beacons(); break;  //beacons
 	  case  195:	 sub_411150(); break;	//town portals
 	  case	200:	 sub_413126_DrawSpellbook_Quests(); break;
 	  case	201:	 sub_41338E_DrawSpellbook_Autonotes(); break;
@@ -6538,13 +6540,13 @@ void  sub_413CC6_DrawSpellbook(int book_code)
 //----- (00413D3C) --------------------------------------------------------
 unsigned char *GetDayPart() //sub_413D3C()
 {
-  if ( (unsigned int)pParty_global->uCurrentHour > 4 )
+  if ( (unsigned int)pParty->uCurrentHour > 4 )
   {
-    if ( pParty_global->uCurrentHour == 5 )
+    if ( pParty->uCurrentHour == 5 )
       return pGlobalTXT_LocalizationStrings[LOCSTR_DAWN];
-    if ( pParty_global->uCurrentHour == 20 )
+    if ( pParty->uCurrentHour == 20 )
       return pGlobalTXT_LocalizationStrings[LOCSTR_DUSK];
-    if ( (unsigned int)pParty_global->uCurrentHour <= 20 || (unsigned int)pParty_global->uCurrentHour > 23 )
+    if ( (unsigned int)pParty->uCurrentHour <= 20 || (unsigned int)pParty->uCurrentHour > 23 )
       return pGlobalTXT_LocalizationStrings[LOCSTR_DAY];
   }
   return pGlobalTXT_LocalizationStrings[LOCSTR_NIGHT];
@@ -6566,16 +6568,23 @@ void  sub_413D6F_DrawSpellbook_Calendar()
   //int v9; // [sp+1Ch] [bp-50h]@5
   //int v10; // [sp+20h] [bp-4Ch]@5
 
-  int location_index; // [sp+60h] [bp-Ch]@1
+  //int location_index; // [sp+60h] [bp-Ch]@1
   char v12; // [sp+64h] [bp-8h]@1
   int v13; // [sp+68h] [bp-4h]@1
 
-  v0 = pParty_global->uCurrentHour;
-  compile_error(level file name should not be global);
+  v0 = pParty->uCurrentHour;
+  //compile_error(level file name should not be global);
     //location_index = CMapStats_FindLocation(pMapStats, CurrentLevelName);
+
+  MapInfo *pMapInfo = nullptr;
+  if (uCurrentlyLoadedLevelType == 2)
+    pMapInfo = pMapStats->GetMapInfo((char *)pOutdoor->pLocationFileName);
+  else if (uCurrentlyLoadedLevelType == 1)
+    pMapInfo = pMapStats->GetMapInfo(pIndoor->pLocationFileName);
+
   v13 = 0x4B4B4B; //colored or white text flag
   Render_DrawIndexedTexture(pD3DRenderer, pOldViewport->uGameX, pOldViewport->uGameY, dword_5064D4);
-  v12 = DayMoonPhase[pParty_global->uDaysPlayed];
+  v12 = DayMoonPhase[pParty->uDaysPlayed];
   if ( v0 <= 12 )
 	  {
       v2 = 0;
@@ -6593,20 +6602,20 @@ void  sub_413D6F_DrawSpellbook_Calendar()
   local_0C.uFrameW = 467;
   GUIWindow_DrawText(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_TIME_ERATHIA], 3);
   v1 =  GetDayPart();
-  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d:%02d %s - %s", pGlobalTXT_LocalizationStrings[LOCSTR_TIME], v0, pParty_global->uCurrentMinute, aAMPMNames[v2], v1);
+  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d:%02d %s - %s", pGlobalTXT_LocalizationStrings[LOCSTR_TIME], v0, pParty->uCurrentMinute, aAMPMNames[v2], v1);
   FontDrawText(&local_0C, pBookFont, 70, 55, (char *)TmpBuf, v13, 0, 0);
-  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[LOCSTR_DAY], pParty_global->uDaysPlayed + 1, aDayNames[pParty_global->uDaysPlayed % 7]);
+  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[LOCSTR_DAY], pParty->uDaysPlayed + 1, aDayNames[pParty->uDaysPlayed % 7]);
   FontDrawText(&local_0C, pBookFont, 70, 2 * pBookFont->uFontHeight + 49, (char *)TmpBuf, v13, 0, 0);
-  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[146], pParty_global->uCurrentMonth + 1, aMonthNames[pParty_global->uCurrentMonth]);
+  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[146], pParty->uCurrentMonth + 1, aMonthNames[pParty->uCurrentMonth]);
   FontDrawText(&local_0C, pBookFont, 70, 4 *  pBookFont->uFontHeight + 43, (char *)TmpBuf, v13, 0, 0);
-  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d", pGlobalTXT_LocalizationStrings[245], pParty_global->uCurrentYear);
+  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d", pGlobalTXT_LocalizationStrings[245], pParty->uCurrentYear);
   FontDrawText(&local_0C, pBookFont, 70, 6 *  pBookFont->uFontHeight + 37, (char *)TmpBuf, v13, 0, 0);
   wsprintfA((char *)TmpBuf, "%s\t100:\t110%s", pGlobalTXT_LocalizationStrings[530], aMoonPhaseNames[v12]);
   FontDrawText(&local_0C, pBookFont, 70, 8 *  pBookFont->uFontHeight + 31, (char *)TmpBuf, v13, 0, 0);
-  if (location_index)
-    v3 = pMapStats->pMapInfos[location_index].pLocationName;
+  if (pMapInfo)
+    v3 = pMapInfo->pLocationName;
   else
-    v3 = (unsigned char*)"Unknown";
+    v3 = (unsigned char *)"Unknown";
   wsprintfA((char *)TmpBuf, "%s\t100:\t110%s", pGlobalTXT_LocalizationStrings[531], v3);
   FontDrawText(&local_0C, pBookFont, 70, 10 * pBookFont->uFontHeight + 25, (char *)TmpBuf, v13, 0, 0);
 }
@@ -7177,21 +7186,21 @@ void __cdecl sub_416196()
       v49 = v10 & 0x3F;
       v57 = sub_458244_GetSkillMasteryLevel(v10);
       v8 = v58;
-      if (pParty_global->pickedItem.uItemID == 220)
+      if (pParty->pickedItem.uItemID == 220)
       {
 LABEL_116:
         GameUI_DrawItemInfo(&v0->pInventorySlots[v8]);
         return;
       }
-      if (pParty_global->pickedItem.uItemID >= 200)
+      if (pParty->pickedItem.uItemID >= 200)
       {
-        if (pParty_global->pickedItem.uItemID <= 219)
+        if (pParty->pickedItem.uItemID <= 219)
         {
          // v11 = v0 + 36 * v58;
           if (v0->pInventorySlots[v58].uItemID == 220 )
           {
-           v0->pInventorySlots[v58].dword_000004 = v9 + pClass40->pItems[pParty_global->pickedItem.uItemID - 1].uDamageDice;
-            switch (pParty_global->pickedItem.uItemID)
+           v0->pInventorySlots[v58].dword_000004 = v9 + pClass40->pItems[pParty->pickedItem.uItemID - 1].uDamageDice;
+            switch (pParty->pickedItem.uItemID)
             {
               case 200:
               case 201:
@@ -7235,24 +7244,24 @@ LABEL_116:
           }
         }
       }
-      if (pParty_global->pickedItem.uItemID < 221 ||
-          pParty_global->pickedItem.uItemID > 271 ||
+      if (pParty->pickedItem.uItemID < 221 ||
+          pParty->pickedItem.uItemID > 271 ||
          // (v13 = v0 + 36 * v58, v55 = v13, v12 = *(_DWORD *)(v13 + 532), v59 = v12, v12 < 221)
 		 (v0->pInventorySlots[v58].uItemID<221)
          || v0->pInventorySlots[v58].uItemID > 271 )
       {
-        if (pParty_global->pickedItem.uItemID != 236
-          && (pParty_global->pickedItem.uItemID < 246 || pParty_global->pickedItem.uItemID > 250)
-          && pParty_global->pickedItem.uItemID != 263
-          && pParty_global->pickedItem.uItemID != 233 )
+        if (pParty->pickedItem.uItemID != 236
+          && (pParty->pickedItem.uItemID < 246 || pParty->pickedItem.uItemID > 250)
+          && pParty->pickedItem.uItemID != 263
+          && pParty->pickedItem.uItemID != 233 )
           goto LABEL_116;
        // v29 = v0->pInventorySlots[v58];
         v27 =v0->pInventorySlots[v58].uItemID; // *(_DWORD *)v29;
         v59 = pClass40->pItems[v0->pInventorySlots[v58].uItemID  - 1].uEquipType;
-        v28 = 1800 * pParty_global->pickedItem.dword_000004;
-        if (pParty_global->pickedItem.uItemID != 233)
+        v28 = 1800 * pParty->pickedItem.dword_000004;
+        if (pParty->pickedItem.uItemID != 233)
         {
-          if (pParty_global->pickedItem.uItemID == 236)
+          if (pParty->pickedItem.uItemID == 236)
           {
            // v35 = *(_DWORD *)(v29 + 20);
 			 v35 =v0->pInventorySlots[v58].uAttributes;
@@ -7263,11 +7272,11 @@ LABEL_116:
           }
           else
           {
-            if (pParty_global->pickedItem.uItemID <= 245)
+            if (pParty->pickedItem.uItemID <= 245)
               goto LABEL_92;
-            if (pParty_global->pickedItem.uItemID <= 250)
+            if (pParty->pickedItem.uItemID <= 250)
             {
-              sub_458260(v29, pParty_global->qword_00002C);
+              sub_458260(v29, pParty->qword_00002C);
               v33 =v0->pInventorySlots[v58].uItemID; //*(_DWORD *)v29;
               if ( v33>= 64 && v33 <= 65
                 || (v57 = *(_DWORD *)(v29 + 20), v57 & 2)
@@ -7276,15 +7285,15 @@ LABEL_116:
                 || v59 && v59 != 1 && v59 != 2
                 || v33 >= 500 )
                 goto LABEL_92;
-              v34 = dword_4E2544[pParty_global->pickedItem.uItemID];
+              v34 = dword_4E2544[pParty->pickedItem.uItemID];
               v40_s.z = v28 << 7;
               v31 = (double)(v28 << 7);
               *(_DWORD *)(v29 + 12) = v34;
             }
             else
             {
-              if (pParty_global->pickedItem.uItemID != 263
-                || (sub_458260(v29, pParty_global->qword_00002C), v30 = *(_DWORD *)v29, *(_DWORD *)v29 >= 64) && v30 <= 65
+              if (pParty->pickedItem.uItemID != 263
+                || (sub_458260(v29, pParty->qword_00002C), v30 = *(_DWORD *)v29, *(_DWORD *)v29 >= 64) && v30 <= 65
                 || (v57 = *(_DWORD *)(v29 + 20), v57 & 2)
                 || *(_DWORD *)(v29 + 12)
                 || *(_DWORD *)(v29 + 4)
@@ -7295,7 +7304,7 @@ LABEL_116:
               *(_DWORD *)(v29 + 12) = 40;
               v31 = (double)v40_s.z;
             }
-            v32 = pParty_global->qword_00002C + (signed int)(signed __int64)(v31 * 0.03333333507180214);
+            v32 = pParty->qword_00002C + (signed int)(signed __int64)(v31 * 0.03333333507180214);
             *(_DWORD *)(v29 + 28) = v32;
             LODWORD(v32) = v57;
             LOBYTE(v32) = v57 | 0x18;
@@ -7305,7 +7314,7 @@ LABEL_116:
           dword_50C9A8 = 256;
           goto LABEL_92;
         }
-        v36 = (70.0 - (double)pParty_global->pickedItem.dword_000004) * memory_4D8410.d0_01;
+        v36 = (70.0 - (double)pParty->pickedItem.dword_000004) * memory_4D8410.d0_01;
         if ( v36 < 0.0 )
           v36 = 0.0;
         if ( v59 != 12 )
@@ -7320,10 +7329,10 @@ LABEL_116:
         goto LABEL_92;
       }
       v14 = v12 - 222;
-      v15 = pParty_global->pickedItem.uItemID - 222;
+      v15 = pParty->pickedItem.uItemID - 222;
       v51 = v14;
       v40_s.y = 0;
-      if (pParty_global->pickedItem.uItemID == 221 || v59 == 221)
+      if (pParty->pickedItem.uItemID == 221 || v59 == 221)
       {
         v16 = 5;
       }
@@ -7421,7 +7430,7 @@ LABEL_115:
         v42 = (int)&v40_s.z;
         v41 = (int)&v40_s.y;
         v40 = (int)&v40_s.x;
-        v39 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+        v39 = pParty->vPosition.z + pParty->uEyelevel;
       }
       else
       {
@@ -7452,7 +7461,7 @@ LABEL_115:
                   *(_DWORD *)(v0 + 36 * v19 + 516) = 1;
                 v20 = v51 + 50 * v15;
                 *(_DWORD *)(v0 + 36 * v58 + 532) = v59;
-                *(_DWORD *)(v0 + 36 * v58 + 536) = (pParty_global->pickedItem.dword_000004 + *(_DWORD *)(v0 + 36 * v58 + 536)) / 2;
+                *(_DWORD *)(v0 + 36 * v58 + 536) = (pParty->pickedItem.dword_000004 + *(_DWORD *)(v0 + 36 * v58 + 536)) / 2;
                 Player_sub_44A5CB((char *)v0, 223, pClass40->unk_0102EC[v20]);
 LABEL_74:
                 v22 = (int)v0 + 36 * v58;
@@ -7466,9 +7475,9 @@ LABEL_74:
               if ( v49 )
               {
                 if ( *(_DWORD *)(v40_s.z + 532) == 221 )
-                  *(_DWORD *)(v40_s.z + 532) = pParty_global->pickedItem.uItemID;
+                  *(_DWORD *)(v40_s.z + 532) = pParty->pickedItem.uItemID;
                 else
-                  *(_DWORD *)(v40_s.z + 536) = pParty_global->pickedItem.dword_000004;
+                  *(_DWORD *)(v40_s.z + 536) = pParty->pickedItem.dword_000004;
                 v21 = AddItem((Player *)v0, -1, 220);
                 if ( v21 )
                   *(_DWORD *)(v0 + 36 * v21 + 516) = 1;
@@ -7493,11 +7502,11 @@ LABEL_74:
         v42 = (int)&v40_s.z;
         v41 = (int)&v40_s.y;
         v40 = (int)&v40_s.x;
-        v39 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+        v39 = pParty->vPosition.z + pParty->uEyelevel;
       }
-      //RotateVector(64, pParty_global->sRotationY, pParty_global->sRotationX, pParty_global->vPosition.x, pParty_global->vPosition.y, v39, (int *)v40, (int *)v41, (int *)v42);
-      RotateVector(64, pParty_global->sRotationY, pParty_global->sRotationX,
-                   Vec3<int>(pParty_global->vPosition.x, pParty_global->vPosition.y, v39),
+      //RotateVector(64, pParty->sRotationY, pParty->sRotationX, pParty->vPosition.x, pParty->vPosition.y, v39, (int *)v40, (int *)v41, (int *)v42);
+      RotateVector(64, pParty->sRotationY, pParty->sRotationX,
+                   Vec3<int>(pParty->vPosition.x, pParty->vPosition.y, v39),
                    &v40_s);//(int *)v40, (int *)v41, (int *)v42);
       sub_42F7EB_DropItemAt(1051, v40_s.x, v40_s.y, v40_s.z, 0, 1, 0, 0, 0);
       if ( dword_4E455C )
@@ -7562,7 +7571,7 @@ void __thiscall sub_416B01(void *_this)
 
     for (i = 0; i < 2; ++i)
     {
-     if (pParty_global->pHiredNPCs[i].pNPCName)
+     if (pParty->pHiredNPCs[i].pNPCName)
         TmpBuf[v3++] = i;
     }
 
@@ -7573,17 +7582,17 @@ void __thiscall sub_416B01(void *_this)
       {
         if (pNPCStats->pNPCData2[i].dword_000008 & 0x80)
         {
-          if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp((char *)pNPCStats->pNPCData2[i].pNPCName, (char *)pParty_global->pHiredNPCs[0].pNPCName))
+          if (!pParty->pHiredNPCs[0].pNPCName || strcmp((char *)pNPCStats->pNPCData2[i].pNPCName, (char *)pParty->pHiredNPCs[0].pNPCName))
           {
-            if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp((char *)pNPCStats->pNPCData2[i].pNPCName, (char *)pParty_global->pHiredNPCs[1].pNPCName))
+            if (!pParty->pHiredNPCs[1].pNPCName || strcmp((char *)pNPCStats->pNPCData2[i].pNPCName, (char *)pParty->pHiredNPCs[1].pNPCName))
               TmpBuf[v3++] = i + 2;
           }
         }
       }
     }
-    if ( (signed int)((char *)v22 + (unsigned __int8)pParty_global->byte_000709) < v3 )
+    if ( (signed int)((char *)v22 + (unsigned __int8)pParty->byte_000709) < v3 )
     {
-      uDialogue_SpeakingActorID = -1 - (unsigned __int8)pParty_global->byte_000709 - (_DWORD)v22;
+      uDialogue_SpeakingActorID = -1 - (unsigned __int8)pParty->byte_000709 - (_DWORD)v22;
       v5 = sub_445B2C(uDialogue_SpeakingActorID, (int)&v21);
       v6 = v5;
       if ( v5 )
@@ -7722,7 +7731,7 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
       return;
     }
   }
-  if (pParty_global->pickedItem.uItemID)
+  if (pParty->pickedItem.uItemID)
   {
     v1 = 0;
     do
@@ -7974,7 +7983,7 @@ LABEL_42:
             {
               if ( v17 == 1 )
               {
-                v18 = 4 * GetSkillIdxByOrder(&pParty_global->pPlayers[1743 * uPlayerCreationUI_SelectedCharacter], *(_DWORD *)(v12 + 36) + 4);
+                v18 = 4 * GetSkillIdxByOrder(&pParty->pPlayers[1743 * uPlayerCreationUI_SelectedCharacter], *(_DWORD *)(v12 + 36) + 4);
                 v14 = (int)aSkillNames[v18 / 4];
                 local_04.ptr_000048 = pSkillDescription[v18 / 4];
                 v13 = v39;
@@ -8020,15 +8029,15 @@ LABEL_117:
     if ( v15 == 118 )
     {
       v20 = 6972 * *(_DWORD *)(v12 + 36);
-      v14 = (int)(pParty_global->pPlayers[0].sName + v20);
-      v19 = (int)pClassDescriptions[pParty_global->pPlayers[0].uClass + v20];
+      v14 = (int)(pParty->pPlayers[0].sName + v20);
+      v19 = (int)pClassDescriptions[pParty->pPlayers[0].uClass + v20];
 LABEL_116:
       local_04.ptr_000048 = (unsigned char *)v19;
       goto LABEL_117;
     }
     goto LABEL_117;
   }
-  v21 = GetSkillIdxByOrder(&pParty_global->pPlayers[*(_DWORD *)(v12 + 36)], v15 - 72);
+  v21 = GetSkillIdxByOrder(&pParty->pPlayers[*(_DWORD *)(v12 + 36)], v15 - 72);
   v13 = v21;
   v39 = v21;
   if ( v21 < 0 || v21 >= 37 )
@@ -8143,7 +8152,7 @@ void __thiscall OnMouseLeftClick(void *_this)
                       dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
                     } */
 					 dword_50CBD0.PutMessageToQueue(27,v6 >> 3,0);
-                    if (pParty_global->bTurnBasedModeOn)
+                    if (pParty->bTurnBasedModeOn)
                     {
                       if ( dword_4F885C == 3 )
                         dword_4F8870 |= 8u;
@@ -8494,7 +8503,7 @@ char *sub_417BB5(int player_index, int skill_index)
     max_width = v33;
   if ( v2 > max_width )
     max_width = v2;
-  v6 = &pParty_global->pPlayers[player_index];
+  v6 = &pParty->pPlayers[player_index];
   //v33 = v6->pActiveSkills[v4];
   v7 = Player_GetActualSkillLevel(v6, skill_index);
   v8 =  v6->pActiveSkills[skill_index];
@@ -8844,7 +8853,7 @@ int __cdecl sub_419401()
   }
   v12 = 0;
   v19 = pGUIWindow_CurrentMenu->uNumControls;
-  v18 = (char *)&pParty_global->pPlayers[v1 - 1];
+  v18 = (char *)&pParty->pPlayers[v1 - 1];
   result = (int)pFontLucida;
   v3 = 2 * pFontLucida->uFontHeight + 13;
   for(i = 0; i < 9; i++)
@@ -9124,7 +9133,7 @@ void  QuickRefDraw()
   v45 = pFontArrus->uFontHeight + 1;
   do
   {
-    v2 = &pParty_global->pPlayers[v43];
+    v2 = &pParty->pPlayers[v43];
     v44 = 94 * v43 + 89;
     if ( v43 == 0 )
       GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, 18, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NAME], 60, 0);
@@ -9253,7 +9262,7 @@ void  QuickRefDraw()
   wsprintfA((char *)TmpBuf, "%s: \f%06x%s\f000000", pGlobalTXT_LocalizationStrings[LOCSTR_REPUTATION], v39, v41);
 
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 22, 323, (char *)TmpBuf, 0, 0, 0);
-  v42 = Party_sub_49135E_GetAllPartyExpDiv1000(pParty_global);
+  v42 = Party_sub_49135E_GetAllPartyExpDiv1000(pParty);
   wsprintfA((char *)TmpBuf, "\r261%s: %d", pGlobalTXT_LocalizationStrings[84], v42);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 0, 323, (char *)TmpBuf, 0, 0, 0);
 }
@@ -10035,15 +10044,15 @@ void GUIWindow_sub_41D3B7(GUI::Window *_this)	  //show quick info
 
   v4 = _this;
   v42 = pFontComic;
- Player *pPlayer = &pParty_global->pPlayers[_this->dword_00001C];
+ Player *pPlayer = &pParty->pPlayers[_this->dword_00001C];
   v43 = v4;
   v2 = 0;
- // v1 = (int)pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs;
+ // v1 = (int)pParty->pPlayers[_this->dword_00001C].pPlayerBuffs;
   //v3 = 24;
-  v41 = (int)pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs;
+  v41 = (int)pParty->pPlayers[_this->dword_00001C].pPlayerBuffs;
   for( int i=0; i<24; i++)
 	  {
-    if (pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs[i].qword_000000 > 0i64 )
+    if (pParty->pPlayers[_this->dword_00001C].pPlayerBuffs[i].qword_000000 > 0i64 )
       ++v2;
        }
  
@@ -10135,8 +10144,8 @@ void GUIWindow_sub_41D3B7(GUI::Window *_this)	  //show quick info
     {
       if ( v34 >0|| v33 >0 )
       {
-        //v35 = __PAIR__(v34, v33) - pParty_global->qword_00002C;
-        v35 = *(_QWORD *)v30 - pParty_global->qword_00002C;
+        //v35 = __PAIR__(v34, v33) - pParty->qword_00002C;
+        v35 = *(_QWORD *)v30 - pParty->qword_00002C;
 
         v36 = v45++ * *(_BYTE *)(v42 + 5) + 134;
         v37 = *(const char **)v46;
@@ -10189,14 +10198,14 @@ void GUIWindow_sub_41D73D(int _this)
   v2 = _this;
   v17 = (int)pFontComic;
   v19 = 0;
-  v1 = (signed int)pParty_global->pPartyBuffs;
+  v1 = (signed int)pParty->pPartyBuffs;
   do
   {
     if ( *(_QWORD *)v1 > 0i64 )
       ++v19;
     v1 += 16;
   }
-  while ( v1 < (signed int)&pParty_global->pPlayers[0] );
+  while ( v1 < (signed int)&pParty->pPlayers[0] );
   v4 = *(_BYTE *)(pFontArrus + 5) + 72;
   *(_DWORD *)(_this + 12) = v4;
   v5 = v4 + (v19 - 1) * *(_BYTE *)(pFontArrus + 5);
@@ -10214,7 +10223,7 @@ void GUIWindow_sub_41D73D(int _this)
   v8 = &unk_4E2B21;
   //v16 = &dword_5068C8;
   v16 = (int *)aSpellNames;
-  v18 = (signed int)pParty_global->pPartyBuffs;
+  v18 = (signed int)pParty->pPartyBuffs;
   do
   {
     v9 = *(_DWORD *)v18;
@@ -10223,7 +10232,7 @@ void GUIWindow_sub_41D73D(int _this)
     {
       if ( (signed int)v10 > 0 || v9 )
       {
-        compile_error();//v11 = __PAIR__(v10, v9) - pParty_global->qword_00002C;
+        compile_error();//v11 = __PAIR__(v10, v9) - pParty->qword_00002C;
         v12 = v20 * *(_BYTE *)(v3 + 5) + 40;
         v13 = (const char *)*v16;
         ++v20;
@@ -10237,7 +10246,7 @@ void GUIWindow_sub_41D73D(int _this)
     ++v16;
     v8 = (char *)v8 + 3;
   }
-  while ( v18 < (signed int)&pParty_global->pPlayers[0] );
+  while ( v18 < (signed int)&pParty->pPlayers[0] );
 }
 
 //----- (0041E360) --------------------------------------------------------
@@ -10768,7 +10777,7 @@ LABEL_73:
 LABEL_84:
   for (j = 0; j < 4; ++j)
   {
-    LOBYTE(v47) = Player_GetActualSkillLevel(&pParty_global->pPlayers[j], 32);
+    LOBYTE(v47) = Player_GetActualSkillLevel(&pParty->pPlayers[j], 32);
     v133 = v47;
     v142 = 138;
     do
@@ -11090,7 +11099,7 @@ LABEL_144:
     }
     while ( i < 10 );
   }
-  if (pParty_global->pPartyBuffs[3].qword_000000 > 0 )
+  if (pParty->pPartyBuffs[3].qword_000000 > 0 )
   {
     wsprintfA((char *)TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[650], *(_WORD *)(v143 + 40));
     GUIFont_GetLineWidth(pFontSmallnum, TmpBuf);
@@ -11131,7 +11140,7 @@ int __cdecl sub_41F54A()
   if ( dword_507BB0 )
     cTexture_Free((cTexture *)dword_507BB0);
   LODFile_Icons_LOD.LODFile_sub_40F9C5();
-  wsprintfA((char *)TmpBuf, "TERRA%03d", pParty_global->uCurrentMinute / 6u + 10 * pParty_global->uCurrentHour);
+  wsprintfA((char *)TmpBuf, "TERRA%03d", pParty->uCurrentMinute / 6u + 10 * pParty->uCurrentHour);
   
   dword_507BAC = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2)];
   return 0;
@@ -11211,10 +11220,10 @@ int __cdecl sub_41F6C1()
   dword_506F14 = 0;
   dword_506F10 = 2;
   if ( uCurrentlyLoadedLevelType == 2 )
-    dword_506F10 = sub_4893CF(pOutdoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+    dword_506F10 = sub_4893CF(pOutdoor, pParty->vPosition.x, pParty->vPosition.y, pParty->vPosition.z);
   if ( sub_476387() )
   {
-    v0 = pParty_global->pPlayers[0].uClass;
+    v0 = pParty->pPlayers[0].uClass;
     while ( *(_BYTE *)v0 != 31 )
     {
       v0 += 6972;
@@ -11240,7 +11249,7 @@ LABEL_15:
     //if ( !_strcmpi(CurrentLevelName, "d29.blv") )
   if (0)
   {
-    if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 98) )
+    if ( (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 98) )
       dword_506F10 = 0;
   }
   ++LODFile_Icons_LOD.uTexturePacksCount;
@@ -11369,9 +11378,9 @@ void __cdecl sub_41FA01()
   if ( v1 )
   {
     Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (dword_50765C != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_50765C] : 0));
-    v17 = pParty_global->uCurrentHour;
+    v17 = pParty->uCurrentHour;
     dword_506F1C = *(_DWORD *)(pGUIWindow_CurrentMenu + 44);
-    if ( pParty_global->uCurrentHour <= 12 )
+    if ( pParty->uCurrentHour <= 12 )
     {
       if ( !v17 )
         v17 = 12;
@@ -11438,14 +11447,14 @@ void __cdecl sub_41FA01()
     GUIButton_sub_415180(&local_08, pGlobalTXT_LocalizationStrings[236], pFontCreate, v19, *(char **)v18);
     local_08.pParentWindow = 0;
 
-    v6 = (unsigned int)pParty_global->uCurrentHour >= 0xC && (unsigned int)pParty_global->uCurrentHour < 0x18;
-    wsprintfA((char *)TmpBuf, "%d:%02d %s", v17, pParty_global->uCurrentMinute, aAMPMNames[v6]);
+    v6 = (unsigned int)pParty->uCurrentHour >= 0xC && (unsigned int)pParty->uCurrentHour < 0x18;
+    wsprintfA((char *)TmpBuf, "%d:%02d %s", v17, pParty->uCurrentMinute, aAMPMNames[v6]);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, 368, 168, (char *)TmpBuf, 0, 0, *(unsigned int *)v18);
-    wsprintfA((char *)TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[56], pParty_global->uDaysPlayed + 1);
+    wsprintfA((char *)TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[56], pParty->uDaysPlayed + 1);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, 350, 190, (char *)TmpBuf, 0, 0, *(unsigned int *)v18);
-    wsprintfA((char *)TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[146], pParty_global->uCurrentMonth + 1);
+    wsprintfA((char *)TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[146], pParty->uCurrentMonth + 1);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, 350, 222, (char *)TmpBuf, 0, 0, *(unsigned int *)v18);
-    wsprintfA((char *)TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[245], pParty_global->uCurrentYear);
+    wsprintfA((char *)TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[245], pParty->uCurrentYear);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, 350, 254, (char *)TmpBuf, 0, 0, *(unsigned int *)v18);
     if ( dword_506F14 )
       sub_41F5BE();
@@ -11588,7 +11597,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
   int v1;
   pOutdoor = MemAlloc(OutdoorLocation, 1);
   pOutdoor->Load(pLevelFilename,
-             (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
+             (unsigned int)(signed __int64)((double)pParty->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
              (int)&v1);
 
   if (~dword_6BE364 & 0x2000)
@@ -11625,8 +11634,8 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
 
   pGameLoadingUI_ProgressBar->SetProgress(0.90f);
 
-  pOldCamera->sRotationX = pParty_global->sRotationX;
-  pOldCamera->sRotationY = pParty_global->sRotationY;
+  pOldCamera->sRotationX = pParty->sRotationX;
+  pOldCamera->sRotationY = pParty->sRotationY;
 
   class51_sub_4892E6(pOutdoor);
   pStruct9_global->dword_000014 = pOldCamera->flt_00001C;
@@ -12068,11 +12077,11 @@ signed int __fastcall sub_42041E(int a1)
       v55 = (v8 + v9) >> 1;
       v15 = (v7 + v11) >> 1;
     }
-    v18 = (double)pParty_global->vPosition.x - (double)v14;
+    v18 = (double)pParty->vPosition.x - (double)v14;
     v54 = v18;
-    v19 = (double)pParty_global->vPosition.y - (double)v55;
+    v19 = (double)pParty->vPosition.y - (double)v55;
     v48 = v19;
-    v58 = (double)pParty_global->uEyelevel + (double)pParty_global->vPosition.z - (double)v15;
+    v58 = (double)pParty->uEyelevel + (double)pParty->vPosition.z - (double)v15;
     *(float *)&X = v19 * v19;
     *(float *)&v56 = v18 * v18;
     v20 = sqrt(v58 * v58 + *(float *)&v56 + *(float *)&X);
@@ -12377,7 +12386,7 @@ void __fastcall sub_420C05(int a1, int a2)
     v17 = 0;
     for (i = 0; i < 2; ++i)
     {
-      if (pParty_global->pHiredNPCs[i].pNPCName)
+      if (pParty->pHiredNPCs[i].pNPCName)
       {
         v7 = v17++;
         TmpBuf[v7] = i;
@@ -12393,9 +12402,9 @@ void __fastcall sub_420C05(int a1, int a2)
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(*(const char **)v9, (char *)pParty_global->pHiredNPCs[0].pNPCName))
+         if (!pParty->pHiredNPCs[0].pNPCName || strcmp(*(const char **)v9, (char *)pParty->pHiredNPCs[0].pNPCName))
           {
-           if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(*(const char **)v9, (char *)pParty_global->pHiredNPCs[1].pNPCName))
+           if (!pParty->pHiredNPCs[1].pNPCName || strcmp(*(const char **)v9, (char *)pParty->pHiredNPCs[1].pNPCName))
             {
               v10 = v17++;
               TmpBuf[v10] = v8 + 2;
@@ -12415,7 +12424,7 @@ void __fastcall sub_420C05(int a1, int a2)
         v11 = 76 * TmpBuf[v3];
         v12 = (char *)&pNPCStats->pNPCData[499 + v11 / 76];
         if (TmpBuf[v3] < 2 )
-         v12 = (char *)&(&pParty_global->pHiredNPCs[0].pNPCName)[v11];
+         v12 = (char *)&(&pParty->pHiredNPCs[0].pNPCName)[v11];
         v13 = *((_DWORD *)v12 + 6);
         if ( v13 )
           v2 += dword_737C28[5 * v13];
@@ -12445,7 +12454,7 @@ void __fastcall sub_420C05(int a1, int a2)
     }
     v3 = 0;
   }
-  pParty_global->uNumGold += v4 - v2;
+  pParty->uNumGold += v4 - v2;
   array_6A0D14[1].word_000004 = v3;
   //array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
   array_6A0D14[1].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[1].uIconIdx)->word_00001A;
@@ -12469,9 +12478,9 @@ void __cdecl sub_420E01()
 
   sub_404828_ctor((LayingItem *)&v6);
   v0 = pGUIWindow_CurrentMenu->dword_00001C;
-  if (pParty_global->pickedItem.uItemID)
+  if (pParty->pickedItem.uItemID)
   {
-    if ( sub_41FFA2(-1, &pParty_global->pickedItem, pGUIWindow_CurrentMenu->dword_00001C) )
+    if ( sub_41FFA2(-1, &pParty->pickedItem, pGUIWindow_CurrentMenu->dword_00001C) )
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
   }
   else
@@ -12499,7 +12508,7 @@ void __cdecl sub_420E01()
       }
       else
       {
-        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &array_5E5150[v0].array_000004[v5]);
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &array_5E5150[v0].array_000004[v5]);
       }
       sub_420B13(v5, v3);
     }
@@ -12538,22 +12547,22 @@ signed int __cdecl sub_421B2C_DropPickedItem()
   int v23; // [sp+78h] [bp-4h]@5
  int i;
 
- if (pParty_global->pickedItem.uItemID != -1)
+ if (pParty->pickedItem.uItemID != -1)
  {
 #ifdef OLD_CODE
-  v1 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName, 2);
+  v1 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty->pickedItem.uItemID].pIconName, 2);
 #else
   wchar_t pTextureNameW[256];
-  wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName);
+  wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pParty->pickedItem.uItemID].pIconName);
 
   v1 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
 #endif
 
     v0 = v1 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v1]  : 0;
     v22 = bTextureLoading;
-    if ( uActiveCharacter && (v2 = AddItem(pPlayers[uActiveCharacter - 1], -1, pParty_global->pickedItem.uItemID)) != 0 )
+    if ( uActiveCharacter && (v2 = AddItem(pPlayers[uActiveCharacter - 1], -1, pParty->pickedItem.uItemID)) != 0 )
     {
-     memcpy(&pPlayers[uActiveCharacter - 1]->pInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
+     memcpy(&pPlayers[uActiveCharacter - 1]->pInventorySlots[v2], &pParty->pickedItem, sizeof(struct ItemGen));
     }
     else
     {
@@ -12561,22 +12570,22 @@ signed int __cdecl sub_421B2C_DropPickedItem()
       i = 0;
       while ( 1 )
       {
-        v4 = AddItem(&pParty_global->pPlayers[i++], -1, pParty_global->pickedItem.uItemID);
+        v4 = AddItem(&pParty->pPlayers[i++], -1, pParty->pickedItem.uItemID);
         if ( v4 )
           break;
         ++v23;
         if (i >= 4)
           goto LABEL_10;
       }
-      memcpy(&pParty_global->pPlayers[v23].pInventorySlots[v4], &pParty_global->pickedItem, sizeof(struct ItemGen));
+      memcpy(&pParty->pPlayers[v23].pInventorySlots[v4], &pParty->pickedItem, sizeof(struct ItemGen));
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_10:
       if ( v23 != 4 )
         goto LABEL_18;
       sub_404828_ctor((LayingItem *)&v10);
-      v6 = pClass40->pItems[pParty_global->pickedItem.uItemID - 1].uSpriteIndex;
+      v6 = pClass40->pItems[pParty->pickedItem.uItemID - 1].uSpriteIndex;
       v5 = 0;
-      v10 = pClass40->pItems[pParty_global->pickedItem.uItemID - 1].uSpriteIndex;
+      v10 = pClass40->pItems[pParty->pickedItem.uItemID - 1].uSpriteIndex;
       if ( pObjectDescriptionList->uNumObjects <= 0 )
       {
 LABEL_15:
@@ -12595,17 +12604,17 @@ LABEL_15:
       }
       v21 = 4;
       v11 = v5;
-      v13 = pParty_global->vPosition.y;
-      v12 = pParty_global->vPosition.x;
-      v14 = pParty_global->uEyelevel + pParty_global->vPosition.z;
+      v13 = pParty->vPosition.y;
+      v12 = pParty->vPosition.x;
+      v14 = pParty->uEyelevel + pParty->vPosition.z;
       v16 = 0;
       v15 = 0;
       v17 = 8;
-      v8 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+      v8 = IndoorLocation_GetRoom(pIndoor, pParty->vPosition.x, pParty->vPosition.y, pParty->uEyelevel + pParty->vPosition.z);
       v19 = 0;
       v18 = v8;
-      memcpy(&local_28, &pParty_global->pickedItem, sizeof(struct ItemGen));
-      sub_42F5ED((LayingItem *)&v10, pParty_global->sRotationY, 184, 200, 0);
+      memcpy(&local_28, &pParty->pickedItem, sizeof(struct ItemGen));
+      sub_42F5ED((LayingItem *)&v10, pParty->sRotationY, 184, 200, 0);
     }
     GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_18:
@@ -12626,13 +12635,13 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
  Player *v4; // ecx@5
 
  //if we are placing item on a portrait
-  if (pParty_global->pickedItem.uItemID != -1)
+  if (pParty->pickedItem.uItemID != -1)
   {
-    v2 = AddItem(pPlayers[uCharacter - 1], -1, pParty_global->pickedItem.uItemID);
+    v2 = AddItem(pPlayers[uCharacter - 1], -1, pParty->pickedItem.uItemID);
     v3 = pPlayers[uCharacter - 1];
     if (v2)
     {
-      memcpy(&v3->pInventorySlots[v2 - 1], &pParty_global->pickedItem, sizeof(struct ItemGen));
+      memcpy(&v3->pInventorySlots[v2 - 1], &pParty->pickedItem, sizeof(struct ItemGen));
       struct_576FE8.dword_000044 = 1;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
       return;
@@ -12803,15 +12812,15 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
         }
         if ( ptr_50C9A4 )
           return;
-        v8 = pParty_global->pickedItem.uItemID;
+        v8 = pParty->pickedItem.uItemID;
         v7 = Player_sub_421E75_GetItemAtInventoryIndex(v0, &v17);
         if (v8 == -1) // picking item
         {
           if (v7 == -1)
             return;
-          memcpy(&pParty_global->pickedItem, &v0->pInventorySlots[v7], sizeof(struct ItemGen));
+          memcpy(&pParty->pickedItem, &v0->pInventorySlots[v7], sizeof(struct ItemGen));
           Player_sub_492A36_RemoveItemFromIndexMatrix(v0, v17);
-          v9 = pParty_global->pickedItem.uItemID;
+          v9 = pParty->pickedItem.uItemID;
           goto LABEL_24;
         }
         v14 = v7;
@@ -12820,10 +12829,10 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
           v12.y = (int)&v0->pInventorySlots[v7];
           memcpy(&local_0C, (void *)v12.y, sizeof(ItemGen));
           Player_sub_492A36_RemoveItemFromIndexMatrix(v0, v17);
-          v10 = AddItem((Player *)v0, v17, &pParty_global->pickedItem);
+          v10 = AddItem((Player *)v0, v17, &pParty->pickedItem);
           if (v10 == -1)
           {
-            v10 = AddItem((Player *)v0, -1, &pParty_global->pickedItem);
+            v10 = AddItem((Player *)v0, -1, &pParty->pickedItem);
             if (v10 == -1)
             {
               sub_49298B(v0, &local_0C, v14 - 1, v17);
@@ -12832,7 +12841,7 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
             }
           }
           v9 = local_0C.uItemID;
-          memcpy(&pParty_global->pickedItem, &local_0C, sizeof(struct ItemGen));
+          memcpy(&pParty->pickedItem, &local_0C, sizeof(struct ItemGen));
 LABEL_24:
           GUICursor_SetCursorBitmap(pGame->pGUICursor, (char *)pClass40->pItems[v9].pIconName);
           return;
@@ -12844,7 +12853,7 @@ LABEL_24:
 
         if (v10 != -1)
         {
-          memcpy(&v0->pInventorySlots[v10], &pParty_global->pickedItem, sizeof(struct ItemGen));
+          memcpy(&v0->pInventorySlots[v10], &pParty->pickedItem, sizeof(struct ItemGen));
           GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
         }
       }
@@ -12944,11 +12953,11 @@ void __cdecl sub_42213C()
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], pClass40->pItems[v22/48 - 1].pUnidentifiedName);
         sub_44C175((char *)pStringBuffer, 2);
         if ( *(_DWORD *)v23 == 506 )
-          sub_449B7E((int)pParty_global->unk_000764 + 1, 184, 1);
+          sub_449B7E((int)pParty->unk_000764 + 1, 184, 1);
         if ( *(_DWORD *)v23 == 455 )
-          sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
-        if ( !Party_AddItem(pParty_global, (ItemGen *)v23) )
-          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)v23);
+          sub_449B7E((int)pParty->unk_000764 + 1, 185, 1);
+        if ( !Party_AddItem(pParty, (ItemGen *)v23) )
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, (ItemGen *)v23);
       }
       sub_42F933(v37);
       return;
@@ -12987,8 +12996,8 @@ void __cdecl sub_42213C()
         if ( !(*(_DWORD *)(v3 + 44) & 0x2000000) )
         {
 LABEL_11:
-          v4 = pParty_global->pickedItem.uItemID;
-          if (pParty_global->pickedItem.uItemID != -1)
+          v4 = pParty->pickedItem.uItemID;
+          if (pParty->pickedItem.uItemID != -1)
           {
 LABEL_14:
             v6 = pClass40->pItems[v4 - 1].uSpriteIndex;
@@ -13011,19 +13020,19 @@ LABEL_18:
               }
             }
             v24.v25 = v5;
-            v24.v27 = pParty_global->vPosition.y;
+            v24.v27 = pParty->vPosition.y;
             v24.v34 = 4;
-            v24.v26 = pParty_global->vPosition.x;
-            v24.v28 = pParty_global->uEyelevel + pParty_global->vPosition.z;
+            v24.v26 = pParty->vPosition.x;
+            v24.v28 = pParty->uEyelevel + pParty->vPosition.z;
             v24.v29 = 0;
             v24.v30 = 8;
-            v24.v31 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->uEyelevel + pParty_global->vPosition.z);
+            v24.v31 = IndoorLocation_GetRoom(pIndoor, pParty->vPosition.x, pParty->vPosition.y, pParty->uEyelevel + pParty->vPosition.z);
             v24.v32 = 0;
-            memcpy(&v24.local_30, &pParty_global->pickedItem, sizeof(struct ItemGen));
+            memcpy(&v24.local_30, &pParty->pickedItem, sizeof(struct ItemGen));
             v8 = (int)GUICursor_GetMousePos(pGame->pGUICursor, &v35);
             v9 = sub_46A0A1(v35.x);
-            sub_42F5ED((LayingItem *)&v24, pParty_global->sRotationY + v9, 184, 200, 0);
-            v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->pickedItem.uItemID].pIconName, 2);
+            sub_42F5ED((LayingItem *)&v24, pParty->sRotationY + v9, 184, 200, 0);
+            v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty->pickedItem.uItemID].pIconName, 2);
             cTexture_Free(v10 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v10] : 0);
             GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
             LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -13031,8 +13040,8 @@ LABEL_18:
           }
           sub_44C1D0();
 LABEL_13:
-          v4 = pParty_global->pickedItem.uItemID;
-          if (!pParty_global->pickedItem.uItemID)
+          v4 = pParty->pickedItem.uItemID;
+          if (!pParty->pickedItem.uItemID)
             return;
           goto LABEL_14;
         }
@@ -13079,7 +13088,7 @@ LABEL_13:
           v20 = (char *)pNPCStats->pCatchPhrases[(unsigned __int16)v19];
           if ( v20 )
           {
-            pParty_global->dword_007778 |= 2;
+            pParty->dword_007778 |= 2;
             strcpy((char *)&byte_5B0938, v20);
             sub_4451A8(0, 0, 0);
           }
@@ -13095,7 +13104,7 @@ LABEL_42:
 	  dword_50CBD0.PutMessageToQueue(161,v18,0);
       return;
     }
-    if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
+    if (pParty->bTurnBasedModeOn && dword_4F885C == 3)
     {
       dword_4F8870 |= 8u;
       return;
@@ -13110,9 +13119,9 @@ LABEL_42:
   }
   else
   {
-    if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
+    if (pParty->bTurnBasedModeOn && dword_4F885C == 3)
     {
-      pParty_global->dword_007778 |= 8u;
+      pParty->dword_007778 |= 8u;
       return;
     }
     if ( uActiveCharacter)

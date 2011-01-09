@@ -193,7 +193,7 @@ void sub_41AD6E()
  __int64 eax_ecx,
          ecx_eax;
 
- eax_ecx = pParty_global->qword_00002C - qword_507CC8;
+ eax_ecx = pParty->qword_00002C - qword_507CC8;
  if (eax_ecx < 0)
    qword_507CC8 = 0;
  /*__asm
@@ -202,20 +202,20 @@ void sub_41AD6E()
   push    ecx
   //mov     edx, dword ptr [qword_ACCFE4]
   {
-   mov edx, dword ptr [pParty_global]
+   mov edx, dword ptr [pParty]
    mov edx, dword ptr [edx + 0x2C]
   }
   push    ebx
   push    esi
   //mov     esi, dword ptr [qword_ACCFE4+4]
   {
-   mov esi, dword ptr [pParty_global]
+   mov esi, dword ptr [pParty]
    mov esi, dword ptr [esi + 0x2C + 4]
   }
   mov     ecx, edx
   mov     eax, esi
   sub     ecx, dword ptr [qword_507CC8]
-  sbb     eax, dword ptr [qword_507CC8+4]  //eax:ecx = pParty_global->qword_00002C - qword_507CC8
+  sbb     eax, dword ptr [qword_507CC8+4]  //eax:ecx = pParty->qword_00002C - qword_507CC8
   xor     ebx, ebx
   cmp     eax, ebx         
   jg      short loc_41ADA6                 //if      eax:ecx positive
@@ -223,7 +223,7 @@ void sub_41AD6E()
   cmp     ecx, ebx                         //else: eax:ecx fits in 32bits, 
   jnb     short loc_41ADA6                 //if ecx >= 0
                                            //else (negative)
-  //if pParty_global->qword_00002C - qword_507CC8 < 0, qword_507CC8 = 0
+  //if pParty->qword_00002C - qword_507CC8 < 0, qword_507CC8 = 0
 loc_41AD9A:                               
   mov     dword ptr [qword_507CC8], ebx
   mov     dword ptr [qword_507CC8+4], ebx
@@ -231,7 +231,7 @@ loc_41AD9A:
 
 
 
- ecx_eax = pParty_global->qword_00002C - qword_507CC8;
+ ecx_eax = pParty->qword_00002C - qword_507CC8;
  local_0 = HIWORD(ecx_eax);
  /*__asm
  {
@@ -248,9 +248,9 @@ loc_41ADA6:                             ; CODE XREF: sub_41AD6E+24j
  {
    //restore asm state
    xor ebx, ebx
-     mov edx, dword ptr [pParty_global]
+     mov edx, dword ptr [pParty]
      mov edx, dword ptr [edx + 0x2C]
-   mov esi, dword ptr [pParty_global]
+   mov esi, dword ptr [pParty]
    mov esi, dword ptr [esi + 0x2C + 4]
      sub esp, 16     //local frame: ecx ecx ebx esi
    mov     eax, edx
@@ -274,7 +274,7 @@ loc_41ADA6:                             ; CODE XREF: sub_41AD6E+24j
   mov     dword ptr [qword_507CC8+4], esi
  }*/
  
- qword_507CC8 = pParty_global->qword_00002C;
+ qword_507CC8 = pParty->qword_00002C;
 
 
   __asm loc_41ADCD:
@@ -3452,12 +3452,12 @@ void Vis_SetupCtorDetor(Vis *_this)
 /*//----- (00441CFF) --------------------------------------------------------
 void __cdecl sub_441CFF_DrawOutdoor()
 {
-  //if ( !(pParty_global->dword_007778 & 2) && !(*(_BYTE *)(&pGame->dword_000E24) & 1) )
+  //if ( !(pParty->dword_007778 & 2) && !(*(_BYTE *)(&pGame->dword_000E24) & 1) )
   //  sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(false);
   //else sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(true);
 
  //force redraw each frame
- pParty_global->dword_007778 |= 2;
+ pParty->dword_007778 |= 2;
  sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw();
 
 

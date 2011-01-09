@@ -581,7 +581,7 @@ void sub_487389_DrawSpansAndAll()
  unsigned int    uNumStructs;
 
 
- if (pParty_global->dword_007778 & 2)
+ if (pParty->dword_007778 & 2)
  {
   uNumStructs = pStruct9_global->dword_00002C;
   pStruct8Array = array_77EC08;
@@ -594,7 +594,7 @@ void sub_487389_DrawSpansAndAll()
 
  for (i = 0; i < uNumStructs; ++i)
  {
-  if (pParty_global->dword_007778 & 2)
+  if (pParty->dword_007778 & 2)
     pSpan = pStruct8Array[i].ptr_000040;
   else
     pSpan = array_80AA28[i]->ptr_000040;
@@ -857,7 +857,7 @@ LABEL_74:
  }
 
 
- if (pParty_global->dword_007778 & 2)
+ if (pParty->dword_007778 & 2)
  {
   uNumElementsIn80AA28 = 0;
   for (i = 0; i < pStruct9_global->dword_00002C; ++i)
@@ -919,7 +919,7 @@ LABEL_74:
  if (!v9)
    return;
 
- if (dword_6BE030 & 1 && pParty_global->uCurrentHour >= 5 && pParty_global->uCurrentHour < 21 || byte_6BE3C4_MaybeDrowningFlag)
+ if (dword_6BE030 & 1 && pParty->uCurrentHour >= 5 && pParty->uCurrentHour < 21 || byte_6BE3C4_MaybeDrowningFlag)
  {
     v42 = *(_WORD *)sub_47BE72(array_77EC08[1999].ptr_00003C->word_000026, 31, 1);
 

@@ -514,7 +514,7 @@ LABEL_21:
             wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[304], v32 + 168, pClass40->pItems[v15 - 1].pUnidentifiedName);
             sub_44C175((char *)pStringBuffer, 2);
             sub_421B2C_DropPickedItem();
-            memcpy(&pParty_global->pickedItem, &local_08, sizeof(struct ItemGen));
+            memcpy(&pParty->pickedItem, &local_08, sizeof(struct ItemGen));
             SetCursorBitmapFromItemID(v15);
             return v33;
           }
@@ -592,7 +592,7 @@ signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int
     else
     {
       Player_sub_492D65(_this, 14, 0);
-      v3 = pParty_global->qword_00002C;
+      v3 = pParty->qword_00002C;
       if (_this->sHealth > 0 )
         _this->sHealth = 0;
     }
@@ -1520,25 +1520,25 @@ LABEL_56:
 
     for (i = 0; i < 2; ++i)
     {
-      v9 = pParty_global->pHiredNPCs[i].dword_000030;
+      v9 = pParty->pHiredNPCs[i].dword_000030;
       if ( v9 )
       {
-        v10 = pParty_global->pHiredNPCs[i].dword_000028;
-        v11 = cMiscTimer.uElapsedTime + pParty_global->pHiredNPCs[i].dword_00002C;
+        v10 = pParty->pHiredNPCs[i].dword_000028;
+        v11 = cMiscTimer.uElapsedTime + pParty->pHiredNPCs[i].dword_00002C;
         if ( v11 >= v9 )
         {
           v10 = 0;
           v9 = 0;
           v11 = 0;
-          memset(&pParty_global->pHiredNPCs[i], 0, sizeof(struct NPCData));
-          pParty_global->byte_000709 = 0;
+          memset(&pParty->pHiredNPCs[i], 0, sizeof(struct NPCData));
+          pParty->byte_000709 = 0;
           sub_44A56A();
           struct_576FE8.dword_000044 = 1;
         }
 
-        pParty_global->pHiredNPCs[i].dword_000028 = v10;
-        pParty_global->pHiredNPCs[i].dword_00002C = v11;
-        pParty_global->pHiredNPCs[i].dword_000030 = v9;
+        pParty->pHiredNPCs[i].dword_000028 = v10;
+        pParty->pHiredNPCs[i].dword_00002C = v11;
+        pParty->pHiredNPCs[i].dword_000030 = v9;
       }
     }
   }
@@ -1564,17 +1564,17 @@ void __thiscall sub_490D02(void *_this)
   signed int v15; // [sp+14h] [bp-4h]@3
 
   v13 = _this;
-  v1 = (int)pParty_global->pPartyBuffs;
+  v1 = (int)pParty->pPartyBuffs;
   do
   {
     SpellBuff_sub_458585((SpellBuff *)v1);
     v1 += 16;
   }
-  while ( v1 < (signed int)&pParty_global->pPlayers[0] );
+  while ( v1 < (signed int)&pParty->pPlayers[0] );
   v15 = 0;
   do
   {
-    v4 = (int)&pParty_global->pPlayers[1743 * v15];
+    v4 = (int)&pParty->pPlayers[1743 * v15];
     v2 = 20;
     v3 = v4 + 6048;
     do
@@ -1663,7 +1663,7 @@ LABEL_33:
     ++v15;
   }
   while ( v15 < 4 );
-  pParty_global->unk_000764[0] = 0;
+  pParty->unk_000764[0] = 0;
 }
 
 //----- (00490EEE) --------------------------------------------------------
@@ -2097,7 +2097,7 @@ int __cdecl sub_491E3A()
 
   for (i = 0; i < 4; ++i)
   {
-   v0 = (int)&pParty_global->pPlayers[i];
+   v0 = (int)&pParty->pPlayers[i];
 
     if ( byte_4ED498 )
     {
@@ -2315,7 +2315,7 @@ __int16 __thiscall sub_492AD5(void *_this)
   __int16 result; // ax@1
 
   array_6A0D14[0].word_000004 = 0;
-  pParty_global->uNumFood = (int)_this;
+  pParty->uNumFood = (int)_this;
   //result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
   result = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
   //array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
@@ -2328,10 +2328,10 @@ __int16 __thiscall sub_492B03(void *_this)
 {
   __int16 result; // ax@4
 
-  if ( pParty_global->uNumFood - (_DWORD)_this >= 0 )
-    pParty_global->uNumFood -= (signed int)_this;
+  if ( pParty->uNumFood - (_DWORD)_this >= 0 )
+    pParty->uNumFood -= (signed int)_this;
   else
-    pParty_global->uNumFood = 0;
+    pParty->uNumFood = 0;
   array_6A0D14[0].word_000004 = 0;
   //result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
   result = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
@@ -2345,7 +2345,7 @@ __int16 __thiscall sub_492B42(void *_this)
 {
   __int16 result; // ax@1
 
-  pParty_global->uNumFood += (int)_this;
+  pParty->uNumFood += (int)_this;
   array_6A0D14[0].word_000004 = 0;
   //result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
   result = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
@@ -2357,7 +2357,7 @@ __int16 __thiscall sub_492B42(void *_this)
 //----- (00492B70) --------------------------------------------------------
 void __thiscall sub_492B70(void *_this)
 {
-  pParty_global->uNumGold = (int)_this;
+  pParty->uNumGold = (int)_this;
   array_6A0D14[1].word_000004 = 0;
   //array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
   array_6A0D14[1].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[1].uIconIdx)->word_00001A;
@@ -2367,10 +2367,10 @@ void __thiscall sub_492B70(void *_this)
 //----- (00492BB6) --------------------------------------------------------
 void __fastcall sub_492BB6(unsigned int a1)
 {
-  if ( a1 <= pParty_global->uNumGold )
-    pParty_global->uNumGold -= a1;
+  if ( a1 <= pParty->uNumGold )
+    pParty->uNumGold -= a1;
   else
-    pParty_global->uNumGold = 0;
+    pParty->uNumGold = 0;
   array_6A0D14[1].word_000004 = 0;
   //array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
   array_6A0D14[1].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[1].uIconIdx)->word_00001A;
@@ -2395,11 +2395,11 @@ bool Player_CanEquip_RacialAndAlignmentCheck(Player *_this, unsigned int uItemID
  if (uItemID == 514 ||                       // item233  Посох Этрика              артефакт, зло
      uItemID == 516 ||                       // item221  Старый Ник                артефакт, зло
      uItemID == 524)                         // item325  Сумрак                    реликвия, зло
-   return sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) != 0;
+   return sub_449B57((unsigned char *)pParty->unk_000764 + 1, 100) != 0;
 
  if (uItemID == 521 ||                       // item239  Шлем Таледона             артефакт, добро
      uItemID == 526)                         // item230  Справедливость            реликвия, добро
-   return sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) != 0;
+   return sub_449B57((unsigned char *)pParty->unk_000764 + 1, 99) != 0;
  
  if (uItemID == 530)                         // item093  Гибель Эльфа              артефакт, гоблин
    return Player_GetRace(_this) == Character::Race::Goblin;
@@ -2732,7 +2732,7 @@ int __fastcall sub_4938D1(unsigned int a1)
   if ( a1 > 0xF0 )
     UpdateActors();
   v3 = (double)(7680 * v1) * 0.03333333507180214;
-  pParty_global->qword_00002C += (signed __int64)v3;
+  pParty->qword_00002C += (signed __int64)v3;
   for(int i=1; i<5; i++) 
   {
     v2 = pPlayers[i];
@@ -3090,7 +3090,7 @@ LABEL_119:
               v13 = (int)pGlobalTXT_LocalizationStrings[383];
             goto LABEL_118;
           case 0x215:
-            v18 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 % 24;
+            v18 = (signed __int64)((double)pParty->qword_00002C * 0.234375) / 60 / 60 % 24;
             v13 = (int)pGlobalTXT_LocalizationStrings[397];
             if ( HIDWORD(v18) <= 0 )
             {
@@ -3370,8 +3370,8 @@ LABEL_98:
               goto LABEL_108;
             if ( v16 + 10 * (unsigned __int8)*v17 - 579 >= 20 )
               goto LABEL_118;
-            HIDWORD(v50) = pParty_global->Abc.array_00047C[2 * v15 + 1];
-            LODWORD(v50) = pParty_global->Abc.array_00047C[2 * v15];
+            HIDWORD(v50) = pParty->Abc.array_00047C[2 * v15 + 1];
+            LODWORD(v50) = pParty->Abc.array_00047C[2 * v15];
             sub_493F79((int)&v56, v50);
             v54 = v59;
             v53 = v57 + 1;
@@ -3568,7 +3568,7 @@ int CreditsMenuLoop()
   while ( sub_466CA0() == 8 );
   sub_435748_PlayerCreationUI_MessageProc();
   pD3DRenderer->BeginScene();
-  sub_4156F0_LooksLike_UI_ProcessCallbacks();
+  sub_4156F0_UI_UpdateWindows();
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
   AudioPlayer_sub_4AA258(pAudioPlayer, 1);
@@ -6234,14 +6234,14 @@ LABEL_7:
             fldz
              int 3
             //fstp    [ebp+var_34]
-            //fild    pParty_global->sPartyPosX
+            //fild    pParty->sPartyPosX
           }
-          a2 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+          a2 = pParty->vPosition.z + pParty->uEyelevel;
           __asm
           {
            int 3
             //fstp    [ebp+var_60]
-            //fild    pParty_global->sPartyPosY
+            //fild    pParty->sPartyPosY
             //fstp    [ebp+var_5C]
             //fild    [ebp+arg_0]
             //fstp    [ebp+var_58]
@@ -11956,9 +11956,9 @@ int __fastcall sub_4AAEA6(int a1)
   result = 0;
   if ( stru_51B6E0.sRotationX )
   {
-    v13 = *(float *)a1 - (double)pParty_global->vPosition.x;
-    v11 = *(float *)(a1 + 4) - (double)pParty_global->vPosition.y;
-    v4 = *(float *)(a1 + 8) - (double)pParty_global->vPosition.z;
+    v13 = *(float *)a1 - (double)pParty->vPosition.x;
+    v11 = *(float *)(a1 + 4) - (double)pParty->vPosition.y;
+    v4 = *(float *)(a1 + 8) - (double)pParty->vPosition.z;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       v6 = v11 * stru_51B6E0.fSineY + v13 * stru_51B6E0.fCosineY;
@@ -11975,9 +11975,9 @@ int __fastcall sub_4AAEA6(int a1)
   }
   else
   {
-    v14 = *(float *)a1 - (double)pParty_global->vPosition.x;
-    v12 = *(float *)(a1 + 4) - (double)pParty_global->vPosition.y;
-    v7 = *(float *)(a1 + 8) - (double)pParty_global->vPosition.z;
+    v14 = *(float *)a1 - (double)pParty->vPosition.x;
+    v12 = *(float *)(a1 + 4) - (double)pParty->vPosition.y;
+    v7 = *(float *)(a1 + 8) - (double)pParty->vPosition.z;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       *(float *)(a1 + 12) = v12 * stru_51B6E0.fSineY + v14 * stru_51B6E0.fCosineY;
@@ -11999,7 +11999,7 @@ int __fastcall sub_4AB66C(int a1, int a2)
 {
   int v2; // eax@1
 
-  v2 = pClass59_global->uDoublePiMask & (class59_Atan2(pClass59_global, a1 - pParty_global->vPosition.x, a2 - pParty_global->vPosition.y) - pClass59_global->uIntegerHalfPi - pParty_global->sRotationY);
+  v2 = pClass59_global->uDoublePiMask & (class59_Atan2(pClass59_global, a1 - pParty->vPosition.x, a2 - pParty->vPosition.y) - pClass59_global->uIntegerHalfPi - pParty->sRotationY);
   if ( v2 > pClass59_global->uIntegerPi )
     v2 = 2 * pClass59_global->uIntegerPi - v2;
   return (v2 >> 3) - (v2 >> 10);

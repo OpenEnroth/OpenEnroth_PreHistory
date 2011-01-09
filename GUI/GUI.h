@@ -10,11 +10,13 @@
 #include "..\defs.h"
 #include "..\Extras\List.h"
 
+
 #define MENU_MAIN        0
 #define MENU_NEWGAME     1
 #define MENU_CREDITS     2
 #define MENU_LOAD        3
 #define MENU_CREATEPARTY 6
+//#define MENU_SAVELOAD    9
 
 
 #define MESSAGE_ATTACK                 0x17
@@ -240,7 +242,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter);
 void __fastcall CharacterUI_DrawPaperdoll2(int a1);
 
 void __cdecl sub_411150();
-void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks();
+void __cdecl sub_4156F0_UI_UpdateWindows();
 
 void sub_491DE7(int a1, int a2);
 

@@ -16,7 +16,7 @@ Result::Code Game::PrepareForLoop()
 {
   if (uCurrentMenuID == 9)
   {
-    Party_Reset(pParty_global);
+    Party_Reset(pParty);
     dword_6BE340 = 0;
     dword_6A0D48 = 0;
     sub_45EE8A(dword_6A0CA0_indx);
@@ -67,10 +67,10 @@ Result::Code Game::Loop(const char *pLevelName)
                           dword_50CBD0.msg_count = 1;
 
     pPartyActionQueue->Clear();
-    if (pParty_global->bTurnBasedModeOn)
+    if (pParty->bTurnBasedModeOn)
     {
       sub_405CFF((int)&unk_4F8858, 0);
-      pParty_global->bTurnBasedModeOn = false;
+      pParty->bTurnBasedModeOn = false;
     }
 
     PrepareWorld(pLevelName, v17, 1);
@@ -158,7 +158,7 @@ LABEL_89:
       }
       if ( cEventTimer.dword_000008 )
       {
-        if (!pParty_global->bTurnBasedModeOn)
+        if (!pParty->bTurnBasedModeOn)
           cEventTimer.dword_000008 = 0;
       }
       if ( !cEventTimer.bPaused )
@@ -211,13 +211,13 @@ LABEL_85:
           continue;
         }
         ((BaseRender *)v2)->BeginScene();
-        sub_4156F0_LooksLike_UI_ProcessCallbacks();
+        sub_4156F0_UI_UpdateWindows();
         ((BaseRender *)v2)->EndScene();
         goto LABEL_89;
       }
       pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
-      memset(&pParty_global->pHiredNPCs[0], 0, sizeof(struct NPCData));
-      memset(&pParty_global->pHiredNPCs[1], 0, sizeof(struct NPCData));
+      memset(&pParty->pHiredNPCs[0], 0, sizeof(struct NPCData));
+      memset(&pParty->pHiredNPCs[1], 0, sizeof(struct NPCData));
       v6 = 0;
       if (pNPCStats->dword_017FC4 > 0)
       {
@@ -238,14 +238,14 @@ LABEL_85:
       }
 
       SaveGame(0, 0);
-      ++pParty_global->uNumDeaths;
+      ++pParty->uNumDeaths;
 
       for (i = 0; i < 4; ++i)
-        Player_sub_44A5CB((char *)&pParty_global->pPlayers[i], 12, 85);
+        Player_sub_44A5CB((char *)&pParty->pPlayers[i], 12, 85);
 
-      pParty_global->unk_000764[0] = 0;
-      pParty_global->qword_00002C += 2580480i64;
-      LOWORD(pParty_global->dword_007778) = pParty_global->dword_007778 & 0xFDFB;
+      pParty->unk_000764[0] = 0;
+      pParty->qword_00002C += 2580480i64;
+      LOWORD(pParty->dword_007778) = pParty->dword_007778 & 0xFDFB;
       sub_492B70(0);
       v10 = (int)array_5E4D58;
       v9 = 50;
@@ -256,12 +256,12 @@ LABEL_85:
         --v9;
       }
       while ( v9 );
-      memset(pParty_global->pPartyBuffs, 0, 20 * 16);
+      memset(pParty->pPartyBuffs, 0, 20 * 16);
       v11 = 1;
-      if (pParty_global->bTurnBasedModeOn)
+      if (pParty->bTurnBasedModeOn)
       {
         sub_405CFF((int)&unk_4F8858, 1);
-        pParty_global->bTurnBasedModeOn = false;
+        pParty->bTurnBasedModeOn = false;
       }
       v12 = (signed int)dword_ACF2C0;
       do
@@ -273,35 +273,35 @@ LABEL_85:
         uActiveCharacter = 1;
       }
       while ( v12 < (signed int)&unk_AD5FB0 );
-      if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 136) )
+      if ( (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 136) )
       {
-        pParty_global->vPosition = Vec3<int>(-17331, 12547, 465);
-        pParty_global->sRotationY = 0;
+        pParty->vPosition = Vec3<int>(-17331, 12547, 465);
+        pParty->sRotationY = 0;
         v16 = "out02.odm";
       }
       else
       {
-        pParty_global->vPosition = Vec3<int>(12552, 1816, 0);
-        pParty_global->sRotationY = 512;
+        pParty->vPosition = Vec3<int>(12552, 1816, 0);
+        pParty->sRotationY = 512;
         v16 = "out01.odm";
       }
       strcpy(&Source, v16);
-      pParty_global->dword_000700 = pParty_global->vPosition.x;
-      pParty_global->sRotationX = 0;
-      pParty_global->dword_0006E8 = 0;
-      pParty_global->dword_0006E4 = 0;
-      pParty_global->dword_0006E0 = 0;
+      pParty->dword_000700 = pParty->vPosition.x;
+      pParty->sRotationX = 0;
+      pParty->dword_0006E8 = 0;
+      pParty->dword_0006E4 = 0;
+      pParty->dword_0006E0 = 0;
       compile_error(level file name should not be global);
     //if ( _strcmpi(&Source, CurrentLevelName) )
       if (0)
       {
         compile_error(level file name should not be global);
     //strcpy(CurrentLevelName, &Source);
-        dword_5B65A8 = pParty_global->vPosition.x;
-        dword_5B65AC = pParty_global->vPosition.y;
-        dword_5B65B0 = pParty_global->vPosition.z;
-        dword_5B65B4 = pParty_global->sRotationY;
-        dword_5B65B8 = pParty_global->sRotationX;
+        dword_5B65A8 = pParty->vPosition.x;
+        dword_5B65AC = pParty->vPosition.y;
+        dword_5B65B0 = pParty->vPosition.z;
+        dword_5B65B4 = pParty->sRotationY;
+        dword_5B65B8 = pParty->sRotationX;
         dword_5B65C0 = 1;
         sub_4646F0(1);
       }

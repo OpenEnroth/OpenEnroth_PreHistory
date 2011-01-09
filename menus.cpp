@@ -253,7 +253,7 @@ void sub_45EE8A(int a1)
 
     for (i = 0; i < 4; ++i)
     {
-      v40 = (int)&pParty_global->pPlayers[i];
+      v40 = (int)&pParty->pPlayers[i];
       if ( byte_4ED498 )
       {
         v4 = 0;
@@ -316,7 +316,7 @@ LABEL_17:
     v10 = LODFile_New_LOD.Find_Container("party.bin", 1);
     if ( v10 )
     {
-      locked_fread(pParty_global, 90680, 1, v10);
+      locked_fread(pParty, 90680, 1, v10);
     }
     else
     {
@@ -382,30 +382,30 @@ LABEL_17:
 
    for(i=0;i<4;i++) 
     {
-      if (Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[i]))
+      if (Player_sub_492C0B_MaybeIfPlayerConscious(&pParty->pPlayers[i]))
 		  {
 		   uActiveCharacter =i + 1;
            break;
 		  }
     }
   
-//    v19 = pParty_global->pPlayers[];  //global_paarty playersu QuickSpell		 (int *)&unk_ACF3D3
+//    v19 = pParty->pPlayers[];  //global_paarty playersu QuickSpell		 (int *)&unk_ACF3D3
     v18 = 9;
     v17 = 0;
    for (i=0; i<4; i++)
     {
-      if ( pParty_global->pPlayers[i].uQuickSpell )
-        sub_494836((char *)unk_AA1058[i][0], pParty_global->pPlayers[i].uQuickSpell, i+1);
+      if ( pParty->pPlayers[i].uQuickSpell )
+        sub_494836((char *)unk_AA1058[i][0], pParty->pPlayers[i].uQuickSpell, i+1);
      v40 = 0;
       //v20 = (int)((char *)v19 - 263);
 	  v20 =0;
       while ( 1 )
       {
-	    int item_index=	 pParty_global->pPlayers[i].pEquippedItemIndices[v20]; 
+	    int item_index=	 pParty->pPlayers[i].pEquippedItemIndices[v20]; 
         if (item_index)
         {
          // v21 = *(int *)((char *)&v19[9 * *(_DWORD *)v20 - 1559]);
-		  v21 =pParty_global->pPlayers[i].pInventorySlots[item_index+5].uItemID; //5 offset	need to verify
+		  v21 =pParty->pPlayers[i].pInventorySlots[item_index+5].uItemID; //5 offset	need to verify
           if (pClass40->pItems[v21 - 1].uEquipType == 12 )
 			  {
 			  // v36 = v18;
@@ -432,9 +432,9 @@ LABEL_17:
     dword_4E28F8_PartyCantJumpIfTrue = 0;
     v22 = 1;
     struct_576FE8.dword_000044 = 1;
-    if ( pParty_global->uAlignment )
+    if ( pParty->uAlignment )
     {
-      if ( pParty_global->uAlignment == 2 )
+      if ( pParty->uAlignment == 2 )
         v22 = 2;
     }
     else
@@ -477,7 +477,7 @@ LABEL_17:
   ((AudioPlayer *)v23)->SetMasterVolume(128.0f * pSoundVolumeLevels[uSoundVolumeMultiplier]);
   ((AudioPlayer *)v23)->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
   if ( uTurnSpeed )
-    pParty_global->sRotationY = uTurnSpeed * pParty_global->sRotationY / uTurnSpeed;
+    pParty->sRotationY = uTurnSpeed * pParty->sRotationY / uTurnSpeed;
   sub_4666D5();
   byte_50794A = 0;
   struct_576FE8.dword_000044 = 1;
@@ -485,7 +485,7 @@ LABEL_17:
 
 
 //----- (004601B7) ---------.text:00461464   -----------------------------------------------
-void sub_4601B7(int a1)		 //render save_load
+void sub_4601B7_SaveLoadWindow_Render(int a1)		 //render save_load
 {
   unsigned __int16 v1; // bx@1
   int v2; // eax@4
@@ -898,9 +898,9 @@ int __fastcall sub_460078(int a1)
     //v2 = 100 * v1;
     compile_error(level name should not be globally-defined);
   //strcpy((char *)&saves_hdr[v1].location_name, CurrentLevelName);
-    //*(int *)((char *)dword_69BD90 + v2) = pParty_global->qword_00002C;
-    //*(int *)((char *)&dword_69BD90 + 4 + v2) = HIDWORD(pParty_global->qword_00002C);
-	saves_hdr[v1].qWorld_time=pParty_global->qword_00002C;
+    //*(int *)((char *)dword_69BD90 + v2) = pParty->qword_00002C;
+    //*(int *)((char *)&dword_69BD90 + 4 + v2) = HIDWORD(pParty->qword_00002C);
+	saves_hdr[v1].qWorld_time=pParty->qword_00002C;
     strcpy(St.pFilename, "header.bin");
     St.size_data = 100;
     LODFile_New_LOD.Add_Container_to_File( &St, &saves_hdr[v1], 0);
@@ -908,7 +908,7 @@ int __fastcall sub_460078(int a1)
     LODFile_New_LOD.Close_Written_File();
     CopyFileA("data\\new.lod", (char *)TmpBuf, 0);
   }
-  sub_4156F0_LooksLike_UI_ProcessCallbacks();
+  sub_4156F0_UI_UpdateWindows();
   GUIWindowDelete(pGUIWindow_CurrentMenu);
   dword_4E28F8_PartyCantJumpIfTrue = 0;
   v4 = 0;
@@ -928,15 +928,15 @@ int __fastcall sub_460078(int a1)
 }
 
 //----- (004606F7) --------------------------------------------------------
-void sub_4606F7()
+void sub_4606F7_LoadWindow_Render()
 {
-  sub_4601B7(0);
+  sub_4601B7_SaveLoadWindow_Render(0);
 }
 
 //----- (004606FE) --------------------------------------------------------
 void sub_4606FE()
 {
- sub_4601B7(1);
+ sub_4601B7_SaveLoadWindow_Render(1);
 }
 
 
@@ -1035,20 +1035,20 @@ int __fastcall SaveGame(int a1, int a2)
   {
     DstBuf = MemAlloc(char, 1000000);//DstBuf = operator new(0xF4240u);
     Reset_LODIndex(&St2);
-    v56 = pParty_global->vPosition.x;
-    v55 = pParty_global->vPosition.y;
-    v66 = pParty_global->vPosition.z;
-    v57 = pParty_global->sRotationY;
-    v58 = pParty_global->sRotationX;
-    pParty_global->vPosition = pParty_global->vOldPosition;
-    pParty_global->sRotationY = pParty_global->sOldRotationY;
-    pParty_global->sRotationX = pParty_global->sOldRotationX;
-    pParty_global->dword_000700 = pParty_global->vOldPosition.z;
+    v56 = pParty->vPosition.x;
+    v55 = pParty->vPosition.y;
+    v66 = pParty->vPosition.z;
+    v57 = pParty->sRotationY;
+    v58 = pParty->sRotationX;
+    pParty->vPosition = pParty->vOldPosition;
+    pParty->sRotationY = pParty->sOldRotationY;
+    pParty->sRotationX = pParty->sOldRotationX;
+    pParty->dword_000700 = pParty->vOldPosition.z;
 
     if (uCurrentlyLoadedLevelType == 1)
-      *(__int64 *)pIndoor->unk_0002EC = pParty_global->qword_00002C;
+      *(__int64 *)pIndoor->unk_0002EC = pParty->qword_00002C;
     else
-      *(__int64 *)pOutdoor->array_0004F0 = pParty_global->qword_00002C;
+      *(__int64 *)pOutdoor->array_0004F0 = pParty->qword_00002C;
 
     runtime_warning(aint workin);
     //v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(150, 112);
@@ -1082,7 +1082,7 @@ int __fastcall SaveGame(int a1, int a2)
 
     compile_error(level name should not be globally-defined);
   //strcpy(v47.location_name, CurrentLevelName);
-    v47.qWorld_time = pParty_global->qword_00002C;
+    v47.qWorld_time = pParty->qword_00002C;
     strcpy(&St2.pFilename[0], "header.bin");
     St2.size_data = 100;
     if (LODFile_New_LOD.Add_Container_to_File( &St2, &v47, 0) )
@@ -1095,7 +1095,7 @@ int __fastcall SaveGame(int a1, int a2)
 
     strcpy(&St2.pFilename[0], "party.bin");
     St2.size_data = 90680;
-    if (LODFile_New_LOD.Add_Container_to_File( &St2, pParty_global, 0) )
+    if (LODFile_New_LOD.Add_Container_to_File( &St2, pParty, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 202);
       v76 = (unsigned int)&v38;
@@ -1367,11 +1367,11 @@ int __fastcall SaveGame(int a1, int a2)
         sub_466D09(&v69, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
       }
     }
-    pParty_global->vPosition = Vec3<int>(v56, v55, v66);
-    pParty_global->dword_000700 = v66;
-    pParty_global->sRotationY = v57;
+    pParty->vPosition = Vec3<int>(v56, v55, v66);
+    pParty->dword_000700 = v66;
+    pParty->sRotationY = v57;
     result = v58;
-    pParty_global->sRotationX = v58;
+    pParty->sRotationX = v58;
   }
   return result;
 }
@@ -1508,10 +1508,10 @@ void __cdecl sub_4B6943()
         v72 = (void *)(unsigned __int8)*(&byte_4F0D38[4 * v28] + v73);
         v26 = (int)GUIWindow_GetChild((GUI::Window *)v20, v71);
         if ( v27 != v69
-          && (v76 >= 6 ? (v29 = 1) : (v29 = (unsigned __int8)*(&byte_4F09B1[32 * (_DWORD)v27] + pParty_global->uDaysPlayed % 7u)),
+          && (v76 >= 6 ? (v29 = 1) : (v29 = (unsigned __int8)*(&byte_4F09B1[32 * (_DWORD)v27] + pParty->uDaysPlayed % 7u)),
               v29
            && ((v30 = 32 * (_DWORD)v27, !*(_DWORD *)((char *)&unk_4F09CC + v30))
-            || (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, *(_WORD *)((char *)&unk_4F09CC + v30)))) )
+            || (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, *(_WORD *)((char *)&unk_4F09CC + v30)))) )
         {
           v69 = v72;
           v31 = v67;
@@ -1625,7 +1625,7 @@ LABEL_71:
   {
     if ( dword_F8B19C > 104 && dword_F8B19C <= 108 )
     {
-      if ( pParty_global->uNumGold < (unsigned int)v76 )
+      if ( pParty->uNumGold < (unsigned int)v76 )
       {
         sub_44C175((char *)pGlobalTXT_LocalizationStrings[155], 2);
         sub_4B1E92(ptr_507BC0->dword_00001C, 3);
@@ -1640,7 +1640,7 @@ LABEL_71:
       sub_492BB6(v76);
       v56[1] = (const char *)7;
       v5 = &byte_4F09B0[32 * (unsigned __int8)*(&byte_4F0CCF[4 * ptr_507BC0->dword_00001C] + dword_F8B19C)];
-      if ( v5[pParty_global->uDaysPlayed % 7u + 1] )
+      if ( v5[pParty->uDaysPlayed % 7u + 1] )
       {
         compile_error(level name should not be globally-defined);
   //if ( _strcmpi(CurrentLevelName, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename))
@@ -1666,15 +1666,15 @@ LABEL_71:
         else
         {
           v6 = *((_DWORD *)v5 + 3);
-          pParty_global->sRotationX = 0;
-          pParty_global->vPosition.x = v6;
+          pParty->sRotationX = 0;
+          pParty->vPosition.x = v6;
           v7 = *((_DWORD *)v5 + 4);
           pOldCamera->sRotationY = 0;
-          pParty_global->dword_007778 |= 2;
-          pParty_global->vPosition.y = v7;
-          pParty_global->vPosition.z = *((_DWORD *)v5 + 5);
-          pParty_global->dword_000700 = pParty_global->vPosition.z;
-          pParty_global->sRotationY = *((_DWORD *)v5 + 6);
+          pParty->dword_007778 |= 2;
+          pParty->vPosition.y = v7;
+          pParty->vPosition.z = *((_DWORD *)v5 + 5);
+          pParty->dword_000700 = pParty->vPosition.z;
+          pParty->sRotationY = *((_DWORD *)v5 + 6);
         }
         sub_4B1E92(ptr_507BC0->dword_00001C, 2);
         v12 = (unsigned __int8)v5[8];
@@ -1818,20 +1818,20 @@ bool MaybeDoAutosave()
     LODFile_New_LOD.Append_item_to_temp_file(&v12, &saves_hdr[0]);
     LODFile_New_LOD.Write_SubIndex();
 
-    pParty_global->vPosition = Vec3<int>(12552, 1816, 0);
+    pParty->vPosition = Vec3<int>(12552, 1816, 0);
 
-    //Camera_SetDirection(pParty_global->pCamera, 0, 0, 1);
+    //Camera_SetDirection(pParty->pCamera, 0, 0, 1);
     runtime_warning(deprication);
     {
-     pParty_global->sRotationX = 0;
-     pParty_global->sRotationY = 512;
+     pParty->sRotationX = 0;
+     pParty->sRotationY = 512;
     }
 
-    pParty_global->vOldPosition = Vec3<int>(12552, 1816, 0);
-    pParty_global->sOldRotationY = 512;
-    pParty_global->sOldRotationX = 0;
+    pParty->vOldPosition = Vec3<int>(12552, 1816, 0);
+    pParty->sOldRotationY = 512;
+    pParty->sOldRotationX = 0;
 
-    pParty_global->dword_000700 = 0;
+    pParty->dword_000700 = 0;
 
 
     SaveGame(1, 1);
@@ -1842,7 +1842,7 @@ bool MaybeDoAutosave()
 
 
 //----- (00410DEC) --------------------------------------------------------
-int __cdecl sub_410DEC()
+int __cdecl sub_410DEC_DrawSpellbook_Beacons()
 {
   char *v0; // eax@1
   Player *v1; // esi@1
@@ -1886,7 +1886,7 @@ int __cdecl sub_410DEC()
   int v36; // [sp+80h] [bp-8h]@12
   int v37; // [sp+84h] [bp-4h]@6
 
-  v1 = &pParty_global->pPlayers[dword_506348];
+  v1 = &pParty->pPlayers[dword_506348];
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, dword_506358[byte_50656C]);
   v0 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_RECALL_BEACON];
   local_0C.uFrameX = 8;
@@ -1977,7 +1977,7 @@ LABEL_29:
     local_0C.uFrameY += -6 - v10;
     GUIWindow_DrawText(&local_0C, ptr_5C35E4, 0, 0, 1u, Str, 3);
 
-    v31 = *(_QWORD *)v9 - pParty_global->qword_00002C;	   //time
+    v31 = *(_QWORD *)v9 - pParty->qword_00002C;	   //time
     v30 = (unsigned __int64)((signed __int64)((double)v31 * 0.234375) / 60 / 60) >> 32;	 //hours
     v8 = (signed __int64)((double)v31 * 0.234375) / 60 / 60;
     v7 = v8 / 24;
@@ -2075,7 +2075,7 @@ void sub_411B59(int a1, int a2)
 }
 
 //----- (0045E006) --------------------------------------------------------
-void *__cdecl sub_45E006()
+void *__cdecl sub_45E006_FreeSaveThumbnails()
 {
  
   void *result=NULL; // eax@2

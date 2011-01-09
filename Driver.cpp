@@ -623,12 +623,12 @@ LABEL_21:
          if (!bNoSound)
            pAudioPlayer->StopMusic();
 
-          Party_Reset(pParty_global);
+          Party_Reset(pParty);
 
           for (v9 = 0; v9 < 50; ++v9)
             sub_45855F(array_5E4D58[v9++]);
 
-          Party_CreateDefaultParty(pParty_global, 0);
+          Party_CreateDefaultParty(pParty, 0);
 
           PlayerCreationUI_Initialize();
           if (MenuLoop_CharacterCreation())
@@ -658,7 +658,7 @@ LABEL_21:
           dword_6A0D48 = 1;
           goto LABEL_49;
         }
-        if ( uCurrentMenuID == 5 || uCurrentMenuID == 9 )
+        if ( uCurrentMenuID == 5 || uCurrentMenuID == 9)
         {
           dword_6A0D48 = 0;
         }
@@ -677,8 +677,8 @@ LABEL_21:
             if (pAsyncKeyboard)
               CAsyncKeyboard_suspend(pAsyncKeyboard);
           }*/
-          Party_Reset(pParty_global);
-          Party_CreateDefaultParty(pParty_global, 1);
+          Party_Reset(pParty);
+          Party_CreateDefaultParty(pParty, 1);
           sub_46271C();
           if ( !GetOpenFileNameA(&stru_6A0DA0) )
           {
@@ -709,7 +709,7 @@ LABEL_21:
               CAsyncKeyboard_Resume(pAsyncKeyboard);
           }*/
         }
-    compile_error(level name should not be globally-defined);
+    pGame->Loop("");
     //sub_463149();
 
 LABEL_49:

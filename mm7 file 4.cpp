@@ -398,7 +398,7 @@ int __fastcall sub_4269A2_GivePartyExp(int a1)
   v2 = 0;
   v3 = v10;
   //HIDWORD(v1) = &dword_ACD9F4;
-  HIDWORD(v1) = (long)&pParty_global->pPlayers[0].pConditions[14];
+  HIDWORD(v1) = (long)&pParty->pPlayers[0].pConditions[14];
   do
   {
     v4 = !(*(_DWORD *)(HIDWORD(v1) - 4) | *(_DWORD *)(HIDWORD(v1) - 8))
@@ -411,7 +411,7 @@ int __fastcall sub_4269A2_GivePartyExp(int a1)
     v3 += 4;
   }
   //while ( HIDWORD(v1) < (signed int)&unk_AD46E4 );
-  while (HIDWORD(v1) < (int)&pParty_global->pHiredNPCs[1].dword_000024);
+  while (HIDWORD(v1) < (int)&pParty->pHiredNPCs[1].dword_000024);
 
   if ( v2 )
   {
@@ -420,7 +420,7 @@ int __fastcall sub_4269A2_GivePartyExp(int a1)
     v11 = v1;
     for (unsigned int i = 0; i < 4; ++i)
     {
-    v6 = (signed int)&pParty_global->pPlayers[i].uExperience;
+    v6 = (signed int)&pParty->pPlayers[i].uExperience;
       if ( *(_DWORD *)v5 )
       {
         if ( v11 )
@@ -522,24 +522,24 @@ LABEL_9:
        local_0C.dword_000004 = 2 * rand() % 4 + 2;
     }
     class40_sub_456D17(pClass40, &local_0C);
-    if ( !Party_AddItem(pParty_global, &local_0C))
-      Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
+    if ( !Party_AddItem(pParty, &local_0C))
+      Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &local_0C);
     *(_WORD *)(a1 + 180) = 0;
     if ( *(_DWORD *)(a1 + 564) )
     {
-      if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 564)))
+      if ( !Party_AddItem(pParty, (ItemGen *)(a1 + 564)))
       {
         sub_421B2C_DropPickedItem();
-        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)(a1 + 564));
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, (ItemGen *)(a1 + 564));
       }
       ItemGen_Reset((ItemGen *)(a1 + 564));
     }
     if ( *(_DWORD *)(a1 + 600) )
     {
-      if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 600)))
+      if ( !Party_AddItem(pParty, (ItemGen *)(a1 + 600)))
       {
         sub_421B2C_DropPickedItem();
-        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (const ItemGen *)(a1 + 600));
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, (const ItemGen *)(a1 + 600));
       }
       ItemGen_Reset((ItemGen *)(a1 + 600));
     }
@@ -559,8 +559,8 @@ LABEL_55:
       else
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v10);
       sub_44C175((char *)pStringBuffer, 2);
-      if ( !Party_AddItem(pParty_global, &local_0C) )
-        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
+      if ( !Party_AddItem(pParty, &local_0C) )
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &local_0C);
       v15 = 1;
     }
     goto LABEL_44;
@@ -568,7 +568,7 @@ LABEL_55:
   if ( rand() % 100 >= *(_BYTE *)(a1 + 53) || (v6 = *(_BYTE *)(a1 + 56), !v6) )
   {
 LABEL_44:
-    v7 = pParty_global;
+    v7 = pParty;
     goto LABEL_45;
   }
   class40_sub_456620_CreateSomeSemirandomItem(pClass40, v6, *(_BYTE *)(a1 + 57), &local_0C);
@@ -578,9 +578,9 @@ LABEL_44:
   else
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v9);
   sub_44C175((char *)pStringBuffer, 2);
-  v7 = pParty_global;
-  if ( !Party_AddItem(pParty_global, &local_0C))
-    Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
+  v7 = pParty;
+  if ( !Party_AddItem(pParty, &local_0C))
+    Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &local_0C);
   v15 = 1;
 LABEL_45:
   if ( *(_DWORD *)(a1 + 564) )
@@ -841,11 +841,11 @@ signed int __stdcall sub_427102(int a1, signed int a2)
     }
     if ( a2 == 80 )
     {
-      v5 = (signed int)pParty_global->pPartyBuffs;
+      v5 = (signed int)pParty->pPartyBuffs;
       while ( *(_QWORD *)v5 <= 0i64 )
       {
         v5 += 16;
-        if ( v5 >= (signed int)&pParty_global->pPlayers[0] )
+        if ( v5 >= (signed int)&pParty->pPlayers[0] )
         {
           v6 = (signed int)&unk_ACF124;
 LABEL_50:
@@ -1330,10 +1330,10 @@ int __fastcall sub_42777D_CastSpell(int a1, int a2, int a3, __int16 a4, int a5)
 
   v31 = a2;
   v32 = a1;
-  if (!pParty_global->bTurnBasedModeOn || (result = dword_4F885C, dword_4F885C != 1) && dword_4F885C != 3 )
+  if (!pParty->bTurnBasedModeOn || (result = dword_4F885C, dword_4F885C != 1) && dword_4F885C != 3 )
   {
     v7 = a4;
-    v6 = (int *)&pParty_global->pPlayers[a2];
+    v6 = (int *)&pParty->pPlayers[a2];
     if ( !(a4 & 0x10) )
     {
       switch ( a1 )
@@ -1747,8 +1747,8 @@ signed int __thiscall sub_42EBEE(void *_this)
 
   v3 = uActiveCharacter;
   v7 = (int)_this;
-  v2 = &pParty_global->pPlayers[uActiveCharacter - 1];
-  result = Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter - 1]);
+  v2 = &pParty->pPlayers[uActiveCharacter - 1];
+  result = Player_sub_492C0B_MaybeIfPlayerConscious(&pParty->pPlayers[uActiveCharacter - 1]);
   if ( result )
   {
     sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, v3);
@@ -1766,7 +1766,7 @@ signed int __thiscall sub_42EBEE(void *_this)
     v8 = Player_sub_GetAttackRecoveryTime((Player *)v2, 0);
     if ( v8 < 30 )
       v8 = 30;
-    if (!pParty_global->bTurnBasedModeOn)
+    if (!pParty->bTurnBasedModeOn)
       Player_SetRecoveryTime((Player *)v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v8 * 2.1333333333333333));
     sub_40471C(&unk_4F8858);
     result = 1;
@@ -1816,7 +1816,7 @@ bool sub_42ECB5_PlayerAttack()
 
   v1 = uActiveCharacter;
   v29 = 6972 * uActiveCharacter;
- Player *pPlayer = &pParty_global->pPlayers[uActiveCharacter - 1];
+ Player *pPlayer = &pParty->pPlayers[uActiveCharacter - 1];
 
  if (!Player_sub_492C0B_MaybeIfPlayerConscious(pPlayer))
    return false;
@@ -1824,8 +1824,8 @@ bool sub_42ECB5_PlayerAttack()
 
  sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
 
-    if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
-      SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
+    if (pParty->pPartyBuffs[11].qword_000000 > 0 )
+      SpellBuff_sub_458585(&pParty->pPartyBuffs[11]);
 
  v33 = pPlayer->pEquippedItemIndices[2];
     //v33 = *(_DWORD *)(v2 + 6480);
@@ -1885,7 +1885,7 @@ bool sub_42ECB5_PlayerAttack()
     {
       v28 = v36 >> 3;
       v8 = (char *)pActors + 836 * (v36 >> 3);
-      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->vPosition.x) * (*((_WORD *)v8 + 71) - pParty_global->vPosition.x) + (*((_WORD *)v8 + 72) - pParty_global->vPosition.y) * (*((_WORD *)v8 + 72) - pParty_global->vPosition.y) + (*((_WORD *)v8 + 73) - pParty_global->vPosition.z) * (*((_WORD *)v8 + 73) - pParty_global->vPosition.z))
+      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty->vPosition.x) * (*((_WORD *)v8 + 71) - pParty->vPosition.x) + (*((_WORD *)v8 + 72) - pParty->vPosition.y) * (*((_WORD *)v8 + 72) - pParty->vPosition.y) + (*((_WORD *)v8 + 73) - pParty->vPosition.z) * (*((_WORD *)v8 + 73) - pParty->vPosition.z))
           - *((_WORD *)v8 + 68);
       if ( v36 >= 0 )
       {
@@ -1929,9 +1929,9 @@ LABEL_28:
       }
       if ( (double)v36 <= 407.19999999999999 )
       {
-        v25 = *((_WORD *)v8 + 71) - pParty_global->vPosition.x;
-        v26 = *((_WORD *)v8 + 72) - pParty_global->vPosition.y;
-        v27 = *((_WORD *)v8 + 73) - pParty_global->vPosition.z;
+        v25 = *((_WORD *)v8 + 71) - pParty->vPosition.x;
+        v26 = *((_WORD *)v8 + 72) - pParty->vPosition.y;
+        v27 = *((_WORD *)v8 + 73) - pParty->vPosition.z;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
         DamageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
         if ( Player_sub_48D709(pPlayer, 506, 1) || Player_sub_48D709(pPlayer, 506, 0) )
@@ -2044,7 +2044,7 @@ LABEL_39:
         v33 = Player_sub_GetAttackRecoveryTime(pPlayer, 0);
         if ( v33 < 30 )
           v33 = 30;
-        if (!pParty_global->bTurnBasedModeOn)
+        if (!pParty->bTurnBasedModeOn)
           Player_SetRecoveryTime(pPlayer, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v33 * 2.1333333333333333));
         goto LABEL_29;
       }
@@ -2298,9 +2298,9 @@ LABEL_20:
     v1 = (int)&pActors[0].uAIState;
     while ( 1 )
     {
-      v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->vPosition.x);
-      v11 = abs(*(_WORD *)(v1 - 32) - pParty_global->vPosition.y);
-      v12 = abs(*(_WORD *)(v1 - 30) - pParty_global->vPosition.z);
+      v5 = abs(*(_WORD *)(v1 - 34) - pParty->vPosition.x);
+      v11 = abs(*(_WORD *)(v1 - 32) - pParty->vPosition.y);
+      v12 = abs(*(_WORD *)(v1 - 30) - pParty->vPosition.z);
       v2 = v5;
       v4 = v11;
       v3 = v12;
@@ -2923,13 +2923,13 @@ void __cdecl sub_42FC4E_ProcessPressedKeys()
    if (pUserInput->IsShiftToggled())
       goto LABEL_3;
 LABEL_5:
-    pParty_global->dword_000884 &= 0xFFFFFFFDu;
+    pParty->dword_000884 &= 0xFFFFFFFDu;
     goto LABEL_6;
   }
   if (pUserInput->IsShiftToggled())
     goto LABEL_5;
 LABEL_3:
-  pParty_global->dword_000884 |= 2;
+  pParty->dword_000884 |= 2;
 
 LABEL_6:
  if (cEventTimer.bPaused)
@@ -3107,14 +3107,14 @@ void __cdecl sub_435748_PlayerCreationUI_MessageProc()
   if ( dword_50CBD0.msg_count )
   {
     v1 = (int)pAudioPlayer;
-    v0 = (int)&pParty_global->pPlayers[0];
+    v0 = (int)&pParty->pPlayers[0];
     do
     {
       dword_50CBD0.GetQueueMessage(&v49, &v48, &v50);
 
       if (v49 == 145) // button change voice (right)
       {
-          Player               *pPlayer = &pParty_global->pPlayers[v48];
+          Player               *pPlayer = &pParty->pPlayers[v48];
           Character::Sex::Type  eOriginalSex = Player_GetSexByVoice(pPlayer);
 
           do
@@ -3133,7 +3133,7 @@ void __cdecl sub_435748_PlayerCreationUI_MessageProc()
       }
       else if (v49 == 144) // button change voice (left)
       {
-          Player *pPlayer = &pParty_global->pPlayers[v48];
+          Player *pPlayer = &pParty->pPlayers[v48];
             v50 = Player_GetSexByVoice(pPlayer);
             do
             {
@@ -3150,13 +3150,8 @@ void __cdecl sub_435748_PlayerCreationUI_MessageProc()
             Player_PlaySound(pPlayer, Character::Voice::PickMe, 0);
             continue;
       }
-      else
-      if ( v49 > 75 )
+      else if (v49 == 164)   // button Load  in LoadMenu
       {
-        if ( v49 > 163 )
-        {
-          if ( v49 == 164 )
-          {
             v47 = 0;
             v43 = (int)pLoadSaveBtn;
             v9 = pGUIWindow_CurrentMenu->uFrameY + 302;
@@ -3168,7 +3163,20 @@ LABEL_133:
 LABEL_134:
             GUIWindowCreate(v20, v9, v37, v39, v41, (GUIButton*)v43, v47);
             continue;
-          }
+      }
+      else if ( v49 == 82 )
+      {
+          if ( !dword_69CF28[dword_6A0CA0_indx] )
+            continue;
+LABEL_99:
+          v44 = 9;
+          goto LABEL_89;
+      }
+      else
+      if ( v49 > 75 )
+      {
+        if ( v49 > 163 )
+        {
           if ( v49 == 165 )
           {
             if ( pGUIWindow_CurrentMenu->dword_000040 == 1 )
@@ -3218,7 +3226,7 @@ LABEL_134:
           }
           if ( v49 == 171 ) // change face button (left)
           {
-            v26 = &pParty_global->pPlayers[v48];
+            v26 = &pParty->pPlayers[v48];
             v27 = (v26->uFace - 1) < 0;
             v26->uFace--;
             if ( v27 )
@@ -3240,7 +3248,7 @@ LABEL_134:
           }
           if ( v49 == 172 ) // change face button (right)
           {
-            v22 = &pParty_global->pPlayers[v48];
+            v22 = &pParty->pPlayers[v48];
             v23 = (v22->uFace + 1) % 20;
             v22->uFace = v23;
             v22->uVoiceID = v23;
@@ -3258,7 +3266,7 @@ LABEL_134:
             v21 = (void *)v22;
 LABEL_117:
             Player_PlaySound((Player *)v21, 102, 0);
-            v0 = (int)&pParty_global->pPlayers[0];
+            v0 = (int)&pParty->pPlayers[0];
             continue;
           }
           if ( v49 == 173 )
@@ -3289,14 +3297,6 @@ LABEL_90:
           v43 = (int)pArrowDownBtn;
           v9 = pGUIWindow_CurrentMenu->uFrameY + 323;
           goto LABEL_105;
-        }
-        if ( v49 == 82 )
-        {
-          if ( !dword_69CF28[dword_6A0CA0_indx] )
-            continue;
-LABEL_99:
-          v44 = 9;
-          goto LABEL_89;
         }
         if ( v49 == 107 )
         {
@@ -3367,7 +3367,7 @@ LABEL_93:
           if ( dword_4E28F8_PartyCantJumpIfTrue == 12 )
           {
             LODFile_Icons_LOD.LODFile_sub_4114F2();
-            v19 = (int)sub_45E006();
+            v19 = (int)sub_45E006_FreeSaveThumbnails();
 
 			#ifndef OLD_CODE           
             LODFile_Icons_LOD.LODFile_ReleaseTexture( uTextureID_CurrentMenu);
@@ -3449,7 +3449,7 @@ LABEL_105:
         {
           uPlayerCreationUI_SelectedCharacter = v48;
           v45 = 3;
-          v0 = (int)&pParty_global->pPlayers[0];
+          v0 = (int)&pParty->pPlayers[0];
           v4 = (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7
              + pGUIWindow_CurrentMenu->dword_000038
              + 7 * v48;
@@ -3460,7 +3460,7 @@ LABEL_105:
           if ( v49 == 62 )
           {
             GUIWindowCreate(613, 393, 0, 0, 90, pPlayerCreationUI_BtnPlus, 1);
-            PartyCreation_BtnPlusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
+            PartyCreation_BtnPlusClick(&pParty->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -3474,7 +3474,7 @@ LABEL_105:
           if ( v49 == 63 )
           {
             GUIWindowCreate(523, 393, 0, 0, 90, pPlayerCreationUI_BtnMinus, 1);            
-            PartyCreation_BtnMinusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
+            PartyCreation_BtnMinusClick(&pParty->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -3487,9 +3487,9 @@ LABEL_105:
           }
           if ( v49 == 64 )
           {
-            v6 = GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v48 + 4);
-            if ( GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], 3) == 37 ) // 37 - no more skills
-              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[v6] = 1;
+            v6 = GetSkillIdxByOrder(&pParty->pPlayers[uPlayerCreationUI_SelectedCharacter], v48 + 4);
+            if ( GetSkillIdxByOrder(&pParty->pPlayers[uPlayerCreationUI_SelectedCharacter], 3) == 37 ) // 37 - no more skills
+              pParty->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[v6] = 1;
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -3502,7 +3502,7 @@ LABEL_105:
           }
           if ( v49 == 65 )
           {
-            Player_Reset(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v48);
+            Player_Reset(&pParty->pPlayers[uPlayerCreationUI_SelectedCharacter], v48);
             goto LABEL_36;
           }
           if ( v49 == 66 ) // Character Creation :: OK
@@ -3518,7 +3518,7 @@ LABEL_105:
           if ( v49 == 67 )
           {
             GUIWindowCreate(527, 431, 0, 0, 90, pPlayerCreationUI_BtnReset, 0);
-            Party_Reset(pParty_global);
+            Party_Reset(pParty);
           }
           else
           {
@@ -3531,7 +3531,7 @@ LABEL_105:
               v4 = v5 % 7 + v50 + 7 * v48;
 LABEL_44:
               pGUIWindow_CurrentMenu->dword_00002C = v4;
-              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
+              pParty->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[GetSkillIdxByOrder(&pParty->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
               continue;
             }
           }
@@ -9811,7 +9811,7 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
   pIndoor = MemAlloc(IndoorLocation, 1);
   pIndoor->Clear();
   v4 = pIndoor->Load(pLevelFilename,
-         (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
+         (unsigned int)(signed __int64)((double)pParty->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
          (int)&v44);
   if (v4 == 1)
   {
@@ -10035,11 +10035,11 @@ LABEL_90:
   Actor_LinkSprites(&local_0C, 0);
   if ( !v41 )
   {
-    pParty_global->sRotationX = 0;
-    pParty_global->sRotationY = 0;
-    pParty_global->vPosition = Vec3<int>(0, 0, 0);
-    pParty_global->dword_000700 = 0;
-    pParty_global->dword_0006E8 = 0;
+    pParty->sRotationX = 0;
+    pParty->sRotationY = 0;
+    pParty->vPosition = Vec3<int>(0, 0, 0);
+    pParty->dword_000700 = 0;
+    pParty->dword_0006E8 = 0;
     sub_4498D5_TeleportToStartingPoint(dword_6BE35C);
   }
   sub_443365(&struct_576FE8);
@@ -10246,7 +10246,7 @@ void __thiscall sub_4646F0(int _this)
     Vis_sub_4C1A02(pGame->pVis);
   cEventTimer.Pause();
   cMiscTimer.Pause();
-  pParty_global->dword_007778 = 2;
+  pParty->dword_007778 = 2;
   sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, 1);
   sub_464479_ResetCursorAndOther();
   compile_error(level name should not be globally-defined);
@@ -10477,7 +10477,7 @@ LABEL_52:
       }
       while ( v1 < pObjectDescriptionList->uNumObjects );
     }
-    MenuUI_LoadTextures(pParty_global->uAlignment);
+    MenuUI_LoadTextures(pParty->uAlignment);
    // if ( pVideoPlayer->dword_000024 )
    //   (cPCXTexture *)pVideoPlayer->dword_00006C-> , (const char *)&unk_F8BBEC, 1);
     if (uCurrentMenuID != MENU_MAIN)
@@ -10952,19 +10952,19 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
     v8 = Player_FindNextFreeInventorySlotIndex(v1);
     if (v8 != -1)
     {
-      pParty_global->pickedItem.byte_000018 = v3;
-      memcpy(&v1->pInventorySlots[v8], &pParty_global->pickedItem, sizeof(struct ItemGen));
+      pParty->pickedItem.byte_000018 = v3;
+      memcpy(&v1->pInventorySlots[v8], &pParty->pickedItem, sizeof(struct ItemGen));
       v1->pEquippedItemIndices[v3] = v8;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     }
   }
   else // replace armour
   {
-    memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
+    memcpy(&local_0C, &pParty->pickedItem, sizeof(struct ItemGen));
     v6 = (int)((char *)v1 + 4 * (9 * v2 - 9));
     *(_BYTE *)(v6 + 556) = 0;
-    ItemGen_Reset(&pParty_global->pickedItem);
-    Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)(v6 + 532));
+    ItemGen_Reset(&pParty->pickedItem);
+    Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, (ItemGen *)(v6 + 532));
     local_0C.byte_000018 = v3;
     memcpy((void *)(v6 + 532), &local_0C, sizeof(ItemGen));
     v1->pEquippedItemIndices[v3] = v12;

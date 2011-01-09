@@ -4849,7 +4849,7 @@ LABEL_72:
 LABEL_73:
   if ( *(_DWORD *)v5 == 487 )
   {
-    if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 239) )
+    if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 239) )
       *(_DWORD *)v5 = 486;
   }
   if (*(&pClass40->pItems[*(_DWORD *)v5 - 1].uEquipType + 18))

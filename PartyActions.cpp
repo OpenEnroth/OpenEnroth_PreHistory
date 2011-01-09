@@ -61,7 +61,7 @@ void PartyAction_OnStrafeRight()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (!pParty_global->bTurnBasedModeOn)
+ if (!pParty->bTurnBasedModeOn)
  {
   pPartyActionQueue->Add(Action::StrafeRight);
   return;
@@ -82,7 +82,7 @@ void PartyAction_OnStrafeLeft()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (!pParty_global->bTurnBasedModeOn)
+ if (!pParty->bTurnBasedModeOn)
  {
   pPartyActionQueue->Add(Action::StrafeLeft);
   return;
@@ -197,7 +197,7 @@ void PartyAction_OnPass()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
+ if (pParty->bTurnBasedModeOn && dword_4F885C == 3)
  {
   dword_4F8870 |= 8;
   return;
@@ -211,7 +211,7 @@ void PartyAction_OnPass()
   {
    unsigned int uRecovery = Player_sub_GetAttackRecoveryTime(pPlayer, 0);
 
-   if (!pParty_global->bTurnBasedModeOn)
+   if (!pParty->bTurnBasedModeOn)
      Player_SetRecoveryTime(pPlayer, flt_6BE3A4_debug_recmod1 * uRecovery * 2.1333333333333333);
 
    sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
@@ -250,7 +250,7 @@ void PartyAction_OnAttack()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (!pParty_global->bTurnBasedModeOn || dword_4F885C != 3)
+ if (!pParty->bTurnBasedModeOn || dword_4F885C != 3)
  {
   dword_50CBD0.PutMessageToQueue(MESSAGE_ATTACK, 0, 0);
   return;
@@ -267,7 +267,7 @@ void PartyAction_OnCastReady()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
+ if (pParty->bTurnBasedModeOn && dword_4F885C == 3)
  {
   dword_4F8870 |= 8;
   return;
@@ -315,18 +315,18 @@ void PartyAction_OnToggleTurnBasedMode()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (pParty_global->bTurnBasedModeOn)
+ if (pParty->bTurnBasedModeOn)
  {
   if (dword_4F885C == 3 || (dword_4F8878[0] & 7) == 4)
   {
-   pParty_global->bTurnBasedModeOn = false;
+   pParty->bTurnBasedModeOn = false;
    sub_405CFF((int)&unk_4F8858, 1);
   }
  }
  else
  {
   sub_4059DB_ProbablyStartTurn(&unk_4F8858);
-  pParty_global->bTurnBasedModeOn = true;
+  pParty->bTurnBasedModeOn = true;
  }
 }
 
@@ -336,7 +336,7 @@ void PartyAction_OnToggleTurnBasedMode()
 
 void PartyAction_OnJump()
 {
- if (dword_4E28F8_PartyCantJumpIfTrue || pParty_global->bTurnBasedModeOn)
+ if (dword_4E28F8_PartyCantJumpIfTrue || pParty->bTurnBasedModeOn)
    return;
  
  pPartyActionQueue->Add(Action::Jump);
@@ -370,7 +370,7 @@ void PartyAction_OnTurningRight()
  Action::Type eAction;
  if (GetAsyncKeyState(VK_CONTROL))
  {
-  if (pParty_global->bTurnBasedModeOn)
+  if (pParty->bTurnBasedModeOn)
   {
    if (dword_4F885C == 1 || dword_4F885C == 2 || dword_4F886C <= 0)
      return;
@@ -381,7 +381,7 @@ void PartyAction_OnTurningRight()
  }
  else
  {
-  if (pParty_global->dword_000884 & 2)
+  if (pParty->dword_000884 & 2)
     eAction = (Action::Type)19;
   else
     eAction = Action::TurnRight;
@@ -403,7 +403,7 @@ void PartyAction_OnTurningLeft()
  Action::Type eAction;
  if (GetAsyncKeyState(VK_CONTROL))
  {
-  if (pParty_global->bTurnBasedModeOn)
+  if (pParty->bTurnBasedModeOn)
   {
    if (dword_4F885C == 1 || dword_4F885C == 2 || dword_4F886C <= 0)
      return;
@@ -413,7 +413,7 @@ void PartyAction_OnTurningLeft()
  }
  else
  {
-  if (pParty_global->dword_000884 & 2)
+  if (pParty->dword_000884 & 2)
     eAction = (Action::Type)18;
   else
     eAction = Action::TurnLeft;
@@ -433,9 +433,9 @@ void PartyAction_OnMovingBackwards()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (!pParty_global->bTurnBasedModeOn)
+ if (!pParty->bTurnBasedModeOn)
  {
-  if (pParty_global->dword_000884 & 2)
+  if (pParty->dword_000884 & 2)
     pPartyActionQueue->Add((Action::Type)17);
   else
     pPartyActionQueue->Add(Action::WalkBackwards);
@@ -444,7 +444,7 @@ void PartyAction_OnMovingBackwards()
  {
   dword_4F886C -= 26;
 
-  if (pParty_global->dword_000884 & 2)
+  if (pParty->dword_000884 & 2)
     pPartyActionQueue->Add((Action::Type)17);
   else
     pPartyActionQueue->Add(Action::WalkBackwards);
@@ -459,9 +459,9 @@ void PartyAction_OnMovingForward()
  if (dword_4E28F8_PartyCantJumpIfTrue)
    return;
 
- if (!pParty_global->bTurnBasedModeOn)
+ if (!pParty->bTurnBasedModeOn)
  {
-  if (pParty_global->dword_000884 & 2)
+  if (pParty->dword_000884 & 2)
     pPartyActionQueue->Add((Action::Type)16);
   else
     pPartyActionQueue->Add(Action::WalkForward);
@@ -470,7 +470,7 @@ void PartyAction_OnMovingForward()
  {
   dword_4F886C -= 26;
 
-  if (pParty_global->dword_000884 & 2)
+  if (pParty->dword_000884 & 2)
     pPartyActionQueue->Add((Action::Type)16);
   else
     pPartyActionQueue->Add(Action::WalkForward);

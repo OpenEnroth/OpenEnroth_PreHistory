@@ -345,14 +345,14 @@ LABEL_150:
         if ( a5 != -1 )
         {
           if ( !a5 )
-            v74 = pParty_global->vPosition.x;
+            v74 = pParty->vPosition.x;
           if ( !a6 )
-            a6 = pParty_global->vPosition.y;
+            a6 = pParty->vPosition.y;
           if (uNumRepeats)
             AIL_set_sample_loop_count(pFreeChannel->hSample, uNumRepeats - 1);
           v82 = sub_4AB66C(v74, a6);
           AIL_set_sample_pan(pFreeChannel->hSample, v82);
-          v83 = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(v74, a6, pParty_global->vPosition.z);
+          v83 = sub_4AB6B1_GetSoundStrengthByDistanceFromParty(v74, a6, pParty->vPosition.z);
           AIL_set_sample_volume(pFreeChannel->hSample, v83);
           v75 = a3;
           goto LABEL_184;
@@ -570,9 +570,9 @@ LABEL_116:
           cChannelsToUse.max = 12;
           v13 = 10;
 LABEL_46:
-          v87 = (double)pParty_global->vPosition.x;
-          v88 = (double)pParty_global->vPosition.y;
-          v20 = (double)pParty_global->uEyelevel + (double)pParty_global->vPosition.z;
+          v87 = (double)pParty->vPosition.x;
+          v88 = (double)pParty->vPosition.y;
+          v20 = (double)pParty->uEyelevel + (double)pParty->vPosition.z;
           goto LABEL_47;
         }
         v13 = 10 * v14 / 16;
@@ -783,11 +783,11 @@ LABEL_104:
           }
           if ( (a3 & 7) != 5 )
           {
-            v87 = (double)pParty_global->vPosition.x;
-            v44 = (double)pParty_global->vPosition.y;
+            v87 = (double)pParty->vPosition.x;
+            v44 = (double)pParty->vPosition.y;
 LABEL_100:
             v88 = v44;
-            v46 = (double)pParty_global->uEyelevel + (double)pParty_global->vPosition.z;
+            v46 = (double)pParty->uEyelevel + (double)pParty->vPosition.z;
             goto LABEL_101;
           }
           v45 = (char *)&pLevelDecorations[(a3 >> 3)];
@@ -1638,9 +1638,9 @@ LABEL_35:
             }
             if ( v12 != 2 )
             {
-              v58 = (double)pParty_global->vPosition.x;
-              v59 = (double)pParty_global->vPosition.y;
-              v13 = (double)pParty_global->uEyelevel + (double)pParty_global->vPosition.z;
+              v58 = (double)pParty->vPosition.x;
+              v59 = (double)pParty->vPosition.y;
+              v13 = (double)pParty->uEyelevel + (double)pParty->vPosition.z;
               goto LABEL_21;
             }
             v14 = (char *)&pLevelDecorations[(*(_DWORD *)(v8 + 4) >> 3)];
@@ -1662,9 +1662,9 @@ LABEL_21:
             LODWORD(v66) = *(int *)&stru_51B6E0.fSineY;
             if ( stru_51B6E0.sRotationX )
             {
-              v68 = v58 - (double)pParty_global->vPosition.x;
-              *(float *)&v67 = v59 - (double)pParty_global->vPosition.y;
-              v20 = v60 - (double)pParty_global->vPosition.z;
+              v68 = v58 - (double)pParty->vPosition.x;
+              *(float *)&v67 = v59 - (double)pParty->vPosition.y;
+              v20 = v60 - (double)pParty->vPosition.z;
               if ( pD3DRenderer->pRenderD3D3 )
               {
                 v22 = *(float *)&v67 * v66 + v68 * v65;
@@ -1681,8 +1681,8 @@ LABEL_21:
             }
             else
             {
-              v68 = v58 - (double)pParty_global->vPosition.x;
-              *(float *)&v67 = v59 - (double)pParty_global->vPosition.y;
+              v68 = v58 - (double)pParty->vPosition.x;
+              *(float *)&v67 = v59 - (double)pParty->vPosition.y;
               if ( pD3DRenderer->pRenderD3D3 )
               {
                 v61 = *(float *)&v67 * v66 + v68 * v65;
@@ -1694,7 +1694,7 @@ LABEL_21:
                 v23 = v68 * v66 + *(float *)&v67 * v65;
               }
               v62 = v23;
-              v63 = v60 - (double)pParty_global->vPosition.z;
+              v63 = v60 - (double)pParty->vPosition.z;
             }
           }
           else
@@ -1837,9 +1837,9 @@ LABEL_62:
         LODWORD(v66) = 1;
         v48 = 4 * v69 + 6817720;
         v49 = (short *)&pLevelDecorations[dword_6807B8[v69]];
-        v50 = abs(*((_DWORD *)v49 + 3) - pParty_global->vPosition.z);
-        v51 = abs(*((_DWORD *)v49 + 2) - pParty_global->vPosition.y);
-        v52 = abs(*((_DWORD *)v49 + 1) - pParty_global->vPosition.x);
+        v50 = abs(*((_DWORD *)v49 + 3) - pParty->vPosition.z);
+        v51 = abs(*((_DWORD *)v49 + 2) - pParty->vPosition.y);
+        v52 = abs(*((_DWORD *)v49 + 1) - pParty->vPosition.x);
         v47 = sub_4621DA(v52, v51, v50);
         if ( v47 <= 8192 )
           break;
@@ -1873,8 +1873,8 @@ LABEL_89:
           goto LABEL_85;
       }
       LODWORD(v66) = 0;
-      if ( (unsigned int)pParty_global->uCurrentHour >= 5 && (unsigned int)pParty_global->uCurrentHour < 6
-        || (unsigned int)pParty_global->uCurrentHour >= 0x14 && (unsigned int)pParty_global->uCurrentHour < 0x15 )
+      if ( (unsigned int)pParty->uCurrentHour >= 5 && (unsigned int)pParty->uCurrentHour < 6
+        || (unsigned int)pParty->uCurrentHour >= 0x14 && (unsigned int)pParty->uCurrentHour < 0x15 )
       {
         if ( !v49[13] )
         {
@@ -2407,9 +2407,9 @@ int __fastcall sub_4AB6B1_GetSoundStrengthByDistanceFromParty(int a1, int a2, in
 
   v3 = a2;
   v4 = a1;
-  v5 = abs(a3 - pParty_global->vPosition.z);
-  v6 = abs(v3 - pParty_global->vPosition.y);
-  v7 = abs(v4 - pParty_global->vPosition.x);
+  v5 = abs(a3 - pParty->vPosition.z);
+  v6 = abs(v3 - pParty->vPosition.y);
+  v7 = abs(v4 - pParty->vPosition.x);
   v9 = sub_4621DA(v7, v6, v5);
   if ( v9 <= 8192 )
     result = 114 - (signed __int64)((double)v9 * (1.0 / 8192.0) * 100.0);

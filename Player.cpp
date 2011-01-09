@@ -375,7 +375,7 @@ int Player_GetActualAge(struct Player *_this)
 //----- (0048E6DC) --------------------------------------------------------
 int Player_GetBaseAge(struct Player *_this)
 {
-  double d = pParty_global->qword_00002C;
+  double d = pParty->qword_00002C;
   return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 24) / 7 / 4 / 12
        - _this->uBirthYear + 1168;
 }
@@ -1664,7 +1664,7 @@ bool Player_sub_48E8F5(struct Player *_this, signed int a2)
     *((_WORD *)v3 + 3226) = 0;
     struct_576FE8.dword_000044 = 1;
     if ( !uActiveCharacter )
-      uActiveCharacter = Party_sub_49370F(pParty_global);
+      uActiveCharacter = Party_sub_49370F(pParty);
     return false;
   }
 }
@@ -1755,7 +1755,7 @@ LABEL_76:
         v23 = 30;
         goto LABEL_81;
       case 1:
-       if ( a3 == 1 && pParty_global->pPartyBuffs[13].qword_000000 > 0 )
+       if ( a3 == 1 && pParty->pPartyBuffs[13].qword_000000 > 0 )
           goto LABEL_10;
         v26 = 0;
         v23 = 25;
@@ -1787,11 +1787,11 @@ LABEL_76:
       case 10:
         if ( a3 == 1 )
         {
-         if ( pParty_global->pPartyBuffs[13].qword_000000 > 0 )
+         if ( pParty->pPartyBuffs[13].qword_000000 > 0 )
           {
-            --pParty_global->pPartyBuffs[13].word_000008;
-            if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
-              SpellBuff_sub_458585(&pParty_global->pPartyBuffs[13]);
+            --pParty->pPartyBuffs[13].word_000008;
+            if (pParty->pPartyBuffs[13].word_000008 < 1u )
+              SpellBuff_sub_458585(&pParty->pPartyBuffs[13]);
           }
           if ( Player_sub_48D6D0((Player *)v3, 21) || Player_sub_48D709((Player *)v7, 505, 3) || Player_sub_48D709((Player *)v8, 530, 6) )
             goto LABEL_76;
@@ -1804,7 +1804,7 @@ LABEL_76:
       case 11:
         if ( a3 != 1 )
           goto LABEL_40;
-        if ( HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u) )
+        if ( HIDWORD(pParty->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty->pPartyBuffs[13].qword_000000 > 0u) )
           goto LABEL_10;
         if ( Player_sub_48D6D0((Player *)v3, 18) || Player_sub_48D709((Player *)v9, 505, 3) || Player_sub_48D709((Player *)v10, 530, 6) )
           goto LABEL_76;
@@ -1815,7 +1815,7 @@ LABEL_40:
       case 12:
         if ( a3 != 1 )
           goto LABEL_82;
-        if ( HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u) )
+        if ( HIDWORD(pParty->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty->pPartyBuffs[13].qword_000000 > 0u) )
           goto LABEL_10;
         if ( Player_sub_48D6D0((Player *)v3, 20) || Player_sub_48D709((Player *)v11, 505, 3) || Player_sub_48D709((Player *)v12, 507, 16) )
           goto LABEL_76;
@@ -1830,14 +1830,14 @@ LABEL_16:
         v13 = v3 + 6460;
         goto LABEL_70;
       case 14:
-       if ( a3 == 1 && pParty_global->pPartyBuffs[13].qword_000000 > 0 && pParty_global->pPartyBuffs[13].word_00000A >= 4u )
+       if ( a3 == 1 && pParty->pPartyBuffs[13].qword_000000 > 0 && pParty->pPartyBuffs[13].word_00000A >= 4u )
           goto LABEL_10;
         v28 = 0;
         v25 = 33;
         goto LABEL_67;
       case 15:
         if ( a3 == 1
-         && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u)
+         && (HIDWORD(pParty->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty->pPartyBuffs[13].qword_000000 > 0u)
            || Player_sub_48D6D0((Player *)v3, 23)
            || Player_sub_48D709((Player *)v14, 520, 16)
            || Player_sub_48D709((Player *)v15, 505, 3)
@@ -1847,12 +1847,12 @@ LABEL_16:
         v23 = 34;
         goto LABEL_81;
       case 16:
-       if ( a3 == 1 && pParty_global->pPartyBuffs[13].qword_000000 > 0 && pParty_global->pPartyBuffs[13].word_00000A >= 4u )
+       if ( a3 == 1 && pParty->pPartyBuffs[13].qword_000000 > 0 && pParty->pPartyBuffs[13].word_00000A >= 4u )
         {
 LABEL_10:
-          --pParty_global->pPartyBuffs[13].word_000008;
-          if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
-            SpellBuff_sub_458585(&pParty_global->pPartyBuffs[13]);
+          --pParty->pPartyBuffs[13].word_000008;
+          if (pParty->pPartyBuffs[13].word_000008 < 1u )
+            SpellBuff_sub_458585(&pParty->pPartyBuffs[13]);
           goto LABEL_76;
         }
         v28 = 0;
@@ -1867,7 +1867,7 @@ LABEL_70:
           *(_DWORD *)v13 = 0;
 LABEL_82:
         v21 = 0;
-        *(_QWORD *)v29 = pParty_global->qword_00002C;
+        *(_QWORD *)v29 = pParty->qword_00002C;
         v31 = 0;
         v22 = 1;
         do
@@ -2128,7 +2128,7 @@ bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime)
   if (pPlayers[uActiveCharacter - 1] == _this)
   {
     if ( !dword_50C0C4 )
-      uActiveCharacter = Party_sub_49370F(pParty_global);
+      uActiveCharacter = Party_sub_49370F(pParty);
   }
   struct_576FE8.dword_000044 = 1;
 
@@ -2151,25 +2151,25 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
       {
         case 15:
           v3 = *(_WORD *)((char *)_this + 6088);
-          v4 = pParty_global->pPartyBuffs[1].word_000008;
+          v4 = pParty->pPartyBuffs[1].word_000008;
           break;
         case 11:
           v3 = *(_WORD *)((char *)_this + 6056);
-          v4 = pParty_global->pPartyBuffs[0].word_000008;
+          v4 = pParty->pPartyBuffs[0].word_000008;
           break;
         case 12:
           v3 = *(_WORD *)((char *)_this + 6408);
-          v4 = pParty_global->pPartyBuffs[17].word_000008;
+          v4 = pParty->pPartyBuffs[17].word_000008;
           break;
         case 13:
           v3 = *(_WORD *)((char *)_this + 6104);
-          v4 = pParty_global->pPartyBuffs[4].word_000008;
+          v4 = pParty->pPartyBuffs[4].word_000008;
           break;
         default:
           if ( a2 != 14 )
             return result;
           v3 = *(_WORD *)((char *)_this + 6200);
-          v4 = pParty_global->pPartyBuffs[12].word_000008;
+          v4 = pParty->pPartyBuffs[12].word_000008;
           break;
       }
       return v4 + v3;
@@ -2179,7 +2179,7 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
       if ( a2 == 26 )
       {
         v3 = *(_WORD *)((char *)_this + 6184);
-        v4 = pParty_global->pPartyBuffs[9].word_000008;
+        v4 = pParty->pPartyBuffs[9].word_000008;
         return v4 + v3;
       }
       if ( a2 != 29 )
@@ -2190,7 +2190,7 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
   if ( a2 == 10 )
   {
     v3 = *(_WORD *)((char *)_this + 6136);
-    v4 = pParty_global->pPartyBuffs[6].word_000008;
+    v4 = pParty->pPartyBuffs[6].word_000008;
     return v4 + v3;
   }
   switch ( a2 )
@@ -2216,11 +2216,11 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
     case 6:
       v3 = *(_WORD *)((char *)_this + 6344);
 LABEL_5:
-      v4 = pParty_global->pPartyBuffs[2].word_000008;
+      v4 = pParty->pPartyBuffs[2].word_000008;
       return v4 + v3;
     case 9:
       v3 = *(_WORD *)((char *)_this + 6280);
-      v4 = pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_000008;
+      v4 = pParty->pPartyBuffs[SPELLBUFF_WATERWALK].word_000008;
       return v4 + v3;
     default:
       return result;

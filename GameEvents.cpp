@@ -64,7 +64,7 @@ unsigned int Game_OnAttack(int, int)
  if (!uActiveCharacter)
    return Result::Generic;
 
- if (!pParty_global->bTurnBasedModeOn)
+ if (!pParty->bTurnBasedModeOn)
    sub_42ECB5_PlayerAttack();
  else
  {
@@ -93,20 +93,20 @@ unsigned int Game_OnOpenRest(int, int)
    return Result::Success;
 
  if (!sub_42F4DA())
-   if (~pParty_global->dword_007778 & 0x88)
+   if (~pParty->dword_007778 & 0x88)
    {
     sub_41F6C1();
     return Result::Success;
    }
 
 
- if (pParty_global->bTurnBasedModeOn)
+ if (pParty->bTurnBasedModeOn)
  {
   sub_44C175((char *)pGlobalTXT_LocalizationStrings[478], 2);
   return Result::Success;
  }
 
- if (pParty_global->dword_007778 & 0x88)
+ if (pParty->dword_007778 & 0x88)
    sub_44C175((char *)pGlobalTXT_LocalizationStrings[479], 2);
  else
    sub_44C175((char *)pGlobalTXT_LocalizationStrings[480], 2);
@@ -196,8 +196,8 @@ unsigned int Game_OnOpenMap(int, unsigned int uTriggeredContorlID)
    GUIWindowDelete(pGUIWindow_CurrentMenu);
 
  cEventTimer.Pause();
- struct_576FE8.sPartyPosX = pParty_global->vPosition.x;
- struct_576FE8.sPartyPosY = pParty_global->vPosition.y;
+ struct_576FE8.sPartyPosX = pParty->vPosition.x;
+ struct_576FE8.sPartyPosY = pParty->vPosition.y;
  pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
 
  pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, (GUIButton *)uTriggeredContorlID, 0);

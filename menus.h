@@ -33,7 +33,7 @@ int __cdecl sub_45E93E();
 
 void sub_45EE8A(int a1);
 
-void sub_4601B7(int a1);
+void sub_4601B7_SaveLoadWindow_Render(int a1);
 
 void sub_45E297(int a1);
 
@@ -43,13 +43,13 @@ int __fastcall sub_460078(int a1);
 
 int __fastcall SaveGame(int a1, int a2);
 
-void  sub_4606F7();
+void  sub_4606F7_LoadWindow_Render();
 void  sub_4606FE();
-int __cdecl sub_410DEC();
+int __cdecl sub_410DEC_DrawSpellbook_Beacons();
 
 void __cdecl sub_4B6943();
 
-void *__cdecl sub_45E006();
+void *__cdecl sub_45E006_FreeSaveThumbnails();
 
 extern int dword_69CF28[45]; // weak
 

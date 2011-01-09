@@ -973,7 +973,7 @@ int VideoPlayer::sub_4BF5B2()
         dword_F8BC10 = 1;
         sub_4BD8B5();
         GUIWindowDelete(ptr_507BC0);
-        pParty_global->dword_007778 &= 0xFFFFFFFDu;
+        pParty->dword_007778 &= 0xFFFFFFFDu;
         result = sub_44622E(165);
         if ( result )
         {

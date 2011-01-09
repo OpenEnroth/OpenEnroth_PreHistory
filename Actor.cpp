@@ -48,9 +48,9 @@ void __cdecl UpdateActors()
  if (uCurrentlyLoadedLevelType == 1 && !strcmpi((char *)pIndoor->pLocationFileName, "d26.blv"))
    bPitLevel = true;
 
-  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )
+  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 99) )
     v7 = 1;
-  if ( sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) )
+  if ( sub_449B57((unsigned char *)pParty->unk_000764 + 1, 100) )
     v5 = 1;
 
   for (unsigned int i = 0; i < uNumActors; ++i)
@@ -78,7 +78,7 @@ void __cdecl UpdateActors()
     }
     pActor->uAttributes &= 0xFF7FFFFF;
     if (pActor->uAttributes & 0x400000 )
-      sub_4031C1(i, pParty_global->uCurrentHour, 1);
+      sub_4031C1(i, pParty->uCurrentHour, 1);
   }
 }
 
@@ -143,9 +143,9 @@ struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObje
  {
   if (uObject1ID == 0)
   {
-   v0 = Vec3<int>(pParty_global->vPosition.x,
-                  pParty_global->vPosition.y,
-                  pParty_global->vPosition.z + pParty_global->uPartyHeight / 3);
+   v0 = Vec3<int>(pParty->vPosition.x,
+                  pParty->vPosition.y,
+                  pParty->vPosition.z + pParty->uPartyHeight / 3);
   }
   else if (uObject1ID < 5)
   {
@@ -156,24 +156,24 @@ struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObje
    {
     case 1:
         RotateVector_p0 = 24;
-        RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY; 
+        RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty->sRotationY; 
         break;
     case 2:
         RotateVector_p0 = 8;
-        RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty_global->sRotationY;  
+        RotateVector_p1 = pClass59_global->uIntegerHalfPi + pParty->sRotationY;  
         break;
     case 3:
         RotateVector_p0 = 24;
-        RotateVector_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
+        RotateVector_p1 = pParty->sRotationY - pClass59_global->uIntegerHalfPi;
         break;
     case 4:
         RotateVector_p0 = 8;
-        RotateVector_p1 = pParty_global->sRotationY - pClass59_global->uIntegerHalfPi;
+        RotateVector_p1 = pParty->sRotationY - pClass59_global->uIntegerHalfPi;
         break;
    }
 
-   Vec3<int> vToRotate = pParty_global->vPosition;
-   vToRotate.z += pParty_global->uPartyHeight / 3;
+   Vec3<int> vToRotate = pParty->vPosition;
+   vToRotate.z += pParty->uPartyHeight / 3;
    RotateVector(RotateVector_p0, RotateVector_p1, 0, vToRotate, &v0);
   }
  }
@@ -207,11 +207,11 @@ struct DirectionInfo *GetDirectionInfo(unsigned int uObject1, unsigned int uObje
  }
  else if (uObject2Type == 4)
  {
-  v1 = pParty_global->vPosition;
+  v1 = pParty->vPosition;
   if (a4)
     v1.z += a4;
   else
-    v1.z += pParty_global->uEyelevel;
+    v1.z += pParty->uEyelevel;
  }
  else if (uObject2Type == 5)
     v0 = pLevelDecorations[uObject2ID].vPosition;
@@ -498,9 +498,9 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->vPosition.x;
-      y1 = pParty_global->vPosition.y;
-      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+      x1 = pParty->vPosition.x;
+      y1 = pParty->vPosition.y;
+      z1 = pParty->vPosition.z + pParty->uEyelevel;
     }
     else
     {
@@ -536,7 +536,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
       recoveryTime *= 2;   
     }
 
-    if (!pParty_global->bTurnBasedModeOn)
+    if (!pParty->bTurnBasedModeOn)
       recoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
 
     pActor->uRecoveryTime = recoveryTime;
@@ -715,12 +715,12 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
 
   v4 = 0;
   pActor = &pActors[uActorID];
-  if (pActor->bFlying && !pParty_global->bFlying)
+  if (pActor->bFlying && !pParty->bFlying)
   {
     if (pActor->uAttack1MissleType && (uCurrentlyLoadedLevelType == 2))
       v4 = pActor->uActorRadius + 512;      
     else
-      v4 = pParty_global->uPartyHeight;
+      v4 = pParty->uPartyHeight;
   }
 
   if ( !pDirectionInfo )
@@ -786,12 +786,12 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
     
   v5 = 0;
   pActor = &pActors[uActorID];
-  if (pActor->bFlying && !pParty_global->bFlying)
+  if (pActor->bFlying && !pParty->bFlying)
   {
     if (pActor->uAttack1MissleType && (uCurrentlyLoadedLevelType == 2))
       v5 = pActor->uActorRadius + 512;      
     else
-      v5 = pParty_global->uPartyHeight;
+      v5 = pParty->uPartyHeight;
   }
 
   if ( !pDirectionInfo )
@@ -850,12 +850,12 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
   pActor = &pActors[uActorID];
   v5 = 0;
 
-  if (pActor->bFlying && !pParty_global->bFlying)
+  if (pActor->bFlying && !pParty->bFlying)
   {
     if (pActor->uAttack1MissleType)
       v5 = pActor->uActorRadius + 512;
     else
-      v5 = pParty_global->uPartyHeight;
+      v5 = pParty->uPartyHeight;
   }
 
   if ( !pDirectionInfo )
@@ -899,12 +899,12 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
     //-cos(pDirectionInfo->uYawAngle + v18)
     tmpCos = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerPi); 
     deltaX = ((unsigned __int64)(tmpCos * pDirectionInfo->uDistanceXY) >> 16);
-    tmpX = pParty_global->vPosition.x + deltaX - pActor->vPosition.x;
+    tmpX = pParty->vPosition.x + deltaX - pActor->vPosition.x;
   
     //-sin(pDirectionInfo->uYawAngle + v18)
     tmpSin = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerHalfPi);
     deltaY =  ((unsigned __int64)(tmpSin * pDirectionInfo->uDistanceXY) >> 16);
-    tmpY = pParty_global->vPosition.y + deltaY - pActor->vPosition.y;
+    tmpY = pParty->vPosition.y + deltaY - pActor->vPosition.y;
     
     pActor->uYawAngle = class59_Atan2(pClass59_global, tmpX, tmpY);
   }
@@ -942,9 +942,9 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->vPosition.x;
-      y1 = pParty_global->vPosition.y;
-      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+      x1 = pParty->vPosition.x;
+      y1 = pParty->vPosition.y;
+      z1 = pParty->vPosition.z + pParty->uEyelevel;
     }
     else
     {
@@ -980,7 +980,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;    
     }
     
-    if (pParty_global->bTurnBasedModeOn)
+    if (pParty->bTurnBasedModeOn)
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->uCurrentActionLength - 
@@ -1032,9 +1032,9 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->vPosition.x;
-      y1 = pParty_global->vPosition.y;
-      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+      x1 = pParty->vPosition.x;
+      y1 = pParty->vPosition.y;
+      z1 = pParty->vPosition.z + pParty->uEyelevel;
     }
     else
     {
@@ -1070,7 +1070,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;
     }
 
-    if (!pParty_global->bTurnBasedModeOn)
+    if (!pParty->bTurnBasedModeOn)
       pActor->uRecoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
         
     pActor->vVelocity = Vec3<short>(0, 0, 0);
@@ -1105,9 +1105,9 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->vPosition.x;
-      y1 = pParty_global->vPosition.y;
-      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+      x1 = pParty->vPosition.x;
+      y1 = pParty->vPosition.y;
+      z1 = pParty->vPosition.z + pParty->uEyelevel;
     }
     else
     {
@@ -1147,7 +1147,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;    
     }
 
-    if (pParty_global->bTurnBasedModeOn)
+    if (pParty->bTurnBasedModeOn)
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->uCurrentActionLength - 
@@ -1182,9 +1182,9 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
   {
     if ( (a2 & 7) == 4 )
     {
-      x1 = pParty_global->vPosition.x;
-      y1 = pParty_global->vPosition.y;
-      z1 = pParty_global->vPosition.z + pParty_global->uEyelevel;
+      x1 = pParty->vPosition.x;
+      y1 = pParty->vPosition.y;
+      z1 = pParty->vPosition.z + pParty->uEyelevel;
     }
     else
     {
@@ -1220,7 +1220,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;    
     }
 
-    if (pParty_global->bTurnBasedModeOn)
+    if (pParty->bTurnBasedModeOn)
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->uCurrentActionLength - 
@@ -1387,8 +1387,8 @@ void Actor_Die(unsigned int uActorID)
   monsterID = pActor->uMonsterID - 1;  
   for (i = 0; i < 5; ++i)
   {
-    if ( monsterID == pParty_global->array_000750[i] )
-      pParty_global->array_00075A[i] = 1;
+    if ( monsterID == pParty->array_000750[i] )
+      pParty->array_00075A[i] = 1;
   }
   
   for (i = 0; i < 22; ++i)
@@ -1559,9 +1559,9 @@ LABEL_23:
 
 
 
-  if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= v5 )
+  if ( HIDWORD(pParty->pPartyBuffs[11].qword_000000) >= v5 )
   {
-   if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > v5 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > (unsigned int)v5 )
+   if ( HIDWORD(pParty->pPartyBuffs[11].qword_000000) > v5 || (_DWORD)pParty->pPartyBuffs[11].qword_000000 > (unsigned int)v5 )
       a3 = v5;
   }
   if ( a3 != v5 )
@@ -1592,9 +1592,9 @@ LABEL_23:
       v12 = dword_4DF390;
       if ( !*(_BYTE *)(v6 + 61) )
         v12 = dword_4DF380[v3];
-      v13 = abs(*(_WORD *)(v6 + 142) - pParty_global->vPosition.x);
-      v25 = abs(*(_WORD *)(v6 + 144) - pParty_global->vPosition.y);
-      v3 = abs(*(_WORD *)(v6 + 146) - pParty_global->vPosition.z);
+      v13 = abs(*(_WORD *)(v6 + 142) - pParty->vPosition.x);
+      v25 = abs(*(_WORD *)(v6 + 144) - pParty->vPosition.y);
+      v3 = abs(*(_WORD *)(v6 + 146) - pParty->vPosition.z);
       if ( v13 <= v12 )
       {
         if ( v25 <= v12 )

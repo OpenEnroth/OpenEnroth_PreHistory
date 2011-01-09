@@ -101,16 +101,16 @@ void Player_UseItem_DrinkPotion_etc(Player *_this, unsigned int uCharacter, int 
   //int v76; // [sp+28h] [bp-4h]@1
   int v77; // [sp+28h] [bp-4h]@22
 
- Player *pTargetPlayer = &pParty_global->pPlayers[uCharacter];
+ Player *pTargetPlayer = &pParty->pPlayers[uCharacter];
   v73 = 1;
-  if (pParty_global->bTurnBasedModeOn && (dword_4F885C == 1 || dword_4F885C == 3) )
+  if (pParty->bTurnBasedModeOn && (dword_4F885C == 1 || dword_4F885C == 3) )
     return;
   v4 = 0;
-  if (pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType == 13 )
+  if (pClass40->pItems[pParty->pickedItem.uItemID].uEquipType == 13 )
   {
-    if (pParty_global->pickedItem.uItemID != 159) // item160 null
+    if (pParty->pickedItem.uItemID != 159) // item160 null
     {
-      if (pParty_global->pickedItem.uItemID == 160) // item161 null
+      if (pParty->pickedItem.uItemID == 160) // item161 null
       {
         v27 = (int)pTargetPlayer + 6464;
         *(_DWORD *)v27 += 2;
@@ -120,34 +120,34 @@ LABEL_170:
       }
       else
       {
-        if (pParty_global->pickedItem.uItemID != 161) // item162 null
+        if (pParty->pickedItem.uItemID != 161) // item162 null
         {
 LABEL_167:
-          v68 = ItemGen_sub_456499(&pParty_global->pickedItem);
+          v68 = ItemGen_sub_456499(&pParty->pickedItem);
           v58 = (int)pGlobalTXT_LocalizationStrings[36];
           goto LABEL_90;
         }
         v69 = 2;
 LABEL_111:
-        Player_sub_48DBB9((int)&pParty_global->pPlayers[uCharacter], v69);
+        Player_sub_48DBB9((int)&pParty->pPlayers[uCharacter], v69);
       }
 LABEL_112:
       Player_PlaySound(pTargetPlayer, 36, 0);
       goto LABEL_173;
     }
 LABEL_172:
-    Player_sub_492D65(&pParty_global->pPlayers[uCharacter], 6, 1);
+    Player_sub_492D65(&pParty->pPlayers[uCharacter], 6, 1);
     goto LABEL_173;
   }
-  if (pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType == Items::EquipType::Potion)
+  if (pClass40->pItems[pParty->pickedItem.uItemID].uEquipType == Items::EquipType::Potion)
   {
-    switch (pParty_global->pickedItem.uItemID)
+    switch (pParty->pickedItem.uItemID)
     {
       case 221:
-       v25 = pParty_global->pickedItem.dword_000004 + 10;
+       v25 = pParty->pickedItem.dword_000004 + 10;
         goto LABEL_110;
       case 222:
-        v26 = pParty_global->pickedItem.dword_000004 + 10;
+        v26 = pParty->pickedItem.dword_000004 + 10;
         goto LABEL_114;
       case 223:
         *(_DWORD *)(pTargetPlayer + 8) = 0;
@@ -180,7 +180,7 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6160;
         goto LABEL_147;
       case 228:
@@ -188,7 +188,7 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6176;
         goto LABEL_147;
       case 229:
@@ -196,23 +196,23 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6064;
         goto LABEL_147;
       case 230:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6224;
         goto LABEL_147;
       case 231:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6256;
         goto LABEL_147;
       case 233:
@@ -220,14 +220,14 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6272;
         goto LABEL_147;
       case 234:
         SpellBuf_sub_4584E0(
           (SpellBuff *)(pTargetPlayer + 6416),
-          pParty_global->qword_00002C + (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214),
-          (unsigned __int64)(pParty_global->qword_00002C + (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214)) >> 32,
+          pParty->qword_00002C + (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214),
+          (unsigned __int64)(pParty->qword_00002C + (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214)) >> 32,
           3,
           5,
           0,
@@ -248,49 +248,49 @@ LABEL_172:
       case 239:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6352;
         goto LABEL_147;
       case 240:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6320;
         goto LABEL_147;
       case 241:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6368;
         goto LABEL_147;
       case 242:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6304;
         goto LABEL_147;
       case 243:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6384;
         goto LABEL_147;
       case 244:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6288;
         goto LABEL_147;
       case 250:
@@ -304,7 +304,7 @@ LABEL_172:
         v33 = *(_DWORD *)(pTargetPlayer + 124);
         v34 = *(_DWORD *)(pTargetPlayer + 128);
         v35 = *(_DWORD *)(pTargetPlayer + 132);
-        memset(&pParty_global->pPlayers[uCharacter], 0, 0xA0);
+        memset(&pParty->pPlayers[uCharacter], 0, 0xA0);
         *(_DWORD *)(pTargetPlayer + 116) = v31;
         *(_DWORD *)(pTargetPlayer + 120) = v32;
         *(_DWORD *)(pTargetPlayer + 124) = v33;
@@ -313,12 +313,12 @@ LABEL_172:
         *(_DWORD *)(pTargetPlayer + 132) = v35;
         goto LABEL_112;
       case 252:
-        v25 = 5 * pParty_global->pickedItem.dword_000004;
+        v25 = 5 * pParty->pickedItem.dword_000004;
 LABEL_110:
         v69 = v25;
         goto LABEL_111;
       case 253:
-        v26 = 5 * pParty_global->pickedItem.dword_000004;
+        v26 = 5 * pParty->pickedItem.dword_000004;
 LABEL_114:
         v27 = (int)pTargetPlayer + 6464;
         *(_DWORD *)v27 += v26;
@@ -326,60 +326,60 @@ LABEL_114:
       case 254:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6336;
         goto LABEL_147;
       case 255:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6128;
         goto LABEL_147;
       case 256:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6048;
         goto LABEL_147;
       case 257:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6400;
         goto LABEL_147;
       case 258:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6096;
         goto LABEL_147;
       case 259:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6192;
         goto LABEL_147;
       case 260:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * pParty_global->pickedItem.dword_000004;
+        v50 = 3 * pParty->pickedItem.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * pParty_global->pickedItem.dword_000004) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty->pickedItem.dword_000004) * 0.03333333507180214);
         v29 = (int)pTargetPlayer + 6080;
 LABEL_147:
-        SpellBuf_sub_4584E0((SpellBuff *)v29, pParty_global->qword_00002C + v28, (unsigned __int64)(pParty_global->qword_00002C + v28) >> 32, v46, v50, v59, v70);
+        SpellBuf_sub_4584E0((SpellBuff *)v29, pParty->qword_00002C + v28, (unsigned __int64)(pParty->qword_00002C + v28) >> 32, v46, v50, v59, v70);
         goto LABEL_112;
       case 261:
         *(_DWORD *)(pTargetPlayer + 120) = 0;
@@ -444,48 +444,48 @@ LABEL_147:
     }
     goto LABEL_172;
   }
-  if (pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType != 15 )
+  if (pClass40->pItems[pParty->pickedItem.uItemID].uEquipType != 15 )
   {
-   if (pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType != Items::EquipType::Book)
+   if (pClass40->pItems[pParty->pickedItem.uItemID].uEquipType != Items::EquipType::Book)
     {
-     if (pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType != 17 )
+     if (pClass40->pItems[pParty->pickedItem.uItemID].uEquipType != 17 )
       {
-        if (pParty_global->pickedItem.uItemID == 616)
+        if (pParty->pickedItem.uItemID == 616)
         {
-          v77 = pParty_global->uCurrentMonthWeek + 1;
-          if (pParty_global->uCurrentMonth >= 7 )
+          v77 = pParty->uCurrentMonthWeek + 1;
+          if (pParty->uCurrentMonth >= 7 )
             v74 = 0;
           else
             //v74 = dword_507B78[dword_ACD6C8];
-            v74 = (int)aAttributeNames[pParty_global->uCurrentMonth / 4];
-          switch (pParty_global->uCurrentMonth)
+            v74 = (int)aAttributeNames[pParty->uCurrentMonth / 4];
+          switch (pParty->uCurrentMonth)
           {
             case 0:
-              v6 = pParty_global->uCurrentMonthWeek + 1;
+              v6 = pParty->uCurrentMonthWeek + 1;
               *(_WORD *)(pTargetPlayer + 188) += v77;
               goto LABEL_33;
             case 1:
-              v6 = pParty_global->uCurrentMonthWeek + 1;
+              v6 = pParty->uCurrentMonthWeek + 1;
               *(_WORD *)(pTargetPlayer + 192) += v77;
               goto LABEL_33;
             case 2:
-              v6 = pParty_global->uCurrentMonthWeek + 1;
+              v6 = pParty->uCurrentMonthWeek + 1;
               *(_WORD *)(pTargetPlayer + 196) += v77;
               goto LABEL_33;
             case 3:
-              v6 = pParty_global->uCurrentMonthWeek + 1;
+              v6 = pParty->uCurrentMonthWeek + 1;
               *(_WORD *)(pTargetPlayer + 200) += v77;
               goto LABEL_33;
             case 4:
-              v6 = pParty_global->uCurrentMonthWeek + 1;
+              v6 = pParty->uCurrentMonthWeek + 1;
               *(_WORD *)(pTargetPlayer + 208) += v77;
               goto LABEL_33;
             case 5:
-              v6 = pParty_global->uCurrentMonthWeek + 1;
+              v6 = pParty->uCurrentMonthWeek + 1;
               *(_WORD *)(pTargetPlayer + 204) += v77;
               goto LABEL_33;
             case 6:
-              v6 = pParty_global->uCurrentMonthWeek + 1;
+              v6 = pParty->uCurrentMonthWeek + 1;
               *(_WORD *)(pTargetPlayer + 212) += v77;
 LABEL_33:
               v62 = (int)pGlobalTXT_LocalizationStrings[121];
@@ -579,21 +579,21 @@ LABEL_54:
               sub_4A89BD(pGame->class06_obj, 151, uCharacter);
               Player_PlaySound(pTargetPlayer, 93, 0);
               pAudioPlayer->sub_4AA306(219, 0, 0, -1, 0, 0, 0, 0);
-              if ( pParty_global->uDaysPlayed == 6 || pParty_global->uDaysPlayed == 20 )
+              if ( pParty->uDaysPlayed == 6 || pParty->uDaysPlayed == 20 )
               {
                 v64 = 0;
                 v55 = 16;
               }
               else
               {
-                if ( pParty_global->uDaysPlayed == 12 || pParty_global->uDaysPlayed == 26 )
+                if ( pParty->uDaysPlayed == 12 || pParty->uDaysPlayed == 26 )
                 {
                   v64 = 0;
                   v55 = 14;
                 }
                 else
                 {
-                  if ( pParty_global->uDaysPlayed != 4 && pParty_global->uDaysPlayed != 25 )
+                  if ( pParty->uDaysPlayed != 4 && pParty->uDaysPlayed != 25 )
                     return;
                   v64 = 0;
                   v55 = 15;
@@ -614,14 +614,14 @@ LABEL_54:
               goto LABEL_54;
           }
         }
-        if (pParty_global->pickedItem.uItemID == 630)
+        if (pParty->pickedItem.uItemID == 630)
         {
           sub_492B42((void *)1);
           pAudioPlayer->sub_4AA306(211, 0, 0, -1, 0, 0, 0, 0);
         }
         else
         {
-          if (pParty_global->pickedItem.uItemID == 632)
+          if (pParty->pickedItem.uItemID == 632)
           {
             v61 = 0;
             v52 = 0;
@@ -633,7 +633,7 @@ LABEL_54:
             v37 = 133;
             goto LABEL_93;
           }
-          if (pParty_global->pickedItem.uItemID == 633)
+          if (pParty->pickedItem.uItemID == 633)
           {
             v61 = 0;
             v52 = 0;
@@ -645,7 +645,7 @@ LABEL_54:
             v37 = 134;
             goto LABEL_93;
           }
-          if (pParty_global->pickedItem.uItemID == 634)
+          if (pParty->pickedItem.uItemID == 634)
           {
             v61 = 0;
             v52 = 0;
@@ -657,9 +657,9 @@ LABEL_54:
             v37 = 135;
             goto LABEL_93;
           }
-          if (pParty_global->pickedItem.uItemID != 646)
+          if (pParty->pickedItem.uItemID != 646)
           {
-            if (pParty_global->pickedItem.uItemID == 650)
+            if (pParty->pickedItem.uItemID == 650)
             {
               sub_44C28F();
               return;
@@ -676,9 +676,9 @@ LABEL_187:
         GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
         return;
       }
-      if ( Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uCharacter]))
+      if ( Player_sub_492C0B_MaybeIfPlayerConscious(&pParty->pPlayers[uCharacter]))
       {
-        sub_467F48(pParty_global->pickedItem.uItemID);
+        sub_467F48(pParty->pickedItem.uItemID);
         v65 = 0;
         v56 = 37;
 LABEL_67:
@@ -697,11 +697,11 @@ LABEL_91:
       v4 = 0;
       goto LABEL_92;
     }
-    v15 = pParty_global->pickedItem.uItemID - 400;
-    v72 = pParty_global->pickedItem.uItemID - 400 + (int)&pTargetPlayer->cFireSpellbook;
+    v15 = pParty->pickedItem.uItemID - 400;
+    v72 = pParty->pickedItem.uItemID - 400 + (int)&pTargetPlayer->cFireSpellbook;
     if ( *(_BYTE *)v72 )
     {
-      v66 = ItemGen_sub_456499(&pParty_global->pickedItem);
+      v66 = ItemGen_sub_456499(&pParty->pickedItem);
       v57 = (int)pGlobalTXT_LocalizationStrings[380];
 LABEL_72:
       wsprintfA((char *)TmpBuf, (const char *)v57, v66);
@@ -721,7 +721,7 @@ LABEL_63:
       pAudioPlayer->sub_4AA306(v37, v39, v41, v43, v45, v48, v52, v61);
       return;
     }
-    if ( !Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uCharacter]))
+    if ( !Player_sub_492C0B_MaybeIfPlayerConscious(&pParty->pPlayers[uCharacter]))
     {
      v66 = (int)(aCharacterConditionNames[Player_GetConditionIdx(pTargetPlayer)]);
 
@@ -746,7 +746,7 @@ LABEL_63:
 LABEL_83:
             if ( v75 > v21 || !*v17 )
             {
-              v22 = ItemGen_sub_456499(&pParty_global->pickedItem);
+              v22 = ItemGen_sub_456499(&pParty->pickedItem);
               wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[381], v22);
               sub_44C175((char *)TmpBuf, 2);
               v65 = 0;
@@ -757,7 +757,7 @@ LABEL_83:
             Player_PlaySound(pTargetPlayer, 21, 0);
             v73 = 0;
 LABEL_173:
-            v36 = pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType;
+            v36 = pClass40->pItems[pParty->pickedItem.uItemID].uEquipType;
             if ( v36 == 14 )
             {
               v71 = 0;
@@ -788,7 +788,7 @@ LABEL_178:
                 }
                 if ( v73 )
                 {
-                  if (pParty_global->bTurnBasedModeOn)
+                  if (pParty->bTurnBasedModeOn)
                   {
                     dword_AE30F8[uCharacter] = 100;
                     Player_SetRecoveryTime(_this, 100);
@@ -834,7 +834,7 @@ LABEL_178:
   }
   if ( dword_4E28F8_PartyCantJumpIfTrue == 23 )
     return;
-  if ( !Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uCharacter]) )
+  if ( !Player_sub_492C0B_MaybeIfPlayerConscious(&pParty->pPlayers[uCharacter]) )
     goto LABEL_89;
   if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
   {
@@ -842,8 +842,8 @@ LABEL_178:
     goto LABEL_91;
   }
   dword_50C9AC = 1;
-  v24 = pParty_global->pickedItem.uItemID - 299;
-  if (pParty_global->pickedItem.uItemID == 329 || v24 == 4 || v24 == 91 || v24 == 28 )
+  v24 = pParty->pickedItem.uItemID - 299;
+  if (pParty->pickedItem.uItemID == 329 || v24 == 4 || v24 == 91 || v24 == 28 )
   {
     GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     GUIWindowDelete(pGUIWindow_CurrentMenu);
@@ -854,7 +854,7 @@ LABEL_178:
   }
   else
   {
-    dword_720984 = pParty_global->pickedItem.uItemID;
+    dword_720984 = pParty->pickedItem.uItemID;
     GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
   /*  if ( dword_50C9E8[0] < 40 )
     {
@@ -960,11 +960,11 @@ void __cdecl sub_468F8A_OnPaperdollLeftClick()
    if (pClass40->pItems[pPlayer->pInventorySlots[v0].uItemID].uEquipType == Items::EquipType::TwoHands)
       v55 = v0;
   }
-  v3 = pParty_global->pickedItem.uItemID;
-  if (pParty_global->pickedItem.uItemID)
+  v3 = pParty->pickedItem.uItemID;
+  if (pParty->pickedItem.uItemID)
   {
-   v56 = pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType;
-   v4 = pClass40->pItems[pParty_global->pickedItem.uItemID].uSkillType;
+   v56 = pClass40->pItems[pParty->pickedItem.uItemID].uEquipType;
+   v4 = pClass40->pItems[pParty->pickedItem.uItemID].uSkillType;
    if ( v4 == Character::Skill::Spear)
     {
       if ( v2 )
@@ -977,7 +977,7 @@ LABEL_8:
           Player_PlaySound(pPlayer, 39, 0);
           return;
         }
-        v3 = pParty_global->pickedItem.uItemID;
+        v3 = pParty->pickedItem.uItemID;
         goto LABEL_16;
       }
     }
@@ -990,7 +990,7 @@ LABEL_8:
 LABEL_16:
     if (!Player_CanEquip_RacialAndAlignmentCheck(pPlayer, v3))
       goto LABEL_8;
-    if (pParty_global->pickedItem.uItemID == 603)
+    if (pParty->pickedItem.uItemID == 603)
     {
       sub_467E7F_EquipBody(3);
       sub_43EF2B(uActiveCharacter);
@@ -1013,7 +1013,7 @@ LABEL_16:
             (v56 != Items::EquipType::Armour || byte_6BE3C4_MaybeDrowningFlag))
           goto LABEL_95;
         sub_467E7F_EquipBody(v56);
-        if (pParty_global->pickedItem.uItemID == 603)
+        if (pParty->pickedItem.uItemID == 603)
           sub_43F0BD(uActiveCharacter);
         return;
 
@@ -1036,20 +1036,20 @@ LABEL_16:
             goto LABEL_33;
         }
         v9 = v56;
-        pParty_global->pickedItem.byte_000018 = v56;
-        memcpy(&pPlayer->pInventorySlots[v8], &pParty_global->pickedItem.uItemID, sizeof(struct ItemGen));
+        pParty->pickedItem.byte_000018 = v56;
+        memcpy(&pPlayer->pInventorySlots[v8], &pParty->pickedItem.uItemID, sizeof(struct ItemGen));
         pPlayer->pEquippedItemIndices[v9] = v8;
         GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_33:
         if ( v56 == 16 )
         {
           v56 = pPlayer->pEquippedItemIndices[15];
-          memcpy(&local_0C, &pParty_global->pickedItem.uItemID, sizeof(struct ItemGen));
+          memcpy(&local_0C, &pParty->pickedItem.uItemID, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v56].byte_000018 = 0;
           //*(_BYTE *)(v10 + 556) = 0;
-          ItemGen_Reset(&pParty_global->pickedItem);
-          //Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)(v10 + 532));
-          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v56]);
+          ItemGen_Reset(&pParty->pickedItem);
+          //Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, (ItemGen *)(v10 + 532));
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v56]);
           local_0C.byte_000018 = 16;
           v11 = v56;
           memcpy(&pPlayer->pInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
@@ -1066,10 +1066,10 @@ LABEL_33:
         if ( v58 )
         {
           --v58;
-          memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
+          memcpy(&local_0C, &pParty->pickedItem, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v58].byte_000018 = 0;
-          ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v58]);
+          ItemGen_Reset(&pParty->pickedItem);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v58]);
           local_0C.byte_000018 = 1;
           v13 = v58;
           v14 = v55 == 0;
@@ -1086,16 +1086,16 @@ LABEL_33:
             return;
           if ( !v55 )
           {
-            pParty_global->pickedItem.byte_000018 = 1;
+            pParty->pickedItem.byte_000018 = 1;
             v17 = v56 + 1;
-            memcpy((void *)(pPlayer + 36 * v56 + 532), &pParty_global->pickedItem, sizeof(struct ItemGen));
+            memcpy((void *)(pPlayer + 36 * v56 + 532), &pParty->pickedItem, sizeof(struct ItemGen));
             *(_DWORD *)(pPlayer + 6472) = v17;
             goto LABEL_45;
           }
-          memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
+          memcpy(&local_0C, &pParty->pickedItem, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v57].byte_000018 = 0;
-          ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v57]);
+          ItemGen_Reset(&pParty->pickedItem);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v57]);
           local_0C.byte_000018 = 1;
           v16 = v56;
           memcpy((void *)(pPlayer + 36 * v56 + 532), &local_0C, sizeof(struct ItemGen));
@@ -1108,8 +1108,8 @@ LABEL_33:
       case Items::EquipType::OneOrTwoHands:
       case 12:
         if (sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) &&
-            pParty_global->pickedItem.uItemID != 63 &&
-            pParty_global->pickedItem.uItemID != 64)
+            pParty->pickedItem.uItemID != 63 &&
+            pParty->pickedItem.uItemID != 64)
           goto LABEL_95;  // when wearing Underwater Suit, we can equip only blasters?
 
         if (!Player_CheckIfHasSkill(pPlayer, v4))
@@ -1136,11 +1136,11 @@ LABEL_33:
               if ( v58 )
               {
                 --v58;
-                memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
+                memcpy(&local_0C, &pParty->pickedItem, sizeof(struct ItemGen));
 
                 pPlayer->pInventorySlots[v58].byte_000018 = 0;
-                ItemGen_Reset(&pParty_global->pickedItem);
-                Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v58]);
+                ItemGen_Reset(&pParty->pickedItem);
+                Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v58]);
                 local_0C.byte_000018 = 1;
                 v21 = v58;
                 v22 = v56 == 12;
@@ -1156,9 +1156,9 @@ LABEL_73:
               v24 = Player_FindNextFreeInventorySlotIndex(pPlayer);
               if ( v24 < 0 )
                 return;
-              pParty_global->pickedItem.byte_000018 = 1;
+              pParty->pickedItem.byte_000018 = 1;
               v54 = (int)(pPlayer) + 36 * v24 + 532;
-              memcpy(&pPlayer->pInventorySlots[v24], &pParty_global->pickedItem, sizeof(struct ItemGen));
+              memcpy(&pPlayer->pInventorySlots[v24], &pParty->pickedItem, sizeof(struct ItemGen));
               *(_DWORD *)(pPlayer + 6472) = v24;
 LABEL_71:
               GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
@@ -1174,18 +1174,18 @@ LABEL_71:
           v28 = Player_FindNextFreeInventorySlotIndex(pPlayer);
           if (v28 == -1)
             return;
-          pParty_global->pickedItem.byte_000018 = 2;
+          pParty->pickedItem.byte_000018 = 2;
           v54 = (int)&pPlayer->pInventorySlots[v28];
-          memcpy(&pPlayer->pInventorySlots[v28], &pParty_global->pickedItem, sizeof(struct ItemGen));
+          memcpy(&pPlayer->pInventorySlots[v28], &pParty->pickedItem, sizeof(struct ItemGen));
           pPlayer->pEquippedItemIndices[1] = v28;
           goto LABEL_71;
         }
         --v57;
-        memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
+        memcpy(&local_0C, &pParty->pickedItem, sizeof(struct ItemGen));
 
         pPlayer->pInventorySlots[v57].byte_000018 = 0;
-        ItemGen_Reset(&pParty_global->pickedItem);
-        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v57]);
+        ItemGen_Reset(&pParty->pickedItem);
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v57]);
         local_0C.byte_000018 = 2;
         v26 = v57;
         v27 = v56 == 12;
@@ -1220,10 +1220,10 @@ LABEL_74:
             goto LABEL_96;
           }
           --v57;
-          memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
+          memcpy(&local_0C, &pParty->pickedItem, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v57].byte_000018 = 0;
-          ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v57]);
+          ItemGen_Reset(&pParty->pickedItem);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v57]);
           local_0C.byte_000018 = 2;
           v30 = v57;
           memcpy(&pPlayer->pInventorySlots[v57], &local_0C, sizeof(struct ItemGen));
@@ -1236,10 +1236,10 @@ LABEL_74:
           {
             if ( v58 )
             {
-              memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
+              memcpy(&local_0C, &pParty->pickedItem, sizeof(struct ItemGen));
               pPlayer->pInventorySlots[v58 - 1].byte_000018 = 0;
-              ItemGen_Reset(&pParty_global->pickedItem);
-              Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v58 - 1]);
+              ItemGen_Reset(&pParty->pickedItem);
+              Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v58 - 1]);
               local_0C.byte_000018 = 2;
               v32 = v56;
               memcpy(&pPlayer->pInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
@@ -1248,9 +1248,9 @@ LABEL_74:
             }
             else
             {
-              pParty_global->pickedItem.byte_000018 = 2;
+              pParty->pickedItem.byte_000018 = 2;
               v33 = v56;
-              memcpy((void *)(pPlayer + 36 * v56 + 532), &pParty_global->pickedItem, sizeof(struct ItemGen));
+              memcpy((void *)(pPlayer + 36 * v56 + 532), &pParty->pickedItem, sizeof(struct ItemGen));
               *(_DWORD *)(pPlayer + 6476) = v33;
 LABEL_45:
               GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
@@ -1282,7 +1282,7 @@ LABEL_45:
     v37 = pPlayer->pEquippedItemIndices[2];
     if (pPlayer->pEquippedItemIndices[2] != -1)
     {
-     Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v37]);
+     Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v37]);
      ItemGen_Reset(&pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[2]]);
      pPlayer->pEquippedItemIndices[2] = -1;
     }
@@ -1334,7 +1334,7 @@ LABEL_96:
   {
     if ( !ptr_50C9A4 )
     {
-      Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v39]);
+      Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v39]);
       *(_DWORD *)(pPlayer + 4 * *(_BYTE *)(v54 + 556) + 0x1944) = 0;
       ItemGen_Reset(&pPlayer->pInventorySlots[v39]);
     }
@@ -1570,13 +1570,13 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
   unsigned int uDrawAtX,
                uDrawAtY;
 
- if (pParty_global->pickedItem.uItemID != -1)
+ if (pParty->pickedItem.uItemID != -1)
  {
 #ifdef OLD_CODE
-  v3 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName, 2);
+  v3 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty->pickedItem.uItemID].pIconName, 2);
 #else
   wchar_t pTextureNameW[256];
-  wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName);
+  wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pParty->pickedItem.uItemID].pIconName);
 
   v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
 #endif
@@ -1663,9 +1663,9 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
           while ( v9 < _this->dword_00004C);
         }*/
 
-        if (pParty_global->pickedItem.uAttributes & 2)
+        if (pParty->pickedItem.uAttributes & 2)
           Render_sub_4A6776(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
-        else if (pParty_global->pickedItem.uAttributes & 1)
+        else if (pParty->pickedItem.uAttributes & 1)
           Render_DrawTransparentTexture(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
         else Render_DrawTransparentGreenChannel(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
       }
@@ -1904,17 +1904,17 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
       }
       else
       {
-        if (pParty_global->pickedItem.uItemID)
+        if (pParty->pickedItem.uItemID)
           return 1;
         v27 = (int)pClass40->pItems[v19/48 - 1].pUnidentifiedName;
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v27);
         sub_44C175((char *)pStringBuffer, 2);
         if ( *(_DWORD *)v20 == 506 )
-          sub_449B7E((int)pParty_global->unk_000764 + 1, 184, 1);
+          sub_449B7E((int)pParty->unk_000764 + 1, 184, 1);
         if ( *(_DWORD *)v20 == 455 )
-          sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
-        if ( !Party_AddItem(pParty_global, (ItemGen *)v20))
-          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)v20);
+          sub_449B7E((int)pParty->unk_000764 + 1, 185, 1);
+        if ( !Party_AddItem(pParty, (ItemGen *)v20))
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, (ItemGen *)v20);
         v21 = (int)v29;
       }
       sub_42F933(v21);
@@ -1957,7 +1957,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
                   v16 = (char *)pNPCStats->pCatchPhrases[(unsigned __int16)v15];
                   if ( v16 )
                   {
-                    pParty_global->dword_007778 |= 2;
+                    pParty->dword_007778 |= 2;
                     strcpy((char *)byte_5B0938, v16);
                     sub_4451A8(0, 0, 0);
                   }
@@ -2217,9 +2217,9 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
     v4 = (int)&pActors[0].uAIState;
     do
     {
-      v8 = abs(*(_WORD *)(v4 - 34) - pParty_global->vPosition.x);
-      v17 = abs(*(_WORD *)(v4 - 32) - pParty_global->vPosition.y);
-      v18 = abs(*(_WORD *)(v4 - 30) - pParty_global->vPosition.z);
+      v8 = abs(*(_WORD *)(v4 - 34) - pParty->vPosition.x);
+      v17 = abs(*(_WORD *)(v4 - 32) - pParty->vPosition.y);
+      v18 = abs(*(_WORD *)(v4 - 30) - pParty->vPosition.z);
       v5 = v8;
       v7 = v17;
       v6 = v18;
@@ -3266,8 +3266,8 @@ void __thiscall sub_46BEF1(void *_this)
             v6 = (signed __int64)((double)(signed int)(*((_DWORD *)v1 + 19) << 7) * 0.03333333507180214);
             SpellBuf_sub_4584E0(
               (SpellBuff *)(16 * *((_DWORD *)v1 + 18) + v2 - 144 + 212),
-              pParty_global->qword_00002C + v6,
-              (unsigned __int64)(pParty_global->qword_00002C + (signed int)v6) >> 32,
+              pParty->qword_00002C + v6,
+              (unsigned __int64)(pParty->qword_00002C + (signed int)v6) >> 32,
               *((_DWORD *)v1 + 20),
               4,
               0,
@@ -3470,7 +3470,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
     if ( (a2 & 7) == 4 && (*(_BYTE *)(v3 + 88) & 7) == 4 )
       return 1;
   }
-  if (pParty_global->bTurnBasedModeOn)
+  if (pParty->bTurnBasedModeOn)
   {
     LOWORD(a1) = *(_WORD *)(v3 + 26);
     if ( a1 & 4 )
@@ -3651,8 +3651,8 @@ LABEL_222:
                   SpellBuf_sub_4584E0(
                     //(int)((char *)&unk_5FF22C + 16 * v153 + v123),
                     &pActors[v156].pActorBuffs[v153],
-                    pParty_global->qword_00002C + (signed __int64)((double)(v154 << 7) * 0.03333333507180214),
-                    (unsigned __int64)(pParty_global->qword_00002C
+                    pParty->qword_00002C + (signed __int64)((double)(v154 << 7) * 0.03333333507180214),
+                    (unsigned __int64)(pParty->qword_00002C
                                      + (signed int)(signed __int64)((double)(v154 << 7) * 0.03333333507180214)) >> 32,
                     v169,
                     v167,
@@ -4406,9 +4406,9 @@ int __cdecl sub_46CC4B()
       v33 = v3[12];
       if ( *((_BYTE *)v3 + 2) & 1 )
       {
-        v38 = abs(*((_DWORD *)v3 + 1) - pParty_global->vPosition.x);
-        v27 = abs(v1 - pParty_global->vPosition.y);
-        v30 = abs(v37 - pParty_global->vPosition.z);
+        v38 = abs(*((_DWORD *)v3 + 1) - pParty->vPosition.x);
+        v27 = abs(v1 - pParty->vPosition.y);
+        v30 = abs(v37 - pParty->vPosition.z);
         v4 = v38;
         v6 = v27;
         v5 = v30;
@@ -6064,26 +6064,26 @@ int __thiscall sub_46EF01(void *_this)
   int v11; // [sp+18h] [bp-4h]@7
 
   v8 = _this;
-  v2 = 2 * pParty_global->dword_000014;
-  result = pParty_global->vPosition.x;
-  v9 = pParty_global->uPartyHeight;
-  if ( stru_721530.dword_00008C <= pParty_global->vPosition.x + 2 * pParty_global->dword_000014 )
+  v2 = 2 * pParty->dword_000014;
+  result = pParty->vPosition.x;
+  v9 = pParty->uPartyHeight;
+  if ( stru_721530.dword_00008C <= pParty->vPosition.x + 2 * pParty->dword_000014 )
   {
-    if ( stru_721530.dword_000090 >= pParty_global->vPosition.x - v2 )
+    if ( stru_721530.dword_000090 >= pParty->vPosition.x - v2 )
     {
-      if ( stru_721530.dword_000094 <= pParty_global->vPosition.y + v2 )
+      if ( stru_721530.dword_000094 <= pParty->vPosition.y + v2 )
       {
-        if ( stru_721530.dword_000098 >= pParty_global->vPosition.y - v2 )
+        if ( stru_721530.dword_000098 >= pParty->vPosition.y - v2 )
         {
-          if ( stru_721530.dword_00009C <= pParty_global->vPosition.z + pParty_global->uPartyHeight )
+          if ( stru_721530.dword_00009C <= pParty->vPosition.z + pParty->uPartyHeight )
           {
-            if ( stru_721530.dword_0000A0 >= pParty_global->vPosition.z )
+            if ( stru_721530.dword_0000A0 >= pParty->vPosition.z )
             {
               v3 = stru_721530.dword_000004 + v2;
-              v11 = pParty_global->vPosition.x - stru_721530.dword_000028;
-              v4 = ((pParty_global->vPosition.x - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->vPosition.y - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16;
-              v10 = pParty_global->vPosition.y - stru_721530.dword_00002C;
-              result = abs(((pParty_global->vPosition.x - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->vPosition.y - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16);
+              v11 = pParty->vPosition.x - stru_721530.dword_000028;
+              v4 = ((pParty->vPosition.x - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty->vPosition.y - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16;
+              v10 = pParty->vPosition.y - stru_721530.dword_00002C;
+              result = abs(((pParty->vPosition.x - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty->vPosition.y - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16);
               if ( result <= v3 )
               {
                 result = v10 * stru_721530.dword_00005C;
@@ -6091,11 +6091,11 @@ int __thiscall sub_46EF01(void *_this)
                 if ( v5 > 0 )
                 {
                   v6 = ((unsigned __int64)(stru_721530.dword_000060 * v5) >> 16) + stru_721530.dword_000030;
-                  result = pParty_global->vPosition.z;
-                  if ( v6 >= pParty_global->vPosition.z )
+                  result = pParty->vPosition.z;
+                  if ( v6 >= pParty->vPosition.z )
                   {
-                    result = v9 + pParty_global->vPosition.z;
-                    if ( v6 <= v9 + pParty_global->vPosition.z || v8 )
+                    result = v9 + pParty->vPosition.z;
+                    if ( v6 <= v9 + pParty->vPosition.z || v8 )
                     {
                       result = sub_452A9E(v3 * v3 - v4 * v4);
                       v7 = v5 - result;
@@ -6666,7 +6666,7 @@ void __cdecl sub_46F90C()
           v8 *= 2;
           v63 = v8;
         }
-        if (pParty_global->bTurnBasedModeOn)
+        if (pParty->bTurnBasedModeOn)
         {
           if ( dword_4F885C == 1 )
             v8 = (signed __int64)((double)v63 * flt_6BE3AC_debug_recmod1_x_1_6);
@@ -6966,14 +6966,14 @@ LABEL_119:
               if ( Actor_GetActorsRelation((Actor *)v1, 0) )
               {
                 compile_error();//v53 = __SETO__(HIDWORD(qword_ACD8F4), v23);
-                v51 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) == v23;
-                v52 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) - v23 < 0;
+                v51 = HIDWORD(pParty->pPartyBuffs[11].qword_000000) == v23;
+                v52 = HIDWORD(pParty->pPartyBuffs[11].qword_000000) - v23 < 0;
                 *(_WORD *)(v1 + 150) = v23;
                 *(_WORD *)(v1 + 148) = v23;
                 if ( !(v52 ^ v53) )
                 {
-                 if ( !((unsigned __int8)(v52 ^ v53) | v51) || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > (unsigned int)v23 )
-                    SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
+                 if ( !((unsigned __int8)(v52 ^ v53) | v51) || (_DWORD)pParty->pPartyBuffs[11].qword_000000 > (unsigned int)v23 )
+                    SpellBuff_sub_458585(&pParty->pPartyBuffs[11]);
                 }
                 struct_576FE8.dword_000044 = 1;
                 goto LABEL_119;
@@ -6983,7 +6983,7 @@ LABEL_118:
               Actor_ProbablyForceToFaceParty(v65, v40, v23, (DirectionInfo *)v23);
               goto LABEL_119;
             }
-            if (pParty_global->bTurnBasedModeOn && (dword_4F885C == 2 || dword_4F885C == 3) )
+            if (pParty->bTurnBasedModeOn && (dword_4F885C == 2 || dword_4F885C == 3) )
               goto LABEL_119;
             if ( *(_BYTE *)(v1 + 61) )
             {
@@ -7011,7 +7011,7 @@ LABEL_114:
         }
         else
         {
-          if (pParty_global->bTurnBasedModeOn && (dword_4F885C == 2 || dword_4F885C == 3) )
+          if (pParty->bTurnBasedModeOn && (dword_4F885C == 2 || dword_4F885C == 3) )
             goto LABEL_123;
           if ( !*(_BYTE *)(v1 + 61) || v58 != v23 )
           {
@@ -7282,7 +7282,7 @@ LABEL_121:
         v10 *= 2;
         v75 = v10;
       }
-      if (pParty_global->bTurnBasedModeOn)
+      if (pParty->bTurnBasedModeOn)
       {
         if ( dword_4F885C == 1 )
           v10 = (signed __int64)((double)v75 * flt_6BE3AC_debug_recmod1_x_1_6);
@@ -7366,7 +7366,7 @@ LABEL_121:
     {
       *(_WORD *)(v1 + 152) -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
     }
-    if ( pParty_global->dword_01613C != v16 )
+    if ( pParty->dword_01613C != v16 )
     {
       if ( Actor_sub_40894B((Actor *)v1) )
       {
@@ -7530,7 +7530,7 @@ LABEL_107:
       switch ( v39 & 7 )
       {
         case 3:
-          if (!pParty_global->bTurnBasedModeOn)
+          if (!pParty->bTurnBasedModeOn)
             goto LABEL_97;
           if ( dword_4F885C != 2 && dword_4F885C != 3 )
           {
@@ -7566,10 +7566,10 @@ LABEL_103:
 
           *(_WORD *)(v1 + 150) = 0;
           *(_WORD *)(v1 + 148) = 0;
-          if (HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0)
+          if (HIDWORD(pParty->pPartyBuffs[11].qword_000000) >= 0)
           {
-           if (HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > 0u )
-              SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
+           if (HIDWORD(pParty->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty->pPartyBuffs[11].qword_000000 > 0u )
+              SpellBuff_sub_458585(&pParty->pPartyBuffs[11]);
           }
           struct_576FE8.dword_000044 = 1;
           break;
@@ -8608,58 +8608,58 @@ void __cdecl sub_472866_SomeStuffIncludingPartyPosUpdate_BLV()
   int v89; // [sp+58h] [bp-8h]@1
   int v90; // [sp+5Ch] [bp-4h]@47
 
-  v3 = pParty_global->vPosition.z;
-  v89 = pParty_global->dword_0006E8;
+  v3 = pParty->vPosition.z;
+  v89 = pParty->dword_0006E8;
   v0 = 0;
-  v85 = pParty_global->vPosition.y;
+  v85 = pParty->vPosition.y;
   v70 = 0;
   v1 = 0;
-  v86 = pParty_global->vPosition.x;
-  v87 = pParty_global->vPosition.z;
-  v77 = IndoorLocation_GetRoom(pIndoor, pParty_global->vPosition.x, pParty_global->vPosition.y, pParty_global->vPosition.z);
+  v86 = pParty->vPosition.x;
+  v87 = pParty->vPosition.z;
+  v77 = IndoorLocation_GetRoom(pIndoor, pParty->vPosition.x, pParty->vPosition.y, pParty->vPosition.z);
   v72 = 0;
   v78 = 0;
   v71 = 0;
   v84 = 0;
   v2 = v3 + 40;
   i = sub_46ED1B(v86, v85, v2, &v77, (int)&v79);
-  if (pParty_global->bFlying)
+  if (pParty->bFlying)
   {
-    pParty_global->bFlying = false;
+    pParty->bFlying = false;
 
     runtime_warning(Gloval);
-  //  if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
-   //   *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
+  //  if (pParty->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
+   //   *((_BYTE *)&unk_5E4D52 + 20 * pParty->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
   }
   if ( i == -30000 )
   {
     i = sub_47272C(v86, v85, v2, &v77, (int)&v79);
     if ( i == -30000 )
     {
-      pParty_global->vPosition = Vec3<int>(dword_721654, dword_721658, dword_72165C);
-      pParty_global->dword_000700 = dword_72165C;
+      pParty->vPosition = Vec3<int>(dword_721654, dword_721658, dword_72165C);
+      pParty->dword_000700 = dword_72165C;
       return;
     }
   }
-  dword_721654 = pParty_global->vPosition.x;
-  dword_721658 = pParty_global->vPosition.y;
-  dword_72165C = pParty_global->vPosition.z;
-  if (!pParty_global->bTurnBasedModeOn)
+  dword_721654 = pParty->vPosition.x;
+  dword_721658 = pParty->vPosition.y;
+  dword_72165C = pParty->vPosition.z;
+  if (!pParty->bTurnBasedModeOn)
   {
     v4 = (double)(GetTickCount() / 0x1F4);
     v67 = v4 + 6.755399441055744e15;
     if ( dword_720CDC != LODWORD(v67) )
     {
-      dword_4F8584[3 * dword_4F8580[0]] = pParty_global->vPosition.x;
-      dword_4F8588[3 * dword_4F8580[0]] = pParty_global->vPosition.y;
-      dword_4F8580[3 * dword_4F8580[0]++ + 3] = pParty_global->vPosition.z;
+      dword_4F8584[3 * dword_4F8580[0]] = pParty->vPosition.x;
+      dword_4F8588[3 * dword_4F8580[0]] = pParty->vPosition.y;
+      dword_4F8580[3 * dword_4F8580[0]++ + 3] = pParty->vPosition.z;
       if ( dword_4F8580[0] > 60 )
         dword_4F8580[0] = 1;
     }
     dword_720CDC = LODWORD(v67);
   }
-  if (pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 < 0 ||
-      pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 <= 0 && pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000 <= 0)
+  if (pParty->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 < 0 ||
+      pParty->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 <= 0 && pParty->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000 <= 0)
   {
     v75 = 0;
 	int ii=1;
@@ -8669,7 +8669,7 @@ void __cdecl sub_472866_SomeStuffIncludingPartyPosUpdate_BLV()
       ++ii;
       if ( ii > 4 )
       {
-        v6 = pParty_global->dword_000700;
+        v6 = pParty->dword_000700;
         goto LABEL_20;
       }
 	   v5 = pPlayers[ii];
@@ -8678,7 +8678,7 @@ void __cdecl sub_472866_SomeStuffIncludingPartyPosUpdate_BLV()
   }
   v6 = i;
   v75 = 1;
-  pParty_global->dword_000700 = i;
+  pParty->dword_000700 = i;
 LABEL_20:
   if ( v6 - v87 > 512 )
   {
@@ -8686,9 +8686,9 @@ LABEL_20:
     {
       if ( v87 <= i + 1 )
       {
-        if ( BYTE1(pParty_global->dword_007778) & 1 )
+        if ( BYTE1(pParty->dword_007778) & 1 )
         {
-          BYTE1(pParty_global->dword_007778) &= 0xFEu;
+          BYTE1(pParty->dword_007778) &= 0xFEu;
         }
         else
         {
@@ -8700,7 +8700,7 @@ LABEL_20:
               if ( !Player_sub_48D709(v7, 529, 8) )
               {
                 v8 = (signed __int64)((double)Player_GetMaxHealth(v7) * 0.10000000000000001);
-                Player_sub_48DC1E(v7, (pParty_global->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
+                Player_sub_48DC1E(v7, (pParty->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
                 v9 = Player_GetActualEndurance(v7);
                 v10 = (double)(20 - sub_48EA1B(v9)) * flt_6BE3A4_debug_recmod1 * 2.1333333333333333;
                 Player_SetRecoveryTime(v7, (signed __int64)v10);
@@ -8717,11 +8717,11 @@ LABEL_20:
     v84 = 1;
   v76 = v87 - i <= 32;
   if ( v87 - i <= 32 )
-    pParty_global->dword_000700 = v87;
+    pParty->dword_000700 = v87;
   if ( dword_6BE374_WalkSoundFlag )
   {
-    if (pParty_global->dword_0006F8 > 0)
-      pParty_global->dword_0006F8 -= cEventTimer.uElapsedTime;
+    if (pParty->dword_0006F8 > 0)
+      pParty->dword_0006F8 -= cEventTimer.uElapsedTime;
   }
   if ( v87 > i + 1 )
   {
@@ -8731,10 +8731,10 @@ LABEL_43:
     goto LABEL_44;
   }
   v87 = i + 1;
-  pParty_global->dword_000700 = i + 1;
+  pParty->dword_000700 = i + 1;
   if ( v84 )
     goto LABEL_45;
-  if (pParty_global->dword_0006F4 != v79)
+  if (pParty->dword_0006F4 != v79)
   {
     v11 = (int)pIndoor->pFaces + v79;
     if ( *(_BYTE *)(v11 + 47) & 4 )
@@ -8744,15 +8744,15 @@ LABEL_43:
     }
   }
 LABEL_44:
-  pParty_global->dword_0006F4 = v79;
+  pParty->dword_0006F4 = v79;
 LABEL_45:
   v68 = 96 * v79;
   if ( *(_BYTE *)(96 * v79 + (int)pIndoor->pFaces + 44) & 0x10 )
     v71 = 1;
-  v81 = pParty_global->uWalkSpeed;
-  v90 = pParty_global->sRotationY;
-  v83 = pParty_global->sRotationX;
-  v82 = ((unsigned __int64)(cEventTimer.dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
+  v81 = pParty->uWalkSpeed;
+  v90 = pParty->sRotationY;
+  v83 = pParty->sRotationX;
+  v82 = ((unsigned __int64)(cEventTimer.dword_000020) * pParty->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
 LABEL_87:
 
  Action::Type eAction;
@@ -8887,10 +8887,10 @@ LABEL_76:
       case 12:
         if ( !v84 || v87 <= i + 6 && v89 <= 0 )
         {
-         if (pParty_global->dword_000024)
+         if (pParty->dword_000024)
           {
             v84 = 1;
-            v89 = (signed __int64)((double)(pParty_global->dword_000024 << 6) * 1.5 + (double)v89);
+            v89 = (signed __int64)((double)(pParty->dword_000024 << 6) * 1.5 + (double)v89);
           }
         }
         break;
@@ -8899,8 +8899,8 @@ LABEL_76:
     }
   }
   v36 = 0;
-  pParty_global->sRotationY = v90;
-  pParty_global->sRotationX = v83;
+  pParty->sRotationY = v90;
+  pParty->sRotationX = v83;
   if ( v84 )
   {
     v89 += -2 * cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
@@ -8912,7 +8912,7 @@ LABEL_76:
       v89 -= cEventTimer.uElapsedTime * sub_46BDA8_GetGravityStrength();
       goto LABEL_92;
     }
-    if ( BYTE1(pParty_global->dword_007778) & 1 )
+    if ( BYTE1(pParty->dword_007778) & 1 )
       goto LABEL_92;
     v89 = 0;
   }
@@ -8920,7 +8920,7 @@ LABEL_76:
   {
     if ( v89 < -500 )
     {
-      if (!pParty_global->bFlying)
+      if (!pParty->bFlying)
       {
         for (int i = 0; i < 4; i++) 
           {
@@ -8938,7 +8938,7 @@ LABEL_76:
     goto LABEL_93;
   }
 LABEL_92:
-  pParty_global->dword_000700 = v87;
+  pParty->dword_000700 = v87;
 LABEL_93:
   if ( v1 * v1 + v0 * v0 < 400 )
   {
@@ -8947,11 +8947,11 @@ LABEL_93:
   }
   stru_721530.dword_000084 = -1;
   stru_721530.dword_000070 = 0;
-  stru_721530.dword_000004 = pParty_global->dword_000014;
-  stru_721530.dword_000008 = pParty_global->dword_000014 / 2;
+  stru_721530.dword_000004 = pParty->dword_000014;
+  stru_721530.dword_000008 = pParty->dword_000014 / 2;
   v83 = 0;
   stru_721530.dword_000000 = 1;
-  stru_721530.dword_00000C = pParty_global->uPartyHeight - 32;
+  stru_721530.dword_00000C = pParty->uPartyHeight - 32;
   while ( 1 )
   {
     v38 = v87;
@@ -8966,7 +8966,7 @@ LABEL_93:
     stru_721530.dword_000024 = v89;
     stru_721530.dword_000074 = v77;
     v37 = 0;
-    if (pParty_global->bTurnBasedModeOn)
+    if (pParty->bTurnBasedModeOn)
     {
       if ( dword_4F885C == 3 )
         v37 = 13312;
@@ -9015,10 +9015,10 @@ LABEL_93:
     v87 = ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16) + v38;
     if ( (stru_721530.dword_000078 & 7) == 3 )
     {
-     if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0 )
+     if ( HIDWORD(pParty->pPartyBuffs[11].qword_000000) >= 0 )
       {
-       if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 )
-          SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
+       if ( HIDWORD(pParty->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty->pPartyBuffs[11].qword_000000 )
+          SpellBuff_sub_458585(&pParty->pPartyBuffs[11]);
       }
       struct_576FE8.dword_000044 = 1;
       goto LABEL_152;
@@ -9045,8 +9045,8 @@ LABEL_93:
           if ( v89 < 0 )
             v89 = 0;
           v87 = *(_WORD *)((int)pIndoor->pVertices + 6 * **(_WORD **)(v45 + 48) + 4) + 1;
-          if ( pParty_global->dword_000700 - v87 < 512 )
-            pParty_global->dword_000700 = v87;
+          if ( pParty->dword_000700 - v87 < 512 )
+            pParty->dword_000700 = v87;
           if ( v1 * v1 + v0 * v0 < 400 )
           {
             v0 = 0;
@@ -9084,7 +9084,7 @@ LABEL_93:
 LABEL_142:
           v43 = stru_721530.dword_000078;
 LABEL_143:
-          if (pParty_global->dword_0006F4 != v43 >> 3)
+          if (pParty->dword_0006F4 != v43 >> 3)
           {
             if (*(_BYTE *)(v45 + 47) & 4)
               v70 = *(_WORD *)((int)pIndoor->pFaceExtras + 36 * *(_WORD *)(v45 + 72) + 26);
@@ -9120,10 +9120,10 @@ LABEL_152:
       break;
     }
   }
-  if ( dword_6BE374_WalkSoundFlag && pParty_global->dword_0006F8 <= 0)
+  if ( dword_6BE374_WalkSoundFlag && pParty->dword_0006F8 <= 0)
   {
-    if ( sub_452A9E((pParty_global->vPosition.x - v86) * (pParty_global->vPosition.x - v86) + (pParty_global->vPosition.y - v85) * (pParty_global->vPosition.y - v85)
-                                                                + (pParty_global->vPosition.z - v38) * (pParty_global->vPosition.z - v38)) <= 16 )
+    if ( sub_452A9E((pParty->vPosition.x - v86) * (pParty->vPosition.x - v86) + (pParty->vPosition.y - v85) * (pParty->vPosition.y - v85)
+                                                                + (pParty->vPosition.z - v38) * (pParty->vPosition.z - v38)) <= 16 )
       goto LABEL_188;
     if ( v72 && (!v84 || v76) )
     {
@@ -9174,20 +9174,20 @@ LABEL_175:
     {
 LABEL_188:
       AudioPlayer_sub_4AA258(pAudioPlayer, 804);
-      pParty_global->dword_0006F8 = 64;
+      pParty->dword_0006F8 = 64;
     }
   }
   if ( !v84 || v76 )
-    pParty_global->dword_007778 &= 0xFFFFFFF7u;
+    pParty->dword_007778 &= 0xFFFFFFF7u;
   else
-    pParty_global->dword_007778 |= 8u;
-  BYTE1(pParty_global->dword_007778) &= 0xFDu;
-  pParty_global->vPosition = Vec3<int>(v86, v85, v38);
-  pParty_global->dword_0006E8 = v89;
+    pParty->dword_007778 |= 8u;
+  BYTE1(pParty->dword_007778) &= 0xFDu;
+  pParty->vPosition = Vec3<int>(v86, v85, v38);
+  pParty->dword_0006E8 = v89;
   if ( !v84 )
   {
     if ( *(_BYTE *)(96 * v79 + (int)pIndoor->pFaces + 47) & 0x40 )
-      BYTE1(pParty_global->dword_007778) |= 2;
+      BYTE1(pParty->dword_007778) |= 2;
   }
   if ( v70 )
     sub_44684A_LooksLikeEventProcessor(v70, 0, 1);
@@ -9756,9 +9756,9 @@ bool CheckHiredNPCSpeciality(int param)
     {
 LABEL_8:
       v4 = 0;
-      if (pParty_global->pHiredNPCs[0].uProfession != param )
+      if (pParty->pHiredNPCs[0].uProfession != param )
       {
-        return (pParty_global->pHiredNPCs[1].uProfession == param);
+        return (pParty->pHiredNPCs[1].uProfession == param);
       }
     }
     else
@@ -9940,10 +9940,10 @@ void __thiscall NPCStats_sub_476C60(int _this)
     }
     while ( v1 < *(_DWORD *)(_this + 98244) );
   }
-  if (pParty_global->pHiredNPCs[0].pNPCName)
-    pParty_global->pHiredNPCs[0].pNPCName = (unsigned char *)byte_AE302C;
-  if (pParty_global->pHiredNPCs[1].pNPCName)
-    pParty_global->pHiredNPCs[1].pNPCName = (unsigned char *)&unk_AE3090;
+  if (pParty->pHiredNPCs[0].pNPCName)
+    pParty->pHiredNPCs[0].pNPCName = (unsigned char *)byte_AE302C;
+  if (pParty->pHiredNPCs[1].pNPCName)
+    pParty->pHiredNPCs[1].pNPCName = (unsigned char *)&unk_AE3090;
 }
 
 //----- (00477266) --------------------------------------------------------
@@ -11320,7 +11320,7 @@ void RenderBuildingsD3D()
   int v64; // [sp+57h] [bp-1h]@2
   int v62;
 
-  //pParty_global->sRotationY = 2048 * ((GetTickCount() % 4000) / 4000.0f);
+  //pParty->sRotationY = 2048 * ((GetTickCount() % 4000) / 4000.0f);
 
   v63 = 0;
 
@@ -12193,26 +12193,26 @@ signed int __thiscall sub_47A825(void *_this)
 
   v1 = 0;
   v2 = _this;
-  if ( (unsigned int)pParty_global->uCurrentHour >= 1 || (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 178) )
+  if ( (unsigned int)pParty->uCurrentHour >= 1 || (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 178) )
   {
     v1 = 0;
   }
   else
   {
-    if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 164)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 165)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 166)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 167)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 168)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 169)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 170)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 171)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 172)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 173)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 174)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 175)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 176)
-      && (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 177) )
+    if ( (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 164)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 165)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 166)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 167)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 168)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 169)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 170)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 171)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 172)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 173)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 174)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 175)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 176)
+      && (unsigned __int16)sub_449B57((unsigned char *)pParty->unk_000764 + 1, 177) )
     {
       v1 = 1;
       *((_BYTE *)v2 + 2) &= 0xDFu;
@@ -12488,7 +12488,7 @@ char *__fastcall sub_47BC6F(int a1, int a2, signed int a3, int a4)
 
   v4 = a2;
   v18 = a2;
-  if ( pParty_global->dword_01613C )
+  if ( pParty->dword_01613C )
     return (char *)sub_47BE67((int)a2);
   if ( !struct_6BD080.dword_000FA4 )
   {
@@ -12541,8 +12541,8 @@ char *__fastcall sub_47BC6F(int a1, int a2, signed int a3, int a4)
   if ( struct_6BD080.dword_000FA4 == 1 )
   {
     v8 = 67108864;
-    if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
-      v8 = pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008 << 26;
+    if (pParty->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
+      v8 = pParty->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008 << 26;
     if ( a3 <= v8 )
     {
       if ( a3 > 0 )
@@ -12607,7 +12607,7 @@ void sub_47BEB1(signed int a1, struct struct8 *a2, int a3, int a4, int a5, int *
 
   v8 = a1;
   v26 = a1;
-  if ( pParty_global->dword_01613C )
+  if ( pParty->dword_01613C )
   {
     *(_DWORD *)a5 = -1;
     *a6 = -1;
@@ -12716,12 +12716,12 @@ LABEL_54:
     }
     else
     {
-     if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
+     if (pParty->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
       {
-       if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 <= 0 )
+       if (pParty->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 <= 0 )
           v11 = 0;
         else
-          v11 = pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008;
+          v11 = pParty->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008;
       }
       v12 = v11 << 26;
     }
@@ -12770,7 +12770,7 @@ short *__fastcall sub_47C178(signed int a1, struct struct8 *a2, int a3, int a4)
   int v6; // [sp+4h] [bp-8h]@3
   int v7; // [sp+8h] [bp-4h]@3
 
-  if (pParty_global->dword_01613C)
+  if (pParty->dword_01613C)
     return sub_47BE67(a2->ptr_00003C->word_000026);
   else
   {
@@ -12790,7 +12790,7 @@ char *__fastcall sub_47C1CA(struct struct8 *a1, char a2, int a3, signed int a4)
 
   v9 = a2;
   v8 = 1;
-  if ( pParty_global->dword_01613C )
+  if ( pParty->dword_01613C )
   {
    result = (char *)sub_47BE67(a1->ptr_00003C->word_000026);
   }
@@ -12851,7 +12851,7 @@ short *__fastcall sub_47C28C(int a1, char a2, signed int a3, signed int a4)
   v9 = a2;
   v4 = a1;
   v8 = 1;
-  if ( pParty_global->dword_01613C )
+  if ( pParty->dword_01613C )
   {
     result = (char *)class35_obj.pColorPalette2[*(_WORD *)(*(_DWORD *)(a1 + 60) + 38)];
   }
@@ -12948,7 +12948,7 @@ int __fastcall sub_47C3D7(int a1, int a2, float a3)
   v3 = struct_6BD080.dword_000FA4;
   if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
     v3 = 0;
-  if ( pParty_global->dword_01613C || !(dword_6BE030 & 1) && !byte_6BE3C4_MaybeDrowningFlag )
+  if ( pParty->dword_01613C || !(dword_6BE030 & 1) && !byte_6BE3C4_MaybeDrowningFlag )
     return -16777216;
   if ( v3 )
   {
@@ -13034,15 +13034,15 @@ signed int __fastcall sub_47C4FC_GetActorTintColor(int a1, int a2, float a3, int
   v8 = struct_6BD080.dword_000FA4;
   if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
     v8 = 0;
-  if ( pParty_global->dword_01613C )
+  if ( pParty->dword_01613C )
     return 0x00FF0000;
   if ( v8 )
   {
     if ( v8 != 1 )
       return 0;
     v20 = 1;
-    if (pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
-      v20 = pParty_global->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008;
+    if (pParty->pPartyBuffs[SPELLBUFF_TORCHLIGHT].qword_000000 > 0 )
+      v20 = pParty->pPartyBuffs[SPELLBUFF_TORCHLIGHT].word_000008;
     v9 = (double)v20 * 1024.0;
     if ( a4 )
       goto LABEL_20;
@@ -14946,7 +14946,7 @@ LABEL_14:
         strcpy(a4, "out15.odm");
         dword_6BE35C = 3;
 LABEL_18:
-        LOWORD(pParty_global->dword_007778) = pParty_global->dword_007778 & 0xFD7B;
+        LOWORD(pParty->dword_007778) = pParty->dword_007778 & 0xFD7B;
         return 1;
       }
       v7 = v16;
@@ -15048,10 +15048,10 @@ signed int __thiscall sub_4893CF(void *_this, signed int a2, signed int a3, int 
   int v16; // [sp+Ch] [bp-4h]@2
 
   v4 = (int)_this;
-  if ( pParty_global->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E_ProbablyCollidePartyWithBModels(a2, a3, a4, pParty_global->uDefaultPartyHeight, (int)&v15, (int)&v16, 0), v16) || v15 )
+  if ( pParty->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E_ProbablyCollidePartyWithBModels(a2, a3, a4, pParty->uDefaultPartyHeight, (int)&v15, (int)&v16, 0), v16) || v15 )
     return 2;
-  v6 = WorldPosToGridCellX(pParty_global->vPosition.x);
-  v7 = WorldPosToGridCellZ(pParty_global->vPosition.y);
+  v6 = WorldPosToGridCellX(pParty->vPosition.x);
+  v7 = WorldPosToGridCellZ(pParty->vPosition.y);
   v8 = sub_47ED83(v4, v6, v7 - 1);
   v5 = *(_WORD *)(26 * sub_47ECC1(v4, v8) + pTileTable->pTiles + 20);
   if ( v5 )

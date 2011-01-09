@@ -99,7 +99,7 @@ Result::Code RenderOpenGL::Initialize(OSWindow *pOutputWindow)
 
 
 
-  pParty_global->dword_007778 |= 2;
+  pParty->dword_007778 |= 2;
   v2 = (int)this;
   flt_6BE3A0 = 0.55000001;
 

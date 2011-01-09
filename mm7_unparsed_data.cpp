@@ -66,7 +66,19 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E24C4; // weak
  int dword_4E24D8; // weak
 
- char *dword_4E24E8; // idb
+char *dword_4E24E8[10] =
+{
+ (char *)0x99,
+ "SBFB00",
+ "SBAB00",
+ "SBWB00",
+ "SBEB00",
+ "SBSB00",
+ "SBMB00",
+ "SBBB00",
+ "SBLB00",
+ "SBDB00"
+};
  int dword_4E2544[array_size_unknown]; // weak
  int dword_4E28F8_PartyCantJumpIfTrue; // weak
  char byte_4E28FC; // weak
@@ -815,7 +827,6 @@ class cTexture* pTexture_TownPortal_Icons[6]; // dword[6] @ MM7.exe::005063A8
  int dword_506448; // weak
  int dword_506450[array_size_unknown]; // weak
  int dword_506454[array_size_unknown]; // weak
- _UNKNOWN unk_506494; // weak
 unsigned int dword_506498_uTextureID_MapBrdr; // weak
  int dword_50649C[array_size_unknown]; // weak
  int dword_5064A0[array_size_unknown]; // weak
@@ -1448,11 +1459,8 @@ unsigned char *pSkillDescTXT_Raw = 0; // ptr @ MM7.exe::005C8B5C
 
 struct StorylineText *pStorylineText = 0; // struct @ MM7.exe::005C8B60
 //LPCSTR lpsz; // idb
- _DWORD dword_5C8B64[87]; // idb
-
-struct class48 *pClass48 = 0; // struct @ MM7.exe::005C8CC0 
-//char byte_5C8CC0[8]; // weak
- _UNKNOWN unk_5C8CC8; // weak
+_DWORD          dword_5C8B64[87];   // dword[87] @ MM7.exe::005C8B64
+struct class48 *pClass48 = nullptr; // struct    @ MM7.exe::005C8CC0 
  char byte_5C8D1A[array_size_unknown]; // weak
 
 struct class40 *pClass40 = nullptr; // struct @ MM7.exe::005D29E0
@@ -1933,7 +1941,7 @@ class CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
   //end
 
 
-struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
+struct Party *pParty = nullptr; // struct @ MM7.exe::00ACCFB8
 
  _DWORD dword_ACD4E8[36]; // idb
  char byte_ACD719[array_size_unknown]; // weak

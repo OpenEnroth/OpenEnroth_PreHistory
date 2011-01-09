@@ -22,6 +22,14 @@ namespace GUI
   {
    struct ::GUIButton* ptr_00001C; // looks like pointer to GUIButton, but not always;  maybe UserData
    int dword_00001C; // looks like pointer to GUIButton, but not always;  maybe UserData
+                     // when uWindowType == 9 (book),
+                     // dword_00001C:   177  Lloyd Beacons book
+                     //                 195  Town Portals book
+                     //                 200  Quests book
+                     //                 201  Autonotes book
+                     //                 202  Map book
+                     //                 203  Calendar book
+                     //                 224  Timeline bool
   };
   unsigned int uNumControls; // dword @ 000020
   int dword_000024;
@@ -109,7 +117,7 @@ namespace GUI
 
 
 void GUIWindow_DrawText(GUI::Window *_this, struct Font *pFont, unsigned int uHorizontalMargin, unsigned int uVerticalMargin, unsigned int uDefaultColor, const char *pString, int sLineSpacing);
-int __thiscall GUIWindow_sub_411BFC(GUI::Window *_this);
+int __thiscall GUIWindow_sub_411BFC_InitializeBookViewWindow(GUI::Window *_this);
 void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5);
 void __cdecl GUIWindow_DrawCopyrightWindow();
 void GUIWindow_sub_415551(GUI::Window *_this, int a2);

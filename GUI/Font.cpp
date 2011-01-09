@@ -463,6 +463,7 @@ int __fastcall Font_sub_44C6C2(Font *a1, const unsigned char *a2, GUI::Window *a
   v14 = v10;
   if ( (signed int)v10 > 0 )
   {
+   v12 = *v8;
     while ( !GUIFont_IsCharacterValid((Font*)v13, *v8) )
     {
 LABEL_11:

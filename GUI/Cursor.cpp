@@ -188,7 +188,7 @@ void GUICursor_SetCursorBitmap(GUICursor *_this, const char *pSource)
 //----- (004698A6) --------------------------------------------------------
 void GUICursor_ResetDefaultCursorAfterItemDragging(struct GUICursor *_this)
 {
- ItemGen_Reset(&pParty_global->pickedItem);
+ ItemGen_Reset(&pParty->pickedItem);
  if (_strcmpi((char *)_this->array_0000F5, "MICON2"))
    GUICursor_SetCursorBitmap(_this, "MICON1");
 }

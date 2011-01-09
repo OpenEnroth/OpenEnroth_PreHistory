@@ -164,9 +164,9 @@ bool LevelLoadingUI_Initialize(struct GUIProgressBar *_this, unsigned int uProgr
   }
   else
   {
-   if (pParty_global->uAlignment == PARTY_ALIGNMENT_GOOD)
+   if (pParty->uAlignment == PARTY_ALIGNMENT_GOOD)
      LODFile_Icons_LOD.LODFile_sub_410522( _this->loadprog, "bardata-b", 2);
-   else if (pParty_global->uAlignment == PARTY_ALIGNMENT_NEUTRAL)
+   else if (pParty->uAlignment == PARTY_ALIGNMENT_NEUTRAL)
      LODFile_Icons_LOD.LODFile_sub_410522(_this->loadprog, "bardata", 2);
    else
      LODFile_Icons_LOD.LODFile_sub_410522( _this->loadprog, "bardata-C", 2);
