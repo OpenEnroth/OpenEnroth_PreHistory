@@ -514,7 +514,7 @@ bool sub_44EE7C();
 void *__thiscall GammaController_sub_44F408(int _this, char *a2);
 int __thiscall GammaController_sub_44F45B(int _this, int a2);
 int __fastcall sub_44F57C_SpawnMonsters(int a1, struct SpawnPointMM7 *a2, int a3, signed int a4, int a5);
-int __fastcall sub_44FFD8_SpawnMonsters(int a1, struct SpawnPointMM7 *a2);
+int __fastcall sub_44FFD8_SpawnMonsters(struct MapInfo *a1, struct SpawnPointMM7 *a2);
 signed __int16 __thiscall sub_44FA08(void *_this, const char *Str1);
 int __fastcall sub_44FA4C(int a1, int a2, int a3);
 int __fastcall sub_44FD29(int a1, int a2);
@@ -728,7 +728,7 @@ bool CheckHiredNPCSpeciality(int param);
 void __thiscall NPCStats_sub_476C60(int _this);
 int __thiscall NPCStats_sub_477266(int _this);
 signed int __stdcall sub_47730C(int a1);
-_DWORD __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, int dummy_to_fill_edx_since_func_is__thiscall, struct NPCData *, _DWORD, _DWORD, long); // weak
+_DWORD NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, struct NPCData *, _DWORD, _DWORD, long); // weak
 int __cdecl sub_47752B();
 int __thiscall sub_4775C4(int _this);
 int __thiscall sub_4775ED(int _this, int a2);

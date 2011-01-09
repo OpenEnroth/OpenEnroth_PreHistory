@@ -398,6 +398,7 @@ Result::Code OutdoorLocation::Load(const char *pFilename, int File, int a5)
  memcpy(pTileTypes, Src + 5 * 32, 4 * sizeof(TileType));
  Src += 0xB0;
 
+ strcpy(pLocationFileName, pFilename);
  class51_sub_47F420(this);
  class51_sub_47F3EA(this);
 

@@ -28,10 +28,13 @@
 	    char name_list[40][MAX_SAVEGAME_PATH]; // idb 40  byte_69CFF4[11200]
 	 };
 
+extern Save_files_list saves_lst;	  // unk_69CFE0	[20]  +	  byte_69CFF4[11200]
+
+
 
 int __cdecl sub_45E93E();
 
-void sub_45EE8A(int a1);
+bool sub_45EE8A_LoadGame(const char *pFilename, unsigned int idx);
 
 void sub_4601B7_SaveLoadWindow_Render(int a1);
 

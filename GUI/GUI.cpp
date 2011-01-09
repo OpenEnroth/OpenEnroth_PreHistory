@@ -1711,10 +1711,11 @@ LABEL_60:
             pUserInput->uNumKeysPressed = strlen((char *)pUserInput->pPressedKeysBuffer);
           }
           goto LABEL_92;
+
         case 0x52:
           if ( dword_69CF28[dword_6A0CA0_indx] )
           {
-            /*v2 = */sub_45EE8A(dword_6A0CA0_indx);
+            /*v2 = */sub_45EE8A_LoadGame(saves_lst.name_list[dword_6A0CA0_indx], dword_6A0CA0_indx);
             dword_6A0D48 = 3;
           }
           goto LABEL_189;

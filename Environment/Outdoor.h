@@ -156,7 +156,7 @@ class OutdoorLocation
 
  public:
    unsigned char  string_000000[32];
-   unsigned char  pLocationFileName[32];        // byte[32] @ 000020
+   char           pLocationFileName[32];        // byte[32] @ 000020
    unsigned char  pLocationFileDescription[32]; // byte[32] @ 000040
    unsigned char  pSkyTextureName[32];   // byte[32] @ 000060
    unsigned char  pGroundTileset[32];    // byte[32] @ 000080

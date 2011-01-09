@@ -1801,7 +1801,7 @@ signed int __fastcall sub_43AE80(int a1, int a2, signed int a3)
       v6 = 8 * a1 | 3;
       v5 = 908;
 LABEL_16:
-      result = sub_4418B6((int)array_5E4D58, v5, v6, v7, v8, v9);
+      result = sub_4418B6((int)&stru_5E4D58, v5, v6, v7, v8, v9);
       break;
     default:
       return result;
@@ -8862,11 +8862,10 @@ void __fastcall sub_44861E(int a1, const char *a2)
     v2 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( a2, 0);
     v3 = v2;
     v12 = v2;
-    if ( v2 != -1 ? 72 * v2 + 7278780 : 0 )
+    if (v2 != -1)
     {
-      *(_WORD *)(v2 != -1 ? 72 * v2 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
-                                                               &class35_obj,
-                                                               *(_WORD *)(v2 != -1 ? 72 * v2 + 7278780 + 0x24 : 36));
+     LODFile_Bitmaps_LOD.aLODHeaders[v2].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj,
+                                                              LODFile_Bitmaps_LOD.aLODHeaders[v2].word_000024);
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v17 = 1;
@@ -8916,7 +8915,7 @@ void __fastcall sub_44861E(int a1, const char *a2)
             v8 = 0;
             v9 = v16 + (int)pOutdoor->pBModels + 68;
             v18 = 0;
-            if ( *(_DWORD *)(v16 + pOutdoor->pBModels + 76) > 0 )
+            if ( *(_DWORD *)(v16 + (int)pOutdoor->pBModels + 76) > 0 )
             {
               do
               {
@@ -9074,7 +9073,7 @@ int __fastcall sub_44892E(int a1, int a2, int a3)
           v7 = 0;
           v8 = v12 + (int)pOutdoor->pBModels + 68;
           v6 = 0;
-          if ( *(_DWORD *)(v12 + pOutdoor->pBModels + 76) > 0 )
+          if ( *(_DWORD *)(v12 + (int)pOutdoor->pBModels + 76) > 0 )
           {
             do
             {
@@ -13156,7 +13155,7 @@ int __fastcall sub_44FD29(int a1, int a2)
 }
 
 //----- (0044FFD8) --------------------------------------------------------
-int __fastcall sub_44FFD8_SpawnMonsters(int a1, SpawnPointMM7 *a2)
+int __fastcall sub_44FFD8_SpawnMonsters(MapInfo *a1, SpawnPointMM7 *a2)
 {
   int result; // eax@1
   int v3; // ebx@1
@@ -13186,7 +13185,7 @@ int __fastcall sub_44FFD8_SpawnMonsters(int a1, SpawnPointMM7 *a2)
   signed int v27; // ecx@35
   int v28; // eax@35
   int v29; // esi@35
-  __int16 v30; // ax@35
+  //__int16 v30; // ax@35
 
   LayingItem local_0C;
   //__int16 v31; // [sp+Ch] [bp-7Ch]@1
@@ -13211,7 +13210,7 @@ int __fastcall sub_44FFD8_SpawnMonsters(int a1, SpawnPointMM7 *a2)
   int v49; // [sp+80h] [bp-8h]@1
   int v50; // [sp+84h] [bp-4h]@1
 
-  v5 = a1;
+  v5 = (int)a1;
   v4 = (int)a2;
 
   sub_404828_ctor(&local_0C);
@@ -13220,7 +13219,7 @@ int __fastcall sub_44FFD8_SpawnMonsters(int a1, SpawnPointMM7 *a2)
   v6 = rand();
   v50 = 0;
   v7 = v6 % 100;
-  v8 = 2 * (*(_BYTE *)(v5 + 47) + 7 * *(_WORD *)(v4 + 16)) - 14;
+  v8 = 2 * (a1->byte_00002F + 7 * a2->uIndex) - 14;
   v9 = data_4E7168[v8 + 16];
   v10 = data_4E7168[v8 + 17];
   v48 = v7;
@@ -13242,29 +13241,29 @@ int __fastcall sub_44FFD8_SpawnMonsters(int a1, SpawnPointMM7 *a2)
       v22 = rand();
       return sub_450521_ProbablyDropItemAt(v3, v22 % 27 + 20, v21, v20, v19, 0);
     }
-    if ( *(_WORD *)(v4 + 16) == 1 )
+    if (a2->uIndex == 1 )
     {
       v14 = rand() % 51 + 50;
     }
     else
     {
-      if ( *(_WORD *)(v4 + 16) != 2 )
+      if (a2->uIndex != 2 )
       {
-        if ( *(_WORD *)(v4 + 16) == 3 )
+        if (a2->uIndex == 3 )
         {
           v14 = rand() % 301 + 200;
         }
         else
         {
-          if ( *(_WORD *)(v4 + 16) != 4 )
+          if (a2->uIndex != 4 )
           {
-            if ( *(_WORD *)(v4 + 16) == 5 )
+            if (a2->uIndex == 5 )
             {
               v14 = rand() % 1001 + 1000;
             }
             else
             {
-              if ( *(_WORD *)(v4 + 16) != 6 )
+              if (a2->uIndex != 6 )
               {
 LABEL_20:
                 v16 = 0;
@@ -13345,11 +13344,11 @@ LABEL_35:
   local_0C.dword_000050 = 0;
   local_0C.dword_00004C = 0;
   local_0C.dword_000048 = 0;
-  v30 = IndoorLocation_GetRoom(pIndoor, v28, v27, v29);
+  if (pIndoor)
+    local_0C.sRoom = IndoorLocation_GetRoom(pIndoor, v28, v27, v29);
   local_0C.dword_00005C = 0;
   local_0C.dword_000058 = 0;
   local_0C.uSpriteFrameID = 0;
-  local_0C.sRoom = v30;
   return sub_42F5ED(&local_0C, 0, 0, 0, 0);
 }
 
@@ -13404,7 +13403,8 @@ LABEL_5:
   local_08.vPosition = Vec3<int>(sX, sY, sZ);
   local_08.uFacing = a6;
   local_08.uAttributes = 0;
-  local_08.sRoom = IndoorLocation_GetRoom(pIndoor, sX, sY, sZ);
+  if (pIndoor)
+    local_08.sRoom = IndoorLocation_GetRoom(pIndoor, sX, sY, sZ);
   local_08.uSpriteFrameID = 0;
   return sub_42F5ED(&local_08, 0, 0, 0, 0);
 }

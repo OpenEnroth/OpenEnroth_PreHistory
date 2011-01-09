@@ -2579,7 +2579,7 @@ LABEL_22:
  Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
  if (pD3DRenderer->pRenderD3D3)
    GUICursor_sub_469E3B(pGame->pGUICursor);
- if (dword_5E5144)
+ if (stru_5E4D58.dword_0003EC)
    struct_576FE8.dword_000044 = 1;
  v5 = struct_576FE8.dword_000044;
 
@@ -2610,8 +2610,8 @@ LABEL_22:
     }
   }
 
-  v6 = dword_5E5144;
-  dword_5E5144 = 0;
+  v6 = stru_5E4D58.dword_0003EC;
+  stru_5E4D58.dword_0003EC = 0;
   struct_576FE8.dword_000044 = v6;
   GameUI_DrawPartySpells();
   if (v5 || pParty->pHiredNPCs[0].dword_000030 || pParty->pHiredNPCs[1].dword_000030)
@@ -2626,7 +2626,7 @@ LABEL_22:
   if (pVideoPlayer && !pVideoPlayer->IsAnyMovieLoaded())
   {
     class06_sub_4A902A_DrawSomeIcon(pGame->class06_obj);
-    sub_441964(array_5E4D58, v5);
+    sub_441964(&stru_5E4D58, v5);
     GameUI_DrawTorchlightAndWizardEye();
   }
 
@@ -3863,10 +3863,10 @@ __int16 __thiscall sub_441A4E(void *_this)
   do
   {
     //if ( *(_WORD *)(v3 - 6) > 0 )
-   if (array_5E4D58[v3][3])
+   if (stru_5E4D58.array_000000[v3][3])
     {
       //LOWORD(v1) = *(_WORD *)(v3 - 12);
-     LOWORD(v1) = array_5E4D58[v3][0];
+     LOWORD(v1) = stru_5E4D58.array_000000[v3][0];
       if ( (_WORD)v1 >= 300 )
       {
         v4 = (signed __int16)v1;
@@ -3876,27 +3876,27 @@ __int16 __thiscall sub_441A4E(void *_this)
         if ( v5 )
         {
           //if ( !*(_WORD *)v3 )
-         if (!array_5E4D58[v3][6])
+         if (!stru_5E4D58.array_000000[v3][6])
           {
             v8 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable,
                    //pOverlayDescriptionList->pDescriptions[*(_WORD *)(v3 - 10)].word_000004,
-                   pOverlayDescriptionList->pOverlays[array_5E4D58[v3][1]].uSpriteFramesetID,
+                   pOverlayDescriptionList->pOverlays[stru_5E4D58.array_000000[v3][1]].uSpriteFramesetID,
                    //*(_WORD *)(v3 - 8));
-                   array_5E4D58[v3][2]);
+                   stru_5E4D58.array_000000[v3][2]);
             v7 = v8;
             //v26 = *(_DWORD *)(v3 + 4);
-            v26 = *(int *)(&array_5E4D58[v3][8]);
+            v26 = *(int *)(&stru_5E4D58.array_000000[v3][8]);
             v28 = *(_DWORD *)(v8 + 40);
             v28 = (unsigned __int64)(v26 * v28) >> 16;
             //v13 = *(_WORD *)(v3 - 4);
             //v14 = *(_WORD *)(v3 - 2);
-            v13 = array_5E4D58[v3][4];
-            v14 = array_5E4D58[v3][5];
+            v13 = stru_5E4D58.array_000000[v3][4];
+            v14 = stru_5E4D58.array_000000[v3][5];
             v15 = v28;
             v16 = v28;
             v17 = sub_41F50D(*(_WORD *)(v8 + 52), 0, 1);
             //v9 = *(_WORD *)(v3 - 10);
-            v9 = array_5E4D58[v3][1];
+            v9 = stru_5E4D58.array_000000[v3][1];
             v18 = 0;
             v19 = 0;
             v6 = pOverlayDescriptionList->pOverlays[v9].uOverlayType;
@@ -4122,7 +4122,7 @@ LABEL_9:
   {
     v98 = 1;
 
-	array_5E4D58[pParty->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C - 1][1]|= 1u;
+    stru_5E4D58.array_000000[pParty->pPartyBuffs[SPELLBUFF_WATERWALK].word_00000C - 1][1]|= 1u;
     if (~pParty->pPartyBuffs[SPELLBUFF_WATERWALK].byte_00000F & 0x01)
     {
       if ( dword_ACD788[1743 * pParty->pPartyBuffs[SPELLBUFF_WATERWALK].byte_00000E] <= 0 )
@@ -4596,7 +4596,7 @@ LABEL_164:
             if (pParty->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 < 0 || !pParty->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000)
             {
               
-              for(int i=1; i<5; i++) 
+              for (unsigned int i = 0; i < 4; ++i) 
               {	
 			    v33 = pPlayers[i];
                 if ( !Player_sub_48D6D0(v33, 72) )
@@ -5764,7 +5764,7 @@ LABEL_25:
      v24=(int)&v23;  //v24=v23 hack
       if ( Player_sub_48D6AA((Player *)v22, v23) )
       {
-       unsigned int uSlot = ((Player *)v22)->pEquippedItemIndices[v24];
+       unsigned int uSlot = ((Player *)v22)->pEquippedItemIndices[v23];
        //v25 = ((Player *)v22)->pInventorySlots[*(_DWORD *)v24].uItemID;		
        v25 = ((Player *)v22)->pInventorySlots[uSlot].uItemID;
 
@@ -11595,7 +11595,7 @@ void __cdecl sub_461103(const char *pLevelFilename)
          if (&pMapStats->pMapInfos[i] == v20)
            aC = i;
 
-        NPCStats_InitializeAdditionalNPCs(pNPCStats, 0, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, aC);
+        NPCStats_InitializeAdditionalNPCs(pNPCStats, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, aC);
         v15 = pNPCStats->dword_017FC0++ + 5000;
         pActors[i].uNPCID = v15;
         continue;

@@ -2305,8 +2305,8 @@ int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3)
   char v35; // zf@104
   char v36; // zf@107
   unsigned __int8 v37; // zf@119
-  char v38; // sf@119
-  unsigned __int8 v39; // of@119
+  //char v38; // sf@119
+  //unsigned __int8 v39; // of@119
   char v40; // zf@122
   char v41; // zf@145
   char v42; // zf@164
@@ -3021,20 +3021,25 @@ LABEL_138:
 LABEL_118:
             if ( v6 < 0 )
               goto LABEL_361;
-            compile_error();//v39 = __SETO__(v6, 6);
-            v37 = v6 == 6;
-            v38 = v6 - 6 < 0;
+            //v39 = __SETO__(v6, 6);
+            //v37 = v6 == 6;
+            //v38 = v6 - 6 < 0;
+
+            v37 = v6 <= 6;
           }
           else
           {
 LABEL_253:
             if ( v6 < 10 )
               goto LABEL_361;
-            compile_error();//v39 = __SETO__(v6, 15);
-            v37 = v6 == 15;
-            v38 = v6 - 15 < 0;
+            //v39 = __SETO__(v6, 15);
+            //v37 = v6 == 15;
+            //v38 = v6 - 15 < 0;
+
+            v37 = v6 <= 15;
           }
-          if ( (unsigned __int8)(v38 ^ v39) | v37 )
+          //if ( (unsigned __int8)(v38 ^ v39) | v37 )
+          if (v37)
             goto LABEL_121;
         }
       }

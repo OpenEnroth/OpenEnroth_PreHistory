@@ -44,6 +44,13 @@ struct NPCGreeting
 };
 //sizeof == 8
 
+struct NPCStats_stru0
+{
+ int  dword_000000;
+ char unk_000004[60];
+};
+//sizeof == 40
+
 struct CNPCStats
 {
  struct NPCData         pNPCData[501];      // struct[501]  @ 000000
@@ -58,7 +65,9 @@ struct CNPCStats
  struct NPCData         array_013EF4[100];  // struct[100] @ 013EF4
  unsigned char         *pCatchPhrases[52];  // dword[52]   @ 015CA4
  unsigned char         *pNPCNames2[500];    // dword[500]  @ 015D74
- char                   unk_016544[0x1348];
+ NPCStats_stru0         array_016544[77];   // struct[~77] @ 016544
+ int                    dword_017884;
+ int                    dword_017888;
  struct NPCGreeting     pNPCGreetings[205]; // struct[205] @ 01788C
  short                  array_017EF4[51];
  unsigned short         npc_group[51];   //word_017F5A

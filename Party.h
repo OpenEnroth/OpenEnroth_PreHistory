@@ -78,23 +78,19 @@ struct Party
  __int64       qword_00002C;  // world time
  __int64       qword_000034;
  union
-	 {
-      int 		   array2_00003C[413];
-	
-struct abc	 {
- int           array_00003C[20];
- int           array_00008C[170];
- int           array_000334[82];
- int           array_00047C[43];//44   align to original
- int           array_00052C[38];
- char          byte_0005C4[2];
- char          byte_0005C6[238];
-	 } Abc;
-	 };
- runtime_warning(addition)
- struct Camera *pCamera;
- runtime_warning(deprication)
-	 
+ {
+  int 		   array2_00003C[414];
+  struct abc
+  {
+   int         array_00003C[20];
+   int         array_00008C[170];
+   int         array_000334[82];
+   int         array_00047C[44];//44   align to original
+   int         array_00052C[38];
+   char        byte_0005C4[2];
+   char        byte_0005C6[238];
+  } Abc;
+ };
  //int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
  //int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
  //int           sPartyPosZ;       // dword @ 0006BC
@@ -108,7 +104,6 @@ struct abc	 {
  int           sOldRotationY;    // dword @ 0006D4
  int           sOldRotationX;    // dword @ 0006D8
  int           sOldEyelevel;     // dword @ 0006DC
-
  int           dword_0006E0;
  int           dword_0006E4;
  int           dword_0006E8;
@@ -119,12 +114,10 @@ struct abc	 {
  int           dword_0006FC;
  int           dword_000700;
  unsigned int  bFlying;      // dword @ 000704   or maybe 'in air', 'falling'; unclear
-
  unsigned char byte_000708;
  unsigned char byte_000709;
  unsigned char byte_00070A;
  unsigned char byte_00070B;
-
  unsigned int  uCurrentYear;      // dword @ 00070C
  unsigned int  uCurrentMonth;     // dword @ 000710
  int           uCurrentMonthWeek; // dword @ 000014
@@ -153,9 +146,7 @@ struct abc	 {
  unsigned char uNumArenaLordWins;   // byte     @ 0007C5
  unsigned char pArtifactsFound[68]; // byte[68] @ 0007C6
  char          unk_00080A[74];
-
  unsigned char byte_000854[32];
-
  int                dword_000874;
  int                dword_000878;
  unsigned int       bTurnBasedModeOn;    // dword @ 00087C
@@ -169,21 +160,16 @@ struct abc	 {
  int                dword_007778;     // party flags;     0x0002 - party position/direction/eyelevel changed
                                       //                  0x0004 - You're Drowning!  message displayed - in water
                                       //                  0x0200 - You are Burning!  message displayed - in lava
-
- char pad[100000];
-
- float flt_01622C;
- float flt_016230;
- float flt_016234;
-
- int dword_01613C; // connected to sLastGUIWindowIdx
-
- int array_016144[array_size_unknown]; // 016144
-
-
- char pad2[100000];
+ char               unk_00777C[60080];
+ float              flt_01622C;
+ float              flt_016230;
+ float              flt_016234;
+ char               unk_016238[4];
+ int                dword_01613C; // connected to sLastGUIWindowIdx
+ char               unk_016240[4];
+ int                array_016144[61]; // 016144
 };
-//sizeof ~ 16238  90680		   
+//sizeof == 16238  90680		   
 
 //int __thiscall Party_sub_49135E_GetAllPartyExpDiv1000(void *_this)
 void Party_ctor(struct Party *_this);

@@ -14,15 +14,6 @@
 
 Result::Code Game::PrepareForLoop()
 {
-  if (uCurrentMenuID == 9)
-  {
-    Party_Reset(pParty);
-    dword_6BE340 = 0;
-    dword_6A0D48 = 0;
-    sub_45EE8A(dword_6A0CA0_indx);
-  }	  
-  SetCurrentMenu(-1);
-
   LoadPlayerPortraintsAndVoices();
   LODFile_Icons_LOD.lod_IB_dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
 
@@ -73,7 +64,9 @@ Result::Code Game::Loop(const char *pLevelName)
       pParty->bTurnBasedModeOn = false;
     }
 
-    PrepareWorld(pLevelName, v17, 1);
+    if (!sub_45EE8A_LoadGame(pLevelName, dword_6A0CA0_indx))
+      PrepareWorld(pLevelName, false, 1);
+
     cEventTimer.Resume();
     dword_6BE364 |= 0x80;
     dword_6BE340 = 2;
@@ -247,7 +240,7 @@ LABEL_85:
       pParty->qword_00002C += 2580480i64;
       LOWORD(pParty->dword_007778) = pParty->dword_007778 & 0xFDFB;
       sub_492B70(0);
-      v10 = (int)array_5E4D58;
+      v10 = (int)stru_5E4D58.array_000000;
       v9 = 50;
       do
       {

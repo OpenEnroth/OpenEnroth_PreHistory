@@ -7541,7 +7541,7 @@ signed int __thiscall SpellBuf_sub_4584E0(struct SpellBuff *_this, unsigned int 
       if ( (unsigned __int16)v10 != a6 )
       {
         sub_45855F((void *)(20 * v10 + 0x5E4D44));
-        dword_5E5144 = 1;
+        stru_5E4D58.dword_0003EC = 1;
         *(_WORD *)(v8 + 12) = 0;
       }
     }
@@ -9844,7 +9844,7 @@ char __thiscall PrepareToLoadBLV(const char *pLevelFilename, void *_this)
       if (pSpawnPoint->uKind == 3)
         sub_44F57C_SpawnMonsters(v3, pSpawnPoint, 0, 0, 0);
       else
-        sub_44FFD8_SpawnMonsters(v3, pSpawnPoint);
+        sub_44FFD8_SpawnMonsters((MapInfo *)v3, pSpawnPoint);
     }
     sub_450AAA();
   }
@@ -10282,7 +10282,7 @@ void Game_DeinitializeAndTerminate(void *Code)
 //----- (00464839) --------------------------------------------------------
 char __cdecl sub_464839()
 {
-  compile_error(level file name should not be global);
+ return pOutdoor && !strcmpi(pOutdoor->pLocationFileName, "out15.odm");
     //return _strcmpi(CurrentLevelName, "out15.odm") == 0;
 }
 

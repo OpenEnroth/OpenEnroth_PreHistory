@@ -64,6 +64,7 @@ class cTexture
 
 		
 		void cTexture_Zero();
+        void cTexture_Load(const wchar_t *pPath);
 	};
 //sizeof = 000048	  
 

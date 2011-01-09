@@ -1559,11 +1559,17 @@ extern struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //_UNKNOWN unk_5E4D52; // weak
 
 
+extern struct _overlay_5E4D58
+{
+ unsigned short array_000000[50][10];
+ unsigned int   dword_0003E8;
+ unsigned int   dword_0003EC;
+} stru_5E4D58; // struct @ MM7.exe::005E4D58
+//sizeof == 3F0
 //_UNKNOWN unk_5E4D58; // weak
-extern unsigned short array_5E4D58[50][10];//[42][12];
 //_UNKNOWN unk_5E4D64; // weak
 //extern int dword_5E5130[array_size_unknown]; // weak
-extern int dword_5E5144; // weak
+//extern int dword_5E5144; // 0003EC
 
 extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150   //14CC
 //__int16 word_5E5150[array_size_unknown]; // weak

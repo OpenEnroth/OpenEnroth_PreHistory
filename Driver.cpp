@@ -9,6 +9,8 @@
 #include "Thread.h"
 #include "UserInput.h"
 #include "Tiles.h"
+#include "Menus.h"
+#include "Arcomage\Arcomage.h"
 
 
 
@@ -608,6 +610,30 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 #endif
 
 
+  /*Arcomage::Game *pArcomage = MemAlloc(Arcomage::Game, 1);
+  pArcomage->Initialize(bNoSound);
+
+  Arcomage::Player cPlayer1State,
+                   cPlayer2State;
+  strcpy(cPlayer1State.pName, "Player");
+  strcpy(cPlayer2State.pName, "A.I.");
+  cPlayer1State.uTower = cPlayer2State.uTower = 15;
+  cPlayer1State.uWall = cPlayer2State.uWall = 5;
+  cPlayer1State.uQuarryLevel = cPlayer2State.uQuarryLevel = 1;
+  cPlayer1State.uMagicLevel = cPlayer2State.uMagicLevel = 1;
+  cPlayer1State.uDungeonLevel = cPlayer2State.uDungeonLevel = 1;
+  cPlayer1State.uNumBricks = cPlayer2State.uNumBricks = 10;
+  cPlayer1State.uNumGems = cPlayer2State.uNumGems = 5;
+  cPlayer1State.uNumRecruits = cPlayer2State.uNumRecruits = 10;
+
+  Arcomage::Rules cRules;
+  cRules.uTower = 150;
+  cRules.uNumResources = 500;
+  cRules.uGameTime = -1;
+  cRules.bNoMoreCards = false;
+  pArcomage->Play(&cPlayer1State, &cPlayer2State, &cRules);*/
+
+
   Sleep(250);
   while (true)
     {
@@ -626,7 +652,7 @@ LABEL_21:
           Party_Reset(pParty);
 
           for (v9 = 0; v9 < 50; ++v9)
-            sub_45855F(array_5E4D58[v9++]);
+            sub_45855F(stru_5E4D58.array_000000[v9]);
 
           Party_CreateDefaultParty(pParty, 0);
 
@@ -657,6 +683,16 @@ LABEL_21:
         {
           dword_6A0D48 = 1;
           goto LABEL_49;
+        }
+        if (uCurrentMenuID == 9)
+        {
+         Party_Reset(pParty);
+         dword_6BE340 = 0;
+         dword_6A0D48 = 0;
+
+         SetCurrentMenu(-1);
+         pGame->PrepareForLoop();
+         pGame->Loop(saves_lst.name_list[dword_6A0CA0_indx]);
         }
         if ( uCurrentMenuID == 5 || uCurrentMenuID == 9)
         {

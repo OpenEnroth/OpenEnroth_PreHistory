@@ -189,9 +189,9 @@ int __cdecl sub_45E93E()
 }
 
 //----- (0045EE8A) -------.text:00460131  -------------------------------------------------
-void sub_45EE8A(int a1)
+bool sub_45EE8A_LoadGame(const char *pFilename, unsigned int idx)
 {
-  int v1; // ebx@1
+  //int v1; // ebx@1
   char v2; // zf@1
   int v4; // esi@8
   int v5; // eax@9
@@ -212,7 +212,7 @@ void sub_45EE8A(int a1)
   int v20; // ecx@49
   int v21; // eax@51
   int v22; // ecx@56
-  int v23; // ebx@60
+  //int v23; // ebx@60
   bool v24; // eax@62
   signed int v25; // esi@62
   char *v26; // eax@66
@@ -231,27 +231,27 @@ void sub_45EE8A(int a1)
 
   char Str; // [sp+70h] [bp-80h]@25
   int v40; // [sp+E8h] [bp-8h]@2
- int i, j;
 
-  v1 = a1;
-  v2 = dword_69CF28[a1] == 0;
+  
+  wsprintfA((char *)TmpBuf, "saves\\%s", pFilename);
+  if (_access((char *)TmpBuf, 0))
+    return false;
+
+  v2 = dword_69CF28[idx] == 0;
   dword_5B65C8 = 0;
   if ( v2 )
-  {
-    v23 = (int)pAudioPlayer;
     pAudioPlayer->sub_4AA306(27, 0, 0, -1, 0, 0, 0, 0);
-  }
   else
   {
-   for (i = 1; i < 5; ++i)
-     for (j = 1; j < 6; ++j)
+   for (unsigned int i = 0; i < 4; ++i)
+     for (unsigned int j = 0; j < 5; ++j)
      {
-      wsprintfA((char *)TmpBuf, "data\\lloyd%d%d.pcx", i, j);
+      wsprintfA((char *)TmpBuf, "data\\lloyd%d%d.pcx", i + 1, j + 1);
       remove((char *)TmpBuf);
      }
 
 
-    for (i = 0; i < 4; ++i)
+    for (unsigned int i = 0; i < 4; ++i)
     {
       v40 = (int)&pParty->pPlayers[i];
       if ( byte_4ED498 )
@@ -296,12 +296,11 @@ LABEL_17:
       }
     }
 
-    wsprintfA((char *)TmpBuf, "saves\\%s", &saves_lst.name_list[v1]);
+    wsprintfA((char *)TmpBuf, "saves\\%s", pFilename);
     LODFile_New_LOD.Close_Written_File();
-    if ( !CopyFileA((char *)TmpBuf, "data\\new.lod", 0) )
-      GetLastError();
-    LODFile_New_LOD.Load_File( "data\\new.lod", 0);
-    v9 = LODFile_New_LOD.Find_Container( "header.bin", 1);
+    CopyFileA((char *)TmpBuf, "data\\new.lod", 0);
+    LODFile_New_LOD.Load_File("data\\new.lod", 0);
+    v9 = LODFile_New_LOD.Find_Container("header.bin", 1);
     if ( v9 )
     {
       locked_fread(&loc_hdr,100, 1, v9);
@@ -309,7 +308,6 @@ LABEL_17:
     else
     {
       wsprintfA((char *)&Str, (char *)pGlobalTXT_LocalizationStrings[612], 100);
-      v40 = (int)&v31;
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
@@ -320,35 +318,29 @@ LABEL_17:
     }
     else
     {
-      v36 = 101;
       wsprintfA(&Str, (char *)pGlobalTXT_LocalizationStrings[612], 101);
-      v40 = (int)&v31;
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v11 = LODFile_New_LOD.Find_Container( "clock.bin", 1);
+    v11 = LODFile_New_LOD.Find_Container("clock.bin", 1);
     if ( v11 )
     {
       locked_fread(&cEventTimer, 40, 1, v11);
     }
     else
     {
-      v36 = 102;
       wsprintfA(&Str, (char *)pGlobalTXT_LocalizationStrings[612], 102);
-      v40 = (int)&v31;
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v12 = LODFile_New_LOD.Find_Container( "overlay.bin", 1);
+    v12 = LODFile_New_LOD.Find_Container("overlay.bin", 1);
     if ( v12 )
     {
-      locked_fread(array_5E4D58, 1008, 1, v12);
+      locked_fread(&stru_5E4D58, 1008, 1, v12);
     }
     else
     {
-      v36 = 103;
       wsprintfA(&Str, (char *)pGlobalTXT_LocalizationStrings[612], 103);
-      v40 = (int)&v31;
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
@@ -360,9 +352,7 @@ LABEL_17:
     }
     else
     {
-      v36 = 104;
       wsprintfA(&Str, (char *)pGlobalTXT_LocalizationStrings[612], 104);
-      v40 = (int)&v31;
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
@@ -373,39 +363,35 @@ LABEL_17:
     }
     else
     {
-      v36 = 105;
       wsprintfA(&Str, (char *)pGlobalTXT_LocalizationStrings[612], 105);
-      v40 = (int)&v31;
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
-   for(i=0;i<4;i++) 
-    {
+   for (unsigned int i = 0; i < 4; ++i) 
       if (Player_sub_492C0B_MaybeIfPlayerConscious(&pParty->pPlayers[i]))
-		  {
-		   uActiveCharacter =i + 1;
-           break;
-		  }
-    }
+      {
+       uActiveCharacter = i + 1;
+       break;
+      }
   
 //    v19 = pParty->pPlayers[];  //global_paarty playersu QuickSpell		 (int *)&unk_ACF3D3
     v18 = 9;
     v17 = 0;
-   for (i=0; i<4; i++)
+   for (unsigned int i = 0; i < 4; ++i)
     {
       if ( pParty->pPlayers[i].uQuickSpell )
         sub_494836((char *)unk_AA1058[i][0], pParty->pPlayers[i].uQuickSpell, i+1);
      v40 = 0;
       //v20 = (int)((char *)v19 - 263);
-	  v20 =0;
+	  v20 = 0;
       while ( 1 )
       {
-	    int item_index=	 pParty->pPlayers[i].pEquippedItemIndices[v20]; 
+	    int item_index = pParty->pPlayers[i].pEquippedItemIndices[v20]; 
         if (item_index)
         {
          // v21 = *(int *)((char *)&v19[9 * *(_DWORD *)v20 - 1559]);
-		  v21 =pParty->pPlayers[i].pInventorySlots[item_index+5].uItemID; //5 offset	need to verify
+		  v21 = pParty->pPlayers[i].pInventorySlots[item_index + 5].uItemID; //5 offset	need to verify
           if (pClass40->pItems[v21 - 1].uEquipType == 12 )
 			  {
 			  // v36 = v18;
@@ -444,8 +430,8 @@ LABEL_17:
     MenuUI_LoadTextures(v22);
     cEventTimer.Resume();
     cEventTimer.clock_sub_4263A0();
-    v23 = (int)pAudioPlayer;
   }
+
 //load level
   v25 = LODFile_Games_LOD.IsContainerExist(loc_hdr.location_name);
   v36 = (int)&loc_hdr.location_name;
@@ -461,8 +447,6 @@ LABEL_17:
     }
   }
 
-  compile_error(level name should not be globally-defined);
-  //v26 = strcpy(CurrentLevelName, loc_hdr.location_name);
   LOWORD(dword_6BE364) = dword_6BE364 | 0x2001;
 
   v27 = 0;
@@ -472,15 +456,41 @@ LABEL_17:
        cSaveTumbnail[i].PCXTexture_Release();
   
   }
+
   LODFile_Icons_LOD.LODFile_sub_4114F2();
   v36 = (signed __int64)(pSoundVolumeLevels[uSoundVolumeMultiplier] * 128.0);
-  ((AudioPlayer *)v23)->SetMasterVolume(128.0f * pSoundVolumeLevels[uSoundVolumeMultiplier]);
-  ((AudioPlayer *)v23)->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
+  pAudioPlayer->SetMasterVolume(128.0f * pSoundVolumeLevels[uSoundVolumeMultiplier]);
+  pAudioPlayer->SetMusicVolume(64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
   if ( uTurnSpeed )
     pParty->sRotationY = uTurnSpeed * pParty->sRotationY / uTurnSpeed;
+
+  if (strstr(loc_hdr.location_name, ".odm"))
+    uCurrentlyLoadedLevelType = 2;
+  else if (strstr(loc_hdr.location_name, ".blv"))
+    uCurrentlyLoadedLevelType = 1;
   sub_4666D5();
+
   byte_50794A = 0;
   struct_576FE8.dword_000044 = 1;
+
+
+
+
+
+ pParty->pickedItem.uItemID = -1;
+ for (unsigned int i = 0; i < 4; ++i)
+ {
+  Player *pPlayer = &pParty->pPlayers[i];
+
+  for (unsigned int j = 0; j < 16; ++j)
+    pPlayer->pEquippedItemIndices[j] -= 1;
+
+  for (unsigned int j = 0; j < 126; ++j)
+    pPlayer->pInventoryIndices[j] -= 1;
+ }
+
+  PrepareWorld(loc_hdr.location_name, true, 1);
+ return true;
 }
 
 
@@ -1115,7 +1125,7 @@ int __fastcall SaveGame(int a1, int a2)
 
     strcpy(&St2.pFilename[0], "overlay.bin");
     St2.size_data = 1008;
-    if (LODFile_New_LOD.Add_Container_to_File(&St2, array_5E4D58, 0) )
+    if (LODFile_New_LOD.Add_Container_to_File(&St2, &stru_5E4D58, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 204);
       v76 = (unsigned int)&v38;

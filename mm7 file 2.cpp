@@ -8634,8 +8634,8 @@ unsigned __int16 SpellBuff_sub_458585(struct SpellBuff *_this)
   if ( result )
   {
     //result = sub_45855F((void *)(20 * result + 0x5E4D44));
-   result = sub_45855F(array_5E4D58[result - 1]);
-    dword_5E5144 = 1;
+   result = sub_45855F(stru_5E4D58.array_000000[result - 1]);
+   stru_5E4D58.dword_0003EC = 1;
     *(_WORD *)(v2 + 12) = 0;
   }
   return result;
@@ -11616,7 +11616,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
     if (pSpawnPoint->uKind == 3)
           sub_44F57C_SpawnMonsters((int)v4, pSpawnPoint, 0, 0, 0);
     else
-          sub_44FFD8_SpawnMonsters((int)v4, pSpawnPoint);
+          sub_44FFD8_SpawnMonsters(v4, pSpawnPoint);
     }
     sub_450AAA();
   }

@@ -1254,6 +1254,8 @@ void RenderSky()
     v47_d = (double)(pOldViewport->uGameZ - pOldViewport->uGameX) * 0.5;
     v44 = 65536 / (signed int)(v47_d / tan(0.64577174186706543) + 0.5);
 
+    runtime_warning(suddenly, started to loop);
+    return;
  for (i = 0; i < local_14.uNumVertices; ++i)
  {
       v40 = floorf(array_50AC10[i].vWorldViewProjY + 0.5f);

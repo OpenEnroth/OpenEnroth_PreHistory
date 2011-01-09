@@ -1419,7 +1419,9 @@ void sub_4666D5()
   struct_576FE8.dword_000008 = struct_576FE8.dword_000018;
   struct_576FE8.dword_00000C = struct_576FE8.dword_00001C;
 
-  pOldViewport = MemAlloc(OldViewport, 1);
+  if (!pOldViewport)
+    pOldViewport = MemAlloc(OldViewport, 1);
+
   memset(pOldViewport, 0, sizeof(struct OldViewport));
   Viewport_fn0(pOldViewport, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
 
@@ -2854,11 +2856,6 @@ void __cdecl sub_464479_ResetCursorAndOther()
     dword_EF52A0 = 0;
     dword_EF52A4 = 0;
   }
-
-  if (uCurrentlyLoadedLevelType == 1)
-    pIndoor->Clear();
-  else if (uCurrentlyLoadedLevelType == 2)
-    pOutdoor->Clear();
 
   if (!bNoSound)
   {
@@ -5390,7 +5387,7 @@ LABEL_39:
 
     v19 = v18->sHealth;
     if ( Player_MaybeGetWearItemsBonus(pPlayers[i], 3, 0) + v18->sHealth + v18->uEndurance >= 1 ||
-        *(_QWORD *)(v18 + 6224) > 0i64 )
+        *(_QWORD *)((int)v18 + 6224) > 0i64 )
     {
       if ( v19 >= 1 )
         goto LABEL_61;

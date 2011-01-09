@@ -4373,9 +4373,8 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
   int v16; // ecx@40
   int v17; // edi@44
   char v18; // zf@47
-  int v19; // eax@57
-  signed int v20; // edx@57
-  signed int v21; // ecx@58
+  //int v19; // eax@57
+  //signed int v21; // ecx@58
   int result; // eax@61
   int v23; // [sp+10h] [bp-10h]@4
   int v24; // [sp+10h] [bp-10h]@21
@@ -4492,13 +4491,31 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
  if (_this->pNPCDistTXT_Raw)
    MemFree( (void *)_this->pNPCDistTXT_Raw);
 
- _this->pNPCDistTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcdist.txt", 0);
+ _this->pNPCDistTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw("npcdist.txt", 0);
  strtok((char *)_this->pNPCDistTXT_Raw, "\r");
  strtok(0, "\r");
 
  v1 = 0;
   v31 = 1;
-  v32 = (int)_this->unk_016544 + 5;
+  v32 = (int)_this->array_016544 + 5;
+
+ runtime_warning(duh I dont know is it right or wrong but at least doesnt crash);
+ for (unsigned int i = 0; i < 59; ++i)
+ {
+  v14 = strtok(0, "\r") + 1;
+
+  _this->array_016544[0].unk_000004[i] = 10;
+  for (unsigned int j = 1; j < 77; ++j)
+  {
+   while (*v14 && *v14++ != '\t');
+
+   int value;
+   sscanf(v14, "%d", &value);
+
+   _this->array_016544[j].unk_000004[i] = value;
+  }
+ }
+/*
   while ( 2 )
   {
     v14 = strtok(0, "\r") + 1;
@@ -4534,7 +4551,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       {
         if ( v1 < 77 )
         {
-          *(_BYTE *)(v31 + (v1 << 6) + (_this->unk_016544 + 4)) = atoi(v14);
+          _this->array_016544[v1].unk_000004[v31] = atoi(v14);
           goto LABEL_54;
         }
         v18 = v1 == 0;
@@ -4556,19 +4573,14 @@ LABEL_54:
     }
     break;
   }
-  v19 = (int)_this->unk_016544;
-  v20 = 77;
-  do
-  {
-    *(_DWORD *)v19 = 0;
-    v21 = 1;
-    do
-      *(_DWORD *)v19 += *(_BYTE *)(v19 + v21++ + 4);
-    while ( v21 < 59 );
-    v19 += 64;
-    --v20;
-  }
-  while ( v20 );
+*/
+ for (unsigned int i = 0; i < 77; ++i)
+ {
+  _this->array_016544[i].dword_000000 = 0;
+
+  for (unsigned int j = 1; j < 59; ++j)
+    _this->array_016544[i].dword_000000 += _this->array_016544[i].unk_000004[j];
+ }
 
  if (_this->pNPCDistTXT_Raw)
  {
@@ -7657,7 +7669,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
    {
     pIcon = pIconFrameTable->GetImage(_this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);
     Render_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &LODFile_Icons_LOD.aLODHeaders[pIcon->uTextureIdx]);
-    dword_5E5144 = 1;
+    stru_5E4D58.dword_0003EC = 1;
    }
    else
      _this->array_000208[i].word_000000 = 0;

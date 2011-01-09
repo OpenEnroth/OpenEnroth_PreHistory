@@ -1482,16 +1482,9 @@ unsigned char *pHistoryTXT_Raw = 0;          // dword     @ MM7.exe::005E4C88
 struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 
 
-//_UNKNOWN unk_5E4D58; // weak	 
-//overlay	 1008 size
-unsigned short array_5E4D58[50][10];  // [42][12];
-
-//_UNKNOWN unk_5E4D64; // weak
- //int dword_5E5130[array_size_unknown]; // weak
- int dword_5E5144; // weak
-
-struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
-unsigned int   dword_5FF140; // idb
+struct _overlay_5E4D58 stru_5E4D58;      // struct     @ MM7.exe::005E4D58
+struct struct3         array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
+unsigned int           dword_5FF140; // idb
 
 struct ChestDescriptionList   *pChestDescriptionList = nullptr;   // struct      @ MM7.exe::005FF144
 struct MonsterDescriptionList *pMonsterDescriptionList = nullptr; // struct      @ MM7.exe::005FF14C

@@ -13,16 +13,15 @@ class Clock
    inline ~Clock() {}
 
 
-   bool bReady;  // dword @ 000000
-   bool bPaused; // dword @ 000004
-   int  dword_000008;
-
+   unsigned int bReady;  // dword @ 000000
+   unsigned int bPaused; // dword @ 000004
+   int          dword_000008;
    unsigned int uStartTime; // dword @ 00000C  time the clock was started,  in a (128 * sec) format
    unsigned int uStopTime;  // dword @ 000010  time the clock was stopped
-   int dword_000014;
-   int dword_000018;
+   int          dword_000014;
+   int          dword_000018;
    unsigned int uElapsedTime; // dword @ 00001C   time elapsed, max quant == 32 ms
-   int dword_000020;
+   int          dword_000020;
    unsigned int uTotalGameTimeElapsed; // dword @ 000024   
 
 

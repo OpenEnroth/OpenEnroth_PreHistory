@@ -9995,6 +9995,185 @@ signed int __stdcall sub_47730C(int a1)
 }
 
 extern "C" int _ftol(float);
+
+
+
+//----- (0047732C) --------------------------------------------------------
+_DWORD //sub_47732C(int this, signed int a2, signed int a3, int a4, int a5)
+NPCStats_InitializeAdditionalNPCs(CNPCStats *_this,
+                                  NPCData *pNPCData, long _a4, long a8, long aC)
+{
+  int v5; // eax@1
+  //int v6; // ebx@1
+  signed int v7; // edi@1
+  int v8; // esi@1
+  signed int v9 = 0; // ecx@23
+  int v10; // edx@28
+  int v11; // eax@37
+  int v12; // edx@37
+  int v13; // ecx@37
+  //int v14; // esi@37
+  signed int result; // eax@39
+  int v16; // eax@1
+  int v17; // edx@1
+  int v18; // ecx@5
+  int v19; // edx@37
+  int v20; // [sp+Ch] [bp-Ch]@1
+  signed int v21; // [sp+14h] [bp-4h]@1
+  signed int v22; // [sp+10h] [bp-8h]@1
+
+  //__asm { fild    [ebp+arg_4] }
+  //__asm { fmul    ds:flt_4D874C }
+  //v16 = _ftol();
+  _a4 -= 1;
+  v16 = (int)(_a4 * -0.33333334);
+
+  int a2, a3;
+  v8 = unk_4E83B0[-v16];
+  v20 = unk_4E8408[-v16];
+  v17 = rand() % _this->uNumNPCNames[v8];
+  v7 = (int)pNPCData;
+  *(_DWORD *)(v7 + 64) = v8;
+  *(_DWORD *)v7 = (int)_this->pNPCNames[v17][v8];
+  v5 = 0;
+  v21 = 0;
+  v22 = 0;
+  while ( 1 )
+  {
+    if ( v20 == v5 )
+    {
+      if ( v8 == v5 )
+      {
+        a3 = 2;
+        a2 = 100;
+      }
+      else
+      {
+        if ( v8 - v5 == 1 )
+        {
+          a3 = 201;
+          a2 = 250;
+        }
+      }
+    }
+    else
+    {
+      if ( v20 - v5 == 1 )
+      {
+        if ( v8 == v5 )
+        {
+          a3 = 400;
+          a2 = 430;
+        }
+        else
+        {
+          if ( v8 - v5 == 1 )
+          {
+            a3 = 460;
+            a2 = 490;
+          }
+        }
+      }
+      else
+      {
+        v18 = v20 - v5 - 2;
+        if ( !v18 )
+        {
+          if ( v8 == v5 )
+          {
+            a3 = 500;
+            a2 = 520;
+          }
+          else
+          {
+            if ( v8 - v5 == 1 )
+            {
+              a3 = 530;
+              a2 = 550;
+            }
+          }
+        }
+        else
+        {
+          if ( v20 - v5 == 3 )
+          {
+            if ( v8 == v5 )
+            {
+              a3 = 300;
+              a2 = 330;
+            }
+            else
+            {
+              if ( v8 - v5 == 1 )
+              {
+                a3 = 360;
+                a2 = 387;
+              }
+            }
+          }
+        }
+      }
+    }
+    rand();
+    if ( sub_47730C(v20) == 1 )
+      v22 = 1;
+    ++v21;
+    if ( v21 >= 4 )
+    {
+      v9 = a3;
+      v22 = 1;
+    }
+    if ( v22 )
+      break;
+    v5 = 0;
+  }
+  *(_DWORD *)(v7 + 4) = v9;
+  *(_DWORD *)(v7 + 8) = 0;
+  *(_DWORD *)(v7 + 12) = 0;
+  v10 = rand() % 100 + 1;
+  if ( v10 >= 60 )
+  {
+    if ( v10 >= 90 )
+    {
+      if ( v10 >= 95 )
+      {
+        if ( v10 >= 98 )
+          *(_DWORD *)(v7 + 16) = -600;
+        else
+          *(_DWORD *)(v7 + 16) = 400;
+      }
+      else
+      {
+        *(_DWORD *)(v7 + 16) = -300;
+      }
+    }
+    else
+    {
+      *(_DWORD *)(v7 + 16) = 200;
+    }
+  }
+  else
+  {
+    *(_DWORD *)(v7 + 16) = 0;
+  }
+  v19 = rand() % _this->array_016544[aC].dword_000000;
+  v13 = 0;
+  v11 = 0;
+  v12 = v19 + 1;
+  if ( v12 > 0 )
+  {
+    do
+      v13 += _this->array_016544[aC].unk_000004[v11++];
+    while ( v13 < v12 );
+  }
+  *(_DWORD *)(v7 + 24) = v11 - 1;
+  *(_DWORD *)(v7 + 20) = a8;
+  result = 1;
+  *(_DWORD *)(v7 + 36) = 1;
+  *(_DWORD *)(v7 + 32) = 1;
+  return result;
+}
+/*
 //----- (0047732C) --------------------------------------------------------
 //function_error; //#error "FFFFFFFF: variables would overlap: ecx/4 and edx/8 (funcsize=165)"
 __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, int dummy_edx,
@@ -10270,7 +10449,7 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
  #undef arg_4
  #undef arg_8
  #undef arg_C
-}
+}*/
 
 //----- (0047752B) --------------------------------------------------------
 int __cdecl sub_47752B()
@@ -11203,6 +11382,9 @@ CAMERA   ï  _____\| ______ +  0
 
     v6 = pTile->uBitmapID;
     v8->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v6];
+
+    if (pTile->uBitmapID == 0xFFFF)
+      continue;
 
     v8->sTextureDeltaU = 0;
     v8->sTextureDeltaV = 0;
@@ -15083,16 +15265,26 @@ signed int __cdecl sub_489487()
   int v5; // esi@7
   unsigned __int8 v6; // al@9
 
-  compile_error(no global level name);
   //strcpy((char *)pOutdoor->string_000000, CurrentLevelName);
   //result = CMapStats_FindLocation(pMapStats, CurrentLevelName);
+
+  //ah those hacks :'(
+  MapInfo *pMapInfo = pMapStats->GetMapInfo(pOutdoor->pLocationFileName);
+  for (unsigned int i = 0; i < pMapStats->uNumMaps; ++i)
+    if (pMapInfo == &pMapStats->pMapInfos[i])
+    {
+     result = i;
+     break;
+    }
+
+  
 
   v1 = result;
   if ( result >= 1 && result != 7 && result != 8 && result <= 15 )
   {
     dword_6BE030 &= 0xFFFFFFFEu;
     v3 = rand() % 100;
-    v2 = 4 * v1 + 5163788;
+    v2 = (int)&byte_4ECB0C[4 * v1];
     v4 = byte_4ECB0C[4 * v1];
     if ( v3 >= v4 )
     {

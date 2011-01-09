@@ -4,6 +4,37 @@
 #include "mm7_unparsed_data.h"
 //#include "mm7_unparsed_functions.h"
 
+
+extern class cTexture pending_texture;
+extern void *hStdHandle;
+void cTexture::cTexture_Load(const wchar_t *pPath)
+{
+ DWORD w;
+ unsigned int uWidth,
+              uHeight;
+ if (LoadPNG(pPath, &uWidth, &uHeight, &pTruecolorPixels))
+  {
+    if (!hStdHandle)
+      hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    wchar_t pFileNotFound[256];
+    wsprintfW(pFileNotFound, L"Texture not found: %s\n", pPath);
+    WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
+
+    if (!pending_texture.pTruecolorPixels)
+      pending_texture.pTruecolorPixels = NamedMemAlloc(unsigned int, 52 * 53, "Pending Texture pixels");
+    pending_texture.uTextureWidth = 52;
+    pending_texture.uTextureHeight = 53;
+    return;
+ }
+ uTextureWidth = uWidth;
+ uTextureHeight = uHeight;
+}
+
+
+
+
+
 typedef struct tagPCXHEADER_1 {
 	BYTE  manufacturer;		// Magic number (0x0A = ZSoft Z)
 	BYTE  version;			// Version	0 == 2.5
