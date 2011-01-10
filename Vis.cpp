@@ -69,12 +69,12 @@ Result::Code Vis::PickMouse(float fDepth, float fMouseX, float fMouseY, unnamed_
  CastRayAtMousePosition(pMouseRay, pOldCamera, fMouseX, fMouseY, fDepth);
 
  class25_obj.uNumPointers = 0;
- Vis_sub_4C1542(this, fDepth, fMouseX, fMouseY, &class25_obj, a5);
+ Vis_sub_4C1542_PickBillboards(this, fDepth, fMouseX, fMouseY, &class25_obj, a5);
 
  if (uCurrentlyLoadedLevelType == 1)
-   Vis_sub_4C16B4_DoPicking_Indoor(this, fDepth, pMouseRay, &class25_obj, a6);
+   Vis_sub_4C16B4_PickModels_Indoor(this, fDepth, pMouseRay, &class25_obj, a6);
  else
-   Vis_sub_4C17CF_DoPicking_Outdoor(this, fDepth, pMouseRay, &class25_obj, a6, 0);
+   Vis_sub_4C17CF_PickModels_Outdoor(this, fDepth, pMouseRay, &class25_obj, a6, 0);
 
  class25_create_object_pointers(&class25_obj, 0);
  class25_sort_object_pointers(class25_obj.array_001804, 0, class25_obj.uNumPointers - 1);
@@ -207,12 +207,12 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, BLVFace *a2, int a3, float a4)
   if (_this->CastRayAtMousePosition(local_20, pOldCamera, v23, v24, a4), uCurrentlyLoadedLevelType != 1)
   {
    v17 = a4;
-   Vis_sub_4C17CF_DoPicking_Outdoor((Vis *)v15, SLOBYTE(v17), local_20, &class25_F8FE00, &stru_F93E44, 1);
+   Vis_sub_4C17CF_PickModels_Outdoor((Vis *)v15, SLOBYTE(v17), local_20, &class25_F8FE00, &stru_F93E44, 1);
   }
   else
   {
    v16 = a4;
-   Vis_sub_4C16B4_DoPicking_Indoor((Vis *)v15, SLOBYTE(v16), local_20, &class25_F8FE00, &stru_F93E44);
+   Vis_sub_4C16B4_PickModels_Indoor((Vis *)v15, SLOBYTE(v16), local_20, &class25_F8FE00, &stru_F93E44);
   }
   class25_create_object_pointers(&class25_F8FE00, 0);
   class25_sort_object_pointers(class25_F8FE00.array_001804, 0, class25_F8FE00.uNumPointers - 1);
@@ -310,7 +310,7 @@ void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4,
 }
 
 //----- (004C1542) --------------------------------------------------------
-void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6)
+void Vis_sub_4C1542_PickBillboards(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6)
 {
   int v6; // ST1C_4@6
   int v9; // [sp+24h] [bp-8h]@2
@@ -324,7 +324,6 @@ void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct 
       if (Vis_IsRayIntersectsSprite(_this, fDepth, i))
       {
        v6 = pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].sZValue;
-
 
        pClass25->array_000004[pClass25->uNumPointers].uBillboardID = pBillboardRenderListD3D3[i].uParentBillboardID;
        pClass25->array_000004[pClass25->uNumPointers].sZValue = v6;
@@ -518,15 +517,12 @@ signed int __thiscall sub_4C1BAA_Vis_get_object_zbuf_val(struct Vis *_this, stru
   v2 = a2->dword_000008;
   if ( v2 <= 0 || v2 > 2 )
   {
-    v11 = &v4;
     Game_sub_40E2C8(&v4, "Undefined type requested for: CVis::get_object_zbuf_val()", (int)((char *)&a2 + 3));
     sub_466D09(0, *(int *)&v4, v5, v6, v7, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Vis.cpp", __LINE__);
-    result = -1;
+    ExitProcess(-1);
   }
-  else
-    result = a2->sZValue;
 
-  return result;
+ return a2->sZValue;
 }
 
 //----- (004C1BF1) --------------------------------------------------------
@@ -904,9 +900,9 @@ LABEL_49:
     _this->CastRayAtMousePosition(pPickingRay, pOldCamera, *(float *)&v35, *(float *)&v36, fDepth);
 
     if (uCurrentlyLoadedLevelType == 1)
-      Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, pPickingRay, &class25_F91E10, &stru_F93E44);
+      Vis_sub_4C16B4_PickModels_Indoor(_this, fDepth, pPickingRay, &class25_F91E10, &stru_F93E44);
     else
-      Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, pPickingRay, &class25_F91E10, &stru_F93E44, 0);
+      Vis_sub_4C17CF_PickModels_Outdoor(_this, fDepth, pPickingRay, &class25_F91E10, &stru_F93E44, 0);
 
     class25_create_object_pointers(&class25_F91E10, 0);
     class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.uNumPointers - 1);
@@ -953,9 +949,9 @@ LABEL_49:
                 _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v15), v14, fDepth);
 
                 if ( uCurrentlyLoadedLevelType == 1 )
-                  Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44);
+                  Vis_sub_4C16B4_PickModels_Indoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44);
                 else
-                  Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0);
+                  Vis_sub_4C17CF_PickModels_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0);
 
                 class25_create_object_pointers(&class25_F91E10, 0);
                 class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.uNumPointers - 1);
@@ -998,7 +994,7 @@ LABEL_49:
             || v23 > (double)pOldViewport->uScreenZ
             || (double)pOldViewport->uScreenY > v41
             || (double)pOldViewport->uScreenW < v41
-            || ((v25 = v23, _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v25), v41, fDepth), uCurrentlyLoadedLevelType != 1) ? (Vis_sub_4C17CF_DoPicking_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0)) : (Vis_sub_4C16B4_DoPicking_Indoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44)),
+            || ((v25 = v23, _this->CastRayAtMousePosition(local_80, pOldCamera, SLODWORD(v25), v41, fDepth), uCurrentlyLoadedLevelType != 1) ? (Vis_sub_4C17CF_PickModels_Outdoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44, 0)) : (Vis_sub_4C16B4_PickModels_Indoor(_this, fDepth, local_80, &class25_F91E10, &stru_F93E44)),
                 (class25_create_object_pointers(&class25_F91E10, 0),
                  class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.uNumPointers - 1),
                  class25_F91E10.uNumPointers)
@@ -1164,7 +1160,7 @@ class25::class25()
 
 
 //----- (004C1C0C) --------------------------------------------------------
-char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pRay_SomePoint, BLVFace *a5, int a6)
+char __stdcall sub_4C1C0C_RayFaceIntersect(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pIntersectionPoint, BLVFace *a5, int a6)
 {
   int v6; // eax@1
   double v8; // st7@3
@@ -1186,31 +1182,26 @@ char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
   //       pRayOrigin->vPosition.y * a5->vFaceNormalf.y +
   //       pRayOrigin->vPosition.z * a5->vFaceNormalf.z +
   //       a5->fNormalDistance);
+
+  // ray-plane intersection
   v9 = -(Dot<float>(pRayOrigin->vPosition, a5->vFaceNormalf) + a5->fNormalDistance);
 
-  if ( v8 <= 0.0 )
-  {
     if ( v9 > 0.0 )
       return 0;
-  }
-  else
-  {
-    if ( v9 < 0.0 )
-      return 0;
-  }
+
   v10 = v9 / v8;
   v15 = v10;
   if (v10 > *pDepth)
     return 0;
 
- pRay_SomePoint->vWorldPosition.x = v10 * pRayEnd->vPosition.x + pRayOrigin->vPosition.x;
- pRay_SomePoint->vWorldPosition.y = v10 * pRayEnd->vPosition.y + pRayOrigin->vPosition.y;
- pRay_SomePoint->vWorldPosition.z = v10 * pRayEnd->vPosition.z + pRayOrigin->vPosition.z;
+ pIntersectionPoint->vWorldPosition.x = v10 * pRayEnd->vPosition.x + pRayOrigin->vPosition.x;
+ pIntersectionPoint->vWorldPosition.y = v10 * pRayEnd->vPosition.y + pRayOrigin->vPosition.y;
+ pIntersectionPoint->vWorldPosition.z = v10 * pRayEnd->vPosition.z + pRayOrigin->vPosition.z;
  
- LOWORD(v12) = (signed __int64)pRay_SomePoint->vWorldPosition.x;
- HIWORD(v12) = (signed __int64)pRay_SomePoint->vWorldPosition.y;
+ LOWORD(v12) = (signed __int64)pIntersectionPoint->vWorldPosition.x;
+ HIWORD(v12) = (signed __int64)pIntersectionPoint->vWorldPosition.y;
  //if (!sub_4C1D2B(a5, v12, pRay_SomePoint->z, a6))
- if (!sub_4C1D2B(a5, Vec3<short>(pRay_SomePoint->vWorldPosition.x, pRay_SomePoint->vWorldPosition.y, pRay_SomePoint->vWorldPosition.z), a6))
+ if (!sub_4C1D2B(a5, pIntersectionPoint->vWorldPosition, a6))
    return 0;
 
  *pDepth = v15;
@@ -1226,10 +1217,10 @@ void RotateVector(int sDepth, int sRotationY, int sRotationX, Vec3<int> vPositio
  //    cos_y = class59_SinCos(pClass59_global, sRotationY),
  //    sin_y = class59_SinCos(pClass59_global, sRotationY - pClass59_global->uIntegerHalfPi),
  //    sin_z = class59_SinCos(pClass59_global, sRotationX - pClass59_global->uIntegerHalfPi);
- float cosf_x = cosf(3.14159265f * sRotationX / 2048.0f),
-       cosf_y = cosf(3.14159265f * sRotationY / 2048.0f),
-       sinf_x = sinf(3.14159265f * sRotationX / 2048.0f),
-       sinf_y = sinf(3.14159265f * sRotationY / 2048.0f);
+ float cosf_x = cosf(3.14159265f * sRotationX / 1024.0f),
+       cosf_y = cosf(3.14159265f * sRotationY / 1024.0f),
+       sinf_x = sinf(3.14159265f * sRotationX / 1024.0f),
+       sinf_y = sinf(3.14159265f * sRotationY / 1024.0f);
 
  pOut->x = vPosition.x + ((unsigned __int64)((double)sDepth * cosf_y * cosf_x) >> 16);
  pOut->y = vPosition.y + ((unsigned __int64)((double)sDepth * sinf_y * cosf_x) >> 16);
@@ -1239,7 +1230,7 @@ void RotateVector(int sDepth, int sRotationY, int sRotationX, Vec3<int> vPositio
 
 
 //----- (004C16B4) --------------------------------------------------------
-int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class25 *a4, struct unnamed_F93E6C *a5)
+int Vis_sub_4C16B4_PickModels_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class25 *a4, struct unnamed_F93E6C *a5)
 {
   int result; // eax@1
   int v6; // edi@2
@@ -1277,7 +1268,7 @@ int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class
           {
             if ( !sub_436455(v7/96 + pIndoor->pFaces) )
             {
-              if ( sub_4C1C0C(pRay, pRay + 1, &a2, &local_0C, v7/96 + pIndoor->pFaces, -1) )
+              if ( sub_4C1C0C_RayFaceIntersect(pRay, pRay + 1, &a2, &local_0C, v7/96 + pIndoor->pFaces, -1) )
               {
                 sub_436523_PrimitiveApplyViewMatrix(&local_0C, 1);
                 v8 = sub_48B561(local_0C.vWorldViewPosition.x);
@@ -1304,11 +1295,101 @@ int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float a2, Vis_stru0 *pRay, class
 
 
 
-//----- (004C17CF) --------------------------------------------------------
-char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, class25 *a4, struct unnamed_F93E6C *a5, bool a6)
+
+
+
+bool new_RayFaceIntersect(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDepth, RenderVertex *pIntersectionPoint, BLVFace *pFace, ODMFace *pRenderFace, int a6)
 {
-  int v6; // eax@1
-  int v7; // ecx@1
+  double v8; // st7@3
+  double v9; // st5@6
+  double v10; // st6@10
+  signed int v12; // ST1E_4@11
+  float v15; // [sp+30h] [bp+18h]@10
+
+  if (pFace->uAttributes & 0x0001 ||
+      pFace->uAttributes & 0x2000)
+    return false;
+
+  // face normal: world-space
+  // ray origin:  world-space
+  // ray end:     world-space
+
+  
+  POINT pt;
+  GUICursor_GetMousePos(pGame->class03_obj, &pt);
+
+  float y_resolution = (pOldViewport->uGameZ - pOldViewport->uGameX) / 2;
+  float y_rot = pt.x - y_resolution;
+
+  // fov = 75 degree  so pt.x = GameZ => +75.0 deg,        +/- 37.5 actually but it seems 75 works more stable
+  //                     pt.x = GameX => -75.0 deg
+  float y_angle = y_rot / y_resolution * (3.1415926535f * 75.0f / 360.0f);
+
+  Vec3<float> vRayO = pParty->vPosition;
+  vRayO.z += pParty->uEyelevel;
+  Vec3<float> vRayD = Vec3<float>(cosf(3.1415926535f * (pParty->sRotationY / 1024.0f) - y_angle),
+                                  sinf(3.1415926535f * (pParty->sRotationY / 1024.0f) - y_angle),
+                                  0);
+  Vec3<float> vRayE = vRayO + vRayD;
+
+  float dot_RayDirection_PlaneNormal = Dot<float>(vRayD, pFace->vFaceNormalf);
+  if (dot_RayDirection_PlaneNormal > 0 || fabsf(dot_RayDirection_PlaneNormal) < 1e-05f)
+    return false;
+
+  float e = -(Dot<float>(vRayO, pFace->vFaceNormalf) + pFace->fNormalDistance);
+
+  float t = e / dot_RayDirection_PlaneNormal;
+
+  Vec3<float> vRayIntersection = vRayO + t * vRayD;
+
+  if (!pFace->cBoundingBoxX.NotOutside(vRayIntersection.x) ||
+      !pFace->cBoundingBoxY.NotOutside(vRayIntersection.y) ||
+      !pFace->cBoundingBoxZ.NotOutside(vRayIntersection.z))
+    return false;
+
+
+  pRenderFace->uFaceAttributes |= 0x80000000;
+
+  pIntersectionPoint->vWorldPosition = vRayIntersection;
+  return true;
+/*
+
+  v8 = Dot<float>(pRayEnd->vPosition, pFace->vFaceNormalf);
+  if (v8 >= 0.0)
+    return false;
+
+  v9 = -(Dot<float>(pRayOrigin->vPosition, pFace->vFaceNormalf) + pFace->fNormalDistance);
+
+    if ( v9 > 0.0 )
+      return 0;
+
+  v10 = v9 / v8;
+  v15 = v10;
+  if (v10 > *pDepth)
+    return 0;
+
+  pRenderFace->uFaceAttributes |= 0x80000000;
+
+ pIntersectionPoint->vWorldPosition.x = v10 * pRayEnd->vPosition.x + pRayOrigin->vPosition.x;
+ pIntersectionPoint->vWorldPosition.y = v10 * pRayEnd->vPosition.y + pRayOrigin->vPosition.y;
+ pIntersectionPoint->vWorldPosition.z = v10 * pRayEnd->vPosition.z + pRayOrigin->vPosition.z;
+ 
+ LOWORD(v12) = (signed __int64)pIntersectionPoint->vWorldPosition.x;
+ HIWORD(v12) = (signed __int64)pIntersectionPoint->vWorldPosition.y;
+ //if (!sub_4C1D2B(a5, v12, pRay_SomePoint->z, a6))
+ if (!sub_4C1D2B(pFace, pIntersectionPoint->vWorldPosition, a6))
+   return 0;
+
+ *pDepth = v15;
+ return 1;*/
+}
+
+
+//----- (004C17CF) --------------------------------------------------------
+char Vis_sub_4C17CF_PickModels_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, class25 *a4, struct unnamed_F93E6C *a5, bool a6)
+{
+  //int v6; // eax@1
+  //int v7; // ecx@1
   //int v8; // esi@1
   //int v9; // ebx@3
   //int v10; // esi@10
@@ -1319,7 +1400,7 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
   struct BLVFace local_10;
   //char v17[0x60]; // [sp+10h] [bp-B8h]@1
 
-  RenderVertex cRay_SomePoint;
+  RenderVertex pIntersectionPoint;
   //char v18; // [sp+70h] [bp-58h]@11
   //float v19; // [sp+7Ch] [bp-4Ch]@12
   //float v20; // [sp+9Ch] [bp-2Ch]@1
@@ -1327,63 +1408,44 @@ char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cla
   //int v21; // [sp+A0h] [bp-28h]@12
   int v22; // [sp+A4h] [bp-24h]@12
   //int v23; // [sp+A8h] [bp-20h]@12
-  int v24; // [sp+ACh] [bp-1Ch]@8
-  void *v25; // [sp+B0h] [bp-18h]@1
+  //int v24; // [sp+ACh] [bp-1Ch]@8
+  //void *v25; // [sp+B0h] [bp-18h]@1
   //int v26; // [sp+B4h] [bp-14h]@9
   int v27; // [sp+B8h] [bp-10h]@1
   int v28; // [sp+BCh] [bp-Ch]@2
   int v29; // [sp+C0h] [bp-8h]@1
   int v30; // [sp+C4h] [bp-4h]@8
- int i;
 
-  v25 = _this;
-  v7 = 0;
+
   v27 = 0;
   v29 = 0;
 
-  cRay_SomePoint.flt_00002C = 0.0;
+  pIntersectionPoint.flt_00002C = 0.0;
 
-  i = 0;
-  if ( pOutdoor->uNumBModels > 0 )
-  {
     v28 = 0;
-    BSPModel *pBModel;
-    while ( 1 )
-    {
-      pBModel = &pOutdoor->pBModels[i];
-      LOBYTE(v6) = sub_479089_IsBModelVisible(v7, &v27);
-      if ( a6 )
-        break;
-      if ( v6 )
-        goto LABEL_8;
-LABEL_15:
-      v28 += 188;
-      v7 = v29 + 1;
-      ++i;
-      //v15 = __SETO__(v29 + 1, pOutdoor->uNumBModels);
-      //v14 = v29++ + 1 - pOutdoor->uNumBModels < 0;
-      //if ( !(v14 ^ v15) )
-      if (++v29 >= pOutdoor->uNumBModels)
-        return v6;
-    }
-    if (!v6 || !v27)
-      goto LABEL_15;
+ for (unsigned int i = 0; i < pOutdoor->uNumBModels; ++i)
+ {
+  BSPModel *pBModel = &pOutdoor->pBModels[i];
 
-LABEL_8:
+  if (!sub_479089_IsBModelVisible(i, &v27))
+    continue;
+  if (a6 && !v27)
+    continue;
+
     v30 = 0;
-    v24 = v6 = pBModel->uNumFaces;
 
-    for (unsigned int j = 0; j < pBModel->uNumFaces; ++j)
-    {
+  for (unsigned int j = 0; j < pBModel->uNumFaces; ++j)
+  {
      ODMFace *pStru2 = pBModel->pFaces + j;
 
      if (Vis_is_part_of_selection((unsigned int)pStru2, a5))
      {
           sub_4C0EF2_ODMFace_to_BLVFace(&local_10, pStru2);
-          if ( sub_4C1C0C(pRay, pRay + 1, &a2, &cRay_SomePoint, &local_10, v29) )
+          //if ( sub_4C1C0C_RayFaceIntersect(pRay, pRay + 1, &a2, &pIntersectionPoint, &local_10, v29) )
+          if ( new_RayFaceIntersect(pRay, pRay + 1, &a2, &pIntersectionPoint, &local_10, pStru2, v29) )
           {
-            sub_436523_PrimitiveApplyViewMatrix(&cRay_SomePoint, 1);
-            v11 = sub_48B561(cRay_SomePoint.vWorldViewPosition.x);
+            sub_436523_PrimitiveApplyViewMatrix(&pIntersectionPoint, 1);
+            v11 = sub_48B561(pIntersectionPoint.vWorldViewPosition.x);
 
             LOWORD(v11) = 0;
             v22 = (8 * (v30 | (v29 << 6)) | 6) + v11;
@@ -1394,10 +1456,9 @@ LABEL_8:
           }
         }
 
-    }
-    goto LABEL_15;
   }
-  return 0;
+ }
+ return 0;
 }
 
 

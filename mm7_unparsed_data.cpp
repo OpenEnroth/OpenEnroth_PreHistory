@@ -315,7 +315,20 @@ unsigned int uDialogueUIIconsOffsetY = 0x00000026; // dword @ MM7.exe::004E5EE0
  int dword_4E5F78[array_size_unknown]; // weak
  char byte_4E5F7C[array_size_unknown]; // weak
  char byte_4E5F7D[array_size_unknown]; // weak
- char *off_4E6BB0; // idb
+char *off_4E6BB0[11] =
+{
+ "",
+ "ticon01",
+ "ticon02",
+ "ticon03",
+ "ticon04",
+ "ticon05",
+ "istairup",
+ "itrap",
+ "outside",
+ "idoor",
+ "isecdoor"
+};
  char *off_4E6BDC; // idb
  int dword_4E800C; // weak
 

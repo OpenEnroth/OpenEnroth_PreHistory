@@ -5725,7 +5725,7 @@ int __fastcall sub_444839(int a1, int a2, int a3, int a4, int a5, int a6, int a7
   strcat(Str1, v19);
 LABEL_6:
   v12 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
-  v13 = (&off_4E6BB0)[4 * v10];
+  v13 = off_4E6BB0[v10];
   uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[v12];
   dword_59142C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v13, 2)];
   if ( v9 )
@@ -7045,7 +7045,7 @@ int __fastcall sub_44606A(int a1)
   }
   if ( v2 )
   {
-    v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (&off_4E6BB0)[4 * v2], 2);
+    v10 = LODFile_Icons_LOD.LODFile_LoadTexture(off_4E6BB0[v2], 2);
     v11 = dword_591424++;
     uTextureID_Dialogue_NPCPortrait[v11] = v10;
     result = *(__int16 *)((char *)&word_591466 + v1);

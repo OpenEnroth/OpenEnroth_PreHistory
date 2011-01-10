@@ -5388,15 +5388,15 @@ void OldCamera_CalculateSinCos(struct OldCamera *_this)
 {
  double angle;
 
- angle = 2.0 * 3.1415926535897931 * ((double)_this->sRotationY / 2048);
+ angle = 3.1415926535897931 * ((double)_this->sRotationY / 1024);
  _this->fRotationYSine = sin(angle);
  _this->fRotationYCosine = cos(angle);
 
 
  if (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || uCurrentlyLoadedLevelType == 1)
-   angle = 2 * 3.1415926535897931 * ((double)_this->sRotationX / 2048);
+   angle = 3.1415926535897931 * ((double)_this->sRotationX / 1024);
  else
-   angle = -2 * 3.1415926535897931 * ((double)_this->sRotationX / 2048);
+   angle = -3.1415926535897931 * ((double)_this->sRotationX / 1024);
 
  _this->fRotationXSine = sin(angle);
  _this->fRotationXCosine = cos(angle);

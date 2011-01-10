@@ -7913,6 +7913,11 @@ void D3D_DoRenderBillboards()
   }
 
   pD3DRenderer->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, v1->pQuad, v1->uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
+
+  v1->pQuad[0].diffuse = 0xFFFFFFFF; // if it was marked red in Vis
+  v1->pQuad[1].diffuse = 0xFFFFFFFF;
+  v1->pQuad[2].diffuse = 0xFFFFFFFF;
+  v1->pQuad[3].diffuse = 0xFFFFFFFF;
  }
 
  if ( dword_EF52B0 )

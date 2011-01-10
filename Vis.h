@@ -96,7 +96,7 @@ int Vis_sub_4C0D32_DoSomeOtherPicking_Indoor(struct Vis *_this, float a2, class2
 //int __thiscall sub_4C0DEA(void *_this, float a2, int a3, int a4);
 void Vis_sub_4C0DEA_DoSomeOtherPicking_Outdoor(struct Vis *_this, float a2, class25 *a3, struct unnamed_F93E6C *a4);
 //void __thiscall sub_4C1542(void *_this, float a2, float a3, float a4, int a5, int a6);
-void Vis_sub_4C1542(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6);
+void Vis_sub_4C1542_PickBillboards(struct Vis *_this, float fDepth, float fX, float fY, struct class25 *pClass25, struct unnamed_F93E6C *a6);
 //int __thiscall sub_4C1026(void *_this, int a2, int a3, float a4);
 int Vis_sub_4C1026(struct Vis *_this, BLVFace *a2, int a3, float a4);
 //char __thiscall sub_4C1ABA(void *_this, int a2, int a3, int a4);
@@ -108,8 +108,8 @@ bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sL
 //char __thiscall sub_4C297E(void *_this, int a2, int a3, int a4);
 bool Vis_sort_some_objects_3(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
 
-int Vis_sub_4C16B4_DoPicking_Indoor(Vis *_this, float fPickingDepth, Vis_stru0 *a3, class25 *a4, struct unnamed_F93E6C *a5);
-char Vis_sub_4C17CF_DoPicking_Outdoor(Vis *_this, float fPickingDepth, Vis_stru0 *a3, class25 *a4, struct unnamed_F93E6C *a5, bool a6);
+int Vis_sub_4C16B4_PickModels_Indoor(Vis *_this, float fPickingDepth, Vis_stru0 *a3, class25 *a4, struct unnamed_F93E6C *a5);
+char Vis_sub_4C17CF_PickModels_Outdoor(Vis *_this, float fPickingDepth, Vis_stru0 *a3, class25 *a4, struct unnamed_F93E6C *a5, bool a6);
 
 struct class25_stru0 *Vis_sub_4C1944(Vis *_this, int a2, unsigned int a3, int a4, int a5, int a6);
 signed int sub_4C1BAA_Vis_get_object_zbuf_val(void *_this, int a2);
@@ -117,7 +117,7 @@ signed int Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(struct Vis *_this);
 
 char Vis_sub_4C1930(Vis *_this, float a2, int a3);
 
-char __stdcall sub_4C1C0C(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayDirection, float *pDepth, struct RenderVertex *pRay_SomePoint, BLVFace *a5, int a6);
+char __stdcall sub_4C1C0C_RayFaceIntersect(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayDirection, float *pDepth, struct RenderVertex *pIntersectionPoint, BLVFace *a5, int a6);
 
 
 

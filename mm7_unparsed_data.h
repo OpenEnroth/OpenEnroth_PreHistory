@@ -211,7 +211,7 @@ extern char (*off_4E5F70)[8]; // weak
 extern int dword_4E5F78[array_size_unknown]; // weak
 extern char byte_4E5F7C[array_size_unknown]; // weak
 extern char byte_4E5F7D[array_size_unknown]; // weak
-extern char *off_4E6BB0; // idb
+extern char *off_4E6BB0[]; // idb
 extern char *off_4E6BDC; // idb
 //_UNKNOWN unk_4E7E20; // "%s0"
 //_UNKNOWN unk_4E7E24; // weak

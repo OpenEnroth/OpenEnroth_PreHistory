@@ -804,8 +804,6 @@ void GameUI_Update()
       if ( v18 == -1 )
         goto LABEL_61;
     }
-    else
-      v18 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]];
 
     pGame->pGUICursor->dword_000000 = (unsigned __int16)v18;
     v19 = (signed int)(unsigned __int16)v18 >> 3;

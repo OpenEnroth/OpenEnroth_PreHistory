@@ -11560,6 +11560,10 @@ void RenderBuildingsD3D()
  fclose(f);
  }*/
 
+
+  //Emerald island:
+      // Models[1]  first shop to the right
+      // Models[3]  estate
  for (unsigned int i = 0; i < pOutdoor->uNumBModels; ++i)
  {
   if (!sub_479089_IsBModelVisible(i, &v63))

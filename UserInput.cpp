@@ -828,7 +828,8 @@ Result::Code UserInput::ResetKeyboard()
 
 
 
-UserInput::UserInput()
+UserInput::UserInput():
+  ptr_000208(nullptr)
 {
  uLastKeyPressed = 0;
 

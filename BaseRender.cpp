@@ -2941,7 +2941,11 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
 
        pVertices[i].u = array_50AC10[i].u;
        pVertices[i].v = array_50AC10[i].v;
+
+       if (a4->uFaceAttributes & 0x80000000)
+         pVertices[i].diffuse = 0xFFFF0000;
      }
+       a4->uFaceAttributes &= ~0x80000000;
 
      pD3DRenderer->pRenderD3D3->pDevice->SetTexture(0, pTexture);
      pD3DRenderer->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTLIGHT);

@@ -34,7 +34,11 @@ template<typename type>
 {
  return Vec3<type>(lh.x * scale, lh.y * scale, lh.z * scale);
 }
-
+template<typename type>
+  inline Vec3<type> operator *(const type scale, const Vec3<type> &lh)
+{
+ return Vec3<type>(lh.x * scale, lh.y * scale, lh.z * scale);
+}
 
 
 

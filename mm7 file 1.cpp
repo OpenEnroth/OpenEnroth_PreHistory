@@ -379,8 +379,8 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
  pOldCamera->sRotationX = pParty->sRotationX;
  pOldCamera->sRotationY = pParty->sRotationY;
 
- pOldCamera->sPosX = pParty->vPosition.x - pParty->dword_000018 * cosf(2 * 3.141592653589 * pParty->sRotationY / 2048.0);
- pOldCamera->sPosY = pParty->vPosition.y - pParty->dword_000018 * sinf(2 * 3.141592653589 * pParty->sRotationY / 2048.0);
+ pOldCamera->sPosX = pParty->vPosition.x - pParty->dword_000018 * cosf(3.141592653589 * pParty->sRotationY / 1024.0);
+ pOldCamera->sPosY = pParty->vPosition.y - pParty->dword_000018 * sinf(3.141592653589 * pParty->sRotationY / 1024.0);
  pOldCamera->sPosZ = pParty->vPosition.z + pParty->uEyelevel;
 
  pOldCamera->dword_00004C = v2;
