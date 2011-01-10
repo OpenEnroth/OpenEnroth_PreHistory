@@ -153,6 +153,7 @@ struct Spellbook
 //int __thiscall sub_48EAAE(void *_this, signed int a2, int a3);
 int Player_MaybeGetWearItemsBonus(const struct Player *_this, signed int a2, int a3);
 
+
 struct Player
 {
  inline Player()
@@ -163,6 +164,43 @@ struct Player
   dword_001AA4 = 0;
   dword_001AA8 = 0;
  }
+
+ // indices in inventory slots array of currently equipped items
+ struct Equipment
+ {
+  union
+  {
+   struct
+   {
+    unsigned int uOffHand;   // dword @ 000000
+    unsigned int uMainHand;  // dword @ 000004
+    unsigned int uBow;       // dword @ 000008
+    unsigned int uBody;      // dword @ 00000C
+    unsigned int uHelm;      // dword @ 000010
+    unsigned int uBelt;      // dword @ 000014
+    unsigned int uCloak;     // dword @ 000018
+    unsigned int dword_00001C;
+    unsigned int dword_000020;
+    unsigned int dword_000024;
+    unsigned int dword_000028;
+    unsigned int dword_00002C;
+    unsigned int dword_000030;
+    unsigned int dword_000034;
+    unsigned int dword_000038;
+    unsigned int dword_00003C;
+   };
+   unsigned int pIndices[16];
+  };
+  /* int         pEquippedItemIndices[16]; 
+                                              // 0: left hand
+                                              // 1: right hand
+                                              // 2: bow
+                                              // 3: body, leather armour
+                                              // 4: helm
+                                              // 5: belt
+                                              // 6: cloak*/
+ };
+ //sizeof == 40
 
    __int64          pConditions[20];      // qword[20] @ 000000   [14] eradicated  [16] dead  condition time may be
    unsigned __int64 uExperience;          // qword     @ 0000A0
@@ -248,18 +286,11 @@ struct Player
    int              dword_001930;
    unsigned short   uTimeToRecovery;   // word @ 001934
    char             array_001936[2];
-   unsigned int     uSkillPoints;      // dword @ 001938
-   int              sHealth;           // dword @ 00193C
-   int              sMana;             // dword @ 001940
-   unsigned int     uBirthYear;        // dword @ 001944
-   int              pEquippedItemIndices[16]; // dword[16] @ 001948
-                                              // 0: left hand
-                                              // 1: right hand
-                                              // 2: bow
-                                              // 3: body, leather armour
-                                              // 4: helm
-                                              // 5: belt
-                                              // 6: cloak
+   unsigned int     uSkillPoints;      // dword  @ 001938
+   int              sHealth;           // dword  @ 00193C
+   int              sMana;             // dword  @ 001940
+   unsigned int     uBirthYear;        // dword  @ 001944
+   Equipment        cEquippedItems;    // struct @ 001948
 
    int              array_001988[65]; // dword[] @ 001988
 
@@ -291,23 +322,49 @@ struct Player
 
 
    inline int GetBaseStrength() const     {return uStrength + Player_MaybeGetWearItemsBonus(this, 0, 0);}
-   inline int GetBaseIntelligence() const {return uIntelligence + Player_MaybeGetWearItemsBonus(this, 1, 0);}
-   inline int GetBaseWillpower() const    {return uWillpower + Player_MaybeGetWearItemsBonus(this, 2, 0);}
-   inline int GetBaseEndurance() const    {return uEndurance + Player_MaybeGetWearItemsBonus(this, 3, 0);}
-   inline int GetBaseAccuracy() const     {return uAccuracy + Player_MaybeGetWearItemsBonus(this, 4, 0);}
-   inline int GetBaseSpeed() const        {return uSpeed + Player_MaybeGetWearItemsBonus(this, 5, 0);}
-   inline int GetBaseLuck() const         {return uLuck + Player_MaybeGetWearItemsBonus(this, 6, 0);}
+          int GetActualStrength() const;
 
+   inline int GetBaseIntelligence() const {return uIntelligence + Player_MaybeGetWearItemsBonus(this, 1, 0);}
+          int GetActualIntelligence() const;
+
+   inline int GetBaseWillpower() const    {return uWillpower + Player_MaybeGetWearItemsBonus(this, 2, 0);}
+          int GetActualWillpower() const;
+
+   inline int GetBaseEndurance() const    {return uEndurance + Player_MaybeGetWearItemsBonus(this, 3, 0);}
+          int GetActualEndurance() const;
+
+   inline int GetBaseAccuracy() const     {return uAccuracy + Player_MaybeGetWearItemsBonus(this, 4, 0);}
+          int GetActualAccuracy() const;
+
+   inline int GetBaseSpeed() const        {return uSpeed + Player_MaybeGetWearItemsBonus(this, 5, 0);}
+          int GetActualSpeed() const;
+
+   inline int GetBaseLuck() const         {return uLuck + Player_MaybeGetWearItemsBonus(this, 6, 0);}
+          int GetActualLuck() const;
+
+          int GetBaseAge() const;
+   inline int GetActualAge() const        {return GetBaseAge() + sAgeModifier;}
 };
 //sizeof == 1B3C
 
 //int Player_GetBaseStrength(Player *_this)          0048C855  Player::GetBaseStrength
+//int Player_GetActualStrength(Player *_this)        0048C93C  Player::GetActualStrength
 //int Player_GetBaseIntelligence(Player *_this)      0048C86C  Player::GetBaseIntelligence
+//int Player_GetActualIntelligence(Player *_this)    0048C9C2  Player::GetActualIntelligence
 //int Player_GetBaseWillpower(Player *_this)         0048C883  Player::GetBaseWillpower
+//int Player_GetActualWillpower(Player *_this)       0048CA3F  Player::GetActualWillpower
 //int Player_GetBaseEndurance(Player *_this)         0048C89A  Player::GetBaseEndurance
+//int Player_GetActualEndurance(Player *_this)       0048CABC  Player::GetActualEndurance
 //int Player_GetBaseAccuracy(Player *_this)          0048C8B1  Player::GetBaseAccuracy
+//int Player_GetActualAccuracy(Player *_this)        0048CB39  Player::GetActualAccuracy
 //int Player_GetBaseSpeed(Player *_this)             0048C8C8  Player::GetBaseSpeed
+//int Player_GetActualSpeed(Player *_this)           0048CBB6  Player::GetActualSpeed
 //int Player_GetBaseLuck(Player *_this)              0048C8DF  Player::GetBaseLuck
+//int Player_GetActualLuck(Player *_this)            0048CC33  Player::GetActualLuck
+//int Player_GetBaseAge(Player *_this)               0048E6DC  Player::GetBaseAge
+//int Player_GetActualAge(Player *_this)             0048E72C  Player::GetActualAge
+
+
 
 
 Character::Sex::Type Player_GetSexByVoice(Player *_this);
@@ -327,13 +384,6 @@ signed int Player_sub_48D709(struct Player *_this, int a2, int a3);
 //bool __thiscall Player_sub_48D6AA(void *_this, int a2);
 bool Player_sub_48D6AA(struct Player *_this, unsigned int uItemID);
 
-int Player_GetActualStrength(struct Player *_this);
-int Player_GetActualIntelligence(struct Player *_this);
-int Player_GetActualWillpower(struct Player *_this);
-int Player_GetActualEndurance(struct Player *_this);
-int Player_GetActualAccuracy(struct Player *_this);
-int Player_GetActualSpeed(struct Player *_this);
-int Player_GetActualLuck(struct Player *_this);
 int Player_GetBaseResistance(struct Player *_this, signed int a2);
 int Player_GetActualResistance(struct Player *_this, signed int a2);
 
@@ -343,10 +393,6 @@ int Player_GetActualLevel(struct Player *_this);
 
 //int __thiscall sub_48C8F6(int _this);
 int Player_GetBaseLevel(struct Player *_this);
-
-int Player_GetActualAge(struct Player *_this);
-int Player_GetBaseAge(struct Player *_this);
-
 
 int Player_GetMaxHealth(struct Player *_this);
 int Player_GetMaxMana(struct Player *_this);
@@ -396,9 +442,9 @@ char *__thiscall Player_sub_48D396(int _this);
 unsigned int __thiscall Player_sub_48D498(int _this);
 signed int __thiscall Player_sub_48D4B3(int _this, int a2, signed int a3);
 int __thiscall Player_sub_48DBB9(int _this, int a2);
-int __thiscall Player_sub_48E656(int _this);
+int Player_sub_48E656(Player *_this);
 signed int Player_sub_49327B(Player *_this, int a2, int a3);
-int __thiscall Player_sub_48E68F(Player *_this);
+int Player_sub_48E68F(Player *_this);
 char __thiscall Player_GetActualSkillLevel(Player *_this, unsigned int uSkillType);
 __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
 __int16 __thiscall Player_sub_494A25_LooksLikePlayEmotion(Player *_this, int a2, int a3);
@@ -415,6 +461,7 @@ signed int __thiscall Player_sub_49125A(Player *_this);
 signed int __thiscall Player_sub_4912B0(Player *_this);
 char __thiscall Player_sub_491317(Player *_this);
 bool __thiscall Player_sub_492C40(Player *_this);
+signed int Player_sub_48DCF6(Player *_this, int a2, int a3);
 int __thiscall Player_sub_4B807C(Player *_this, float a2);
 signed int __thiscall Player_sub_4B8102(Player *_this, signed int a2, float a3);
 int __thiscall Player_sub_4B8142(Player *_this, signed int a2, float a3);

@@ -1778,19 +1778,12 @@ signed int __thiscall sub_42EBEE(void *_this)
 bool sub_42ECB5_PlayerAttack()
 {
   int v1; // ebx@1
-  //int v2; // esi@1
-  //int v3; // edi@2
   int v4; // eax@7
-  //int v5; // eax@8
   int v6; // ecx@9
   signed int v7; // eax@16
-  char *v8; // edi@20
+  Actor *pActor; // edi@20
   int v9; // ecx@21
-  //int v10; // eax@26
-  //int v11; // eax@26
-  //int v12; // eax@47
   int v13; // eax@47
-  //int v14; // eax@47
   int v15; // ebx@54
   int v16; // [sp-10h] [bp-4Ch]@24
   int v17; // [sp-10h] [bp-4Ch]@44
@@ -1827,7 +1820,7 @@ bool sub_42ECB5_PlayerAttack()
     if (pParty->pPartyBuffs[11].qword_000000 > 0 )
       SpellBuff_sub_458585(&pParty->pPartyBuffs[11]);
 
- v33 = pPlayer->pEquippedItemIndices[2];
+ v33 = pPlayer->cEquippedItems.uBow;
     //v33 = *(_DWORD *)(v2 + 6480);
 
  if (v33 != -1)
@@ -1837,12 +1830,12 @@ bool sub_42ECB5_PlayerAttack()
     v33 = -1;
  }
 
- v4 = pPlayer->pEquippedItemIndices[1];
+ v4 = pPlayer->cEquippedItems.uMainHand;
      //v4 = *(_DWORD *)(v2 + 6476);
 
     v34 = -1;
     v35 = -1;
-    if ( v4 )
+    if ( v4 != -1)
     {
       //v5 = (int)pPlayer + 36 * v4;
       if (~pPlayer->pInventorySlots[v4].uAttributes & 0x02)
@@ -1854,7 +1847,7 @@ bool sub_42ECB5_PlayerAttack()
          if (pPlayer->pInventorySlots[v4].dword_000010 <= 0)
          {
           pPlayer->pInventorySlots[v4].uItemID = -1;
-          pPlayer->pEquippedItemIndices[1] = -1;
+          pPlayer->cEquippedItems.uMainHand = -1;
          }
           else
             v34 = pPlayer->pInventorySlots[v4].uItemID;
@@ -1884,9 +1877,10 @@ bool sub_42ECB5_PlayerAttack()
     if ( (v36 & 7) == 3 )
     {
       v28 = v36 >> 3;
-      v8 = (char *)pActors + 836 * (v36 >> 3);
-      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty->vPosition.x) * (*((_WORD *)v8 + 71) - pParty->vPosition.x) + (*((_WORD *)v8 + 72) - pParty->vPosition.y) * (*((_WORD *)v8 + 72) - pParty->vPosition.y) + (*((_WORD *)v8 + 73) - pParty->vPosition.z) * (*((_WORD *)v8 + 73) - pParty->vPosition.z))
-          - *((_WORD *)v8 + 68);
+      pActor = &pActors[v36 >> 3];
+      v36 = sub_452A9E((pActor->vPosition.x - pParty->vPosition.x) * (pActor->vPosition.x - pParty->vPosition.x) +
+                       (pActor->vPosition.y - pParty->vPosition.y) * (pActor->vPosition.y - pParty->vPosition.y) +
+                       (pActor->vPosition.z - pParty->vPosition.z) * (pActor->vPosition.z - pParty->vPosition.z) - pActor->uActorRadius);
       if ( v36 >= 0 )
       {
         v9 = 0;
@@ -1919,26 +1913,25 @@ LABEL_28:
           v1 + 8);
 
         runtime_warning(suspicious);
-        if (--pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1] + 1].uItemID == -1)
+        if (--pPlayer->pInventorySlots[pPlayer->cEquippedItems.uMainHand + 1].uItemID == -1)
         {
-         pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1]].uItemID = -1;
-         pPlayer->pEquippedItemIndices[1] = -1;
+         pPlayer->pInventorySlots[pPlayer->cEquippedItems.uMainHand].uItemID = -1;
+         pPlayer->cEquippedItems.uMainHand = -1;
         }
 
         goto LABEL_28;
       }
       if ( (double)v36 <= 407.19999999999999 )
       {
-        v25 = *((_WORD *)v8 + 71) - pParty->vPosition.x;
-        v26 = *((_WORD *)v8 + 72) - pParty->vPosition.y;
-        v27 = *((_WORD *)v8 + 73) - pParty->vPosition.z;
+        v25 = pActor->vPosition.x - pParty->vPosition.x;
+        v26 = pActor->vPosition.y - pParty->vPosition.y;
+        v27 = pActor->vPosition.z - pParty->vPosition.z;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
         DamageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
         if ( Player_sub_48D709(pPlayer, 506, 1) || Player_sub_48D709(pPlayer, 506, 0) )
-          sub_42FA66(
-            *((_WORD *)v8 + 71),
-            *((_WORD *)v8 + 72),
-            *((_WORD *)v8 + 73) + *((_WORD *)v8 + 69) / 2,
+          sub_42FA66(pActor->vPosition.x,
+                     pActor->vPosition.y,
+                     pActor->vPosition.z + pActor->uActorHeight / 2,
             0,
             512,
             v1);
@@ -1969,7 +1962,7 @@ LABEL_28:
     {
       if ( v34 )
       {
-        v13 = pPlayer->pEquippedItemIndices[1];
+       v13 = pPlayer->cEquippedItems.uMainHand;
         v31 = 1;
         sub_42777D_CastSpell(dword_4E421C[pPlayer->pInventorySlots[v13].uItemID], v1 - 1, 8, 0, v1 + 8);
 
@@ -1977,10 +1970,10 @@ LABEL_28:
         //--*(_DWORD *)v14;
         //v12 = v2 + 36 * pPlayer->pEquippedItemIndices[1];
         //if (*(_DWORD *)(v12 + 512) == 0)
-        if (--pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1] + 1].uItemID == -1)
+        if (--pPlayer->pInventorySlots[pPlayer->cEquippedItems.uMainHand + 1].uItemID == -1)
         {
-         pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1] + 1].uItemID = -1;
-         pPlayer->pEquippedItemIndices[1] = -1;
+         pPlayer->pInventorySlots[pPlayer->cEquippedItems.uMainHand + 1].uItemID = -1;
+         pPlayer->cEquippedItems.uMainHand = -1;
         }
 LABEL_29:
         v36 = 0;
@@ -1990,9 +1983,9 @@ LABEL_29:
             return 1;
           if ( v30 == 0 )
           {
-            v15 = pPlayer->pEquippedItemIndices[1];
+           v15 = pPlayer->cEquippedItems.uMainHand;
             if ( Player_sub_48D6AA(pPlayer, 1) )
-             v36 = pClass40->pItems[pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1]].uItemID].uSkillType;
+             v36 = pClass40->pItems[pPlayer->pInventorySlots[pPlayer->cEquippedItems.uMainHand].uItemID].uSkillType;
             sub_40471C(&unk_4F8858);
           }
           else
@@ -2685,7 +2678,8 @@ LABEL_5:
   v14 = a3;
   v15 = 0;
   v16 = 0;
-  v17 = IndoorLocation_GetRoom(pIndoor, v4, v5, a3);
+  if (pIndoor)
+    v17 = IndoorLocation_GetRoom(pIndoor, v4, v5, a3);
   v18 = 0;
   v24 = 0;
   v25 = 0;
@@ -10868,15 +10862,15 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
   v3 = byte_4E8398[uEquipType];
   v1 = pPlayers[uActiveCharacter - 1];
 
-  v2 = v12 = v1->pEquippedItemIndices[v3];
-  if (v1->pEquippedItemIndices[v3] == -1)  // no armour
+  v2 = v12 = v1->cEquippedItems.pIndices[v3];
+  if (v1->cEquippedItems.pIndices[v3] == -1)  // no armour
   {
     v8 = Player_FindNextFreeInventorySlotIndex(v1);
     if (v8 != -1)
     {
       pParty->pickedItem.byte_000018 = v3;
       memcpy(&v1->pInventorySlots[v8], &pParty->pickedItem, sizeof(struct ItemGen));
-      v1->pEquippedItemIndices[v3] = v8;
+      v1->cEquippedItems.pIndices[v3] = v8;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     }
   }
@@ -10889,7 +10883,7 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
     Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, (ItemGen *)(v6 + 532));
     local_0C.byte_000018 = v3;
     memcpy((void *)(v6 + 532), &local_0C, sizeof(ItemGen));
-    v1->pEquippedItemIndices[v3] = v12;
+    v1->cEquippedItems.pIndices[v3] = v12;
   }
 }
 

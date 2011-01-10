@@ -1737,7 +1737,7 @@ void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
   int v54; // ecx@138
   int v55; // eax@142
   int v56; // esi@143
-  Player *v57; // esi@145
+  //Player *v57; // esi@145
   int v58; // eax@146
   int v59; // edi@146
   int v60; // eax@146
@@ -2404,21 +2404,20 @@ LABEL_127:
       }
       while ( v56 < (signed int)&pParty->pPlayers[0] );
       v148 = 1;
-      for(int i=1; i<5; i++) 
-          {
-	    v57 = pPlayers[i];
-        v58 = Player_GetActualWillpower(v57);
+      for (int i = 0; i < 4; i++) 
+      {
+        v58 = pPlayers[i]->GetActualWillpower();
         v59 = sub_48EA1B(v58);
-        v60 = Player_GetActualIntelligence(v57);
+        v60 = pPlayers[i]->GetActualIntelligence();
         v61 = (sub_48EA1B(v60) + v59) >> 1;
-        v62 = Player_GetActualLuck(v57);
+        v62 = pPlayers[i]->GetActualLuck();
         v63 = v61 + sub_48EA1B(v62) + 30;
         if ( rand() % v63 < 30 )
         {
           v64 = 6048;
           do
           {
-            SpellBuff_sub_458585((SpellBuff *)(v64 + (int)v57));
+            SpellBuff_sub_458585((SpellBuff *)(v64 + (int)pPlayers[i]));
             v64 += 16;
           }
           while ( v64 < 6432 );
@@ -4325,11 +4324,11 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
                           {
                             for (j = 0; j < v12->uNumVertices; ++j)
                             {
-                                word_721040[2 * j + 0] = v12->pXInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j]);
-                                word_721040[2 * j + 1] = v12->pXInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j + 1]);
+                                word_721040[2 * j + 0] = v12->pXInterceptDisplacements[j] + *(_WORD *)(&v10->pVertices[v12->pVertexIDs[j]].x);
+                                word_721040[2 * j + 1] = v12->pXInterceptDisplacements[j] + *(_WORD *)(&v10->pVertices[v12->pVertexIDs[j + 1]].x);
 
-                                word_720F70[2 * j + 0] = v12->pYInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j] + 4);
-                                word_720F70[2 * j + 1] = v12->pYInterceptDisplacements[j] + *(_WORD *)(v10->pVertices + 12 * v12->pVertexIDs[j + 1] + 4);
+                                word_720F70[2 * j + 0] = v12->pYInterceptDisplacements[j] + *(_WORD *)(&v10->pVertices[v12->pVertexIDs[j]].y);
+                                word_720F70[2 * j + 1] = v12->pYInterceptDisplacements[j] + *(_WORD *)(&v10->pVertices[v12->pVertexIDs[j + 1]].y);
                               v7 = v42;
                             }
                             word_721040[2 * v12->uNumVertices] = word_721040[0];

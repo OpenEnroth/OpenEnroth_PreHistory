@@ -4114,10 +4114,6 @@ LABEL_762:
           runtime_warning(bred ->check in asm);
           if ( !pD3DRenderer->pRenderD3D3 )
 			  {
-           // goto LABEL_772;
-			  //if ( dword_50CBD0.msg_count )
-			 //  if  (dword_50CBD0.prm[0].msg_param3)
-                //          dword_50CBD0.msg_count = 1;
 				dword_50CBD0.CutQueueTail();
                        sub_42213C();
 					    goto LABEL_92;
@@ -4147,8 +4143,8 @@ LABEL_768:
           if ( v130 < 40 )
             goto LABEL_769;
           goto LABEL_92;
+
         case 0xE:
-LABEL_772:
 			dword_50CBD0.CutQueueTail();
           sub_42213C();
           goto LABEL_92;
@@ -6094,43 +6090,43 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, 18, (char *)TmpBuf, 0xFFFF9B, 0, 0);
 
   v6 = pPlayer->GetBaseStrength();
-  v7 = Player_GetActualStrength(pPlayer);
+  v7 = pPlayer->GetActualStrength();
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_MIGHT], sub_4178FE_GetColor(v7, v6), v7, v6);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, 53, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v11 = pFontArrus->uFontHeight + 51;
   v12 = pPlayer->GetBaseIntelligence();
-  v13 = Player_GetActualIntelligence(pPlayer);
+  v13 = pPlayer->GetActualIntelligence();
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[116], sub_4178FE_GetColor(v13, v12), v13, v12);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v11, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v17 = v11 - 2 + pFontArrus->uFontHeight;
   v18 = pPlayer->GetBaseWillpower();
-  v19 = Player_GetActualWillpower(pPlayer);
+  v19 = pPlayer->GetActualWillpower();
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[163], sub_4178FE_GetColor(v19, v18), v19, v18);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v17, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v23 = v17 - 2 + pFontArrus->uFontHeight;
   v24 = pPlayer->GetBaseEndurance();
-  v25 = Player_GetActualEndurance(pPlayer);
+  v25 = pPlayer->GetActualEndurance();
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[75], sub_4178FE_GetColor(v25, v24), v25, v24);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v23, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v29 = v23 - 2 + pFontArrus->uFontHeight;
   v30 = pPlayer->GetBaseAccuracy();
-  v31 = Player_GetActualAccuracy(pPlayer);
+  v31 = pPlayer->GetActualAccuracy();
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_ACCURACY], sub_4178FE_GetColor(v31, v30), v31, v30);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v29, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v35 = v29 - 2 + pFontArrus->uFontHeight;
   v36 = pPlayer->GetBaseSpeed();
-  v37 = Player_GetActualSpeed(pPlayer);
+  v37 = pPlayer->GetActualSpeed();
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[211], sub_4178FE_GetColor(v37, v36), v37, v36);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v35, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v41 = v35 - 2 + pFontArrus->uFontHeight;
   v42 = pPlayer->GetBaseLuck();
-  v43 = Player_GetActualLuck(pPlayer);
+  v43 = pPlayer->GetActualLuck();
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n\n", pGlobalTXT_LocalizationStrings[136], sub_4178FE_GetColor(v43, v42), v43, v42);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v41, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
@@ -6153,7 +6149,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v113, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v57 = v113 - 2 + pFontArrus->uFontHeight;
-  v58 = Player_sub_48E656((int)pPlayer);
+  v58 = Player_sub_48E656(pPlayer);
   v59 = Player_sub_48E68F(pPlayer);
   v62 = sub_4178FE_GetColor(v59, v58);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[12], v62, v59, v58);
@@ -6178,8 +6174,8 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   wsprintfA((char *)TmpBuf, "%s: %s", pGlobalTXT_LocalizationStrings[172], v67);
   GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 26, v52, 0, (char *)TmpBuf, 226, 0);
 
-  v68 = Player_GetBaseAge(pPlayer);
-  v69 = Player_GetActualAge(pPlayer);
+  v68 = pPlayer->GetBaseAge();
+  v69 = pPlayer->GetActualAge();
   v72 = sub_4178FE_GetColor(v68, v69);
   wsprintfA((char *)TmpBuf, "%s\f%06x\t100%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[5], v72, v69, v68);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, 50, (char *)TmpBuf, 0xFFFFFF, 0, 0);
@@ -7865,10 +7861,10 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
 
  if (!IsPlayerWearingWatersuit[uSelectedCharacter])
  {
-    v23 = pPlayer->pEquippedItemIndices[2];
+    v23 = pPlayer->cEquippedItems.uBow;
     if (v23 == -1)
       goto LABEL_59;
-    v259 = pPlayer->pEquippedItemIndices[2];
+    v259 = pPlayer->cEquippedItems.uBow;
     v26 = (int)&pPlayer->pInventorySlots[v23 - 1];
     v27 = 48 * pPlayer->pInventorySlots[v23 - 1].uItemID;
     v25 = dword_4E4C28 + dword_4E4C30[32 * v268 + 4] - pClass40->pItems[v27/48].uEquipX;
@@ -9299,7 +9295,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   v57 = 0;
   for (v1=0; v1<=5; v1++)
   {	
-     v55 = v2->pEquippedItemIndices[10+v1];  // + 6512
+   v55 = v2->cEquippedItems.pIndices[10 + v1];  // + 6512
     if ( !(v55==0) )
 		{
 			v48 =v55;
@@ -9385,10 +9381,10 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   }
  // while ( (unsigned __int8)(v16 ^ v17) | v15 );
 
-  v18 = v2->pEquippedItemIndices[9];//	 *(_DWORD *)(v2 + 6508)
+  v18 = v2->cEquippedItems.dword_000024;//	 *(_DWORD *)(v2 + 6508)
   if ( !(v18==0) )
-	  {
-  v50 = v2->pEquippedItemIndices[9];
+  {
+       v50 = v2->cEquippedItems.dword_000024;
   v58 =  &v2->pInventorySlots[v18];
   v20 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * v58->uItemID].pIconName, 2);
   v19 = (v58->uAttributes);
@@ -9463,11 +9459,11 @@ LABEL_37:
   v24 = (double)GetTickCount() * 0.1000000014901161;
   Render_sub_4A63E6((int)pD3DRenderer, 493, 91, v20 != -1 ?(int) &LODFile_Icons_LOD.aLODHeaders[v20] : 0, v51, (signed __int64)v24, 0, 255);
 	  }
-  v32 = v2->pEquippedItemIndices[7]; //*(_DWORD *)(v2 + 6500)
+  v32 = v2->cEquippedItems.dword_00001C; //*(_DWORD *)(v2 + 6500)
   if (v32==0 )
     return;
-  v52 =v2->pEquippedItemIndices[7]; // *(_DWORD *)(v2 + 6500)
-  v35 =&v2->pInventorySlots[v32];
+  v52 = v2->cEquippedItems.dword_00001C; // *(_DWORD *)(v2 + 6500)
+  v35 = &v2->pInventorySlots[v32];
   v34 =(int)LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 *v35->uItemID].pIconName, 2);
   v33 = v35->uAttributes;
   if ( !((v35->uAttributes) & 0xF0) )
@@ -11452,7 +11448,7 @@ void PlayerCreationUI_Draw()
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v24 + v141 - 24, 291, (char *)Str1, 0xFFD1BB61, 0, 0);
 
 
-    v25 = Player_GetActualStrength(&pParty->pPlayers[i]);
+    v25 = pParty->pPlayers[i].GetActualStrength();
     if (pParty->pPlayers[i].uStrength < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[144], pParty->pPlayers[i].uStrength);
     else 
@@ -11460,7 +11456,7 @@ void PlayerCreationUI_Draw()
     uColor = PlayerCreationUI_GetStatColor(&pParty->pPlayers[i], 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v141, 169, (char *)TmpBuf, uColor, 0, 0);
 
-    v27 = Player_GetActualIntelligence(&pParty->pPlayers[i]);
+    v27 = pParty->pPlayers[i].GetActualIntelligence();
     if (pParty->pPlayers[i].uIntelligence < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[116], pParty->pPlayers[i].uIntelligence);
     else 
@@ -11468,7 +11464,7 @@ void PlayerCreationUI_Draw()
     uColor = PlayerCreationUI_GetStatColor(&pParty->pPlayers[i], 1);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v141, v137 + 169, (char *)TmpBuf, uColor, 0, 0);
 
-    v29 = Player_GetActualWillpower(&pParty->pPlayers[i]);
+    v29 = pParty->pPlayers[i].GetActualWillpower();
     if (pParty->pPlayers[i].uWillpower < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[163], pParty->pPlayers[i].uWillpower);
     else 
@@ -11476,7 +11472,7 @@ void PlayerCreationUI_Draw()
     uColor = PlayerCreationUI_GetStatColor(&pParty->pPlayers[i], 2);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v141, 2 * v137 + 169, (char *)TmpBuf, uColor, 0, 0);
 
-    v31 = Player_GetActualEndurance(&pParty->pPlayers[i]);
+    v31 = pParty->pPlayers[i].GetActualEndurance();
     if (pParty->pPlayers[i].uEndurance < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[75], pParty->pPlayers[i].uEndurance);
     else 
@@ -11484,7 +11480,7 @@ void PlayerCreationUI_Draw()
     uColor = PlayerCreationUI_GetStatColor(&pParty->pPlayers[i], 3);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v141, v130, (char *)TmpBuf, uColor, 0, 0);
 
-    v33 = Player_GetActualAccuracy(&pParty->pPlayers[i]);
+    v33 = pParty->pPlayers[i].GetActualAccuracy();
     if (pParty->pPlayers[i].uAccuracy < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[LOCSTR_ACCURACY], pParty->pPlayers[i].uAccuracy);
     else 
@@ -11492,7 +11488,7 @@ void PlayerCreationUI_Draw()
     uColor = PlayerCreationUI_GetStatColor(&pParty->pPlayers[i], 4);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v141, 4 * v137 + 169, (char *)TmpBuf, uColor, 0, 0);
 
-    v35 = Player_GetActualSpeed(&pParty->pPlayers[i]);
+    v35 = pParty->pPlayers[i].GetActualSpeed();
     if (pParty->pPlayers[i].uSpeed < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[211], pParty->pPlayers[i].uSpeed);
     else 
@@ -11500,7 +11496,7 @@ void PlayerCreationUI_Draw()
     uColor = PlayerCreationUI_GetStatColor(&pParty->pPlayers[i], 5);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v141, v131, (char *)TmpBuf, uColor, 0, 0);
 
-    v37 = Player_GetActualLuck(&pParty->pPlayers[i]);
+    v37 = pParty->pPlayers[i].GetActualLuck();
     if (pParty->pPlayers[i].uLuck < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[136], pParty->pPlayers[i].uLuck);
     else 

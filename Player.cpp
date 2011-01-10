@@ -46,7 +46,7 @@ bool Player_sub_48D6AA(struct Player *_this, unsigned int uSlotID)
 {
   int v2; // eax@1
 
- v2 = _this->pEquippedItemIndices[uSlotID];
+  v2 = _this->cEquippedItems.pIndices[uSlotID];
  if (v2 == -1)
    return false;
 
@@ -119,7 +119,7 @@ bool Player_sub_48D6D0(struct Player *_this, int a2)
   int v2; // esi@1
 
   v2 = 0;
-  while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->pEquippedItemIndices[v2]) != a2)
+  while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->cEquippedItems.pIndices[v2]) != a2)
   {
     ++v2;
     if ( v2 >= 16 )
@@ -266,7 +266,7 @@ int __thiscall Player_GetBaseLevel(struct Player *_this)
 }
 
 //----- (0048C93C) --------------------------------------------------------
-int Player_GetActualStrength(struct Player *_this)
+int Player::GetActualStrength() const
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -274,7 +274,7 @@ int Player_GetActualStrength(struct Player *_this)
   int v6; // edi@5
   int v7; // ST14_4@5
 
-  v1 = Player_GetActualAge(_this);
+  v1 = GetActualAge();
   v2 = 0;
   while ( v1 >= uAgeingTable[v2] )
   {
@@ -287,13 +287,13 @@ int Player_GetActualStrength(struct Player *_this)
   }
   v4 = uAgeingStrengthMultiplier[v2];
 LABEL_5:
-  v6 = uConditionStrengthMultiplier[Player_GetConditionIdx(_this)];
-  v7 = Player_MaybeGetWearItemsBonus(_this, 0, 0);
-  return v6 * v4 * _this->uStrength / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 0) + v7 + _this->uStrengthBonus;
+  v6 = uConditionStrengthMultiplier[Player_GetConditionIdx((Player *)this)];
+  v7 = Player_MaybeGetWearItemsBonus(this, 0, 0);
+  return v6 * v4 * this->uStrength / 100 / 100 + Player_MaybeGetCastSpellBonus((Player *)this, 0) + v7 + this->uStrengthBonus;
 }
 
 //----- (0048CABC) --------------------------------------------------------
-int Player_GetActualEndurance(struct Player *_this)
+int Player::GetActualEndurance() const
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -301,7 +301,7 @@ int Player_GetActualEndurance(struct Player *_this)
   int v6; // edi@5
   int v7; // ebp@5
 
-  v1 = Player_GetActualAge(_this);
+  v1 = GetActualAge();
   v2 = 0;
   while ( v1 >= uAgeingTable[v2] )
   {
@@ -314,9 +314,9 @@ int Player_GetActualEndurance(struct Player *_this)
   }
   v4 = uAgeingEnduranceMultiplier[v2];
 LABEL_5:
-  v6 = uConditionEnduranceMultiplier[Player_GetConditionIdx(_this)];
-  v7 = Player_MaybeGetWearItemsBonus(_this, 3, 0);
-  return v6 * v4 * _this->uEndurance / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 3) + v7 + _this->uEnduranceBonus;
+  v6 = uConditionEnduranceMultiplier[Player_GetConditionIdx((Player *)this)];
+  v7 = Player_MaybeGetWearItemsBonus(this, 3, 0);
+  return v6 * v4 * this->uEndurance / 100 / 100 + Player_MaybeGetCastSpellBonus((Player *)this, 3) + v7 + this->uEnduranceBonus;
 }
 
 //----- (0048C90D) --------------------------------------------------------
@@ -325,22 +325,10 @@ int Player_GetActualLevel(struct Player *_this)
   return Player_GetBaseLevel(_this) + _this->uLevelModifier + Player_MaybeGetCastSpellBonus(_this, 24);
 }
 
-//----- (0048E72C) --------------------------------------------------------
-int Player_GetActualAge(struct Player *_this)
-{
-  return Player_GetBaseAge(_this) + _this->sAgeModifier;
-}
 
-//----- (0048E6DC) --------------------------------------------------------
-int Player_GetBaseAge(struct Player *_this)
-{
-  double d = pParty->qword_00002C;
-  return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 24) / 7 / 4 / 12
-       - _this->uBirthYear + 1168;
-}
 
 //----- (0048C9C2) --------------------------------------------------------
-int __thiscall Player_GetActualIntelligence(struct Player *_this)
+int Player::GetActualIntelligence() const
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -348,7 +336,7 @@ int __thiscall Player_GetActualIntelligence(struct Player *_this)
   int v6; // edi@5
   int v7; // ebp@5
 
-  v1 = Player_GetActualAge(_this);
+  v1 = GetActualAge();
   v2 = 0;
   while ( v1 >= uAgeingTable[v2] )
   {
@@ -361,13 +349,13 @@ int __thiscall Player_GetActualIntelligence(struct Player *_this)
   }
   v4 = uAgeingIntelligenceMultiplier[v2];
 LABEL_5:
-  v6 = uConditionIntelligenceMultiplier[Player_GetConditionIdx(_this)];
-  v7 = Player_MaybeGetWearItemsBonus(_this, 1, 0);
-  return v6 * v4 * _this->uIntelligence / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 1) + v7 + _this->uIntelligenceBonus;
+  v6 = uConditionIntelligenceMultiplier[Player_GetConditionIdx((Player *)this)];
+  v7 = Player_MaybeGetWearItemsBonus(this, 1, 0);
+  return v6 * v4 * this->uIntelligence / 100 / 100 + Player_MaybeGetCastSpellBonus((Player *)this, 1) + v7 + this->uIntelligenceBonus;
 }
 
 //----- (0048CA3F) --------------------------------------------------------
-int __thiscall Player_GetActualWillpower(struct Player *_this)
+int Player::GetActualWillpower() const
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -375,7 +363,7 @@ int __thiscall Player_GetActualWillpower(struct Player *_this)
   int v6; // edi@5
   int v7; // ebp@5
 
-  v1 = Player_GetActualAge(_this);
+  v1 = GetActualAge();
   v2 = 0;
   while ( v1 >= uAgeingTable[v2] )
   {
@@ -388,13 +376,13 @@ int __thiscall Player_GetActualWillpower(struct Player *_this)
   }
   v4 = uAgeingWillpowerMultiplier[v2];
 LABEL_5:
-  v6 = uConditionWillpowerMultiplier[Player_GetConditionIdx(_this)];
-  v7 = Player_MaybeGetWearItemsBonus(_this, 2, 0);
-  return v6 * v4 * _this->uWillpower / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 2) + v7 + _this->uWillpowerBonus;
+  v6 = uConditionWillpowerMultiplier[Player_GetConditionIdx((Player *)this)];
+  v7 = Player_MaybeGetWearItemsBonus(this, 2, 0);
+  return v6 * v4 * this->uWillpower / 100 / 100 + Player_MaybeGetCastSpellBonus((Player *)this, 2) + v7 + this->uWillpowerBonus;
 }
 
 //----- (0048CB39) --------------------------------------------------------
-int __thiscall Player_GetActualAccuracy(struct Player *_this)
+int Player::GetActualAccuracy() const
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -402,7 +390,7 @@ int __thiscall Player_GetActualAccuracy(struct Player *_this)
   int v6; // edi@5
   int v7; // ebp@5
 
-  v1 = Player_GetActualAge(_this);
+  v1 = GetActualAge();
   v2 = 0;
   while ( v1 >= uAgeingTable[v2] )
   {
@@ -415,13 +403,13 @@ int __thiscall Player_GetActualAccuracy(struct Player *_this)
   }
   v4 = uAgeingAccuracyMultiplier[v2];
 LABEL_5:
-  v6 = uConditionAccuracyMultiplier[Player_GetConditionIdx(_this)];
-  v7 = Player_MaybeGetWearItemsBonus(_this, 4, 0);
-  return v6 * v4 * _this->uAccuracy / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 4) + v7 + _this->uAccuracyBonus;
+  v6 = uConditionAccuracyMultiplier[Player_GetConditionIdx((Player *)this)];
+  v7 = Player_MaybeGetWearItemsBonus(this, 4, 0);
+  return v6 * v4 * this->uAccuracy / 100 / 100 + Player_MaybeGetCastSpellBonus((Player *)this, 4) + v7 + this->uAccuracyBonus;
 }
 
 //----- (0048CBB6) --------------------------------------------------------
-int __thiscall Player_GetActualSpeed(struct Player *_this)
+int Player::GetActualSpeed() const
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -429,7 +417,7 @@ int __thiscall Player_GetActualSpeed(struct Player *_this)
   int v6; // edi@5
   int v7; // ebp@5
 
-  v1 = Player_GetActualAge(_this);
+  v1 = GetActualAge();
   v2 = 0;
   while ( v1 >= uAgeingTable[v2] )
   {
@@ -442,13 +430,13 @@ int __thiscall Player_GetActualSpeed(struct Player *_this)
   }
   v4 = uAgeingSpeedMultiplier[v2];
 LABEL_5:
-  v6 = uConditionSpeedMultiplier[Player_GetConditionIdx(_this)];
-  v7 = Player_MaybeGetWearItemsBonus(_this, 5, 0);
-  return v6 * v4 * _this->uSpeed / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 5) + v7 + _this->uSpeedBonus;
+  v6 = uConditionSpeedMultiplier[Player_GetConditionIdx((Player *)this)];
+  v7 = Player_MaybeGetWearItemsBonus(this, 5, 0);
+  return v6 * v4 * this->uSpeed / 100 / 100 + Player_MaybeGetCastSpellBonus((Player *)this, 5) + v7 + this->uSpeedBonus;
 }
 
 //----- (0048CC33) --------------------------------------------------------
-int __thiscall Player_GetActualLuck(struct Player *_this)
+int Player::GetActualLuck() const
 {
   int v2; // eax@1
   int v3; // eax@3
@@ -470,7 +458,7 @@ int __thiscall Player_GetActualLuck(struct Player *_this)
   v4 = CheckHiredNPCSpeciality(0x2F);
   if ( v4 )
     v11 += 10;
-  v5 = Player_GetActualAge(_this);
+  v5 = GetActualAge();
   v6 = 0;
   while ( v5 >= uAgeingTable[v6] )
   {
@@ -483,13 +471,13 @@ int __thiscall Player_GetActualLuck(struct Player *_this)
   }
   v7 = uAgeingLuckMultiplier[v6];
 LABEL_11:
-  v9 = uConditionLuckMultiplier[Player_GetConditionIdx(_this)];
-  v10 = Player_MaybeGetWearItemsBonus(_this, 6, 0);
-  return Player_MaybeGetCastSpellBonus(_this, 6) + v10 + v11 + v9 * v7 * _this->uLuck / 100 / 100 + _this->uLuckBonus;
+  v9 = uConditionLuckMultiplier[Player_GetConditionIdx((Player *)this)];
+  v10 = Player_MaybeGetWearItemsBonus(this, 6, 0);
+  return Player_MaybeGetCastSpellBonus((Player *)this, 6) + v10 + v11 + v9 * v7 * this->uLuck / 100 / 100 + this->uLuckBonus;
 }
 
 //----- (0048E4F8) --------------------------------------------------------
-int Player_GetMaxHealth(struct Player *_this)
+int Player_GetMaxHealth(Player *_this)
 {
   signed int result; // eax@1
   int v2; // esi@1
@@ -498,7 +486,7 @@ int Player_GetMaxHealth(struct Player *_this)
   int v6; // esi@1
   int v7; // esi@1
 
-  v4 = Player_GetActualEndurance(_this);
+  v4 = _this->GetActualEndurance();
   v5 = sub_48EA1B(v4);
   v6 = byte_4ED768[_this->uClass] * (Player_GetActualLevel(_this) + v5);
   v7 = Player_MaybeGetWearItemsBonus(_this, 7, 0) + v6;
@@ -540,7 +528,7 @@ int __thiscall Player_GetMaxMana(struct Player *_this)
     case 33:
     case 34:
     case 35:
-      v2 = Player_GetActualIntelligence(_this);
+      v2 = _this->GetActualIntelligence();
       v3 = sub_48EA1B(v2);
       break;
     case 9:
@@ -554,7 +542,7 @@ int __thiscall Player_GetMaxMana(struct Player *_this)
     case 25:
     case 26:
     case 27:
-      v2 = Player_GetActualWillpower(_this);
+      v2 = _this->GetActualWillpower();
       v3 = sub_48EA1B(v2);
      break;
     case 21:
@@ -564,9 +552,9 @@ int __thiscall Player_GetMaxMana(struct Player *_this)
     case 29:
     case 30:
     case 31:
-      v4 = Player_GetActualWillpower(_this);
+      v4 = _this->GetActualWillpower();
       v5 = sub_48EA1B(v4);
-      v6 = Player_GetActualIntelligence(_this);
+      v6 = _this->GetActualIntelligence();
       v3 = sub_48EA1B(v6) + v5;     
       break;
     default:
@@ -800,7 +788,7 @@ LABEL_12:
         if ( a2 != 29 )
           return v71;
         v72 = 0;
-        v9 = (int)_this->pEquippedItemIndices;
+        v9 = (int)_this->cEquippedItems.pIndices;
         while ( 1 )
         {
           if ( Player_sub_48D6AA(_this, v72) )
@@ -863,7 +851,7 @@ LABEL_31:
       {
         if ( Player_sub_48D6AA(_this, v20) )
         {
-         v22 = _this->pInventorySlots[_this->pEquippedItemIndices[v20]].uItemID;
+         v22 = _this->pInventorySlots[_this->cEquippedItems.pIndices[v20]].uItemID;
           if (pClass40->pItems[v22].uEquipType <= 1u )
             break;
         }
@@ -1154,7 +1142,7 @@ int Player_GetAttackBonus(Player *_this, int a2)
   int v6; // ebx@1
   int v7; // ebp@1
 
-  v4 = Player_GetActualAccuracy(_this);
+  v4 = _this->GetActualAccuracy();
   v5 = sub_48EA1B(v4);
   v6 = Player_sub_48FC00(_this, 25);
   v7 = Player_MaybeGetWearItemsBonus(_this, 25, a2);
@@ -1162,7 +1150,7 @@ int Player_GetAttackBonus(Player *_this, int a2)
 }
 
 //----- (0048CD45) --------------------------------------------------------
-signed int __thiscall Player_GetMeleeDamageMinimal(Player *_this)
+signed int Player_GetMeleeDamageMinimal(Player *_this)
 {
   signed int result; // eax@1
   int v2; // esi@1
@@ -1171,7 +1159,7 @@ signed int __thiscall Player_GetMeleeDamageMinimal(Player *_this)
   int v6; // esi@1
   int v7; // esi@1
 
-  v4 = Player_GetActualStrength(_this);
+  v4 = _this->GetActualStrength();
   v5 = sub_48EA1B(v4);
   v6 = Player_MaybeGetWearItemsBonus(_this, 27, 0) + v5;
   v7 = Player_sub_48FC00(_this, 26) + v6;
@@ -1193,7 +1181,7 @@ signed int __thiscall Player_GetMeleeDamageMaximal(Player *_this)
   int v6; // esi@1
   int v7; // esi@1
 
-  v4 = Player_GetActualStrength(_this);
+  v4 = _this->GetActualStrength();
   v5 = sub_48EA1B(v4);
   v6 = Player_MaybeGetWearItemsBonus(_this, 28, 0) + v5;
   v7 = Player_sub_48FC00(_this, 26) + v6;
@@ -1205,9 +1193,9 @@ signed int __thiscall Player_GetMeleeDamageMaximal(Player *_this)
 }
 
 //----- (0048CDDB) --------------------------------------------------------
-signed int __thiscall Player_sub_48CDDB(Player *_this, int a2, int a3, signed int a4)
+signed int Player_sub_48CDDB(Player *_this, int a2, int a3, signed int a4)
 {
-  int v4; // edi@1
+  //int v4; // edi@1
   int v5; // esi@1
   int v6; // eax@4
   int v7; // ebx@4
@@ -1242,7 +1230,6 @@ signed int __thiscall Player_sub_48CDDB(Player *_this, int a2, int a3, signed in
   int v36; // [sp+28h] [bp+8h]@37
 
   v5 = 0;
-  v4 = (int)_this;
   v35 = 0;
   v33 = 0;
   v29 = 0;
@@ -1253,15 +1240,15 @@ LABEL_61:
     v35 = v5;
     goto LABEL_62;
   }
-  if ( Player_sub_48D6AA((Player *)v4, 1) )
+  if ( Player_sub_48D6AA(_this, 1) )
   {
-    v7 = v4 + 36 * *(_DWORD *)(v4 + 6476) + 496;
+    v7 = (int)_this + 36 * *(_DWORD *)((int)_this + 6476) + 496;
     v8 = *(_DWORD *)v7;
     v9 = 48 * *(_DWORD *)v7;
     v6 = pClass40->pItems[v9/48 - 1].uDamageDice;
     if (pClass40->pItems[v9/48 - 1].uSkillType == 4 )
     {
-      if ( !*(_DWORD *)(v4 + 6472) )
+      if ( !*(_DWORD *)((int)_this + 6472) )
         ++v6;
     }
     v31 = pClass40->pItems[v9/48 - 1].uDamageRoll;
@@ -1307,7 +1294,7 @@ LABEL_61:
             if ( v13 != 65 )
             {
 LABEL_28:
-              if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 268)) >= 3 )
+              if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)((int)_this + 268)) >= 3 )
               {
                if (pClass40->pItems[*(_DWORD *)v7 - 1].uSkillType == 2 )
                 {
@@ -1332,9 +1319,9 @@ LABEL_33:
   v30 = 0;
   if ( !a3 )
   {
-    if ( Player_sub_48D6AA((Player *)v4, 0) )
+    if ( Player_sub_48D6AA(_this, 0) )
     {
-      v15 = v4 + 36 * *(_DWORD *)(v4 + 6472) + 496;
+      v15 = (int)_this + 36 * *(_DWORD *)((int)_this + 6472) + 496;
       v16 = *(_DWORD *)v15;
       v17 = 48 * *(_DWORD *)v15;
       if (pClass40->pItems[v17/48 - 1].uEquipType != 4 )
@@ -1384,7 +1371,7 @@ LABEL_33:
 LABEL_57:
                  if (pClass40->pItems[*(_DWORD *)v15 - 1].uSkillType == 2 )
                   {
-                    if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 268) >= 3u) )
+                    if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)((int)_this + 268) >= 3u) )
                     {
                       if ( rand() % 100 < 10 )
                         v5 *= 3;
@@ -1408,16 +1395,24 @@ LABEL_62:
   v22 = v33 + v35;
   if ( !a2 )
   {
-    v23 = Player_GetActualStrength((Player *)v4);
+    v23 = _this->GetActualStrength();
     v24 = sub_48EA1B(v23);
-    v25 = Player_sub_48FC00((Player *)v4, 26) + v24;
-    v22 += *(_BYTE *)(v4 + 6802) + Player_MaybeGetCastSpellBonus((Player *)v4, 26) + v25;
+    v25 = Player_sub_48FC00(_this, 26) + v24;
+    v22 += *(_BYTE *)((int)_this + 6802) + Player_MaybeGetCastSpellBonus(_this, 26) + v25;
   }
   result = 1;
   if ( v22 >= 1 )
     result = v22;
   return result;
 }
+
+
+//----- (0048E6DC) --------------------------------------------------------
+int Player::GetBaseAge() const
+{
+ return 1168 + ((unsigned int)((pParty->qword_00002C * 0.234375) / 60.0 / 60.0) / 24) / 7 / 4 / 12 - uBirthYear;
+}
+
 
 //----- (0048D0B9) --------------------------------------------------------
 int Player_sub_48D0B9(Player *_this)
@@ -1429,10 +1424,10 @@ int Player_sub_48D0B9(Player *_this)
   int v6; // edi@4
   int v7; // edi@4
 
-  v1 = _this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID;
+  v1 = _this->pInventorySlots[_this->cEquippedItems.uMainHand].uItemID;
   if (v1 < 63 || v1 > 64) // if not blasters
   {
-    v4 = Player_GetActualAccuracy(_this);
+    v4 = _this->GetActualAccuracy();
     v5 = sub_48EA1B(v4);
     v6 = Player_MaybeGetWearItemsBonus(_this, 29, 0) + v5;
     v7 = Player_sub_48FC00(_this, 29) + v6;
@@ -1516,7 +1511,7 @@ char *__thiscall Player_GetMeleeDamage_String(Player *_this)
   int v8; // eax@8
   signed int v9; // esi@9
 
-  v1 = _this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID;
+  v1 = _this->pInventorySlots[_this->cEquippedItems.uMainHand].uItemID;
   if (v1 < 63 || v1 > 64) // if not blasters
   {
     v4 = Player_GetMeleeDamageMinimal(_this);
@@ -1537,7 +1532,7 @@ char *__thiscall Player_GetMeleeDamage_String(Player *_this)
     v7 = v4;
     wsprintfA(byte_A7509C, "%d - %d", v7, v3);
   }
-  v8 = _this->pEquippedItemIndices[1];
+  v8 = _this->cEquippedItems.uMainHand;
   if ( v8 )
   {
    v9 = _this->pInventorySlots[v8].uItemID;
@@ -1642,7 +1637,7 @@ signed int Player_sub_48EA46(struct Player *_this, int a2)
   {
     if ( !Player_sub_48D6AA(_this, v3) )
       goto LABEL_11;
-    v5 = _this->pEquippedItemIndices[0] - 1;
+    v5 = _this->cEquippedItems.uOffHand - 1;
     if ( a2 != 17 )
       break;
     v6 = (int)((char *)_this + 36 * v5);
@@ -1906,20 +1901,18 @@ LABEL_81:
 }
 
 //----- (0048E656) --------------------------------------------------------
-int __thiscall Player_sub_48E656(int _this)
+int Player_sub_48E656(Player *_this)
 {
   int v1; // esi@1
-  void *v2; // edi@1
   int v3; // eax@1
   int v4; // esi@1
   int v5; // esi@1
   int result; // eax@2
 
-  v2 = (void *)_this;
-  v3 = Player_GetActualSpeed((Player *)_this);
+  v3 = _this->GetActualSpeed();
   v4 = sub_48EA1B(v3);
-  v5 = Player_MaybeGetWearItemsBonus((Player *)v2, 9, 0) + v4;
-  v1 = Player_sub_48FC00((Player *)v2, 9) + v5;
+  v5 = Player_MaybeGetWearItemsBonus(_this, 9, 0) + v4;
+  v1 = Player_sub_48FC00(_this, 9) + v5;
   if ( v1 >= 1 )
     result = v1;
   else
@@ -1928,7 +1921,7 @@ int __thiscall Player_sub_48E656(int _this)
 }
 
 //----- (0048E68F) --------------------------------------------------------
-int __thiscall Player_sub_48E68F(Player *_this)
+int Player_sub_48E68F(Player *_this)
 {
   int v1; // esi@1
   int v3; // eax@1
@@ -1937,7 +1930,7 @@ int __thiscall Player_sub_48E68F(Player *_this)
   int v6; // esi@1
   int result; // eax@2
 
-  v3 = Player_GetActualSpeed(_this);
+  v3 = _this->GetActualSpeed();
   v4 = sub_48EA1B(v3);
   v5 = Player_MaybeGetWearItemsBonus(_this, 9, 0) + v4;
   v6 = Player_sub_48FC00(_this, 9) + v5;
@@ -2444,7 +2437,7 @@ LABEL_95:
     {
       if ( !Player_sub_48D6AA((Player *)_this, v65) )
         goto LABEL_361;
-      v31 = _this->pEquippedItemIndices[v65];
+      v31 = _this->cEquippedItems.pIndices[v65];
       if ( v6 == 9 )
       {
         v32 = Player_GetEquippedItemEquipType((Player *)_this, v65);
@@ -3026,9 +3019,9 @@ LABEL_361:
         {
           if ( v22 <= 2 )
           {
-           v23 = _this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID;
+           v23 = _this->pInventorySlots[_this->cEquippedItems.uMainHand].uItemID;
 
-            if (_this->pEquippedItemIndices[0] != -1 || pClass40->pItems[v23].uSkillType != Character::Skill::Spear)
+           if (_this->cEquippedItems.uOffHand != -1 || pClass40->pItems[v23].uSkillType != Character::Skill::Spear)
             {
               v26 = pClass40->pItems[v23].uDamageRoll;
               v25 = pClass40->pItems[v23].uDamageDice;
@@ -3099,19 +3092,19 @@ LABEL_74:
       v9 = Player_GetEquippedItemEquipType((Player *)_this, 1);
       if ( v9 >= 0  && v9 <= 2 )
       {
-         v5 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID].uDamageDice +
-              pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID].uDamageModifier;
-          if (_this->pEquippedItemIndices[0] == -1)
-          {
-           if (pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID].uSkillType == Character::Skill::Spear)
+       v5 = pClass40->pItems[_this->pInventorySlots[_this->cEquippedItems.uMainHand].uItemID].uDamageDice +
+            pClass40->pItems[_this->pInventorySlots[_this->cEquippedItems.uMainHand].uItemID].uDamageModifier;
+       if (_this->cEquippedItems.uOffHand == -1)
+       {
+           if (pClass40->pItems[_this->pInventorySlots[_this->cEquippedItems.uMainHand].uItemID].uSkillType == Character::Skill::Spear)
               ++v5;
           }
       }
     }
     if ( a3 || !Player_sub_48D6AA((Player *)_this, 0) || (v12 = Player_GetEquippedItemEquipType((Player *)_this, 0), v12 < 0) || v12 > 2 )
       return v5 + v62 + v61;
-    v15 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[0]].uItemID].uDamageModifier;
-    v14 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[0]].uItemID].uDamageDice;
+    v15 = pClass40->pItems[_this->pInventorySlots[_this->cEquippedItems.uOffHand].uItemID].uDamageModifier;
+    v14 = pClass40->pItems[_this->pInventorySlots[_this->cEquippedItems.uOffHand].uItemID].uDamageDice;
 LABEL_88:
     v5 += v14 + v15;
   }

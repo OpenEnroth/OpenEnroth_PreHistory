@@ -387,7 +387,7 @@ LABEL_17:
 	  v20 = 0;
       while ( 1 )
       {
-	    int item_index = pParty->pPlayers[i].pEquippedItemIndices[v20]; 
+       int item_index = pParty->pPlayers[i].cEquippedItems.pIndices[v20]; 
         if (item_index)
         {
          // v21 = *(int *)((char *)&v19[9 * *(_DWORD *)v20 - 1559]);
@@ -483,7 +483,7 @@ LABEL_17:
   Player *pPlayer = &pParty->pPlayers[i];
 
   for (unsigned int j = 0; j < 16; ++j)
-    pPlayer->pEquippedItemIndices[j] -= 1;
+    pPlayer->cEquippedItems.pIndices[j] -= 1;
 
   for (unsigned int j = 0; j < 126; ++j)
     pPlayer->pInventoryIndices[j] -= 1;

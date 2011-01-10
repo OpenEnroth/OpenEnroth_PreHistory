@@ -9030,7 +9030,7 @@ void  QuickRefDraw()
     v15 = Player_sub_48E68F(v2);
     wsprintfA((char *)TmpBuf, "%d", v15);
     v16 = v0;
-    v17 = Player_sub_48E656((int)v2);
+    v17 = Player_sub_48E656(v2);
     v18 = Player_sub_48E68F(v2);
     v19 = sub_4178FE_GetColor(v18, v17);
     GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v11, v19, (char *)TmpBuf, 84, 0);
@@ -11038,7 +11038,7 @@ void __cdecl sub_41F5BE()
       struct_576FE8.dword_000044 = 1;
       if ( uCurrentlyLoadedLevelType == 2 )
       {
-        class51_sub_4892E6(pOutdoor);
+        class51_sub_4892E6_UpdateSunlightVectors(pOutdoor);
         class51_sub_4893C1(pOutdoor);
       }
     }
@@ -11494,7 +11494,7 @@ void sub_47A384_LoadAndInitializeODMLevel(const char *pLevelFilename)
   pOldCamera->sRotationX = pParty->sRotationX;
   pOldCamera->sRotationY = pParty->sRotationY;
 
-  class51_sub_4892E6(pOutdoor);
+  class51_sub_4892E6_UpdateSunlightVectors(pOutdoor);
   pStruct9_global->dword_000014 = pOldCamera->flt_00001C;
   pStruct9_global->dword_000018 = pOldCamera->flt_000020;
 
@@ -12780,14 +12780,7 @@ void __cdecl sub_42213C()
 
   sub_404828_ctor((LayingItem *)&v24);
   if ( pD3DRenderer->pRenderD3D3 )
-  {
     v0 = Vis_sub_4C1BF1_LooksLikeFindTopmostZObject(pGame->pVis);
-  }
-  else
-  {
-   GUICursor_GetMousePos(pGame->pGUICursor, &pt);
-   v0 = pD3DRenderer->pActiveZBuffer[pt.x + dword_5059A8[pt.y]];
-  }
 
   if ( (v0 & 7) == 2 )
   {
@@ -12846,7 +12839,7 @@ void __cdecl sub_42213C()
     {
       if ( (v0 & 7) != 6 || (unsigned int)v0 >= 0x2000000 )
         goto LABEL_13;
-      v2 = (signed int)(unsigned __int16)v0 >> 3;
+      v2 = (signed int)(unsigned __int16)(v0 >> 3);
       if ( uCurrentlyLoadedLevelType == 1 )
       {
         v3 = (int)pIndoor->pFaces + v2;
@@ -12906,10 +12899,11 @@ LABEL_13:
       }
       else
       {
-        v12 = *(_DWORD *)(188 * ((signed int)(unsigned __int16)v0 >> 9) + (int)pOutdoor->pBModels + 84) + 308 * (v2 & 0x3F);
-        if ( !(*(_DWORD *)(v12 + 28) & 0x2000000) )
+       ODMFace *pFace = pOutdoor->pBModels[(unsigned __int16)v0 >> 9].pFaces + (v2 & 0x3F);
+        v12 = (int)pFace;
+        if ( !(pFace->uFaceAttributes & 0x2000000) )
           goto LABEL_11;
-        v11 = *(_WORD *)(v12 + 292);
+        v11 = pFace->sCogTriggeredID;
       }
     }
     sub_44684A_LooksLikeEventProcessor(v11, (unsigned __int16)v0, 1);

@@ -54,12 +54,3 @@ class Camera
    float     fRotationX;
    float     fRotationY;
 };
-
-extern "C"
-{
- void *CreateCamera();
- void Camera_SetProjection(void *, float fovy, float aspect, float znear, float zfar);
- void Camera_SetPosition(void *, float x, float y, float z);
- void Camera_SetDirection(void *, float x, float y, float z);
- void Camera_Rotate(void *, float x, float y, float z, float angle);
-}

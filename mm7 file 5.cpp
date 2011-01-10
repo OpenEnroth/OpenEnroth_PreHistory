@@ -951,9 +951,9 @@ void __cdecl sub_468F8A_OnPaperdollLeftClick()
   v55 = 0;
   ItemGen_Reset(&local_0C);
   pPlayer = pPlayers[uActiveCharacter - 1];
-  v0 = pPlayer->pEquippedItemIndices[1];
-  v2 = pPlayer->pEquippedItemIndices[Items::EquipType::OneOrTwoHands];
-  v58 = pPlayer->pEquippedItemIndices[Items::EquipType::OneOrTwoHands];
+  v0 = pPlayer->cEquippedItems.uMainHand;
+  v2 = pPlayer->cEquippedItems.uOffHand;
+  v58 = pPlayer->cEquippedItems.uOffHand;
   v57 = v0;
   if ( v0 != -1)
   {
@@ -1021,7 +1021,7 @@ LABEL_16:
         if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) )
           goto LABEL_95;
         v56 = 10;
-        v7 = (int)&pPlayer->pEquippedItemIndices[10];
+        v7 = (int)&pPlayer->cEquippedItems.dword_000028;
         while ( 1 )
         {
           if ( !*(_DWORD *)v7 )
@@ -1038,12 +1038,12 @@ LABEL_16:
         v9 = v56;
         pParty->pickedItem.byte_000018 = v56;
         memcpy(&pPlayer->pInventorySlots[v8], &pParty->pickedItem.uItemID, sizeof(struct ItemGen));
-        pPlayer->pEquippedItemIndices[v9] = v8;
+        pPlayer->cEquippedItems.pIndices[v9] = v8;
         GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_33:
         if ( v56 == 16 )
         {
-          v56 = pPlayer->pEquippedItemIndices[15];
+         v56 = pPlayer->cEquippedItems.dword_00003C;
           memcpy(&local_0C, &pParty->pickedItem.uItemID, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v56].byte_000018 = 0;
           //*(_BYTE *)(v10 + 556) = 0;
@@ -1053,7 +1053,7 @@ LABEL_33:
           local_0C.byte_000018 = 16;
           v11 = v56;
           memcpy(&pPlayer->pInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
-          pPlayer->pEquippedItemIndices[15] = v11;
+          pPlayer->cEquippedItems.dword_00003C = v11;
         }
         return;
 
@@ -1074,7 +1074,7 @@ LABEL_33:
           v13 = v58;
           v14 = v55 == 0;
           memcpy(&pPlayer->pInventorySlots[v58], &local_0C, sizeof(struct ItemGen));
-          pPlayer->pEquippedItemIndices[0] = v13;
+          pPlayer->cEquippedItems.uOffHand = v13;
           if ( v14 )
             return;
         }
@@ -1177,7 +1177,7 @@ LABEL_71:
           pParty->pickedItem.byte_000018 = 2;
           v54 = (int)&pPlayer->pInventorySlots[v28];
           memcpy(&pPlayer->pInventorySlots[v28], &pParty->pickedItem, sizeof(struct ItemGen));
-          pPlayer->pEquippedItemIndices[1] = v28;
+          pPlayer->cEquippedItems.uMainHand = v28;
           goto LABEL_71;
         }
         --v57;
@@ -1279,12 +1279,12 @@ LABEL_45:
   v36 = v35 + dword_5059A8[v34];
   if ( !(pD3DRenderer->pActiveZBuffer[v36] & 0xFFFF))
   {
-    v37 = pPlayer->pEquippedItemIndices[2];
-    if (pPlayer->pEquippedItemIndices[2] != -1)
+   v37 = pPlayer->cEquippedItems.uBow;
+    if (pPlayer->cEquippedItems.uBow != -1)
     {
      Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &pPlayer->pInventorySlots[v37]);
-     ItemGen_Reset(&pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[2]]);
-     pPlayer->pEquippedItemIndices[2] = -1;
+     ItemGen_Reset(&pPlayer->pInventorySlots[pPlayer->cEquippedItems.uBow]);
+     pPlayer->cEquippedItems.uBow = -1;
     }
     return;
   }
@@ -5353,10 +5353,10 @@ void __cdecl sub_46E0B2()
 //----- (0046E26D) --------------------------------------------------------
 void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, signed int a2)
 {
-  int v2; // eax@5
-  int v3; // edx@5
+  unsigned short *v2; // eax@5
+  //int v3; // edx@5
   __int16 v4; // ax@6
-  __int16 *v5; // edi@7
+  //__int16 *v5; // edi@7
   int v6; // esi@8
   int v7; // eax@9
   int v8; // edx@9
@@ -5371,47 +5371,40 @@ void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, sign
   int v17; // esi@19
   char v18; // zf@23
   int v19; // [sp+0h] [bp-10h]@15
-  int v20; // [sp+4h] [bp-Ch]@5
+  //int v20; // [sp+4h] [bp-Ch]@5
   int v21; // [sp+8h] [bp-8h]@15
   int v22; // [sp+Ch] [bp-4h]@13
 
-  if ( a1 >= 0 )
-  {
-    if ( a1 <= 127 )
-    {
-      if ( a2 >= 0 )
-      {
-        if ( a2 <= 127 )
+ if (a1 >= 0 && a1 <= 127 &&
+     a2 >= 0 &&  a2 <= 127)
+ {
+     v2 = &pOutdoor->ptr_0000E0[pOutdoor->ptr_0000E4[a1 + a2 * 128]];
+     if ( v2 )
+     {
+        do
         {
-          v3 = a1 + (a2 << 7);
-          v2 = (int)&pOutdoor->ptr_0000E0[pOutdoor->ptr_0000E4[v3]];
-          v20 = (int)&pOutdoor->ptr_0000E0[pOutdoor->ptr_0000E4[v3]];
-          if ( v2 )
+          v4 = *v2;
+          if ( (v4 & 7) == 5 )
           {
-            do
-            {
-              v4 = *(_WORD *)v2;
-              if ( (v4 & 7) == 5 )
-              {
-                v5 = (short *)&pLevelDecorations[(v4 >> 3)];
-                if ( !(*((_BYTE *)v5 + 2) & 0x20) )
-                {
-                  v6 = 84 * *v5 + (int)pDecorationDescriptionList->pDescriptions;
+           LevelDecoration *pDecoration = pLevelDecorations + (*v2 >> 3);
+           if (~pDecoration->word_000002 & 0x20)
+           {
+             v6 = (int)(pDecorationDescriptionList->pDescriptions + pDecoration->uDecorationDescriptionID);
                   if ( !(*(_BYTE *)(v6 + 74) & 1) )
                   {
                     v8 = *(_WORD *)(v6 + 68);
-                    v7 = *((_DWORD *)v5 + 1);
+                    v7 = pDecoration->vPosition.x;
                     if ( stru_721530.dword_00008C <= v7 + v8 )
                     {
                       if ( stru_721530.dword_000090 >= v7 - v8 )
                       {
-                        v9 = *((_DWORD *)v5 + 2);
+                        v9 = pDecoration->vPosition.y;
                         if ( stru_721530.dword_000094 <= v9 + v8 )
                         {
                           if ( stru_721530.dword_000098 >= v9 - v8 )
                           {
                             v10 = *(_WORD *)(v6 + 66);
-                            v11 = *((_DWORD *)v5 + 3);
+                            v11 = pDecoration->vPosition.z;
                             v22 = v10;
                             if ( stru_721530.dword_00009C <= v11 + v10 )
                             {
@@ -5426,7 +5419,7 @@ void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, sign
                                   v14 = (v13 * stru_721530.dword_000058 + v19 * stru_721530.dword_00005C) >> 16;
                                   if ( v14 > 0 )
                                   {
-                                    v16 = *((_DWORD *)v5 + 3);
+                                    v16 = pDecoration->vPosition.z;
                                     v15 = stru_721530.dword_000030 + ((unsigned __int64)(stru_721530.dword_000060 * v14) >> 16);
                                     if ( v15 >= v16 )
                                     {
@@ -5438,7 +5431,7 @@ void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, sign
                                         if ( v17 < stru_721530.dword_00007C )
                                         {
                                           stru_721530.dword_00007C = v17;
-                                          stru_721530.dword_000078 = *(_WORD *)v20;
+                                          stru_721530.dword_000078 = *v2;
                                         }
                                       }
                                     }
@@ -5453,15 +5446,11 @@ void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, sign
                   }
                 }
               }
-              v2 = v20 + 2;
-              v18 = *(_WORD *)v20 == 0;
-              v20 += 2;
+              v18 = *v2 == 0;
+              v2 += 2;
             }
             while ( !v18 );
           }
-        }
-      }
-    }
   }
 }
 
@@ -8523,7 +8512,7 @@ void __cdecl sub_472866_SomeStuffIncludingPartyPosUpdate_BLV()
   float v4; // ST40_4@8
   Player *v5; // esi@15
   int v6; // eax@18
-  Player *v7; // esi@24
+  //Player *v7; // esi@24
   signed __int64 v8; // qax@27
   int v9; // eax@27
   double v10; // st7@27
@@ -8692,18 +8681,17 @@ LABEL_20:
         }
         else
         {
-          for(int i=1; i<5; i++) 
+          for (int i = 0; i < 4; i++) 
           {  
-		    v7 = pPlayers[i];
-            if ( !Player_sub_48D6D0(v7, 72) )
+            if ( !Player_sub_48D6D0(pPlayers[i], 72) )
             {
-              if ( !Player_sub_48D709(v7, 529, 8) )
+              if ( !Player_sub_48D709(pPlayers[i], 529, 8) )
               {
-                v8 = (signed __int64)((double)Player_GetMaxHealth(v7) * 0.10000000000000001);
-                Player_sub_48DC1E(v7, (pParty->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
-                v9 = Player_GetActualEndurance(v7);
+                v8 = (signed __int64)((double)Player_GetMaxHealth(pPlayers[i]) * 0.10000000000000001);
+                Player_sub_48DC1E(pPlayers[i], (pParty->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
+                v9 = pPlayers[i]->GetActualEndurance();
                 v10 = (double)(20 - sub_48EA1B(v9)) * flt_6BE3A4_debug_recmod1 * 2.1333333333333333;
-                Player_SetRecoveryTime(v7, (signed __int64)v10);
+                Player_SetRecoveryTime(pPlayers[i], (signed __int64)v10);
               }
             }
           //  ++v7;
@@ -11429,9 +11417,6 @@ CAMERA   ï  _____\| ______ +  0
       v8->byte_000059 = 5;
 
       v8->byte_000058 = 0;
-
-      if (pStruct9_global->dword_00002C >= 1999)
-        return;
 
       ++pStruct9_global->dword_00002C;
       ++pStruct9_global->dword_000044;
@@ -16258,7 +16243,7 @@ void Player_ctor(Player *_this)
    ItemGen_Reset(&_this->array_0013CC[i]);
  
  for (unsigned int i = 0; i < 16; ++i)
-   _this->pEquippedItemIndices[i] = -1;
+   _this->cEquippedItems.pIndices[i] = -1;
 
   v4 = (int)((char *)_this + 0x17A0);
   v5 = 24;

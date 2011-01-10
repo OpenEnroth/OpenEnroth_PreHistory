@@ -641,9 +641,6 @@ void Party_ctor(struct Party *_this)
     *(_BYTE *)(v1 + 15) = 0;
   }
 
-  for (i = 0; i < 4; ++i)
-    Player_ctor(&_this->pPlayers[i]);
-
   ItemGen_Reset((ItemGen *)(v3 + 0x7754));
   v6 = 636;
   v8 = v3 + 0x777C;

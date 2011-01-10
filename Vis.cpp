@@ -1320,16 +1320,20 @@ bool new_RayFaceIntersect(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
 
   float y_resolution = (pOldViewport->uGameZ - pOldViewport->uGameX) / 2;
   float y_rot = pt.x - y_resolution;
+  float x_resolution = (pOldViewport->uGameW - pOldViewport->uGameY) / 2;
+  float x_rot = pt.y - x_resolution;
 
   // fov = 75 degree  so pt.x = GameZ => +80.0 deg,        +/- 37.5 actually but 80 is the most stable
   //                     pt.x = GameX => -80.0 deg
   float y_angle = y_rot / y_resolution * (3.1415926535f * 80.0f / 360.0f);
+  //                                                                      pure magic here
+  float x_angle = x_rot / x_resolution * (3.1415926535f * 75.0f / 360.0f) / (0.7f * 640.0f / 480.0f);
 
   Vec3<float> vRayO = pParty->vPosition;
   vRayO.z += pParty->uEyelevel;
-  Vec3<float> vRayD = Vec3<float>(cosf(3.1415926535f * (pParty->sRotationY / 1024.0f) - y_angle),
-                                  sinf(3.1415926535f * (pParty->sRotationY / 1024.0f) - y_angle),
-                                  0);
+  Vec3<float> vRayD = Vec3<float>(cosf(3.1415926535f * (pParty->sRotationY / 1024.0f) - y_angle) * cosf(3.1415926535f * (pParty->sRotationX / 1024.0f) - x_angle),
+                                  sinf(3.1415926535f * (pParty->sRotationY / 1024.0f) - y_angle) * cosf(3.1415926535f * (pParty->sRotationX / 1024.0f) - x_angle),
+                                  sinf(3.1415926535f * (pParty->sRotationX / 1024.0f) - x_angle));
   Vec3<float> vRayE = vRayO + vRayD;
 
   float dot_RayDirection_PlaneNormal = Dot<float>(vRayD, pFace->vFaceNormalf);
@@ -1413,12 +1417,11 @@ char Vis_sub_4C17CF_PickModels_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cl
   //int v26; // [sp+B4h] [bp-14h]@9
   int v27; // [sp+B8h] [bp-10h]@1
   int v28; // [sp+BCh] [bp-Ch]@2
-  int v29; // [sp+C0h] [bp-8h]@1
-  int v30; // [sp+C4h] [bp-4h]@8
+  //int v29; // [sp+C0h] [bp-8h]@1
+  //int v30; // [sp+C4h] [bp-4h]@8
 
 
   v27 = 0;
-  v29 = 0;
 
   pIntersectionPoint.flt_00002C = 0.0;
 
@@ -1432,8 +1435,6 @@ char Vis_sub_4C17CF_PickModels_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cl
   if (a6 && !v27)
     continue;
 
-    v30 = 0;
-
   for (unsigned int j = 0; j < pBModel->uNumFaces; ++j)
   {
      ODMFace *pStru2 = pBModel->pFaces + j;
@@ -1441,14 +1442,14 @@ char Vis_sub_4C17CF_PickModels_Outdoor(Vis *_this, float a2, Vis_stru0 *pRay, cl
      if (Vis_is_part_of_selection((unsigned int)pStru2, a5))
      {
           sub_4C0EF2_ODMFace_to_BLVFace(&local_10, pStru2);
-          //if ( sub_4C1C0C_RayFaceIntersect(pRay, pRay + 1, &a2, &pIntersectionPoint, &local_10, v29) )
-          if ( new_RayFaceIntersect(pRay, pRay + 1, &a2, &pIntersectionPoint, &local_10, pStru2, v29) )
+          //if ( sub_4C1C0C_RayFaceIntersect(pRay, pRay + 1, &a2, &pIntersectionPoint, &local_10, i) )
+          if ( new_RayFaceIntersect(pRay, pRay + 1, &a2, &pIntersectionPoint, &local_10, pStru2, i) )
           {
             sub_436523_PrimitiveApplyViewMatrix(&pIntersectionPoint, 1);
             v11 = sub_48B561(pIntersectionPoint.vWorldViewPosition.x);
 
             LOWORD(v11) = 0;
-            v22 = (8 * (v30 | (v29 << 6)) | 6) + v11;
+            v22 = (8 * (j | (i << 6)) | 6) + v11;
 
             a4->array_000004[a4->uNumPointers].uBillboardID = (unsigned int)pStru2;
             a4->array_000004[a4->uNumPointers].sZValue = v22;

@@ -1274,7 +1274,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(OutdoorLocation *_this)
 
 
 //----- (004892E6) --------------------------------------------------------
-int __thiscall class51_sub_4892E6(OutdoorLocation *_this)
+int __thiscall class51_sub_4892E6_UpdateSunlightVectors(OutdoorLocation *_this)
 {
   int result; // eax@1
   void *v2; // esi@1

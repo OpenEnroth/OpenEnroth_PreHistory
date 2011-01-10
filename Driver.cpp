@@ -59,9 +59,6 @@ Result::Code SecondaryInitialization()
 
 
 
-
-
-
  //pLODFile_Bitmaps_LOD = new LODFile;
  ///LODFile_ctor(pLODFile_Bitmaps_LOD);
  if (Result::Code eStatus = LODFile_Bitmaps_LOD.LODFile_LoadLOD_Bitmaps("data\\bitmaps.lod"))
@@ -232,9 +229,6 @@ Result::Code SecondaryInitialization()
 
  GUICursor_sub_469C65(pGame->pGUICursor, pAppWindow);
 
-  sub_465F5A_InitializeAsyncMouseAndSomething();
-  sub_465FF0_InitializeAsyncKeyboardAndSomething();
-
   pClass40 = MemAlloc(class40, 1);
   sub_456D84(pClass40);
   LODFile_Bitmaps_LOD.lod_IB_dword_011BA8=1;
@@ -375,7 +369,6 @@ Result::Code PrimaryInitialization()
  cMiscTimer.Initialize();
  cMiscTimer.Pause();
 
- sub_448B67_ProcessEvents(true);
  sub_448B45_LooksLikeResetSomeTimer(true);
  pGame = Game_Initialize();
  pGame->pGUICursor = pGame->class03_obj;

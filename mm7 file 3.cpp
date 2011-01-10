@@ -1094,7 +1094,7 @@ LABEL_80:
     v44 = (int)((char *)pActors + 836 * v40);
     if ( a4 == -1 )
       a4 = sub_426E10(v44);
-    v46 = (int)&pParty->pPlayers[1743 * a4];
+    v46 = (int)&pParty->pPlayers[a4];
     v77 = sub_43B3E0(v44, v74);
     v45 = *(_WORD *)v38;
     if ( *(_WORD *)v38 == 545 )
@@ -1267,13 +1267,13 @@ LABEL_133:
         if ( *(_BYTE *)(v44 + 63) )
         {
           if ( rand() % 100 < *(_BYTE *)(v44 + 52) * *(_BYTE *)(v44 + 64) )
-            sub_48DCF6((char *)v46, *(_BYTE *)(v44 + 63), v44);
+            Player_sub_48DCF6((Player *)v46, *(_BYTE *)(v44 + 63), v44);
         }
       }
     }
     if (!pParty->bTurnBasedModeOn)
     {
-      v65 = Player_GetActualEndurance((Player *)v46);
+      v65 = ((Player *)v46)->GetActualEndurance();
       v66 = (double)(20 - sub_48EA1B(v65)) * flt_6BE3A4_debug_recmod1 * 2.1333333333333333;
       Player_SetRecoveryTime((Player *)v46, (signed __int64)v66);
     }
@@ -1460,13 +1460,13 @@ LABEL_43:
           if ( *(_BYTE *)(v7 + 63) )
           {
             if ( rand() % 100 < *(_BYTE *)(v7 + 52) * *(_BYTE *)(v7 + 64) )
-              sub_48DCF6((char *)v6, *(_BYTE *)(v7 + 63), v7);
+              Player_sub_48DCF6((Player *)v6, *(_BYTE *)(v7 + 63), v7);
           }
         }
       }
       if (!pParty->bTurnBasedModeOn)
       {
-        v35 = Player_GetActualEndurance((Player *)v6);
+        v35 = ((Player *)v6)->GetActualEndurance();
         v36 = (double)(20 - sub_48EA1B(v35)) * flt_6BE3A4_debug_recmod1 * 2.1333333333333333;
         Player_SetRecoveryTime((Player *)v6, (signed __int64)v36);
       }
@@ -2813,13 +2813,15 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
   if (!a3 || pParty->pickedItem.uItemID != a1)
   {
     v3 = 0;
-    while ( pp->pInventoryIndices[v3] <= 0 || pp->pInventorySlots[pp->pInventoryIndices[v3]].uItemID != a1 ) 
+    while (pp->pInventoryIndices[v3] == -1 ||
+           pp->pInventorySlots[pp->pInventoryIndices[v3]].uItemID != a1 ) 
     {
       ++v3;
       if ( v3 >= 126 )
       {
         v5 = 0;
-        while ( pp->pEquippedItemIndices[v5] <= 0 || pp->pInventorySlots[pp->pEquippedItemIndices[v5]].uItemID != a1 )
+        while (pp->cEquippedItems.pIndices[v5] == -1 ||
+               pp->pInventorySlots[pp->cEquippedItems.pIndices[v5]].uItemID != a1 )
         {
           ++v5;
           if ( v5 >= 16 )
@@ -8661,9 +8663,10 @@ LABEL_280:
              local_50.uItemID = v105;
             Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty, &local_50);
             goto LABEL_291;
+
           case 2:
-            v107 = *(_BYTE *)(v11 + 5)
-                 + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
+            //v107 = *(_BYTE *)(v11 + 5) + (((unsigned int)*(_BYTE *)(v11 + 6) + (((unsigned int)*(_BYTE *)(v11 + 7) + ((unsigned int)*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
+           v107 = *(int *)(v11 + 5);
             if ( sub_44622E_EnterHouse(v107) )
             {
               if ( pD3DRenderer->pRenderD3D3 )
@@ -10133,31 +10136,31 @@ LABEL_125:
         v3 = pParty->uNumGoldInBank;
         goto LABEL_170;
       case 224:
-        v30 = Player_GetActualStrength((Player *)_this);
+        v30 = _this->GetActualStrength();
         v29 = _this->GetBaseStrength();
         goto LABEL_168;
       case 225:
-        v30 = Player_GetActualIntelligence((Player *)_this);
+        v30 = _this->GetActualIntelligence();
         v29 = _this->GetBaseIntelligence();
         goto LABEL_168;
       case 226:
-        v30 = Player_GetActualWillpower((Player *)_this);
+        v30 = _this->GetActualWillpower();
         v29 = _this->GetBaseWillpower();
         goto LABEL_168;
       case 227:
-        v30 = Player_GetActualEndurance((Player *)_this);
+        v30 = _this->GetActualEndurance();
         v29 = _this->GetBaseEndurance();
         goto LABEL_168;
       case 228:
-        v30 = Player_GetActualSpeed((Player *)_this);
+        v30 = _this->GetActualSpeed();
         v29 = _this->GetBaseSpeed();
         goto LABEL_168;
       case 229:
-        v30 = Player_GetActualAccuracy((Player *)_this);
+        v30 = _this->GetActualAccuracy();
         v29 = _this->GetBaseAccuracy();
         goto LABEL_168;
       case 230:
-        v30 = Player_GetActualLuck((Player *)_this);
+        v30 = _this->GetActualLuck();
         v29 = _this->GetBaseLuck();
 LABEL_168:
         compile_error();//v9 = __SETO__(v30, v29);
@@ -10170,7 +10173,7 @@ LABEL_169:
         goto LABEL_170;
     }
 
-    while ( !Player_sub_48D6AA((Player *)_this, v27) || *(void **)((int)_this + 36 * *(_DWORD *)v28 + 496) != a3 )
+    while ( !Player_sub_48D6AA(_this, v27) || *(void **)((int)_this + 36 * *(_DWORD *)v28 + 496) != a3 )
     {
       ++v27;
       v28 += 4;
@@ -10251,7 +10254,7 @@ LABEL_14:
           v3 = *(_WORD *)((int)_this + 220);
           goto LABEL_170;
         case 11:
-          v12 = Player_GetActualAge((Player *)_this);
+          v12 = _this->GetActualAge();
           goto LABEL_67;
         case 12:
           v13 = 0x80u >> ((signed __int16)a3 - 1) % 8;
@@ -10373,25 +10376,25 @@ LABEL_132:
           v3 = *(_WORD *)(_this + 6024);
           goto LABEL_170;
         case 39:
-          v12 = Player_GetActualStrength((Player *)_this);
+          v12 = _this->GetActualStrength();
           goto LABEL_67;
         case 40:
-          v12 = Player_GetActualIntelligence((Player *)_this);
+          v12 = _this->GetActualIntelligence();
           goto LABEL_67;
         case 41:
-          v12 = Player_GetActualWillpower((Player *)_this);
+          v12 = _this->GetActualWillpower();
           goto LABEL_67;
         case 42:
-          v12 = Player_GetActualEndurance((Player *)_this);
+          v12 = _this->GetActualEndurance();
           goto LABEL_67;
         case 43:
-          v12 = Player_GetActualSpeed((Player *)_this);
+          v12 = _this->GetActualSpeed();
           goto LABEL_67;
         case 44:
-          v12 = Player_GetActualAccuracy((Player *)_this);
+          v12 = _this->GetActualAccuracy();
           goto LABEL_67;
         case 45:
-          v12 = Player_GetActualLuck((Player *)_this);
+          v12 = _this->GetActualLuck();
 LABEL_67:
           v3 = v12;
           break;

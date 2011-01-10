@@ -231,22 +231,22 @@ LABEL_17:
     return 0;
   if ( v4 )
   {
-    v6 = Player_GetActualLuck(_this);
+    v6 = _this->GetActualLuck();
     v7 = sub_48EA1B(v6) + v4 + 30;
     if ( rand() % v7 >= 30 )
     {
       v18 = a3 >> 1;
-      v8 = Player_GetActualLuck(_this);
+      v8 = _this->GetActualLuck();
       v9 = sub_48EA1B(v8) + v4 + 30;
       if ( rand() % v9 >= 30 )
       {
         v18 = a3 >> 2;
-        v10 = Player_GetActualLuck(_this);
+        v10 = _this->GetActualLuck();
         v11 = sub_48EA1B(v10) + v4 + 30;
         if ( rand() % v11 >= 30 )
         {
           v18 = a3 >> 3;
-          v12 = Player_GetActualLuck(_this);
+          v12 = _this->GetActualLuck();
           v13 = sub_48EA1B(v12) + v4 + 30;
           if ( rand() % v13 >= 30 )
             v18 = a3 >> 4;
@@ -284,13 +284,13 @@ LABEL_17:
 int __thiscall Player_GetEquippedItemEquipType(Player *_this, unsigned int uSlot)
 {
   //return (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)];
- return pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[uSlot]].uItemID].uEquipType;
+ return pClass40->pItems[_this->pInventorySlots[_this->cEquippedItems.pIndices[uSlot]].uItemID].uEquipType;
 }
 
 //----- (0048D651) --------------------------------------------------------
 int __thiscall Player_GetEquippedItemSkillType(Player *_this, unsigned int uSlot)
 {
-  return pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[uSlot]].uItemID].uSkillType;
+ return pClass40->pItems[_this->pInventorySlots[_this->cEquippedItems.pIndices[uSlot]].uItemID].uSkillType;
 }
 
 //----- (0048D676) --------------------------------------------------------
@@ -598,7 +598,7 @@ signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int
     }
     if ( v3 )
     {
-      v7 = _this->pEquippedItemIndices[3];
+     v7 = _this->cEquippedItems.uBody;
       if ( v7 )
       {
         v9 = (int)((char *)&_this->pInventorySlots[v7] - 0x10);
@@ -620,7 +620,7 @@ signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int
 }
 
 //----- (0048DCF6) --------------------------------------------------------
-signed int __thiscall sub_48DCF6(char *Dst, int a2, int a3)
+signed int __thiscall Player_sub_48DCF6(Player *_this, int a2, int a3)
 {
   signed int v3; // ebx@1
   signed int v4; // edi@1
@@ -671,13 +671,13 @@ signed int __thiscall sub_48DCF6(char *Dst, int a2, int a3)
 
   v4 = 0;
   v3 = 0;
-  v5 = (int)Dst;
+  v5 = (int)_this;
   v47 = 0;
   v48 = 0;
   switch ( a2 )
   {
     case 1:
-      v6 = Player_GetActualWillpower((Player *)Dst);
+      v6 = _this->GetActualWillpower();
       goto LABEL_46;
     case 2:
     case 3:
@@ -687,7 +687,7 @@ signed int __thiscall sub_48DCF6(char *Dst, int a2, int a3)
     case 11:
     case 13:
     case 21:
-      v6 = Player_GetActualEndurance((Player *)Dst);
+      v6 = _this->GetActualEndurance();
       goto LABEL_46;
     case 5:
     case 12:
@@ -704,17 +704,17 @@ signed int __thiscall sub_48DCF6(char *Dst, int a2, int a3)
     case 16:
       v40 = 15;
 LABEL_5:
-      v7 = Player_GetActualResistance((Player *)Dst, v40);
+      v7 = Player_GetActualResistance((Player *)v5, v40);
       goto LABEL_47;
     case 22:
-      v9 = Player_GetActualWillpower((Player *)Dst);
+      v9 = _this->GetActualWillpower();
       v10 = sub_48EA1B(v9);
-      v11 = Player_GetActualIntelligence((Player *)v5);
+      v11 = _this->GetActualIntelligence();
       v8 = (sub_48EA1B(v11) + v10) >> 1;
       break;
     case 17:
       v13 = 0;
-      v12 = Dst + 532;
+      v12 = (char *)v5 + 532;
       do
       {
         if ( *(_DWORD *)v12 > 0 )
@@ -734,13 +734,13 @@ LABEL_5:
       v14 = 0;
       do
       {
-        if ( Player_sub_48D6AA((Player *)v5, v14) )
+        if ( Player_sub_48D6AA(_this, v14) )
         {
           if ( v15 == 3 )
             v46[v3++] = *(_BYTE *)(v5 + 6484) - 1;
           if ( !v15 || v15 == 1 )
           {
-            if ( Player_GetEquippedItemEquipType((Player *)v5, v15) == 4 )
+            if ( Player_GetEquippedItemEquipType(_this, v15) == 4 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v15 + 6472) - 1;
           }
         }
@@ -752,13 +752,13 @@ LABEL_5:
       v16 = 0;
       do
       {
-        if ( Player_sub_48D6AA((Player *)v5, v16) )
+        if ( Player_sub_48D6AA(_this, v16) )
         {
           if ( v17 == 2 )
             v46[v3++] = *(_BYTE *)(v5 + 6480) - 1;
           if ( !v17 || v17 == 1 )
           {
-            if ( !Player_GetEquippedItemEquipType((Player *)v5, v17) || Player_GetEquippedItemEquipType((Player *)v18, v17) == 1 )
+            if ( !Player_GetEquippedItemEquipType(_this, v17) || Player_GetEquippedItemEquipType(_this, v17) == 1 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v17 + 6472) - 1;
           }
         }
@@ -773,7 +773,7 @@ LABEL_36:
       break;
     case 20:
       v19 = 0;
-      v20 = Dst + 5500;
+      v20 = (char *)v5 + 5500;
       do
       {
         if ( *(_DWORD *)v20 > 0 )
@@ -792,7 +792,7 @@ LABEL_36:
       if ( !v3 )
         goto LABEL_87;
       v47 = (unsigned __int8)v46[rand() % v3];
-      v6 = Player_GetActualAccuracy((Player *)v5);
+      v6 = _this->GetActualAccuracy();
 LABEL_46:
       v7 = sub_48EA1B(v6);
 LABEL_47:
@@ -802,7 +802,7 @@ LABEL_47:
       v8 = 0;
       break;
   }
-  v22 = Player_GetActualLuck((Player *)v5);
+  v22 = _this->GetActualLuck();
   v23 = sub_48EA1B(v22) + v8 + 30;
   if ( rand() % v23 >= 30 )
   {
@@ -833,7 +833,7 @@ LABEL_87:
         v41 = 1;
         v36 = 4;
 LABEL_56:
-        Player_sub_492D65((Player *)v5, v36, v41);
+        Player_sub_492D65(_this, v36, v41);
         v42 = 0;
         v37 = 0;
         v35 = 0;
@@ -870,7 +870,7 @@ LABEL_60:
 LABEL_65:
           v24 = v25;
         }
-        Player_sub_492D65((Player *)v5, v24, 1);
+        Player_sub_492D65(_this, v24, 1);
         v42 = 0;
         v37 = 0;
         v35 = 0;
@@ -884,7 +884,7 @@ LABEL_83:
         do
         {
 LABEL_84:
-          if ((Player *)v5 == pPlayers[v4] )
+          if (_this == pPlayers[v4] )
             break;
           ++v4;
         }
@@ -904,7 +904,7 @@ LABEL_84:
         v43 = 1;
         v38 = 13;
 LABEL_70:
-        Player_sub_492D65((Player *)v5, v38, v43);
+        Player_sub_492D65(_this, v38, v43);
         v42 = 0;
         v37 = 0;
         v35 = 0;
@@ -922,7 +922,7 @@ LABEL_70:
         v45 = 1;
         v39 = 16;
 LABEL_73:
-        Player_sub_492D65((Player *)v5, v39, v45);
+        Player_sub_492D65(_this, v39, v45);
         v42 = 0;
         v37 = 0;
         v35 = 0;
@@ -952,7 +952,7 @@ LABEL_73:
         }
         v28 = v47;
         memcpy((void *)v27, (const void *)(v5 + 36 * *(_DWORD *)(v5 + 4 * v47 + 5500) + 496), 0x24u);
-        Player_sub_492A36_RemoveItemFromIndexMatrix((struct Player *)v5, v28);
+        Player_sub_492A36_RemoveItemFromIndexMatrix(_this, v28);
 LABEL_79:
         v42 = 0;
         v37 = 0;
@@ -964,11 +964,11 @@ LABEL_79:
         v30 = 47;
         goto LABEL_83;
       case 21:
-        Player_PlaySound((Player *)v5, 42, 0);
+        Player_PlaySound(_this, 42, 0);
         ++*(_WORD *)(v5 + 222);
         goto LABEL_82;
       case 22:
-        Player_PlaySound((Player *)v5, 41, 0);
+        Player_PlaySound(_this, 41, 0);
         *(_DWORD *)(v5 + 6464) = 0;
 LABEL_82:
         v42 = 0;
@@ -995,11 +995,11 @@ int __stdcall sub_48E1A3(int a1)
 }
 
 //----- (0048E1B5) --------------------------------------------------------
-int __thiscall Player_sub_GetAttackRecoveryTime(Player *_this, int a2)
+int Player_sub_GetAttackRecoveryTime(Player *_this, int a2)
 {
   int v2; // ebx@1
   int *v3; // edi@1
-  int v4; // esi@1
+  //int v4; // esi@1
   int v5; // eax@3
   int v6; // eax@3
   int v7; // eax@6
@@ -1046,7 +1046,6 @@ int __thiscall Player_sub_GetAttackRecoveryTime(Player *_this, int a2)
 
   v2 = 0;
   v3 = 0;
-  v4 = (int)_this;
   v47 = (unsigned __int16)word_4EDED8[0];
   v43 = 0;
   v45 = 0;
@@ -1058,7 +1057,7 @@ int __thiscall Player_sub_GetAttackRecoveryTime(Player *_this, int a2)
   {
     if ( !Player_sub_48D6AA((Player *)_this, 2) )
       goto LABEL_17;
-    v6 = v4 + 36 * *(_DWORD *)(v4 + 6480) + 496;
+    v6 = (int)_this + 36 * *(_DWORD *)((int)_this + 6480) + 496;
     v46 = v6;
     v3 = (int *)&pClass40->pItems[*(_DWORD *)v6].pIconName;
     v5 = (unsigned __int16)word_4EDED8[*((_BYTE *)v3 + 29)];
@@ -1066,7 +1065,7 @@ int __thiscall Player_sub_GetAttackRecoveryTime(Player *_this, int a2)
   }
   if ( Player_sub_48D676(_this) == 1 )
   {
-    LOBYTE(v7) = Player_GetActualSkillLevel((Player *)v4, 31);
+    LOBYTE(v7) = Player_GetActualSkillLevel(_this, 31);
     if ( v7 )
     {
       v5 = (unsigned __int16)word_4EDEDC;
@@ -1075,9 +1074,9 @@ LABEL_4:
       goto LABEL_17;
     }
   }
-  if ( Player_sub_48D6AA((Player *)v4, 1) )
+  if ( Player_sub_48D6AA(_this, 1) )
   {
-    v9 = v4 + 36 * *(_DWORD *)(v4 + 6476) + 496;
+    v9 = (int)_this + 36 * *(_DWORD *)((int)_this + 6476) + 496;
     v46 = v9;
     v8 = *(_DWORD *)v9;
     v3 = (int *)&pClass40->pItems[v8].pIconName;
@@ -1087,9 +1086,9 @@ LABEL_4:
       v10 = (unsigned __int16)word_4EDED8[*((_BYTE *)v3 + 29)];
     v47 = v10;
   }
-  if ( Player_sub_48D6AA((Player *)v4, 0) )
+  if ( Player_sub_48D6AA(_this, 0) )
   {
-    v12 = v4 + 36 * *(_DWORD *)(v4 + 6472) + 496;
+    v12 = (int)_this + 36 * *(_DWORD *)((int)_this + 6472) + 496;
     v42 = (unsigned __int16)word_4EDED8[pClass40->pItems[*(_DWORD *)v12 - 1].uSkillType];
     if ( v42 > v47 )
     {
@@ -1101,10 +1100,10 @@ LABEL_4:
     v2 = 0;
   }
 LABEL_17:
-  if ( !Player_sub_48D6AA((Player *)v4, 3) )
+  if ( !Player_sub_48D6AA(_this, 3) )
     goto LABEL_28;
-  v14 = pClass40->pItems[*(_DWORD *)(v4 + 36 * *(_DWORD *)(v4 + 6484) + 496) - 1].uSkillType;
-  sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 282));
+  v14 = pClass40->pItems[*(_DWORD *)((int)_this + 36 * *(_DWORD *)((int)_this + 6484) + 496) - 1].uSkillType;
+  sub_458244_GetSkillMasteryLevel(*(_WORD *)((int)_this + 282));
   v15 = (unsigned __int16)word_4EDED8[v14];
   v35 = 1.0;
   v43 = v15;
@@ -1133,40 +1132,40 @@ LABEL_26:
   v37 = 1.0;
   v16 = 1.0;
 LABEL_27:
-  v18 = *(_WORD *)(v4 + 2 * v14 + 264);
+  v18 = *(_WORD *)((int)_this + 2 * v14 + 264);
   v38 = v16;
   v43 = (signed __int64)((double)v43 * *(&v34 + sub_458244_GetSkillMasteryLevel(v18)));
   v2 = 0;
 LABEL_28:
-  if ( Player_sub_48D6AA((Player *)v4, v2) )
+  if ( Player_sub_48D6AA(_this, v2) )
   {
     if ( Player_GetEquippedItemEquipType((Player *)v19, v2) == 4 )
     {
-      v20 = 9 * *(_DWORD *)(v4 + 6472);
+      v20 = 9 * *(_DWORD *)((int)_this + 6472);
       v35 = 1.0;
-      v21 = 3 * *(_DWORD *)(v4 + 4 * v20 + 496);
+      v21 = 3 * *(_DWORD *)((int)_this + 4 * v20 + 496);
       *(float *)&v36 = 0.0;
       v22 = pClass40->pItems[v21 / 3 - 1].uSkillType;
       v37 = 0.0;
       v23 = (unsigned __int16)word_4EDED8[v22];
       v38 = 0.0;
       v45 = v23;
-      v24 = sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 2 * v22 + 264));
+      v24 = sub_458244_GetSkillMasteryLevel(*(_WORD *)((int)_this + 2 * v22 + 264));
       v45 = (signed __int64)((double)v45 * *(&v34 + v24));
     }
   }
-  v25 = Player_GetActualSpeed((Player *)v4);
+  v25 = _this->GetActualSpeed();
   v39 = sub_48EA1B(v25);
   v42 = v2;
   if ( v3 != (int *)v2 )
   {
     v26 = *((_BYTE *)v3 + 29);
-    LOBYTE(v27) = Player_GetActualSkillLevel((Player *)v4, *((_BYTE *)v3 + 29));
+    LOBYTE(v27) = Player_GetActualSkillLevel(_this, *((_BYTE *)v3 + 29));
     if ( v27 )
     {
       if ( v26 == 1 || v26 == 3 || v26 == 5 )
       {
-        v28 = (__int16 *)(v4 + 2 * v26 + 264);
+        v28 = (__int16 *)((int)_this + 2 * v26 + 264);
         if ( sub_458244_GetSkillMasteryLevel(*v28) >= 2 )
           v40 = *(_BYTE *)v28 & 0x3F;
       }
@@ -1179,7 +1178,7 @@ LABEL_28:
   {
     if ( v42 == v2 )
     {
-      LOBYTE(v29) = Player_GetActualSkillLevel((Player *)v4, 33);
+      LOBYTE(v29) = Player_GetActualSkillLevel(_this, 33);
       if ( v29 != v2 )
       {
         v30 = v29 & 0x3F;
@@ -1189,9 +1188,9 @@ LABEL_28:
       }
     }
   }
-  if ( *(_DWORD *)(v4 + 6164) >= v2 )
+  if ( *(_DWORD *)((int)_this + 6164) >= v2 )
   {
-    if ( *(_DWORD *)(v4 + 6164) > v2 || *(_DWORD *)(v4 + 6160) > (unsigned int)v2 )
+    if ( *(_DWORD *)((int)_this + 6164) > v2 || *(_DWORD *)((int)_this + 6160) > (unsigned int)v2 )
       v41 = 25;
   }
   v31 = 0;
@@ -8750,7 +8749,7 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
   signed int v10; // eax@9
   signed int v11; // eax@9
   int v12; // eax@12
-  double v13; // st7@12
+  //double v13; // st7@12
   double v14; // st5@14
   double v15; // st6@14
   double v17; // st4@16
@@ -8768,8 +8767,8 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
   float v31; // [sp+38h] [bp+8h]@2
   float v32; // [sp+3Ch] [bp+Ch]@5
   int v33; // [sp+3Ch] [bp+Ch]@14
-  float v34; // [sp+40h] [bp+10h]@12
-  float v35; // [sp+44h] [bp+14h]@12
+  //float v34; // [sp+40h] [bp+10h]@12
+  //float v35; // [sp+44h] [bp+14h]@12
  unsigned int i;
 
   if (!_this->uD3D3SceneBegun)
@@ -8811,15 +8810,11 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
     if (_this->bUsingSpecular)
     {
       v12 = sub_47C3D7(0, 0, v31);
-      v13 = 1.0;
     }
 
-    v35 = (double)v24;
-    pBillboardRenderListD3D3[i].pQuad[0].x = v35 - v32 * v30;
-    v34 = (double)v23;
-    pBillboardRenderListD3D3[i].pQuad[0].y = v34 - v26 * v29;
+    pBillboardRenderListD3D3[i].pQuad[0].x = v24 - v32 * v30;
+    pBillboardRenderListD3D3[i].pQuad[0].y = v23 - v26 * v29;
     v27 = v31 * 1000.0;
-    v13 = 1.0;
     pBillboardRenderListD3D3[i].pQuad[0].z = 1.0 - 1.0 / (v27 / (double)pStruct9_global->shading_dist_mist);
     v25 = 1.0 / v31;
     pBillboardRenderListD3D3[i].pQuad[0].rhw = v25;
@@ -8834,9 +8829,9 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
     if (a2->dword_00002C & 0x04)
       v15 = v15 * -1.0;
 
-    pBillboardRenderListD3D3[i].pQuad[1].x = v35 - v15 * v30;
-    pBillboardRenderListD3D3[i].pQuad[1].y = v34 - v14 * v29;
-    v19 = v13 - v13 / (v27 / (double)pStruct9_global->shading_dist_mist);
+    pBillboardRenderListD3D3[i].pQuad[1].x = v24 - v15 * v30;
+    pBillboardRenderListD3D3[i].pQuad[1].y = v23 - v14 * v29;
+    v19 = 1.0 - 1.0 / (v27 / (double)pStruct9_global->shading_dist_mist);
     pBillboardRenderListD3D3[i].pQuad[1].z = v19;
     pBillboardRenderListD3D3[i].pQuad[1].rhw = v25;
     pBillboardRenderListD3D3[i].pQuad[1].specular = v12;
@@ -8848,8 +8843,8 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
     if (a2->dword_00002C & 0x04)
       v18 = v18 * -1.0;
 
-    pBillboardRenderListD3D3[i].pQuad[2].x = v18 * v30 + v35;
-    pBillboardRenderListD3D3[i].pQuad[2].y = v34 - v17 * v29;
+    pBillboardRenderListD3D3[i].pQuad[2].x = v18 * v30 + v24;
+    pBillboardRenderListD3D3[i].pQuad[2].y = v23 - v17 * v29;
     pBillboardRenderListD3D3[i].pQuad[2].z = v19;
     pBillboardRenderListD3D3[i].pQuad[2].rhw = v25;
     pBillboardRenderListD3D3[i].pQuad[2].diffuse = pBillboardRenderListD3D3[i].pQuad[0].diffuse;
@@ -8862,8 +8857,8 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
     if (a2->dword_00002C & 0x04)
       v21 = v21 * -1.0;
 
-    pBillboardRenderListD3D3[i].pQuad[3].x = v21 * v30 + v35;
-    pBillboardRenderListD3D3[i].pQuad[3].y = v34 - v20 * v29;
+    pBillboardRenderListD3D3[i].pQuad[3].x = v21 * v30 + v24;
+    pBillboardRenderListD3D3[i].pQuad[3].y = v23 - v20 * v29;
     pBillboardRenderListD3D3[i].pQuad[3].z = v19;
     pBillboardRenderListD3D3[i].pQuad[3].rhw = v25;
     pBillboardRenderListD3D3[i].pQuad[3].diffuse = pBillboardRenderListD3D3[i].pQuad[0].diffuse;

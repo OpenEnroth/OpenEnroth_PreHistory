@@ -64,7 +64,6 @@ void RtlCallCtors()
  //RGBTexture_ctor(pClass33_global3);
 
  class36_ctor(&class36_global0);
-
  class37_ctor(&class37_global0);
 
  pParty = NamedMemAlloc(Party, 1, "Party");
@@ -393,7 +392,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw()
 
 
  if (pParty->uCurrentMinute != dword_6BD078)
-   class51_sub_4892E6(pOutdoor);
+   class51_sub_4892E6_UpdateSunlightVectors(pOutdoor);
  class51_sub_4893C1(pOutdoor);
  class08_sub_438250(pGame->class08_obj);
 
@@ -4026,7 +4025,6 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate_ODM()
   int v63; // ebx@271
   int v64; // edi@271
   int v65; // esi@271
-  Player *v66; // esi@283
   int v67; // eax@284
   int v68; // edi@293
   bool v69; // edx@297
@@ -4036,7 +4034,6 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate_ODM()
   signed int v73; // ecx@318
   int v74; // ebx@318
   int v75; // eax@321
-  Player *v76; // esi@333
   int v77; // eax@334
   int v78; // [sp-20h] [bp-B4h]@246
   signed int v79; // [sp-20h] [bp-B4h]@248
@@ -4161,7 +4158,7 @@ LABEL_9:
                   (signed int)((pParty->dword_000700 - v115) * (signed __int64)((double)v97 * 0.10000000000000001))
                 / 256,
                   4);
-                v5 = Player_GetActualEndurance(pPlayers[v4]);
+                v5 = pPlayers[v4]->GetActualEndurance();
                 v97 = 20 - sub_48EA1B(v5);
                 Player_SetRecoveryTime(pPlayers[v4], (signed __int64)((double)v97 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
               }
@@ -5010,17 +5007,13 @@ LABEL_344:
                 {
                 //  v66 = (int *)pPlayers;
                 //  do
-                   for(int i=0; i<4; i++) 
-					   {
-					  v66 = pPlayers[i];
-                    v102 = Player_GetMaxHealth(v66);
-                    Player_sub_48DC1E(v66,
-                      (signed int)((pParty->dword_000700 - v63) * (signed __int64)((double)v102 * 0.10000000000000001))
-                    / 256,
-                      4);
-                    v67 = Player_GetActualEndurance(v66);
+                   for (int i = 0; i < 4; i++) 
+                   {
+                    v102 = Player_GetMaxHealth(pPlayers[i]);
+                    Player_sub_48DC1E(pPlayers[i], (signed int)((pParty->dword_000700 - v63) * (signed __int64)((double)v102 * 0.10000000000000001)) / 256, 4);
+                    v67 = pPlayers[i]->GetActualEndurance();
                     v102 = 20 - sub_48EA1B(v67);
-                    Player_SetRecoveryTime(v66, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
+                    Player_SetRecoveryTime(pPlayers[i], (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
                     //++v66;
                   }
                 //  while ( (signed int)v66 <= (signed int)&dword_A750D4 );
@@ -5146,20 +5139,14 @@ LABEL_318:
               }
               else
               {
-                for(int i=1; i<5; i++) 
-					{
-				v76 =pPlayers[i];
-                  v102 = Player_GetMaxHealth(v76);
-                  Player_sub_48DC1E(v76,
-                    (signed int)((pParty->dword_000700 - v74) * (signed __int64)((double)v102 * 0.10000000000000001))
-                  / 256,
-                    4);
-                  v77 = Player_GetActualEndurance(v76);
+               for (int i = 0; i < 4; i++) 
+               {
+                  v102 = Player_GetMaxHealth(pPlayers[i]);
+                  Player_sub_48DC1E(pPlayers[i], (signed int)((pParty->dword_000700 - v74) * (signed __int64)((double)v102 * 0.10000000000000001)) / 256, 4);
+                  v77 = pPlayers[i]->GetActualEndurance();
                   v102 = 20 - sub_48EA1B(v77);
-                  Player_SetRecoveryTime(v76, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
-                //  ++v76;
+                  Player_SetRecoveryTime(pPlayers[i], (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
                 }
-              //  while ( (signed int)v76 <= (signed int)&dword_A750D4 );
                 v73 = pParty->vPosition.z;
               }
             }
@@ -5764,7 +5751,7 @@ LABEL_25:
      v24=(int)&v23;  //v24=v23 hack
       if ( Player_sub_48D6AA((Player *)v22, v23) )
       {
-       unsigned int uSlot = ((Player *)v22)->pEquippedItemIndices[v23];
+       unsigned int uSlot = ((Player *)v22)->cEquippedItems.pIndices[v23];
        //v25 = ((Player *)v22)->pInventorySlots[*(_DWORD *)v24].uItemID;		
        v25 = ((Player *)v22)->pInventorySlots[uSlot].uItemID;
 
