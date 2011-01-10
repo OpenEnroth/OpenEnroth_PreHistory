@@ -226,7 +226,7 @@ LABEL_85:
       // Let's play First Act movie
       if (!bNoVideo)
       {
-       if (pVideoPlayer->PlayMovie("Intro Post", 0, 0, false))
+       if (pVideoPlayer->PlayMovie("Intro Post", Rect<unsigned int>(0, 640, 0, 480), false))
          pVideoPlayer->UnloadAll();
       }
 

@@ -207,10 +207,10 @@ extern char byte_4E5DE8[array_size_unknown]; // weak
 extern unsigned int uDialogueUIIconsOffsetX; // dword @ MM7.exe::004E5E50
 extern int dword_4E5EC8[array_size_unknown]; // weak
 extern unsigned int uDialogueUIIconsOffsetY; // dword @ MM7.exe::004E5EE0
-extern char (*off_4E5F70)[8]; // weak
-extern int dword_4E5F78[array_size_unknown]; // weak
-extern char byte_4E5F7C[array_size_unknown]; // weak
-extern char byte_4E5F7D[array_size_unknown]; // weak
+extern int off_4E5F70[]; // weak
+//int dword_4E5F78[array_size_unknown]; // off_4E5F70 + 2
+//char byte_4E5F7C[array_size_unknown]; // off_4E5F70 + 3
+//char byte_4E5F7D[array_size_unknown]; // weak
 extern char *off_4E6BB0[]; // idb
 extern char *off_4E6BDC; // idb
 //_UNKNOWN unk_4E7E20; // "%s0"
@@ -1328,24 +1328,49 @@ extern int dword_59142C; // weak
 extern cTexture *uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
 
 //struct array
-extern __int16 word_591438[array_size_unknown]; // weak
-extern __int16 word_59143A[array_size_unknown]; // weak
-extern int dword_59143C[array_size_unknown]; // weak
-extern int dword_591440[array_size_unknown]; // weak
-extern int dword_591448[array_size_unknown]; // weak
-extern __int16 word_591454[array_size_unknown]; // weak
-extern _UNKNOWN unk_591458; // weak
-extern _UNKNOWN unk_59145C; // weak
-extern __int16 word_591460; // weak
-extern __int16 word_591462; // weak
-extern __int16 word_591464; // weak
-extern __int16 word_591466; // weak
-extern __int16 word_591468[array_size_unknown]; // weak
+//__int16 word_591438[array_size_unknown]; // array_59146C[-1]::uEventType
+//__int16 word_59143A[array_size_unknown]; // array_59146C[-1]::uPicture
+//extern int dword_59143C[array_size_unknown]; // array_59146C[-1]::pName
+//extern int dword_591440[array_size_unknown]; // array_59146C[-1]::pProprieterName
+//extern int dword_591448[array_size_unknown]; // array_59146C[-1]::pProprieterTitle
+//extern __int16 word_591454[array_size_unknown]; // array_59146C[-1]::word_00001C
+//extern _UNKNOWN unk_591458; // array_59146C[-1]::fPriceMultiplier
+//extern _UNKNOWN unk_59145C; // array_59146C[-1]::flt_000024
+//extern __int16 word_591460; // array_59146C[-1]::uOpenTime
+//extern __int16 word_591462; // array_59146C[-1]::uCloseTime
+//extern __int16 word_591464; // array_59146C[-1]::00002C
+//extern __int16 word_591466; // array_59146C[-1]::00002E
+//extern __int16 word_591468[array_size_unknown]; // array_59146C[-1]::000030
 //end of struct
 
-extern _UNKNOWN unk_59146C; // weak
+extern struct _2devent
+{
+ unsigned short  uEventType;       // word  @ 000000
+ unsigned short  uPicture;         // word  @ 000002
+ unsigned char  *pName;            // dword @ 000004
+ unsigned char  *pProprieterName;  // dword @ 000008
+ unsigned char  *ptr_00000C;
+ unsigned char  *pProprieterTitle; // dword @ 000010
+ short           word_000014;
+ short           word_000016;
+ short           word_000018;
+ short           word_00001A;
+ short           word_00001C;
+ short           word_00001E;
+ float           fPriceMultiplier; // float @ 000020
+ float           flt_000024;       // float @ 000024
+ unsigned short  uOpenTime;        // word  @ 000028
+ unsigned short  uCloseTime;       // word  @ 00002A
+ short           word_00002C;
+ short           word_00002E;
+ short           word_000030;
+ short           word_000032;
+} array_59146C[];   // struct[?] @ MM7.exe::0059146C
+//sizeof = 34
+//_UNKNOWN unk_59146C; // weak
+
+
 extern __int16 word_593A36; // weak
-extern _UNKNOWN unk_597F10; // weak
 extern int dword_597F18; // weak
 
 extern unsigned int  uLevelStrOffsets[500]; // dword[500] @ MM7.exe::00597F20

@@ -5949,7 +5949,7 @@ void __thiscall sub_406FA8(int _this)
       {
         v4 = *(_DWORD *)v3 >> 3;
         v15 = v4;
-        v6 = (int)((char *)pActors + 836 * v4);
+        v6 = (int)&pActors[v4];
         v5 = *(_WORD *)(v6 + 176);
         if ( v5 != 5 )
         {
@@ -5961,7 +5961,7 @@ void __thiscall sub_406FA8(int _this)
               {
                 v16 = dword_4F6E08[v4];
                 v7 = v16;
-                sub_401221(v4, 4 * v4 + 5205512, 1);
+                sub_401221(v4, (int)&dword_4F6E08[v4], 1);
                 memcpy(&v11, GetDirectionInfo(*(_DWORD *)(v18 + v3), v7, (DirectionInfo *)&v10, 0), 0x1Cu);
                 memcpy(&v12, &v11, 0x1Cu);
                 *(_DWORD *)(v6 + 184) += cMiscTimer.uElapsedTime;

@@ -26,13 +26,13 @@ void ShowIntroVideo()
  {
   if (!bNoCredits)
   {
-   pVideoPlayer->PlayMovie("3DOLogo", 0, 0, false);
-   pVideoPlayer->PlayMovie("New World Logo", 0, 0, false);
-   pVideoPlayer->PlayMovie("JVC", 0, 0, false);
+   pVideoPlayer->PlayMovie("3DOLogo", Rect<unsigned int>(0, 640, 0, 480), false);
+   pVideoPlayer->PlayMovie("New World Logo", Rect<unsigned int>(0, 640, 0, 480), false);
+   pVideoPlayer->PlayMovie("JVC", Rect<unsigned int>(0, 640, 0, 480), false);
   }
 
   if (!bNoIntro)
-    pVideoPlayer->PlayMovie("Intro", 0, 0, false);
+    pVideoPlayer->PlayMovie("Intro", Rect<unsigned int>(0, 640, 0, 480), false);
  }
 
  dword_F8BC10 = 0;
@@ -656,7 +656,7 @@ LABEL_21:
            pAudioPlayer->PlayMusicTrack(14, 64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
          continue;
         }
-          break;
+
         if ( uCurrentMenuID == 4 )
         {
           uGameState = 1;

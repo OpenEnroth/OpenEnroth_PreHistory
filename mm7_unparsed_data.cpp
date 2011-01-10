@@ -311,10 +311,72 @@ int dword_4E2C2C[8] = {9, 9, 9, 9, 9, 9, 9, 9}; // weak
 unsigned int uDialogueUIIconsOffsetX = 0x00000209; // dword @ MM7.exe::004E5E50
  int dword_4E5EC8[array_size_unknown]; // weak
 unsigned int uDialogueUIIconsOffsetY = 0x00000026; // dword @ MM7.exe::004E5EE0
- char (*off_4E5F70)[8]; // weak
- int dword_4E5F78[array_size_unknown]; // weak
- char byte_4E5F7C[array_size_unknown]; // weak
- char byte_4E5F7D[array_size_unknown]; // weak
+int off_4E5F70[32 * array_size_unknown] =
+{
+ (int)"",                            0x00000004, 0x000001F4, 0x00000000,
+ (int)"Human Armor01",               0x00000020, 0x000002C0, 0x00003A02,
+ (int)"Necromancer Armor01",         0x00000020, 0x000002D7, 0x00004602,
+ (int)"Dwarven Armor01",             0x00000020, 0x000002EE, 0x00000502,
+ (int)"Wizard Armor",                0x00000020, 0x000003BD, 0x00001302,
+ (int)"Warlock Armor",               0x00000020, 0x000002D6, 0x00002302,
+ (int)"Elf Armor",                   0x00000020, 0x000002BC, 0x00004F02,
+ (int)"Human Alchemisht01",          0x0000000E, 0x000002BE, 0x00005F04,
+ (int)"Necromancer Alchemist01",     0x0000000E, 0x000002D6, 0x00004504,
+ (int)"Dwarven Achemist01",          0x0000000E, 0x00000387, 0x00000404,
+ (int)"Wizard Alchemist",            0x0000000E, 0x00000232, 0x00001904,
+ (int)"Warlock Alchemist",           0x0000000E, 0x000002BE, 0x00002A04,
+ (int)"Elf Alchemist",               0x0000000E, 0x0000038A, 0x00005404,
+ (int)"Human Bank01",                0x00000006, 0x00000384, 0x00003416,
+ (int)"Necromancer Bank01",          0x00000006, 0x000002D8, 0x00004716,
+ (int)"Dwarven Bank",                0x00000006, 0x000002F3, 0x00000616,
+ (int)"Wizard Bank",                 0x00000006, 0x000003BA, 0x00001416,
+ (int)"Warlock Bank",                0x00000006, 0x0000039F, 0x00002416,
+ (int)"Elf Bank",                    0x00000006, 0x000002BC, 0x00004716,
+ (int)"Boat01",                      0x0000000F, 0x0000004C, 0x0003351C,
+ (int)"Boat01d",                     0x0000000F, 0x0000004C, 0x0003351C,
+ (int)"Human Magic Shop01",          0x0000000A, 0x000002C8, 0x00003603,
+ (int)"Necromancer Magic Shop01",    0x0000000E, 0x000002DC, 0x00004203,
+ (int)"Dwarven Magic Shop01",        0x0000002A, 0x000002EF, 0x00005B03,
+ (int)"Wizard Magic Shop",           0x0000001E, 0x000002DF, 0x00000F03,
+ (int)"Warlock Magic Shop",          0x00000007, 0x000003B9, 0x00001F03,
+ (int)"Elf Magic Shop",              0x00000024, 0x000002CC, 0x00005203,
+ (int)"Human Stables01",             0x00000021, 0x00000031, 0x0003301B,
+ (int)"Necromancer Stables",         0x00000021, 0x000002DD, 0x0003431B,
+ (int)"",                            0x00000021, 0x000002F0, 0x00035B1B,
+ (int)"Wizard Stables",              0x00000021, 0x000003BA, 0x0003101B,
+ (int)"Warlock Stables",             0x00000021, 0x00000181, 0x0003201B,
+ (int)"Elf Stables",                 0x00000021, 0x00000195, 0x00034D1B,
+ (int)"Human Tavern01",              0x0000000D, 0x000002C2, 0x00003115,
+ (int)"Necromancer Tavern 01",       0x0000000D, 0x000003B0, 0x00003915,
+ (int)"Dwarven Tavern01",            0x0000000D, 0x000002FE, 0x00005E15,
+ (int)"Wizard Tavern",               0x0000000D, 0x000003BB, 0x00001115,
+ (int)"Warlock Tavern",              0x0000000D, 0x000003A8, 0x00002115,
+ (int)"Elf Tavern",                  0x0000000D, 0x000002CD, 0x00004E15,
+ (int)"Human Temple01",              0x00000024, 0x000002DB, 0x00033217,
+ (int)"Necromancer Temple",          0x00000024, 0x000002DF, 0x00033C17,
+ (int)"Dwarven Temple01",            0x00000024, 0x000002F1, 0x00035617,
+ (int)"Wizard Temple",               0x00000024, 0x000002E0, 0x00030A17,
+ (int)"Warlock Temple",              0x00000024, 0x000003A4, 0x00031B17,
+ (int)"Elf Temple",                  0x00000024, 0x000002CE, 0x00034817,
+ (int)"Human Town Hall",             0x00000010, 0x0000039C, 0x00000E11,
+ (int)"Necromancer Town Hall01",     0x00000010, 0x000003A4, 0x00003D11,
+ (int)"Dwarven Town Hall",           0x00000010, 0x000002DB, 0x00005811,
+ (int)"Wizard Town Hall",            0x00000010, 0x000003BD, 0x00000B11,
+ (int)"Warlock Town Hall",           0x00000010, 0x000002DB, 0x00001C11,
+ (int)"Elf Town Hall",               0x00000010, 0x0000027A, 0x00004911,
+ (int)"Human Training Ground01",     0x00000018, 0x000002C7, 0x00002C1E,
+ (int)"Necromancer Training Ground", 0x00000018, 0x000003AD, 0x00003E1E,
+ (int)"Dwarven Training Ground",     0x00000018, 0x000002F2, 0x0000591E,
+ (int)"Wizard Training Ground",      0x00000018, 0x000003A3, 0x00000C1E,
+ (int)"Warlock Training Ground",     0x00000018, 0x000003A6, 0x00001D1E,
+ (int)"Elf Training Ground",         0x00000018, 0x0000019F, 0x00004A1E,
+ (int)"Human Weapon Smith01",        0x00000016, 0x000002C1, 0x00042D01,
+ (int)"Necromancer Weapon Smith01",  0x00000016, 0x000002D9, 0x00043F01,
+ (int)"Dwarven Weapon Smith01",      0x00000016, 0x000002EE, 0x00045201,
+ (int)"Wizard Weapon Smith",         0x00000016, 0x000002D5, 0x00040D01,
+ (int)"Warlock Weapon Smith",        0x00000016, 0x000002D7, 0x00041701
+//MM7.exe::004E6350   more
+};
 char *off_4E6BB0[11] =
 {
  "",
@@ -1365,23 +1427,9 @@ cTexture *pcTexture_EndcapTexture; // ptr @ MM7.exe::00591428
 //int dword_591428; // idb
 
  int dword_59142C; // weak
-cTexture *uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
- __int16 word_591438[array_size_unknown]; // weak
- __int16 word_59143A[array_size_unknown]; // weak
- int dword_59143C[array_size_unknown]; // weak
- int dword_591440[array_size_unknown]; // weak
- int dword_591448[array_size_unknown]; // weak
- __int16 word_591454[array_size_unknown]; // weak
- _UNKNOWN unk_591458; // weak
- _UNKNOWN unk_59145C; // weak
- __int16 word_591460; // weak
- __int16 word_591462; // weak
- __int16 word_591464; // weak
- __int16 word_591466; // weak
- __int16 word_591468[array_size_unknown]; // weak
- _UNKNOWN unk_59146C; // weak
+cTexture        *uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
+struct _2devent  array_59146C[525];   // struct[?] @ MM7.exe::0059146C
  __int16 word_593A36; // weak
- _UNKNOWN unk_597F10; // weak
  int dword_597F18; // weak
 
 unsigned int  uLevelStrOffsets[500]; // dword[500]  @ MM7.exe::00597F20

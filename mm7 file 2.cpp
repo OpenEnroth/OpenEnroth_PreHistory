@@ -2727,7 +2727,6 @@ LABEL_567:
 //----- (00443801) --------------------------------------------------------
 int __cdecl sub_443801()
 {
-  signed int v0; // edi@3
   int v2; // edx@5
   char *v3; // esi@5
   int v4; // eax@6
@@ -2741,10 +2740,12 @@ int __cdecl sub_443801()
  if (p2DEventsTXT_Raw)
    MemFree( (void *)p2DEventsTXT_Raw);
 
-  p2DEventsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "2dEvents.txt", 0);
+  p2DEventsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw("2dEvents.txt", 0);
   strtok((char *)p2DEventsTXT_Raw, "\r");
   strtok(0, "\r");
-  v0 = (signed int)&unk_59146C;
+
+  int i = 0;
+ _2devent *pEvent = array_59146C;
   while ( 1 )
   {
     v3 = strtok(0, "\r") + 1;
@@ -2769,222 +2770,77 @@ int __cdecl sub_443801()
         switch ( v2 )
         {
           case 0:
-            if ( _strnicmp(v3, "wea", 3u) )
-            {
-              if ( _strnicmp(v3, "arm", 3u) )
-              {
-                if ( _strnicmp(v3, "mag", 3u) )
-                {
-                 if ( _strnicmp(v3, "alc", 3u) )
-                  {
-                    if ( _strnicmp(v3, "sta", 3u) )
-                    {
-                      if ( _strnicmp(v3, "boa", 3u) )
-                      {
-                        if ( _strnicmp(v3, "tem", 3u) )
-                        {
-                          if ( _strnicmp(v3, "tra", 3u) )
-                          {
-                            if ( _strnicmp(v3, "tow", 3u) )
-                            {
-                              if ( _strnicmp(v3, "tav", 3u) )
-                              {
-                                if ( _strnicmp(v3, "ban", 3u) )
-                                {
-                                  if ( _strnicmp(v3, "fir", 3u) )
-                                  {
-                                    if ( _strnicmp(v3, "air", 3u) )
-                                    {
-                                      if ( _strnicmp(v3, "wat", 3u) )
-                                      {
-                                        if ( _strnicmp(v3, "ear", 3u) )
-                                        {
-                                          if ( _strnicmp(v3, "spi", 3u) )
-                                          {
-                                            if ( _strnicmp(v3, "min", 3u) )
-                                            {
-                                              if ( _strnicmp(v3, "bod", 3u) )
-                                              {
-                                               if ( _strnicmp(v3, "lig", 3u) )
-                                                {
-                                                  if ( _strnicmp(v3, "dar", 3u) )
-                                                  {
-                                                    if ( _strnicmp(v3, "ele", 3u) )
-                                                    {
-                                                      if ( _strnicmp(v3, "sel", 3u) )
-                                                      {
-                                                        if ( _strnicmp(v3, "mir", 3u) )
-                                                        {
-                                                          v7 = -(_strnicmp(v3, "mer", 3u) != 0);
-                                                          LOBYTE(v7) = v7 & 0xEE;
-                                                          *(_WORD *)v0 = v7 + 18;
-                                                        }
-                                                        else
-                                                        {
-                                                          *(_WORD *)v0 = 16;
-                                                        }
-                                                      }
-                                                      else
-                                                      {
-                                                        *(_WORD *)v0 = 15;
-                                                      }
-                                                    }
-                                                    else
-                                                    {
-                                                      *(_WORD *)v0 = 14;
-                                                    }
-                                                  }
-                                                  else
-                                                  {
-                                                    *(_WORD *)v0 = 13;
-                                                  }
-                                                }
-                                                else
-                                                {
-                                                  *(_WORD *)v0 = 12;
-                                                }
-                                              }
-                                              else
-                                              {
-                                                *(_WORD *)v0 = 11;
-                                              }
-                                            }
-                                            else
-                                            {
-                                              *(_WORD *)v0 = 10;
-                                            }
-                                          }
-                                          else
-                                          {
-                                            *(_WORD *)v0 = 9;
-                                          }
-                                        }
-                                        else
-                                        {
-                                          *(_WORD *)v0 = 8;
-                                        }
-                                      }
-                                      else
-                                      {
-                                        *(_WORD *)v0 = 7;
-                                      }
-                                    }
-                                    else
-                                    {
-                                      *(_WORD *)v0 = 6;
-                                    }
-                                  }
-                                  else
-                                  {
-                                    *(_WORD *)v0 = 5;
-                                  }
-                                }
-                                else
-                                {
-                                  *(_WORD *)v0 = 22;
-                                }
-                              }
-                              else
-                              {
-                                *(_WORD *)v0 = 21;
-                              }
-                            }
-                            else
-                            {
-                              *(_WORD *)v0 = 17;
-                            }
-                          }
-                          else
-                          {
-                            *(_WORD *)v0 = 30;
-                          }
-                        }
-                        else
-                        {
-                          *(_WORD *)v0 = 23;
-                        }
-                      }
-                      else
-                      {
-                        *(_WORD *)v0 = 28;
-                      }
-                    }
-                    else
-                    {
-                      *(_WORD *)v0 = 27;
-                    }
-                  }
-                  else
-                  {
-                    *(_WORD *)v0 = 4;
-                  }
-                }
-                else
-                {
-                  *(_WORD *)v0 = 3;
-                }
-              }
-              else
-              {
-                *(_WORD *)v0 = 2;
-              }
-            }
+            if (!_strnicmp(v3, "wea", 3))
+              pEvent->uEventType = 1;
+            else if (!_strnicmp(v3, "arm", 3))
+              pEvent->uEventType = 2;
+            else if (!_strnicmp(v3, "mag", 3))
+              pEvent->uEventType = 3;
+            else if (!_strnicmp(v3, "alc", 3))
+              pEvent->uEventType = 4;
+            else if (!_strnicmp(v3, "sta", 3))
+              pEvent->uEventType = 27;
+            else if (!_strnicmp(v3, "boa", 3))
+              pEvent->uEventType = 28;
+            else if (!_strnicmp(v3, "tem", 3))
+              pEvent->uEventType = 23;
+            else if (!_strnicmp(v3, "tra", 3))
+              pEvent->uEventType = 30;
+            else if (!_strnicmp(v3, "tow", 3))
+              pEvent->uEventType = 17;
+            else if (!_strnicmp(v3, "tav", 3))
+              pEvent->uEventType = 21;
+            else if (!_strnicmp(v3, "ban", 3))
+              pEvent->uEventType = 22;
+            else if (!_strnicmp(v3, "fir", 3))
+              pEvent->uEventType = 5;
+            else if (!_strnicmp(v3, "air", 3))
+              pEvent->uEventType = 6;
+            else if (!_strnicmp(v3, "wat", 3))
+              pEvent->uEventType = 7;
+            else if (!_strnicmp(v3, "ear", 3))
+              pEvent->uEventType = 8;
+            else if (!_strnicmp(v3, "spi", 3))
+              pEvent->uEventType = 9;
+            else if (!_strnicmp(v3, "min", 3))
+              pEvent->uEventType = 10;
+            else if (!_strnicmp(v3, "bod", 3))
+              pEvent->uEventType = 11;
+            else if (!_strnicmp(v3, "lig", 3))
+              pEvent->uEventType = 12;
+            else if (!_strnicmp(v3, "dar", 3))
+              pEvent->uEventType = 13;
+            else if (!_strnicmp(v3, "ele", 3))
+              pEvent->uEventType = 14;
+            else if (!_strnicmp(v3, "sel", 3))
+              pEvent->uEventType = 15;
+            else if (!_strnicmp(v3, "mir", 3))
+              pEvent->uEventType = 16;
             else
             {
-              *(_WORD *)v0 = 1;
+             v7 = -(_strnicmp(v3, "mer", 3u) != 0);
+             LOBYTE(v7) = v7 & 0xEE;
+             pEvent->uEventType = v7 + 18;
             }
             break;
-          case 2:
-            *(_WORD *)(v0 + 2) = atoi(v3);
-            break;
-          case 3:
-            *(_DWORD *)(v0 + 4) = (int)RemoveQuote(v3);
-            break;
-          case 4:
-            *(_DWORD *)(v0 + 8) = (int)RemoveQuote(v3);
-            break;
-          case 5:
-            *(_DWORD *)(v0 + 16) = (int)RemoveQuote(v3);
-            break;
-          case 6:
-            *(_WORD *)(v0 + 20) = atoi(v3);
-            break;
-          case 7:
-            *(_WORD *)(v0 + 22) = atoi(v3);
-            break;
-          case 8:
-            *(_WORD *)(v0 + 24) = atoi(v3);
-            break;
-          case 9:
-            *(_WORD *)(v0 + 26) = atoi(v3);
-            break;
-          case 10:
-            *(float *)(v0 + 32) = atof(v3);
-            break;
-          case 11:
-            *(float *)(v0 + 36) = atof(v3);
-            break;
-          case 13:
-            *(_WORD *)(v0 + 28) = atoi(v3);
-            break;
-          case 16:
-            *(_WORD *)(v0 + 40) = atoi(v3);
-            break;
-          case 17:
-            *(_WORD *)(v0 + 42) = atoi(v3);
-            break;
-          case 18:
-            *(_WORD *)(v0 + 44) = atoi(v3);
-            break;
-          case 19:
-            *(_WORD *)(v0 + 46) = atoi(v3);
-            break;
-          case 20:
-            *(_WORD *)(v0 + 48) = atoi(v3);
-            break;
-          case 21:
-            *(_DWORD *)(v0 + 12) = (int)RemoveQuote(v3);
-            break;
+
+          case 2:  pEvent->uPicture = atoi(v3);                break;
+          case 3:  pEvent->pName = RemoveQuote(v3);            break;
+          case 4:  pEvent->pProprieterName = RemoveQuote(v3);  break;
+          case 5:  pEvent->pProprieterTitle = RemoveQuote(v3); break;
+          case 6:  pEvent->word_000014 = atoi(v3);             break;
+          case 7:  pEvent->word_000016 = atoi(v3);             break;
+          case 8:  pEvent->word_000018 = atoi(v3);             break;
+          case 9:  pEvent->word_00001A = atoi(v3);             break;
+          case 10: pEvent->fPriceMultiplier = atof(v3);        break;
+          case 11: pEvent->flt_000024 = atof(v3);              break;
+          case 13: pEvent->word_00001C = atoi(v3);             break;
+          case 16: pEvent->uOpenTime = atoi(v3);               break;
+          case 17: pEvent->uCloseTime = atoi(v3);              break;
+          case 18: pEvent->word_00002C = atoi(v3);             break;
+          case 19: pEvent->word_00002E = atoi(v3);             break;
+          case 20: pEvent->word_000030 = atoi(v3);             break;
+          case 21: pEvent->ptr_00000C = RemoveQuote(v3);       break;
           default:
             break;
         }
@@ -2995,8 +2851,9 @@ int __cdecl sub_443801()
       result = v2 + 1;
     }
     while ( v2 + 1 <= 23 && !v10 );
-    v0 += 52;
-    if ( v0 >= (signed int)&unk_597F10 )
+
+    pEvent++;
+    if (++i >= 525)
       return result;
   }
 }
@@ -3568,7 +3425,7 @@ LABEL_49:
         if ( !*v9 )
         {
           *v9 = 1;
-          sub_420C05((signed __int64)(*((float *)&unk_591458 + 13 * *(_DWORD *)(v8 + 28)) * 100.0), 0);
+          sub_420C05((signed __int64)(array_59146C[*(_DWORD *)(v8 + 28) - 1].fPriceMultiplier * 100.0), 0);
         }
       }
     }

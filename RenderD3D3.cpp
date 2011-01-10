@@ -1254,8 +1254,7 @@ void RenderSky()
     v47_d = (double)(pOldViewport->uGameZ - pOldViewport->uGameX) * 0.5;
     v44 = 65536 / (signed int)(v47_d / tan(0.64577174186706543) + 0.5);
 
-    runtime_warning(suddenly, started to loop);
-    return;
+
  for (i = 0; i < local_14.uNumVertices; ++i)
  {
       v40 = floorf(array_50AC10[i].vWorldViewProjY + 0.5f);
@@ -1280,6 +1279,7 @@ void RenderSky()
       v45 = -local_14.dword_000024;
       v43 = (signed __int64)v14;
       v11 = v44 * (v41 - v43);
+
       while ( 1 )
       {
         v51 = v11;
@@ -1301,6 +1301,7 @@ LABEL_12:
         v8 = local_14.dword_000018 + v16;
         v50 = local_14.dword_000018 + v16;
         v49 = local_14.dword_000018 + v16;
+        break; runtime_warning();
       }
       LODWORD(v18) = v45 << 16;
       HIDWORD(v18) = v45 >> 16;

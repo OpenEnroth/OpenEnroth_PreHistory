@@ -94,7 +94,7 @@ Result::Code VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
 
 
 //----- (004BE70E) --------------------------------------------------------
-Result::Code VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop)
+Result::Code VideoPlayer::PlayMovie(const char *pMovieName, Rect<unsigned int> cOutRegion, unsigned int bLoop)
 {
  if (OpenMovie(pMovieName))
    return Result::Generic;
@@ -111,9 +111,9 @@ Result::Code VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, 
  
  ShowCursor(false);
  if (pVideoPlayer->uMovieFormat == Video::Format::Bink)
-   BinkPlayMovie(uOutX, uOutY);
+   BinkPlayMovie(cOutRegion.x.min, cOutRegion.y.min);
  else if (pVideoPlayer->uMovieFormat == Video::Format::Smack)
-   SmackPlayMovie(uOutX, uOutY);
+   SmackPlayMovie(cOutRegion.x.min, cOutRegion.y.min);
 
  ShowCursor(true);
  bPlayingMovie = false;
@@ -974,7 +974,7 @@ int VideoPlayer::sub_4BF5B2()
         sub_4BD8B5();
         GUIWindowDelete(ptr_507BC0);
         pParty->dword_007778 &= 0xFFFFFFFDu;
-        result = sub_44622E(165);
+        result = sub_44622E_EnterHouse(165);
         if ( result )
         {
           pAudioPlayer->sub_4AA306(0, 0, 0, -1, 0, 0, 0, 0);

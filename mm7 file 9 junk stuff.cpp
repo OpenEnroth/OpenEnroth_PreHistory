@@ -3915,4 +3915,9 @@ LABEL_16:
   pWindowDims[3] = *(_DWORD *)(v13 + 12);
   return pWindowDims;
 }
+//----- (0044C28B) --------------------------------------------------------
+signed int __cdecl sub_44C28B()
+{
+  return 2;
+}
 */

@@ -3063,7 +3063,7 @@ LABEL_422:
   //strcpy(CurrentLevelName, (char *)pMapStats->pMapInfos[dword_5C35D0].pLocationFilename);
           dword_6BE364 |= 1;
           uGameState = 2;
-          v65 = word_591468[26 * (int)ptr_507BC0->dword_00001C];
+          v65 = array_59146C[(int)ptr_507BC0->dword_00001C - 1].word_000030;
           if ( v65 < 0 )
           {
             v66 = 4 * (abs(v65) - 1);
@@ -4953,7 +4953,7 @@ GUI::Window *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
 				  if ( v26 || !dword_591080 )
 					  v27 = *(_DWORD *)dword_5913D8[v26 - (dword_591080 != 0)];
 				  else
-					  v27 = dword_591440[13 * (int)a6];
+					  v27 = (int)array_59146C[(int)a6 - 1].pProprieterName;
 				  v30 = v27;
 				  v29 = (int)pGlobalTXT_LocalizationStrings[435];
 				  }
@@ -9567,7 +9567,7 @@ void __cdecl CharacterUI_SkillsTab_ShowHint()
 }
 
 //----- (004B3157) --------------------------------------------------------
-void __thiscall GUIWindow_sub_4B3157(const GUI::Window *_this)
+void __thiscall GUIWindow_sub_4B3157_DrawHouseDialogue(const GUI::Window *_this)
 {
   unsigned __int16 v1; // di@2
   const char *v2; // edx@4
@@ -9610,7 +9610,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUI::Window *_this)
     {
       v18 = 130;
       v19 = 2 * pFontCreate->uFontHeight;
-      v2 = (const char *)dword_59143C[13 * ptr_507BC0->dword_00001C];
+      v2 = (const char *)array_59146C[ptr_507BC0->dword_00001C - 1].pName;
       if ( v2 )
       {
         v3 = 2 * (pFontCreate->uFontHeight) - 6 - GUIFont_CalculateTextHeight(pFontCreate, (unsigned char *)v2, (GUI::Window *)&v17, 0, 0);
@@ -9621,7 +9621,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUI::Window *_this)
           490,
           v3 / 2 + 4,
           v1,
-          (const char *)dword_59143C[13 * ptr_507BC0->dword_00001C],
+          (const char *)array_59146C[ptr_507BC0->dword_00001C - 1].pName,
           3);
       }
     }
@@ -9634,7 +9634,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUI::Window *_this)
         pD3DRenderer,
         uDialogueUIIconsOffsetX - 4,
         uDialogueUIIconsOffsetY - 4,
-        (cTexture *)(dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0));
+        &LODFile_Icons_LOD.aLODHeaders[dword_50795C_TextureID]);
       Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_NPCPortrait[v4]]);
       if ( dword_4E28F8_PartyCantJumpIfTrue == 14 )
       {
@@ -9649,8 +9649,8 @@ void __thiscall GUIWindow_sub_4B3157(const GUI::Window *_this)
       {
         wsprintfA((char *)TmpBuf,
           (char *)pGlobalTXT_LocalizationStrings[429],
-          dword_591440[13 * (int)ptr_507BC0->dword_00001C],
-          dword_591448[13 * (int)ptr_507BC0->dword_00001C]);
+          array_59146C[(int)ptr_507BC0->dword_00001C - 1].pProprieterName,
+          array_59146C[(int)ptr_507BC0->dword_00001C - 1].pProprieterTitle);
         GUIWindow_DrawText(&local_60, pFontCreate, 483, 113, v24[0], (char *)TmpBuf, 3);
         if ( dword_F8B198 <= 18 )
         {
@@ -9792,7 +9792,7 @@ LABEL_57:
       if ( !v8 && dword_591080 )
       {
         v15 = 3;
-        v13 = dword_591448[13 * (int)ptr_507BC0->dword_00001C];
+        v13 = (int)array_59146C[(int)ptr_507BC0->dword_00001C - 1].pProprieterTitle;
         v11 = v24[0];
         v10 = 113;
 LABEL_56:
@@ -10289,7 +10289,7 @@ LABEL_110:
           }
           continue;
         }
-        GUIWindow_sub_4B3157(&GUIWindow_List[array_5075E0[i] - 1]);
+        GUIWindow_sub_4B3157_DrawHouseDialogue(&GUIWindow_List[array_5075E0[i] - 1]);
         if ( !ptr_507BC0)
           continue;
         v10 = (int)ptr_507BC0->dword_00001C;

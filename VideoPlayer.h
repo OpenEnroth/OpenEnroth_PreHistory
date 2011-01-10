@@ -35,7 +35,7 @@ class VideoPlayer
    }
    
    Result::Code Initialize(OSWindow *pWindow, BaseRender *pRender, AudioPlayer *pAudioPlayer);
-   Result::Code PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop);
+   Result::Code PlayMovie(const char *pMovieName, Rect<unsigned int> cOutputRegion, unsigned int bLoop);
    Result::Code StopMovie();
 
  protected:

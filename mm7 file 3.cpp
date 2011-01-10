@@ -5639,7 +5639,7 @@ LABEL_6:
          + ((pLevelEVT[v4 + 6]
            + ((pLevelEVT[v4 + 7] + ((unsigned int)pLevelEVT[v4 + 8] << 8)) << 8)) << 8);
 LABEL_10:
-      result = (char *)dword_59143C[13 * v6];
+      result = (char *)array_59146C[v6 - 1].pName;
     }
     else
     {
@@ -5683,7 +5683,6 @@ int __fastcall sub_444839(int a1, int a2, int a3, int a4, int a5, int a6, int a7
 {
   int v9; // ebx@1
   int v10; // edi@1
-  signed int v11; // eax@1
   int v12; // eax@6
   const char *v13; // ST0C_4@6
   signed int v14; // eax@8
@@ -5710,8 +5709,8 @@ int __fastcall sub_444839(int a1, int a2, int a3, int a4, int a5, int a6, int a7
   dword_591160 = v9;
   cEventTimer.Pause();
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
-  v11 = sub_44C28B();
-  wsprintfA(Str1, "evt%02d", v11);
+
+  wsprintfA(Str1, "evt%02d", 2);
   if ( pParty->uAlignment )
   {
     if ( pParty->uAlignment != 2 )
@@ -5731,7 +5730,7 @@ LABEL_6:
   if ( v9 )
   {
     if ( !v23 )
-      pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * word_59143A[26 * v9]), 1);
+      pVideoPlayer->sub_4BF28F(off_4E5F70[4 * array_59146C[v9 - 1].uPicture], 1);
   }
   else
   {
@@ -5779,7 +5778,7 @@ LABEL_19:
   strcpy(byte_591098, v21);
 LABEL_20:
   pDialogueWindow = GUIWindowCreate(0, 0, 640, 480, 26, 0, (int)byte_591098);
-  if ( byte_4E5F7D[16 * word_59143A[26 * v9]] )
+  if ( off_4E5F70[4 * array_59146C[v9 - 1].uPicture + 3] & 0xFF00)
     sub_4B1E92(v9, 1);
   if ( uCurrentlyLoadedLevelType == 1 )
   {
@@ -5882,15 +5881,13 @@ LABEL_12:
 //----- (00444C8F) --------------------------------------------------------
 int __cdecl sub_444C8F()
 {
-  signed int v0; // eax@1
   signed int v1; // eax@6
   int result; // eax@9
   const char *v3; // [sp-4h] [bp-2Ch]@2
   char Str1[40]; // [sp+0h] [bp-28h]@1
 
   cEventTimer.Pause();
-  v0 = sub_44C28B();
-  wsprintfA(Str1, "evt%02d", v0);
+  wsprintfA(Str1, "evt%02d", 2);
   if ( pParty->uAlignment )
   {
     if ( pParty->uAlignment != 2 )
@@ -6787,7 +6784,6 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
   char *v3; // ebp@1
   int v4; // esi@1
  struct NPCData *v6;
-  signed int v7; // eax@3
   int v8; // esi@8
   int v10; // eax@11
   int v11; // ecx@19
@@ -6814,10 +6810,10 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
   v2 = v6->dword_000008;
   if ( (v2 & 3) != 2 )
     v6->dword_000008 = v2 + 1;
-  v7 = sub_44C28B();
+
  #ifndef OLD_CODE
   wchar_t Str1[128]; // [sp+14h] [bp-28h]@3
-	  wsprintfW(Str1, L"evt%02d", v7);
+	  wsprintfW(Str1, L"evt%02d", 2);
  if (pParty->uAlignment == 0)
    lstrcatW(Str1, L"-b");
  else if (pParty->uAlignment == 2)
@@ -6951,7 +6947,6 @@ void __cdecl sub_44603D()
 //----- (0044606A) --------------------------------------------------------
 int __fastcall sub_44606A(int a1)
 {
-  int v1; // ebx@1
   int v2; // edi@1
   signed int v3; // esi@1
   __int16 v4; // ax@2
@@ -6965,24 +6960,21 @@ int __fastcall sub_44606A(int a1)
   char Str1[32]; // [sp+Ch] [bp-54h]@16
   int v13; // [sp+30h] [bp-30h]@11
   int Dst[6]; // [sp+34h] [bp-2Ch]@1
-  int v15; // [sp+4Ch] [bp-14h]@1
+  //int v15; // [sp+4Ch] [bp-14h]@1
   int v16; // [sp+50h] [bp-10h]@1
   int v17; // [sp+54h] [bp-Ch]@3
-  int v18; // [sp+58h] [bp-8h]@1
+  //int v18; // [sp+58h] [bp-8h]@1
   int v19; // [sp+5Ch] [bp-4h]@7
 
-  v15 = a1;
-  v1 = 52 * a1;
-  v16 = word_59143A[26 * a1];
+  v16 = array_59146C[a1 - 1].uPicture;
   v3 = 0;
-  v18 = 52 * a1;
   memset(Dst, 0, 0x18u);
-  v2 = *(__int16 *)((char *)&word_591464 + v1);
+  v2 = array_59146C[a1 - 1].word_00002C;
   dword_591424 = 0;
   dword_5C35D0 = v2;
   if ( v2 )
   {
-    v4 = *(__int16 *)((char *)word_591468 + v1);
+    v4 = array_59146C[a1 - 1].word_000030;
     if ( v4 > 0 )
     {
       v17 = v4 - 1;
@@ -6993,7 +6985,7 @@ int __fastcall sub_44606A(int a1)
       }
     }
   }
-  dword_591080 = dword_4E5F78[4 * v16];
+  dword_591080 = off_4E5F70[4 * v16 + 2];
   result = dword_591080;
   if ( dword_591080 )
   {
@@ -7008,7 +7000,7 @@ int __fastcall sub_44606A(int a1)
     v17 = (int)&unk_72D6E0;
     do
     {
-      if ( *(_DWORD *)(v6 + 12) == v15 )
+      if ( *(_DWORD *)(v6 + 12) == a1 )
       {
         if ( !(*(_BYTE *)v6 & 0x80) )
         {
@@ -7016,7 +7008,6 @@ int __fastcall sub_44606A(int a1)
           dword_5913D8[v7] = v6 - 8;
           v6 = v17;
           *(&v13 + v3) = *(_DWORD *)(v17 - 4);
-          v1 = v18;
           if ( (*(_DWORD *)v6 & 3) != 2 )
             ++*(_DWORD *)v6;
         }
@@ -7048,18 +7039,18 @@ int __fastcall sub_44606A(int a1)
     v10 = LODFile_Icons_LOD.LODFile_LoadTexture(off_4E6BB0[v2], 2);
     v11 = dword_591424++;
     uTextureID_Dialogue_NPCPortrait[v11] = v10;
-    result = *(__int16 *)((char *)&word_591466 + v1);
-    dword_5C35D0 = *(__int16 *)((char *)&word_591466 + v1);
+    result = array_59146C[a1 - 1].word_00002E;
+    dword_5C35D0 = array_59146C[a1 - 1].word_00002E;
   }
   return result;
 }
 
 //----- (0044622E) --------------------------------------------------------
-int __fastcall sub_44622E(int a1)
+int __fastcall sub_44622E_EnterHouse(int a1)
 {
-  int v1; // edi@1
+  //int v1; // edi@1
   int v2; // edx@5
-  int v3; // edi@5
+  //int v3; // edi@5
   int v4; // esi@5
   int v5; // eax@5
   int v6; // esi@5
@@ -7071,63 +7062,57 @@ int __fastcall sub_44622E(int a1)
   void *v12; // esi@27
   unsigned __int8 v13; // cf@27
   int v14; // eax@27
-  signed int v16; // eax@34
   int v17; // edi@39
   int v18; // eax@39
   int v19; // ecx@43
   signed int v20; // edi@43
   const char *v22; // [sp-4h] [bp-40h]@35
-  char Str1; // [sp+Ch] [bp-30h]@34
-  unsigned int v24; // [sp+34h] [bp-8h]@5
-  int v25; // [sp+38h] [bp-4h]@1
+  char Str1[48]; // [sp+Ch] [bp-30h]@34
+  //unsigned int v24; // [sp+34h] [bp-8h]@5
+  //int v25; // [sp+38h] [bp-4h]@1
  int i;
 
-  v1 = a1;
-  v25 = a1;
   byte_5C3428[0] = 0;
   pStatusBarString[0] = 0;
   sub_44C175("", 2);
- // if ( dword_50CBD0.msg_count )
-	//		   if  (dword_50CBD0.prm[0].msg_param3)
-      //                    dword_50CBD0.msg_count = 1;
+
   dword_50CBD0.CutQueueTail();
   struct_576FE8.dword_000044 = 1;
   uDialogueType = 0;
   pUserInput->sub_459ED1(3);
   pUserInput->ResetKeyboard();
-  if ( v1 == 600 || v1 == 601 )
+  if ( a1 == 600 || a1 == 601 )
   {
     sub_4BF91E_GameOverMenu(0);
     return 0;
   }
-  v3 = 52 * v1;
-  v5 = *(__int16 *)((char *)&word_591460 + v3);
-  v6 = *(__int16 *)((char *)&word_591462 + v3);
+
+  v5 = array_59146C[a1 - 1].uOpenTime;
+  v6 = array_59146C[a1 - 1].uCloseTime;
   dword_F8B1E8 = 0;
-  v24 = v5;
   v4 = v6 - 1;
   dword_F8B1E4 = 0;
   dword_F8B1F4 = 0;
   memset(&unk_F8B1F0, 0, 4u);
   memset(&unk_F8B148, 0, 0x10u);
   Render_ClearZBuffer(pD3DRenderer, 0, 479);
-  v2 = v24;
-  if ( v4 <= (signed int)v24 )
+  v2 = v5;
+  if ( v4 <= v5 )
   {
-    if ( pParty->uCurrentHour >= v24 )
+    if ( pParty->uCurrentHour >= v5 )
       goto LABEL_16;
   }
   else
   {
-    if ( pParty->uCurrentHour < v24 )
+    if ( pParty->uCurrentHour < v5 )
     {
 LABEL_10:
       v8 = 0;
       v7 = 0;
       v9 = v4 + 1;
-      if ( (signed int)v24 > 12 )
+      if (v5 > 12 )
       {
-        v2 = v24 - 12;
+        v2 = v5 - 12;
         v8 = 1;
       }
       if ( v9 > 12 )
@@ -7145,32 +7130,32 @@ LABEL_10:
   if ( pParty->uCurrentHour > (unsigned int)v4 )
     goto LABEL_10;
 LABEL_16:
-  v10 = v25;
-  if ( v25 >= 53 )
+  v10 = a1;
+  if ( a1 >= 53 )
     goto LABEL_23;
-  v11 = pParty->Abc.array_000334[2 * v25 + 1];
-  if ( !(v11 | pParty->Abc.array_000334[2 * v25])
+  v11 = pParty->Abc.array_000334[2 * a1 + 1];
+  if ( !(v11 | pParty->Abc.array_000334[2 * a1])
     || v11 < HIDWORD(pParty->qword_00002C)
-    || v11 <= HIDWORD(pParty->qword_00002C) && (unsigned int)pParty->Abc.array_000334[2 * v25] <= (_DWORD)pParty->qword_00002C )
+    || v11 <= HIDWORD(pParty->qword_00002C) && (unsigned int)pParty->Abc.array_000334[2 * a1] <= (_DWORD)pParty->qword_00002C )
   {
-    pParty->Abc.array_000334[2 * v25] = 0;
+    pParty->Abc.array_000334[2 * a1] = 0;
     pParty->Abc.array_000334[2 * v10 + 1] = 0;
 LABEL_23:
     if ( !dword_597F18 )
-      pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
-    dword_591160 = *(__int16 *)((char *)word_59143A + v3);
-    dword_F8B198 = (unsigned __int8)byte_4E5F7C[16 * dword_591160];
+      pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
+    dword_591160 = array_59146C[a1 - 1].uPicture;
+    dword_F8B198 = (unsigned __int8)off_4E5F70[4 * dword_591160 + 3];
     if ( dword_F8B198 == 20 )
     {
       if ( dword_AE31E0 )
       {
         dword_591160 = word_593A36;
-        v25 = 187;
+
         v13 = (_DWORD)pParty->qword_00002C >= 0xF89E0000u;
         LODWORD(pParty->qword_00002C) = pParty->qword_00002C + 123863040;
         //v12 = &unk_ACF4BC;
         v12 = &pParty->pPlayers[0].dword_001B38;
-        v14 = (unsigned __int8)byte_4E5F7C[16 * word_593A36];
+        v14 = (unsigned __int8)off_4E5F70[4 * word_593A36 + 3];
         HIDWORD(pParty->qword_00002C) += v13;
         dword_F8B198 = v14;
         do
@@ -7186,27 +7171,23 @@ LABEL_23:
         for (i = 0; i < 4; ++i)
           Player_sub_44A5CB((char *)&pParty->pPlayers[i], 12, 87);
 
-        v10 = v25;
+        v10 = 187;
       }
     }
     ++LODFile_Icons_LOD.uTexturePacksCount;
     if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
       LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
-    v16 = sub_44C28B();
-    wsprintfA(&Str1, "evt%02d", v16);
-    if ( pParty->uAlignment )
-    {
-      if ( pParty->uAlignment != 2 )
-        goto LABEL_39;
+
+    wsprintfA(Str1, "evt%02d", 2);
+    if ( pParty->uAlignment == 1)
+      v22 = "";
+    else if (pParty->uAlignment == 2)
       v22 = "-c";
-    }
     else
-    {
       v22 = "-b";
-    }
-    strcat(&Str1, v22);
-LABEL_39:
-    v18 = LODFile_Icons_LOD.LODFile_LoadTexture( &Str1, 2);
+    strcat(Str1, v22);
+
+    v18 = LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2);
     dword_5913F0 = 0;
     uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[v18];
     uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
@@ -7215,7 +7196,12 @@ LABEL_39:
     uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
     if ( dword_591424 == 1 )
       dword_5913F0 = 1;
-    pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
+
+    /*if (!bNoVideo)
+      pVideoPlayer->PlayMovie((char *)off_4E5F70[4 * dword_591160],
+                              Rect<unsigned int>(pOldViewport->uGameX, pOldViewport->uGameZ, pOldViewport->uGameY, pOldViewport->uGameW),
+                              true);*/
+      //pVideoPlayer->sub_4BF28F(off_4E5F70[4 * dword_591160], 1);
     if ( v10 < 139 || v10 > 172 )
     {
       if ( v10 >= 54 && v10 <= 73 && !sub_4B68EA(v10 - 54) )
@@ -7656,7 +7642,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             strcpy(&v147, &Str);
             v15 = (char *)RemoveQuote(&v147);
             //MoviePlayerLoop(v15, 0, v17, 1);
-            pVideoPlayer->PlayMovie(v15, 0, 0, false);
+            pVideoPlayer->PlayMovie(v15, Rect<unsigned int>(0, 640, 0, 480), false);
             if ( !_strcmpi(v15, "arbiter good") )
             {
               pParty->uAlignment = 0;
@@ -7687,7 +7673,7 @@ LABEL_28:
                 //pGameLoadingUI_ProgressBar->uProgressBarType = 1;
               }
               if ( v132 == 13 )
-                pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
+                pVideoPlayer->sub_4BF28F(off_4E5F70[4 * dword_591160], 1);
             }
             if (pAsyncMouse)
               CAsyncMouse_sub_46B105((void *)pAsyncMouse);
@@ -7840,7 +7826,7 @@ LABEL_47:
                 sub_4BD8B5();
                 GUIWindowDelete(ptr_507BC0);
                 pParty->dword_007778 &= 0xFFFFFFFDu;
-                if ( sub_44622E(170) )
+                if ( sub_44622E_EnterHouse(170) )
                 {
                   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
                   ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton *)170, 0);
@@ -7933,7 +7919,7 @@ LABEL_47:
                 GUIWindowDelete(ptr_507BC0);
                 pParty->dword_007778 &= 0xFFFFFFFDu;
                 dword_5C3420 = 1;
-                if ( sub_44622E(165) )
+                if ( sub_44622E_EnterHouse(165) )
                 {
                   pAudioPlayer->sub_4AA306(0, 0, 0, -1, 0, 0, 0, 0);
                   v50 = (int)GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton *)165, 0);
@@ -8678,7 +8664,7 @@ LABEL_280:
           case 2:
             v107 = *(_BYTE *)(v11 + 5)
                  + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
-            if ( sub_44622E(v107) )
+            if ( sub_44622E_EnterHouse(v107) )
             {
               if ( pD3DRenderer->pRenderD3D3 )
               {
@@ -12079,12 +12065,6 @@ int __cdecl sub_44C1D0()
   if ( !dword_5C35B8_Some_GetTickCount_timer )
     result = sub_44C175((char *)pGlobalTXT_LocalizationStrings[521], 2);
   return result;
-}
-
-//----- (0044C28B) --------------------------------------------------------
-signed int __cdecl sub_44C28B()
-{
-  return 2;
 }
 
 //----- (0044C28F) --------------------------------------------------------

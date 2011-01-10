@@ -124,7 +124,7 @@ void GUIWindow_sub_415551(GUI::Window *_this, int a2);
 int __thiscall GUIWindow_sub_41D08F(class GUI::Window *_this, int a2, int a3, int a4, int a5);
 void GUIWindow_sub_41D3B7(class GUI::Window *_this);
 void GUIWindow_sub_41D73D(int _this);
-void __thiscall GUIWindow_sub_4B3157(const GUI::Window *_this);
+void __thiscall GUIWindow_sub_4B3157_DrawHouseDialogue(const GUI::Window *_this);
 
 
 

@@ -1742,7 +1742,7 @@ LABEL_16:
   if ( *(_BYTE *)(a2 + 21) & 1 )
     return 6;
 LABEL_26:
-  v15 = (float *)((char *)&unk_591458 + 52 * a4);
+  v15 = &array_59146C[a4 - 1].fPriceMultiplier;
   v16 = *v15;
   v17 = ItemGen_sub_456442((ItemGen *)a2);
   v14 = Player_sub_4B8142((Player *)v27, v17, v16);
@@ -3215,7 +3215,7 @@ LABEL_46:
     {
       if ( v15 == 29 )
       {
-        v34 = *((float *)&unk_591458 + 13 * a4);
+        v34 = array_59146C[a4 - 1].fPriceMultiplier;
       }
       else
       {
@@ -3253,7 +3253,7 @@ LABEL_117:
         }
         if ( v16 + 10 * (unsigned __int8)*v17 == 553 )
         {
-          v37 = (float *)((char *)&unk_591458 + 52 * a4);
+          v37 = &array_59146C[a4 - 1].fPriceMultiplier;
           v38 = *v37;
           v39 = ItemGen_sub_456442((ItemGen *)v12);
           v26 = sub_4B8233(v39, v38);
@@ -3290,7 +3290,7 @@ LABEL_108:
             wsprintfA(Dest, "%lu", v51);
             goto LABEL_117;
           }
-          v13 = dword_591448[13 * a4];
+          v13 = (int)array_59146C[(int)ptr_507BC0->dword_00001C - 1].pProprieterTitle;
 LABEL_118:
           strcat((char *)pStringBuffer, (const char *)v13);
           v10 = strlen((char *)pStringBuffer);
@@ -3298,7 +3298,7 @@ LABEL_118:
           v11 = v70;
           goto LABEL_119;
         }
-        v27 = (char *)&unk_591458 + 52 * a4;
+        v27 = (char *)&array_59146C[a4 - 1].fPriceMultiplier;
         v28 = *(float *)v27;
         v29 = ItemGen_sub_456442((ItemGen *)v12);
         v26 = Player_sub_4B8142((Player *)v8, v29, v28);
@@ -4131,6 +4131,7 @@ LABEL_10:
   }
   else if (_this->uPolygonType == 4 || _this->uPolygonType == 6)
   {
+   compile_error(parse);
     if ( abs(*(_DWORD *)(_this + 24)) < 46441 )
     {
       v8 = (double)-*(_DWORD *)(_this + 20);

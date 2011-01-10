@@ -1321,9 +1321,9 @@ bool new_RayFaceIntersect(Vis_stru0 *pRayOrigin, Vis_stru0 *pRayEnd, float *pDep
   float y_resolution = (pOldViewport->uGameZ - pOldViewport->uGameX) / 2;
   float y_rot = pt.x - y_resolution;
 
-  // fov = 75 degree  so pt.x = GameZ => +75.0 deg,        +/- 37.5 actually but it seems 75 works more stable
-  //                     pt.x = GameX => -75.0 deg
-  float y_angle = y_rot / y_resolution * (3.1415926535f * 75.0f / 360.0f);
+  // fov = 75 degree  so pt.x = GameZ => +80.0 deg,        +/- 37.5 actually but 80 is the most stable
+  //                     pt.x = GameX => -80.0 deg
+  float y_angle = y_rot / y_resolution * (3.1415926535f * 80.0f / 360.0f);
 
   Vec3<float> vRayO = pParty->vPosition;
   vRayO.z += pParty->uEyelevel;

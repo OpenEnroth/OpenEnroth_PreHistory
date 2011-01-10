@@ -2478,6 +2478,8 @@ void __fastcall sub_4B0A25(unsigned int uNumFaces, struct class26_placeholder *a
   if (!uNumFaces)
     return;
 
+  compile_error(parse);
+
   if (uNumFaces >= pIndoor->uNumFaces)
     return;
 
@@ -3438,8 +3440,8 @@ LABEL_18:
 //----- (004B1E92) --------------------------------------------------------
 void __fastcall sub_4B1E92(int a1, int a2)
 {
-  if ( byte_4E5F7D[16 * word_59143A[26 * a1]] )
-    pAudioPlayer->sub_4AA306(a2 + 100 * ((unsigned __int8)byte_4E5F7D[16 * word_59143A[26 * a1]] + 300),
+  if ( off_4E5F70[4 * array_59146C[a1 - 1].uPicture + 3] & 0xFF00)
+    pAudioPlayer->sub_4AA306(a2 + 100 * ((unsigned __int8)(off_4E5F70[4 * array_59146C[a1 - 1].uPicture + 3] >> 8) + 300),
       806,
       0,
       -1,
@@ -3447,6 +3449,7 @@ void __fastcall sub_4B1E92(int a1, int a2)
       0,
       0,
       0);
+
 }
 
 //----- (004B1ECE) --------------------------------------------------------
@@ -5640,7 +5643,7 @@ void __cdecl sub_4B4710()
       v12 = (double)(signed int)i;
       i = 0;
       v74 = v9;
-      v11 = (signed __int64)(v12 * *((float *)&unk_591458 + 13 * v6) * (double)v9);
+      v11 = (signed __int64)(v12 * array_59146C[v6 - 1].fPriceMultiplier * (double)v9);
       v10 = v11 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
       if ( v10 < v11 / 3 )
         v10 = v11 / 3;
@@ -5662,7 +5665,7 @@ void __cdecl sub_4B4710()
           {
             i = 0;
             v14 = (int)pDialogueWindow;
-            v15 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
+            v15 = (signed __int64)(array_59146C[ptr_507BC0->dword_00001C - 1].flt_000024 * 500.0);
             v78 = v15 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
             if ( v78 < v15 / 3 )
               v78 = v15 / 3;
@@ -6163,7 +6166,7 @@ signed int __cdecl sub_4B4FCF()
           v3 = 0;
           v33 = ptr_507BC0->dword_00001C;
           v121 = 0;
-          v32 = (signed __int64)(*((float *)&unk_59145C + 13 * v33) * 500.0);
+          v32 = (signed __int64)(array_59146C[v33 - 1].flt_000024 * 500.0);
           v122 = v32 * (100 - Player_sub_4911F3((Player *)v123)) / 100;
           if ( v122 < v32 / 3 )
             v122 = v32 / 3;
@@ -6723,7 +6726,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
   local_274.uFrameZ = 334;
   *(_DWORD *)v56 = 0xFFFFFF;
   *(_DWORD *)v57 = 0xFFFF9B;
-  v0 = (signed __int64)(*((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)) * 500.0);
+  v0 = (signed __int64)(array_59146C[*(_DWORD *)(v2 + 28) - 1].fPriceMultiplier * 500.0);
   v63 = v0 * (100 - Player_sub_4911F3((Player *)v1)) / 100;
   if ( v63 < v0 / 3 )
     v63 = v0 / 3;
@@ -7031,7 +7034,8 @@ void __cdecl sub_4B6478()
   v32 = 0xFFFFFFFF;
   *(_DWORD *)v33 = 0xFFFFFF9B;
   v4 = 52 * *(_DWORD *)(v3 + 28);
-  v34 = (((*(__int16 *)((char *)word_591438 + v4) != 18) - 1) & 0x96) + 100;
+
+  v34 = (((array_59146C[v4 / 52 - 1].uEventType != 18) - 1) & 0x96) + 100;
   v2 = (signed __int64)((double)v34 * *(float *)(v4 + 5837912));
   v0 = v2 * (100 - Player_sub_4911F3((Player *)v1)) / 100;
   v34 = v0;
@@ -7322,7 +7326,7 @@ void sub_4B705E()
   HIDWORD(v60) = 0xFFFFFF;
   HIDWORD(v61) = 0xFFFF9B;
   v1 = (int)pPlayers[uActiveCharacter - 1];
-  v0 = Player_sub_4B807C(pPlayers[uActiveCharacter - 1], *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)));
+  v0 = Player_sub_4B807C(pPlayers[uActiveCharacter - 1], array_59146C[*(_DWORD *)(v2 + 28) - 1].fPriceMultiplier);
   HIDWORD(v62) = v0;
   if ( dword_F8B19C != 1 )
   {
@@ -7340,7 +7344,7 @@ void sub_4B705E()
             v63 = (int)pDialogueWindow;
             v5 = ptr_507BC0->dword_00001C;
             v68 = 0;
-            v67 = (signed __int64)(*((float *)&unk_59145C + 13 * v5) * 500.0);
+            v67 = (signed __int64)(array_59146C[v5 - 1].flt_000024 * 500.0);
             v6 = Player_sub_4911F3((Player *)v1);
             v66 = v67 * (100 - v6) / 100;
             if ( v66 < v67 / 3 )
@@ -7435,7 +7439,7 @@ LABEL_78:
         }
         return;
       }
-      v25 = *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C);
+      v25 = array_59146C[ptr_507BC0->dword_00001C - 1].fPriceMultiplier;
       v24 = 0;
       if ( pParty->uNumGold >= (unsigned int)(signed __int64)v25 )
       {
@@ -8182,9 +8186,9 @@ void __cdecl sub_4B8285()
   int v32; // eax@61
   int v33; // edi@64
   int v34; // esi@64
-  _DWORD v35; // eax@64
-  int v36; // ecx@64
-  _BYTE v37; // sf@64
+  //_DWORD v35; // eax@64
+  //int v36; // ecx@64
+  //_BYTE v37; // sf@64
   int v38; // eax@65
   int v39; // ecx@69
   int v40; // edx@69
@@ -8223,9 +8227,9 @@ void __cdecl sub_4B8285()
   const char *v73; // [sp-4h] [bp-278h]@93
   char *v74; // [sp-4h] [bp-278h]@99
   char Dest[100]; // [sp+Ch] [bp-268h]@55
-  char v76; // [sp+70h] [bp-204h]@59
-  char v77; // [sp+D4h] [bp-1A0h]@57
-  char v78; // [sp+138h] [bp-13Ch]@59
+  char v76[100]; // [sp+70h] [bp-204h]@59
+  char v77[100]; // [sp+D4h] [bp-1A0h]@57
+  char v78[100]; // [sp+138h] [bp-13Ch]@59
 
   GUI::Window local_19C;
   //char v79; // [sp+19Ch] [bp-D8h]@99
@@ -8259,8 +8263,8 @@ void __cdecl sub_4B8285()
   local_1F0.uFrameZ = 334;
   v86 = 0xFFFFFFFF;
   *(_DWORD *)v89 = 0xFFFFFF9B;
-  v4 = *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28));
-  *(float *)&v88 = *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28));
+  v4 = array_59146C[*(_DWORD *)(v2 + 28) - 1].fPriceMultiplier;
+  *(float *)&v88 = array_59146C[*(_DWORD *)(v2 + 28) - 1].fPriceMultiplier;
   *(float *)&v94 = v4 * v4;
   v1 = (signed __int64)(*(float *)&v94 * 0.1000000014901161);
   v0 = v1 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
@@ -8377,7 +8381,7 @@ LABEL_51:
           {
             v8 = (int)pDialogueWindow;
             v94 = 0;
-            v9 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
+            v9 = (signed __int64)(array_59146C[ptr_507BC0->dword_00001C - 1].flt_000024 * 500.0);
             v96 = v9 * (100 - Player_sub_4911F3((Player *)v90)) / 100;
             if ( v96 < v9 / 3 )
               v96 = v9 / 3;
@@ -8464,7 +8468,7 @@ LABEL_51:
           return;
         }
         *(_QWORD *)Str = (unsigned int)pParty->uNumFood;
-        if ( (double)(unsigned int)pParty->uNumFood >= *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C) )
+        if ( (double)(unsigned int)pParty->uNumFood >= array_59146C[ptr_507BC0->dword_00001C - 1].fPriceMultiplier)
         {
           sub_44C175((char *)pGlobalTXT_LocalizationStrings[140], 2);
           if ( uActiveCharacter )
@@ -8474,7 +8478,7 @@ LABEL_51:
         if ( pParty->uNumGold >= (unsigned int)v6 )
         {
           sub_492BB6(v6);
-          pParty->uNumFood = (signed __int64)*((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C);
+          pParty->uNumFood = (signed __int64)array_59146C[ptr_507BC0->dword_00001C - 1].fPriceMultiplier;
           sub_4B1E92(ptr_507BC0->dword_00001C, 3);
           v5 = 1;
 LABEL_43:
@@ -8505,22 +8509,22 @@ LABEL_43:
     v29 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 3 )
       v29 = v86;
-    wsprintfA(&v77, "\f%06x", v29);
+    wsprintfA(v77, "\f%06x", v29);
     wsprintfA((char *)pStringBuffer,
       (char *)pGlobalTXT_LocalizationStrings[86],
-      (signed __int64)*((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C),
+      (signed __int64)array_59146C[ptr_507BC0->dword_00001C - 1].fPriceMultiplier,
       v88);
-    strcat(&v77, (char *)pStringBuffer);
-    v93 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)&v77, &local_1F0, 0, 0);
-    strcat(&v77, "\n \n");
+    strcat(v77, (char *)pStringBuffer);
+    v93 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v77, &local_1F0, 0, 0);
+    strcat(v77, "\n \n");
     v30 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 4 )
       v30 = v86;
-    wsprintfA(&v78, "\f%06x", v30);
-    strcat(&v78, (char *)pGlobalTXT_LocalizationStrings[160]);
-    v87 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)&v78, &local_1F0, 0, 0);
-    strcat(&v78, "\n \n");
-    v76 = 0;
+    wsprintfA(v78, "\f%06x", v30);
+    strcat(v78, (char *)pGlobalTXT_LocalizationStrings[160]);
+    v87 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v78, &local_1F0, 0, 0);
+    strcat(v78, "\n \n");
+    v76[0] = 0;
     v92 = 0;
     v31 = ptr_507BC0->dword_00001C;
     if ( v31 >= 108 )
@@ -8530,24 +8534,24 @@ LABEL_43:
         v32 = *(_DWORD *)v89;
         if (pDialogueWindow->dword_00002C != 5 )
           v32 = v86;
-        wsprintfA(&v76, "\f%06x", v32);
-        strcat(&v76, (char *)pGlobalTXT_LocalizationStrings[611]);
-        v92 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)&v76, &local_1F0, 0, 0);
+        wsprintfA(v76, "\f%06x", v32);
+        strcat(v76, (char *)pGlobalTXT_LocalizationStrings[611]);
+        v92 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v76, &local_1F0, 0, 0);
       }
     }
     v33 = (int)pDialogueWindow;
     Str[1] = (char *)pDialogueWindow;
-    v35 = pDialogueWindow->dword_000038;
-    v36 = v35 + pDialogueWindow->dword_000028;
     v34 = pFontArrus->uFontHeight - 3;
-    v37 = -pDialogueWindow->dword_000028 < 0;
     v96 = pDialogueWindow->dword_000038;
     
-    compile_error();//if ( !(v37 ^ __SETO__(v35, v36)) )
-    if (1)
+    //v35 = pDialogueWindow->dword_000038;
+    //v37 = -pDialogueWindow->dword_000028 < 0;
+    //v36 = v35 + pDialogueWindow->dword_000028;
+    //if ( !(v37 ^ __SETO__(v35, v36)) )
+    if (pDialogueWindow->dword_000028 >= pDialogueWindow->dword_000038)
     {
 LABEL_75:
-      wsprintfA((char *)TmpBuf, "%s%s%s%s", &Dest, &v77, &v78, &v76);
+      wsprintfA((char *)TmpBuf, "%s%s%s%s", &Dest, v77, v78, v76);
       v72 = 3;
       v70 = (char *)TmpBuf;
       v68 = 0;
@@ -8696,7 +8700,7 @@ int __cdecl sub_4B8E3D()
   v0 = (int)ptr_507BC0;
   v1 = 0;
   v2 = ptr_507BC0->dword_00001C;
-  if ( byte_4F063C[word_591438[26 * ptr_507BC0->dword_00001C]] )
+  if ( byte_4F063C[array_59146C[ptr_507BC0->dword_00001C - 1].uEventType] )
   {
     while ( v2 > 14 )
     {
@@ -8736,7 +8740,7 @@ LABEL_13:
 LABEL_14:
       v2 = *(_DWORD *)(v0 + 28);
       ++v1;
-      if ( v1 >= (unsigned __int8)byte_4F063C[word_591438[26 * *(_DWORD *)(v0 + 28)]] )
+      if ( v1 >= (unsigned __int8)byte_4F063C[array_59146C[*(_DWORD *)(v0 + 28) - 1].uEventType] )
         goto LABEL_15;
     }
     v4 = 5 * v2;
@@ -8771,7 +8775,7 @@ int __cdecl sub_4B8F94()
   v1 = 0;
   v0 = (int)&ptr_507BC0->dword_00001C;
   v3 = ptr_507BC0->dword_00001C;
-  if ( byte_4F063C[word_591438[26 * ptr_507BC0->dword_00001C]] )
+  if ( byte_4F063C[array_59146C[ptr_507BC0->dword_00001C - 1].uEventType] )
   {
     while ( v3 > 14 )
     {
@@ -8814,7 +8818,7 @@ LABEL_13:
 LABEL_14:
       v3 = *(_DWORD *)v0;
       ++v1;
-      if ( v1 >= (unsigned __int8)byte_4F063C[word_591438[26 * *(_DWORD *)v0]] )
+      if ( v1 >= (unsigned __int8)byte_4F063C[array_59146C[*(_DWORD *)v0 - 1].uEventType] )
         goto LABEL_15;
     }
     v4 = 5 * v3;
@@ -9027,7 +9031,7 @@ int __cdecl sub_4B910F()
           v3 = 0;
           v32 = ptr_507BC0->dword_00001C;
           v110 = 0;
-          v31 = (signed __int64)(*((float *)&unk_59145C + 13 * v32) * 500.0);
+          v31 = (signed __int64)(array_59146C[v32 - 1].flt_000024 * 500.0);
           v112 = v31 * (100 - Player_sub_4911F3((Player *)v111)) / 100;
           if ( v112 < v31 / 3 )
             v112 = v31 / 3;
@@ -9980,7 +9984,7 @@ LABEL_44:
       v2 = 0;
       v5 = ptr_507BC0->dword_00001C;
       v115 = 0;
-      v4 = (signed __int64)(*((float *)&unk_59145C + 13 * v5) * 500.0);
+      v4 = (signed __int64)(array_59146C[v5 - 1].flt_000024 * 500.0);
       v114 = v4 * (100 - Player_sub_4911F3((Player *)v113)) / 100;
       if ( v114 < v4 / 3 )
         v114 = v4 / 3;
@@ -10379,7 +10383,7 @@ char __cdecl sub_4BA928()
         return v1;
       v150 = 0;
       v33 = (int)pDialogueWindow;
-      v34 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
+      v34 = (signed __int64)(array_59146C[ptr_507BC0->dword_00001C - 1].flt_000024 * 500.0);
       v148 = v34 * (100 - Player_sub_4911F3((Player *)v0)) / 100;
       if ( v148 < v34 / 3 )
         v148 = v34 / 3;
@@ -11765,12 +11769,12 @@ int __cdecl sub_4BC8D5()
   v1 = 0;
   do
   {
-    v4 = word_591438[26 * ptr_507BC0->dword_00001C];
+    v4 = array_59146C[ptr_507BC0->dword_00001C - 1].uEventType;
     if ( v4 < 5 )
       goto LABEL_12;
     if ( v4 <= 13 )
     {
-      v2 = rand() % word_4F0F30[v0] + 11 * word_591438[26 * ptr_507BC0->dword_00001C] + 345;
+      v2 = rand() % word_4F0F30[v0] + 11 * array_59146C[ptr_507BC0->dword_00001C - 1].uEventType + 345;
     }
     else
     {
@@ -12021,7 +12025,7 @@ LABEL_15:
             sub_4BC8D5();
             v37 = ptr_507BC0->dword_00001C;
             v38 = pParty->qword_00002C
-                + (signed __int64)((double)(11059200 * (signed int)word_591454[26 * ptr_507BC0->dword_00001C])
+             + (signed __int64)((double)(11059200 * (signed int)array_59146C[ptr_507BC0->dword_00001C - 1].word_00001C)
                                  * 0.03333333507180214);
             dword_ACCD94[2 * v37] = v38;
             dword_ACCD94[2 * v37 + 1] = HIDWORD(v38);
@@ -12294,7 +12298,7 @@ LABEL_200:
             if ( v61 <= 72 )
             {
               v42 = (int)pPlayers[uActiveCharacter - 1];
-              v43 = (signed __int64)(*((float *)&unk_59145C + 13 * *(_DWORD *)(v11 + 28)) * 500.0);
+              v43 = (signed __int64)(array_59146C[*(_DWORD *)(v11 + 28) - 1].flt_000024 * 500.0);
               v41 = v43 * (100 - Player_sub_4911F3(pPlayers[uActiveCharacter - 1])) / 100;
               if ( v41 < v43 / 3 )
                 v41 = v43 / 3;
@@ -12352,7 +12356,7 @@ LABEL_200:
       v48 = ptr_507BC0->dword_00001C;
       v4 = dword_F8B198;
       v49 = pParty->qword_00002C
-          + (signed __int64)((double)(11059200 * (signed int)word_591454[26 * ptr_507BC0->dword_00001C])
+       + (signed __int64)((double)(11059200 * (signed int)array_59146C[ptr_507BC0->dword_00001C - 1].word_00001C)
                            * 0.03333333507180214);
       pParty->Abc.array_00008C[2 * v48] = v49;
       pParty->Abc.array_00008C[2 * v48 + 1] = HIDWORD(v49);
@@ -12360,7 +12364,7 @@ LABEL_200:
   }
   v50 = *(_DWORD *)(v11 + 28);
   v52 = 0;
-  v51 = word_591438[26 * *(_DWORD *)(v11 + 28)];
+  v51 = array_59146C[*(_DWORD *)(v11 + 28) - 1].uEventType;
   if ( v61 == 2 )
   {
     if ( byte_4F063C[v51] )
@@ -12378,13 +12382,13 @@ LABEL_200:
         v50 = *(_DWORD *)(v11 + 28);
         ++v52;
       }
-      while ( v52 < (unsigned __int8)byte_4F063C[word_591438[26 * *(_DWORD *)(v11 + 28)]] );
+      while ( v52 < (unsigned __int8)byte_4F063C[array_59146C[*(_DWORD *)(v11 + 28) - 1].uEventType] );
     }
     if ( v4 == 1 )
     {
       v55 = *(_DWORD *)(v11 + 28);
       v56 = 0;
-      if ( byte_4F063C[word_591438[26 * *(_DWORD *)(v11 + 28)]] )
+      if ( byte_4F063C[array_59146C[*(_DWORD *)(v11 + 28) - 1].uEventType] )
       {
         do
         {
@@ -12396,7 +12400,7 @@ LABEL_200:
           v55 = *(_DWORD *)(v11 + 28);
           ++v56;
         }
-        while ( v56 < (unsigned __int8)byte_4F063C[word_591438[26 * *(_DWORD *)(v11 + 28)]] );
+        while ( v56 < (unsigned __int8)byte_4F063C[array_59146C[*(_DWORD *)(v11 + 28) - 1].uEventType] );
       }
     }
   }
@@ -12417,13 +12421,13 @@ LABEL_200:
         v50 = *(_DWORD *)(v11 + 28);
         ++v52;
       }
-      while ( v52 < (unsigned __int8)byte_4F063C[word_591438[26 * *(_DWORD *)(v11 + 28)]] );
+      while ( v52 < (unsigned __int8)byte_4F063C[array_59146C[*(_DWORD *)(v11 + 28) - 1].uEventType] );
     }
     if ( v4 == 1 )
     {
       v59 = *(_DWORD *)(v11 + 28);
       v60 = 0;
-      if ( byte_4F063C[word_591438[26 * *(_DWORD *)(v11 + 28)]] )
+      if ( byte_4F063C[array_59146C[*(_DWORD *)(v11 + 28) - 1].uEventType] )
       {
         do
         {
@@ -12435,7 +12439,7 @@ LABEL_200:
           v59 = *(_DWORD *)(v11 + 28);
           ++v60;
         }
-        while ( v60 < (unsigned __int8)byte_4F063C[word_591438[26 * *(_DWORD *)(v11 + 28)]] );
+        while ( v60 < (unsigned __int8)byte_4F063C[array_59146C[*(_DWORD *)(v11 + 28) - 1].uEventType] );
       }
     }
   }
@@ -12571,7 +12575,7 @@ bool __fastcall sub_4BDAAF(int a1, int a2)
   char v10; // sf@16
   unsigned __int8 v11; // of@16
 
-  v3 = word_591438[26 * a2];
+  v3 = array_59146C[a2 - 1].uEventType;
   v5 = *(_DWORD *)a1;
   v2 = 48 * *(_DWORD *)a1;
   v4 = pClass40->pItems[*(_DWORD *)a1 - 1].uEquipType;
@@ -12729,7 +12733,8 @@ void __cdecl sub_4BDB56()
     if ( dword_F8B19C <= 72 )
     {
       v45 = dword_F8B19C - 36;
-      v44 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
+      v44 = (signed __int64)(array_59146C[ptr_507BC0->dword_00001C - 1].flt_000024 * 500.0);
+
       v43 = v44 * (100 - Player_sub_4911F3((Player *)v0)) / 100;
       if ( v43 < v44 / 3 )
         v43 = v44 / 3;
@@ -12778,7 +12783,7 @@ LABEL_73:
       return;
     v20 = ptr_507BC0->dword_00001C;
     v19 = 36 * (v17 + 12 * v20) + 11341664;
-    v21 = *((float *)&unk_591458 + 13 * v20);
+    v21 = array_59146C[v20 - 1].fPriceMultiplier;
     v82 = v19;
     v22 = ItemGen_sub_456442((ItemGen *)v19);
     v23 = Player_sub_4B8142((Player *)v0, v22, v21);
@@ -12827,7 +12832,7 @@ LABEL_49:
       v82 = 4 * v31 + 11378852;
       v32 = 4 * v31 + 11378852;
     }
-    v34 = *((float *)&unk_591458 + 13 * v30);
+    v34 = array_59146C[v30 - 1].fPriceMultiplier;
     v35 = ItemGen_sub_456442((ItemGen *)v32);
     v81 = Player_sub_4B8142((Player *)v0, v35, v34);
     LOWORD(v36) = GetAsyncKeyState(VK_CONTROL);
@@ -12944,7 +12949,7 @@ LABEL_87:
         v11 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v80);
         if ( v11 )
         {
-          v81 = Player_sub_4B8179((Player *)v0, *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C));
+         v81 = Player_sub_4B8179((Player *)v0, array_59146C[ptr_507BC0->dword_00001C - 1].fPriceMultiplier);
           v12 = v0 + 36 * v11 + 496;
           if ( !(*(_BYTE *)(v12 + 20) & 1) )
           {
@@ -12988,7 +12993,7 @@ LABEL_30:
           if ( v2 )
           {
             v3 = v0 + 36 * v2 + 496;
-            v4 = *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C);
+            v4 = array_59146C[ptr_507BC0->dword_00001C - 1].fPriceMultiplier;
             v5 = ItemGen_sub_456442((ItemGen *)(v0 + 36 * v2 + 496));
             v6 = Player_sub_4B81C3((Player *)v0, v5, v4);
             v7 = (*(_BYTE *)(v3 + 20) & 2) == 0;
@@ -13048,7 +13053,8 @@ void __thiscall Player_sub_4BE2DD(Player *_this, int a2, int a3, int a4)
 
   v5 = _this;
   v6 = (int)((char *)_this + 36 * a3);
-  v7 = *((float *)&unk_591458 + 13 * a4);
+  v7 =array_59146C[a4 - 1].fPriceMultiplier;
+  
   v8 = ItemGen_sub_456442(&_this->pInventorySlots[a3]);
   v4 = Player_sub_4B8102(_this, v8, v7);
   if ( *(_BYTE *)(v6 + 552) & 2 )

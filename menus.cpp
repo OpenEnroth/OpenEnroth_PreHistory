@@ -1482,7 +1482,7 @@ void __cdecl sub_4B6943()
   *(_DWORD *)v68 = 0xFFFFFFFF;
   v67 = 0xFFFFFF9B;
   v4 = 52 * *(_DWORD *)(v2 + 28);
-  v70 = (((*(__int16 *)((char *)word_591438 + v4) != 27) - 1) & 0xFFFFFFE7) + 50;
+  v70 = (((array_59146C[v4/52 - 1].uPicture != 27) - 1) & 0xFFFFFFE7) + 50;
   v0 = (signed __int64)((double)v70 * *(float *)(v4 + 5837912));
   v76 = v0 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
   if ( v76 < v0 / 3 )
