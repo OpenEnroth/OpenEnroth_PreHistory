@@ -274,7 +274,18 @@ int dword_4E2C2C[8] = {9, 9, 9, 9, 9, 9, 9, 9}; // weak
  float flt_4E4A90[array_size_unknown]; // weak
  int dword_4E4C28 = 481; // X offset for paperdoll
  int dword_4E4C2C = 0; // Y offset for paperdoll
- int dword_4E4C30[32 * array_size_unknown]; // 32 element array
+ int dword_4E4C30[32 * array_size_unknown] = // 32 element array
+{
+ 0x80, 0xCD, 0x1E, 0x90, 0x58, 0x55, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0x00, 0x11, 0x68, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+
+ 0x83, 0xC9, 0x26, 0x9E, 0x62, 0x57, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0x00, 0x15, 0x64, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
  int dword_4E4E30[2 * array_size_unknown]; // 2 element array
  int dword_4E5050[8]; // weak
  int dword_4E5270[8]; // weak
@@ -590,11 +601,6 @@ unsigned int uHiredNPCsIconsOffsetsY[2] = // dword[2] @ MM7.exe::004EE074
  int dword_4F00DC = 0x5622;
  int dword_4F00E0 = 16; // weak
  int dword_4F00E4 = 2; // weak
-unsigned int array_4F031C[12] =
-{
- 0x00000000, 0x00000000, 0x00000000, 0x00000073, 0x0000002F, 0x0000002B, 0x00000026, 0x00000026,
- 0x00000026, 0x00000026, 0x00000026, 0x00000026
-};
  char *off_4F03B8; // idb
  __int16 word_4F03FE[array_size_unknown]; // weak
  __int16 word_4F0400[array_size_unknown]; // weak
@@ -1206,7 +1212,6 @@ struct NPCData *dword_50C9E0; // weak
 
 
 
-unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
  int dword_50FDFC; // weak
  int dword_50FE00; // weak
  int dword_50FE04; // weak
@@ -1541,12 +1546,11 @@ struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
 
  int global_dword_6A0CA8; // weak
  HWND dword_6A0CFC_hInsertCDWindow; // idb
- int dword_6A0D00; // weak
+//int dword_6A0D00; // depricated
 
-struct unnamed_6A0D14 array_6A0D14[4]; // struct[4] @ MM7.exe::006A0D14
-unsigned int          uCurrentMenuID;  // dword     @ MM7.exe::006A0D44
-
- int dword_6A0D48; // weak
+struct unnamed_6A0D14 array_6A0D14[4];   // struct[4] @ MM7.exe::006A0D14
+unsigned int          uCurrentMenuID;    // dword     @ MM7.exe::006A0D44
+unsigned int          uGameState = 0; // dword @ MM7.exe::006A0D48
 
 OutdoorLocation class51_6A0DA0_dwReserved;
 OutdoorLocation *pOutdoor = nullptr;//&class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved

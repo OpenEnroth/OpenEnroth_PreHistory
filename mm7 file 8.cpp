@@ -77,8 +77,6 @@ int __fastcall MenuLoop_CharacterCreation()
  
   Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
 
-  if (pAsyncMouse)
-    CAsyncMouse_sub_46B105((void *)pAsyncMouse);
 
   v3 = MENU_CREATEPARTY;
   pGUIWindow_CurrentMenu->dword_000040 = 0;
@@ -88,9 +86,6 @@ LABEL_27:
   {
     if (sub_466CA0() != MENU_CREATEPARTY)
       break;
-
-    if (pAsyncMouse)
-      CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
 
     GUICursor_GetMouseClickPos(pGame->pGUICursor, &v6, &v4);
 
@@ -111,7 +106,7 @@ LABEL_27:
                   dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
                   v7 = dword_50CBD0[0]++ + 1;
                 }  */
-				dword_50CBD0.PutMessageToQueue(v5->dword_00001C,v8,0);
+				dword_50CBD0.PutMessageToQueue(v5->dword_00001C, v8, 0);
        }
        v5 = v5->pNext;
       }
@@ -137,15 +132,15 @@ LABEL_27:
       sub_4156F0_UI_UpdateWindows();
       pD3DRenderer->EndScene();
       pD3DRenderer->Present();
-      if ( dword_6A0D48 == 1 )
+      if ( uGameState == 1 )
       {
         v28 = 1;
         v3 = MENU_MAIN;
         goto LABEL_27;
       }
-      if ( dword_6A0D48 == 6 )
+      if ( uGameState == 6 )
       {
-        dword_6A0D48 = 0;
+        uGameState = 0;
         v3 = MENU_NEWGAME;
         goto LABEL_27;
       }
@@ -1126,74 +1121,6 @@ void __cdecl InitializeQuests()
   while (v6 < 0x800);
 }
 
-//----- (004AC1C9) --------------------------------------------------------
-long *sub_4AC1C9(int a5, long *pWindowDims)
-{
-  signed int v7; // ebx@1
-  unsigned __int16 v8; // di@1
-  int v11; // ecx@3
-  int v12; // eax@10
-  char *v13; // esi@14
-  char v16[16]; // [sp+Ch] [bp-34h]@10
-  int v17; // [sp+1Ch] [bp-24h]@14
-  int v18; // [sp+20h] [bp-20h]@14
-  int v19; // [sp+24h] [bp-1Ch]@14
-  int v20; // [sp+28h] [bp-18h]@14
-  char Dst[16]; // [sp+2Ch] [bp-14h]@1
-  int v22; // [sp+3Ch] [bp-4h]@1
-
- bNotIntelCPU = false;
- v8 = sub_43847A();
- v22 = sub_4383ED();
- v7 = 0;
- memset(Dst, 0, 0x10u);
-  if ( (signed __int16)v8 < 0 )
-	goto LABEL_19;
-  if ( a5 > 0 )
-  {
-	if ( a5 > 150 )
-	{
-	  v11 = (int)pWindowDims;
-    }
-    else
-    {
-      v11 = 4000 * a5;
-      v7 = 1;
-    }
-  }
-  else
-  {
-    v11 = 4000 * array_4F031C[v8];
-  }
-  if ( v22 & 0x10 && !v7 )
-  {
-    if ( a5 )
-      v12 = sub_4AC4FD((int)v16);
-    else
-      v12 = sub_4AC33A((int)v16);
-    goto LABEL_14;
-  }
-  if ( v8 < 3u )
-  {
-LABEL_19:
-    v13 = (char *)(*(int *)Dst);
-    goto LABEL_16;
-  }
-  v12 = sub_4AC277((void *)v11, (int)v16);
-LABEL_14:
-  v17 = *(_DWORD *)v12;
-  v18 = *(_DWORD *)(v12 + 4);
-  v19 = *(_DWORD *)(v12 + 8);
-  v20 = *(_DWORD *)(v12 + 12);
-  v13 = (char *)&v17;
-LABEL_16:
-
-  pWindowDims[0] = *(_DWORD *)(v13 + 0);
-  pWindowDims[1] = *(_DWORD *)(v13 + 4);
-  pWindowDims[2] = *(_DWORD *)(v13 + 8);
-  pWindowDims[3] = *(_DWORD *)(v13 + 12);
-  return pWindowDims;
-}
 
 //----- (0047AF11) --------------------------------------------------------
 void sub_47AF11_PrepareItemsRenderList_ODM()
@@ -4097,10 +4024,9 @@ void Game_Deinitialize()
 {
   struct tagRECT Rect; // [sp+0h] [bp-10h]@6
 
-  if (pAsyncMouse)
+  /*if (pAsyncMouse)
     CAsyncMouse_suspend(pAsyncMouse);
-
-  /*if ( *(_BYTE *)(&pGame->Win32Keyboard_obj->dword_000004) )
+  if ( *(_BYTE *)(&pGame->Win32Keyboard_obj->dword_000004) )
   {
     if (pAsyncKeyboard)
       CAsyncKeyboard_suspend(pAsyncKeyboard);
@@ -4124,8 +4050,7 @@ void Game_Deinitialize()
   if (pGame->pGUICursor)
     GUICursor_sub_469CC2(pGame->pGUICursor);
   AudioPlayer_sub_4ABD5B((int)pAudioPlayer);
-  //sub_461A11(LODFile_New_LOD);
-  //sub_461A11(LODFile_Games_LOD);
+
   ClipCursor(0);
   Game_Destroy();
 }
@@ -5632,7 +5557,7 @@ LABEL_137:
     if ( dword_4E28F8_PartyCantJumpIfTrue != 5 )
     {
       if ( !v48 || dword_5C35C0 )
-        dword_6A0D48 = 8;
+        uGameState = 8;
     }
   }
 

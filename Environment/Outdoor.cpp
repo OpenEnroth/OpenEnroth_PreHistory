@@ -832,9 +832,9 @@ LABEL_120:
   pTileTable->pTiles[202].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrn_w");
   pTileTable->pTiles[203].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
   pTileTable->pTiles[204].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrs_w");
-  pTileTable->pTiles[205].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[205].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrns_e");
   pTileTable->pTiles[206].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrns_w");
-  pTileTable->pTiles[207].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
+  pTileTable->pTiles[207].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrew_n");
   pTileTable->pTiles[208].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrew_s");
   pTileTable->pTiles[209].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"drsrncap");
   pTileTable->pTiles[210].uBitmapID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New(L"?");
@@ -1533,7 +1533,8 @@ int class51_sub_47EE16_ActuallyGetHeightOnTerrain(OutdoorLocation *_this, unsign
  if (uX > 127 || uY > 127)
    return 0;
  else
-  return 32 * _this->cTerrainData.pHeightmap[128 * uY + uX];}
+  return 32 * _this->cTerrainData.pHeightmap[128 * uY + uX];
+}
 
 //----- (0047EF60) --------------------------------------------------------
 bool class51_sub_47EF60(OutdoorLocation *_this, int a2, int a3, int a4){

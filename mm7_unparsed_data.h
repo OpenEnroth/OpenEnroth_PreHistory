@@ -355,7 +355,7 @@ extern __int16 word_4F0040[array_size_unknown]; // weak
 extern int dword_4F00DC;
 extern int dword_4F00E0; // weak
 extern int dword_4F00E4; // weak
-extern unsigned int array_4F031C[]; // weak
+//unsigned int array_4F031C[]; // depricated
 extern char *off_4F03B8; // idb
 extern __int16 word_4F03FE[array_size_unknown]; // weak
 extern __int16 word_4F0400[array_size_unknown]; // weak
@@ -1037,7 +1037,7 @@ extern _UNKNOWN unk_50E5FC[]; // weak
 extern _UNKNOWN unk_50E600[]; // weak
 extern _UNKNOWN unk_50E60C[]; // weak
 extern char byte_50F1E0; // weak
-extern unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
+//unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
 extern int dword_50FDFC; // weak
 extern int dword_50FE00; // weak
 extern int dword_50FE04; // weak
@@ -1761,7 +1761,7 @@ extern __int16 word_6A0D40; // weak
 extern __int16 word_6A0D42; // weak*/
 
 extern unsigned int uCurrentMenuID; // dword @ MM7.exe::006A0D44
-extern int dword_6A0D48; // weak
+extern unsigned int uGameState; // dword @ MM7.exe::006A0D48
 
 extern OutdoorLocation class51_6A0DA0_dwReserved;
 extern OutdoorLocation *pOutdoor; // struct @ stru_6A0DA0.dwReserved

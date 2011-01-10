@@ -16289,4 +16289,6 @@ void Player_ctor(Player *_this)
  _this->sBodyResistanceBase = _this->sBodyResistanceBonus = 0;
  _this->sMindResistanceBase = _this->sMindResistanceBonus = 0;
  _this->sSpiritResistanceBase = _this->sSpiritResistanceBonus = 0;
+
+ _this->uSkillPoints = 0;
 }

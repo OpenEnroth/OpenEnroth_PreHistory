@@ -1102,9 +1102,9 @@ bool __stdcall sub_4274AD(int a1, int a2)
     v2 += *(_WORD *)(a1 + 396);
     SpellBuff_sub_458585((SpellBuff *)(a1 + 388));
   }
-  v4 = Player_sub_48E68F(a2) + 2 * *(_BYTE *)(a1 + 52) + 10;
+  v4 = Player_sub_48E68F((Player *)a2) + 2 * *(_BYTE *)(a1 + 52) + 10;
   v5 = rand() % v4 + 1;
-  return v2 + v5 > Player_sub_48E68F(a2) + 5;
+  return v2 + v5 > Player_sub_48E68F((Player *)a2) + 5;
 }
 
 //----- (00427546) --------------------------------------------------------
@@ -3512,7 +3512,7 @@ LABEL_105:
             /*if ( PlayerCreation_ComputeAttributeBonus() || !sub_4908DE() ) // check all points are destributed
               dword_5C35B8_Some_GetTickCount_timer = GetTickCount() + 4000;
             else*/
-              dword_6A0D48 = 6;
+              uGameState = 6;
             continue;
           }
           if ( v49 == 67 )
@@ -3548,7 +3548,7 @@ LABEL_44:
               pGUIWindow_CurrentMenu->dword_00001C = v3;
               break;
             case 5:
-              dword_6A0D48 = 1;
+              uGameState = 1;
               break;
             case 17:
               GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON2");
@@ -5102,84 +5102,6 @@ void class08_sub_438250(struct class08 *_this)
  _this->dword_0E037C = 0;
 }
 
-
-//----- (004382BC) --------------------------------------------------------
-//depricated
-
-//----- (004383ED) --------------------------------------------------------
-//int __usercall sub_4383ED<eax>(int a1<ebx>)
-int __fastcall sub_4383ED()
-{
- unsigned char pVendor[16];
-  int v28; // [sp+30h] [bp-4h]@1
-
- __asm
- {
-  xor eax, eax
-  cpuid
-  mov dword ptr [pVendor], ebx
-  mov dword ptr [pVendor + 4], edx
-  mov dword ptr [pVendor + 8], ecx
-  mov dword ptr [pVendor + 12], 0
- }
-
- if (lstrcmpA((const char *)pVendor, "GenuineIntel"))
-   bNotIntelCPU = true;
-
- __asm
- {
-  xor eax, eax
-  inc eax
-  cpuid
-
-  mov dword ptr [v28], edx
- }
-
- return v28;
-}
-
-//----- (0043847A) --------------------------------------------------------
-function_error;//__int16 __usercall sub_43847A<ax>(int a1<ebx>)
-__int16 __fastcall sub_43847A()
-{
- unsigned int  v0;
- unsigned char pVendor[16];
-
-  int v22; // [sp+2Eh] [bp-6h]@1
-  char v23; // [sp+32h] [bp-2h]@6
-  char v24; // [sp+33h] [bp-1h]@1
-
-
-
- {
-  __asm
-  {
-   xor eax, eax
-   cpuid
-   mov dword ptr [pVendor], ebx
-   mov dword ptr [pVendor + 4], edx
-   mov dword ptr [pVendor + 8], ecx
-   mov dword ptr [pVendor + 12], 0
-  }
- }
-
- if (lstrcmpA((const char *)pVendor, "GenuineIntel"))
-   bNotIntelCPU = true;
-
- __asm
- {
-  xor eax, eax
-  inc eax
-  cpuid
-
-  mov dword ptr [v0], eax
- }
- v24 = (v0 & 0x00F);
- v23 = (v0 & 0x0F0) >> 4;
- v22 = (v0 & 0xF00) >> 8;
-
- return v22;
-}
 
 //----- (00438659) --------------------------------------------------------
 void *class11_fn1(class11 *_this, int a2)

@@ -1667,7 +1667,7 @@ LABEL_71:
           dword_5B65BC = 0;
           dword_5B65B4 = v8;
           v11 = *((_DWORD *)v5 + 3);
-          dword_6A0D48 = 2;
+          uGameState = 2;
           dword_5B65A8 = v11;
           dword_5B65AC = v10;
           dword_5B65B0 = v9;

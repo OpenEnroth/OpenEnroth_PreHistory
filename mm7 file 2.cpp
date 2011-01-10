@@ -9170,11 +9170,11 @@ void  QuickRefDraw()
     v11 = v45 + v8;
     if ( v43 == 0 )
       GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v11, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_AC], 60, 0);
-    v15 = Player_sub_48E68F((int)v2);
+    v15 = Player_sub_48E68F(v2);
     wsprintfA((char *)TmpBuf, "%d", v15);
     v16 = v0;
     v17 = Player_sub_48E656((int)v2);
-    v18 = Player_sub_48E68F((int)v2);
+    v18 = Player_sub_48E68F(v2);
     v19 = sub_4178FE_GetColor(v18, v17);
     GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v11, v19, (char *)TmpBuf, 84, 0);
     v0 = 0;

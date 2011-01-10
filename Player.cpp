@@ -258,47 +258,6 @@ int Player_GetSex(struct Player *_this)
  return 1;
 }
 
-//----- (0048C855) --------------------------------------------------------
-int __thiscall Player_GetBaseStrength(struct Player *_this)
-{
-  return _this->uStrength + Player_MaybeGetWearItemsBonus(_this, 0, 0);
-}
-
-//----- (0048C86C) --------------------------------------------------------
-int __thiscall Player_GetBaseIntelligence(struct Player *_this)
-{
-  return _this->uIntelligence + Player_MaybeGetWearItemsBonus(_this, 1, 0);
-}
-
-//----- (0048C883) --------------------------------------------------------
-int __thiscall Player_GetBaseWillpower(struct Player *_this)
-{
-  return _this->uWillpower + Player_MaybeGetWearItemsBonus(_this, 2, 0);
-}
-
-//----- (0048C89A) --------------------------------------------------------
-int __thiscall Player_GetBaseEndurance(struct Player *_this)
-{
-  return _this->uEndurance + Player_MaybeGetWearItemsBonus(_this, 3, 0);
-}
-
-//----- (0048C8B1) --------------------------------------------------------
-int __thiscall Player_GetBaseAccuracy(struct Player *_this)
-{
-  return _this->uAccuracy + Player_MaybeGetWearItemsBonus(_this, 4, 0);
-}
-
-//----- (0048C8C8) --------------------------------------------------------
-int __thiscall Player_GetBaseSpeed(struct Player *_this)
-{
-  return _this->uSpeed + Player_MaybeGetWearItemsBonus(_this, 5, 0);
-}
-
-//----- (0048C8DF) --------------------------------------------------------
-int __thiscall Player_GetBaseLuck(struct Player *_this)
-{
-  return _this->uLuck + Player_MaybeGetWearItemsBonus(_this, 6, 0);
-}
 
 //----- (0048C8F6) --------------------------------------------------------
 int __thiscall Player_GetBaseLevel(struct Player *_this)
@@ -1969,22 +1928,20 @@ int __thiscall Player_sub_48E656(int _this)
 }
 
 //----- (0048E68F) --------------------------------------------------------
-int __thiscall Player_sub_48E68F(int _this)
+int __thiscall Player_sub_48E68F(Player *_this)
 {
   int v1; // esi@1
-  int v2; // edi@1
   int v3; // eax@1
   int v4; // esi@1
   int v5; // esi@1
   int v6; // esi@1
   int result; // eax@2
 
-  v2 = _this;
-  v3 = Player_GetActualSpeed((Player *)_this);
+  v3 = Player_GetActualSpeed(_this);
   v4 = sub_48EA1B(v3);
-  v5 = Player_MaybeGetWearItemsBonus((Player *)v2, 9, 0) + v4;
-  v6 = Player_sub_48FC00((Player *)v2, 9) + v5;
-  v1 = *(_WORD *)(v2 + 216) + Player_MaybeGetCastSpellBonus((Player *)v2, 9) + v6;
+  v5 = Player_MaybeGetWearItemsBonus(_this, 9, 0) + v4;
+  v6 = Player_sub_48FC00(_this, 9) + v5;
+  v1 = *(_WORD *)((int)_this + 216) + Player_MaybeGetCastSpellBonus(_this, 9) + v6;
   if ( v1 >= 1 )
     result = v1;
   else
@@ -2264,11 +2221,20 @@ Character::Sex::Type Player_GetSexByVoice(Player *_this)
 }
 
 //----- (0048EAAE) --------------------------------------------------------
-int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3) 
+int Player_MaybeGetWearItemsBonus(const struct Player *_this, signed int a2, int a3) 
 {
+ /*
  //a2 ==
-   //4:   accuracy
-   //25:  attack
+   0:   strength
+   1:   intelligence
+   2:   willpower
+   3:   endurance
+   4:   accuracy
+   5:   speed
+   6:   luck
+
+   25:  attack
+ */
 
 
   signed int v3; // eax@1
@@ -2445,13 +2411,13 @@ LABEL_38:
       return v5 + v62 + v61;
     if ( a2 <= 30 )
     {
-      if ( Player_sub_48D6AA(_this, 2) )
+      if ( Player_sub_48D6AA((Player *)_this, 2) )
         v5 = (*&pClass40->pItems[0].uEquipType + *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1620) + 124) + 4);
       return v5 + v62 + v61;
     }
     if ( a2 == 31 )
     {
-      if ( !Player_sub_48D6AA(_this, 2) )
+      if ( !Player_sub_48D6AA((Player *)_this, 2) )
         return v5 + v62 + v61;
       v57 = *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1620) + 124);
       v5 = pClass40->pItems[v57 - 1].uDamageModifier;
@@ -2460,7 +2426,7 @@ LABEL_38:
     }
     if ( a2 == 32 )
     {
-      if ( !Player_sub_48D6AA(_this, 2) )
+      if ( !Player_sub_48D6AA((Player *)_this, 2) )
         return v5 + v62 + v61;
       v20 = 48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1620) + 124);
       v5 = *(&pClass40->pItems[0].uDamageDice + v20) * *(&pClass40->pItems[0].uDamageRoll + v20);
@@ -2476,12 +2442,12 @@ LABEL_95:
     v65 = 0;
     while ( 1 )
     {
-      if ( !Player_sub_48D6AA(_this, v65) )
+      if ( !Player_sub_48D6AA((Player *)_this, v65) )
         goto LABEL_361;
       v31 = _this->pEquippedItemIndices[v65];
       if ( v6 == 9 )
       {
-        v32 = Player_GetEquippedItemEquipType(_this, v65);
+        v32 = Player_GetEquippedItemEquipType((Player *)_this, v65);
         if ( v32 >= 3 )
         {
           if ( v32 <= 11 )
@@ -2493,8 +2459,8 @@ LABEL_95:
       }
       //v63 = (int)((char *)v4 + 36 * v31);
       //v64 = v63 + 0x214;
-      if ( class40_sub_456D5E(pClass40, &_this->pInventorySlots[v31]) == 1 &&
-          !class40_sub_456D43(pClass40, &_this->pInventorySlots[v31]) )
+      if ( class40_sub_456D5E(pClass40, (ItemGen *)&_this->pInventorySlots[v31]) == 1 &&
+          !class40_sub_456D43(pClass40, (ItemGen *)&_this->pInventorySlots[v31]) )
       {
         v34 = _this->pInventorySlots[v31].uItemID;
         switch (_this->pInventorySlots[v31].uItemID)
@@ -3051,11 +3017,11 @@ LABEL_361:
   }
   if ( a2 == 28 )
   {
-    if ( Player_sub_48D676(_this) != 1 )
+    if ( Player_sub_48D676((Player *)_this) != 1 )
     {
-      if ( Player_sub_48D6AA(_this, 1) )
+      if ( Player_sub_48D6AA((Player *)_this, 1) )
       {
-        v22 = Player_GetEquippedItemEquipType(_this, 1);
+        v22 = Player_GetEquippedItemEquipType((Player *)_this, 1);
         if ( v22 >= 0 )
         {
           if ( v22 <= 2 )
@@ -3076,7 +3042,7 @@ LABEL_361:
           }
         }
       }
-      if ( a3 || !Player_sub_48D6AA(_this, 0) || (v28 = Player_GetEquippedItemEquipType(_this, 0), v28 < 0) || v28 > 2 )
+      if ( a3 || !Player_sub_48D6AA((Player *)_this, 0) || (v28 = Player_GetEquippedItemEquipType((Player *)_this, 0), v28 < 0) || v28 > 2 )
         return v5 + v62 + v61;
       v14 = pClass40->pItems[v29].uDamageModifier;
       v15 = pClass40->pItems[v29].uDamageDice * pClass40->pItems[v29].uDamageRoll;
@@ -3093,7 +3059,7 @@ LABEL_74:
     goto LABEL_95;
   if ( a2 == 24 )
   {
-    if ( !Player_sub_48D6D0(_this, 25) )
+    if ( !Player_sub_48D6D0((Player *)_this, 25) )
       return v5 + v62 + v61;
     v59 = 5;
     goto LABEL_74;
@@ -3102,35 +3068,35 @@ LABEL_74:
     return v5 + v62 + v61;
   if ( a2 <= 26 )
   {
-    if ( Player_sub_48D676(_this) == 1 )
+    if ( Player_sub_48D676((Player *)_this) == 1 )
     {
       v5 = 0;
       return v5 + v62 + v61;
     }
-    if ( Player_sub_48D6AA(_this, 1) )
+    if ( Player_sub_48D6AA((Player *)_this, 1) )
     {
-      v17 = Player_GetEquippedItemEquipType(_this, 1);
+      v17 = Player_GetEquippedItemEquipType((Player *)_this, 1);
       if ( v17 >= 0 )
       {
         if ( v17 <= 2 )
          v5 = pClass40->pItems[*((_DWORD *)_this + 9 * *((_DWORD *)_this + 1619) + 124)].uDamageModifier;
       }
     }
-    if ( a3 || !Player_sub_48D6AA(_this, 0) || (v19 = Player_GetEquippedItemEquipType(_this, 0), v19 < 0) || v19 > 2 )
+    if ( a3 || !Player_sub_48D6AA((Player *)_this, 0) || (v19 = Player_GetEquippedItemEquipType((Player *)_this, 0), v19 < 0) || v19 > 2 )
       return v5 + v62 + v61;
     v20 = 48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1618) + 124);
     goto LABEL_365;
   }
   if ( a2 == 27 )
   {
-    if ( Player_sub_48D676(_this) == 1 )
+    if ( Player_sub_48D676((Player *)_this) == 1 )
     {
       v5 = 1;
       return v5 + v62 + v61;
     }
-    if ( Player_sub_48D6AA(_this, 1) )
+    if ( Player_sub_48D6AA((Player *)_this, 1) )
     {
-      v9 = Player_GetEquippedItemEquipType(_this, 1);
+      v9 = Player_GetEquippedItemEquipType((Player *)_this, 1);
       if ( v9 >= 0  && v9 <= 2 )
       {
          v5 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID].uDamageDice +
@@ -3142,7 +3108,7 @@ LABEL_74:
           }
       }
     }
-    if ( a3 || !Player_sub_48D6AA(_this, 0) || (v12 = Player_GetEquippedItemEquipType(_this, 0), v12 < 0) || v12 > 2 )
+    if ( a3 || !Player_sub_48D6AA((Player *)_this, 0) || (v12 = Player_GetEquippedItemEquipType((Player *)_this, 0), v12 < 0) || v12 > 2 )
       return v5 + v62 + v61;
     v15 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[0]].uItemID].uDamageModifier;
     v14 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[0]].uItemID].uDamageDice;

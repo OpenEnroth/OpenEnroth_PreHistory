@@ -3487,3 +3487,432 @@ void sub_481D77_DoPrimitiveApplyProjectionMatrix(struct RenderVertex *_this)
  _this->vWorldViewProjX = pOldViewport->dword_000028 - v2 * _this->vWorldViewPosition.y;
  _this->vWorldViewProjY = pOldViewport->dword_00002C - v2 * _this->vWorldViewPosition.z;
 }*/
+
+//----- (004382BC) --------------------------------------------------------
+//depricated
+
+
+
+/*//----- (004383ED) --------------------------------------------------------
+obsolete stuff
+//int __usercall sub_4383ED<eax>(int a1<ebx>)
+int __fastcall sub_4383ED()
+{
+ unsigned char pVendor[16];
+  int v28; // [sp+30h] [bp-4h]@1
+
+ __asm
+ {
+  xor eax, eax
+  cpuid
+  mov dword ptr [pVendor], ebx
+  mov dword ptr [pVendor + 4], edx
+  mov dword ptr [pVendor + 8], ecx
+  mov dword ptr [pVendor + 12], 0
+ }
+
+ if (lstrcmpA((const char *)pVendor, "GenuineIntel"))
+   bNotIntelCPU = true;
+
+ __asm
+ {
+  xor eax, eax
+  inc eax
+  cpuid
+
+  mov dword ptr [v28], edx
+ }
+
+ return v28;
+}
+
+
+//----- (0043847A) --------------------------------------------------------
+function_error;//__int16 __usercall sub_43847A<ax>(int a1<ebx>)
+__int16 __fastcall sub_43847A()
+{
+ unsigned int  v0;
+ unsigned char pVendor[16];
+
+  int v22; // [sp+2Eh] [bp-6h]@1
+  char v23; // [sp+32h] [bp-2h]@6
+  char v24; // [sp+33h] [bp-1h]@1
+
+
+
+ {
+  __asm
+  {
+   xor eax, eax
+   cpuid
+   mov dword ptr [pVendor], ebx
+   mov dword ptr [pVendor + 4], edx
+   mov dword ptr [pVendor + 8], ecx
+   mov dword ptr [pVendor + 12], 0
+  }
+ }
+
+ if (lstrcmpA((const char *)pVendor, "GenuineIntel"))
+   bNotIntelCPU = true;
+
+ __asm
+ {
+  xor eax, eax
+  inc eax
+  cpuid
+
+  mov dword ptr [v0], eax
+ }
+ v24 = (v0 & 0x00F);
+ v23 = (v0 & 0x0F0) >> 4;
+ v22 = (v0 & 0xF00) >> 8;
+
+ return v22;
+}
+
+
+//----- (004AC4FD) --------------------------------------------------------
+int __stdcall sub_4AC4FD_CheckCPUSpeedDos(int a1)
+{
+  int v1; // eax@1
+  int v3; // eax@4
+  bool v5; // eax@5
+  unsigned __int64 v6; // qax@8
+  int v7; // eax@9
+  int v8; // edi@9
+  bool v10; // eax@10
+  unsigned __int64 v11; // qax@13
+  unsigned int v12; // eax@15
+  int result; // eax@17
+  int Dst; // [sp+Ch] [bp-2Ch]@1
+  int v15; // [sp+10h] [bp-28h]@17
+  unsigned int v16; // [sp+14h] [bp-24h]@15
+  unsigned int v17; // [sp+18h] [bp-20h]@17
+  unsigned int v18; // [sp+1Ch] [bp-1Ch]@8
+  unsigned int v19; // [sp+20h] [bp-18h]@8
+  unsigned int v20; // [sp+24h] [bp-14h]@13
+  int nPriority; // [sp+28h] [bp-10h]@1
+  int v22; // [sp+2Ch] [bp-Ch]@4
+  unsigned __int64 hThread; // [sp+30h] [bp-8h]@1
+
+  LODWORD(hThread) = (int)GetCurrentThread();
+  memset(&Dst, 0, 0x10u);
+  v1 = GetThreadPriority((HANDLE)hThread);
+  nPriority = v1;
+  if ( v1 != 2147483647 )
+    SetThreadPriority((HANDLE)hThread, v1 + 1);
+  HIDWORD(hThread) = 0;
+  compile_error();//_AX = 0;
+  __asm
+  {
+    out     70h, al         // CMOS Memory:
+    in      al, 71h         // CMOS Memory
+  }
+  compile_error();//WORD2(hThread) = _AX;
+  do
+  {
+    v22 = 0;
+    compile_error();//_AX = 0;
+    __asm
+    {
+      out     70h, al         // CMOS Memory:
+      in      al, 71h         // CMOS Memory
+    }
+    compile_error();//LOWORD(v22) = _AX;
+    v3 = v22 - HIDWORD(hThread);
+    if ( v22 >= HIDWORD(hThread) )
+      v5 = v3 > 0;
+    else
+      v5 = v3 + 10;
+  }
+  while ( !v5 );
+  compile_error();//v6 = RDTSC();
+  v19 = v6;
+  v18 = HIDWORD(v6);
+  do
+  {
+    HIDWORD(hThread) = 0;
+    compile_error();//_AX = 0;
+    __asm
+    {
+      out     70h, al         // CMOS Memory:
+      in      al, 71h         // CMOS Memory
+    }
+    compile_error();//WORD2(hThread) = _AX;
+    v8 = HIDWORD(hThread);
+    v7 = HIDWORD(hThread) - v22;
+    if ( HIDWORD(hThread) >= v22 )
+      v10 = v7 > 0;
+    else
+      v10 = v7 + 10;
+  }
+  while ( !v10 );
+  compile_error();//v11 = RDTSC();
+  HIDWORD(hThread) = v11;
+  v20 = HIDWORD(v11);
+  if ( nPriority != 2147483647 )
+    SetThreadPriority((HANDLE)hThread, nPriority);
+  nPriority = HIDWORD(hThread);
+  compile_error();//hThread = __PAIR__(v20, HIDWORD(hThread)) - __PAIR__(v18, v19);
+  Dst = hThread;
+  v12 = (_DWORD)hThread / 0xF4240u;
+  v16 = (_DWORD)hThread / 0xF4240u;
+  if ( (_DWORD)hThread / 0x186A0u - 10 * (_DWORD)hThread / 0xF4240u >= 6 )
+    ++v12;
+  v17 = v12;
+  result = a1;
+  v15 = 1000000 * v8 - 1000000 * v22;
+  *(_DWORD *)a1 = Dst;
+  *(_DWORD *)(a1 + 4) = v15;
+  *(_DWORD *)(a1 + 8) = v16;
+  *(_DWORD *)(a1 + 12) = v17;
+  return result;
+}
+
+//----- (004AC33A) --------------------------------------------------------
+int __stdcall sub_4AC33A_CheckCPUSpeedWindows(int a1)
+{
+  int v1; // ebx@1
+  int v2; // esi@1
+  unsigned __int64 v3; // qax@4
+  DWORD v4; // eax@7
+  DWORD v5; // edi@7
+  unsigned __int64 v6; // qax@7
+  unsigned int v7; // ecx@10
+  unsigned int v8; // edi@10
+  unsigned int v9; // edi@10
+  unsigned int v10; // ett@10
+  int v11; // eax@14
+  unsigned int v12; // ecx@19
+  int result; // eax@24
+  unsigned int Dst[4]; // [sp+Ch] [bp-4Ch]@1
+  //unsigned int v15; // [sp+10h] [bp-48h]@23
+  //unsigned int v16; // [sp+14h] [bp-44h]@21
+  //unsigned int v17; // [sp+18h] [bp-40h]@21
+  LARGE_INTEGER Frequency; // [sp+1Ch] [bp-3Ch]@1
+  LARGE_INTEGER PerformanceCount; // [sp+24h] [bp-34h]@2
+  LARGE_INTEGER v20; // [sp+2Ch] [bp-2Ch]@2
+  int v21; // [sp+34h] [bp-24h]@2
+  int v22; // [sp+38h] [bp-20h]@2
+  int v23; // [sp+3Ch] [bp-1Ch]@4
+  int v24; // [sp+40h] [bp-18h]@7
+  int nPriority; // [sp+44h] [bp-14h]@2
+  unsigned int v26; // [sp+48h] [bp-10h]@1
+  unsigned int v27; // [sp+4Ch] [bp-Ch]@1
+  HANDLE hThread; // [sp+50h] [bp-8h]@1
+  int v29; // [sp+54h] [bp-4h]@1
+
+  v2 = 0;
+  v1 = 0;
+  v29 = 0;
+  v27 = 0;
+  v26 = 0;
+  hThread = GetCurrentThread();
+  memset(Dst, 0, 0x10u);
+  if ( QueryPerformanceFrequency(&Frequency) )
+  {
+    do
+    {
+      ++v29;
+      v22 = v2;
+      v21 = v1;
+      QueryPerformanceCounter(&PerformanceCount);
+      v20 = PerformanceCount;
+      nPriority = GetThreadPriority(hThread);
+      if ( nPriority != 2147483647 )
+        SetThreadPriority(hThread, 15);
+      while ( v20.LowPart - PerformanceCount.LowPart < 0x32 )
+      {
+        QueryPerformanceCounter(&v20);
+        //v3 = RDTSC();
+        __asm
+        {
+         rdtsc
+         mov dword ptr [v3], eax
+        }
+        v23 = v3;
+      }
+      PerformanceCount = v20;
+      do
+      {
+        QueryPerformanceCounter(&v20);
+        //v6 = RDTSC();
+        __asm
+        {
+         rdtsc
+         mov dword ptr [v6], eax
+        }
+        v24 = v6;
+        v5 = v20.LowPart;
+        v4 = PerformanceCount.LowPart;
+      }
+      while ( v20.LowPart - PerformanceCount.LowPart < 0x3E8 );
+      if ( nPriority != 2147483647 )
+      {
+        SetThreadPriority(hThread, nPriority);
+        v4 = PerformanceCount.LowPart;
+        v5 = v20.LowPart;
+      }
+      v9 = 100000 * v5 - 100000 * v4;
+      v7 = v24 - v23;
+      v27 += v24 - v23;
+      v10 = v9;
+      v8 = v9 / (Frequency.LowPart / 0xA);
+      v26 += v8;
+      if ( v10 / (Frequency.LowPart / 0xA) % Frequency.LowPart > (_DWORD)Frequency.LowPart >> 1 )
+        ++v8;
+      v1 = v7 / v8;
+      if ( v7 % v8 > v8 >> 1 )
+        v1 = v7 / v8 + 1;
+      v2 = v21;
+      v11 = v1 + v22 + v21;
+    }
+    while ( v29 < 3
+         || v29 < 20
+         && ((unsigned int)(3 * v1 - v11) > 3 || (unsigned int)(3 * v21 - v11) > 3 || (unsigned int)(3 * v22 - v11) > 3) );
+    v12 = 10 * v27 / v26;
+    if ( 100 * v27 / v26 - 10 * v12 >= 6 )
+      ++v12;
+    Dst[2] = v27 / v26;
+    Dst[3] = v27 / v26;
+    if ( v12 - 10 * v27 / v26 >= 6 )
+      Dst[3] = v27 / v26 + 1;
+    Dst[1] = v26;
+    Dst[0] = v27;
+  }
+  result = a1;
+  *(_DWORD *)a1 = Dst[0];
+  *(_DWORD *)(a1 + 4) = Dst[1];
+  *(_DWORD *)(a1 + 8) = Dst[2];
+  *(_DWORD *)(a1 + 12) = Dst[3];
+  return result;
+}
+//----- (004AC277) --------------------------------------------------------
+int __thiscall sub_4AC277(void *_this, int a2)
+{
+  signed int v2; // esi@1
+  signed __int16 v4; // bx@3
+  unsigned int v11; // esi@8
+  unsigned int v12; // ett@8
+  unsigned int v13; // eax@10
+  int result; // eax@13
+  unsigned int Dst; // [sp+8h] [bp-30h]@1
+  unsigned int v16; // [sp+Ch] [bp-2Ch]@12
+  unsigned int v17; // [sp+10h] [bp-28h]@10
+  unsigned int v18; // [sp+14h] [bp-24h]@12
+  LARGE_INTEGER Frequency; // [sp+18h] [bp-20h]@1
+  LARGE_INTEGER PerformanceCount; // [sp+20h] [bp-18h]@3
+  LARGE_INTEGER v21; // [sp+28h] [bp-10h]@5
+  unsigned int v22; // [sp+30h] [bp-8h]@1
+  int v23; // [sp+34h] [bp-4h]@2
+
+  v22 = (unsigned int)_this;
+  v2 = -1;
+  memset(&Dst, 0, 0x10u);
+  if ( QueryPerformanceFrequency(&Frequency) )
+  {
+    v23 = 10;
+    do
+    {
+      QueryPerformanceCounter(&PerformanceCount);
+      compile_error();//_EAX = -2147483648;
+      v4 = 4000;
+      do
+      {
+        __asm { bsf     ecx, eax }
+        --v4;
+      }
+      while ( v4 );
+      QueryPerformanceCounter(&v21);
+      if ( (_DWORD)v21.LowPart - (_DWORD)PerformanceCount.LowPart < (unsigned int)v2 )
+        v2 = v21.LowPart - PerformanceCount.LowPart;
+    }
+    while ( v23-- != 1 );
+    v12 = 100000 * v2;
+    v11 = 100000 * v2 / (Frequency.LowPart / 0xA);
+    if ( v12 / (Frequency.LowPart / 0xA) % Frequency.LowPart > (_DWORD)Frequency.LowPart >> 1 )
+      ++v11;
+    v13 = v22 / v11;
+    v17 = v22 / v11;
+    if ( v22 % v11 > v11 >> 1 )
+      ++v13;
+    Dst = v22;
+    v16 = v11;
+    v18 = v13;
+  }
+  result = a2;
+  *(_DWORD *)a2 = Dst;
+  *(_DWORD *)(a2 + 4) = v16;
+  *(_DWORD *)(a2 + 8) = v17;
+  *(_DWORD *)(a2 + 12) = v18;
+  return result;
+}
+//----- (004AC1C9) --------------------------------------------------------
+long *sub_4AC1C9(int a5, long *pWindowDims)
+{
+  signed int v7; // ebx@1
+  unsigned __int16 v8; // di@1
+  int v11; // ecx@3
+  int v12; // eax@10
+  char *v13; // esi@14
+  char v16[16]; // [sp+Ch] [bp-34h]@10
+  int v17; // [sp+1Ch] [bp-24h]@14
+  int v18; // [sp+20h] [bp-20h]@14
+  int v19; // [sp+24h] [bp-1Ch]@14
+  int v20; // [sp+28h] [bp-18h]@14
+  char Dst[16]; // [sp+2Ch] [bp-14h]@1
+  int v22; // [sp+3Ch] [bp-4h]@1
+
+ //bNotIntelCPU = false;
+ v8 = 0;
+ v22 = 0;
+ v7 = 0;
+ memset(Dst, 0, 0x10u);
+  if ( (signed __int16)v8 < 0 )
+	goto LABEL_19;
+  if ( a5 > 0 )
+  {
+	if ( a5 > 150 )
+	{
+	  v11 = (int)pWindowDims;
+    }
+    else
+    {
+      v11 = 4000 * a5;
+      v7 = 1;
+    }
+  }
+  else
+  {
+    v11 = 0;
+  }
+  if ( v22 & 0x10 && !v7 )
+  {
+    if ( a5 )
+      //v12 = sub_4AC4FD_CheckCPUSpeedDos((int)v16);
+    else
+      //v12 = sub_4AC33A_CheckCPUSpeedWindows((int)v16);
+    goto LABEL_14;
+  }
+  if ( v8 < 3u )
+  {
+LABEL_19:
+    v13 = (char *)(*(int *)Dst);
+    goto LABEL_16;
+  }
+  v12 = sub_4AC277((void *)v11, (int)v16);
+LABEL_14:
+  v17 = *(_DWORD *)v12;
+  v18 = *(_DWORD *)(v12 + 4);
+  v19 = *(_DWORD *)(v12 + 8);
+  v20 = *(_DWORD *)(v12 + 12);
+  v13 = (char *)&v17;
+LABEL_16:
+
+  pWindowDims[0] = *(_DWORD *)(v13 + 0);
+  pWindowDims[1] = *(_DWORD *)(v13 + 4);
+  pWindowDims[2] = *(_DWORD *)(v13 + 8);
+  pWindowDims[3] = *(_DWORD *)(v13 + 12);
+  return pWindowDims;
+}
+*/

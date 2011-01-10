@@ -7399,7 +7399,7 @@ int __thiscall sub_4466C4(void *_this)
         i = 0;
         while ( 1 )
         {
-          LOBYTE(v9) = Player_sub_449BB4((int)&pParty->pPlayers[i++], *(_BYTE *)(v7 + pSomeOtherEVT + 5) + (*(_BYTE *)(v7 + pSomeOtherEVT + 6) << 8), v8);
+          LOBYTE(v9) = Player_sub_449BB4(&pParty->pPlayers[i++], *(_BYTE *)(v7 + pSomeOtherEVT + 5) + (*(_BYTE *)(v7 + pSomeOtherEVT + 6) << 8), v8);
           if ( v9 )
             break;
 
@@ -8064,7 +8064,7 @@ LABEL_120:
               i = 0;
               while ( 1 )
               {
-                LOBYTE(v63) = Player_sub_449BB4((int)&pParty->pPlayers[i++], v11[5] | ((unsigned int)v11[6] << 8), v61);
+                LOBYTE(v63) = Player_sub_449BB4(&pParty->pPlayers[i++], v11[5] | ((unsigned int)v11[6] << 8), v61);
                 if ( v63 )
                   break;
                 ++v134;
@@ -8100,7 +8100,7 @@ LABEL_137:
 LABEL_138:
             v127 = v6;
 LABEL_139:
-            LOBYTE(v65) = Player_sub_449BB4((int)v6, *(_BYTE *)(v10 + v5 + 5) + (*(_BYTE *)(v10 + v5 + 6) << 8), v61);
+            LOBYTE(v65) = Player_sub_449BB4((Player *)v6, *(_BYTE *)(v10 + v5 + 5) + (*(_BYTE *)(v10 + v5 + 6) << 8), v61);
 LABEL_140:
             if ( v65 )
               goto LABEL_129;
@@ -8625,7 +8625,7 @@ LABEL_280:
               v137 = 1;
               if ( dword_4E28F8_PartyCantJumpIfTrue == 13 )
               {
-                if ( dword_6A0D48 == 2 )
+                if ( uGameState == 2 )
                 {
                   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
                   dword_F8B19C = 0;
@@ -9886,7 +9886,7 @@ char *__fastcall sub_44987B(const char *Source, int a2)
   compile_error(level file name should not be global);
     //if ( _strcmpi(CurrentLevelName, v3) )
     SaveGame(1, 0);
-  dword_6A0D48 = 2;
+  uGameState = 2;
   compile_error(level file name should not be global);
     //result = strcpy(CurrentLevelName, v3);
   dword_6BE35C = v2;
@@ -9993,10 +9993,10 @@ unsigned int sub_449B57(unsigned char *a1, __int16 a2)
 }
 
 //----- (00449BB4) --------------------------------------------------------
-char __thiscall Player_sub_449BB4(int _this, signed int a2, void *a3)
+char Player_sub_449BB4(Player *_this, signed int a2, void *a3)
 {
   int v3; // edi@1
-  int v4; // esi@1
+  //int v4; // esi@1
   unsigned int v5; // eax@8
   int v6; // eax@9
   signed int v7; // eax@11
@@ -10024,7 +10024,6 @@ char __thiscall Player_sub_449BB4(int _this, signed int a2, void *a3)
   int v29; // eax@161
   int v30; // ebx@161
 
-  v4 = _this;
   v3 = -1;
   if ( a2 > 223 )
   {
@@ -10142,38 +10141,38 @@ LABEL_125:
         goto LABEL_108;
       case 315:
         v27 = 0;
-        v28 = _this + 6472;
+        v28 = (int)_this + 6472;
         break;
       case 306:
         v3 = pParty->uNumGoldInBank;
         goto LABEL_170;
       case 224:
         v30 = Player_GetActualStrength((Player *)_this);
-        v29 = Player_GetBaseStrength((Player *)v4);
+        v29 = _this->GetBaseStrength();
         goto LABEL_168;
       case 225:
         v30 = Player_GetActualIntelligence((Player *)_this);
-        v29 = Player_GetBaseIntelligence((Player *)v4);
+        v29 = _this->GetBaseIntelligence();
         goto LABEL_168;
       case 226:
         v30 = Player_GetActualWillpower((Player *)_this);
-        v29 = Player_GetBaseWillpower((Player *)v4);
+        v29 = _this->GetBaseWillpower();
         goto LABEL_168;
       case 227:
         v30 = Player_GetActualEndurance((Player *)_this);
-        v29 = Player_GetBaseEndurance((Player *)v4);
+        v29 = _this->GetBaseEndurance();
         goto LABEL_168;
       case 228:
         v30 = Player_GetActualSpeed((Player *)_this);
-        v29 = Player_GetBaseSpeed((Player *)v4);
+        v29 = _this->GetBaseSpeed();
         goto LABEL_168;
       case 229:
         v30 = Player_GetActualAccuracy((Player *)_this);
-        v29 = Player_GetBaseAccuracy((Player *)v4);
+        v29 = _this->GetBaseAccuracy();
         goto LABEL_168;
       case 230:
         v30 = Player_GetActualLuck((Player *)_this);
-        v29 = Player_GetBaseLuck((Player *)v4);
+        v29 = _this->GetBaseLuck();
 LABEL_168:
         compile_error();//v9 = __SETO__(v30, v29);
         v8 = v30 - v29 < 0;
@@ -10184,7 +10183,8 @@ LABEL_169:
       default:
         goto LABEL_170;
     }
-    while ( !Player_sub_48D6AA((Player *)v4, v27) || *(void **)(v4 + 36 * *(_DWORD *)v28 + 496) != a3 )
+
+    while ( !Player_sub_48D6AA((Player *)_this, v27) || *(void **)((int)_this + 36 * *(_DWORD *)v28 + 496) != a3 )
     {
       ++v27;
       v28 += 4;
@@ -10242,37 +10242,37 @@ LABEL_14:
         case 4:
           v10 = Player_GetMaxHealth((Player *)_this);
           compile_error();//v9 = __SETO__(*(_DWORD *)(v4 + 6460), v10);
-          v8 = *(_DWORD *)(v4 + 6460) - v10 < 0;
+          v8 = *(_DWORD *)((int)_this + 6460) - v10 < 0;
           goto LABEL_169;
         case 5:
-          v3 = *(_DWORD *)(_this + 6464);
+          v3 = *(_DWORD *)((int)_this + 6464);
           goto LABEL_170;
         case 6:
           v11 = Player_GetMaxMana((Player *)_this);
           compile_error();//v9 = __SETO__(*(_DWORD *)(v4 + 6464), v11);
-          v8 = *(_DWORD *)(v4 + 6464) - v11 < 0;
+          v8 = *(_DWORD *)((int)_this + 6464) - v11 < 0;
           goto LABEL_169;
         case 7:
-          v12 = Player_sub_48E68F(_this);
+          v12 = Player_sub_48E68F((Player *)_this);
           goto LABEL_67;
         case 8:
-          v3 = *(_WORD *)(_this + 216);
+          v3 = *(_WORD *)((int)_this + 216);
           goto LABEL_170;
         case 9:
-          v3 = *(_WORD *)(_this + 218);
+          v3 = *(_WORD *)((int)_this + 218);
           goto LABEL_170;
         case 10:
-          v3 = *(_WORD *)(_this + 220);
+          v3 = *(_WORD *)((int)_this + 220);
           goto LABEL_170;
         case 11:
           v12 = Player_GetActualAge((Player *)_this);
           goto LABEL_67;
         case 12:
           v13 = 0x80u >> ((signed __int16)a3 - 1) % 8;
-          v14 = *(_BYTE *)((((signed __int16)a3 - 1) >> 3) + _this + 338);
+          v14 = *(_BYTE *)((((signed __int16)a3 - 1) >> 3) + (int)_this + 338);
           goto LABEL_108;
         case 13:
-          v3 = *(_DWORD *)(_this + 160);
+          v3 = *(_DWORD *)((int)_this + 160);
           goto LABEL_170;
         case 16:
           v13 = 0x80u >> ((signed __int16)a3 - 1) % 8;
@@ -10280,49 +10280,49 @@ LABEL_14:
           goto LABEL_108;
         case 17:
           v16 = 0;
-          v15 = v4 + 532;
+          v15 = (int)_this + 532;
           break;
         case 21:
           v3 = pParty->uNumGold;
           goto LABEL_170;
         case 25:
-          v3 = *(_WORD *)(_this + 190);
+          v3 = *(_WORD *)((int)_this + 190);
           goto LABEL_170;
         case 26:
-          v3 = *(_WORD *)(_this + 194);
+          v3 = *(_WORD *)((int)_this + 194);
           goto LABEL_170;
         case 27:
-          v3 = *(_WORD *)(_this + 198);
+          v3 = *(_WORD *)((int)_this + 198);
           goto LABEL_170;
         case 28:
-          v3 = *(_WORD *)(_this + 202);
+          v3 = *(_WORD *)((int)_this + 202);
           goto LABEL_170;
         case 29:
-          v3 = *(_WORD *)(_this + 206);
+          v3 = *(_WORD *)((int)_this + 206);
           goto LABEL_170;
         case 30:
-          v3 = *(_WORD *)(_this + 210);
+          v3 = *(_WORD *)((int)_this + 210);
           goto LABEL_170;
         case 31:
-          v3 = *(_WORD *)(_this + 214);
+          v3 = *(_WORD *)((int)_this + 214);
           goto LABEL_170;
         case 32:
-          v3 = *(_WORD *)(_this + 188);
+          v3 = *(_WORD *)((int)_this + 188);
           goto LABEL_170;
         case 33:
-          v3 = *(_WORD *)(_this + 192);
+          v3 = *(_WORD *)((int)_this + 192);
           goto LABEL_170;
         case 34:
-          v3 = *(_WORD *)(_this + 196);
+          v3 = *(_WORD *)((int)_this + 196);
           goto LABEL_170;
         case 35:
-          v3 = *(_WORD *)(_this + 200);
+          v3 = *(_WORD *)((int)_this + 200);
           goto LABEL_170;
         case 36:
-          v3 = *(_WORD *)(_this + 204);
+          v3 = *(_WORD *)((int)_this + 204);
           goto LABEL_170;
         case 37:
-          v3 = *(_WORD *)(_this + 208);
+          v3 = *(_WORD *)((int)_this + 208);
           goto LABEL_170;
         case 23:
           v3 = pParty->uNumFood;

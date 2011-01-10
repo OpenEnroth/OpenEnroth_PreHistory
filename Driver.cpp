@@ -121,7 +121,7 @@ Result::Code SecondaryInitialization()
  switch (uTurnSpeed)
  {
   case 0:
-    uTurnSpeed = (unsigned int)dword_6A0D00 < 0xC7 ? 128 : 64;
+    uTurnSpeed = 64;
   break;
 
   case 1:
@@ -492,18 +492,6 @@ Result::Code PrimaryInitialization()
 //----- (00 ) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-  long pWindowDims[4];
-
-  signed int v9; // edi@44
-  signed __int64 v12; // qax@55
-  HANDLE hProcess; // eax@68
-  int v16; // [sp+8h] [bp-24h]@55
-  RECT _Rect; // [sp+Ch] [bp-20h]@15
-
-
- HWND hPreviouslyActiveWindow = GetActiveWindow();
-
- SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  if (lpCmdLine)
  {
   if (lpCmdLine[0])
@@ -545,13 +533,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 
 
  hInstance = hInst;
- //ACHTUNG    4AC1C9 needs refactoring
- sub_4AC1C9(0, pWindowDims);
- _Rect.left = pWindowDims[0];
- _Rect.top = pWindowDims[1];
- _Rect.right = pWindowDims[2];
- _Rect.bottom = pWindowDims[3];
- dword_6A0D00 = _Rect.bottom;
 
  AllocConsole();
  if (!PrimaryInitialization())
@@ -639,37 +620,24 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
     {
       MenuLoop_Main();
 LABEL_21:
-      dword_6A0D48 = 0;
+      uGameState = 0;
       while ( 1 )
       {
-        if ( dword_6A0D48 == 1 )
-          goto LABEL_68;
+        if ( uGameState == 1 )
+        {
+         Game_Deinitialize();
+         return 0;
+        }
         if (uCurrentMenuID == MENU_NEWGAME)
         {
-         if (!bNoSound)
-           pAudioPlayer->StopMusic();
-
-          Party_Reset(pParty);
-
-          for (v9 = 0; v9 < 50; ++v9)
-            sub_45855F(stru_5E4D58.array_000000[v9]);
-
-          Party_CreateDefaultParty(pParty, 0);
-
           PlayerCreationUI_Initialize();
           if (MenuLoop_CharacterCreation())
-          {
-            DeleteFontCChar();
             goto LABEL_53;
-          }
 
-          //DeleteFontCChar();
           byte_50794A = 1;
 
           //if (!bNoVideo)
           //  pVideoPlayer->PlayMovie("Intro Post", 0, 0, false);
-
-          runtime_warning(tries to save not yet loaded level; need to rethink this mechanism);
 
           pGame->PrepareForLoop();
           //pGame->Loop("d01.blv");
@@ -678,17 +646,27 @@ LABEL_21:
           goto LABEL_49;
         }
         if (uCurrentMenuID == MENU_CREDITS)
+        {
+         if (!bNoSound)
+           pAudioPlayer->StopMusic();
+
+         CreditsMenuLoop();
+
+         if (!bNoSound)
+           pAudioPlayer->PlayMusicTrack(14, 64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
+         continue;
+        }
           break;
         if ( uCurrentMenuID == 4 )
         {
-          dword_6A0D48 = 1;
+          uGameState = 1;
           goto LABEL_49;
         }
         if (uCurrentMenuID == 9)
         {
          Party_Reset(pParty);
          dword_6BE340 = 0;
-         dword_6A0D48 = 0;
+         uGameState = 0;
 
          SetCurrentMenu(-1);
          pGame->PrepareForLoop();
@@ -696,7 +674,7 @@ LABEL_21:
         }
         if ( uCurrentMenuID == 5 || uCurrentMenuID == 9)
         {
-          dword_6A0D48 = 0;
+          uGameState = 0;
         }
         else
         {
@@ -749,41 +727,28 @@ LABEL_21:
     //sub_463149();
 
 LABEL_49:
-        if ( dword_6A0D48 == 3 )
+        if ( uGameState == 3 )
         {
           SetCurrentMenu(5);
           goto LABEL_21;
         }
-        if ( dword_6A0D48 == 4 )
+        if ( uGameState == 4 )
         {
           SetCurrentMenu(MENU_NEWGAME);
           goto LABEL_21;
         }
-        if ( dword_6A0D48 == 7 )
+        if ( uGameState == 7 )
         {
           pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
-          dword_6A0D48 = 0;
+          uGameState = 0;
           goto LABEL_53;
         }
       }
-
-      if (!bNoSound)
-        pAudioPlayer->StopMusic();
-
-      CreditsMenuLoop();
 LABEL_53:
       if (!bNoSound)
           pAudioPlayer->PlayMusicTrack(14, 64.0f * pSoundVolumeLevels[uMusicVolimeMultiplier]);
     }
   }
-LABEL_68:
-  hProcess = GetCurrentProcess();
-  SetPriorityClass(hProcess, NORMAL_PRIORITY_CLASS);
-  Game_Deinitialize();
-
- if (hPreviouslyActiveWindow)
-   SetActiveWindow(hPreviouslyActiveWindow);
- return 0;
 }
 
 

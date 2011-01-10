@@ -156,7 +156,7 @@ LABEL_89:
       }
       if ( !cEventTimer.bPaused )
       {
-        if ( !dword_6A0D48 )
+        if ( !uGameState )
         {
           if ( !cEventTimer.dword_000008 )
             sub_494035();
@@ -178,26 +178,26 @@ LABEL_89:
       }
 
       pAudioPlayer->sub_4AAFCF();
-      if ( dword_6A0D48 == 1 )
+      if ( uGameState == 1 )
         goto LABEL_96;
-      else if ( dword_6A0D48 == 2 )
+      else if ( uGameState == 2 )
       {
         pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));
         sub_4646F0(0);
-        dword_6A0D48 = 0;
+        uGameState = 0;
         continue;
       }
-      if ( dword_6A0D48 <= 2 )
+      if ( uGameState <= 2 )
         goto LABEL_85;
-      if ( dword_6A0D48 <= 5 || dword_6A0D48 == 7 )
+      if ( uGameState <= 5 || uGameState == 7 )
       {
 LABEL_96:
         v18 = 1;
         continue;
       }
-      if ( dword_6A0D48 != 8 )
+      if ( uGameState != 8 )
       {
-        if ( dword_6A0D48 != 9 )
+        if ( uGameState != 9 )
         {
 LABEL_85:
           sub_44103C_Draw();
@@ -313,7 +313,7 @@ LABEL_85:
         Player_PlaySound(pPlayers[v20[v14 % v13]], 99, 0);
       }
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[524], 2);
-      dword_6A0D48 = 0;
+      uGameState = 0;
       v2 = (int)pD3DRenderer;
     }
     while ( !v18 );
@@ -321,11 +321,11 @@ LABEL_85:
     dword_6BE340 = 0;
     cEventTimer.Pause();
     sub_464479_ResetCursorAndOther();
-    if ( dword_6A0D48 == 3 )
+    if ( uGameState == 3 )
     {
       sub_491E3A();
       LoadPlayerPortraintsAndVoices();
-      dword_6A0D48 = 0;
+      uGameState = 0;
       LODFile_Icons_LOD.lod_IB_dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
       v17 = 1;
       continue;

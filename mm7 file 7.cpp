@@ -3478,7 +3478,7 @@ void __cdecl sub_4B1ECE()
       v1 = 0;
       for (i = 1; i < 5; ++i)
       {
-        LOBYTE(v3) = Player_sub_449BB4((int)&pParty->pPlayers[i], 17, (void *)*(_WORD *)v0);
+        LOBYTE(v3) = Player_sub_449BB4(&pParty->pPlayers[i], 17, (void *)*(_WORD *)v0);
         if ( v3 )
           break;
         ++v1;
@@ -3851,7 +3851,7 @@ const unsigned char *__thiscall sub_4B254D(void *_this)
   int v1; // eax@1
   int v2; // ecx@1
   int v3; // edi@1
-  int v4; // esi@1
+  //int v4; // esi@1
   signed __int64 v5; // qtt@1
   int v6; // eax@2
   int v7; // eax@7
@@ -3885,7 +3885,7 @@ const unsigned char *__thiscall sub_4B254D(void *_this)
   int v36; // [sp+24h] [bp-8h]@7
   unsigned char *v37; // [sp+28h] [bp-4h]@1
 
-  v4 = (int)pPlayers[uActiveCharacter - 1];
+  Player *pPlayer = pPlayers[uActiveCharacter - 1];
   dword_F8B1A8 = 0;
   v5 = (signed int)((char *)_this - 200);
   v2 = (signed int)((char *)_this - 200) / 3;
@@ -3915,10 +3915,10 @@ const unsigned char *__thiscall sub_4B254D(void *_this)
     uArenaReward = 2000;
     dword_F8B1B0 = 2;
   }
-  v7 = *(_BYTE *)(v4 + 185);
+  v7 = *(_BYTE *)((int)pPlayer + 185);
   v35 = v7;
   v9 = (unsigned __int8)*(&byte_4ED970[37 * v7] + v2);
-  v34 = *(_WORD *)(v4 + 2 * v2 + 264);
+  v34 = *(_WORD *)((int)pPlayer + 2 * v2 + 264);
   v8 = v34 & 0x3F;
   v36 = v3 + 2;
   if ( v9 < v3 + 2 )
@@ -3976,7 +3976,7 @@ LABEL_23:
     wsprintfA((char *)TmpBuf, (const char *)v24, v27);
     return TmpBuf;
   }
-  if ( !Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v4) )
+  if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayer) )
     return dword_721A3C;
   if ( !v8 )
     return dword_721A84;
@@ -4013,14 +4013,14 @@ LABEL_57:
               return v37;
             goto LABEL_40;
           case 22:
-            v22 = Player_GetBaseWillpower((Player *)v4);
+            v22 = pPlayer->GetBaseWillpower();
             goto LABEL_61;
           case 24:
             uArenaReward = 2500;
-            v22 = Player_GetBaseEndurance((Player *)v4);
+            v22 = pPlayer->GetBaseEndurance();
             goto LABEL_61;
           case 36:
-            v22 = Player_GetBaseIntelligence((Player *)v4);
+            v22 = pPlayer->GetBaseIntelligence();
 LABEL_61:
             if ( v22 < 50 )
               return v37;
@@ -4061,7 +4061,7 @@ LABEL_40:
         switch ( dword_F8B1AC )
         {
           case 19:
-            if ( sub_49327B(v4, 34, 1) == 1 )
+            if ( Player_sub_49327B(pPlayer, 34, 1) == 1 )
               goto LABEL_40;
             v28 = 1;
             v25 = 26;
@@ -4069,19 +4069,19 @@ LABEL_40:
           default:
             goto LABEL_41;
           case 20:
-            if ( sub_49327B(v4, 35, 1) == 1 )
+            if ( Player_sub_49327B(pPlayer, 35, 1) == 1 )
               goto LABEL_40;
             v28 = 1;
             v25 = 27;
 LABEL_39:
-            if ( sub_49327B(v4, v25, v28) == 1 )
+            if ( Player_sub_49327B(pPlayer, v25, v28) == 1 )
               goto LABEL_40;
             return v37;
           case 30:
-            v20 = *(_BYTE *)(v4 + 326);
+            v20 = *(_BYTE *)((int)pPlayer + 326);
             goto LABEL_47;
           case 31:
-            v20 = *(_BYTE *)(v4 + 324);
+            v20 = *(_BYTE *)((int)pPlayer + 324);
 LABEL_47:
             if ( (v20 & 0x3Fu) < 0xA )
               return v37;

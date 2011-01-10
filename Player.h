@@ -33,6 +33,20 @@ namespace Character
   };
  };
 
+ namespace Attribute
+ {
+  enum Type
+  {
+   Strength = 0,
+   Intelligence = 1,
+   Willpower = 2,
+   Endurance = 3,
+   Accuracy = 4,
+   Speed = 5,
+   Luck = 6
+  };
+ };
+
  namespace Skill
  {
   enum
@@ -133,6 +147,11 @@ struct Spellbook
  unsigned char bIsSpellbookAvailable;
  unsigned char bAvailableSpells[10];
 };
+
+
+
+//int __thiscall sub_48EAAE(void *_this, signed int a2, int a3);
+int Player_MaybeGetWearItemsBonus(const struct Player *_this, signed int a2, int a3);
 
 struct Player
 {
@@ -270,8 +289,25 @@ struct Player
 
    int dword_001B38;
 
+
+   inline int GetBaseStrength() const     {return uStrength + Player_MaybeGetWearItemsBonus(this, 0, 0);}
+   inline int GetBaseIntelligence() const {return uIntelligence + Player_MaybeGetWearItemsBonus(this, 1, 0);}
+   inline int GetBaseWillpower() const    {return uWillpower + Player_MaybeGetWearItemsBonus(this, 2, 0);}
+   inline int GetBaseEndurance() const    {return uEndurance + Player_MaybeGetWearItemsBonus(this, 3, 0);}
+   inline int GetBaseAccuracy() const     {return uAccuracy + Player_MaybeGetWearItemsBonus(this, 4, 0);}
+   inline int GetBaseSpeed() const        {return uSpeed + Player_MaybeGetWearItemsBonus(this, 5, 0);}
+   inline int GetBaseLuck() const         {return uLuck + Player_MaybeGetWearItemsBonus(this, 6, 0);}
+
 };
 //sizeof == 1B3C
+
+//int Player_GetBaseStrength(Player *_this)          0048C855  Player::GetBaseStrength
+//int Player_GetBaseIntelligence(Player *_this)      0048C86C  Player::GetBaseIntelligence
+//int Player_GetBaseWillpower(Player *_this)         0048C883  Player::GetBaseWillpower
+//int Player_GetBaseEndurance(Player *_this)         0048C89A  Player::GetBaseEndurance
+//int Player_GetBaseAccuracy(Player *_this)          0048C8B1  Player::GetBaseAccuracy
+//int Player_GetBaseSpeed(Player *_this)             0048C8C8  Player::GetBaseSpeed
+//int Player_GetBaseLuck(Player *_this)              0048C8DF  Player::GetBaseLuck
 
 
 Character::Sex::Type Player_GetSexByVoice(Player *_this);
@@ -305,23 +341,6 @@ int Player_GetActualResistance(struct Player *_this, signed int a2);
 //int __thiscall sub_48C90D(void *_this);
 int Player_GetActualLevel(struct Player *_this);
 
-//int __thiscall sub_48EAAE(void *_this, signed int a2, int a3);
-int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3);
-
-//int __thiscall sub_48C855(int _this);
-int Player_GetBaseStrength(struct Player *_this);
-//int __thiscall sub_48C86C(int _this);
-int Player_GetBaseIntelligence(struct Player *_this);
-//int __thiscall sub_48C883(int _this);
-int Player_GetBaseWillpower(struct Player *_this);
-//int __thiscall sub_48C89A(int _this);
-int Player_GetBaseEndurance(struct Player *_this);
-//int __thiscall sub_48C8B1(int _this);
-int Player_GetBaseAccuracy(struct Player *_this);
-//int __thiscall sub_48C8C8(int _this);
-int Player_GetBaseSpeed(struct Player *_this);
-//int __thiscall sub_48C8DF(int _this);
-int Player_GetBaseLuck(struct Player *_this);
 //int __thiscall sub_48C8F6(int _this);
 int Player_GetBaseLevel(struct Player *_this);
 
@@ -378,7 +397,8 @@ unsigned int __thiscall Player_sub_48D498(int _this);
 signed int __thiscall Player_sub_48D4B3(int _this, int a2, signed int a3);
 int __thiscall Player_sub_48DBB9(int _this, int a2);
 int __thiscall Player_sub_48E656(int _this);
-int __thiscall Player_sub_48E68F(int _this);
+signed int Player_sub_49327B(Player *_this, int a2, int a3);
+int __thiscall Player_sub_48E68F(Player *_this);
 char __thiscall Player_GetActualSkillLevel(Player *_this, unsigned int uSkillType);
 __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
 __int16 __thiscall Player_sub_494A25_LooksLikePlayEmotion(Player *_this, int a2, int a3);
