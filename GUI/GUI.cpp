@@ -5505,8 +5505,7 @@ void __cdecl GameUI_DrawPartySpells()
      if (pParty->pPartyBuffs[(unsigned __int8)byte_4E5DD8[i]].dword_000004 > 0 || pParty->pPartyBuffs[(unsigned __int8)byte_4E5DD8[i]].dword_000000 > 0 )
       {
         v3 = uTextureIdx_SpellEffecIcons[i];
-        Render_sub_4A65CC(
-          (int)pD3DRenderer,
+        Render_sub_4A65CC(pD3DRenderer,
           dword_4E5D68[2 * i],
           dword_4E5D68[2 * i + 1],
           v3 != -1 ? LODFile_Icons_LOD.aLODHeaders[v3].uTextureWidth : 0,
@@ -5665,7 +5664,7 @@ void GameUI_DrawPortraits(void *_this)
 LABEL_27:
       v9 = off_4ED748[i];
       if (pParty->pPartyBuffs[11].qword_000000)
-        sub_4A6E7E((int)pD3DRenderer, v9, 387, (int)v4);
+        sub_4A6E7E(pD3DRenderer, v9, 387, (int)v4);
       else
         Render_DrawTransparentTexture(pD3DRenderer, v9 + 1, 388, v4);
       v10 = *(_DWORD *)(v3 + 6164) >= v1 && (*(_DWORD *)(v3 + 6164) > v1 || *(_DWORD *)(v3 + 6160) > (unsigned int)v1);
@@ -6434,7 +6433,7 @@ LABEL_24:
               ptr_50C9A4 = 0;
             }
             v22 = (double)GetTickCount() * 0.1000000014901161;
-            Render_sub_4A63E6((int)pD3DRenderer, uDrawItemAtX, uDrawItemAtY, (int)pItemTexture, v19, (signed __int64)v22, 0, 255);
+            Render_sub_4A63E6(pD3DRenderer, uDrawItemAtX, uDrawItemAtY, (int)pItemTexture, v19, (signed __int64)v22, 0, 255);
 LABEL_33:
             array_AD4674_FillZBuffer(pD3DRenderer->pActiveZBuffer + v18, uItemTextureIdx, v28 + 1);
             continue;
@@ -7931,7 +7930,7 @@ LABEL_49:
             }
             v31 = v270 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v270] : 0;
             v32 = (double)GetTickCount() * 0.1000000014901161;
-            Render_sub_4A63E6((int)pD3DRenderer, v25, v224, v31, v236, (signed __int64)v32, 0, 255);
+            Render_sub_4A63E6(pD3DRenderer, v25, v224, v31, v236, (signed __int64)v32, 0, 255);
 LABEL_57:
             if ( !dword_5118E0 )
               Render_DrawTextureToZBuffer(pD3DRenderer, v25, v224, (cTexture *)v31, v259);
@@ -8004,7 +8003,7 @@ LABEL_85:
                         }
                         v46 = (double)GetTickCount() * 0.1000000014901161;
                         Render_sub_4A63E6(
-                          (int)pD3DRenderer,
+                          pD3DRenderer,
                           v237,
                           v225,
                           v40 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v40] : 0,
@@ -8109,7 +8108,7 @@ LABEL_117:
                           }
                           v60 = (double)GetTickCount() * 0.1000000014901161;
                           Render_sub_4A63E6(
-                            (int)pD3DRenderer,
+                            pD3DRenderer,
                             v238,
                             v226,
                             v54 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v54] : 0,
@@ -8313,7 +8312,7 @@ LABEL_181:
                           }
                           v91 = (double)GetTickCount() * 0.1000000014901161;
                           Render_sub_4A63E6(
-                            (int)pD3DRenderer,
+                            pD3DRenderer,
                             v240,
                             v228,
                             v86 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v86] : 0,
@@ -8449,7 +8448,7 @@ LABEL_284:
                                             ptr_50C9A4 = 0;
                                           }
                                           v140 = (double)GetTickCount() * 0.1000000014901161;
-                                          Render_sub_4A63E6((int)pD3DRenderer,
+                                          Render_sub_4A63E6(pD3DRenderer,
                                             v135,
                                             v230,
                                             v134 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v134]: 0,
@@ -8545,7 +8544,7 @@ LABEL_325:
                                             }
                                             v154 = (double)GetTickCount() * 0.1000000014901161;
                                             Render_sub_4A63E6(
-                                              (int)pD3DRenderer,
+                                              pD3DRenderer,
                                               v244,
                                               v231,
                                               v149 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v149] : 0,
@@ -8734,7 +8733,7 @@ LABEL_381:
                                                     }
                                                     v186 = (double)GetTickCount() * 0.1000000014901161;
                                                     Render_sub_4A63E6(
-                                                      (int)pD3DRenderer,
+                                                      pD3DRenderer,
                                                       v176,
                                                       v233,
                                                       v180 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v180] : 0,
@@ -8800,7 +8799,7 @@ LABEL_348:
                                           }
                                           v167 = (double)GetTickCount() * 0.1000000014901161;
                                           Render_sub_4A63E6(
-                                            (int)pD3DRenderer,
+                                            pD3DRenderer,
                                             v245,
                                             v232,
                                             v163 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v163] : 0,
@@ -8885,7 +8884,7 @@ LABEL_226:
                                   v113 = (double)GetTickCount();
 LABEL_249:
                                   Render_sub_4A63E6(
-                                    (int)pD3DRenderer,
+                                    pD3DRenderer,
                                     v241,
                                     v229,
                                     v107 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v107] : 0,
@@ -9055,7 +9054,7 @@ LABEL_145:
                     }
                     v75 = (double)GetTickCount() * 0.1000000014901161;
                     Render_sub_4A63E6(
-                      (int)pD3DRenderer,
+                      pD3DRenderer,
                       v239,
                       v227,
                       v68 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v68] : 0,
@@ -9156,7 +9155,7 @@ LABEL_27:
             ptr_50C9A4 = 0;
           }
           v19 = (double)GetTickCount() * 0.1000000014901161;
-          Render_sub_4A63E6((int)pD3DRenderer,
+          Render_sub_4A63E6(pD3DRenderer,
             v10,
             v223,
             v15 != -1 ?(int)&LODFile_Icons_LOD.aLODHeaders[v15] : 0,
@@ -9366,7 +9365,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
 			  ptr_50C9A4 = 0;
 			}
 			v10 = (double)GetTickCount() * 0.1000000014901161;
-			Render_sub_4A63E6((int)pD3DRenderer, v54, v53, v5 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v5]: 0, v49, (signed __int64)v10, 0, 255);
+			Render_sub_4A63E6(pD3DRenderer, v54, v53, v5 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v5]: 0, v49, (signed __int64)v10, 0, 255);
 		//LABEL_23:
 		//	v2 = v56;
 		}
@@ -9457,7 +9456,7 @@ LABEL_37:
     ptr_50C9A4 = 0;
   }
   v24 = (double)GetTickCount() * 0.1000000014901161;
-  Render_sub_4A63E6((int)pD3DRenderer, 493, 91, v20 != -1 ?(int) &LODFile_Icons_LOD.aLODHeaders[v20] : 0, v51, (signed __int64)v24, 0, 255);
+  Render_sub_4A63E6(pD3DRenderer, 493, 91, v20 != -1 ?(int) &LODFile_Icons_LOD.aLODHeaders[v20] : 0, v51, (signed __int64)v24, 0, 255);
 	  }
   v32 = v2->cEquippedItems.dword_00001C; //*(_DWORD *)(v2 + 6500)
   if (v32==0 )
@@ -9529,7 +9528,7 @@ LABEL_58:
     ptr_50C9A4 = 0;
   }
   v40 = (double)GetTickCount() * 0.1000000014901161;
-  Render_sub_4A63E6((int)pD3DRenderer, 586, 88, v34 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v34] : 0, (int)v37, (signed __int64)v40, 0, 255);
+  Render_sub_4A63E6(pD3DRenderer, 586, 88, v34 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v34] : 0, (int)v37, (signed __int64)v40, 0, 255);
 }
 
 //----- (00417FE5) --------.text:004185E7    ------------------------------------------------

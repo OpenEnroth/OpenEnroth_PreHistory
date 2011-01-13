@@ -1826,7 +1826,7 @@ LABEL_261:
       {
         if ( wParam == 103 )
         {
-          Render_sub_49EDB6((int)pD3DRenderer);
+          Render_sub_49EDB6(pD3DRenderer);
           return 0;
         }
         if ( wParam == 104 )

@@ -920,9 +920,9 @@ int __stdcall sub_4A49D0(float, float, float, float, float, float, float, float,
 int __stdcall sub_4A4CC9(int a1, int a2);
 void __cdecl sub_4A5190();
 void __cdecl sub_4A57E9();
-void __thiscall sub_4A5D33(int _this, int a2, int a3, int a4, int a5, int a6);
+void __thiscall sub_4A5D33(struct BaseRender* _this, int a2, int a3, int a4, int a5, int a6);
 void __stdcall sub_4A6DF5(int a1, int a2, int a3, int a4, int a5, int a6);
-void __thiscall sub_4A6E7E(int _this, int a2, int a3, int a4);
+void __thiscall sub_4A6E7E(struct BaseRender* _this, int a2, int a3, int a4);
 int __thiscall sub_4A7063(void *_this, float a2);
 void __thiscall sub_4A71DC(int _this);
 int __thiscall sub_4A71FE(int _this, float a2, float a3, float a4, float a5, float a6, float a7, int a8);

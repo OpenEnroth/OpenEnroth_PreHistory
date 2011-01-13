@@ -11295,7 +11295,7 @@ CAMERA   ï  _____\| ______ +  0
  uStartZ = 0, uEndZ = 128;
 
 
- RenderVertex pTerrainVertices[128 * 128];
+ static RenderVertex pTerrainVertices[128 * 128];
  for (unsigned int z = uStartZ; z < uEndZ; ++z)
    for (unsigned int x = uStartX; x < uEndX; ++x)
    {

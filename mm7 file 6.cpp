@@ -3052,21 +3052,21 @@ unsigned char *__fastcall sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNP
     v13 = a4;
     v11 = v70;
     v12 = a3;
-    while ( 1 )
+    while ( 1 ) // find amount of percent gold he take
     {
       v14 = Str[v11];
-      if ( v14 == 37 )
+      if ( v14 == '%' )
         break;
       pStringBuffer[v10++] = v14;
 LABEL_119:
       ++v11;
       v70 = v11;
-      if ( v11 >= (signed int)v66 )
+      if ( v11 >= (signed int)v66 ) //they can't work for free, what a mess!
         return pStringBuffer;
     }
     v17 = (char *)&Str[v11 + 1];
     v16 = (unsigned __int8)Str[v11 + 2];
-    v15 = v16 + 10 * (unsigned __int8)*v17 - 528;
+    v15 = v16 + 10 * (unsigned __int8)*v17 - 528; // i'd prefer atoi
     if ( v15 <= 15 )
     {
       if ( v15 != 15 )
@@ -3201,7 +3201,8 @@ LABEL_46:
           case 0x21E:
             goto LABEL_93;
           case 0x214:
-            goto LABEL_117;
+            v13 = (int)Dest;
+            goto LABEL_118;
           default:
             goto LABEL_108;
         }
@@ -3227,7 +3228,7 @@ LABEL_93:
             v13 = (int)pGlobalTXT_LocalizationStrings[390];
           goto LABEL_118;
         }
-        if ( v16 + 10 * (unsigned __int8)*v17 == 545 )
+        if ( v16 + 10 * (unsigned __int8)*v17 == 545 ) // 17%
         {
           v26 = dword_737C28[5 * *(_DWORD *)(v71 + 24)] / 100;
           goto LABEL_91;
@@ -3246,7 +3247,6 @@ LABEL_93:
         {
           v46 = ItemGen_sub_456499((ItemGen *)v12);
           wsprintfA(Dest, "\f%06x%s\f000000", v65, v46);
-LABEL_117:
           v13 = (int)Dest;
           goto LABEL_118;
         }
@@ -3277,7 +3277,9 @@ LABEL_117:
               v26 = sub_4B8213(v41, v40) / 2;
               break;
           }
-          goto LABEL_98;
+          wsprintfA(Dest, "%lu", v26);
+          v13 = (int)Dest;
+          goto LABEL_118;
         }
         if ( v16 + 10 * (unsigned __int8)*v17 != 555 )
         {
@@ -3287,7 +3289,8 @@ LABEL_108:
             strncpy(Dest, v17, 2);
             v51 = atoi(Dest);
             wsprintfA(Dest, "%lu", v51);
-            goto LABEL_117;
+            v13 = (int)Dest;
+            goto LABEL_118;
           }
           v13 = (int)array_59146C[(int)ptr_507BC0->dword_00001C - 1].pProprieterTitle;
 LABEL_118:
@@ -3310,9 +3313,10 @@ LABEL_118:
           {
 LABEL_77:
             v26 = 1;
-            goto LABEL_98;
           }
-          goto LABEL_98;
+          wsprintfA(Dest, "%lu", v26);
+          v13 = (int)Dest;
+          goto LABEL_118;
         }
         if ( a5 != 4 )
         {
@@ -3333,19 +3337,25 @@ LABEL_77:
                 v26 = 1;
 LABEL_91:
               if ( v26 >= 1 )
-                goto LABEL_98;
+              {
+                wsprintfA(Dest, "%lu", v26);
+                v13 = (int)Dest;
+                goto LABEL_118;
+              }
               goto LABEL_77;
             }
           }
-LABEL_98:
           wsprintfA(Dest, "%lu", v26);
-          goto LABEL_117;
+          v13 = (int)Dest;
+          goto LABEL_118;
         }
         v34 = *(float *)v27;
       }
       v48 = v34;
       v26 = Player_sub_4B8179((Player *)v8, v48);
-      goto LABEL_98;
+      wsprintfA(Dest, "%lu", v26);
+      v13 = (int)Dest;
+      goto LABEL_118;
     }
     if ( v15 != 30 )
     {
@@ -3375,7 +3385,8 @@ LABEL_98:
             v49 = v58;
 LABEL_116:
             wsprintfA(Dest, (char *)pGlobalTXT_LocalizationStrings[378], aMonthNames[v49], v53, v54);
-            goto LABEL_117;
+            v13 = (int)Dest;
+            goto LABEL_118;
           }
           v52 = (int)pPlayers[4];
           break;
@@ -3503,7 +3514,7 @@ int CreditsMenuLoop()
   pD3DRenderer->BeginScene();
   Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cBackGround);
   Render_Set2DClippingRect(pD3DRenderer, 389, 19, 389 + 250, 19 + 440);
-  sub_4A5D33((int)pD3DRenderer, 389, 19, 0, 0, (int)&v29);
+  sub_4A5D33(pD3DRenderer, 389, 19, 0, 0, (int)&v29);
   Render_Reset2DClippingRect(pD3DRenderer);
   pD3DRenderer->EndScene();
   Dest = (char *)1148846080;
@@ -3542,7 +3553,7 @@ int CreditsMenuLoop()
         pD3DRenderer->BeginScene();
         Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cBackGround);
         Render_Set2DClippingRect(pD3DRenderer, 389, 19, 389 + 250, 389 +440);
-        sub_4A5D33((int)pD3DRenderer, 389, 19, 0, v35, (int)&v29);
+        sub_4A5D33(pD3DRenderer, 389, 19, 0, v35, (int)&v29);
         Render_Reset2DClippingRect(pD3DRenderer);
         pD3DRenderer->EndScene();
         pD3DRenderer->Present();
@@ -3551,7 +3562,7 @@ int CreditsMenuLoop()
       pD3DRenderer->BeginScene();
       Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cBackGround);
       Render_Set2DClippingRect(pD3DRenderer, 389, 19, 389 + 250, 19 + 440);
-      sub_4A5D33((int)pD3DRenderer, 389, 19, 0, v35, (int)&v29);
+      sub_4A5D33(pD3DRenderer, 389, 19, 0, v35, (int)&v29);
       Render_Reset2DClippingRect(pD3DRenderer);
       pD3DRenderer->EndScene();
       ++v35;
@@ -7111,27 +7122,20 @@ int __thiscall sub_49EB79(int _this)
 }
 
 //----- (0049ECC4) --------------------------------------------------------
-int __thiscall Render_sub_49ECC4(int _this)
+int __thiscall Render_ClearTarget(struct BaseRender* _this)
 {
-  int v2; // ecx@1
   int v3; // ecx@4
 
-  v2 = *(_DWORD *)(_this + 262280);
-  if ( v2 )
+  if ( _this->pRenderD3D3 )
   {
-    if ( *(_DWORD *)(_this + 262416) )
-      RenderD3D3_ClearTarget((RenderD3D3 *)v2, 1, 0, 0, 0.0);
-  }
-  else
-  {
-    v3 = *(_DWORD *)(_this + 16) * *(_DWORD *)(_this + 20) >> 1;
-    memset((void *)pD3DRenderer->pTargetSurface, 0, 4 * v3);
+    if ( _this->dword_040110 )
+      RenderD3D3_ClearTarget(_this->pRenderD3D3, 1, 0, 0, 0.0);
   }
   return 0;
 }
 
 //----- (0049EDB6) --------------------------------------------------------
-void __thiscall Render_sub_49EDB6(int _this)
+void __thiscall Render_sub_49EDB6(struct BaseRender* _this)
 {
   __int16 v1; // di@1
   int v2; // esi@1
@@ -7182,9 +7186,9 @@ void __thiscall Render_sub_49EDB6(int _this)
   int i; // [sp+15Ch] [bp-8h]@10
   unsigned __int8 v48; // [sp+163h] [bp-1h]@17
 
-  v2 = _this;
+  v2 = (int)_this;
   v1 = 0;
-  if ( !*(_DWORD *)(_this + 262280) || *(_DWORD *)(_this + 262416) )
+  if ( !_this->pRenderD3D3 || _this->dword_040110 )
   {
     wsprintfA(Filename, "screen%0.2i.pcx", dword_4EFA80++ % 100);
     File = fopen(Filename, "wb");
@@ -7330,7 +7334,7 @@ void __thiscall Render_sub_49EDB6(int _this)
 }
 
 //----- (0049F1BC) --------------------------------------------------------
-void __thiscall Render_sub_49F1BC(int _this, const char *Filename)
+void __thiscall Render_sub_49F1BC(struct BaseRender* _this, const char *Filename)
 {
   __int16 v2; // di@1
   int v3; // esi@1
@@ -7378,9 +7382,9 @@ void __thiscall Render_sub_49F1BC(int _this, const char *Filename)
   int i; // [sp+130h] [bp-8h]@10
   unsigned __int8 v46; // [sp+137h] [bp-1h]@17
 
-  v3 = _this;
+  v3 = (int)_this;
   v2 = 0;
-  if ( !*(_DWORD *)(_this + 262280) || *(_DWORD *)(_this + 262416) )
+  if ( !_this->pRenderD3D3 || _this->dword_040110 )
   {
     ++dword_4EFA84;
     File = fopen(Filename, "wb");
@@ -9492,7 +9496,7 @@ void __cdecl sub_4A5190()
 }
 
 //----- (004A52F1) --------------------------------------------------------
-int __thiscall Render_sub_4A52F1(int _this, int a2, float a3)
+int __thiscall Render_sub_4A52F1(struct BaseRender* _this, int a2, float a3)
 {
   unsigned int v3; // esi@1
   double v4; // st7@2
@@ -9565,7 +9569,7 @@ int __thiscall Render_sub_4A52F1(int _this, int a2, float a3)
   float v71; // [sp+9Ch] [bp-4h]@6
 
   v3 = 0;
-  if ( *(_DWORD *)(_this + 262280) )
+  if ( _this->pRenderD3D3 )
   {
     v4 = a3;
     if ( a3 <= memory_4D8410.d1_0 )
@@ -9728,8 +9732,8 @@ int __thiscall Render_sub_4A52F1(int _this, int a2, float a3)
     LODWORD(a3) = LODWORD(v70);
     v69 = (pOldViewport->uGameZ - pOldViewport->uGameX) >> 1;
     HIDWORD(v70) = pOldViewport->uGameW - pOldViewport->uGameY + 1;
-    v17 = pOldViewport->uGameX + *(_DWORD *)(_this + 262384) - pOldViewport->uGameZ;
-    v18 = *(_DWORD *)(_this + 262380) + 2 * (pOldViewport->uGameX + pOldViewport->uGameY * *(_DWORD *)(_this + 262384));
+    v17 = pOldViewport->uGameX + _this->uTargetSurfacePitch - pOldViewport->uGameZ;
+    v18 = (int)_this->pTargetSurface + 2 * (pOldViewport->uGameX + pOldViewport->uGameY * _this->uTargetSurfacePitch);
     v68 = 2 * v17;
     LODWORD(v71) = v18;
     v16 = (signed int)&unk_F1B430;
@@ -9890,7 +9894,7 @@ void __cdecl sub_4A57E9()
 }
 
 //----- (004A5D33) --------------------------------------------------------
-void __thiscall sub_4A5D33(int _this, int a2, int a3, int a4, int a5, int a6)
+void __thiscall sub_4A5D33(struct BaseRender* _this, int a2, int a3, int a4, int a5, int a6)
 {
   int v6; // esi@1
   int v7; // ecx@3
@@ -9917,12 +9921,12 @@ void __thiscall sub_4A5D33(int _this, int a2, int a3, int a4, int a5, int a6)
   int v29; // [sp+20h] [bp+10h]@21
   int v30; // [sp+28h] [bp+18h]@3
 
-  v6 = _this;
-  if ( *(_DWORD *)(_this + 262372) )
+  v6 = (int)_this;
+  if ( _this->bSceneBegun )
   {
     if ( a6 )
     {
-      v8 = *(_DWORD *)(_this + 262380) + 2 * (a2 + a3 * *(_DWORD *)(_this + 262384));
+      v8 = (int)_this->pTargetSurface + 2 * (a2 + a3 * _this->uTargetSurfacePitch);
       v10 = *(_WORD *)(a6 + 20);
       v25 = *(_WORD *)(a6 + 20);
       v11 = a4 + a5 * v10;
@@ -10021,7 +10025,7 @@ void __thiscall Render_sub_4A601E(struct BaseRender* _this, int a2, int a3, cTex
   int v17; // [sp+18h] [bp+Ch]@3
   int v18; // [sp+1Ch] [bp+10h]@3
 
-  if ( *(_DWORD *)(_this + 262372) )
+  if ( _this->bSceneBegun )
   {
     if ( a4 )
     {
@@ -10029,41 +10033,41 @@ void __thiscall Render_sub_4A601E(struct BaseRender* _this, int a2, int a3, cTex
       v6 = *(_WORD *)(a4 + 26);
       v8 = 5 * a3;
       v17 = *(_WORD *)(a4 + 26);
-      v7 = (void *)(*(_DWORD *)(_this + 262196) + 4 * (a2 + (v8 << 7)));
+      v7 = (void *)(*(_DWORD *)((char*)_this + 262196) + 4 * (a2 + (v8 << 7))); //pActiveZBuffer
       v18 = *(_WORD *)(a4 + 24);
-      if ( *(_DWORD *)(_this + 262404) )
+      if ( _this->dword_040104 )
       {
-        v9 = *(_DWORD *)(_this + 262392);
+        v9 = _this->uClipRectX;
         if ( a2 < v9 )
         {
           v18 += a2 - v9;
           v7 = (char *)v7 + 4 * (v9 - a2);
         }
-        v10 = *(_DWORD *)(_this + 262388);
+        v10 = _this->uClipRectY;
         if ( v5 < v10 )
         {
           v17 += v5 - v10;
           v7 = (char *)v7 + 2560 * (v10 - v5);
         }
-        v11 = *(_DWORD *)(_this + 262392);
+        v11 = _this->uClipRectX;
         if ( v11 < a2 )
           v11 = a2;
-        v12 = *(_DWORD *)(_this + 262400);
+        v12 = _this->uClipRectZ;
         if ( v18 + v11 > v12 )
         {
-          v13 = *(_DWORD *)(_this + 262392);
+          v13 = _this->uClipRectX;
           if ( v13 < a2 )
             v13 = a2;
           v18 = v12 - v13;
         }
-        v14 = *(_DWORD *)(_this + 262388);
+        v14 = _this->uClipRectY;
         if ( v14 < v5 )
           v14 = v5;
         v6 = v17;
-        v15 = *(_DWORD *)(_this + 262396);
+        v15 = _this->uClipRectW;
         if ( v17 + v14 > v15 )
         {
-          v16 = *(_DWORD *)(_this + 262388);
+          v16 = _this->uClipRectY;
           if ( v16 < v5 )
             v16 = v5;
           v6 = v15 - v16;
@@ -10194,7 +10198,7 @@ void Render_DrawTextureToZBuffer(struct BaseRender *_this, unsigned int uOutX, u
 }
 
 //----- (004A63E6) --------------------------------------------------------
-void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void __thiscall Render_sub_4A63E6(struct BaseRender* _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
   int v8; // eax@2
   int v9; // ebx@4
@@ -10218,7 +10222,7 @@ void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int
   int v27; // [sp+24h] [bp+Ch]@23
   int v28; // [sp+28h] [bp+10h]@6
 
-  if ( *(_DWORD *)(_this + 262372) )
+  if ( _this->bSceneBegun )
   {
     v8 = a4;
     if ( a4 )
@@ -10230,14 +10234,14 @@ void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int
         {
           if ( *(_DWORD *)(a5 + 64) )
           {
-            v10 = *(_DWORD *)(_this + 262380) + 2 * (a2 + a3 * *(_DWORD *)(_this + 262384));
+            v10 = (int)_this->pTargetSurface + 2 * (a2 + a3 * _this->uTargetSurfacePitch);
             v28 = *(_DWORD *)(a4 + 48);
             v25 = *(_WORD *)(v8 + 24);
             v24 = *(_WORD *)(v8 + 26);
             v22 = *(_WORD *)(v8 + 24);
-            if ( *(_DWORD *)(_this + 262404) )
+            if ( _this->dword_040104 )
             {
-              v11 = *(_DWORD *)(_this + 262392);
+              v11 = _this->uClipRectX;
               if ( a2 < v11 )
               {
                 v28 += v11 - a2;
@@ -10245,33 +10249,33 @@ void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int
                 v9 = a5;
                 v10 += 2 * (v11 - a2);
               }
-              v12 = *(_DWORD *)(_this + 262388);
+              v12 = _this->uClipRectY;
               if ( a3 < v12 )
               {
                 v13 = v12 - a3;
                 v9 = a5;
                 v28 += v22 * v13;
-                v24 += a3 - *(_DWORD *)(_this + 262388);
-                v10 += 2 * *(_DWORD *)(_this + 262384) * v13;
+                v24 += a3 - _this->uClipRectY;
+                v10 += 2 * _this->uTargetSurfacePitch * v13;
               }
-              v14 = *(_DWORD *)(_this + 262392);
+              v14 = _this->uClipRectX;
               if ( v14 < a2 )
                 v14 = a2;
-              v15 = *(_DWORD *)(_this + 262400);
+              v15 = _this->uClipRectZ;
               if ( v25 + v14 > v15 )
               {
-                v16 = *(_DWORD *)(_this + 262392);
+                v16 = _this->uClipRectX;
                 if ( v16 < a2 )
                   v16 = a2;
                 v25 = v15 - v16;
               }
-              v17 = *(_DWORD *)(_this + 262388);
+              v17 = _this->uClipRectY;
               if ( v17 < a3 )
                 v17 = a3;
-              v18 = *(_DWORD *)(_this + 262396);
+              v18 = _this->uClipRectW;
               if ( v24 + v17 > v18 )
               {
-                v19 = *(_DWORD *)(_this + 262388);
+                v19 = _this->uClipRectY;
                 if ( v19 < a3 )
                   v19 = a3;
                 v24 = v18 - v19;
@@ -10306,7 +10310,7 @@ void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int
                   v10 += 2;
                 }
                 ++v27;
-                v10 += 2 * (*(_DWORD *)(_this + 262384) - v25);
+                v10 += 2 * (_this->uTargetSurfacePitch - v25);
                 v28 += v23;
               }
               while ( v27 < v24 );
@@ -10319,7 +10323,7 @@ void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int
 }
 
 //----- (004A65CC) --------------------------------------------------------
-void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void __thiscall Render_sub_4A65CC(struct BaseRender *_this, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
   int v8; // edi@6
   int v9; // esi@6
@@ -10342,7 +10346,7 @@ void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int
   int v28; // [sp+24h] [bp+Ch]@24
   int v29; // [sp+2Ch] [bp+14h]@6
 
-  if ( *(_DWORD *)(_this + 262372) )
+  if ( _this->bSceneBegun )
   {
     if ( a4 )
     {
@@ -10352,47 +10356,47 @@ void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int
         {
           if ( *(_DWORD *)(a5 + 64) )
           {
-            v9 = *(_DWORD *)(_this + 262380) + 2 * (a2 + a3 * *(_DWORD *)(_this + 262384));
+            v9 = (int)_this->pTargetSurface + 2 * (a2 + a3 * _this->uTargetSurfacePitch);
             v26 = *(_DWORD *)(a4 + 48);
             v29 = *(_WORD *)(a4 + 24);
             v8 = *(_WORD *)(a4 + 26);
             v24 = *(_WORD *)(a4 + 24);
-            if ( *(_DWORD *)(_this + 262404) )
+            if ( _this->dword_040104 )
             {
-              v10 = *(_DWORD *)(_this + 262392);
+              v10 = _this->uClipRectX;
               if ( a2 < v10 )
               {
                 v11 = v10 - a2;
                 v26 += v11;
-                v29 += a2 - *(_DWORD *)(_this + 262392);
+                v29 += a2 - _this->uClipRectX;
                 v9 += 2 * v11;
               }
-              v12 = *(_DWORD *)(_this + 262388);
+              v12 = _this->uClipRectY;
               if ( a3 < v12 )
               {
                 v13 = v12 - a3;
                 v26 += v24 * v13;
-                v8 = a3 - *(_DWORD *)(_this + 262388) + *(_WORD *)(a4 + 26);
-                v9 += 2 * *(_DWORD *)(_this + 262384) * v13;
+                v8 = a3 - _this->uClipRectY + *(_WORD *)(a4 + 26);
+                v9 += 2 * _this->uTargetSurfacePitch * v13;
               }
-              v14 = *(_DWORD *)(_this + 262392);
+              v14 = _this->uClipRectX;
               if ( v14 < a2 )
                 v14 = a2;
-              v15 = *(_DWORD *)(_this + 262400);
+              v15 = _this->uClipRectZ;
               if ( v29 + v14 > v15 )
               {
-                v16 = *(_DWORD *)(_this + 262392);
+                v16 = _this->uClipRectX;
                 if ( v16 < a2 )
                   v16 = a2;
                 v29 = v15 - v16;
               }
-              v17 = *(_DWORD *)(_this + 262388);
+              v17 = _this->uClipRectY;
               if ( v17 < a3 )
                 v17 = a3;
-              v18 = *(_DWORD *)(_this + 262396);
+              v18 = _this->uClipRectW;
               if ( v8 + v17 > v18 )
               {
-                v19 = *(_DWORD *)(_this + 262388);
+                v19 = _this->uClipRectY;
                 if ( v19 < a3 )
                   v19 = a3;
                 v8 = v18 - v19;
@@ -10425,7 +10429,7 @@ void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int
                   }
                   while ( v27-- != 1 );
                 }
-                v9 += 2 * (*(_DWORD *)(_this + 262384) - v29);
+                v9 += 2 * (_this->uTargetSurfacePitch - v29);
                 v26 += v25;
               }
               while ( v28-- != 1 );
@@ -10462,7 +10466,7 @@ void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTex
   int v24; // [sp+30h] [bp+10h]@11
   int v25; // [sp+30h] [bp+10h]@22
 
-  if ( *(_DWORD *)(_this + 262372) )
+  if ( _this->bSceneBegun )
   {
     v4 = (int)a4;
     if ( a4 )
@@ -10470,48 +10474,48 @@ void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTex
       if ( *(_DWORD *)(a4 + 64) )
       {
         v6 = *(_WORD *)(a4 + 26);
-        v5 = *(_DWORD *)(_this + 262380) + 2 * (a2 + a3 * *(_DWORD *)(_this + 262384));
+        v5 = (int)_this->pTargetSurface + 2 * (a2 + a3 * _this->uTargetSurfacePitch);
         v20 = *(_DWORD *)(a4 + 48);
         v21 = *(_WORD *)(a4 + 24);
         v19 = *(_WORD *)(a4 + 24);
-        if ( *(_DWORD *)(_this + 262404) )
+        if ( _this->dword_040104 )
         {
-          v7 = *(_DWORD *)(_this + 262392);
+          v7 = _this->uClipRectX;
           if ( a2 < v7 )
           {
             v8 = v7 - a2;
             v20 += v8;
-            v21 += a2 - *(_DWORD *)(_this + 262392);
+            v21 += a2 - _this->uClipRectX;
             v5 += 2 * v8;
           }
-          v9 = *(_DWORD *)(_this + 262388);
+          v9 = _this->uClipRectY;
           v6 = *(_WORD *)(a4 + 26);
           if ( a3 < v9 )
           {
             v10 = v9 - a3;
             v20 += v19 * v10;
-            v6 = a3 - *(_DWORD *)(_this + 262388) + *(_WORD *)(a4 + 26);
+            v6 = a3 - _this->uClipRectY + *(_WORD *)(a4 + 26);
             v4 = (int)a4;
-            v5 += 2 * *(_DWORD *)(_this + 262384) * v10;
+            v5 += 2 * _this->uTargetSurfacePitch * v10;
           }
-          v11 = *(_DWORD *)(_this + 262392);
+          v11 = _this->uClipRectX;
           if ( v11 < a2 )
             v11 = a2;
-          v24 = *(_DWORD *)(_this + 262400);
+          v24 = _this->uClipRectZ;
           if ( v11 + v21 > v24 )
           {
-            v12 = *(_DWORD *)(_this + 262392);
+            v12 = _this->uClipRectX;
             if ( v12 < a2 )
               v12 = a2;
             v21 = v24 - v12;
           }
-          v13 = *(_DWORD *)(_this + 262388);
+          v13 = _this->uClipRectY;
           if ( v13 < a3 )
             v13 = a3;
-          v14 = *(_DWORD *)(_this + 262396);
+          v14 = _this->uClipRectW;
           if ( v6 + v13 > v14 )
           {
-            v15 = *(_DWORD *)(_this + 262388);
+            v15 = _this->uClipRectY;
             if ( v15 < a3 )
               v15 = a3;
             v6 = v14 - v15;
@@ -10530,7 +10534,7 @@ void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTex
               do
               {
                 if ( *(_BYTE *)v16 )
-                  *(_WORD *)v5 = *(_WORD *)(_this + 262360) & *(_WORD *)(*(_DWORD *)(v4 + 64) + 2 * *(_BYTE *)v16);
+                  *(_WORD *)v5 = _this->uTargetRMask & *(_WORD *)(*(_DWORD *)(v4 + 64) + 2 * *(_BYTE *)v16);
                 v5 += 2;
                 ++v16;
               }
@@ -10538,7 +10542,7 @@ void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTex
             }
             v16 += v25;
             v18 = v23-- == 1;
-            v5 += 2 * (*(_DWORD *)(_this + 262384) - v21);
+            v5 += 2 * (_this->uTargetSurfacePitch - v21);
           }
           while ( !v18 );
         }
@@ -10729,7 +10733,7 @@ void __stdcall sub_4A6DF5(int a1, int a2, int a3, int a4, int a5, int a6)
 }
 
 //----- (004A6E7E) --------------------------------------------------------
-void __thiscall sub_4A6E7E(int _this, int a2, int a3, int a4)
+void __thiscall sub_4A6E7E(struct BaseRender* _this, int a2, int a3, int a4)
 {
   int v4; // eax@4
   int v5; // edx@4
@@ -10754,55 +10758,55 @@ void __thiscall sub_4A6E7E(int _this, int a2, int a3, int a4)
   int v26; // [sp+2Ch] [bp+Ch]@23
   int v27; // [sp+2Ch] [bp+Ch]@32
 
-  if ( *(_DWORD *)(_this + 262372) )
+  if ( _this->bSceneBegun )
   {
     if ( a4 )
     {
       if ( *(_DWORD *)(a4 + 64) )
       {
-        v4 = *(_DWORD *)(_this + 262380) + 2 * (a2 + a3 * *(_DWORD *)(_this + 262384));
+        v4 = (int)_this->pTargetSurface + 2 * (a2 + a3 * _this->uTargetSurfacePitch);
         v23 = *(_DWORD *)(a4 + 48);
         v5 = *(_WORD *)(a4 + 24);
         v6 = *(_WORD *)(a4 + 26);
         v22 = *(_WORD *)(a4 + 24);
         v21 = *(_WORD *)(a4 + 24);
-        if ( *(_DWORD *)(_this + 262404) )
+        if ( _this->dword_040104 )
         {
-          v7 = *(_DWORD *)(_this + 262392);
+          v7 = _this->uClipRectX;
           if ( a2 < v7 )
           {
             v8 = v7 - a2;
             v23 += v8;
-            v22 += a2 - *(_DWORD *)(_this + 262392);
+            v22 += a2 - _this->uClipRectX;
             v4 += 2 * v8;
           }
-          v9 = *(_DWORD *)(_this + 262388);
+          v9 = _this->uClipRectY;
           if ( a3 < v9 )
           {
             v10 = v9 - a3;
             v23 += v21 * v10;
-            v6 = a3 - *(_DWORD *)(_this + 262388) + *(_WORD *)(a4 + 26);
-            v4 += 2 * *(_DWORD *)(_this + 262384) * v10;
+            v6 = a3 - _this->uClipRectY + *(_WORD *)(a4 + 26);
+            v4 += 2 * _this->uTargetSurfacePitch * v10;
           }
-          v11 = *(_DWORD *)(_this + 262392);
+          v11 = _this->uClipRectX;
           v5 = v22;
           if ( v11 < a2 )
             v11 = a2;
-          v12 = *(_DWORD *)(_this + 262400);
+          v12 = _this->uClipRectZ;
           if ( v22 + v11 > v12 )
           {
-            v13 = *(_DWORD *)(_this + 262392);
+            v13 = _this->uClipRectX;
             if ( v13 < a2 )
               v13 = a2;
             v5 = v12 - v13;
           }
-          v14 = *(_DWORD *)(_this + 262388);
+          v14 = _this->uClipRectY;
           if ( v14 < a3 )
             v14 = a3;
-          v15 = *(_DWORD *)(_this + 262396);
+          v15 = _this->uClipRectW;
           if ( v6 + v14 > v15 )
           {
-            v16 = *(_DWORD *)(_this + 262388);
+            v16 = _this->uClipRectY;
             if ( v16 < a3 )
               v16 = a3;
             v6 = v15 - v16;
@@ -10829,7 +10833,7 @@ void __thiscall sub_4A6E7E(int _this, int a2, int a3, int a4)
               }
               v23 += v21 - v5;
               v18 = v26-- == 1;
-              v4 += 2 * (*(_DWORD *)(_this + 262384) - v5);
+              v4 += 2 * (_this->uTargetSurfacePitch - v5);
             }
             while ( !v18 );
           }
@@ -10855,7 +10859,7 @@ void __thiscall sub_4A6E7E(int _this, int a2, int a3, int a4)
               }
               v23 += v21 - v5;
               v20 = v27-- == 1;
-              v4 += 2 * (*(_DWORD *)(_this + 262384) - v5);
+              v4 += 2 * (_this->uTargetSurfacePitch - v5);
             }
             while ( !v20 );
           }

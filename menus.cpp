@@ -486,8 +486,11 @@ LABEL_17:
     pPlayer->cEquippedItems.pIndices[j] -= 1;
 
   for (unsigned int j = 0; j < 126; ++j)
-    pPlayer->pInventoryIndices[j] -= 1;
+    pPlayer->pInventoryIndices[j] -= 1;  
  }
+
+ for(int i = 0; i < 20; i++)
+  pParty->pPartyBuffs[i].byte_00000E -= 1;  
 
   PrepareWorld(loc_hdr.location_name, true, 1);
  return true;

@@ -6827,7 +6827,7 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
  uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(Str1)];
 #else
  char Str1[128]; // [sp+14h] [bp-28h]@3
-	 wsprintfA(Str1, "evt%02d", v7);
+	 wsprintfA(Str1, "evt%02d", 2);
  if (pParty->uAlignment == 0)
    lstrcatA(Str1, "-b");
  else if (pParty->uAlignment == 2)

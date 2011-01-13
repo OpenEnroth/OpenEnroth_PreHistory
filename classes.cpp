@@ -7415,7 +7415,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     if ( v4 > memory_4D8410.f0_9)
       v5 = 1.0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
     v7 = v5;
-    Render_sub_4A52F1((int)pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
+    Render_sub_4A52F1(pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
     result = cEventTimer.uElapsedTime;
     *(_DWORD *)(v1 + 1496) -= cEventTimer.uElapsedTime;
   }

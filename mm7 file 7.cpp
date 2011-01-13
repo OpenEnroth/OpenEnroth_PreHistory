@@ -13327,7 +13327,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
 
   pAudioPlayer->MessWithChannels(&Range<unsigned int>(0, 16));;
   pD3DRenderer->BeginScene();
-  Render_sub_49ECC4((int)pD3DRenderer);
+  Render_ClearTarget(pD3DRenderer);
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
 
@@ -13418,7 +13418,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   pD3DRenderer->Present();
   if ( pD3DRenderer->pRenderD3D3 )
     dword_EF52A8();
-  Render_sub_49F1BC((int)pD3DRenderer, "MM7_Win.Pcx");
+  Render_sub_49F1BC(pD3DRenderer, "MM7_Win.Pcx");
 
   //MemFree( (void *)(int *)v33);
   MemFree((void *)v33);
